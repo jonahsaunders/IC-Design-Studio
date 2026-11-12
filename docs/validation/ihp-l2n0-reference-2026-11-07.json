@@ -1,0 +1,60 @@
+{
+  "schema": 1,
+  "date": "2026-11-07",
+  "status": "PASS_SOURCE_AND_IMPORT_AUDIT",
+  "base_commit": "f09162d25487e561a65f10f8c4403fee88dd2583",
+  "source_manifest_sha256": "9b4c7d8dd8c474a234ee1185acbb1254305c017ac039b9e572b8d2ece192ade6",
+  "source_lock_sha256": "ab34bb0a7ab6467f02d5c24b76af765fe44ad410a7b452d1f601859fc7894a09",
+  "scope": "New Apache-2.0 two-die L2n0 reference import; source authenticity, complex parser arithmetic, both layout exchanges and deliberate tamper/phase/via controls. Not a solver reproduction, catalog binding or full-family acceptance.",
+  "hosts": {
+    "windows": {
+      "verification": {
+        "platform": "Windows",
+        "base": "f09162d25487e561a65f10f8c4403fee88dd2583",
+        "source": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\IC-Design-Studio",
+        "files_verified": 7019,
+        "source_unchanged": true,
+        "seconds": 8.40600000001723,
+        "tests_returncode": 0,
+        "audit_returncode": 0,
+        "source_manifest_sha256": "9b4c7d8dd8c474a234ee1185acbb1254305c017ac039b9e572b8d2ece192ade6"
+      },
+      "tests": 30,
+      "test_seconds": 6.06,
+      "skips": 1,
+      "audit_sha256": "51263fb14e02ca62bf5fada858463861c4c400ad67ad9a451b1545b85b33d814",
+      "test_log_sha256": "cf33e53fbe43b751b764813f467a14dc22e6bae0d1a253b4843a4b5ae9b1428e"
+    },
+    "linux": {
+      "verification": {
+        "platform": "Linux",
+        "base": "f09162d25487e561a65f10f8c4403fee88dd2583",
+        "source": "/var/tmp/icstudio-l2n0-20261107-v1/source",
+        "files_verified": 7019,
+        "source_unchanged": true,
+        "seconds": 2.30111298400152,
+        "tests_returncode": 0,
+        "audit_returncode": 0,
+        "source_manifest_sha256": "9b4c7d8dd8c474a234ee1185acbb1254305c017ac039b9e572b8d2ece192ade6"
+      },
+      "tests": 30,
+      "test_seconds": 1.479,
+      "skips": 0,
+      "audit_sha256": "440a4b79fe56773c4d2b3db776ba2360319f803d3518e2b072d3021c31d2d3e2",
+      "test_log_sha256": "6ff84ea1a7ec85b97701f4edc30241a3d1ae3b8506ab6739d0a04a603a405d79"
+    }
+  },
+  "qualified": false,
+  "chunk_complete": false,
+  "fresh_solver_execution": false,
+  "installed_acceptance": false,
+  "desktop_candidate": "fa01ffb566ba1fa1903dec58dabd9838a901712d",
+  "desktop_scope": "The running desktop candidate predates this separate reference-only addition. Its outcome cannot be relabeled as execution of the new audit.",
+  "retention": {
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\outputs\\chunk7-l2n0-licensed-reference-evidence.zip",
+    "sha256": "aa2b685064a00d91c41e37c5aa3ae772c598b6d2252c9b94807a5effc4684da0",
+    "bytes": 527004,
+    "members": 67,
+    "all_members_verified": true
+  }
+}

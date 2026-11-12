@@ -1,0 +1,14 @@
+{
+  "status": "all-antenna-controls-match",
+  "qualified": false,
+  "coupons": 178,
+  "expected_faults": 90,
+  "observed_faults": 90,
+  "accepted_controls": 88,
+  "stages": 13,
+  "numeric_scope": "Twelve-significant-digit report values; exact rational pass/fail oracle",
+  "system": "win32",
+  "auditor_sha256": "8fb2d34108c7ac463e06d5bbe1615f1df358f560a29458099419b17ed53d53b7",
+  "expectation_sha256": "4db3bb8e9630d8c3273fd07b3e9befdb5e5f0348630e26e3b28b5db5e898a86d",
+  "run_record_sha256": "5365ce6703220b8c5e2be211917eac31f9d6029cf0ecd89689a6eb5aedc81627"
+}

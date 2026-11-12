@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "case": "counter",
+  "engine": "magic",
+  "status": "native-execution-complete",
+  "qualified": false,
+  "scope": "Diagnostic full enabled deck execution; manual reconciliation and independent connectivity/density/antenna remain required.",
+  "top": "counter",
+  "gds_sha256": "b4d9cd5b6889e9461fcd275a5422019302fd8b9ff1fd6087d22803d0098ea69c",
+  "driver_sha256": "f194bc6e24d04192d7f00a1ea2fbb27943e341fc842ecd0fdd76ea5e38be6ccb",
+  "baseline_record_sha256": "2f27acd61452539664420aa8d64df170b6047f5b4d16dbf8518ffd35d7cdb4f0",
+  "volare_lock_sha256": "64d6c0ce0f7bf3313535c404e815c9e2b1717b51d1b7f23ced37eff6668e2633",
+  "deck_sha256": "5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e",
+  "executable_sha256": "4b74020f201fd8b09b4984614249f3602dd1f4b2a3731e087dfe88eeacc887c5",
+  "markers": 0,
+  "categories": {},
+  "diagnostics": [
+    "WARNING: RLIMIT_NOFILE is above 1024 and Tcl_Version<9 this may cause runtime issues [rlim_cur=10240]",
+    "Warning: Calma reading is not undoable!  I hope that's OK.",
+    "CIF file read warning: Input off lambda grid by 1/2; grid redefined.",
+    "CIF file read warning: CIF style sky130(vendor): units rescaled by factor of 5 / 1",
+    "Warning:  snap setting is also changing units.  This usage is deprecated",
+    "No errors found."
+  ],
+  "seconds": 3.2894755759989494,
+  "files": {
+    "input.gds": "b4d9cd5b6889e9461fcd275a5422019302fd8b9ff1fd6087d22803d0098ea69c",
+    "sky130A.tech": "5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e",
+    "verification/startup.tcl": "8e98918e0fe8a2844048d7450b14ece74148a38d97e7e93e76fb62e29c8e25ad",
+    "verification/engine.command.json": "e5e4029ba4ed196aa2e9ae4882788dba2d4a578e997b27e6e4ac6065d52e299d",
+    "verification/engine.log": "2fb114f84aa7a3d7dfe7d3373a4aa94053fa0d3a2c5fbc1cb70cbd0ce60f23b4",
+    "verification/feedback.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "verification/run.tcl": "2530157cda2ad9de806cbdb110e68d9d463c6b7104ad5260366d57e15dc012f2",
+    "verification/physical.json": "b1273268a4aec064203f8fbe23e255c0019ee02e8931ce4844ef6356c02236d1",
+    "verification/findings.tsv": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

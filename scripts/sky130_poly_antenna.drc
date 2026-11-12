@@ -1,0 +1,23 @@
+# SKY130 poly etch antenna check. Run with KLayout -b -r and -rd input,
+# -rd top_cell, -rd report. This supplements, not replaces, later etch checks.
+# Source: google/skywater-pdk 7198cf647113f56041e02abf3eb623692820c5e1,
+# docs/rules/antenna/table-Ie-antenna-rules-s8p.csv: ar_q.poly.1.
+# The same 0.180 um thickness and maximum ratio 50 appear in all five tables.
+# At poly etch, upper interconnect does not exist: do not connect it or use its
+# diode protection. Diffusion crossed by poly supplies the physical gate area.
+# This runner's reference scope is ordinary HD MOS; other device families still
+# require device-specific applicability review in the qualification inventory.
+
+raise "input, top_cell and report are required" unless $input && $top_cell && $report
+source($input, $top_cell)
+report("SKY130 poly etch antenna", $report)
+deep
+threads(4)
+poly = polygons(66, 20)
+diff = polygons(65, 20)
+gate = poly & diff
+raise "No MOS gate geometry: antenna coverage cannot be established" if gate.is_empty?
+connect(gate, poly)
+antenna_check(area_only(gate), perimeter_only(poly, 0.180), 50.0).output(
+  "ar_q.poly.1", "Poly perimeter times 0.180 um divided by gate area must be <= 50")
+puts "ICSTUDIO_SKY130_POLY_ANTENNA_COMPLETE"

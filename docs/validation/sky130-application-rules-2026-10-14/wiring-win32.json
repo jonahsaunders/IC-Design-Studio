@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "platform": "win32",
+  "tests": 23,
+  "skips": 0,
+  "tests_sha256": "184729c6bf91b30162667ac83f14b060ea3b7170aa180959923ee66f80966c2b",
+  "driver_sha256": "6a0e87f8ade8612a9660e6f76ff64971272381c9be20bc0f32b492ed3b02c21f",
+  "sources": {
+    "icstudio/digital_physical.py": "269d9ad1820bc9b541cb2e9e198fbf31f101d7785138f6f6ef81882ee01c3c12",
+    "icstudio/digital_platform.py": "a4a81ba7a4e0d8cd4cbb4104fa2338daf0ad19ef95dc0dfadeba8537c14aabfc",
+    "icstudio/digital_flow.py": "111fbd9660f5cddd9368509beb9bc496cb40db63fc9d697882d2246a1a21796e",
+    "tests/test_digital_implementation.py": "2d0592e994130c271c49bb8b7b6ffac152c477f7dc4447b630410c1c122409b8",
+    "tests/test_digital_platforms.py": "f317f36da45f81dfbed7864de07133db84aa8f72193e703447abcfb705cd5abd"
+  }
+}

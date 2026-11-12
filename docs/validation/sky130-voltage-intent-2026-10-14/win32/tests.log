@@ -1,0 +1,26 @@
+test_changed_physical_master_source_is_rejected (tests.test_sky130_voltage_contract.VoltageContractTests.test_changed_physical_master_source_is_rejected) ... ok
+test_complete_declared_domain (tests.test_sky130_voltage_contract.VoltageContractTests.test_complete_declared_domain) ... ok
+test_duplicate_liberty_attribute_and_invalid_values (tests.test_sky130_voltage_contract.VoltageContractTests.test_duplicate_liberty_attribute_and_invalid_values) ... ok
+test_missing_high_and_invalid_port_voltages (tests.test_sky130_voltage_contract.VoltageContractTests.test_missing_high_and_invalid_port_voltages) ... ok
+test_missing_or_high_voltage_net_declaration (tests.test_sky130_voltage_contract.VoltageContractTests.test_missing_or_high_voltage_net_declaration) ... ok
+test_native_body_unknown_model_and_terminal (tests.test_sky130_voltage_contract.VoltageContractTests.test_native_body_unknown_model_and_terminal) ... ok
+test_native_substrate_and_alias_coverage (tests.test_sky130_voltage_contract.VoltageContractTests.test_native_substrate_and_alias_coverage) ... ok
+test_pinned_liberty_structure_and_nested_test_pins (tests.test_sky130_voltage_contract.VoltageContractTests.test_pinned_liberty_structure_and_nested_test_pins) ... ok
+test_port_alias_direction_and_checkpoint_are_bound (tests.test_sky130_voltage_contract.VoltageContractTests.test_port_alias_direction_and_checkpoint_are_bound) ... ok
+test_supply_voltage_and_bias_wiring (tests.test_sky130_voltage_contract.VoltageContractTests.test_supply_voltage_and_bias_wiring) ... ok
+test_unconnected_outputs_count_but_inputs_fail (tests.test_sky130_voltage_contract.VoltageContractTests.test_unconnected_outputs_count_but_inputs_fail) ... ok
+test_unknown_master_missing_pin_duplicate_instance (tests.test_sky130_voltage_contract.VoltageContractTests.test_unknown_master_missing_pin_duplicate_instance) ... ok
+test_unknown_signal_domain_and_duplicate_native_alias (tests.test_sky130_voltage_contract.VoltageContractTests.test_unknown_signal_domain_and_duplicate_native_alias) ... ok
+test_actual_source_binding_and_changed_source (tests.test_sky130_voltage_intent.VoltageIntentTests.test_actual_source_binding_and_changed_source) ... ok
+test_changed_captured_file_is_rejected (tests.test_sky130_voltage_intent.VoltageIntentTests.test_changed_captured_file_is_rejected) ... ok
+test_conditional_scope_is_explicit (tests.test_sky130_voltage_intent.VoltageIntentTests.test_conditional_scope_is_explicit) ... ok
+test_each_nonempty_raw_selector_reopens_all_three (tests.test_sky130_voltage_intent.VoltageIntentTests.test_each_nonempty_raw_selector_reopens_all_three) ... ok
+test_empty_tags_without_checked_contract_never_pass (tests.test_sky130_voltage_intent.VoltageIntentTests.test_empty_tags_without_checked_contract_never_pass) ... ok
+test_missing_or_invalid_measurement_rejected (tests.test_sky130_voltage_intent.VoltageIntentTests.test_missing_or_invalid_measurement_rejected) ... ok
+test_raw_text_and_exception_labels_survive_transformed_arrays (tests.test_sky130_voltage_intent.VoltageIntentTests.test_raw_text_and_exception_labels_survive_transformed_arrays) ... ok
+test_unsupported_geometry_cannot_vanish (tests.test_sky130_voltage_intent.VoltageIntentTests.test_unsupported_geometry_cannot_vanish) ... ok
+
+----------------------------------------------------------------------
+Ran 21 tests in 0.403s
+
+OK

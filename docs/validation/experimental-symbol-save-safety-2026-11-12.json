@@ -1,0 +1,83 @@
+{
+  "schema": 1,
+  "validation_started_utc": "2026-11-12T02:16:58.409776+00:00",
+  "work_day_eastern": "2026-11-11",
+  "base_commit": "6fae7a199e899a8886ed7b9a70f538677d54a808",
+  "scope": "Instance-symbol editor Save inspector validation guard; actual editor interaction",
+  "repair": "Reject instance-symbol editor Save when pending inspector validation fails, retaining unsaved editor artwork and the inspector draft. Four new real-editor cases cover mouse artwork, Save/Cancel, undo/reopen and injected commit failure; existing 48 cases remain. One-line guard; no scientific qualification change.",
+  "validation": {
+    "new_actual_editor_cases": {
+      "tests": 4,
+      "seconds": 1.132,
+      "status": "PASS"
+    },
+    "qt_wrapper": {
+      "tests": 1,
+      "actual_cases": 52,
+      "seconds": 11.994,
+      "status": "PASS"
+    },
+    "original_control": {
+      "base": "6fae7a199e899a8886ed7b9a70f538677d54a808",
+      "methods": 4,
+      "expected_failures": 1,
+      "seconds": 1.101
+    },
+    "complete_affected_unit_stage": {
+      "tests": 293,
+      "skips": 3,
+      "seconds": 35.404,
+      "receiver_seconds": 36.12,
+      "returncode": 0,
+      "syntax_files": 1637,
+      "bound_source_identities": 2567,
+      "source_unchanged": true,
+      "launcher_sha256": "685d068365b36170f957243fe85bfcf0d09e40fb19571c6b7ff68b28fcf41fad"
+    }
+  },
+  "identity_storage": {
+    "stored_map": "evidence/source-map.json",
+    "original_before_sha256": "48b7d727d71517e4d4c83002aacd2b8eabf6be66f13fb1a2134bbdfe4eb023e2",
+    "original_after_sha256": "48b7d727d71517e4d4c83002aacd2b8eabf6be66f13fb1a2134bbdfe4eb023e2",
+    "byte_identical": true,
+    "entry_count": 2567,
+    "duplicate_map_omitted_losslessly": true
+  },
+  "prior_base_hosted_run": {
+    "id": 43139309939,
+    "latest_parent_status": "pending",
+    "covers_this_follow_on": false,
+    "status_not_rechecked_for_this_record": true
+  },
+  "not_run_for_this_follow_on": [
+    "full exhaustive core",
+    "all 14 local source stages",
+    "fresh hosted matrix",
+    "exact-candidate installed acceptance"
+  ],
+  "historical_source_scope": "Existing exact historical project_ui.py snapshot remains valid; no additional retention was necessary and repaired code does not inherit native acceptance.",
+  "publication_scope": "Local follow-on only; no publication/integration/main changes claimed by this record.",
+  "qualified": false,
+  "engineering_estimate": {
+    "chunk": 7,
+    "percent": 74,
+    "low_confidence_range": [
+      55,
+      82
+    ],
+    "acceptance_fraction": false
+  },
+  "documentation_created_after_validation": true,
+  "privacy_review": {
+    "credential_private_memory_access_link_patterns": 0,
+    "redactions": 0,
+    "ordinary_test_workspace_paths_retained": true
+  },
+  "archive": {
+    "path": "docs/validation/experimental-symbol-save-safety-2026-11-12.zip",
+    "bytes": 170757,
+    "sha256": "43528e51516b5b31ac9db54b451cd384f2b41689272b205f852ca3b4e7922f21",
+    "members": 15,
+    "readback": "PASS"
+  }
+}

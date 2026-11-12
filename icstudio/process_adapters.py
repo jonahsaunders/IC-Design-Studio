@@ -34,7 +34,7 @@ class ProcessAdapter:
 
 
 SKY130 = ProcessAdapter('sky130A', 'sky130_layout', ('mos', 'inverter', 'ring', 'current_mirror', 'analog_bank',
-                       'mim_capacitor', 'poly_resistor', 'contacted_guard', 'tied_mos_dummy'),
+                       'mim_capacitor', 'poly_resistor', 'metal_resistor', 'contacted_guard', 'tied_mos_dummy'),
                        'libs.tech/magic/sky130A.tech', 'libs.tech/netgen/sky130A_setup.tcl')
 GF180 = ProcessAdapter('gf180mcuC', 'gf180_layout', ('mos', 'inverter'),
                        'libs.tech/magic/gf180mcuC.tech', 'libs.tech/netgen/gf180mcuC_setup.tcl',

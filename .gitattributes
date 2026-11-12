@@ -3,12 +3,151 @@
 # Disabling newline conversion does not disable Git's text diffs.
 * -text
 
+# Preserve the authenticated Windows receipt and original native fixture bytes.
+docs/validation/chunk7-cmim-hosted-source-feedback-2026-11-07.json whitespace=cr-at-eol
+docs/SOURCE_DISPOSITION_AUDIT.md whitespace=cr-at-eol
+docs/validation/chunk7-fa01ffb5-installed-linux-cmim-readback-2026-11-07.json whitespace=cr-at-eol
+docs/validation/chunk7-fa01ffb5-installed-pending-2026-11-07-175346Z.json whitespace=cr-at-eol
+docs/validation/chunk7-mos-shared-hosted-source-feedback-2026-11-07.json whitespace=cr-at-eol
+docs/validation/source-dispositions-2026-11-07.json whitespace=cr-at-eol
+tests/fixtures/sky130-mim-shared-v1/job/lvs-extraction/extracted.spice whitespace=-blank-at-eof
+tests/fixtures/sky130-mim-shared-v1/job/lvs/lvs.log -whitespace
+
+# Preserve the exact archived Windows serialization of this source-only receipt.
+docs/validation/sky130-mim-installed-electrical-source-2026-10-23.json whitespace=cr-at-eol
+
 # Raw extraction evidence is byte-hashed; preserve engine whitespace verbatim.
 docs/validation/analog_extensions/primitive-rc/** -whitespace
 docs/validation/analog_extensions/floating-fill/** -whitespace
+# These byte-hashed drawing plans retain the captured Windows CRLF endings.
+docs/validation/gf180-fill-reference-2026-10-09/*/pattern.json whitespace=cr-at-eol
 docs/validation/student-physical/** -whitespace
 # Locked upstream PDK text retains its original whitespace.
+tests/fixtures/sky130-metal-width-native.tech -whitespace
+tests/fixtures/sky130-public-seal-v1/** -whitespace
+tests/fixtures/sky130-tt-density-v1/met_density_tiled.drc -whitespace
+tests/fixtures/sky130-public-decks-v1/*/sky130A_mr.drc -whitespace
+icstudio/assets/verification/sky130/sky130A_mr.drc -whitespace
+tests/fixtures/sky130-public-seal-oracles-v1/*.log -whitespace
+docs/qualification/sky130-device-tables/** -whitespace
+# Retain the original byte-hashed GF180 specification excerpts and tables.
+docs/qualification/gf180-mos-spec-sources-v1/** -whitespace
 icstudio/assets/pdks/gf180mcuC/** -whitespace
 icstudio/assets/pdks/gf180mcuD/libs.tech/magic/** -whitespace
 icstudio/assets/pdks/gf180mcuD/libs.tech/netgen/** -whitespace
 icstudio/assets/pdks/ihp-sg13g2/** -whitespace
+# These evidence-bound files preserve captured line endings and patch context.
+examples/ihp-ground-engine-lock.json whitespace=cr-at-eol
+packaging/physical/magic-ihp-same-net-ground.patch -whitespace
+# Portable evidence keeps its captured Windows serialization byte for byte.
+docs/validation/ihp-fill-reference-2026-10-11/** whitespace=cr-at-eol
+docs/validation/ihp-fill-closure-2026-10-11.json whitespace=cr-at-eol
+docs/validation/gf180-tested-source-2026-10-09.json whitespace=cr-at-eol
+docs/validation/sky130-connectivity-2026-10-11/audit-win32.json whitespace=cr-at-eol
+docs/validation/sky130-oxide-audit-2026-10-15/win32/tests.log whitespace=cr-at-eol
+# Preserve the source and license bytes locked into native LVS evidence.
+icstudio/assets/verification/sky130/lvs/** -whitespace
+icstudio/assets/verification/sky130/density/** -whitespace
+icstudio/digital_sky130_lvs.py whitespace=cr-at-eol
+icstudio/digital_sky130_lvs_core.py whitespace=cr-at-eol
+
+# Locked public NPN sources retain upstream bytes.
+icstudio/assets/qualification/sky130-npn/** -whitespace
+icstudio/assets/qualification/sky130-rf/*.spice -whitespace
+tests/fixtures/ihp-mim-original-v1/** -whitespace
+icstudio/assets/qualification/sky130-base-v1/** -whitespace
+icstudio/assets/pdks/sky130A/qualification-sources/bipolar/** -whitespace
+# Public MOS boundary excerpts preserve upstream whitespace; metadata preserves
+# the exact Windows serialization captured with the executed qualification.
+docs/qualification/mos-boundary-sources-v1/*.rst -whitespace
+docs/qualification/mos-boundary-sources-v1/sources.json whitespace=cr-at-eol
+docs/qualification/mos-boundary-sources-v1/NOTICE.txt whitespace=cr-at-eol
+# Keep the checksummed public IHP geometry sources byte-identical upstream.
+icstudio/assets/physical/ihp_klayout_drc/** -whitespace
+# These locked public material sources also retain upstream whitespace.
+icstudio/assets/physical/ihp_em/** -whitespace
+# Preserve the recorded Windows serialization of this historical source manifest.
+docs/validation/gf180-tested-source-2026-10-21-em.json whitespace=cr-at-eol
+# Public measured-coil references retain exact upstream bytes and whitespace.
+tests/fixtures/ihp-measured-coil-v1/** -whitespace
+tests/fixtures/ihp-measured-workflow-v1/** -whitespace
+
+# Preserve byte-bound native Windows responses and generated plot serialization.
+docs/qualification/ihp-measured-coil-2026-10-21/* whitespace=cr-at-eol
+docs/qualification/ihp-measured-coil-2026-10-21/measured-comparison.svg -whitespace
+
+# Preserve executed source CRLF and the exact pinned public isolation assets.
+icstudio/ihp_tap_lvs.py whitespace=cr-at-eol
+icstudio/assets/qualification/ihp-isolation/isolbox_code.py -whitespace
+icstudio/assets/qualification/ihp-isolation/isolbox.cdl -whitespace
+icstudio/assets/qualification/ihp-isolation/isolbox_sweep_tb.sch -whitespace
+icstudio/assets/qualification/ihp-isolation/source-lock.json whitespace=cr-at-eol
+# Keep the public SKY130 voltage source and its byte-bound source lock intact.
+docs/qualification/sky130-mos-bias-sources-v1/device-details.rst -whitespace
+docs/qualification/sky130-mos-bias-sources-v1/source-lock.json whitespace=cr-at-eol
+# Preserve byte-identical public threshold-mask rule tables.
+docs/qualification/sky130-threshold-sources-v1/*.csv -whitespace
+docs/validation/gf180-tested-source-2026-10-21-threshold/*.txt -whitespace
+docs/qualification/sky130-threshold-sources-v1/source-lock.json whitespace=cr-at-eol
+docs/qualification/sky130-threshold-sources-v1/NOTICE whitespace=cr-at-eol
+docs/validation/sky130-threshold-layouts-2026-10-21.json whitespace=cr-at-eol
+docs/validation/gf180-tested-source-2026-10-21-threshold/manifest.json whitespace=cr-at-eol
+
+# Retain exact public voltage-rule and hosted validation bytes.
+docs/qualification/sky130-voltage-sources-v1/*.csv -whitespace
+docs/qualification/hosted-acceptance-2026-10-22/** -whitespace
+# Native failure fixtures retain their checksummed engine output verbatim.
+tests/fixtures/sky130-mim1-orientation-v1/**/*.log -whitespace
+
+# The default RF wrapper and retained public originals keep their locked bytes.
+icstudio/assets/pdks/sky130A/libs.tech/ngspice/icstudio-rf-ps2nw/*.spice -whitespace
+icstudio/assets/pdks/sky130A/libs.tech/ngspice/icstudio-rf-ps2nw/original/*.spice -whitespace
+
+# Preserve the exact Windows bytes bound by the November 7 inventory reviews.
+docs/SKY130_RELEASE_INVENTORY.md whitespace=cr-at-eol
+docs/validation/chunk7-required-binding-semantics-2026-11-07.json whitespace=cr-at-eol
+docs/validation/chunk7-source-inventory-provenance-2026-11-07.json whitespace=cr-at-eol
+docs/validation/sky130-release-independent-controls-2026-11-07.json whitespace=cr-at-eol
+
+# Keep captured CMIM receipt line endings and native export terminator intact.
+docs/validation/chunk7-fa01ffb5-installed-pending-2026-11-07.json whitespace=cr-at-eol
+docs/validation/ihp-cmim-parallel-2026-11-07.json whitespace=cr-at-eol
+tests/fixtures/ihp-cmim-parallel-v1/SOURCE.json whitespace=cr-at-eol
+tests/fixtures/ihp-cmim-parallel-v1/hierarchical.spice whitespace=-blank-at-eof
+docs/validation/chunk7-source-dispositions-hosted-source-feedback-2026-11-07.json whitespace=cr-at-eol
+docs/validation/chunk7-fa01ffb5-installed-linux-result-2026-11-07.json whitespace=cr-at-eol
+docs/validation/chunk7-xcircuit-irsim-hosted-source-feedback-2026-11-07.json whitespace=cr-at-eol
+docs/validation/chunk7-cvc-physical-hosted-source-feedback-2026-11-07.json whitespace=cr-at-eol
+docs/validation/chunk7-legacy-symbol-hosted-source-feedback-2026-11-07.json whitespace=cr-at-eol
+
+# Preserve licensed originals and byte-hashed native reference evidence.
+docs/validation/chunk7-model-sources-2026-11-08.json whitespace=cr-at-eol
+tests/fixtures/ihp-ct-reference-v1/** -whitespace
+docs/qualification/sky130-vpp-voltage-v1/sources/** -whitespace
+tests/fixtures/frozen-device-class-mos-v1/** -whitespace
+
+# Preserve the tested desktop workflow line endings.
+.github/workflows/build-desktop.yml whitespace=cr-at-eol
+docs/validation/chunk7-fa01ffb5-installed-result-2026-11-07.json whitespace=cr-at-eol
+docs/validation/frozen-device-class-source-pilot-2026-11-08.json whitespace=cr-at-eol
+# Keep the source bytes authenticated by the retained cross-host model replay.
+icstudio/three_port_reference.py whitespace=-blank-at-eof
+scripts/audit_ihp_ct_reference.py whitespace=-blank-at-eof
+
+# Preserve exact upstream wrapper/stub source trailing blank lines.
+docs/qualification/klayout-wrapper-sources-v1/sources/** whitespace=-blank-at-eof
+
+# Exact upstream XML wrapper retains CRLF source bytes.
+docs/qualification/source-manifest-wrappers-v1/sky130.lylvs whitespace=cr-at-eol
+
+# Preserve authenticated upstream measurement/license and raw native evidence bytes.
+docs/qualification/ihp-pmos-measured-reference-v1/LICENSE -whitespace
+docs/qualification/ihp-pmos-measured-reference-v1/UPSTREAM-README.md -whitespace
+docs/qualification/ihp-pmos-measured-reference-v1/measurement.mdm -whitespace
+docs/qualification/ihp-pmos-measured-reference-v1/runtime-provenance/logs/psp103-dynamic-symbols.txt -whitespace
+docs/qualification/ihp-pmos-measured-reference-v1/runtime-provenance/logs/psp103_nqs-dynamic-symbols.txt -whitespace
+docs/qualification/ihp-pmos-measured-reference-v1/solver-reference/result.raw -whitespace
+docs/qualification/ihp-pmos-measured-reference-v1/solver-reference/console.log -whitespace
+
+# Preserve the existing CRLF IHP resistor implementation bytes.
+icstudio/ihp_resistors.py whitespace=cr-at-eol

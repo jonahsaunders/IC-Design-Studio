@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "case": "apb",
+  "qualified": false,
+  "status": "native-execution-complete",
+  "expected": "unestablished",
+  "gds_sha256": "65eea8f89ca27e2f141b71e5898e67395a516108aae428efa960e77e5b1ba9d8",
+  "deck_sha256": "aaf6060943a4982d218ffa0da1d092278775f7dffe8c2c4460c525df520d5b8a",
+  "driver_sha256": "abec688c9a13a7f1ce205b6b0eb04468ae86aafe8236c43633d2029b31426d24",
+  "executable_sha256": "17c0ac7fad216669ae38aa2ff4be332ca01ce4573002883195671f9405b0c0c9",
+  "command": [
+    "/opt/icstudio/bin/klayout",
+    "-b",
+    "-r",
+    "/var/tmp/icstudio-sky130-via3-measure-v1/apb/check.drc",
+    "-rd",
+    "input=/var/tmp/icstudio-sky130-via3-measure-v1/apb/input.gds",
+    "-rd",
+    "top_cell=apb_fifo",
+    "-rd",
+    "report=/var/tmp/icstudio-sky130-via3-measure-v1/apb/report.lyrdb"
+  ],
+  "rule": "ar_q.via3.1",
+  "diagnostic_ratio_threshold": 0.0,
+  "acceptance": "not-applicable-measurement-only",
+  "markers": 12,
+  "categories": {
+    "'ar_q.via3.1'": 6,
+    "'ar_q.via3.1.values'": 6
+  },
+  "expected_outcome_observed": null,
+  "seconds": 2.573948034005298,
+  "files": {
+    "input.gds": "65eea8f89ca27e2f141b71e5898e67395a516108aae428efa960e77e5b1ba9d8",
+    "engine.log": "cd108a1c7cb2468348dc607ba2d91dd9b9d6e673008053ab26a8c16f507f9ef7",
+    "report.lyrdb": "ea2f0235bee156a7aed271a58ecfafed76eb9e5456c872adc5405103fff801a9",
+    "check.drc": "aaf6060943a4982d218ffa0da1d092278775f7dffe8c2c4460c525df520d5b8a"
+  }
+}

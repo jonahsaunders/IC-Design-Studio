@@ -1,0 +1,549 @@
+{
+  "schema": 1,
+  "date": "2026-11-04",
+  "status": "PASS_ORDINARY_WINDOWS_SOURCE_SETUP_AND_SAVED_BENCH_GUI",
+  "scope": "The Windows source application used ordinary setup and its saved-testbench GUI action with the existing managed WSL runtime. The circuit is one flat ordinary IHP cap_cmim unit, m=1, 7 by 7 micrometres. Evidence covers the bound LVS and native capacitance graph and the finite linear AC case.",
+  "source_only": true,
+  "installed_acceptance": false,
+  "full_family": false,
+  "release_ready": false,
+  "source": {
+    "candidate_commit": "995bbcacad596f15f2c9b79eec7ca7e7b5edfe88",
+    "checkout_commit_at_setup_preflight": "2d3713037e23128b6f056b811a10087e4ce8825a",
+    "preflight_source_description": "The setup began in the preceding checkout with the reviewed corrections already in the working tree. The completed run was rebound to the subsequently published candidate.",
+    "reviewed_source_sha256": {
+      "icstudio/digital_platform.py": "7a2271e4a4fa1c5f88f7cc1952b71423d6e1a937d9c7df0e1c5cc5926047b42e",
+      "icstudio/physical_backend.py": "d95db8cb58bed305f8efece9a67104a1e7826f592ca97ce5f534ea7fc4a9d297",
+      "tests/test_ihp_managed_saved_bench.py": "80b86e537bfdd6434ed84f33d20c9c8b3eabaabe8370aba8980a38da740c15ce",
+      "tests/test_wsl_platform_capture.py": "7a908c842cdbec94f94c5381c2cd8fbe68b87f6ec32713de9b0b8a444f8d8106",
+      "scripts/ci_feedback.py": "3fc8d8c7e949eb88c3a621b96919647fbe125f01cf2db3ff651a9c6adb313e1d"
+    },
+    "backend_python_files_verified": 470,
+    "additional_ci_and_test_files_verified": 3,
+    "candidate_git_blobs_verified": 473,
+    "candidate_git_and_working_bytes_equal_to_captured_source": true,
+    "backend_identity_sha256": "22af3b147c5aa18b3d1a684e8ba30db26be409b3b25add654efb45ea606856da",
+    "backend_file_manifest_sha256": "7528f31992dc28b1472f37df778927205e8958cf90cc2ce033018b6cd9f318a3",
+    "final_source_readback_sha256": "5ad77ef581399e12c837535177a13632aecbb7dd1abcb6c3c053e1aa37484b7f"
+  },
+  "ordinary_setup": {
+    "initial_ready_record_present": false,
+    "final_state": "ready",
+    "existing_owned_wsl_distribution_reused": true,
+    "ordinary_windows_user": true,
+    "runtime_archive_sha256": "3f4275776fcb73d658265577dd0f5840171b5711fdb21cd1e675ed80a13c9f38",
+    "runtime_file_lock_sha256": "90d30c7e15f20fbcbe83579a59d38b41f08a42a0c3123cdf2a4a5d12c9a9a501",
+    "runtime_manifest_semantic_sha256": "f7cb559e6e88d2e775e675bd5607a31df35223eb50aeb300b37840455fec6e7d",
+    "runtime_and_owner_identity_unchanged": true,
+    "ready_sha256": "9cf807aeed4036c561ae1094d2aa5483f50cfcd5c80e9a6b2bd11b236d8f60a5",
+    "platforms": [
+      "sky130hd",
+      "gf180",
+      "gf180d",
+      "ihp-sg13g2"
+    ],
+    "digital_checks": 34,
+    "physical_checks": 7,
+    "before_receipt_sha256": "b61593d3bc3ea276030492b321200ef8f55fa880d268a14643ffc1a0e0d02be8",
+    "result_receipt_sha256": "6f6aa7d84c2424d3a0677ca68819912541455d30379b8b26ea05562cb01be34a",
+    "worker_log_sha256": "64bf85c9ede327f94dddc1c5082a8bf6ec33f66d0be0305f89f8167bfa4c0878",
+    "digital_report_sha256": "120f249a330d7b7e000e0b2c514fbdba93d674b1c7aca6a124368a353f526051",
+    "physical_report_sha256": "7e8f9f3e4a255218321b050d263a482575ae8e281f19fc702e4d386495065901",
+    "driver_sha256": "7c84f3c36f63e98824b55abf53f8cd3d47259c623948ceb77c19a287b1566afd",
+    "elapsed_seconds_including_host_sleep": 43381.765000000014,
+    "elapsed_interpretation": "The elapsed value includes an extended host sleep/resume interval and is not an active setup benchmark."
+  },
+  "gui_case_definition": {
+    "action": "Verify saved testbench layout",
+    "unconfigured": "The ordinary Windows file loader opened a saved project without explicit OSDI settings. The managed physical job received the six pinned bundled libraries only in its native project copy. The saved and host project configurations stayed unchanged.",
+    "explicit": "This control supplied the retained explicit Linux-native OSDI list to the validated project in memory before invoking the same GUI action. The Windows file loader resolves model paths for Windows, so this control does not establish normal Windows file loading of Linux model paths.",
+    "osdi_files_checked_per_case": 12,
+    "osdi_file_scope": "The six native model files were verified separately for schematic and post-layout simulation."
+  },
+  "functional_gui": {
+    "receipt_sha256": "4694fba229613f1728446f7e38e0a0fe4e07a39da7645d1c668c2b751a6c794c",
+    "driver_sha256": "dceb344a14868a6a663539feea0801d80b0eced0dbf9b78709ea0567f8482787",
+    "ready_before_and_after_unchanged": true,
+    "native_artifacts_checked": 284,
+    "post_layout_ac_samples_total": 6,
+    "visual_limitation": "The offscreen Qt captures displayed missing glyphs and a clipped workspace. Their functional queue and native results remain valid, and those images were retained as diagnostics.",
+    "cases": [
+      {
+        "name": "unconfigured",
+        "gui_queue_state": "Complete",
+        "application_status": "passed",
+        "stages": [
+          {
+            "name": "preflight",
+            "status": "passed"
+          },
+          {
+            "name": "schematic_simulation",
+            "status": "passed"
+          },
+          {
+            "name": "drc",
+            "status": "passed"
+          },
+          {
+            "name": "lvs_extraction",
+            "status": "passed"
+          },
+          {
+            "name": "lvs",
+            "status": "passed"
+          },
+          {
+            "name": "capacitance_extraction",
+            "status": "passed"
+          },
+          {
+            "name": "post_layout_simulation",
+            "status": "passed"
+          },
+          {
+            "name": "integrity",
+            "status": "passed"
+          }
+        ],
+        "artifact_count": 142,
+        "gui_job_input_sha256": "803310925cb52b7de9df4444564dc685fa5d31201e584f3f67f5080a85357ae1",
+        "native_job_input_sha256": "fd041d512a0af0e532fe21011d393eb506151729ece7157a1068d7c5f3d3a4d9",
+        "native_report_sha256": "20f50cb175257835e25d76b20dfa00daf00d510b631a2e79d82a4044771c2208",
+        "checked_osdi_model_files": 12,
+        "raw_graph_verified": true,
+        "intrinsic_count": 1,
+        "ac_samples": 3,
+        "maximum_relative_current_error": 8.042697424877661e-09,
+        "floating_warnings_retained": true,
+        "selected_export_sha256": "92f37a00653fecf7614d1177a55434ae2a7fd5f81838029c4796060a40455e3f",
+        "job_id": "2026-11-04T14-51-45+00-00_0cd8140fb0f24de8",
+        "native_artifact_inventory_sha256": "d35ef5448a7aa1590fbe1948d528a5e5615ee3f85f97984fe4d01a3122b45b2d",
+        "post_layout_ac_raw_sha256": "4936acd1e38a93f38fcf24e84f6622b41d9c7b16f918069c4cef8009ade738cb",
+        "post_layout_solver_log_sha256": "2b38005b9637c9e8e869d5890184b757fe734a6ff5e54043ffc992f652cb5608"
+      },
+      {
+        "name": "explicit",
+        "gui_queue_state": "Complete",
+        "application_status": "passed",
+        "stages": [
+          {
+            "name": "preflight",
+            "status": "passed"
+          },
+          {
+            "name": "schematic_simulation",
+            "status": "passed"
+          },
+          {
+            "name": "drc",
+            "status": "passed"
+          },
+          {
+            "name": "lvs_extraction",
+            "status": "passed"
+          },
+          {
+            "name": "lvs",
+            "status": "passed"
+          },
+          {
+            "name": "capacitance_extraction",
+            "status": "passed"
+          },
+          {
+            "name": "post_layout_simulation",
+            "status": "passed"
+          },
+          {
+            "name": "integrity",
+            "status": "passed"
+          }
+        ],
+        "artifact_count": 142,
+        "gui_job_input_sha256": "df4ae77431cd6286284dd12f7b4cc3f5e2004aa39f56007cc7635798f8216129",
+        "native_job_input_sha256": "5c30925f891a3a345370a0767241257636fdc5a0c5c0d27c6992a46903d4c056",
+        "native_report_sha256": "c61529cea296ddb2154c66f2ef8ae21f49824c1d6708d00a34e9deaf5f651834",
+        "checked_osdi_model_files": 12,
+        "raw_graph_verified": true,
+        "intrinsic_count": 1,
+        "ac_samples": 3,
+        "maximum_relative_current_error": 8.042697424877661e-09,
+        "floating_warnings_retained": true,
+        "selected_export_sha256": "92f37a00653fecf7614d1177a55434ae2a7fd5f81838029c4796060a40455e3f",
+        "job_id": "2026-11-04T14-51-55+00-00_d65326874cdc4c03",
+        "native_artifact_inventory_sha256": "1412865d21490f498307f1ab0edc2571a7d505f0571684702f8ea64c16eedcc8",
+        "post_layout_ac_raw_sha256": "a018011725fe8735e81b7646aa898ee651abdb3368d2c1cb4440ee7e2be59110",
+        "post_layout_solver_log_sha256": "543ab83a7b09ee3c6cd4a37f1ab88246ce58a22864ec1c26730fe5e4be7d2405"
+      }
+    ]
+  },
+  "native_windows_visual_gui": {
+    "receipt_sha256": "9ba7012593b0604fd551a721346deee823bfa3d602c6dd0df5f61c9f29e200e5",
+    "driver_sha256": "8489340f720913b9e575996e729d21a15ecce3ab7de50477ce2d86b6a124a16d",
+    "qt_platform": "windows",
+    "default_font": "Segoe UI",
+    "ready_before_and_after_unchanged": true,
+    "native_artifacts_checked": 284,
+    "post_layout_ac_samples_total": 6,
+    "display_scope": "Ordinary top and bottom scrolling reveals all eight rows across two readable captures per case. The top shows PASSED and the floating-substrate qualification text. The bottom shows the final stages, including Integrity, and the before/after measurements.",
+    "earlier_capture_diagnostics": "Earlier native runs retained their actual results and failed or incomplete viewport assertions. Their presentation limits did not change their scientific results.",
+    "cases": [
+      {
+        "name": "unconfigured",
+        "gui_queue_state": "Complete",
+        "application_status": "passed",
+        "stages": [
+          {
+            "name": "preflight",
+            "status": "passed"
+          },
+          {
+            "name": "schematic_simulation",
+            "status": "passed"
+          },
+          {
+            "name": "drc",
+            "status": "passed"
+          },
+          {
+            "name": "lvs_extraction",
+            "status": "passed"
+          },
+          {
+            "name": "lvs",
+            "status": "passed"
+          },
+          {
+            "name": "capacitance_extraction",
+            "status": "passed"
+          },
+          {
+            "name": "post_layout_simulation",
+            "status": "passed"
+          },
+          {
+            "name": "integrity",
+            "status": "passed"
+          }
+        ],
+        "artifact_count": 142,
+        "gui_job_input_sha256": "803310925cb52b7de9df4444564dc685fa5d31201e584f3f67f5080a85357ae1",
+        "native_job_input_sha256": "ef5289358e19ab6977604ef5c2e05facde1b5699b7126a5d4da16c32043a7166",
+        "native_report_sha256": "5123f9dbf4e9a7068d2c845a22f4d799c0c4b17f380eb984be9de62bd3dabee0",
+        "checked_osdi_model_files": 12,
+        "raw_graph_verified": true,
+        "intrinsic_count": 1,
+        "ac_samples": 3,
+        "maximum_relative_current_error": 8.042697424877661e-09,
+        "floating_warnings_retained": true,
+        "selected_export_sha256": "92f37a00653fecf7614d1177a55434ae2a7fd5f81838029c4796060a40455e3f",
+        "job_id": "2026-11-04T15-47-38+00-00_ee77f817cbe34872",
+        "native_artifact_inventory_sha256": "0dd8a1ed274a1acd310c332a29dfca4d669607a28d037206f5cda1766bb9fda7",
+        "post_layout_ac_raw_sha256": "0fbaa75c7f628bff9e1cf9985911ec651c1fdc88a02ceb6e5f64414dee3423fc",
+        "post_layout_solver_log_sha256": "e745f64b542e5ee83380dae8db02bcf38ad87ca1d598aa708d343c151006ec49",
+        "display": {
+          "status": "coupon \u00b7 capacitance_probe \u00b7 PASSED \u00b7 Saved-testbench process verification. Qualification applies only to the recorded circuit, extraction model and operating condition; no fabrication signoff. Process capacitance only; no distributed resistance. The checked graph covers one flat IHP cap_cmim unit. Internal SUB remains floating, so this does not establish a physical DC operating point.",
+          "headers": [
+            "Stage",
+            "Status",
+            "Result"
+          ],
+          "rows": [
+            [
+              "Preflight",
+              "passed",
+              "Assets and tools recorded"
+            ],
+            [
+              "Schematic Simulation",
+              "passed",
+              "3 samples \u00b7 2/2 measurements passed"
+            ],
+            [
+              "Magic DRC",
+              "passed",
+              "0 violations"
+            ],
+            [
+              "LVS extraction",
+              "passed",
+              "0 capacitors"
+            ],
+            [
+              "Netgen LVS",
+              "passed",
+              "Unique match; no property errors"
+            ],
+            [
+              "Capacitance Extraction",
+              "passed",
+              "3 capacitors"
+            ],
+            [
+              "Post Layout Simulation",
+              "passed",
+              "3 samples \u00b7 2/2 measurements passed"
+            ],
+            [
+              "Integrity",
+              "passed",
+              "Assets and tools recorded"
+            ]
+          ],
+          "font_family": "Segoe UI",
+          "missing_glyphs": [],
+          "widget_size": [
+            1660,
+            1050
+          ],
+          "screenshots": [
+            {
+              "position": "top",
+              "file": "unconfigured-top.png",
+              "fully_visible_rows": [
+                0,
+                1,
+                2,
+                3,
+                4
+              ],
+              "screenshot_size": [
+                2490,
+                1575
+              ],
+              "sha256": "3bdd13710ac409a072408b28532864c63f04e783707d68376d3307067510a48d"
+            },
+            {
+              "position": "bottom",
+              "file": "unconfigured-bottom.png",
+              "fully_visible_rows": [
+                5,
+                6,
+                7
+              ],
+              "screenshot_size": [
+                2490,
+                1575
+              ],
+              "sha256": "7bea306575e876c7534c2b6360f795f75a168944acaf2c63bd6805c6eae0ff72"
+            }
+          ]
+        }
+      },
+      {
+        "name": "explicit",
+        "gui_queue_state": "Complete",
+        "application_status": "passed",
+        "stages": [
+          {
+            "name": "preflight",
+            "status": "passed"
+          },
+          {
+            "name": "schematic_simulation",
+            "status": "passed"
+          },
+          {
+            "name": "drc",
+            "status": "passed"
+          },
+          {
+            "name": "lvs_extraction",
+            "status": "passed"
+          },
+          {
+            "name": "lvs",
+            "status": "passed"
+          },
+          {
+            "name": "capacitance_extraction",
+            "status": "passed"
+          },
+          {
+            "name": "post_layout_simulation",
+            "status": "passed"
+          },
+          {
+            "name": "integrity",
+            "status": "passed"
+          }
+        ],
+        "artifact_count": 142,
+        "gui_job_input_sha256": "df4ae77431cd6286284dd12f7b4cc3f5e2004aa39f56007cc7635798f8216129",
+        "native_job_input_sha256": "6ae1ce339e066136749e6f4368eb04fb5f9d4070df6da86f647fb4e0fb1e197b",
+        "native_report_sha256": "c6240097d3326c421bd2ad2420f99ebe0cfb9415abf91dcd6431eb8e6f735223",
+        "checked_osdi_model_files": 12,
+        "raw_graph_verified": true,
+        "intrinsic_count": 1,
+        "ac_samples": 3,
+        "maximum_relative_current_error": 8.042697424877661e-09,
+        "floating_warnings_retained": true,
+        "selected_export_sha256": "92f37a00653fecf7614d1177a55434ae2a7fd5f81838029c4796060a40455e3f",
+        "job_id": "2026-11-04T15-47-49+00-00_e928411d9b914a17",
+        "native_artifact_inventory_sha256": "18b927a4012a1e9d1d8aa9ae55bbc93d75397d77c1e65b6c4422363964fe4ca1",
+        "post_layout_ac_raw_sha256": "b5a211969acda2798edc41c517606db65ecda24666208bc35cd860e5f5236a4f",
+        "post_layout_solver_log_sha256": "e0dd448777080b7fbb292490a131ca3b0b2b9a1b0e3fad46dd339fa4b69f039b",
+        "display": {
+          "status": "coupon \u00b7 capacitance_probe \u00b7 PASSED \u00b7 Saved-testbench process verification. Qualification applies only to the recorded circuit, extraction model and operating condition; no fabrication signoff. Process capacitance only; no distributed resistance. The checked graph covers one flat IHP cap_cmim unit. Internal SUB remains floating, so this does not establish a physical DC operating point.",
+          "headers": [
+            "Stage",
+            "Status",
+            "Result"
+          ],
+          "rows": [
+            [
+              "Preflight",
+              "passed",
+              "Assets and tools recorded"
+            ],
+            [
+              "Schematic Simulation",
+              "passed",
+              "3 samples \u00b7 2/2 measurements passed"
+            ],
+            [
+              "Magic DRC",
+              "passed",
+              "0 violations"
+            ],
+            [
+              "LVS extraction",
+              "passed",
+              "0 capacitors"
+            ],
+            [
+              "Netgen LVS",
+              "passed",
+              "Unique match; no property errors"
+            ],
+            [
+              "Capacitance Extraction",
+              "passed",
+              "3 capacitors"
+            ],
+            [
+              "Post Layout Simulation",
+              "passed",
+              "3 samples \u00b7 2/2 measurements passed"
+            ],
+            [
+              "Integrity",
+              "passed",
+              "Assets and tools recorded"
+            ]
+          ],
+          "font_family": "Segoe UI",
+          "missing_glyphs": [],
+          "widget_size": [
+            1660,
+            1050
+          ],
+          "screenshots": [
+            {
+              "position": "top",
+              "file": "explicit-top.png",
+              "fully_visible_rows": [
+                0,
+                1,
+                2,
+                3,
+                4
+              ],
+              "screenshot_size": [
+                2490,
+                1575
+              ],
+              "sha256": "3bdd13710ac409a072408b28532864c63f04e783707d68376d3307067510a48d"
+            },
+            {
+              "position": "bottom",
+              "file": "explicit-bottom.png",
+              "fully_visible_rows": [
+                5,
+                6,
+                7
+              ],
+              "screenshot_size": [
+                2490,
+                1575
+              ],
+              "sha256": "7bea306575e876c7534c2b6360f795f75a168944acaf2c63bd6805c6eae0ff72"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "electrical_scope": {
+    "substrate": "Internal floating SUB retained in the checked graph.",
+    "warnings": "Native solver logs retain the singular-node and failed-stepping warnings followed by transient operating-point recovery.",
+    "linear_ac_samples_per_case": 3,
+    "maximum_relative_current_error": 8.042697424877661e-09,
+    "physical_dc_operating_point_established": false,
+    "measured_process_calibration_established": false,
+    "fabrication_signoff": false
+  },
+  "retained_predecessors": {
+    "initial_source_setup": {
+      "sha256": "1047abb92da0240d8a509ff057f0fbfea6b8f070a7f657f145b72346dabb836a",
+      "status": "PASS_ORDINARY_SOURCE_SETUP"
+    },
+    "normal_ready_gui_missing_osdi_and_explicit_control": {
+      "sha256": "42afeb8d103895b59dba33c12e1392f28cfd72c7da536dc51c258e79475b3e12",
+      "status": "OBSERVED_BASELINE_OSDI_GAP"
+    },
+    "failed_setup_unc_transfer": {
+      "sha256": "8f6997e8b06e94d63cdda0d221c2d584449d9f0d524706577547cabe2f759377",
+      "status": "FAIL"
+    },
+    "exact_file_transfer_diagnostic": {
+      "sha256": "826938344a1ef65899c0788da507fd1edcfa2e782f76365a5ce3bd2b3a66cbfd",
+      "status": "PASS_ISOLATED_TRANSFER_REPLAY"
+    },
+    "exact_failed_equivalence_request_replay": {
+      "sha256": "5acc1f119c5599935ddc03bb963de894f4a3178c29db643b42d47eb7cf49ea91",
+      "status": "PASS_ISOLATED_EQUIVALENCE_REPLAY"
+    },
+    "interrupted_before_narrowed_source": {
+      "sha256": "da830ca1e4bc7f41e1e7fb2a06eca8ef9ea48f8657a0161a1951f359db4c9a75",
+      "status": "INTERRUPTED_FOR_SOURCE_SCOPE_REPAIR"
+    }
+  },
+  "evidence": {
+    "root": "IC-Design-Studio-evidence",
+    "functional_setup_and_gui": {
+      "archive": "chunk7-ihp-managed-saved-bench-2026-11-04-v1/ordinary-source-evidence.zip",
+      "sha256": "69760021b631ed3d0c056c3a83b7f3027661309c9ab4e32f03986f8d653aa311",
+      "bytes": 1617243,
+      "logical_files": 361,
+      "unique_objects": 190,
+      "retention_record": "chunk7-ihp-managed-saved-bench-2026-11-04-v1/retention.json",
+      "retention_record_sha256": "c84a0eea0aba12bcd684d276535a13fd4cfdd169e9e6f7b54b8947b9321f6360",
+      "all_archive_members_crc_sha256_and_original_bytes_verified": true
+    },
+    "native_windows_visual_gui": {
+      "archive": "chunk7-ihp-managed-saved-bench-visual-2026-11-04-v1/native-windows-visual-evidence.zip",
+      "sha256": "79c6ea1435a86380841ee87198afd53819b185266b2ec8d22a71c3752cf74247",
+      "bytes": 1618519,
+      "logical_files": 327,
+      "unique_objects": 158,
+      "retention_record": "chunk7-ihp-managed-saved-bench-visual-2026-11-04-v1/retention.json",
+      "retention_record_sha256": "4be420512490f8bc98cfba909454a40cfc1001034345373d84fa7a8a99bd7141",
+      "all_archive_members_crc_sha256_and_original_bytes_verified": true
+    }
+  },
+  "independent_review": {
+    "final_review_sha256": "1d738425ea0c2c3875a5acf648147835028526af3f71b3c85fa63db7eff9a387",
+    "functional_review_sha256": "87501e731d8e0a15e2c1301c9f0c2d071b937a20b84e2b5cd6a08061376d1365",
+    "native_visual_review_sha256": "6001abbb27b8a7a78703e3a8e4db58435044f36bc47e0426fdd07e15916c2813",
+    "retention": {
+      "directory": "chunk7-normal-ready-gui-review-2026-11-04-v1",
+      "archive": "evidence.zip",
+      "archive_sha256": "27311b1bed757488ed02b0855c02f534e3971bffe6512860faa1276785615b19",
+      "retention": "retention.json",
+      "retention_sha256": "7c595fb320e07a4d9f8852bcf8d3e8381c8e6da9c97e0854f519f1576a715208"
+    },
+    "visual_scope": "Native Windows Qt rendered actual hidden Studio widgets; readable top/bottom captures use ordinary scrolling. This is not an interactive visible-on-screen session or installed acceptance."
+  }
+}

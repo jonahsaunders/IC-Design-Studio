@@ -83,6 +83,8 @@ class ConsistencyWorkspaceMixin:
         if target is not None:canvas.scale=max(canvas.scale,.8);canvas.offset=QPointF(canvas.width()/2,canvas.height()/2)-QPointF(*target)*canvas.scale
         canvas.update();self.update_canvas_footer();return True
     def check_selected(self,row,col):
+        # Applying a draft can invalidate findings; check their revision afterwards.
+        if not self.flush_inspector():return
         if row<len(self.issues) and self.check_revision==self.project['revision'] and self.issues[row].get('root'):
             self.navigate_occurrence(self.issues[row],self.issues[row]['code'].startswith('LAYOUT.'));self.canvas_message(self.issues[row]['message']);return
         return super().check_selected(row,col)

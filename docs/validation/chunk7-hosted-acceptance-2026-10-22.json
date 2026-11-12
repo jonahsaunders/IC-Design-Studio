@@ -1,0 +1,222 @@
+{
+  "schema": 1,
+  "date": "2026-10-22",
+  "status": "hosted_acceptance_passed",
+  "chunk": 7,
+  "chunk_complete": false,
+  "qualified": false,
+  "commit": "e29cfd657cd607528da530eccce466361d6dee59",
+  "workflow_runs": [
+    {
+      "id": 39706564992,
+      "name": "Reference design compatibility",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "e29cfd657cd607528da530eccce466361d6dee59",
+      "html_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39706564992"
+    },
+    {
+      "id": 39706564983,
+      "name": "Pinned SKY130 physical qualification",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "e29cfd657cd607528da530eccce466361d6dee59",
+      "html_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39706564983"
+    },
+    {
+      "id": 39706565138,
+      "name": "Digital flow",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "e29cfd657cd607528da530eccce466361d6dee59",
+      "html_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39706565138"
+    },
+    {
+      "id": 39706564985,
+      "name": "IHP coil physical qualification",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "e29cfd657cd607528da530eccce466361d6dee59",
+      "html_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39706564985"
+    },
+    {
+      "id": 39706565021,
+      "name": "Statistical campaign qualification",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "e29cfd657cd607528da530eccce466361d6dee59",
+      "html_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39706565021"
+    },
+    {
+      "id": 39706565044,
+      "name": "Verify VGA Playground",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "e29cfd657cd607528da530eccce466361d6dee59",
+      "html_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39706565044"
+    },
+    {
+      "id": 39706565098,
+      "name": "External tool interoperability",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "e29cfd657cd607528da530eccce466361d6dee59",
+      "html_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39706565098"
+    },
+    {
+      "id": 39706565008,
+      "name": "Build and verify desktop release",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "e29cfd657cd607528da530eccce466361d6dee59",
+      "html_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39706565008"
+    },
+    {
+      "id": 39706558984,
+      "name": "Pinned SKY130 physical qualification",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "e29cfd657cd607528da530eccce466361d6dee59",
+      "html_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39706558984"
+    },
+    {
+      "id": 39706558991,
+      "name": "Prepare desktop release",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "e29cfd657cd607528da530eccce466361d6dee59",
+      "html_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39706558991"
+    },
+    {
+      "id": 39706558983,
+      "name": "Build and verify desktop release",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "e29cfd657cd607528da530eccce466361d6dee59",
+      "html_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39706558983"
+    },
+    {
+      "id": 39706558813,
+      "name": "IHP coil physical qualification",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "e29cfd657cd607528da530eccce466361d6dee59",
+      "html_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39706558813"
+    },
+    {
+      "id": 39706558915,
+      "name": "Reference design compatibility",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "e29cfd657cd607528da530eccce466361d6dee59",
+      "html_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39706558915"
+    },
+    {
+      "id": 39706558934,
+      "name": "Digital flow",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "e29cfd657cd607528da530eccce466361d6dee59",
+      "html_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39706558934"
+    },
+    {
+      "id": 39706558891,
+      "name": "Statistical campaign qualification",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "e29cfd657cd607528da530eccce466361d6dee59",
+      "html_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39706558891"
+    },
+    {
+      "id": 39706558924,
+      "name": "External tool interoperability",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "e29cfd657cd607528da530eccce466361d6dee59",
+      "html_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39706558924"
+    },
+    {
+      "id": 39706558865,
+      "name": "Verify VGA Playground",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "e29cfd657cd607528da530eccce466361d6dee59",
+      "html_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39706558865"
+    }
+  ],
+  "release": {
+    "id": 420396486,
+    "tag": "experimental-v0.23.0-e29cfd657cd607528da530eccce466361d6dee59-39706558991-1",
+    "draft": true,
+    "target": "e29cfd657cd607528da530eccce466361d6dee59",
+    "assets": 24
+  },
+  "files": {
+    "docs/qualification/hosted-acceptance-2026-10-22/IC-Design-Studio-0.23.0-Statistical-Validation.json": {
+      "sha256": "396994971c0e6c4eded75af39e833a7b854bbe52f30068689a1d853667a1526c",
+      "bytes": 744
+    },
+    "docs/qualification/hosted-acceptance-2026-10-22/IC-Design-Studio-0.23.0-Validation-Linux.json": {
+      "sha256": "81e5d3af74ad3ccfc78579452b4ffae0e13fd800aeb306121420351aa458f919",
+      "bytes": 10929
+    },
+    "docs/qualification/hosted-acceptance-2026-10-22/IC-Design-Studio-0.23.0-Validation-Windows.json": {
+      "sha256": "3f10e577fcafc4a2986c845ceb31a00514adbcb69c1722678c6eb69a81d02df6",
+      "bytes": 37530
+    },
+    "docs/qualification/hosted-acceptance-2026-10-22/SHA256SUMS-0.23.0.txt": {
+      "sha256": "86f6743745e4ec0c421e024a8a5202c5bb34460928aeb3645c5671a2a09ea7cd",
+      "bytes": 2583
+    },
+    "docs/qualification/hosted-acceptance-2026-10-22/capture.json": {
+      "sha256": "8ccf9085a07360d984b102c0e697d55432388ff2560fb20f0fba174cf3b5799a",
+      "bytes": 1215
+    },
+    "docs/qualification/hosted-acceptance-2026-10-22/release.json": {
+      "sha256": "3a84bbc6ea7f0200b279e9fe67c207f1bf07930a6cc74b7be971cdf3774c3b95",
+      "bytes": 58554
+    },
+    "docs/qualification/hosted-acceptance-2026-10-22/chunk7-resume-20261022-v1.json": {
+      "sha256": "0a1c66810dc69d605ca46f56cbb8ce0b710a6a99988d2fea9dc349c16242f477",
+      "bytes": 5854
+    }
+  },
+  "scope": "Downloaded validation and checksum bytes; all remote asset digests agree. Payload binaries have not been downloaded or independently executed in this review.",
+  "platforms": {
+    "Windows": "Hosted Windows Server 2022, installed scales 1/1.5/2 and portable frozen application.",
+    "Linux": "Hosted Ubuntu 24.04 frozen distribution, offscreen UI."
+  },
+  "statistics": {
+    "cases": 1152,
+    "trials": 128,
+    "design_trials_passed": 99,
+    "design_trials_failed": 29,
+    "scope": "Coordinator sampling/recovery passes; the numerical design yield is 99/128, not 128 passing design specifications."
+  },
+  "publication": {
+    "current": "Draft release creation succeeded in run 39706558991.",
+    "historical": "Run 39640899481 at ae5a7a1 failed with HTTP 403. This remains historical evidence. Current success does not independently establish the cause of that older error."
+  },
+  "remaining": [
+    "New source changes after this commit need their own hosted and installed acceptance.",
+    "Clean consumer Windows 10/11 and Ubuntu manual acceptance, upgrades, multiple monitors and accessibility remain open.",
+    "All seven unavailable real-device bindings and complete device envelopes remain chunk-7 blockers."
+  ]
+}

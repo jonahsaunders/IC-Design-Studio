@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "date": "2026-11-11",
+  "base_commit": "00d92f35746aa120321d08ee232b0d83e3941600",
+  "scope": "BUILD_PREPARATION_ONLY_NO_PMOS",
+  "review_state": "FRESH_TECHNICAL_REVIEW_COMPLETED",
+  "new_policy_sha256": "db13e2b1f83ff11e706086390b6d91c6d384e21852668d62938ffca209bac436",
+  "previous_policy_sha256": "91803a65f8d7aaa20c032d5c8796c5a427c8d6a01a9787df622ac471d398dd22",
+  "source_changes": {
+    "scripts/build_ihp_wsl_research_base.py": {
+      "before": "b762029a9590186f8632693e94001385ae217caf75aa673153255298f5d6d60c",
+      "after": "7ba660bc970c0ee032f44cc297b08010350cca0d3db217c83a14af9a3fa8085c"
+    },
+    "scripts/package_ihp_wsl_research_preparation.py": {
+      "before": "5cd71ca92ebe04fcbf5fc6fb1aa648a0af0be137ddaa882d898701871629bc83",
+      "after": "6ce96230346275f34da24e083740f613f02bb43da7edfb836339f4e2a5584394"
+    }
+  },
+  "verified": [
+    "Independent review of exact builder UID:GID mapping and packager failure-retention sources",
+    "12 builder/identity source tests and 14 packager/transport source tests independently pass",
+    "Non-root offline APT update with empty sources/private config creates caller-readable lock; no downloads or installation"
+  ],
+  "limitations": [
+    "No new hosted Docker/APT preparation acceptance yet",
+    "Current host UID:GID is supplied only at build time, never inferred from stale evidence",
+    "Source/signature/dependency/model guards, full successful proof, cleanup and original deadlines remain required",
+    "No native PMOS execution, runtime promotion, permissions broadening or qualification claim"
+  ]
+}

@@ -10,6 +10,14 @@ from pathlib import Path
 from .catalog import binding_for, parameter_values
 from .model import scalar, file_digest
 
+SKY130_MODELS = {
+    'NMOS': ('sky130_fd_pr__nfet_01v8', 'sky130_fd_pr__nfet_01v8_lvt',
+             'sky130_fd_pr__nfet_g5v0d10v5', 'sky130_fd_pr__nfet_03v3_nvt',
+             'sky130_fd_pr__nfet_05v0_nvt'),
+    'PMOS': ('sky130_fd_pr__pfet_01v8', 'sky130_fd_pr__pfet_01v8_lvt',
+             'sky130_fd_pr__pfet_01v8_hvt', 'sky130_fd_pr__pfet_g5v0d10v5'),
+}
+
 
 def dimensions(technology, instance, binding=None):
     """Resolve symbol W, emitted total W, nf and parallel multiplicity in SI.
@@ -22,7 +30,7 @@ def dimensions(technology, instance, binding=None):
     model = (binding or {}).get('model', '')
     kind = instance.get('kind')
     family = technology.get('package_lock', {}).get('id', '')
-    if family == 'sky130A' and model == {'NMOS':'sky130_fd_pr__nfet_01v8', 'PMOS':'sky130_fd_pr__pfet_01v8'}.get(kind):
+    if family == 'sky130A' and model in SKY130_MODELS.get(kind, ()):
         scale, process = 1e6, 'SKY130'
     elif family in ('gf180mcuC', 'gf180mcuD') and model == {'NMOS':'nfet_03v3', 'PMOS':'pfet_03v3'}.get(kind):
         scale, process = 1., 'GF180'

@@ -1,0 +1,41 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "scope": "Exact literal standard MOS channel dimensions, finger counts and physical diffusion groups, associated with model and terminals. Native LVS is separate; no operating-envelope, RC, statistical or model-accuracy qualification.",
+  "native_lvs": "Preserved separately; this proof does not change its result.",
+  "source_sha256": "d26970fde6b97c5e18db1f52d43c6070612cc7cdacfdc916c9cd747b1befa956",
+  "stream_sha256": "5f2de4959eaee5fc9947207196b74a923152c00096c6273eefcecdb5792cd3d9",
+  "native_sha256": "b4150b479b8c4630c42d881c54c69d491b326ca9242a0e670a941dc5fa47694b",
+  "target": "gf180mcuC",
+  "model_sources": {
+    "/var/tmp/icstudio-physical/54ba0fec4f7047329c9bc43c502f4822/pdk/package.json": "18fab103156296ebaf8d90fd6fdfb0d5914c481aea26f08cec6f1c69e5063994",
+    "/var/tmp/icstudio-physical/54ba0fec4f7047329c9bc43c502f4822/pdk/libs.tech/magic/gf180mcuC.tech": "5eb8eafee3b744052f0438ab83ea9f8ced3099963f8f84a9de73f5519d12e861",
+    "/var/tmp/icstudio-physical/54ba0fec4f7047329c9bc43c502f4822/pdk/libs.tech/netgen/gf180mcuC_setup.tcl": "cf050e6302f93967c27fe797f8647d75ef5f22c7b806c32b324d2eaf77480949",
+    "/var/tmp/icstudio-physical/54ba0fec4f7047329c9bc43c502f4822/pdk/libs.tech/ngspice/sm141064.ngspice": "c08ee93073665b6c1f43a3523bb38d5b561bcee2b7e056a927175f5da8e96ba9"
+  },
+  "channels": 6,
+  "groups": 2,
+  "native_grid_um": "0.005",
+  "group_contracts": [
+    {
+      "model": "nfet_03v3",
+      "gate": "g",
+      "body": "b",
+      "drain_source": [
+        "d",
+        "s"
+      ],
+      "channel_width_m": "0.000001005",
+      "length_m": "0.000001005",
+      "fingers": 3,
+      "copies": 2
+    }
+  ],
+  "files": {
+    "startup.tcl": "eb02f33f5e21b74282e96b553d1234ccfd6345b63511896a5327bf7cfd6a35f5",
+    "run.tcl": "5f4961ba3789ca6f232cd3b4ff62421e667325f8bb6e007921964481734843cc",
+    "console.log": "281d35fa2a4e56087d62d6abe624fd3aa76e0e8ae8250d8ab9e467fa65376c46",
+    "extracted.spice": "b4150b479b8c4630c42d881c54c69d491b326ca9242a0e670a941dc5fa47694b",
+    "parallel_coupon.ext": "b45791e1bb2bf8b51b16ef2e37ddd346d2d55bd8051ce5f2c2227f37ac85171f"
+  }
+}

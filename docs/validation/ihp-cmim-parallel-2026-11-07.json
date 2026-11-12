@@ -1,0 +1,354 @@
+{
+  "schema": 1,
+  "date": "2026-11-07",
+  "status": "PASS_BOUNDED_SOURCE_PARALLEL_SAVED_BENCH",
+  "base_commit": "590daef062cf002d5b71e382ec5eaa5f63e4c51e",
+  "qualified": false,
+  "installed_acceptance": false,
+  "scope": "Ordinary m=2 and two explicit m=1 7x7um flat parallel CMIM units, both rotations, nominal27C,100kHz–1MHz.",
+  "closed_defect": "Saved-bench preflight rejected already physically supported ordinary parallel units; intrinsic accounting now binds each project-emitted source and exact width/length/count group to complete raw and native flat exports.",
+  "reproduction": {
+    "base_commit": "590daef062cf002d5b71e382ec5eaa5f63e4c51e",
+    "ordinary_source": "X_CMIM C1 C2 cap_cmim l=7e-06 m=2 mm_ok=1 w=7e-06",
+    "previous_error": "IHP cap_cmim capacitance requires a flat two-port DUT with one ordinary catalog unit (m=1)."
+  },
+  "source_hashes": {
+    "icstudio/hierarchical_flow.py": "97df4f1480468c784f851ef1ffe5bcb13d296e6a400d09fbae189122dabecc29",
+    "icstudio/ihp_cmim_capacitance.py": "fbba9c3577c7b4f3d682ba293cf9250d4910bb984c2083d592afefed4019d7ea",
+    "scripts/check_ihp_cmim_parallel.py": "f826a4625a2d1557db915256f8fcf714e02f44901f85e831418e600974e99207",
+    "scripts/qualify_ihp_cmim_parallel.py": "0c8c2d92110d9913625689024955e7e8d4d94cb5dc8293bc63dfe6711c7b6cc4",
+    "tests/fixtures/ihp-cmim-parallel-v1/LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "tests/fixtures/ihp-cmim-parallel-v1/SOURCE.json": "332df3d342794fbd11a145b759b5229f20b0725d72d2bb44674ecbc9e9a59fc2",
+    "tests/fixtures/ihp-cmim-parallel-v1/coupon.ext": "8ee791dbed9b7930fa73760dc3281c3ebdcd5045839f92c8d1ab647a62068218",
+    "tests/fixtures/ihp-cmim-parallel-v1/flat.spice": "a875d1505f2409f31e4eb9e059dfa1856ecd6100011eefd3b3273df543d79154",
+    "tests/fixtures/ihp-cmim-parallel-v1/hierarchical.spice": "ade75bd0ccc93a3c5e1cbd259923663cb5376bbeab25d3cd08f37514c070ac0f",
+    "tests/test_ihp_cmim_capacitance.py": "da24500364ed19dd104d523907345dd3b93da332d382087b950710fb54540120",
+    "tests/test_ihp_cmim_parallel.py": "f99af769c1134a2b50538d88ddd6e5a84091127ec0c5e4309f4c67736f844b61"
+  },
+  "native_snapshot": {
+    "status": "PASS",
+    "base_commit": "590daef062cf002d5b71e382ec5eaa5f63e4c51e",
+    "source_files_verified": 7050,
+    "source_unchanged": true,
+    "source_manifest_sha256": "3573ce1ff29897863e12a6b13a500e91059ac6ce57453a8b60289bc2da0b7b5f",
+    "report_sha256": "26f53641fcd60b974de984d8a231de90b01e38a9877ff6aec7cfb200288a10d9",
+    "verification_sha256": "360b56f5493c2f924be86c2bb9b3e77634e868b98f02d03bdc66e984ea0df033",
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+    "executable": "/var/tmp/icstudio-fulltest-env-20261017-v1/bin/python",
+    "python_sha256": "e50d468e8b0adfb05733f5b87b3cff34829c4a8c1aea50c865aa8bdfe4bb150f",
+    "source": "/var/tmp/icstudio-cmim-parallel-20261107-native3/source",
+    "evidence": "/var/tmp/icstudio-cmim-parallel-20261107-native3/evidence"
+  },
+  "package": {
+    "target": "ihp-sg13g2",
+    "revision": "cfb96b74cf33877e",
+    "manifest_sha256": "da58ba2de122d67d232ab20ca4fb353b70bdc68c00ef4279f9be7da640a68ae0"
+  },
+  "tools": {
+    "magic": {
+      "path": "/opt/icstudio/bin/magic",
+      "sha256": "359bd5dbfccf21114b2f18e2ffa008debf159bd0d1ab78e01738d2af9500b223"
+    },
+    "netgen": {
+      "path": "/opt/icstudio/bin/netgen",
+      "sha256": "209cc0bab75420d13094a99de13e94af05d735e744e06d817fac022ac74401d3"
+    },
+    "ngspice": {
+      "path": "/opt/icstudio/bin/ngspice",
+      "sha256": "de0028325297f6c2171e04d7d1204b0f711b1d521e7183f9bcf9abf9121d50b7"
+    }
+  },
+  "native": {
+    "status": "PASS",
+    "qualified": false,
+    "installed_acceptance": false,
+    "positive_cases": 4,
+    "native_lvs_faults": 3,
+    "files_verified": 836,
+    "cases": [
+      {
+        "name": "m2-0",
+        "intrinsic_units": 2,
+        "raw_edges_af": [
+          {
+            "nodes": [
+              "C1",
+              "C2"
+            ],
+            "value": "928.042"
+          },
+          {
+            "nodes": [
+              "C1",
+              "SUB"
+            ],
+            "value": "1487.62"
+          },
+          {
+            "nodes": [
+              "C2",
+              "SUB"
+            ],
+            "value": "2245.84"
+          }
+        ],
+        "samples": 3,
+        "maximum_relative_current_error": 8.056106524566877e-09
+      },
+      {
+        "name": "pair-0",
+        "intrinsic_units": 2,
+        "raw_edges_af": [
+          {
+            "nodes": [
+              "C1",
+              "C2"
+            ],
+            "value": "928.042"
+          },
+          {
+            "nodes": [
+              "C1",
+              "SUB"
+            ],
+            "value": "1487.62"
+          },
+          {
+            "nodes": [
+              "C2",
+              "SUB"
+            ],
+            "value": "2245.84"
+          }
+        ],
+        "samples": 3,
+        "maximum_relative_current_error": 8.056106524566877e-09
+      },
+      {
+        "name": "m2-90",
+        "intrinsic_units": 2,
+        "raw_edges_af": [
+          {
+            "nodes": [
+              "C1",
+              "C2"
+            ],
+            "value": "928.042"
+          },
+          {
+            "nodes": [
+              "C1",
+              "SUB"
+            ],
+            "value": "1487.62"
+          },
+          {
+            "nodes": [
+              "C2",
+              "SUB"
+            ],
+            "value": "2245.84"
+          }
+        ],
+        "samples": 3,
+        "maximum_relative_current_error": 8.056106524566877e-09
+      },
+      {
+        "name": "pair-90",
+        "intrinsic_units": 2,
+        "raw_edges_af": [
+          {
+            "nodes": [
+              "C1",
+              "C2"
+            ],
+            "value": "928.042"
+          },
+          {
+            "nodes": [
+              "C1",
+              "SUB"
+            ],
+            "value": "1487.62"
+          },
+          {
+            "nodes": [
+              "C2",
+              "SUB"
+            ],
+            "value": "2245.84"
+          }
+        ],
+        "samples": 3,
+        "maximum_relative_current_error": 8.056106524566877e-09
+      }
+    ]
+  },
+  "case_results": [
+    {
+      "name": "m2-0",
+      "status": "passed",
+      "stages": {
+        "preflight": "passed",
+        "schematic_simulation": "passed",
+        "drc": "passed",
+        "lvs_extraction": "passed",
+        "lvs": "passed",
+        "capacitance_extraction": "passed",
+        "post_layout_simulation": "passed",
+        "integrity": "passed"
+      }
+    },
+    {
+      "name": "pair-0",
+      "status": "passed",
+      "stages": {
+        "preflight": "passed",
+        "schematic_simulation": "passed",
+        "drc": "passed",
+        "lvs_extraction": "passed",
+        "lvs": "passed",
+        "capacitance_extraction": "passed",
+        "post_layout_simulation": "passed",
+        "integrity": "passed"
+      }
+    },
+    {
+      "name": "m2-90",
+      "status": "passed",
+      "stages": {
+        "preflight": "passed",
+        "schematic_simulation": "passed",
+        "drc": "passed",
+        "lvs_extraction": "passed",
+        "lvs": "passed",
+        "capacitance_extraction": "passed",
+        "post_layout_simulation": "passed",
+        "integrity": "passed"
+      }
+    },
+    {
+      "name": "pair-90",
+      "status": "passed",
+      "stages": {
+        "preflight": "passed",
+        "schematic_simulation": "passed",
+        "drc": "passed",
+        "lvs_extraction": "passed",
+        "lvs": "passed",
+        "capacitance_extraction": "passed",
+        "post_layout_simulation": "passed",
+        "integrity": "passed"
+      }
+    },
+    {
+      "name": "m1-0",
+      "status": "failed",
+      "stages": {
+        "preflight": "passed",
+        "schematic_simulation": "passed",
+        "drc": "passed",
+        "lvs_extraction": "passed",
+        "lvs": "failed",
+        "capacitance_extraction": "not_run",
+        "post_layout_simulation": "not_run",
+        "integrity": "not_run"
+      }
+    },
+    {
+      "name": "m3-0",
+      "status": "failed",
+      "stages": {
+        "preflight": "passed",
+        "schematic_simulation": "passed",
+        "drc": "passed",
+        "lvs_extraction": "passed",
+        "lvs": "failed",
+        "capacitance_extraction": "not_run",
+        "post_layout_simulation": "not_run",
+        "integrity": "not_run"
+      }
+    },
+    {
+      "name": "wrong-width-0",
+      "status": "failed",
+      "stages": {
+        "preflight": "passed",
+        "schematic_simulation": "passed",
+        "drc": "passed",
+        "lvs_extraction": "passed",
+        "lvs": "failed",
+        "capacitance_extraction": "not_run",
+        "post_layout_simulation": "not_run",
+        "integrity": "not_run"
+      }
+    }
+  ],
+  "windows_focused_tests": {
+    "platform": "Windows",
+    "tests": 19,
+    "returncode": 0,
+    "seconds": 2.7190000000118744,
+    "source_unchanged": true,
+    "source_files": {
+      "icstudio/hierarchical_flow.py": "97df4f1480468c784f851ef1ffe5bcb13d296e6a400d09fbae189122dabecc29",
+      "icstudio/ihp_cmim_capacitance.py": "fbba9c3577c7b4f3d682ba293cf9250d4910bb984c2083d592afefed4019d7ea",
+      "scripts/check_ihp_cmim_parallel.py": "f826a4625a2d1557db915256f8fcf714e02f44901f85e831418e600974e99207",
+      "scripts/qualify_ihp_cmim_parallel.py": "0c8c2d92110d9913625689024955e7e8d4d94cb5dc8293bc63dfe6711c7b6cc4",
+      "tests/fixtures/ihp-cmim-parallel-v1/LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "tests/fixtures/ihp-cmim-parallel-v1/SOURCE.json": "332df3d342794fbd11a145b759b5229f20b0725d72d2bb44674ecbc9e9a59fc2",
+      "tests/fixtures/ihp-cmim-parallel-v1/coupon.ext": "8ee791dbed9b7930fa73760dc3281c3ebdcd5045839f92c8d1ab647a62068218",
+      "tests/fixtures/ihp-cmim-parallel-v1/flat.spice": "a875d1505f2409f31e4eb9e059dfa1856ecd6100011eefd3b3273df543d79154",
+      "tests/fixtures/ihp-cmim-parallel-v1/hierarchical.spice": "ade75bd0ccc93a3c5e1cbd259923663cb5376bbeab25d3cd08f37514c070ac0f",
+      "tests/test_ihp_cmim_capacitance.py": "da24500364ed19dd104d523907345dd3b93da332d382087b950710fb54540120",
+      "tests/test_ihp_cmim_parallel.py": "f99af769c1134a2b50538d88ddd6e5a84091127ec0c5e4309f4c67736f844b61"
+    },
+    "log_sha256": "235bb1f0335c9c4c661deb0d9f3b5d207b94f0742ec6a9c5ad50d342f6897834"
+  },
+  "windows_native_evidence_readback": {
+    "status": "PASS",
+    "files_verified": 836,
+    "receipt_sha256": "71f40f9f1e547708f8e38ca7ca8b2cc7d525bfabbb53c8448944f2861ccd2651",
+    "matches_final_native_receipt": true,
+    "explicit_utf8": true
+  },
+  "independent_review": [
+    {
+      "file": "work/ihp-cmim-independent-review/review-results-fbba9c3577c7.json",
+      "sha256": "ea43404f252b811e6fc97180301394325b97834fdf797c3de8b91102c845ce97",
+      "scope": "Independent synthetic parser and source-binding controls; not native geometry/electrical qualification.",
+      "checks": 39,
+      "all_passed": true
+    },
+    {
+      "file": "work/ihp-cmim-independent-review/reader-findings-f826a4625a2d.json",
+      "sha256": "03b41309ed96f0c9ca9130faeb4a8d0254808ea4327d56209819dce61015923d",
+      "scope": "Independent synthetic evidence-reader adversarial controls; copied native fixture only, no new native run.",
+      "checks": 8,
+      "all_passed": true
+    },
+    {
+      "file": "work/ihp-cmim-independent-review/actual-reader-findings-f826a4625a2d.json",
+      "sha256": "ab86e5082e1bdf3ecf2f99687665f3c0935309bec14c5310dcdbade38ce4fb39",
+      "scope": "Historical native evidence reused only for semantic mutation review. Source-identity guard explicitly mocked to its original historical value; not final native acceptance.",
+      "checks": 2,
+      "all_passed": true
+    }
+  ],
+  "compatibility": {
+    "single_unit_schema": 1,
+    "parallel_schema": 2,
+    "single_unit_schema1_fields_and_values_unchanged": true
+  },
+  "limits": [
+    "Finite source integration only; no family or installed parallel acceptance.",
+    "Floating internal SUB and original native warnings retained; no unique physical DC operating point asserted.",
+    "No calibrated PEX, model-validity or operating-envelope claim.",
+    "General hierarchy, aliases, mixed devices, arbitrary arrays, contact/enclosure coverage and statistical validation remain open."
+  ],
+  "retained_evidence": {
+    "windows": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\cmim-parallel-native3\\evidence",
+    "native_linux": "/var/tmp/icstudio-cmim-parallel-20261107-native3/evidence"
+  },
+  "cross_host_affected_tests": "Root integration records the final broader Windows/nativeLinux source-feedback tests separately."
+}

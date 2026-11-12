@@ -1,0 +1,18 @@
+{
+  "description": "Studio-generated native Magic extraction records for the same 7 µm by 7 µm IHP MiM saved-bench input. The original hierarchy-on and diagnostic hierarchy-off SPICE files came from separate runs. The product runs both exports in one invocation.",
+  "technology": {
+    "package": "ihp-sg13g2 cfb96b74cf33877e",
+    "repository": "https://github.com/IHP-GmbH/IHP-Open-PDK",
+    "upstream_commit": "5e6d592e4002946a4616f798c357f0f3c06cf3b6",
+    "attribution": "IHP GmbH and IHP Open PDK contributors",
+    "license": "Apache-2.0",
+    "magic_technology_sha256": "394b38e5d05bf999c1cdcd15df2672463902f51762edaa90052f455866bc5e3e"
+  },
+  "engine": "Magic 8.3.684",
+  "members": {
+    "coupon.ext": "3716d89e1d16877efc932b553907569d65a190d686eed9eb269f0d16a07efa0b",
+    "hierarchical.spice": "e55958863c1e2fcf2d52a73a0074bcc450b99623ad9c64a3bb856951751fb3d7",
+    "flat.spice": "92f37a00653fecf7614d1177a55434ae2a7fd5f81838029c4796060a40455e3f",
+    "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+  }
+}

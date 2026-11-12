@@ -19,7 +19,17 @@ class PDKScanThread(QThread):
 
 class ProjectMixin:
     def make_analysis_panel(self):
-        page=super().make_analysis_panel();self.corner_combo=QComboBox();self.corner_combo.setAccessibleName('PDK model corner');page.widget().layout().insertWidget(1,QLabel('PDK model corner'));page.widget().layout().insertWidget(2,self.corner_combo);self.corner_combo.activated.connect(self.select_corner);return page
+        page=super().make_analysis_panel();self.corner_combo=QComboBox();self.corner_combo.setAccessibleName('PDK model corner');page.widget().layout().insertWidget(1,QLabel('PDK model corner'));page.widget().layout().insertWidget(2,self.corner_combo);self.corner_combo.activated.connect(self.select_corner)
+        self.ihp_cap_corner_button=QPushButton('Enable IHP capacitor-only corners');self.ihp_cap_corner_button.setToolTip('Adds project-local capacitor selections; other model libraries use nominal sections.');self.ihp_cap_corner_button.clicked.connect(self.enable_ihp_capacitor_corners);page.widget().layout().insertWidget(3,self.ihp_cap_corner_button);return page
+    def enable_ihp_capacitor_corners(self):
+        if not self.flush_inspector():return
+        try:
+            from .native_spice import native
+            if native(self.project):raise ValueError('Capacitor-only corners require a catalog-backed schematic.')
+            from .ihp_capacitor_corners import add_profiles
+            technology=add_profiles(self.project['pdk'])
+            if technology!=self.project['pdk']:self.commit(lambda p:p.update(pdk=technology),'Enable project-local capacitor corners')
+        except (OSError,ValueError,KeyError) as exc:self.error(str(exc))
     def select_corner(self,index):
         value=self.corner_combo.itemData(index)
         if value and self.flush_inspector():self.commit(lambda p:p['analysis'].update(corner=value),'Model corner')
@@ -59,8 +69,13 @@ class ProjectMixin:
         if hasattr(self,'corner_combo'):
             self.corner_combo.setEnabled(True)
             sets=[set(i['sections']) for i in self.project['pdk'].get('simulation',{}).get('includes',[]) if i.get('sections')];corners=sorted(set.intersection(*sets)) if sets else ['nominal'];self.corner_combo.blockSignals(True);self.corner_combo.clear()
-            for corner in corners:self.corner_combo.addItem(corner,corner)
+            from .ihp_capacitor_corners import labels
+            local_labels=labels(self.project['pdk'])
+            for corner in corners:self.corner_combo.addItem(local_labels.get(corner,corner),corner)
             self.corner_combo.setCurrentIndex(max(0,self.corner_combo.findData(self.project['analysis'].get('corner','nominal'))));self.corner_combo.blockSignals(False)
+        if hasattr(self,'ihp_cap_corner_button'):
+            from .native_spice import native
+            self.ihp_cap_corner_button.setVisible(not native(self.project) and self.project['pdk'].get('package_lock',{}).get('id')=='ihp-sg13g2')
         if hasattr(self,'analysis_caption'):
             self.analysis_caption.setText('Linked PDK models require ngspice. Select a model corner above.' if self.project['pdk'].get('package_lock') else 'Generic circuit models. Configure external engines in Tools → Engine diagnostics.')
     def tree_clicked(self,item,col=0):
@@ -170,11 +185,20 @@ class ProjectMixin:
                 edit.setPlaceholderText(str(meta['default']));edit.setToolTip('Blank restores the PDK default: '+str(meta['default']))
             effective=QLabel();effective.setWordWrap(True);effective.setAccessibleName('Resolved PDK parameter values');effective.setTextInteractionFlags(Qt.TextSelectableByMouse);section.form.addRow('Resolved values',effective)
             fields={k:w for k,w in self.form_fields.items() if k.startswith('modelparam:') or k in ('param:w','param:l')}
+            for key,rule in binding.get('parameters',{}).items():
+                field=fields.get(('param:' if d['kind'] in ('NMOS','PMOS') and key in ('w','l') else 'modelparam:')+key)
+                if field is not None and 'fixed' in rule:
+                    field.setReadOnly(True)
+                    field.setToolTip('Fixed model geometry. This public model does not support scaling '+key+'.')
+                elif field is not None and rule.get('computed'):
+                    field.setReadOnly(True)
+                    field.setToolTip('Calculated from the other PDK parameters. Edit those dimensions to change this value.')
             def preview_parameters():
                 from .catalog import parameter_details
                 candidate=clone(d)
                 try:
                     for key,edit in fields.items():
+                        if key.startswith('modelparam:') and binding['parameters'][key[11:]].get('computed'):continue
                         raw=edit.text().strip()
                         if key.startswith('param:'):candidate['params'][key[6:]]=raw
                         elif raw:candidate.setdefault('model_params',{})[key[11:]]=raw
@@ -203,6 +227,7 @@ class ProjectMixin:
         def apply():
             try:
                 if self.process:raise ValueError('Stop the active job before changing project technology.')
+                if not self.flush_inspector():raise ValueError('Resolve pending property edits before saving project settings.')
                 key=pdk.currentData();tech=self.project['pdk'] if key=='current' else self.pdk_registry.technology(key) if key else example('empty')['pdk']
                 def edit(p):
                     p.update(name=name.text().strip(),top=root.currentData())
@@ -224,9 +249,11 @@ class ProjectMixin:
         def open_selected():
             if not items.currentItem():return
             try:
-                path=items.currentItem().data(Qt.UserRole)['path'];p=load_project(path)
+                path=items.currentItem().data(Qt.UserRole)['path'];load_project(path)
                 if self.process:raise ValueError('Stop the active job before switching projects.')
-                if self.flush_inspector() and self.maybe_save():self.set_project(p,path);dlg.accept()
+                if self.flush_inspector() and self.maybe_save():
+                    # A save can update this same file while the prompt is open.
+                    if self.set_project(load_project(path),path) is not False:dlg.accept()
             except Exception as e:error.setText(str(e))
         def remove():
             if items.currentItem():self.project_index.forget(items.currentItem().data(Qt.UserRole)['path']);fill()
@@ -357,6 +384,7 @@ class ProjectMixin:
         if not ok:return
         ports,ok=QInputDialog.getText(self,'Symbol terminals','Space-separated terminal names',text='in out vdd vss')
         if not ok:return
+        if not self.flush_inspector():return
         from .symbol_editor import default_symbol
         c={'id':uid(),'name':name.strip(),'ports':ports.split(),'devices':[],'shapes':[],'symbol':default_symbol(ports.split())};self.commit(lambda p:p['cells'].append(c),'Create symbol cell');self.cid=c['id'];self.selection=[];self.refresh();self.symbol_dialog()
     def edit_selected_symbol(self):
@@ -375,6 +403,7 @@ class ProjectMixin:
         project_id=self.project['id'];cid=self.cid if device_id else cell['id']
         def save(symbol):
             if self.project['id']!=project_id:raise ValueError('The symbol belongs to a different project.')
+            if not self.flush_inspector():raise ValueError('Resolve pending property edits before saving.')
             def edit(p):
                 c=next(c for c in p['cells'] if c['id']==cid)
                 if device_id:next(d for d in c['devices'] if d['id']==device_id)['symbol']=symbol

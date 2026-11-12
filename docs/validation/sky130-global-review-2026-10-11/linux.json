@@ -1,0 +1,29 @@
+{
+  "schema": 1,
+  "status": "partial-rule-execution-audited",
+  "qualified": false,
+  "chunk_complete": false,
+  "platform": "linux",
+  "tests": 106,
+  "skipped": 0,
+  "data_sha256": "42ea740e5c4603bd90d86f0d68e0d573cd9b9f42b8dddb15df65e2f5eae68508",
+  "log_sha256": "f4285560ab8d26e44fba19cdcec16b4ee0a94acb529b2b948963325bc60eb2d6",
+  "driver_sha256": "95dacf6e2c8e588227f69579a05b58c3e3eb8bcd7361572363f3d9128a89c029",
+  "source_files": {
+    "scripts/sky130_raw_feol.py": "6a33521ce2ab76ca36a7eeda95d4b1018213e06eb9cd4ff2a895f05bf82d007c",
+    "scripts/sky130_low_voltage_geometry.py": "7751ceb802aafcfbb2e18b1068c2c641d422992c78ce6fc522c0915c62de3690",
+    "scripts/sky130_interconnect_geometry.py": "95c6bb9a5d5dafd6e54248349595310e501ac1c5d5ab5f42164fab5bd0713b34",
+    "scripts/sky130_wide_metal.py": "e804ee01d9516e58575f9a97be2bb012fae3b09331ee5385d5d0481389a3749a",
+    "scripts/sky130_global_geometry.py": "08c6fdb4bfccfd3dbb135171d9897d9cbdc23e9f58d3177ebedbd1ad103f9260",
+    "docs/qualification/sky130-layer-purposes.json": "3ccb42d63e7bbbe0c793c4541cc51c979c914588089793ab144c36fff3d673fb",
+    "scripts/sky130_rule_execution.py": "d8e85c3861074888a461fbcf6a7a402eade9bb2a077fed5125e251dbf66b5769",
+    "scripts/sky130_block_applicability.py": "d7deab0c481faa2e24b9e218a2879f268a30af9ec3b116bb7a741855d292ae3c",
+    "tests/test_sky130_raw_feol.py": "df2f3a922135004ffa3523fa59c9570a4d060a19a33ef853443df6f3f5ad917e",
+    "tests/test_sky130_block_applicability.py": "094ef2418bfb4fa975964b3bf06bd69cb24f08314cb5678448b2c943b74e3f55",
+    "tests/test_sky130_low_voltage_geometry.py": "ea46325424cb3c1f774ee0f688a74756231fbedae290fc4529214617c6b9ac58",
+    "tests/test_sky130_interconnect_geometry.py": "f20e78eb16afec8e79b8b760de4c8b65368337b74467881eef735a9df3934e6c",
+    "tests/test_sky130_wide_metal.py": "979093a310b9090a7cd7ef26236539832b9e18b84c4ff47202d8fcc16547bff9",
+    "tests/test_sky130_global_geometry.py": "aac28443e01abce96bd08aeea60e546ce08dabe2dee737172a65b1d0a11e31ec",
+    "tests/test_sky130_rule_execution.py": "dcd8b0a27db3ac3c0561108e6173b01291b4879fa3333f98bad1942f69c40556"
+  }
+}

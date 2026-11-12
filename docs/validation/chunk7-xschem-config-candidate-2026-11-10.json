@@ -1,0 +1,40 @@
+{
+  "actual_pinned_sources_read": 3,
+  "auditor_integration": false,
+  "base_commit": "d119d88f8ea5a31abd8804cf8a4c8dbf5545d918",
+  "chunk_complete": false,
+  "date": "2026-11-10",
+  "facts": 110,
+  "full_inventory_rerun": false,
+  "implementation_and_fixture_sha256": {
+    "docs/qualification/xschem-config-facts-v1/1.json": "72991d70df87f9dbbe9dae998b5faf9624e7d572b84aa6a43604b73a46e58b88",
+    "docs/qualification/xschem-config-facts-v1/2.json": "59e08c9e2ff4df8b6cffedc04f7080577cf2adac5c94b5df705dff723312b651",
+    "docs/qualification/xschem-config-facts-v1/3.json": "03dca4d03218dd3b938e1054d65f5317c42d02c4cb1c52f0e5b829d25750d691",
+    "docs/qualification/xschem-config-facts-v1/README.md": "ccefa5cf670a664e41d9eea5f25f3d0d800dbec1ba74ba5e933311c4fcaa0eff",
+    "docs/qualification/xschem-config-facts-v1/source-lock.json": "1c86478107e50c967926636e8a1c729e79180974a0a04cc007316828d91cfb7d",
+    "scripts/inventory_xschem_configs.py": "36aeeddd2c36b3c49e6a7c67a9518a4c79cdf063717f741dc30e3941566848cc",
+    "tests/test_xschem_configs.py": "91b5e6e82deba8581948f6f7cfbc5e303c803875fda0a2c565af3904a003e038"
+  },
+  "inventory_complete": false,
+  "qualified": false,
+  "remaining": {
+    "current_verified_inventory_gaps": 101,
+    "ihp_configuration": "Excluded: existing Tcl reader does not enumerate its literal Tk button callback, including stdcell_sym_type assignments at lines 516 and 519.",
+    "license": "Root Apache-2.0 notices were inspected; no headerless Xschem-derived upstream prose/code is redistributed. Only declarations/fingerprints are retained.",
+    "menus": "Both GF180 and IHP xschem-menu inputs remain unsupported; the quoted-word parse failure is not relaxed."
+  },
+  "schema": 1,
+  "scope": "Three exact GF180 extensionless Xschem configurations, 110 static declaration facts. No upstream source execution or runtime dependency resolution; no source-gap count change before audit integration and complete replay.",
+  "source_lock": "docs/qualification/xschem-config-facts-v1/source-lock.json",
+  "status": "PASS_BOUNDED_THREE_SOURCE_REPLAY_NOT_INTEGRATED",
+  "upstream_raw_source_redistributed": false,
+  "validation": {
+    "command": "ICSTUDIO_SOURCE_CACHE=<authenticated-cache> PYTHONPATH=tests python -m unittest test_xschem_configs test_source_configs test_source_dispositions -v",
+    "independent_readback": "Every variable assignment operation/name hash/source line and every source dependency expression hash/source line independently compared against simple raw-line scans of the three inspected sources. All 110 facts exactly match retained fact-only fixtures. Original length/Git blob/SHA256 identities verified.",
+    "log_sha256": "0150778513d48023e01c585df6b36817a9170fde824c07d7ed69d2c9c5f4b087",
+    "seconds": 0.028,
+    "source_cache_enabled": true,
+    "source_cache_skips": 0,
+    "tests": 77
+  }
+}

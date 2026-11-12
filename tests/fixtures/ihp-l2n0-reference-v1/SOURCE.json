@@ -1,0 +1,82 @@
+{
+  "schema": 1,
+  "repository": "https://github.com/IHP-GmbH/IHP-Open-PDK",
+  "commit": "943983786b04351feb20e33e8d3d76c0e0d87cce",
+  "license": "Apache-2.0",
+  "files": [
+    {
+      "file": "LICENSE",
+      "upstream_path": "LICENSE",
+      "git_blob": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "bytes": 11357,
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/943983786b04351feb20e33e8d3d76c0e0d87cce/LICENSE"
+    },
+    {
+      "file": "UPSTREAM.md",
+      "upstream_path": "ihp-sg13g2/libs.tech/openems/README.md",
+      "git_blob": "4068dd2877c0aa2e6f63bcb7ced06059bab89c89",
+      "sha256": "d79f65bada226ecf412f2d77eb241b22ff5a45053c10d12d513babd7faf9f6fe",
+      "bytes": 6350,
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/943983786b04351feb20e33e8d3d76c0e0d87cce/ihp-sg13g2/libs.tech/openems/README.md"
+    },
+    {
+      "file": "L_2n0.gds",
+      "upstream_path": "ihp-sg13g2/libs.tech/openems/testcase/SG13_Octagon_L2n0/gds/L_2n0.gds",
+      "git_blob": "ce13a94fc20e864d2af1fca4a421734d0ad155b9",
+      "sha256": "26c2a90e4952d632998ccc4ed2f1eac0baf4f187dd9b7dd179fce1f414319edf",
+      "bytes": 12288,
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/943983786b04351feb20e33e8d3d76c0e0d87cce/ihp-sg13g2/libs.tech/openems/testcase/SG13_Octagon_L2n0/gds/L_2n0.gds"
+    },
+    {
+      "file": "L_2n0_simplified.gds",
+      "upstream_path": "ihp-sg13g2/libs.tech/openems/testcase/SG13_Octagon_L2n0/gds/L_2n0_simplified.gds",
+      "git_blob": "17d7eeebbca5e4f5b65bf1a28aeda292ef43a5f0",
+      "sha256": "4a8adee639a25b27023f093a1941e244ef93217a068219947b923cb32db72016",
+      "bytes": 2048,
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/943983786b04351feb20e33e8d3d76c0e0d87cce/ihp-sg13g2/libs.tech/openems/testcase/SG13_Octagon_L2n0/gds/L_2n0_simplified.gds"
+    },
+    {
+      "file": "diffmeas_L3_2n0_THRU_deemb_GSGSG_PQD701W03Cx2y7.s1p",
+      "upstream_path": "ihp-sg13g2/libs.tech/openems/testcase/SG13_Octagon_L2n0/measured/diffmeas_L3_2n0_THRU_deemb_GSGSG_PQD701W03Cx2y7.s1p",
+      "git_blob": "8a3828211eebe278076b72f7a64157366ee49a82",
+      "sha256": "9ad00b33b9f6ce7c6605e6f95fa11421f1a1a8d578ea96d60bbaf5a16409babe",
+      "bytes": 28627,
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/943983786b04351feb20e33e8d3d76c0e0d87cce/ihp-sg13g2/libs.tech/openems/testcase/SG13_Octagon_L2n0/measured/diffmeas_L3_2n0_THRU_deemb_GSGSG_PQD701W03Cx2y7.s1p"
+    },
+    {
+      "file": "diffmeas_L3_2n0_THRU_deemb_GSGSG_PQD701W03Cx5y8.s1p",
+      "upstream_path": "ihp-sg13g2/libs.tech/openems/testcase/SG13_Octagon_L2n0/measured/diffmeas_L3_2n0_THRU_deemb_GSGSG_PQD701W03Cx5y8.s1p",
+      "git_blob": "064a528343c331970cd71453bd926640c58e4d32",
+      "sha256": "15882ab76944acf0c868724ba8d6a262270c0aedf08f76219006cbeb3de197dd",
+      "bytes": 28627,
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/943983786b04351feb20e33e8d3d76c0e0d87cce/ihp-sg13g2/libs.tech/openems/testcase/SG13_Octagon_L2n0/measured/diffmeas_L3_2n0_THRU_deemb_GSGSG_PQD701W03Cx5y8.s1p"
+    },
+    {
+      "file": "meas_L3_2n0_THRU_deemb_GSGSG_PQD701W03Cx2y7.S2P",
+      "upstream_path": "ihp-sg13g2/libs.tech/openems/testcase/SG13_Octagon_L2n0/measured/meas_L3_2n0_THRU_deemb_GSGSG_PQD701W03Cx2y7.S2P",
+      "git_blob": "c1a07d5366066733d32e64c61e2c5deb4ca27da0",
+      "sha256": "4a1febb9a4f2d0054c63ee800e57b2114bce8e44db642cf5b6ccb5f6c0739721",
+      "bytes": 34732,
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/943983786b04351feb20e33e8d3d76c0e0d87cce/ihp-sg13g2/libs.tech/openems/testcase/SG13_Octagon_L2n0/measured/meas_L3_2n0_THRU_deemb_GSGSG_PQD701W03Cx2y7.S2P"
+    },
+    {
+      "file": "meas_L3_2n0_THRU_deemb_GSGSG_PQD701W03Cx5y8.S2P",
+      "upstream_path": "ihp-sg13g2/libs.tech/openems/testcase/SG13_Octagon_L2n0/measured/meas_L3_2n0_THRU_deemb_GSGSG_PQD701W03Cx5y8.S2P",
+      "git_blob": "eaae39eb6b7ccf652495f991370898fd2b1bb83a",
+      "sha256": "34ba71b0986d30a0941b3b50f38a7e8b2dec363ff1ba9f4e777dfc02e232f944",
+      "bytes": 34781,
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/943983786b04351feb20e33e8d3d76c0e0d87cce/ihp-sg13g2/libs.tech/openems/testcase/SG13_Octagon_L2n0/measured/meas_L3_2n0_THRU_deemb_GSGSG_PQD701W03Cx5y8.S2P"
+    }
+  ],
+  "attribution": "IHP PDK Authors; original file bytes and upstream notices retained.",
+  "scope": "Unmodified public L2n0 two-die measurements, upstream differential exports and original/simplified layouts. No new solver execution, catalog model binding, calibrated uncertainty or full-device acceptance.",
+  "discovery": "https://github.com/milanofthe/em-reference-suite/tree/0885e604e9af168e3a44e81626b3b127362787d9/cases/ihp_sg13g2_l2n0",
+  "limitations": [
+    "The two measured die responses are retained separately; two dies do not define process statistics.",
+    "The source does not supply a complete uncertainty budget, de-embedding standards, or a validated full operating envelope.",
+    "The single-ended substrate reference and actual measured substrate/backside conditions remain unresolved.",
+    "Original layout has 144 TopVia2 polygons; the simplified view has four. Neither view is silently substituted for the other.",
+    "The supplied one-port exports differ from complex-Z interpolation of the two-port data, especially near resonance. Both sources are retained without declaring equivalence."
+  ]
+}

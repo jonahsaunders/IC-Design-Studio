@@ -1,0 +1,238 @@
+{
+  "schema": 1,
+  "date": "2026-11-10",
+  "base_commit": "eb0018c9c024588358b3f4f12f0af6a0581da937",
+  "status": "REVIEWED_STANDALONE_ARITHMETIC_NOT_COMPILER_OR_DEVICE_ACCEPTANCE",
+  "qualified": false,
+  "chunk_complete": false,
+  "installed_acceptance": false,
+  "candidate_changed": false,
+  "model_changed": false,
+  "runtime_replaced": false,
+  "circuit_runs": 0,
+  "purpose": "Investigate cancellation during assembly of actual cached solver RHS. Improve product/sum arithmetic without assuming ideal affine behavior, matched cache epochs or matched load/evaluation vectors.",
+  "reference": {
+    "status": "REFERENCE_ARITHMETIC_ONLY_PENDING_INDEPENDENT_REVIEW",
+    "target": "Exact real sum of supplied binary64 cached J_i times supplied binary64 load x_i, minus supplied cached residual, plus supplied limiter. No assumption of same epochs/vectors, affine law or ideal zero.",
+    "algorithm": [
+      "TwoProd: p=RN(a*b); e=FMA(a,b,-p). Within guarded bounds, p+e equals exact product.",
+      "Insert each low/high product component then -residual and limiter into zero-eliminating grow expansion using general TwoSum, not FastTwoSum. Every addition replaces two terms by an exact two-term sum. Final expansion sums EXACTLY to actual cached-expression target.",
+      "Return expansion and a sequentially summed estimate with explicit conservative absolute bound gamma_n*sum(abs(expansion)), gamma_n=n*u/(1-n*u), u=2^-53. No correctly-rounded estimate claim."
+    ],
+    "domain": {
+      "max_row_entries": 64,
+      "input_magnitudes": "Each nonzero input in [2^-200,2^200], all binary64 finite; positive zero allowed. Negative zero input falls back to preserve legacy signed-zero semantics.",
+      "environment": "IEEE binary64 round-to-nearest ties-even, no FTZ/DAZ, no fast-math/reassociation, true fused multiply-add. Python reference assumes standard RN operations; nearest_even argument is test contract, NOT a native fenv detector. Native adapter must actually verify/set permitted environment or fallback.",
+      "fallback": "Outside domain/rowcap/environment => status fallback with no compensated value. Actual caller must invoke unchanged original loader, not clip values or substitute zero. Dimension mismatch is malformed input error."
+    },
+    "proof": [
+      "Every input is an integer multiple of 2^-252. Exact products therefore lie on lattice 2^-504; representable rounded products/errors and all TwoSum intermediates stay on that lattice. Any nonzero exact cancellation result is at least 2^-504, safely normal. No underflow or subnormal operation is needed in accepted domain.",
+      "Products have magnitude <=2^400; at most130 components are inserted. Input component absolute sum <2^408. A TwoSum pair has absolute sum <=(1+2u)*(abs(a)+abs(b)); fewer than17000 pair operations grow this bound by <2. Thus component/partial totals <2^409 and internal differences <2^411, far below overflow. FMA product residual is exactly representable under these normal bounds.",
+      "General TwoSum theorem then gives exact pair sums; induction over component insertions proves exact expansion target. Length <=2*n+2, no fixed truncation.",
+      "Sequential estimate has standard n-addition forward error <=gamma_n*sumabs, with no overflow/underflow by same lattice/range argument. Bound is computed as exact Fraction in reference. A native outward-rounded bound implementation would need separate review; no threshold acceptance is tied to it here."
+    ],
+    "reference_fma": "Python3.12 lacks math.fma in this environment. reference_fma computes exact Fraction(a)*Fraction(b)+Fraction(c), then converts once to binary64. This is a reference oracle, NOT an emitted FMA instruction or native performance/correctness validation.",
+    "illustrative_gate": {
+      "conductance": "source-derived100.966166859S",
+      "voltages": "retained sampled VG=-1.124,GP=-1.1239999999412742",
+      "residual": "constructed binary64 g*(VG-GP), NOT captured native residual",
+      "legacy_order_value": "-6.6883088844752105e-15",
+      "expansion": [
+        -2.757352853673316e-25
+      ],
+      "estimate": "-2.757352853673316e-25",
+      "bound": "10923/356811923176489930650490235230204987323711488",
+      "interpretation": "Actual cached-expression target is nonzero, unlike ideal homogeneous affine law. No promise of1e-16 accuracy/convergence or cure for full device run."
+    },
+    "tests": {
+      "passed": 17,
+      "random_exact_rows": 250,
+      "initial_failure": "Random test generator originally emitted values below allowed domain and correctly got fallback. Retained initial log; generator corrected to bounded signed mantissas. Kernel unchanged."
+    },
+    "native_runs": 0,
+    "compiler_changes": 0,
+    "candidate_changes": 0,
+    "provenance": [
+      {
+        "path": "/workspace/shared/ihp-psp-compensated-rhs-prototype/kernel.py",
+        "sha256": "ba53485c605098c6f5fbb1a3fadacd00aea30b7da42f5cf238caddc6d53bda58"
+      },
+      {
+        "path": "/workspace/shared/ihp-psp-compensated-rhs-prototype/test_kernel.py",
+        "sha256": "3845c0fddf6337e5d77f0ffed2ac2688fd91b0e4d0901ad1c99fb4d483d1b2bf"
+      },
+      {
+        "path": "/workspace/shared/ihp-psp-compensated-rhs-prototype/test.log",
+        "sha256": "c03191d212d9a64c15a3b39b98bb8b35e0aa46a08514484bd5c59392f9d0afce"
+      },
+      {
+        "path": "/workspace/shared/ihp-psp-first-equation-investigation/result.json",
+        "sha256": "c8ff60b4ce62220b14505b82f57997fae452079f6caaa33ddedbeaa83bf057db"
+      },
+      {
+        "path": "/workspace/shared/ihp-psp-affine-source-review/analysis.json",
+        "sha256": "4cc89da380852753e491f920f196202235b933f4711e3c797fba96d7c9430a59"
+      }
+    ]
+  },
+  "native": {
+    "status": "STANDALONE_NATIVE_KERNEL_TESTED_NOT_COMPILER_OR_CIRCUIT_INTEGRATION",
+    "build_command": "gcc -std=c11 -O2 -fPIC -shared -fno-fast-math -ffp-contract=off -frounding-math -fexcess-precision=standard -fno-builtin-fma -Wall -Wextra -Werror kernel.c -lm -o libkernel.so",
+    "compiler_version": "gcc (Debian 14.2.0-19) 14.2.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.",
+    "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+    "tests": {
+      "passed": 17,
+      "exact_random_rows": 500,
+      "seconds": 0.192,
+      "coverage": "12 exception-mask guard-only probes in isolated subprocess, restoration verified; absent-limiter NaN/negativezero ignored exactly; actual rounding modes upward/downward/towardzero and separate MXCSR rounding/FTZ/DAZ changes all fallback and restored; exact Fraction expansion/bound, signed zeros/products/zero output, optional absence, cap64, invalid/subnormal/domain extremes, stale epochs/vector, limiter, opposite-row conservation"
+    },
+    "generated_code": {
+      "fma": "Actual call to fma@plt retained; ELF undefined fma@GLIBC_2.2.5 resolved by recorded libm. No hardware FMA assumption.",
+      "two_sum": "Disassembly preserves addsd then distinct subsd chain then addsd error reconstruction; -fno-fast-math and -ffp-contract=off prevent reassociation/contraction.",
+      "environment": "fegetround plus x86_64 MXCSR FTZ/DAZ AND rounding bits checked. Non-Linux or unsupported architecture falls back. Strict binary64 compile constants required."
+    },
+    "arithmetic_contract": "Reviewed exact expansion and domain proof from reference specification apply; native returns expansion plus sequential estimate. Fraction harness verifies exact actual cached-expression expansion and gamma_n sumabs estimate error. No floating error bound computed by C and no correctly-rounded estimate claim.",
+    "fallback_contract": "Nonzero status returns count0 and NaN estimate, no compensated value. Original callback must be invoked by future adapter; this standalone kernel does not implement or approximate host fallback. Absent residual or empty contribution row falls back. Absent limiter skips validation AND insertion entirely, never synthesized as +0. Negative-zero inputs/products and zero final estimate fall back. Optional native callback semantics are not certified by this harness.",
+    "caveats": [
+      "This does not fix OpenVAF or a circuit. Model/runtime/candidate unchanged; no circuit run.",
+      "Preservation of floating-point exception flags is not claimed: extra exact-arithmetic operations/fma may set inexact flags. Future callback integration must establish host exception-environment contract.",
+      "Caller must provide valid arrays and output pointer with stated lengths; malformed pointers are outside standalone C ABI contract.",
+      "Source-level guards and exact arithmetic tests are not proof against all compiler/platform behaviors; identities and generated instructions retained for this specific build."
+    ],
+    "reference_spec": {
+      "path": "/workspace/shared/ihp-psp-compensated-rhs-prototype/specification.json",
+      "sha256": "dd9331f42af7d0bcdc5218ede839c16846c20ef7f4c0c28b3ed3f445b3eae35e"
+    },
+    "identities": [
+      {
+        "path": "/workspace/shared/ihp-psp-compensated-rhs-native/kernel.c",
+        "bytes": 5083,
+        "sha256": "a100f8f8cf1b7223726915210cb544dc8e9d676057b772923c2cc5edf7c93ffb"
+      },
+      {
+        "path": "/workspace/shared/ihp-psp-compensated-rhs-native/test_native.py",
+        "bytes": 5279,
+        "sha256": "9bf39c7375761897c6d815d249873d62b76c7385560f88397a3fe123472164fc"
+      },
+      {
+        "path": "/workspace/shared/ihp-psp-compensated-rhs-native/libkernel.so",
+        "bytes": 15880,
+        "sha256": "9811e55c6166866be76460c8593a8cd89a28d7a6eff348f96ac9c31744d8f2a1"
+      },
+      {
+        "path": "/workspace/shared/ihp-psp-compensated-rhs-native/build.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "/workspace/shared/ihp-psp-compensated-rhs-native/test.log",
+        "bytes": 1435,
+        "sha256": "119285c1fd7d31301d94a1624fbae3efd1340d5b3b23c57b6f6fea48d6c64f4a"
+      },
+      {
+        "path": "/workspace/shared/ihp-psp-compensated-rhs-native/disassembly.txt",
+        "bytes": 28542,
+        "sha256": "d669fd4bd3315687d9ab747588571689f4e7ef80db634f6992536dcb49439485"
+      },
+      {
+        "path": "/workspace/shared/ihp-psp-compensated-rhs-native/elf.txt",
+        "bytes": 5806,
+        "sha256": "1e8686db15efcc23c935daff267bd3a326f34370ba903ba1c5c442d1b4931c62"
+      },
+      {
+        "path": "/workspace/shared/ihp-psp-compensated-rhs-native/dependencies.txt",
+        "bytes": 222,
+        "sha256": "588457664da618282dd34c98a3c899b0562e32362586179e025843af966d6b33"
+      },
+      {
+        "path": "/usr/bin/x86_64-linux-gnu-gcc-14",
+        "bytes": 1162264,
+        "sha256": "a23ecab8ff08f09ad8c80602c2c5df7f49e09c25905cb8975902e101bf72635f"
+      },
+      {
+        "path": "/usr/libexec/gcc/x86_64-linux-gnu/14/cc1",
+        "bytes": 34148896,
+        "sha256": "02675980109a4a5496cddf67d5286de57942759edc830deaa525e36f9a2a0291"
+      },
+      {
+        "path": "/usr/bin/x86_64-linux-gnu-ld.bfd",
+        "bytes": 1861256,
+        "sha256": "d2766988b6a1b1d1518cdc09242e726d1f24e151e16410ada3092b11ffd9081b"
+      },
+      {
+        "path": "/usr/lib/x86_64-linux-gnu/libm.so.6",
+        "bytes": 977112,
+        "sha256": "6d567d53e895273ca14a1f9dc164fc6c8d39aed2f60aa46a733c2784228915f3"
+      },
+      {
+        "path": "/usr/lib/x86_64-linux-gnu/libc.so.6",
+        "bytes": 1995216,
+        "sha256": "9792e3cbb541c8f44c7acf5f14f4022ea62998ecc787d326bed4d8b6547dfd92"
+      },
+      {
+        "path": "/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2",
+        "bytes": 225672,
+        "sha256": "c8438e4fde1934e61c88311633f00949ff645d5c04cdb8671fa3d78164d2f307"
+      }
+    ],
+    "circuit_runs": 0,
+    "candidate_edits": 0,
+    "initial_build": {
+      "path": "/workspace/shared/ihp-psp-compensated-rhs-native/initial-build",
+      "evidence_sha256": "743d3de021f09b1084e849c9b22e394afce3589e03a3958a5226c390da756524"
+    },
+    "review_corrections": [
+      "Exception masks guarded before arithmetic",
+      "Absent limiter omitted, not synthesized"
+    ]
+  },
+  "independent_review": {
+    "status": "INDEPENDENT_STANDALONE_KERNEL_REVIEW_PASS_SOURCE_ONLY_ADAPTER_PREPARATION_NOT_EXECUTABLE_CLEARANCE",
+    "evidence_sha256": "6aaafab1700f734aed5bbf1424de3f72343c4beccdfd10becc0d2ec7fb84a779",
+    "initial_evidence_sha256": "743d3de021f09b1084e849c9b22e394afce3589e03a3958a5226c390da756524",
+    "all_retained_identities_verified": true,
+    "independent_tests": {
+      "passed": 17,
+      "exact_fraction_random_rows": 500,
+      "seconds": 0.183
+    },
+    "checks": [
+      "Both x87 six exception masks and MXCSR six masks tested before FP operand classification in generated code. Nearest rounding, FTZ/DAZ guards retained.",
+      "Absent limiter skips validation and insertion, residual required and n>0. Exact-zero result uses original fallback.",
+      "Real fma@plt and separate TwoSum addsd/subsd chain retained.",
+      "Initial evidence archived unchanged."
+    ],
+    "source_authoring_scope": "Separate exact-pinned compiler copy, default-off Linux x86_64 only. No candidate edits, descriptor/eval/cache/model changes or model/circuit use. Preserve raw row read order, optional branches/no-store, original fallback, multiplicity and reactive path.",
+    "executable_clearance_pending": [
+      "Pinned-Clang strict bitcode and optimized linked code review including IPO/LTO/FMF isolation.",
+      "Adapter tests proving fallback/optional absence/no-store, correct raw input capture and feature-off original behavior.",
+      "Resolve/authenticate libm and environment behavior in actual linked model/consumer.",
+      "Exception-status flags not preserved by proof; destination accumulation outside row error bound; no convergence promise."
+    ],
+    "compiler_edits": 0,
+    "circuit_runs": 0
+  },
+  "artifact": {
+    "path": "docs/validation/artifacts/ihp-pmos-compensated-rhs-arithmetic-2026-11-10.zip",
+    "sha256": "f47875a849516f0c12d57957360dfbe07edfd8471309ab38db060ceade226af7",
+    "bytes": 47113,
+    "payload_files": 26,
+    "zip_entries": 27,
+    "omissions": [
+      "Native shared objects, compiler/libm/libc/loader binaries and pristine compiler source are identity-bound in evidence but not bundled. Rebuilding requires the recorded toolchain/libraries.",
+      "Compiler adapter source work is separate, unfinished and not included."
+    ]
+  },
+  "next_gates": [
+    "Complete separate source-only default-off Linux x86_64 adapter and independent source review.",
+    "Finish authenticated exact LLVM15.0.7/pristine pinned OpenVAF build.",
+    "Verify pinned-Clang helper and optimized linked instructions, original feature-off equivalence, optional/fallback/no-store adapter semantics and actual resolved dependencies before any model/circuit experiment.",
+    "Any later circuit diagnostic must retain exact baseline comparison and unchanged model equations/tolerances/deadlines; no convergence or calibration result is established here."
+  ],
+  "unchanged_external_gates": [
+    "Four unavailable exact model bindings.",
+    "Missing measurement uncertainty/held-out provenance and complete operating/reliability applicability.",
+    "Broader physical/process/family and exact installed acceptance remain separately required."
+  ],
+  "historical_record_handling": "The embedded reference specification and initial native build retain their original pre-review status text and hashes. The later independent_review governs the corrected standalone native result; no historical record is relabelled."
+}

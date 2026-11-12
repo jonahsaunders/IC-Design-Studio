@@ -1,0 +1,314 @@
+{
+  "schema": 1,
+  "review_date_local": "2026-10-15",
+  "chunk": 6,
+  "status": "local-only-unblocking-route-prepared",
+  "qualified": false,
+  "chunk_complete": false,
+  "new_coverage_decisions": 0,
+  "unresolved_catalog_records": 302,
+  "application_commit": "6d4fe008762484a192fd9d947811b5eca7a37479",
+  "user_constraint": "All verification checks must run locally. Provider-run manufacturing checks were explicitly rejected. Keep the project GPL-3.0-or-later and preserve permitted third-party terms.",
+  "scope": "Applicability research and a prepared, unsent public clarification request. No rule is waived, reclassified, deferred past its required gate, or newly executed. No source from the Cadence-licensed checker is incorporated or used to derive an implementation.",
+  "checkpoint": {
+    "path": "docs/validation/sky130-dummy-partners-2026-10-15.json",
+    "sha256": "90cf555faf23a7a49ba95edb421e2278145402141242f86aadaf004da9b4aab3"
+  },
+  "current_manual": {
+    "repository": "fossi-foundation/skywater-pdk",
+    "revision": "e8fc249dc5d0a56a0cac5f04ecf618b2f634e9a7",
+    "discovery": "The published documentation now links to the FOSSi-maintained repository.",
+    "comparison": "Five commits ahead of the retained Google revision; the comparison lists only .readthedocs.yml, docs/conf.py and docs/environment.yml as changed. No rule-source update was found.",
+    "comparison_url": "https://github.com/fossi-foundation/skywater-pdk/compare/7198cf647113f56041e02abf3eb623692820c5e1...e8fc249dc5d0a56a0cac5f04ecf618b2f634e9a7"
+  },
+  "applicability_candidates": {
+    "count": 33,
+    "remaining_without_this_flag": 269,
+    "flag_source": {
+      "path": "docs/rules/periphery-rules.rst",
+      "sha256": "a4fec57aa417caa1b52d67b684a6b17dfc1ed0b69724ffe121de421bd938d44e",
+      "meaning": "Frame-only; not checked inside the die."
+    },
+    "manual_source": {
+      "path": "docs/rules/periphery/p018-x_dotdash.csv",
+      "sha256": "0efaf5099bc464a782f0c05a2850673ae940272c16fa22ec519057171f2f1567",
+      "records": [
+        22,
+        25,
+        26
+      ]
+    },
+    "rows": [
+      {
+        "id": "r262",
+        "rule": "x.12b",
+        "description": "0.635 min. enclosure of q0nwellnotBuildSpace by moduleCutAREA",
+        "disposition": "unreviewed"
+      },
+      {
+        "id": "r264",
+        "rule": "x.12b",
+        "description": "0.135 min. enclosure of q0diffnotBuildSpace by moduleCutAREA",
+        "disposition": "unreviewed"
+      },
+      {
+        "id": "r266",
+        "rule": "x.12b",
+        "description": "3.15 min. enclosure of q0dnwellnotBuildSpace by moduleCutAREA",
+        "disposition": "unreviewed"
+      },
+      {
+        "id": "r268",
+        "rule": "x.12b",
+        "description": "0.135 min. enclosure of q0tapnotBuildSpace by moduleCutAREA",
+        "disposition": "unreviewed"
+      },
+      {
+        "id": "r270",
+        "rule": "x.12b",
+        "description": "0.19 min. enclosure of q0lvtnnotBuildSpace by moduleCutAREA",
+        "disposition": "unreviewed"
+      },
+      {
+        "id": "r272",
+        "rule": "x.12b",
+        "description": "0.19 min. enclosure of q0hvtpnotBuildSpace by moduleCutAREA",
+        "disposition": "unreviewed"
+      },
+      {
+        "id": "r274",
+        "rule": "x.12b",
+        "description": "0.35 min. enclosure of q0hvinotBuildSpace by moduleCutAREA",
+        "disposition": "unreviewed"
+      },
+      {
+        "id": "r276",
+        "rule": "x.12b",
+        "description": "0.25 min. enclosure of q0tunmnotBuildSpace by moduleCutAREA",
+        "disposition": "unreviewed"
+      },
+      {
+        "id": "r278",
+        "rule": "x.12b",
+        "description": "0.105 min. enclosure of q0polynotBuildSpace by moduleCutAREA",
+        "disposition": "unreviewed"
+      },
+      {
+        "id": "r280",
+        "rule": "x.12b",
+        "description": "0.135 min. enclosure of q0npcnotBuildSpace by moduleCutAREA",
+        "disposition": "unreviewed"
+      },
+      {
+        "id": "r282",
+        "rule": "x.12b",
+        "description": "0.19 min. enclosure of q0nsdmnotBuildSpace by moduleCutAREA",
+        "disposition": "unreviewed"
+      },
+      {
+        "id": "r284",
+        "rule": "x.12b",
+        "description": "0.19 min. enclosure of q0psdmnotBuildSpace by moduleCutAREA",
+        "disposition": "unreviewed"
+      },
+      {
+        "id": "r286",
+        "rule": "x.12b",
+        "description": "0.085 min. enclosure of q0licon1notBuildSpace by moduleCutAREA",
+        "disposition": "unreviewed"
+      },
+      {
+        "id": "r288",
+        "rule": "x.12b",
+        "description": "0.085 min. enclosure of q0li1notBuildSpace by moduleCutAREA",
+        "disposition": "unreviewed"
+      },
+      {
+        "id": "r290",
+        "rule": "x.12b",
+        "description": "0.095 min. enclosure of q0mconnotBuildSpace by moduleCutAREA",
+        "disposition": "unreviewed"
+      },
+      {
+        "id": "r292",
+        "rule": "x.12b",
+        "description": "0.07 min. enclosure of q0met1notBuildSpace by moduleCutAREA",
+        "disposition": "unreviewed"
+      },
+      {
+        "id": "r294",
+        "rule": "x.12b",
+        "description": "0.085 min. enclosure of q0vianotBuildSpace by moduleCutAREA",
+        "disposition": "unreviewed"
+      },
+      {
+        "id": "r296",
+        "rule": "x.12b",
+        "description": "0.07 min. enclosure of q0met2notBuildSpace by moduleCutAREA",
+        "disposition": "unreviewed"
+      },
+      {
+        "id": "r298",
+        "rule": "x.12b",
+        "description": "0.1 min. enclosure of q0via2notBuildSpace by moduleCutAREA",
+        "disposition": "unreviewed"
+      },
+      {
+        "id": "r300",
+        "rule": "x.12b",
+        "description": "0.15 min. enclosure of q0met3notBuildSpace by moduleCutAREA",
+        "disposition": "unreviewed"
+      },
+      {
+        "id": "r302",
+        "rule": "x.12b",
+        "description": "0.1 min. enclosure of q0via3notBuildSpace by moduleCutAREA",
+        "disposition": "unreviewed"
+      },
+      {
+        "id": "r304",
+        "rule": "x.12b",
+        "description": "0.15 min. enclosure of q0met4notBuildSpace by moduleCutAREA",
+        "disposition": "unreviewed"
+      },
+      {
+        "id": "r306",
+        "rule": "x.12b",
+        "description": "0.4 min. enclosure of q0via4notBuildSpace by moduleCutAREA",
+        "disposition": "unreviewed"
+      },
+      {
+        "id": "r308",
+        "rule": "x.12b",
+        "description": "0.8 min. enclosure of q0met5notBuildSpace by moduleCutAREA",
+        "disposition": "unreviewed"
+      },
+      {
+        "id": "r310",
+        "rule": "x.12b",
+        "description": "2 min. enclosure of q0nsmnotBuildSpace by moduleCutAREA",
+        "disposition": "unreviewed"
+      },
+      {
+        "id": "r312",
+        "rule": "x.12b",
+        "description": "0.635 min. enclosure of q0padnotBuildSpace by moduleCutAREA",
+        "disposition": "unreviewed"
+      },
+      {
+        "id": "r314",
+        "rule": "x.12b",
+        "description": "0.35 min. enclosure of q0ldntmnotBuildSpace by moduleCutAREA",
+        "disposition": "unreviewed"
+      },
+      {
+        "id": "r316",
+        "rule": "x.12b",
+        "description": "0.19 min. enclosure of q0hvntmnotBuildSpace by moduleCutAREA",
+        "disposition": "unreviewed"
+      },
+      {
+        "id": "r318",
+        "rule": "x.12b",
+        "description": "0.19 min. enclosure of q0ncmnotBuildSpace by moduleCutAREA",
+        "disposition": "unreviewed"
+      },
+      {
+        "id": "r320",
+        "rule": "x.12b",
+        "description": "5 min. enclosure of q0rdlnotBuildSpace by moduleCutAREA",
+        "disposition": "unreviewed"
+      },
+      {
+        "id": "r322",
+        "rule": "x.12b",
+        "description": "0.19 min. enclosure of q0hvtrnotBuildSpace by moduleCutAREA",
+        "disposition": "unreviewed"
+      },
+      {
+        "id": "r324",
+        "rule": "x.12e",
+        "description": "0.14 min. enclosure of q1met1notBuildSpace by moduleCutAREA",
+        "disposition": "unreviewed"
+      },
+      {
+        "id": "r330",
+        "rule": "x.12e",
+        "description": "0.2 min. enclosure of q1met4notBuildSpace by moduleCutAREA",
+        "disposition": "unreviewed"
+      }
+    ],
+    "interpretation": "These rules have explicit scope rather than unconditional applicability. An authenticated die-interior context and exact catalog-to-manual binding are still required. Neither an IP name nor an empty frame marker alone proves that context. The remaining depmos.13 module-enclosure row does not acquire the F flag by association.",
+    "acceptance_effect": "None. All 33 stay unreviewed in the current catalog."
+  },
+  "local_checker_candidate": {
+    "repository": "neu-ucb-tvip/tvip-analog-workspace",
+    "revision": "a4cbf5f807853b91e73e4ef0a0cbbb27672ef950",
+    "license": "Cadence Public License 1.0; GPL compatibility is not established here.",
+    "reviewed_metadata": [
+      "Sky130_DRC/README",
+      "Sky130_DRC/Include/x.drc.pvl",
+      "Sky130_DRC/Include/derived_layers.drc.pvl",
+      "Sky130_DRC/Include/density.drc.pvl",
+      "Sky130_DRC/sky130_rev_0.0_2.12.drc.pvl"
+    ],
+    "finding": "README and x-rule file explicitly omit frame-only rules. No x.20 or IP_block token occurs in the four inspected rule files. This bounded inspection does not establish absence from the entire package or completeness of any implementation.",
+    "decision": "Not a demonstrated complete local replacement, regardless of a possible licensing arrangement. No copied rule source or local execution."
+  },
+  "route": [
+    {
+      "step": 1,
+      "action": "Bind required rules to an explicit process option and layout context using published scope definitions.",
+      "gate": "Every excluded rule needs a source-backed applicability proof, with adversarial tests; unknown applicability stays unresolved."
+    },
+    {
+      "step": 2,
+      "action": "Obtain public clarifications for missing numerical limits and generated/recognized operands.",
+      "gate": "Version-applicable, publicly usable specifications or validated equivalents; no confidential package and no provider-run checks."
+    },
+    {
+      "step": 3,
+      "action": "Implement the clarified requirements in the local engines and test valid, invalid and boundary examples.",
+      "gate": "Both Windows and Linux detect deliberately injected defects; source, engine, PDK, design and enabled checks are recorded."
+    },
+    {
+      "step": 4,
+      "action": "Rerun the complete applicable local set on the exact final designs, including density, antenna and connectivity.",
+      "gate": "Original chunk 6 gate; no silent omissions or replacement by a passing shuttle subset."
+    }
+  ],
+  "issue_search": {
+    "repository": "fossi-foundation/skywater-pdk",
+    "queries": [
+      "is:issue \"x.20\"",
+      "is:issue \"fixed_layout_model_map\"",
+      "is:issue mask generation"
+    ],
+    "returned_matches": [
+      0,
+      0,
+      0
+    ],
+    "limitation": "Search matches are bounded and do not prove no related issue exists."
+  },
+  "clarification_request": {
+    "title": "Clarify SKY130 x.20 pin spacing and die/frame applicability for local verification",
+    "body": "We are implementing local physical verification in the GPL-3.0-or-later [IC Design Studio](https://github.com/jonahsaunders/IC-Design-Studio) project. We are seeking publicly releasable specifications, not a waiver or a remote verification service.\n\nAt revision `e8fc249dc5d0a56a0cac5f04ecf618b2f634e9a7`, [p018-x_dotdash.csv](https://github.com/fossi-foundation/skywater-pdk/blob/e8fc249dc5d0a56a0cac5f04ecf618b2f634e9a7/docs/rules/periphery/p018-x_dotdash.csv) describes pin center spacing under `x.20`, enabled by `IP_block`, but leaves Value and Unit empty.\n\n1. What limit, units, layer-dependent behavior and applicability define `x.20` for SKY130A? If this is an obsolete or unsupported option, is there a public version-specific statement to that effect?\n2. The [flag definitions](https://skywater-pdk.readthedocs.io/en/main/rules/periphery.html) identify `F` rules as frame-only and exclude die interiors. What authoritative layout markers or declared design-context contract establish that distinction for an exported IP block? We want to avoid inferring an exemption merely from a missing frame or module marker.\n3. Is there a public, appropriately licensed source for the generated-mask and RF recognition definitions referenced by the catalog, particularly CLNTM/CLHVNTM/CLHVTPM, fomDummyDRC, FGR, and the RF fixed-layout model map/Table H5? Pointers to existing issues or the correct maintainers would help.\n\nOur [remaining-dependency inventory](https://github.com/jonahsaunders/IC-Design-Studio/blob/experimental/docs/validation/sky130-source-dependencies-2026-10-15.json) keeps unknown definitions unresolved. Passing a subset of checks is not being represented as full signoff.\n\nPlease share only information authorized for public release, with its applicable revision and license. We can implement original local checks and contribute positive/negative test cases once the requirements are established."
+  },
+  "request_state": "prepared-not-posted; explicit user authorization is required to post a public message",
+  "generator_sha256": "bb421d05ea044f9f7c31342a82d2e306ded1aadcd08fdc0ca60456ff8d29bf3d",
+  "source_review_archive": {
+    "path": "docs/validation/sky130-local-unblock-2026-10-15/evidence.zip",
+    "sha256": "d4362b91a649522fa9bef0141182cfe06d79ace577fb7c717b4cac2b20d7a150",
+    "bytes": 30817,
+    "files": {
+      "work/record_sky130_local_unblock_v1.py": "bb421d05ea044f9f7c31342a82d2e306ded1aadcd08fdc0ca60456ff8d29bf3d",
+      "work/sky130-local-clarification-request-v1.json": "7a84a1df63d472046e2ae4a48ae269e80cb3a772b5d85bcbca4e88167fe899cd",
+      "work/sky130-rule-sources-v1/docs/rules/periphery/p018-x_dotdash.csv": "0efaf5099bc464a782f0c05a2850673ae940272c16fa22ec519057171f2f1567",
+      "work/sky130-rule-sources-v1/docs/rules/periphery-rules.rst": "a4fec57aa417caa1b52d67b684a6b17dfc1ed0b69724ffe121de421bd938d44e",
+      "work/sky130-rule-sources-v1/LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "work/archive_sky130_local_unblock_v1.py": "f30ae9b69ea269e68fcef79890542e2336b253afedaac8ef4ddf944cde0477fe"
+    },
+    "reproduction": "Extract into the workspace root alongside the repository checkout at work/IC-Design-Studio; run work/record_sky130_local_unblock_v1.py. It requires the retained committed dependency/catalog JSON and recreates the review before this archive metadata. No geometry acceptance is generated."
+  }
+}

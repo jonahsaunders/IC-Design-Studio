@@ -1,0 +1,154 @@
+{
+  "schema": 1,
+  "date": "2026-11-07",
+  "chunk": 7,
+  "status": "authenticated_complete_slib_symbol_inventory_extension",
+  "source_baseline": "18a1d631fe45d5da9a08b092f7376c59a3940d15",
+  "qualified": false,
+  "chunk_complete": false,
+  "source_completeness_promoted": false,
+  "scope": "Complete declaration and disposition inventory of all 458 .slib symbol views in the two pinned GF180 standard-cell repositories. No electrical interface order, application adapter, runtime behavior or full source-completeness acceptance is inferred.",
+  "original_requirement": "Map every upstream symbol/model/PCell/extracted mapping/library/process option to supported, unimplemented or inapplicable with a reason and source. This extension repairs a symbol-view omission under that original inventory requirement.",
+  "prior_omission": "All 458 .slib files were in the authenticated file ledger as other-source-context, but their actual symbol and pin declarations had no item-level dispositions.",
+  "historical_report": {
+    "path": "docs/qualification/upstream-semantics-inventory-2026-11-07.json.gz",
+    "sha256": "89d39f48f7a8ee2b7115a8c400347764cabaa87e9f3a0d20b8be2dc47c238738",
+    "unchanged": true
+  },
+  "report": {
+    "path": "docs/qualification/upstream-semantics-inventory-2026-11-07-v2.json.gz",
+    "sha256": "89e5822520560af880e267bbf44e0d6ae4cfa556c204a8fe33ebf7b998dddcfe",
+    "bytes": 4880619
+  },
+  "source_files": {
+    "scripts/inventory_upstream_semantics.py": "b85a3da458ae5a619ec5d5b725af138b36d10b4818de902f60106597510e0aaf",
+    "tests/test_upstream_semantics.py": "ef0de41dd0583548eb8112576dd0ccd27faf17fb7b732f50a61395ce671a382c"
+  },
+  "repositories": [
+    {
+      "repository": "google/globalfoundries-pdk-libs-gf180mcu_fd_sc_mcu7t5v0",
+      "commit": "43beb45e4d323a76239de436db2df6732e9a689b",
+      "symbol_files": 229
+    },
+    {
+      "repository": "google/globalfoundries-pdk-libs-gf180mcu_fd_sc_mcu9t5v0",
+      "commit": "3781fd2951da6e3dc4600e52d997398a9463caeb",
+      "symbol_files": 229
+    }
+  ],
+  "coverage": {
+    "source_files": 458,
+    "symbols": 458,
+    "pins": 1672,
+    "all_required_sources_authenticated": true,
+    "all_library_links_verified": true,
+    "all_old_interfaces_unchanged": true,
+    "new_disposition_per_target": "unimplemented",
+    "targets": [
+      "gf180mcuC",
+      "gf180mcuD"
+    ]
+  },
+  "semantics": [
+    "Symbol names come from literal declarations, not filenames.",
+    "Pin names retain case and source declaration order; this is explicitly not electrical netlist port order.",
+    "Source text is tokenized without executing it; unknown calls, dynamic identifiers, malformed/truncated records and duplicates remain explicit source errors.",
+    "Symbols join the existing per-cell library view reconciliation without claiming an available application adapter.",
+    "Only declaration facts, source positions, call counts and provenance identities enter the retained report; graphical expressions are not evaluated."
+  ],
+  "counts": {
+    "blocking_source_diagnostics": 1,
+    "by_kind": {
+      "bus": 1032,
+      "cell": 7846,
+      "cell-definition": 138,
+      "dynamic-registration": 1,
+      "extracted-device": 161,
+      "extraction-include": 1,
+      "extraction-literal": 29,
+      "gds-structure": 13898,
+      "lef-macro": 662,
+      "library": 205,
+      "model": 1210,
+      "model-include": 506,
+      "model-section": 320,
+      "operating_conditions": 205,
+      "pcell-parameters": 135,
+      "pcell-registration": 128,
+      "pg_pin": 14718,
+      "physical-declaration": 380,
+      "pin": 34564,
+      "process-metadata": 4,
+      "process-variant": 4,
+      "slib-symbol": 458,
+      "source-diagnostic": 1,
+      "subckt": 6153,
+      "symbol": 381,
+      "verilog-module": 1995,
+      "verilog-primitive": 25,
+      "veriloga-module": 54
+    },
+    "files": 29520,
+    "interfaces": 85214,
+    "libraries": 9824,
+    "parse_gaps": 0,
+    "parsed_sources": 12165
+  },
+  "windows": {
+    "status": "PASS_WITH_UNCHANGED_SOURCE_DIAGNOSTIC",
+    "audit_status": "GAPS",
+    "returncode": 1,
+    "expected_exit_code": 1,
+    "seconds": 169.26500000001397,
+    "deadline_seconds": 300,
+    "focused_tests": 27,
+    "skips": 0,
+    "source_unchanged": true,
+    "receipt": {
+      "path": "work/slib-full-inventory-windows.json",
+      "sha256": "5d681c2b42c07e38978ea4ae23ac86d87e115c49b36952fb43469239faf2d323",
+      "bytes": 2484
+    },
+    "tests": {
+      "path": "work/slib-semantic-tests-windows.log",
+      "sha256": "ff96a864d3bf85ffc6ffb6f35fa0cf6d7c25821238c25f92c8eb9dd7c3548c13",
+      "bytes": 4753
+    },
+    "log": {
+      "path": "work/slib-full-inventory-windows.log",
+      "sha256": "6c8ecdf9ab09172d60532cb25603e09e2a166b920ef4b31f527c88730bb2b900",
+      "bytes": 769
+    }
+  },
+  "acquisition": {
+    "receipt": {
+      "path": "work/slib-source-retrieval.json",
+      "sha256": "f5dc2e47406293eaec49220988f48585d4000589c6bacc771eb8f2b131786677",
+      "bytes": 144931
+    },
+    "helper": {
+      "path": "work/fetch_slib_sources.py",
+      "sha256": "dedc0d01070c6ed22643e09d0619f5077a7d2244416c7adcd30b9f93f48d7d07",
+      "bytes": 1629
+    },
+    "authentication": "Every complete source byte string matches its fixed Git blob identity and retained SHA-256; original source headers/notices are unchanged in the local cache."
+  },
+  "execution_helpers": [
+    {
+      "path": "work/run_slib_inventory_v2.py",
+      "sha256": "05060809f5d77405b8571b8a11dc6e537f58c8e4f30813286813f7ae05078bad",
+      "bytes": 4569
+    },
+    {
+      "path": "work/record_slib_inventory_v2.py",
+      "sha256": "302236980f900c9b39041911c1a2c4d926bae1fa72d2a00ed568b839ef8e6bbc",
+      "bytes": 5360
+    }
+  ],
+  "remaining": [
+    "The original .lib dio/.endl diode diagnostic remains unchanged, named and unimplemented; the historical GAPS report is not relabeled.",
+    "Other source categories and companion roots still require the separate complete disposition audit before any source-completeness matrix row changes.",
+    "Four required unavailable bindings and all remaining device-family, operating-envelope, extracted-connectivity and installed-release gates remain blockers."
+  ],
+  "redistribution": "No upstream symbol code is newly copied into the repository. Authenticated original sources and Apache notices remain in the external cache; the new report contains generated declaration facts and hashes."
+}

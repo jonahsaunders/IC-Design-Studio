@@ -1,0 +1,35 @@
+{
+  "contract_sha256": "5f859be9fae8a362b76bf8e84960c3326097301f83a00c66006fc38837b598bd",
+  "files": {
+    "LICENSE": {
+      "bytes": 11358,
+      "git_blob_sha1": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "url": "https://raw.githubusercontent.com/google/skywater-pdk/7198cf647113f56041e02abf3eb623692820c5e1/LICENSE"
+    },
+    "docs/rules/device-details/cap_vpp/cap_vpp-table0.rst": {
+      "bytes": 2780,
+      "git_blob_sha1": "f6f91f684bba020736dded0c99f86e10bfe33dc1",
+      "sha256": "f9e66a54dc6ea093db51b51c5d58a9c70230d1ef4538d80008dc39fa1f8716ad",
+      "url": "https://raw.githubusercontent.com/google/skywater-pdk/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details/cap_vpp/cap_vpp-table0.rst"
+    },
+    "docs/rules/device-details/cap_vpp/index.rst": {
+      "bytes": 4434,
+      "git_blob_sha1": "5fe11351ae0e037379fd73498b321f06ca182cdf",
+      "sha256": "2dfd8816663aa70e365e65e9e9c38cd3475d8b0efd1c087e19d474c784398ca7",
+      "url": "https://raw.githubusercontent.com/google/skywater-pdk/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details/cap_vpp/index.rst"
+    }
+  },
+  "freshness_review": {
+    "path": "work/required-bindings-freshness-20261107/review.json",
+    "sha256": "a5ac750fb37665cf099116afc44d90e839c736f3f9f14de979ec181293cf855d"
+  },
+  "license": "Apache-2.0",
+  "license_file": "sources/LICENSE",
+  "new_alias_established": false,
+  "original_source_lock_sha256": "8025621eeab07f39b23c80e74096ff56281a883b299b1141ab6431ec98b2fab7",
+  "repository": "google/skywater-pdk",
+  "required_unavailable_binding_resolved": false,
+  "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+  "schema": 1
+}

@@ -1,0 +1,71 @@
+{
+  "schema": 1,
+  "date": "2026-11-11",
+  "status": "SOURCE_INTEGRATED_BUILD_ONLY_PREPARATION_PENDING",
+  "base_commit": "e6b9e90e4a66306f1b23f56f2ce351c9af1b1577",
+  "qualified": false,
+  "installed_acceptance": false,
+  "native_windows_execution": false,
+  "changed_source_paths": 43,
+  "final_source": {
+    "path": "artifacts/ihp-wsl-integration-final-source-2026-11-11.zip",
+    "bytes": 112563,
+    "sha256": "c5e152b71dbe66597381530ded6931690b92920070eac4dadc9a83972e4a8015"
+  },
+  "prepatch_full_source": {
+    "stages": 14,
+    "tests": 1895,
+    "skips": 18,
+    "seconds": 435.073,
+    "syntax_files": 1635,
+    "unchanged_source_identities": 2533,
+    "lossless_parts_manifest": "artifacts/ihp-wsl-integration-full-source-2026-11-11/MANIFEST.json",
+    "archive_sha256": "0b071871df36818448260e0fb36751f2e1a3d572bca9357c57bf0f059dca5539",
+    "archive_bytes": 18986084
+  },
+  "final_test_only_correction": {
+    "path": "tests/test_ihp_wsl_app_reconstruction.py",
+    "module_tests": 20,
+    "runtime_stage_tests": 181,
+    "runtime_stage_skips": 1,
+    "production_source_changed": false,
+    "windows_execution_pending": true,
+    "evidence": {
+      "path": "artifacts/ihp-wsl-portability-followon-2026-11-11.zip",
+      "bytes": 366928,
+      "sha256": "7ef2992db8c2a8a02b640972de46ff06d0259f555c1113f64ce18a63bb6cfbdf"
+    }
+  },
+  "earlier_build_only_full_source_core": {
+    "path": "artifacts/ihp-wsl-build-reconstruction-v2-local-validation-2026-11-11.zip",
+    "bytes": 1081828,
+    "sha256": "7ea275f3f6f4c600816b1d31211c46f1ddeeea8384882662dea60ee9ce409e82"
+  },
+  "guarded_app_source": {
+    "path": "artifacts/ihp-wsl-app-source-wired-2026-11-11.zip",
+    "bytes": 703501,
+    "sha256": "758a74e5f8b9515916dda7c47d4503da7709e0abf502230208b75be02ddff1f6"
+  },
+  "approval_scope": "Build-only source preparation. Draft native flags remain false. No native execution, default promotion or qualification.",
+  "pending": [
+    "Actual hosted source feedback for final commit",
+    "Actual Docker/APT provenance, dependency/source signatures and finally cleanup",
+    "Prepared-host/payload readback",
+    "Actual Windows private-runtime and six-module loader proof",
+    "Separate exact native authorization and independent native numerical audit",
+    "Final-tree installed acceptance"
+  ],
+  "scientific_limits": [
+    "Four authoritative electrical bindings remain missing",
+    "Full applicability, reliability, uncertainty/calibration and physical/process coverage remain incomplete"
+  ],
+  "estimate": {
+    "percent": 74,
+    "low_confidence_range": [
+      55,
+      82
+    ],
+    "subjective_engineering_estimate": true
+  },
+  "independent_review": "PASS; final snapshot/current paths, source identities, sole test delta and raw logs read back"
+}

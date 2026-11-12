@@ -21,7 +21,8 @@
 * 		vary sky130_fd_pr__res_high_po__var       dist=gauss std=0.025
 *         }
 * }
-.subckt  sky130_fd_pr__res_high_po r0 r1 b
+* IC Design Studio modification: explicitly propagate the parallel M factor.
+.subckt  sky130_fd_pr__res_high_po r0 r1 b m=1
 + w=1 l=1
 .param  mult = 1.0
 + rsheet = 317.3885
@@ -36,9 +37,9 @@
 + weff = {w+rbody_dw-0.0672*max(0.69-w,0)}
 + leff = {l+0.247}
 + res_match = {(body_pelgrom/sqrt(w*l*mult))*sky130_fd_pr__res_high_po__slope_spectre}
-rhead r0 rb rhead_model w = {weff+0.1558} l = 1.0
-rbody rb r1 rbody_model w = {weff} l = {leff}
-xc0 r0 r1 b sky130_fd_pr__model__parasitic__res_po w = {w} l = {l}
+rhead r0 rb rhead_model w = {weff+0.1558} l = 1.0 m={m}
+rbody rb r1 rbody_model w = {weff} l = {leff} m={m}
+xc0 r0 r1 b sky130_fd_pr__model__parasitic__res_po w = {w} l = {l} m={m}
 .model rhead_model r sw_et=0 isnoisy=0
 + rsh = {345.8312*(1+sky130_fd_pr__res_high_po__var)*(1+rend_match)}
 + p2 = {-80.87e-3/cosh(6.34e-3*weff*weff)*(1-exp(-1.554/leff))}

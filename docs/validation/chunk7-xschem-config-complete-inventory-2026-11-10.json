@@ -1,0 +1,95 @@
+{
+  "base_commit": "8fec49215fa4332897f44312baead817b69794d3",
+  "chunk_complete": false,
+  "date": "2026-11-10",
+  "exact_delta": {
+    "added_items": 110,
+    "all_prior_items_identical": true,
+    "chunk_complete": false,
+    "current_implementation_hashes_verified": true,
+    "file_identities_unchanged": true,
+    "inventory_complete": false,
+    "new_gaps": 98,
+    "new_items": 777005,
+    "new_sha256": "9d0a7241d984fa3b5ad309957e06339c995f88307302dd219e2f236d04c50a56",
+    "old_gaps": 101,
+    "old_items": 776895,
+    "old_sha256": "263b17bf6dc2c010e230ded19bb4e0c8c4cc3712b7a321ffc84d5be10d7d7216",
+    "other_metadata_unchanged": true,
+    "qualified": false,
+    "remaining_gap_records_identical": true,
+    "removed_gaps": [
+      "gf180-ecosystem:libraries/gf180mcu_fd_pr/latest/cells/xschem/xschemrc",
+      "gf180mcu:cells/xschem/user_xschemrc",
+      "gf180mcu:cells/xschem/xschemrc"
+    ],
+    "seconds": 14.983559661999607,
+    "status": "PASS_EXACT_COMPLETE_REPORT_DELTA"
+  },
+  "full_audit_execution": {
+    "chunk_complete": false,
+    "command": [
+      "python",
+      "scripts/audit_source_dispositions.py",
+      "--cache",
+      "build/source-disposition-cache/git-blobs",
+      "--sky-cache",
+      "build/source-disposition-cache/sky",
+      "--output",
+      "build/source-disposition-cache/source-dispositions-2026-11-10-v2.json.gz"
+    ],
+    "deadline_seconds": 900,
+    "log_sha256": "5944a8fcd1e9b9f4cb55fbcec44c448db5f2f0c0d16276a3b4c671bc92f7291f",
+    "qualified": false,
+    "returncode": 1,
+    "seconds": 461.46425017,
+    "status": "EXITED"
+  },
+  "implementation_and_fixture_sha256": {
+    "docs/qualification/xschem-config-facts-v1/1.json": "72991d70df87f9dbbe9dae998b5faf9624e7d572b84aa6a43604b73a46e58b88",
+    "docs/qualification/xschem-config-facts-v1/2.json": "59e08c9e2ff4df8b6cffedc04f7080577cf2adac5c94b5df705dff723312b651",
+    "docs/qualification/xschem-config-facts-v1/3.json": "03dca4d03218dd3b938e1054d65f5317c42d02c4cb1c52f0e5b829d25750d691",
+    "docs/qualification/xschem-config-facts-v1/README.md": "ccefa5cf670a664e41d9eea5f25f3d0d800dbec1ba74ba5e933311c4fcaa0eff",
+    "docs/qualification/xschem-config-facts-v1/source-lock.json": "1c86478107e50c967926636e8a1c729e79180974a0a04cc007316828d91cfb7d",
+    "scripts/audit_source_dispositions.py": "babd1c37aa3a735fe75820758461108f9c4e2f805641738ba150f0286f6e5144",
+    "scripts/inventory_xschem_configs.py": "36aeeddd2c36b3c49e6a7c67a9518a4c79cdf063717f741dc30e3941566848cc",
+    "scripts/reconstruct_source_dispositions_v2.py": "f45c1d998ef4b5edb82de33b8a2d36c4a533cf58d9c96a5c14b36dae80ab60f3",
+    "tests/test_source_disposition_reconstruction_v2.py": "f2253c6daca16a6687f4f8e083057fbaf1b74143fd1a6061c95df8470f58e6e2",
+    "tests/test_xschem_configs.py": "935b2ebf2885f036211c0e69873a3279a5120cda78446f9621db99758be32ec0"
+  },
+  "independent_review": {
+    "qualification_promoted": false,
+    "scientific_delta": "All 776,895 prior facts unchanged; 110 new facts regenerated from original pinned three GF sources; exactly three expected gap removals; 98 remaining gap records unchanged; current source/implementation identities and recomputed counters agree.",
+    "status": "PASS",
+    "storage": "Separate new v2 CLI reconstructed 23,561,850 bytes with exact target SHA; cmp confirmed identical to actual complete audit output. Old helper and v1 delta unchanged relative to 8fec492.",
+    "transport_tests": 11
+  },
+  "inventory_complete": false,
+  "prior_reports_unchanged": true,
+  "qualified": false,
+  "remaining": "98 inventory gaps; IHP Tk callback declarations and both Xschem menus remain excluded. All implementation/electrical/physical/release gates remain unchanged.",
+  "schema": 1,
+  "scope": "Three exact GF180 extensionless configuration routes only. Declarations are not model bindings, calibration, physical verification or device qualification.",
+  "status": "PASS_COMPLETE_AUTHENTICATED_AUDIT_EXACT_DELTA_AND_LOSSLESS_STORAGE",
+  "storage": {
+    "base_sha256": "ff2a08f3698dcf09d01c38f77bb9f76866e981401ae380e02efac9bc8084a442",
+    "command": "python scripts/reconstruct_source_dispositions_v2.py --output build/source-dispositions-2026-11-10-v2.json.gz",
+    "cumulative_transport_added_facts": 194,
+    "cumulative_transport_removed_gaps": 9,
+    "delta": "docs/qualification/source-dispositions-2026-11-10-v2.delta.json.gz",
+    "delta_bytes": 17506,
+    "delta_sha256": "84f25d5ad27fd4567cb6f7c29a6d5750ad55709a52098b79a0800fb1ea1c6e7c",
+    "exact_reconstruction_verified": true,
+    "target_bytes": 23561850,
+    "target_sha256": "9d0a7241d984fa3b5ad309957e06339c995f88307302dd219e2f236d04c50a56"
+  },
+  "validation": {
+    "affected_seconds": 0.035,
+    "affected_tests": 89,
+    "source_cache_enabled": true,
+    "source_cache_skips": 0,
+    "transport_seconds": 0.005,
+    "transport_tests": 11
+  },
+  "validation_environment_event": "Initial combined scientific-plus-storage comparison process exited 137 from memory pressure. Separate sequential scientific comparison and cumulative storage reconstruction passed; original audit, evidence, deadline and gates were unchanged."
+}

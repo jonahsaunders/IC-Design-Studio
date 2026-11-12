@@ -1,0 +1,187 @@
+{
+  "schema": 1,
+  "date": "2026-10-29",
+  "chunk": 7,
+  "status": "PASS",
+  "scope": "Final eight-stage source feedback for the reviewed ESD default, versioned contracts, predecessor reconstruction, GUI isolation and bounded IHP scheduling. Earlier complete source discovery remains separately identified; not installed or full-family qualification.",
+  "qualified": false,
+  "chunk_complete": false,
+  "installed_acceptance": false,
+  "source_manifest_sha256": "dc162f0c002809333bc19a689b3a53794dc8cec95c74bbc9ede57665e92b35c9",
+  "source_files": 6774,
+  "feedback_identity_files": 1490,
+  "syntax_files": 1454,
+  "hosts": {
+    "Windows": {
+      "tests": 858,
+      "skipped": 34,
+      "unit_seconds": 224.794,
+      "source_seconds": 523.407,
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 226.296
+        },
+        {
+          "name": "package-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 96.282
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 3.468
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 28.063
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 8.281
+        },
+        {
+          "name": "metal-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 7.656
+        },
+        {
+          "name": "metal-resistor-parallel-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 38.547
+        },
+        {
+          "name": "ihp-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 112.266
+        }
+      ],
+      "unit_tests": 850,
+      "package_tests": 8,
+      "package_seconds": 96.14
+    },
+    "Linux": {
+      "tests": 858,
+      "skipped": 14,
+      "unit_seconds": 53.71,
+      "source_seconds": 208.443,
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 54.703
+        },
+        {
+          "name": "package-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 25.489
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 1.568
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 23.124
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 3.223
+        },
+        {
+          "name": "metal-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 5.128
+        },
+        {
+          "name": "metal-resistor-parallel-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 19.919
+        },
+        {
+          "name": "ihp-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 73.456
+        }
+      ],
+      "unit_tests": 850,
+      "package_tests": 8,
+      "package_seconds": 25.422
+    }
+  },
+  "gui": {
+    "Windows": {
+      "cases": 60,
+      "seconds": 107.28199999999197,
+      "execution_id": "06b6f976b9204df7a61b947051b766b4",
+      "files_sha256": "d8244ba234e518810961f90967632d8bee721841e54b071d67f5c835c4c39c5f",
+      "installed_acceptance": false
+    },
+    "Linux": {
+      "cases": 60,
+      "seconds": 69.060417951,
+      "execution_id": "45219f89a7bd452384ab911397b438fe",
+      "files_sha256": "d2608afc800176b350a4708a28a9d7e901d57fab81d93f0cdc888b7993424ad9",
+      "installed_acceptance": false
+    }
+  },
+  "source_metadata_commit": "bd6449ebaa2fb3f3823a630f29989bae44789cb6",
+  "archives": {
+    "Windows": {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\chunk7-reviewed-integration-2026-10-29-v1\\windows-feedback.zip",
+      "sha256": "c90be922eecc467b471151a32b76cc8c7698f1a05de47a1b0a5e97e571dc0c40",
+      "bytes": 16749053,
+      "files": 1102
+    },
+    "Linux": {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\chunk7-reviewed-integration-2026-10-29-v1\\linux-feedback.zip",
+      "sha256": "026a73bdabc4625a90496c834235177c0e68ff121feb5bbf695b8aeaf5fd8f75",
+      "bytes": 16734240,
+      "files": 1101
+    }
+  },
+  "source_unchanged_on_both_hosts": true,
+  "review": "Sol and Terra isolated implementations; independent GPT-6 Astra review; root combined execution and complete raw archive hash readback.",
+  "estimate": {
+    "percent": 70,
+    "range": [
+      55,
+      80
+    ],
+    "confidence": "low",
+    "engineering_estimate": true
+  },
+  "complete_source_discovery": {
+    "host": "Linux",
+    "tests": 4027,
+    "skipped": 71,
+    "unit_seconds": 696.03,
+    "wrapper_seconds": 699.152718212,
+    "log_sha256": "c155ea7b44d6c9de04f2db5ff358fbfac8f6850e19beacab72987920ec5c95fd",
+    "source_manifest_sha256": "3ae8a937405faf778f39233484c2f097ec05d10695e067f737d91ad61fefa3e8",
+    "status": "PASS",
+    "scope": "Complete discovery before the reviewed runner-only stage split; not a claim that the final entire tree was rediscovered.",
+    "changed_python_files_afterwards": [
+      "scripts/ci_feedback.py",
+      "tests/test_ci_feedback.py"
+    ],
+    "final_runner_tests": 12,
+    "final_required_feedback_tests": 858
+  },
+  "stage_split": {
+    "original_tests_preserved": 856,
+    "added_runner_regressions": 2,
+    "unit_tests": 850,
+    "package_tests": 8,
+    "required_stages": 8,
+    "seconds_per_stage": 300,
+    "review": "Astra independently expanded exact selector Counters and verified complete nonoverlapping coverage, unchanged main loop and required aggregate."
+  },
+  "preserved_failures": "Original feedback and Qt abort retained in chunk7-final-integration-2026-10-29-v1; subsequent Windows unit-stage timeout retained beside this record. No failure relabelled."
+}

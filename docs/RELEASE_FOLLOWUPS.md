@@ -14,7 +14,11 @@ unpublished. The older
 [dev25 handoff](DEV25_ACCEPTANCE_HANDOFF.md) preserves six-gate results and
 package digests for `a88cfe1cfe20254638b7bd97ec9128e843578282`; do not use those
 digests for a newer draft. All four manual gate issues below were still open
-when checked through GitHub on 2026-09-30.
+when checked through GitHub on 2026-09-30. A fresh check on **2026-10-06** found
+all four closed, with the acceptance lists still unchecked and no issue comments
+or attached completion records. That state does not establish acceptance of
+0.23.0 or any later package. The broader analog/digital target is recorded in
+[process and tapeout acceptance](PUBLIC_RELEASE_TARGETS.md).
 
 | Gate | Tracking | Required evidence |
 |---|---|---|

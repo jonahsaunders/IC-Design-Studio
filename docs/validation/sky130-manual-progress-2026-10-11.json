@@ -1,0 +1,99 @@
+{
+  "schema": 1,
+  "chunk": 6,
+  "status": "in_progress",
+  "qualified": false,
+  "chunk_complete": false,
+  "scope": "101 additional explicit per-rule absent-operand proofs on each exact final SKY130 block. No new non-empty device or voltage qualification.",
+  "data": {
+    "path": "docs/validation/sky130-manual-progress-2026-10-11/data.json",
+    "sha256": "36bc606f857fbee021df55ed67b6c6458bc8b80bef2a449b2532d293a7f35397"
+  },
+  "audits": {
+    "win32": {
+      "path": "docs/validation/sky130-manual-progress-2026-10-11/win32.json",
+      "sha256": "103693433f3397ec1f6a1293ffe78e539e8ef9a30b617e6ad4f268a5c7eacf99"
+    },
+    "linux": {
+      "path": "docs/validation/sky130-manual-progress-2026-10-11/linux.json",
+      "sha256": "94ffa248ba690f1ac0179c250d4797f659c64caf5663bb9f5ade73ba88f8ff90"
+    }
+  },
+  "baseline_commit": "f2ff6e4",
+  "source_files": {
+    "scripts/sky130_block_applicability.py": "fe49d9bdd213366620731b25e5860c182f319fe6b48653b1caa40178bbe2a873",
+    "tests/test_sky130_block_applicability.py": "3e9aaa6678c857771180f23303f8189d954aaa1f7a4e16009c44526417a72b30"
+  },
+  "archive": {
+    "schema": 1,
+    "status": "readback-verified",
+    "layout": "sha256-addressed-blobs-v1",
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-manual-progress-2026-10-11-v1\\evidence.tar.gz",
+    "sha256": "a89850b2ab3a9ad649bb0af07f3ec44487d350b234497c0da2bc08696427228d",
+    "bytes": 239989,
+    "files": 177,
+    "unique_blobs": 175,
+    "manifest_sha256": "598c9bcdc42c013496c9145856add60be683d8e7bd183fcef1e3cb4a9d53b5e7",
+    "dependency": {
+      "schema": 1,
+      "status": "readback-verified",
+      "layout": "sha256-addressed-blobs-v1",
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-fill-progress-2026-10-11-v1\\evidence.tar.gz",
+      "sha256": "ccef87b3fdbd89009e33449fc1be84eb4e3899ada61163ae99007eef3b6307e0",
+      "bytes": 920448744,
+      "files": 1959,
+      "unique_blobs": 1399,
+      "manifest_sha256": "81f06b06441a6c9864cc93abcd90af2ab87b5658fef3a2953efcedb90c2da9b0",
+      "seconds": 162.43700000000536,
+      "scope": "SKY130 fill, failed attempts, final physical/native circuit checks, partial rule applicability and diode comparison. Not chunk 6 acceptance."
+    }
+  },
+  "cases": [
+    {
+      "case": "counter",
+      "gds_sha256": "4158b6503dc07e85f1e9e7b375a3d654cd9b64dc0498ed9fb680874e973c1ac2",
+      "counts": {
+        "absent-operand": 207,
+        "advisory": 27,
+        "definition-required": 1,
+        "execution-review-required": 228,
+        "other-backend": 61,
+        "upstream-na": 77
+      },
+      "new_absent_operands": 101
+    },
+    {
+      "case": "uart",
+      "gds_sha256": "c9282fb9602ac9dbab5299032be1d4b68751bb611747d276d40435e93c37afea",
+      "counts": {
+        "absent-operand": 207,
+        "advisory": 27,
+        "definition-required": 1,
+        "execution-review-required": 228,
+        "other-backend": 61,
+        "upstream-na": 77
+      },
+      "new_absent_operands": 101
+    },
+    {
+      "case": "apb",
+      "gds_sha256": "5039221b72bfd052d3f82781f5403fb67df4261ea20add5c2047191321fe9d78",
+      "counts": {
+        "absent-operand": 207,
+        "advisory": 27,
+        "definition-required": 1,
+        "execution-review-required": 228,
+        "other-backend": 61,
+        "upstream-na": 77
+      },
+      "new_absent_operands": 101
+    }
+  ],
+  "notes": [
+    "C3 and C4b definitions bind each explicit rule to its measured operand; no family-wide exemption is inferred.",
+    "HV_nwell proofs require both HVI and the thin-oxide high-voltage well marker areaid.hl absent.",
+    "Unknown voltage tags, undeclared high-voltage supplies and ambiguous enclosure targets remain unreviewed.",
+    "All 601 source rows remain visible. Native execution semantics are still unresolved for 228 rows, plus the missing x.20 numeric definition.",
+    "Both operating systems pass all 12 applicability rejection tests without skips and produce identical evidence hashes."
+  ]
+}

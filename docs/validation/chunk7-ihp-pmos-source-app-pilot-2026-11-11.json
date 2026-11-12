@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "status": "SOURCE_APP_RESEARCH_PILOT_INDEPENDENTLY_VERIFIED",
+  "qualified": false,
+  "calibrated": false,
+  "installed_acceptance": false,
+  "graphical_parameter_acceptance": false,
+  "archive": "artifacts/ihp-pmos-source-app-pilot-evidence-v2.zip",
+  "archive_sha256": "29a2d2c9f64a99bf36be38f5616fd4574f6b3f78e6fdf4697134b5597dc6d9a0",
+  "archive_bytes": 539046,
+  "manifest_sha256": "ecf5e8209bc5bb1ec2ffd59ba02189589c809c12a415670acbf121e585f83efe",
+  "payload_count_including_manifest": 76,
+  "omitted_count": 68,
+  "points": 28,
+  "terminal_values": 112,
+  "terminal_values_bitwise_equal_to_v3_reference": true,
+  "kcl_max_normalized": 0.18096884913475453,
+  "independent_review_sha256": "e662f062cd28bfcf5d529ee783ea5956e115f84ef739c734207e07a01c74ec78",
+  "contract_sha256": "18d2c09f942504b60073cf8c58e3c8819bd460f67d813139c7da7e498a6cd822",
+  "complete_v3_archive_sha256": "49570be0c8718f44d98866ce7242280d85fa84abf81ac0e4a113fa73a484feb8",
+  "scope": "Actual source-app Tools runtime library selection, save/reopen and managed worker; original90s/defaultSparse/unchanged model parameters. Native XDUT statement rather than graphical MOS parameter support. No installed/full calibration claim. Partial bundle with explicit recovery manifest.",
+  "portable_recovery": {
+    "compact_archive": "docs/qualification/ihp-pmos-measured-reference-v3/evidence-compact.zip",
+    "compact_sha256": "1f49b494236845576c7e195a68fa7a36f468e47231d383a86d44ea8ad7010003",
+    "base_archive": "packaging/ngspice/ngspice-linux47-corrected-v1.zip",
+    "base_sha256": "e74736fd70b2fa6972bb0e0ab77cf87fff38f5926a7cb19d03431c2663e2b714",
+    "materializer": "scripts/materialize_ihp_pmos_measured_v3.py",
+    "materializer_sha256": "35e1c591c0caef403b3a91872886f3d722a0d557f1456497a9dadb04bf249eb0",
+    "argv": [
+      "python",
+      "scripts/materialize_ihp_pmos_measured_v3.py",
+      "docs/qualification/ihp-pmos-measured-reference-v3/evidence-compact.zip",
+      "packaging/ngspice/ngspice-linux47-corrected-v1.zip",
+      "FRESH_OUTPUT_DIRECTORY"
+    ],
+    "reconstructed_manifest_sha256": "8f583f2a0002a17fdb268502e53d269cee73d633fe3aff1a9311f2ead0125a87",
+    "scope": "Reconstructs verified same evidence members, not bytes of original full ZIP. Retained full-ZIP SHA is historical archive identity only."
+  },
+  "date": "2026-11-11",
+  "base_commit": "eb0018c9c024588358b3f4f12f0af6a0581da937",
+  "application_changed": false
+}

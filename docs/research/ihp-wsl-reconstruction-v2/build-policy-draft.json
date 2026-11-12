@@ -1,0 +1,19 @@
+{
+  "scope": "REVIEWED_SAME_RUN_WSL_RESEARCH_BUILD_NO_PMOS",
+  "review_state": "DRAFT_PENDING_INDEPENDENT_APPROVAL",
+  "reconstruction_version": 2,
+  "official_base": "ubuntu:24.04",
+  "build_context_sha256": "d59081195061e954620ac224833a39c18ec3c04b333d7d6b3156a6950716c245",
+  "research_source_bindings": {
+    "scripts/build_digital_runtime.py": "df85bca66468475dba14cbfc19d35b58a973c5fc51eb364a17f488531bfb0597",
+    "scripts/build_ihp_wsl_research_base.py": "b762029a9590186f8632693e94001385ae217caf75aa673153255298f5d6d60c",
+    "scripts/collect_ihp_wsl_host_provenance.py": "f4f8c2f509c50706698017265fedff116d5c35573dbd7af6c31ce7da3e61f83b",
+    "scripts/verify_ihp_wsl_host_provenance.py": "fbc5bd46ac505bb3574f1c4440a89bb7489cabc92dbd4df3a175afcf07aec269",
+    "scripts/prepare_ihp_wsl_research_payload.py": "84191a19fd98bd873c480d44750c7ab2b9c3e827d2771b1b479510a337dff4d0",
+    "scripts/linux_ngspice_dependencies.py": "659f5052bb67779098f0d215a3ac6e94ac28cdcc1820c1191ba5b569743b1780",
+    "scripts/read_ihp_pmos_measured_v3.py": "404e2109359069057277db59629a0b2ce1e91f11b60a5d8a881d759fe477c670",
+    "scripts/materialize_ihp_pmos_measured_v3.py": "35e1c591c0caef403b3a91872886f3d722a0d557f1456497a9dadb04bf249eb0",
+    "scripts/package_ihp_wsl_research_preparation.py": "5cd71ca92ebe04fcbf5fc6fb1aa648a0af0be137ddaa882d898701871629bc83",
+    "scripts/transport_ihp_wsl_payload.py": "39fb6c8e7632018d47025bf30280df4052dacb845e99bccf71ad82155e31b562"
+  }
+}

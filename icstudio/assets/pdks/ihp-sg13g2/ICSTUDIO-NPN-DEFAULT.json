@@ -1,0 +1,24 @@
+{
+  "schema": 1,
+  "source_manifest_sha256": "f1bd520184204ce71add7b7b9bf640b7daae9987bd52230473d91141bc53859b",
+  "source_revision": "c0a32344f73be40d",
+  "original_entry": {
+    "path": "libs.tech/magic/ihp-sg13g2.tech",
+    "sha256": "0a0e1666da3fa38d7faefe340576102ddc558727a3f6f7f666e92f50a1dc568d"
+  },
+  "original_rule": {
+    "path": "libs.tech/magic/ihp-sg13g2-cifout.tech",
+    "sha256": "b972c6d07557e0147462ad533aaf2f3aea14404437f800a1f8fc96ba13086dc8"
+  },
+  "corrected_entry": {
+    "path": "libs.tech/magic/icstudio-ihp-sg13g2.tech",
+    "sha256": "394b38e5d05bf999c1cdcd15df2672463902f51762edaa90052f455866bc5e3e"
+  },
+  "corrected_rule": {
+    "path": "libs.tech/magic/icstudio-ihp-sg13g2-cifout.tech",
+    "sha256": "74b6df465b9d547c72deb2e423dbeccf63b68d271e304ffadb65a9b81daa74f2"
+  },
+  "change": "Select the previously reviewed NPN connected-region traversal through a separate technology entry point. Every previous asset and all simulation settings remain byte-identical.",
+  "scope": "Default integration of a local public DRC correction. Each design still needs full DRC/LVS; no complete PDK, device-envelope or foundry qualification.",
+  "license": "Original Apache-2.0 source notices and license retained. Local changes explicitly identified in both derived files."
+}

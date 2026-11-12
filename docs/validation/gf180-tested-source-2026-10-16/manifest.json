@@ -1,0 +1,59 @@
+{
+  "schema": 1,
+  "source_commit": "2fe3c277c666089b21b4ebf39aecd62a76a3ae8d",
+  "backend_sha256": "eb22e7c53b3380f0765e2e6629ed8c6ca2ddb19dee5c49b6a0bb187a596736c0",
+  "scope": "historical-tested-source-only",
+  "files": {
+    "digital_flow.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-09/digital_flow.py.txt",
+      "sha256": "8bf30f22ff9185c7036c5611d30345ad8834b208a590b52f12b932e536e40cbe"
+    },
+    "digital_identity.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-09/digital_identity.py.txt",
+      "sha256": "76412de592149cdb08291ee9e3e1b31374c77c87101e1e775d06fe4971e246ec"
+    },
+    "digital_macro.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-09/digital_macro.py.txt",
+      "sha256": "b885b0177014792a87052092c640b32e0adfa2ec84df117342238a47e2abf5ac"
+    },
+    "digital_physical.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-09/digital_physical.py.txt",
+      "sha256": "660ef87bb312ec019a5dacea8a3315d3dfac4ab6dedd643decff939650959b3b"
+    },
+    "digital_physical_ui.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-09/digital_physical_ui.py.txt",
+      "sha256": "42fa1791436bd3c98875a5ba66dc33165048d06989ae55c23738346fddfeb06e"
+    },
+    "digital_platform.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-09/digital_platform.py.txt",
+      "sha256": "a9b9db78cd93a165197b7fda644065b30f540784ca0fbcfd8a716dec04b2e61b"
+    },
+    "digital_rc.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-09/digital_rc.py.txt",
+      "sha256": "cdab3d0d91982e95701ee2a8a6cf2b487317c26b27901b0a57d3226844a1f719"
+    },
+    "digital_runtime.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-09/digital_runtime.py.txt",
+      "sha256": "8a11b3be62af512ebcb4d4f4ea9f17396678b42058ca2cfe2443f95acfd0bd6c"
+    },
+    "digital_backend.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-16/digital_backend.py.txt",
+      "sha256": "93af7cd1eecc6baadcf75e2b58bffa8176b13188e84c066270d366c318b7dbf6"
+    }
+  },
+  "explanation": "Generic SKY130 verification adds resource staging to the shared backend. Preserve the exact GF180-tested backend source; this historical snapshot does not qualify the changed backend as a fresh GF180 production run.",
+  "checker_files": {
+    "scripts/check_gf180_fill_closure.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-09/check_gf180_fill_closure.py.txt",
+      "sha256": "917a334ea3e9863c30a9a9ccff184cdac74ebe0756641566ee7c057ec65c92b1"
+    },
+    "scripts/check_pdk_qualification.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-09/check_pdk_qualification.py.txt",
+      "sha256": "746e1de81d9feee5d365122f394232b6b273dabb788670fe5bd6b934567e358c"
+    }
+  },
+  "previous_snapshot": {
+    "path": "docs/validation/gf180-tested-source-2026-10-09.json",
+    "sha256": "8716814f36f17acf3edb824407cf084a1f88b8e0891d01167020b7553730df4b"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "commit": "5e6d592e4002946a4616f798c357f0f3c06cf3b6",
+  "license": "Apache-2.0",
+  "modified_upstream_files": false,
+  "files": {
+    "npn_adv.gds": {
+      "path": "ihp-sg13g2/libs.tech/klayout/tech/lvs/testing/testcases/unit/bjt_devices/layout/npn_adv.gds",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/testing/testcases/unit/bjt_devices/layout/npn_adv.gds",
+      "bytes": 110814,
+      "git_blob_sha1": "a56b31ebf6a7f8dda663b74446a1b2924f239cbf",
+      "sha256": "0bfeb33991addb05b814225e6047ccc36be1cc49891461b139d981bc8e2cc579"
+    },
+    "npn_adv.cdl": {
+      "path": "ihp-sg13g2/libs.tech/klayout/tech/lvs/testing/testcases/unit/bjt_devices/netlist/npn_adv.cdl",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/testing/testcases/unit/bjt_devices/netlist/npn_adv.cdl",
+      "bytes": 1445,
+      "git_blob_sha1": "f9719d26848e68a276d55e640112b3e22843aba1",
+      "sha256": "dd5a0adcb379a1d31973ad35c7a340224ae873cef72cf4f59f6d192c51caa117"
+    },
+    "LICENSE": {
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "source": "Same pinned IHP-Open-PDK repository license"
+    }
+  }
+}

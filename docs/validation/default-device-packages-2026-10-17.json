@@ -1,0 +1,196 @@
+{
+  "schema": 1,
+  "chunk": 7,
+  "status": "partial",
+  "chunk_complete": false,
+  "qualified": false,
+  "source_baseline": "d0815c4a426169c8debdf3d6721cbfe07d44d9a1",
+  "scope": "Promote exact previously tested capacitor, MOS and isolation corrections to new default projects across SKY130, GF180 C/D and IHP. Preserve saved revisions and historical reconstruction. This is bounded package integration, not complete device-family, runtime-image or process qualification.",
+  "packages": {
+    "sky130A": {
+      "revision": "8c3913de70b7e4b1",
+      "manifest_sha256": "7f07476f0bdd530ec3060e3f7e74103e8d3f7b70ff61298af7295cb21a096ae5",
+      "previous_manifest_sha256": "177e57626c06cb5d103aab04c4bc82983bc4ba96f2e08e4bc04006ade6cd8e2d",
+      "files": 409
+    },
+    "gf180mcuC": {
+      "revision": "5f3017f16df69dbe",
+      "manifest_sha256": "408fa5e9d94e5e91d482988c26938bfb3b2a47dbfef68d8e5077144ba6eae1f0",
+      "previous_manifest_sha256": "92ed3a348c93cde49bf48f2edf37a4f41bee6a0d3741b04f7c5ebfbdbc23ac7f",
+      "files": 80
+    },
+    "gf180mcuD": {
+      "revision": "836ecc491786bd41",
+      "manifest_sha256": "ec95eefadaade5459b0bae8ac6d3d01d23927507ec10b86801fa4f2cf9f14bc2",
+      "previous_manifest_sha256": "b4200b48f3fe59e961a4f514cdcb7166d21c231bccef586f01a7fa6b5f2ed738",
+      "files": 80
+    },
+    "ihp-sg13g2": {
+      "revision": "1e24ec25b491028b",
+      "manifest_sha256": "ba1fbda134f02ad703126527993fa5d01c5d3afcc71161afc35c065d3df227ab",
+      "previous_manifest_sha256": "63616ff9b0af1ec391e325d8f5a44ec7a5a45b420ce9a1e0946fbb14b028057c",
+      "files": 159
+    }
+  },
+  "reports": {
+    "electrical": {
+      "status": "PASS",
+      "sha256": "d8d4a28a5bc427ec8b69edbd51003c0d889662c39bb9d5e55a1b27889600cb29",
+      "source_files_sha256": "c50b7b488daf384ebd2c339bb4c01dec6cd0d4eea2b5ad3e7f9ec0b8dd705fb1",
+      "cases": 62
+    },
+    "ihp-physical": {
+      "status": "PASS",
+      "sha256": "fbcf193274f0f5af785e67e4b9a9383c7268d371950f4f3993d65952523dab66",
+      "source_files_sha256": "244a89c7445d3c2cea0312981255faae3171ee0f61f2d60205b1ba31967a22bf",
+      "cases": 18
+    },
+    "standard-mos-physical": {
+      "status": "PASS",
+      "sha256": "3d96d53f0386e8c735e877de1b89f236e5655223813facf4e5cf9b3d9b622d77",
+      "source_files_sha256": "560706e59e11621df207c696ba493a4b6e8d36ff0072a1939576e33a160a352e",
+      "cases": 30
+    },
+    "isolation": {
+      "status": "PASS",
+      "sha256": "c8c7e48363c639c9d0e09b5e5b8d31c5b2c7d578873403382131337115a30ac8",
+      "source_files_sha256": "ed8096901035b6b012cba9b350ce40b4848feb1675f9ea6f827c0d24dc98b45c",
+      "cases": 9
+    },
+    "catalog-Linux": {
+      "status": "PASS",
+      "sha256": "9442bf2cc5efb170ee57acc19ab31b1c59c64dc52db1dd1dd0bf4a7f6e3e9f7b",
+      "source_files_sha256": "fd40f29b18107c9562f01ee5b9a9cc82f5588fd353636384a439bb501aaaa7c1",
+      "cases": 255,
+      "outcomes": {
+        "PASS": 235,
+        "EXPECTED_UNSUPPORTED": 20
+      }
+    },
+    "catalog-Windows": {
+      "status": "PASS",
+      "sha256": "0f860e96c4e3c21dc5f2e49b5f99b76efd2ed8b068473705acc16d2ccef753e3",
+      "source_files_sha256": "fd40f29b18107c9562f01ee5b9a9cc82f5588fd353636384a439bb501aaaa7c1",
+      "cases": 255,
+      "outcomes": {
+        "PASS": 235,
+        "EXPECTED_UNSUPPORTED": 20
+      }
+    }
+  },
+  "electrical": {
+    "cases": 62,
+    "independent_vectors": 4536,
+    "independent_samples": 143376,
+    "standard_analyses": 32,
+    "fault_simulations": 47,
+    "faulted_instances": 704
+  },
+  "isolation": {
+    "cases": 9,
+    "independent_vectors": 54,
+    "independent_samples": 5454,
+    "fault_simulations": 18,
+    "faulted_instances": 36
+  },
+  "physical": {
+    "legal_layouts": 12,
+    "physical_faults": 3,
+    "spacing_boundaries_nm": [
+      595,
+      600,
+      605
+    ],
+    "boundary_fixtures_are_not_full_drc_clean": true
+  },
+  "standard_mos_physical": {
+    "legal_layouts": 30,
+    "detected_physical_faults": 90,
+    "targets": [
+      "gf180mcuC",
+      "gf180mcuD",
+      "ihp-sg13g2"
+    ]
+  },
+  "regressions": {
+    "Linux": {
+      "full_run": {
+        "tests": 2963,
+        "passed": 2947,
+        "skipped": 15,
+        "failures": 1,
+        "seconds": 565.481,
+        "sha256": "d50ad5c6837f7e9f3656c2cc2faf93ef37868a460a203f6ed2cbc1aa487d15c7",
+        "failure": "test_six_case_program_imports_offline_and_catalog_formulas_survive_exchange (test_bandgap_compatibility.BandgapCompatibilityTests.test_six_case_program_imports_offline_and_catalog_formulas_survive_exchange)"
+      },
+      "corrected_focused_run": {
+        "passed": 18,
+        "skipped": 0,
+        "sha256": "4f34d88b691b569b3fdb49b51f7218af51055b17410c211883ec0ee57b36556c"
+      },
+      "resolution": "The only full-suite failure required named SPICE width/length parameters to be adjacent. Sorted metadata preserved both values and all formulas. The test now checks the named values independently; the corrected bandgap, catalog migration and default-package tests all pass. The original full runs remain recorded as failed, not relabelled."
+    },
+    "Windows": {
+      "full_run": {
+        "tests": 2963,
+        "passed": 2926,
+        "skipped": 36,
+        "failures": 1,
+        "seconds": 1017.842,
+        "sha256": "cb0526ba93d50dfc3c42c0e9ed3e4f82e272ad01795cedc06e66819b275e9f8d",
+        "failure": "test_six_case_program_imports_offline_and_catalog_formulas_survive_exchange (test_bandgap_compatibility.BandgapCompatibilityTests.test_six_case_program_imports_offline_and_catalog_formulas_survive_exchange)"
+      },
+      "corrected_focused_run": {
+        "passed": 18,
+        "skipped": 0,
+        "sha256": "4dba4c273fc6c226358d28a3121b9543b41ebadb60883296ceda6c35d2ad1f04"
+      },
+      "resolution": "The only full-suite failure required named SPICE width/length parameters to be adjacent. Sorted metadata preserved both values and all formulas. The test now checks the named values independently; the corrected bandgap, catalog migration and default-package tests all pass. The original full runs remain recorded as failed, not relabelled."
+    }
+  },
+  "raw_audit": {
+    "status": "PASS",
+    "sha256": "28f792371bdc34c90feab88d7882749d2c79bf2919012dd7986124139043f37b",
+    "responses": 263,
+    "unique_raw_files": 255
+  },
+  "runtime": {
+    "binary_sha256": "67399d2db139e9a8e7bfd118cab8acfa290bb6db003c996333e55ed682a65d25",
+    "dependency_record": "docs/validation/capacitor-families-2026-10-17.json",
+    "dependency_sha256": "2edf2da917d3bd37d799d9530b1b885d5d1ac9bbe6c8f9745ce6b57a78f39e48"
+  },
+  "current_implementation": {
+    "scripts/device_qualification_source.py": "06b70224df18eff8d498b1a2eea58b80ae0a64164c8c34732cfc278624a1c3c7",
+    "scripts/prepare_default_device_packages.py": "0491886d2987715d0560f77ab5746bc3dff6917551b18c60c00d0f2548372452",
+    "scripts/qualify_default_devices.py": "a917f179423d67208fb9131a9ca43666cc271d7797d0a20f5d7dc143412ddd60",
+    "scripts/qualify_capacitor_families.py": "23681648a84e35fc0a7c824a966ad3db000e27836c8f9622eeffaddf020fac78",
+    "scripts/qualify_diode_families.py": "bc39649ee659cb9f49804c835f58ce08ab4c6789925c7eca777e7828f25d7e9e",
+    "scripts/qualify_ihp_mim_layout.py": "4ec1b95e80a6454726a6f6b09e322a7d0fc8da83595c1265803d2a25ac59665e",
+    "tests/test_default_device_packages.py": "483d0b5c6e0695b5768e54acc62460f9aa19d410426029c287369c6d941afa29",
+    "tests/test_bandgap_compatibility.py": "059565fe3b64d7438cc3fa4ab38b23b9c4baed7fbd38320b4bd99f61d9fbb8c0"
+  },
+  "archive": {
+    "path": "IC-Design-Studio-evidence/default-device-packages-2026-10-17/evidence.zip",
+    "sha256": "af497df71e0997436c7c995dff6bd77031e8046a2140cdd15c58bf66cb214342",
+    "bytes": 162242901,
+    "file_paths": 58461,
+    "unique_contents": 11916,
+    "verified_objects": true
+  },
+  "preservation": [
+    "All earlier assets retain their exact bytes and notices. Four retained manifests reconstruct pre-promotion inputs; older SKY130 source deltas reconstruct the original unmodified baseline.",
+    "The default builder reproduces all four qualified candidate manifests exactly and rejects unknown or mismatched input revisions. Saved projects keep their registered package locks.",
+    "Each host passes 235 catalog save/reopen/netlist/Xschem checks. The 20 explicitly unavailable entries remain unavailable; their expected rejection is recorded separately from device passes."
+  ],
+  "diagnostics": [
+    "Initial new tests compared serialized installed-manifest bytes rather than equivalent parsed metadata and confused model terminal aliases with symbol labels. These test defects were corrected; original failed logs remain archived.",
+    "A follow-up command requested a nonexistent test module. The corrected invocation and final 18-test runs pass on both hosts; no test was skipped to obtain that result."
+  ],
+  "remaining": [
+    "Complete device-specific operating envelopes and physical generation/extraction coverage, including full high-voltage, RF, ESD and statistical behavior.",
+    "Model-only definitions and alternate-model inventories beyond the verified 255 primitive symbol views.",
+    "SKY130 20 V models still need a truthful fixed-geometry catalog contract; selected tests varied multiplicity, not effective model W/L.",
+    "Exact new desktop/runtime-image installation acceptance and full user-facing managed-runtime coverage. Native Windows ngspice 42 and the corrected Linux/WSL ngspice 47 are distinct runtimes.",
+    "The original full regression runs each contain one subsequently corrected ordering assertion; final targeted runs pass. Full-suite histories are retained with their actual outcomes."
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "status": "diagnostic-build-complete",
+  "qualified": false,
+  "source_commit": "4f53bb3091d1e4a9b2009a58f157a8a4331d4c84",
+  "original_file_sha256": "42c1a4f55d280ccb05be90a1f782dbb60d40162cc6d64616970bcba042d7ca51",
+  "instrumented_file_sha256": "e5a24d68dbf87d4bda340ff726dec40be18152d1fe56f3abf54ceb416eba282f",
+  "driver_sha256": "386da4f8ea51eee7f966a950700a2f3b789d7039566e3d12ddc8cae405759131",
+  "patch_sha256": "a7b6eb37f814bad2285715998ab9771b46f4469e9bc499611be5042b7405768a",
+  "steps": [
+    {
+      "command": [
+        "./configure",
+        "--prefix=/var/tmp/icstudio-sky130-antenna-trace-v1/install",
+        "--disable-opengl",
+        "--disable-cairo"
+      ],
+      "pid": 28303,
+      "status": "complete",
+      "returncode": 0,
+      "seconds": 4.286682925005152,
+      "log_sha256": "6f1c0254285f2c901e662fb7293ee561a7218d941de218fe2d484c3a323e745e"
+    },
+    {
+      "command": [
+        "make",
+        "-j2"
+      ],
+      "pid": 30899,
+      "status": "complete",
+      "returncode": 0,
+      "seconds": 10.714630447000673,
+      "log_sha256": "769f7d71b314d1acffc9939a814594524ac8c4a150f7219e08781fc06de33d48"
+    },
+    {
+      "command": [
+        "make",
+        "install"
+      ],
+      "pid": 1358,
+      "status": "complete",
+      "returncode": 0,
+      "seconds": 0.6745863989999634,
+      "log_sha256": "d5d9c855fad05c76fd4354a098d045dd71045698750cf102a34e503fcf22cd51"
+    }
+  ],
+  "limitation": "Logging-only intent. Uninitialized inputs, if present in the original routine, can change with stack layout; this build is diagnostic and cannot substitute for acceptance.",
+  "executable": "/var/tmp/icstudio-sky130-antenna-trace-v1/install/bin/magic",
+  "executable_sha256": "b23749068d6491bf2974332b0859d39006061a4566f14e893e3c37762bb4f1bb"
+}

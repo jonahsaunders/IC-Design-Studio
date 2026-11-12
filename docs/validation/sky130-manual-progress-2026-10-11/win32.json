@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "status": "additional-applicability-reviewed",
+  "qualified": false,
+  "chunk_complete": false,
+  "platform": "win32",
+  "tests": 12,
+  "skipped": 0,
+  "data_sha256": "36bc606f857fbee021df55ed67b6c6458bc8b80bef2a449b2532d293a7f35397",
+  "log_sha256": "f733a6ab47a5218324b9efe8d0911ffc74f655254923f23e5a7b2bb9a6d493ad",
+  "driver_sha256": "96dd10789df3185d2d1d6a2d2075aa4561c4f8adfd36acc9e4d3fa08f6fe0286",
+  "baseline_sha256": "6c782eb2f89d7ed4defb6a4bbe404697d606836a220dcab158f365ddf76bd98d",
+  "source_files": {
+    "scripts/sky130_block_applicability.py": "fe49d9bdd213366620731b25e5860c182f319fe6b48653b1caa40178bbe2a873",
+    "tests/test_sky130_block_applicability.py": "3e9aaa6678c857771180f23303f8189d954aaa1f7a4e16009c44526417a72b30"
+  }
+}

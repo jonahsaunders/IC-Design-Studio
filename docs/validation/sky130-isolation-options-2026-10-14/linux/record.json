@@ -1,0 +1,49 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "platform": "linux",
+  "tests": 18,
+  "qualified": false,
+  "chunk_complete": false,
+  "cli": [
+    {
+      "case": "counter-bulk",
+      "exit_code": 0,
+      "status": "NOT_REQUESTED",
+      "measured_noncontained_gates": 1120,
+      "report_sha256": "3e408744ab0f17d43f762c277ab1e0f15ea2b1c8d9fe9b5c11df6705ec9e3c37",
+      "log_sha256": "4374b034e831ea7b859bfba51cda2796a34fa4ce3ae2f3f303c784a6176efea5"
+    },
+    {
+      "case": "counter-isolated",
+      "exit_code": 2,
+      "status": "FAIL",
+      "measured_noncontained_gates": 1120,
+      "report_sha256": "5100e46c9b1c4dbaa7820c3476fa06e7dd7e5adb72cadd635977bb5f19be3723",
+      "log_sha256": "c8752904ca15d51419536f070855756fde49bfd74d653bc61e937297b9525ae3"
+    },
+    {
+      "case": "isolated-control",
+      "exit_code": 0,
+      "status": "PASS",
+      "measured_noncontained_gates": 0,
+      "report_sha256": "b8accaddffc5ecb125478240ca3bd568492bb6d0cdb0bbd5ce2068e168e894f9",
+      "log_sha256": "c1c418424e9c8fb45439608951f38de7c386340f9397db387b1f7d882a542ce6"
+    }
+  ],
+  "missing_mode": {
+    "exit_code": 2,
+    "report_created": false,
+    "log_sha256": "a10eea57d4a5ac8e6907be3249ea43a12add0b9cf26d111524309bf5aa85face"
+  },
+  "data_sha256": "5c284df0743c4207282d2c37f561a3e701d0d8ddfb3a6dfc2425b0364a11d33c",
+  "tests_sha256": "dd326a6a6046a2208b8e7e3fdb53e74204641e19b36a9b1558c7d66bbf46a94c",
+  "driver_sha256": "382f6428eeca8cf2435760b648f9a896ae59f2174867baf073a3e6c3c60e6d48",
+  "source_files": {
+    "scripts/sky130_isolation_review.py": "c1b29c7a430ba6107fe7e0e93806a985dbe88e71631591ff4ad19ce251a533f1",
+    "scripts/sky130_isolation_policy.py": "c52c00e24763fbdac22c61f335bcad5262a1e14848e2a0979fc6158e4bd35b86",
+    "tests/test_sky130_isolation_policy.py": "7dce1316229f459e27e2b776d92529edc22c51d8a962a5f57b25c419144df77f",
+    "tests/test_sky130_isolation_review.py": "01910d488eaef2e9a1942bb2ec9876b0fa8011212c29d3cf6270a7b9a1163aed",
+    "scripts/sky130_grid_geometry.py": "0e24c568f582725ad034cf5fd4346a04756e69e0d34c00d47c959d1d5dcff28a"
+  }
+}

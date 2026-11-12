@@ -1,0 +1,308 @@
+{
+  "schema": 1,
+  "chunk": 6,
+  "status": "standard-cell-wl-review-verified",
+  "qualified": false,
+  "chunk_complete": false,
+  "source_baseline": "c2bca53b53cca70a634ea84c28b1177fe0580a3b",
+  "scope": "Exact captured HD-library provenance and fresh instance-level gate measurements establish the published standard-cell W/L exception for 90 literal catalog entries on counter, UART and APB. Five dummy-poly subjects are absent. These explicit exemptions do not execute missing MRGA numeric limits or establish RF/device recognition, arbitrary cell support or foundry acceptance.",
+  "source_files": {
+    "scripts/sky130_standard_cell_wl_review.py": "3280d25d7e7b3b993f0a6a26cac28ea9471e5a6e627b072ba6f36566246b1989",
+    "scripts/sky130_grid_geometry.py": "0e24c568f582725ad034cf5fd4346a04756e69e0d34c00d47c959d1d5dcff28a",
+    "scripts/sky130_catalog_queue.py": "a7e67cac3ff2c4957e9a998ac11c40e9ef0444c1bc1224bcd36b049ba40dde23",
+    "scripts/check_sky130_filled_replay.py": "3b70b41abdff2032b0f7c41716466995d673a3cb43847e90200d21d9b16fe15a",
+    "tests/test_sky130_standard_cell_wl.py": "8c6ea546c21a41cab9a0dfb756a49f302818e3d469fcbe6d0d752925e5513ca3"
+  },
+  "data": {
+    "path": "docs/validation/sky130-standard-cell-wl-2026-10-15.json",
+    "sha256": "bfe5423c9e4efadf24e134f904e39eda4df016ebd60de9fc40ae33e80945d7fe"
+  },
+  "systems": {
+    "win32": {
+      "result": {
+        "schema": 1,
+        "status": "PASS",
+        "platform": "win32",
+        "qualified": false,
+        "chunk_complete": false,
+        "driver_sha256": "9c570588a52a00c90c534ca704268301ebbded9c46579be43416eb96b7a46b3b",
+        "tests": 20,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "log_sha256": "9ed20f7f08ae756db3c80ad2854ea0cb313b5405686771690ac3bcf070b3cd66",
+        "data_sha256": "bfe5423c9e4efadf24e134f904e39eda4df016ebd60de9fc40ae33e80945d7fe",
+        "cases": {
+          "counter": {
+            "catalog": {
+              "unreviewed": 756,
+              "executed-reviewed": 356,
+              "absent-operand": 354,
+              "standard-cell-wl-exempt": 90
+            },
+            "gates": 2240,
+            "masters": 17
+          },
+          "uart": {
+            "catalog": {
+              "unreviewed": 756,
+              "executed-reviewed": 356,
+              "absent-operand": 354,
+              "standard-cell-wl-exempt": 90
+            },
+            "gates": 17002,
+            "masters": 43
+          },
+          "apb": {
+            "catalog": {
+              "unreviewed": 756,
+              "executed-reviewed": 356,
+              "absent-operand": 354,
+              "standard-cell-wl-exempt": 90
+            },
+            "gates": 17143,
+            "masters": 40
+          }
+        },
+        "elapsed_seconds": 31.29699999999866
+      },
+      "evidence": {
+        "record.json": {
+          "path": "docs/validation/sky130-standard-cell-wl-2026-10-15/win32/record.json",
+          "sha256": "967a9e5e4632f224e259e72bfff7b8bff9574038e468eb072dc0ad555bded4e7"
+        },
+        "tests.log": {
+          "path": "docs/validation/sky130-standard-cell-wl-2026-10-15/win32/tests.log",
+          "sha256": "9ed20f7f08ae756db3c80ad2854ea0cb313b5405686771690ac3bcf070b3cd66"
+        }
+      }
+    },
+    "linux": {
+      "result": {
+        "schema": 1,
+        "status": "PASS",
+        "platform": "linux",
+        "qualified": false,
+        "chunk_complete": false,
+        "driver_sha256": "9c570588a52a00c90c534ca704268301ebbded9c46579be43416eb96b7a46b3b",
+        "tests": 20,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "log_sha256": "4b533daa5135a4655718358517f30af145a0eb164ed7acd7144c0e71e2f2afb3",
+        "data_sha256": "bfe5423c9e4efadf24e134f904e39eda4df016ebd60de9fc40ae33e80945d7fe",
+        "cases": {
+          "counter": {
+            "catalog": {
+              "unreviewed": 756,
+              "executed-reviewed": 356,
+              "absent-operand": 354,
+              "standard-cell-wl-exempt": 90
+            },
+            "gates": 2240,
+            "masters": 17
+          },
+          "uart": {
+            "catalog": {
+              "unreviewed": 756,
+              "executed-reviewed": 356,
+              "absent-operand": 354,
+              "standard-cell-wl-exempt": 90
+            },
+            "gates": 17002,
+            "masters": 43
+          },
+          "apb": {
+            "catalog": {
+              "unreviewed": 756,
+              "executed-reviewed": 356,
+              "absent-operand": 354,
+              "standard-cell-wl-exempt": 90
+            },
+            "gates": 17143,
+            "masters": 40
+          }
+        },
+        "elapsed_seconds": 25.242767903999997
+      },
+      "evidence": {
+        "record.json": {
+          "path": "docs/validation/sky130-standard-cell-wl-2026-10-15/linux/record.json",
+          "sha256": "cc1daf889325f22a7f52ead894f2ecb9ea8cbba21904cf9575944dfb12c72e8c"
+        },
+        "tests.log": {
+          "path": "docs/validation/sky130-standard-cell-wl-2026-10-15/linux/tests.log",
+          "sha256": "4b533daa5135a4655718358517f30af145a0eb164ed7acd7144c0e71e2f2afb3"
+        }
+      }
+    }
+  },
+  "cases": [
+    {
+      "case": "counter",
+      "gds_sha256": "4158b6503dc07e85f1e9e7b375a3d654cd9b64dc0498ed9fb680874e973c1ac2",
+      "gates": 2240,
+      "masters": 17,
+      "dummy_poly_labels": 0,
+      "library_provenance": {
+        "input_sha256": "1bb2a7ef2a1db3d000a68c429cee82807eaff828d646c5d127666adb5a0b3991",
+        "platform": "sky130hd",
+        "revision": "ORFS eaba6576441bf7c1743ea56ecdb1904210ec02c2",
+        "library": {
+          "path": "sky130hd/gds/sky130_fd_sc_hd.gds",
+          "sha256": "15240e34c50e42419336c0f3f498aaeac1e1e403c62134c0eee088225b69dc13",
+          "bytes": 4182250
+        }
+      },
+      "error_counts": {
+        "unreviewed": 756,
+        "executed-reviewed": 356,
+        "absent-operand": 354,
+        "standard-cell-wl-exempt": 90
+      },
+      "periphery_counts": {
+        "execution-review-required": 10,
+        "upstream-na": 77,
+        "executed-reviewed": 135,
+        "absent-operand": 280,
+        "advisory": 36,
+        "definition-required": 1,
+        "declared-option-not-required": 1,
+        "other-backend": 61
+      }
+    },
+    {
+      "case": "uart",
+      "gds_sha256": "c9282fb9602ac9dbab5299032be1d4b68751bb611747d276d40435e93c37afea",
+      "gates": 17002,
+      "masters": 43,
+      "dummy_poly_labels": 0,
+      "library_provenance": {
+        "input_sha256": "ecdf75aa48f65ad8ca837703cdadc93b51d1503ea522f6e4bc0d3893bf3be660",
+        "platform": "sky130hd",
+        "revision": "ORFS eaba6576441bf7c1743ea56ecdb1904210ec02c2",
+        "library": {
+          "path": "sky130hd/gds/sky130_fd_sc_hd.gds",
+          "sha256": "15240e34c50e42419336c0f3f498aaeac1e1e403c62134c0eee088225b69dc13",
+          "bytes": 4182250
+        }
+      },
+      "error_counts": {
+        "unreviewed": 756,
+        "executed-reviewed": 356,
+        "absent-operand": 354,
+        "standard-cell-wl-exempt": 90
+      },
+      "periphery_counts": {
+        "execution-review-required": 10,
+        "upstream-na": 77,
+        "executed-reviewed": 135,
+        "absent-operand": 280,
+        "advisory": 36,
+        "definition-required": 1,
+        "declared-option-not-required": 1,
+        "other-backend": 61
+      }
+    },
+    {
+      "case": "apb",
+      "gds_sha256": "5039221b72bfd052d3f82781f5403fb67df4261ea20add5c2047191321fe9d78",
+      "gates": 17143,
+      "masters": 40,
+      "dummy_poly_labels": 0,
+      "library_provenance": {
+        "input_sha256": "50c4418df21f2ed9539a340b16e36b0417b885651d3c1ca519542abcfb809a77",
+        "platform": "sky130hd",
+        "revision": "ORFS eaba6576441bf7c1743ea56ecdb1904210ec02c2",
+        "library": {
+          "path": "sky130hd/gds/sky130_fd_sc_hd.gds",
+          "sha256": "15240e34c50e42419336c0f3f498aaeac1e1e403c62134c0eee088225b69dc13",
+          "bytes": 4182250
+        }
+      },
+      "error_counts": {
+        "unreviewed": 756,
+        "executed-reviewed": 356,
+        "absent-operand": 354,
+        "standard-cell-wl-exempt": 90
+      },
+      "periphery_counts": {
+        "execution-review-required": 10,
+        "upstream-na": 77,
+        "executed-reviewed": 135,
+        "absent-operand": 280,
+        "advisory": 36,
+        "definition-required": 1,
+        "declared-option-not-required": 1,
+        "other-backend": 61
+      }
+    }
+  ],
+  "archive": {
+    "schema": 1,
+    "status": "readback-verified",
+    "layout": "sha256-addressed-blobs-with-parent-v1",
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-standard-cell-wl-2026-10-15-v1\\evidence.tar.gz",
+    "sha256": "2f4cce1c00d0d0a43301973d72ee564d31d59a9c0f130baa21f65207a7e24f14",
+    "bytes": 138665,
+    "files": 916,
+    "unique_local_blobs": 12,
+    "reused_parent_files": 898,
+    "manifest_sha256": "ec53f54ad37eb0558c670fd8e8fa5138aa2ef5dcb56b96411a5d7b6b102cac6b",
+    "parent": {
+      "schema": 1,
+      "status": "readback-verified",
+      "layout": "sha256-addressed-blobs-with-parent-v1",
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-local-hv-2026-10-15-v1\\evidence.tar.gz",
+      "sha256": "af80985dcd6f1a35d95797482fafa41b9e1a1e7bc60444bf6af7fb190d04ba21",
+      "bytes": 28772307,
+      "files": 895,
+      "unique_local_blobs": 80,
+      "reused_parent_files": 806,
+      "manifest_sha256": "f6e4c3ac7d25f3596c20eee369ec78b995a541b131a1bf010dd66cbce26e4006",
+      "parent": {
+        "schema": 1,
+        "status": "readback-verified",
+        "layout": "sha256-addressed-blobs-with-parent-v1",
+        "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-application-isolation-2026-10-14-v1\\evidence.tar.gz",
+        "sha256": "521e6aa0401a22453e307143504788f6e6abb9322a03e0292b8ee16253c47818",
+        "bytes": 17483870,
+        "files": 895,
+        "unique_local_blobs": 163,
+        "reused_parent_files": 704,
+        "manifest_sha256": "0b40d7ed2e9a44d500bfc2927c03de3fadf13b72acec5221550de76cd68f6596",
+        "parent": {
+          "schema": 1,
+          "status": "readback-verified",
+          "layout": "sha256-addressed-blobs-with-parent-v1",
+          "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-filled-electrical-2026-10-14-v1\\evidence.tar.gz",
+          "sha256": "e473b4d289a92a2dd196512ce20cc2a23ac5a5607715bfcbdeaf83e15e49983d",
+          "bytes": 22598988,
+          "files": 4465,
+          "unique_local_blobs": 727,
+          "reused_parent_files": 3382,
+          "manifest_sha256": "13f0993a6a28af4b28ba242ed45f5cb64bb6a31173243f9291c3d1f9a35f3b11",
+          "parent": {
+            "schema": 1,
+            "status": "readback-verified",
+            "layout": "sha256-addressed-blobs-v1",
+            "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-scope-correction-2026-10-14-v1\\evidence.tar.gz",
+            "sha256": "c91887fe6ca5b3492baed7e461f300ac14cbb16945bf5aff11fd792fc930fedc",
+            "bytes": 44401516,
+            "files": 842,
+            "unique_blobs": 386,
+            "manifest_sha256": "1f62a0248c6486b6b9f8358477016ef8e15ec4b515d6023860294ec0a89c2465"
+          }
+        }
+      }
+    }
+  },
+  "limitations": [
+    "356 executed catalog bindings, 354 absent subjects, 90 explicit standard-cell W/L exemptions and 756 unreviewed records.",
+    "The areaid.sc exception is interpreted separately from the named scs8 decap/MRGA clause. No pruned-device or named-cell exception is used.",
+    "A normalized dummy_poly label on any purpose prevents absence; no Table H3 exception is used.",
+    "All 60 RF fixed-layout dimension records, invalid NFET/PFET recognition and the FGR-only device restriction remain unreviewed.",
+    "The supplemental periphery ledger remains at 135 executed and ten execution reviews plus one missing definition. The application ledger remains separate at 133 executed and 28 execution reviews.",
+    "Unchanged native extraction and application/electrical evidence is retained. There is no new extraction, placement, application run, calibrated corner check, installer or foundry acceptance."
+  ]
+}

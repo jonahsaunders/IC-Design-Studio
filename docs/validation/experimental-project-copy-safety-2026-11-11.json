@@ -1,0 +1,94 @@
+{
+  "schema": 1,
+  "date": "2026-11-11",
+  "scope": "Duplicate Project pending-edit repair; local source and exhaustive core validation, not installed acceptance",
+  "base_commit": "e1d26f907214b66584ac3003c2684a7371a3c14b",
+  "base_hosted_source": {
+    "run": 43115674763,
+    "synthetic_merge_tree": "62eaa2d98feb3d4d1baa5ab72124e83f63e935b1",
+    "covers_this_follow_on": false
+  },
+  "change": "After selecting a copy destination, resolve pending digital edits and flush inspector/analysis before making an independent copy. Preserve current path, saved hash, source file and exclusive destination writer. Existing pre-picker inspector flush on Cancel is unchanged.",
+  "validation": {
+    "qt": {
+      "tests": 23,
+      "seconds": 6.932,
+      "status": "PASS"
+    },
+    "qt_wrapper": {
+      "tests": 1,
+      "seconds": 7.998,
+      "status": "PASS"
+    },
+    "original_control": {
+      "base": "e1d26f907214b66584ac3003c2684a7371a3c14b",
+      "tests": 2,
+      "expected_failures": 2,
+      "status": "EXPECTED_FAILURES_CONFIRMED",
+      "causes": [
+        "stale copied analysis",
+        "pending RTL marker absent"
+      ]
+    },
+    "focused": {
+      "tests": 48,
+      "seconds": 18.973,
+      "status": "PASS"
+    },
+    "source": {
+      "stages": 14,
+      "tests": 1919,
+      "skips": 18,
+      "syntax_files": 1637,
+      "bound_source_files": 2552,
+      "seconds": 426.625,
+      "status": "PASS",
+      "executor_exit_code": 0,
+      "report_sha256": "43ceaddfa9bfe5f9cc142403af0640de7d5e0dbca1d9ae0b4167c639803963f0"
+    },
+    "core": {
+      "command": "QT_QPA_PLATFORM=offscreen python -m unittest discover -s tests -v",
+      "executor_exit_code": 0,
+      "tests": 5017,
+      "skips": 81,
+      "seconds": 1165.711,
+      "log_sha256": "721fb1cdb339fd685699c3971d6c15d17b899459d200840d81f38e0cd770a88b"
+    }
+  },
+  "identity_scope": {
+    "source_lane_pre_post_and_post_core_maps_equal": true,
+    "separate_core_prelaunch_identity_capture": false,
+    "limitation": "Core was launched without a separate pre-launch identity receipt. The source lane checked its own pre/post identities; the post-core independent map matches that source map. These are not relabeled as a core pre-launch measurement."
+  },
+  "historical_retention": "Exact previously accepted lifecycle source is separately retained; historical native acceptance does not accept the repaired code.",
+  "installed_acceptance": {
+    "covered": false,
+    "older_f323_run": 43078377334,
+    "older_run_covers_this_fix": false
+  },
+  "qualified": false,
+  "native_scientific_qualification_added": false,
+  "engineering_estimate": {
+    "chunk": 7,
+    "percent": 74,
+    "low_confidence_range": [
+      55,
+      82
+    ],
+    "measured_acceptance_fraction": false
+  },
+  "documentation_timing": "This validation record and progress entry are created after the measured runs.",
+  "privacy_review": {
+    "credential_private_memory_or_signed_access_link_patterns": 0,
+    "redactions": 0,
+    "ordinary_test_workspace_paths_retained_in_raw_logs": true
+  },
+  "artifact": {
+    "path": "docs/validation/experimental-project-copy-safety-2026-11-11.zip",
+    "bytes": 708760,
+    "sha256": "3f7ddb9005a04d85639853316b73ae591671189406a608e9e273ea654472b2c1",
+    "members": 38,
+    "hashed_omissions": 1504,
+    "all_payload_readback": "PASS"
+  }
+}

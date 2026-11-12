@@ -1,0 +1,95 @@
+
+Magic 8.3 revision 684 - Compiled on Tue Oct  6 22:55:21 UTC 2026.
+Starting magic under Tcl interpreter
+Using the terminal as the console.
+WARNING: RLIMIT_NOFILE is above 1024 and Tcl_Version<9 this may cause runtime issues [rlim_cur=10240]
+Using NULL graphics device.
+Processing system .magicrc file
+Switching to WIRING tool.
+Switching to NETLIST tool.
+Switching to PICK tool.
+Switching to BOX tool.
+Loading "generate_gds.tcl" from command line.
+Input style generic: scaleFactor=1, multiplier=1
+The following types are not handled by extraction and will be treated as non-electrical types:
+    type11 type20 type21 type22 type22_22 type23 type25 type27 type28 type30 type32 type34 type35 type36 type37 type39 type40 type41 type43 type44 type46 type48 type49 type50 type51 type56 type58 type59 type61_20 type65_20 type81_1 type81_51 type81_52 type88 type96 type97 type98 
+Cell advSeal_6um_gen read from current working directory
+Input cell advSeal_6um_gen scales magic internal geometry by factor of 2
+Cell seal_ring_slots_array read from current working directory
+Cell sealring_slots read from current working directory
+Cell seal_ring_corner read from current working directory
+Cell sr_polygon00039 read from current working directory
+Input cell sr_polygon00039 scales magic internal geometry by factor of 5
+Cell sr_polygon00035 read from current working directory
+Scaled magic input cell sr_polygon00035 geometry by factor of 5
+Cell sr_polygon00015 read from current working directory
+Scaled magic input cell sr_polygon00015 geometry by factor of 5
+Cell nikon_sealring_shape read from current working directory
+Scaled magic input cell nikon_sealring_shape geometry by factor of 10
+Cell sr_polygon00007 read from current working directory
+Scaled magic input cell sr_polygon00007 geometry by factor of 10
+Cell sr_polygon00001 read from current working directory
+Scaled magic input cell sr_polygon00001 geometry by factor of 10
+Cell sr_polygon00002 read from current working directory
+Scaled magic input cell sr_polygon00002 geometry by factor of 10
+Cell sr_polygon00003 read from current working directory
+Scaled magic input cell sr_polygon00003 geometry by factor of 10
+Cell sr_polygon00004 read from current working directory
+Scaled magic input cell sr_polygon00004 geometry by factor of 10
+Cell sr_polygon00005 read from current working directory
+Scaled magic input cell sr_polygon00005 geometry by factor of 10
+Cell sr_polygon00006 read from current working directory
+Scaled magic input cell sr_polygon00006 geometry by factor of 10
+Cell sr_polygon00019 read from current working directory
+Scaled magic input cell sr_polygon00019 geometry by factor of 5
+Cell sr_polygon00023 read from current working directory
+Scaled magic input cell sr_polygon00023 geometry by factor of 5
+Cell sr_polygon00027 read from current working directory
+Scaled magic input cell sr_polygon00027 geometry by factor of 5
+Cell sr_polygon00031 read from current working directory
+Scaled magic input cell sr_polygon00031 geometry by factor of 5
+Cell sr_polygon00032 read from current working directory
+Scaled magic input cell sr_polygon00032 geometry by factor of 5
+Cell sr_polygon00016 read from current working directory
+Scaled magic input cell sr_polygon00016 geometry by factor of 5
+Cell sr_polygon00020 read from current working directory
+Scaled magic input cell sr_polygon00020 geometry by factor of 5
+Cell sr_polygon00024 read from current working directory
+Scaled magic input cell sr_polygon00024 geometry by factor of 5
+Cell sr_polygon00028 read from current working directory
+Scaled magic input cell sr_polygon00028 geometry by factor of 5
+Cell sr_polygon00036 read from current working directory
+Scaled magic input cell sr_polygon00036 geometry by factor of 5
+Cell sr_polygon00011 read from current working directory
+expand: rescaled by 5
+   Generating output for cell sealring_slots
+   Generating output for cell seal_ring_slots_array
+   Generating output for cell sr_polygon00039
+   Generating output for cell sr_polygon00035
+   Generating output for cell sr_polygon00015
+   Generating output for cell sr_polygon00007
+   Generating output for cell sr_polygon00001
+   Generating output for cell sr_polygon00002
+   Generating output for cell sr_polygon00003
+   Generating output for cell sr_polygon00004
+   Generating output for cell sr_polygon00005
+   Generating output for cell sr_polygon00006
+   Generating output for cell nikon_sealring_shape
+   Generating output for cell sr_polygon00019
+   Generating output for cell sr_polygon00023
+   Generating output for cell sr_polygon00027
+   Generating output for cell sr_polygon00031
+   Generating output for cell sr_polygon00032
+   Generating output for cell sr_polygon00016
+   Generating output for cell sr_polygon00020
+   Generating output for cell sr_polygon00024
+   Generating output for cell sr_polygon00028
+   Generating output for cell sr_polygon00036
+   Generating output for cell sr_polygon00011
+   Generating output for cell seal_ring_corner
+   Generating output for cell advSeal_6um_gen
+Installing files to result
+Retaining generated files in temp/ directory
+Done generating files advSeal_6um_gen.gds and advSeal_6um_gen.mag in result
+Place the seal ring cell in the final layout at (0um, 0um) before generating GDS.
+The top level layout minus seal ring must have a lower left corner of (6um, 6um)

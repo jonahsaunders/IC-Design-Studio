@@ -1,0 +1,6 @@
+REPRODUCIBILITY INPUTS, NOT A TURNKEY EXECUTABLE REPLAY
+Pinned compiler baseline: f47d5579bd2f5c465f6e7db62c12745daad8b54f.
+compiler-complete.patch applies cleanly to the authenticated731-file baseline and was verified to reproduce all734 candidate source hashes. Full734-file candidate source archive includes Cargo.lock and upstream license files.
+Build recipe and actual commands/environments/receipts are retained. The feature is DEFAULT OFF; ON uses osdi/experimental-compensated-rhs. A fresh Cargo target per source root is mandatory because stdx embeds source paths. The guarded clang-cl UCRT path wrapper must be rebound to the identical source byte hash under the new checkout.
+The exact pinned LLVM15/Rust/Cargo/tool dependency build/acquisition receipts are retained. The large LLVM source/build/install trees, Debian sysroot/packages, Cargo registry cache, compiler executables and failed research build directories are NOT bundled. Reconstructing that authenticated toolchain from the recorded official inputs is required for executable rebuild. Paths in historic receipts describe the original isolated workspace, not portable install paths.
+The engine/module binaries actually used for the20-job evidence are retained in the measured-v3 evidence. This is an opt-in research module, not a managed-runtime replacement or calibration claim.

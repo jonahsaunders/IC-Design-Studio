@@ -1,0 +1,117 @@
+{
+  "schema": 1,
+  "status": "new-runtime-built-and-fully-audited-awaiting-installation",
+  "qualified": false,
+  "observed_at": "2026-10-09T17:55:55.224698+00:00",
+  "backend": "719a8abfbe6b3b6dda4eed20751de3ee230253bbcfb22b139a6316acc87b8cac",
+  "build": {
+    "path": "outputs/gf180-connectivity-runtime-build-v1/record.json",
+    "sha256": "817389dfbb1a7fc426174a279ef892a3e9a1d1693e6fc7e52422b406ce14ccb8"
+  },
+  "audit": {
+    "path": "outputs/gf180-runtime-archive-audit-v1/record.json",
+    "sha256": "9970414c28f849bfa09da4892cf8307167c9be6827c6730b9bbf69fcdbd8db49"
+  },
+  "payload": {
+    "directory": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\gf180-connectivity-runtime-2026-10-09-v1",
+    "sha256": "3f4275776fcb73d658265577dd0f5840171b5711fdb21cd1e675ed80a13c9f38",
+    "bytes": 1529514568,
+    "manifest_sha256": "81c94e6297f8bd118f464149ae3a3436a96f311391d43c706caa49281bc1d79d",
+    "image_id": "sha256:e992b6e9bc0ba3463d96ca7b22ce26785e7de4c18c9b9bdd33e5cd4f04409bf1",
+    "storage": "Permanent hard link to the completed archive; no duplicate archive bytes."
+  },
+  "source_checkpoint": {
+    "path": "outputs/gf180-runtime-inputs-checkpoint-v1/record.json",
+    "sha256": "3b3cddb6562c98c25a06d0c858b7f0d5dab39b853ca8a8d2a5bafc21e675fc42"
+  },
+  "source_archive": {
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\gf180-runtime-inputs-2026-10-09-v1\\evidence.tar.gz",
+    "sha256": "5485659399bb627d784a0fb487d906bf026076e0e9c58862483e201f69fbf509",
+    "bytes": 559187,
+    "logical_files": 4694,
+    "unique_objects": 66,
+    "verified": true
+  },
+  "source_dependencies": {
+    "profile-dependency": {
+      "directory": "gf180-connectivity-profile-2026-10-09-v1",
+      "archive": "evidence.tar.gz",
+      "sha256": "7b560397c907182515e48de8fbd0aa379b7d4b22a13ac7112963552b763efc19",
+      "bytes": 93882529
+    }
+  },
+  "locked_files": 54396,
+  "archive_members": 65236,
+  "profiles": [
+    {
+      "name": "sky130hd",
+      "files": 42,
+      "fingerprint": "f7f9afb684817161ef4438506f37187c254e3dba8d5671ad101d1b0db54b2ca0",
+      "corners": {
+        "library_corners": [
+          "typical",
+          "slow",
+          "fast"
+        ],
+        "interconnect_corners": [
+          "minimum",
+          "nominal",
+          "maximum"
+        ]
+      }
+    },
+    {
+      "name": "gf180",
+      "files": 1101,
+      "fingerprint": "f068a10dd125a5d7ee05cfa86bee403dd9a72cc4409916fb86592f1899b0899d",
+      "corners": {
+        "library_corners": [
+          "typical",
+          "slow",
+          "fast"
+        ],
+        "interconnect_corners": []
+      }
+    },
+    {
+      "name": "gf180d",
+      "files": 1101,
+      "fingerprint": "f068a10dd125a5d7ee05cfa86bee403dd9a72cc4409916fb86592f1899b0899d",
+      "corners": {
+        "library_corners": [
+          "typical",
+          "slow",
+          "fast"
+        ],
+        "interconnect_corners": []
+      }
+    },
+    {
+      "name": "ihp-sg13g2",
+      "files": 159,
+      "fingerprint": "f66bfbfc0db0642c1c3cf11358d9c67a3c6f8525e2b9f75015f77cb69437e266",
+      "corners": {
+        "library_corners": [
+          "typical",
+          "slow",
+          "fast"
+        ],
+        "interconnect_corners": []
+      }
+    }
+  ],
+  "scope": "Actual Docker build and 1.53 GB exported runtime with complete GF180 connectivity inputs enabled. Independent archive readback verifies all 54,396 locked files and every C/D cell/rule binding. The frozen build source and exact archive are retained. Installation execution and complete process qualification remain separate.",
+  "remaining": [
+    "Complete actual first-install acceptance on fresh Windows and Linux states.",
+    "Verify GF180-specific deliberate connectivity failures with the installed runtime.",
+    "Complete fill coverage, all required before/filled electrical/timing cases and later qualification chunks."
+  ],
+  "archive": {
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\gf180-runtime-build-2026-10-09-v1\\evidence.tar.gz",
+    "sha256": "f4b93717f7866d668cbd0318964458f80799759d2f50c3141eeecdb3dafb3cbd",
+    "bytes": 2745376,
+    "logical_files": 17,
+    "unique_objects": 17,
+    "verified": true
+  }
+}

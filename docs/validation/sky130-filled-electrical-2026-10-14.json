@@ -1,0 +1,312 @@
+{
+  "schema": 1,
+  "chunk": 6,
+  "status": "in_progress",
+  "qualified": false,
+  "chunk_complete": false,
+  "source_files": {
+    "scripts/check_sky130_filled_electrical.py": "2c239be06fbb68fe26a37b47129575323037a0c7b6d576adb25c452aa47657ab",
+    "tests/test_sky130_filled_electrical.py": "d3b4c35f2e3b138eed0437e6cd8a81e432362acc841adbf10fc7ca26e60663b8",
+    "tests/fixtures/sky130-filled-electrical-reports-v1.zip": "c3e924cc05cb8063c1c1023a069edd8d9b6f9def75e8224d266e04e9b517bef2",
+    "scripts/sky130_waffle_density_review.py": "76e309ac6baee46826ecc18f7049083dc203f90e5e621d5de8aab89a70adbafa",
+    "tests/test_sky130_waffle_density.py": "691003e814c7c2157c881229cf68a72884df76233981f171a1fcc99149daba8f"
+  },
+  "application_cases": [
+    {
+      "case": "counter",
+      "top": "counter",
+      "status": "bounded-electrical-pass",
+      "qualified": false,
+      "chunk_complete": false,
+      "gds_sha256": "4158b6503dc07e85f1e9e7b375a3d654cd9b64dc0498ed9fb680874e973c1ac2",
+      "checkpoint_sha256": "10de8332ad78bba19e93e78eb5247040d74b8a8cd0b186dde19484254577ca9d",
+      "netlist_sha256": "06437cd8dc7cd58cf7efa2c2c41db3510d2484d3cc0aa06b2fb3af479cd7b91f",
+      "spef_sha256": "2141e49fd4e3f4e9c7dfb42ceebafe4a6a0756be81f8c16ec2803215d8403024",
+      "macro_sha256": "03c1c0eb00e63e76644de5aef1435bbe89c8e47ecc4128a5f3069051455fb9d3",
+      "final_sdc_sha256": "2b02050820ce4368c2be493aed9a45dfb4b0c00b6025f73fa703529b6eb574dd",
+      "finish_result_sha256": "ad66824f3592bfbca7f80c639fb206aabb2c63b5b9b88ef0fc41947935cbbd88",
+      "electrical": {
+        "timing": {
+          "status": "PASS",
+          "summary": {
+            "setup_worst_slack_ns": 47.654427,
+            "setup_reported_violations": 0,
+            "setup_total_negative_slack_ns": 0.0,
+            "hold_worst_slack_ns": 0.29123,
+            "hold_reported_violations": 0,
+            "hold_total_negative_slack_ns": 0.0
+          },
+          "annotation": {
+            "unannotated_drivers": [],
+            "partially_unannotated_drivers": [],
+            "disconnected_outputs": [],
+            "connected_unannotated_drivers": []
+          }
+        },
+        "equivalence": {
+          "status": "PASS",
+          "partitions": 1,
+          "retained_strategy_traces": []
+        }
+      },
+      "scope": "Final filled-reference partial application checks, nominal routed OpenRCX timing, and sequential RTL equivalence. GDS-only fill, process/RC corners, power integrity, complete required rules and foundry signoff remain outside this gate.",
+      "run": {
+        "path": "docs/validation/sky130-filled-electrical-2026-10-14/counter/run.json",
+        "sha256": "fe0bf8c0f7990ab439f00f7dfac2e746f3c9f13849fd74810d217764f655ec0e"
+      },
+      "timing": {
+        "path": "docs/validation/sky130-filled-electrical-2026-10-14/counter/timing.json",
+        "sha256": "81256b7c3844ea010fcf47ef7f169f04190a7ffd419106a5874d9d70b98c83f1"
+      },
+      "equivalence": {
+        "path": "docs/validation/sky130-filled-electrical-2026-10-14/counter/equivalence.json",
+        "sha256": "1aa656e3b9cb06f5ba9aa6a58c0d97b7fd8de78865cc0959fe9b92987629f3c8"
+      }
+    },
+    {
+      "case": "uart",
+      "top": "uart_tx",
+      "status": "bounded-electrical-pass",
+      "qualified": false,
+      "chunk_complete": false,
+      "gds_sha256": "c9282fb9602ac9dbab5299032be1d4b68751bb611747d276d40435e93c37afea",
+      "checkpoint_sha256": "27ec03d13a0264feea11df78633ca56d7f068ed74b1f06478f3fe9db058d2d32",
+      "netlist_sha256": "fd6b90e77d4245e9d79f21723cc5e54bd3930247f05e2d9b0ae77679e657e9cd",
+      "spef_sha256": "0a422acf5dd7362de9d47fa793fe0df126e021024a95a3142b769e599c3b0e6b",
+      "macro_sha256": "448a14c7b508c0a7e989564e9de51f076878f644e0109643126dbc5d2fe65f6a",
+      "final_sdc_sha256": "d8ed85981844204a98ff71cbc79f3826f483e498313d9d96a71d25dc9fa4faf7",
+      "finish_result_sha256": "d85812ac451b2ef0a2b639b4647572df8f7e351ba60e8d789f903809b50fe8ab",
+      "electrical": {
+        "timing": {
+          "status": "PASS",
+          "summary": {
+            "setup_worst_slack_ns": 3.353671,
+            "setup_reported_violations": 0,
+            "setup_total_negative_slack_ns": 0.0,
+            "hold_worst_slack_ns": 0.454787,
+            "hold_reported_violations": 0,
+            "hold_total_negative_slack_ns": 0.0
+          },
+          "annotation": {
+            "unannotated_drivers": [
+              "clkload0/Y",
+              "clkload1/Y",
+              "clkload2/Y"
+            ],
+            "partially_unannotated_drivers": [],
+            "disconnected_outputs": [
+              "clkload0/Y",
+              "clkload1/Y",
+              "clkload2/Y"
+            ],
+            "connected_unannotated_drivers": []
+          }
+        },
+        "equivalence": {
+          "status": "PASS",
+          "partitions": 4,
+          "retained_strategy_traces": [
+            "strategies/uart_tx.frame/smtbmc/uart_tx.frame/engine_0/trace_induct.vcd"
+          ]
+        }
+      },
+      "scope": "Final filled-reference partial application checks, nominal routed OpenRCX timing, and sequential RTL equivalence. GDS-only fill, process/RC corners, power integrity, complete required rules and foundry signoff remain outside this gate.",
+      "run": {
+        "path": "docs/validation/sky130-filled-electrical-2026-10-14/uart/run.json",
+        "sha256": "74adfc2800cad60cf6eb3bd4603becc8d03e7457481eed8aabe4a290a980377b"
+      },
+      "timing": {
+        "path": "docs/validation/sky130-filled-electrical-2026-10-14/uart/timing.json",
+        "sha256": "89068fe58daa2ad43b34de167246b765cceda8a01360d611182bd3baf991a8e4"
+      },
+      "equivalence": {
+        "path": "docs/validation/sky130-filled-electrical-2026-10-14/uart/equivalence.json",
+        "sha256": "d457cfda160de2bb3b4811abb51392a2e5782023f5e1d5265cfc7fb85b2dc7bc"
+      }
+    },
+    {
+      "case": "apb",
+      "top": "apb_fifo",
+      "status": "bounded-electrical-pass",
+      "qualified": false,
+      "chunk_complete": false,
+      "gds_sha256": "5039221b72bfd052d3f82781f5403fb67df4261ea20add5c2047191321fe9d78",
+      "checkpoint_sha256": "cd1a997dac190164ab96bac0ae0eaee91865ff2ed0f983865daa644cae60bf7d",
+      "netlist_sha256": "f69f1b2579ea9095cca0436269a63903afca024b65a67ef8bacdea8d1a557d47",
+      "spef_sha256": "9b1b64716f87b71c79c5ccceac76f6489fff2f11f76b1e428b1f23e4ba7205c4",
+      "macro_sha256": "1518725e496d97df34cb79c305ca08b2e2e3d1692ea693d17511b7484eb4ae97",
+      "final_sdc_sha256": "8ac500cc47115d0162f4cbcfa90efc08f1e4ba17e249065e7c4dbc9a13b378c8",
+      "finish_result_sha256": "3a8d904cfb302c0771bd13f84bfd17222e88892563262c0ba270a35087b94f0d",
+      "electrical": {
+        "timing": {
+          "status": "PASS",
+          "summary": {
+            "setup_worst_slack_ns": 15.705125,
+            "setup_reported_violations": 0,
+            "setup_total_negative_slack_ns": 0.0,
+            "hold_worst_slack_ns": 0.280405,
+            "hold_reported_violations": 0,
+            "hold_total_negative_slack_ns": 0.0
+          },
+          "annotation": {
+            "unannotated_drivers": [
+              "apb_fifo/LO",
+              "clkload0/X",
+              "clkload1/X",
+              "clkload2/X"
+            ],
+            "partially_unannotated_drivers": [],
+            "disconnected_outputs": [
+              "apb_fifo/LO",
+              "clkload0/X",
+              "clkload1/X",
+              "clkload2/X"
+            ],
+            "connected_unannotated_drivers": []
+          }
+        },
+        "equivalence": {
+          "status": "PASS",
+          "partitions": 12,
+          "retained_strategy_traces": []
+        }
+      },
+      "scope": "Final filled-reference partial application checks, nominal routed OpenRCX timing, and sequential RTL equivalence. GDS-only fill, process/RC corners, power integrity, complete required rules and foundry signoff remain outside this gate.",
+      "run": {
+        "path": "docs/validation/sky130-filled-electrical-2026-10-14/apb/run.json",
+        "sha256": "e3993a4d2fc6c0a5baa8de99b878812cbe39ff013b520a5a736722a9f2fcd8f2"
+      },
+      "timing": {
+        "path": "docs/validation/sky130-filled-electrical-2026-10-14/apb/timing.json",
+        "sha256": "b409e4cfdfd85df5004e191e3ef861156fe6cba66b1f4a8d6874626223677216"
+      },
+      "equivalence": {
+        "path": "docs/validation/sky130-filled-electrical-2026-10-14/apb/equivalence.json",
+        "sha256": "80fa610e934de7a386aa4847e487dfde514d3ea6295cc61419b32b4c72e4376b"
+      }
+    }
+  ],
+  "controls": [
+    {
+      "path": "docs/validation/sky130-filled-electrical-2026-10-14/sky130-filled-electrical-controls-v1/audit.json",
+      "sha256": "1ac33ec8923f3ed76fc740c8fde547a3870356a6b91c340da0e1dbfeeb1194e3"
+    },
+    {
+      "path": "docs/validation/sky130-filled-electrical-2026-10-14/sky130-filled-logic-control-v2/audit.json",
+      "sha256": "372b7e20a294bd5eaba9fd01bf3306e587cd0cdb9b7d2a013717ad2d2f41e6f6"
+    }
+  ],
+  "control_readbacks": [
+    {
+      "fault": "timing",
+      "expected": "FAIL",
+      "actual": "FAIL",
+      "result_sha256": "03367363cdc204e2e67ec4b697febeac2dfa12910a50a3df26f3e0a4f7ffb212"
+    },
+    {
+      "fault": "missing-parasitics",
+      "expected": "INCOMPLETE",
+      "actual": "INCOMPLETE",
+      "result_sha256": "ac245b6384628ef0059384f4230c54b0924c1ec0afa05b91d3371a1a62d44fa4"
+    },
+    {
+      "fault": "logic",
+      "expected": "FAIL",
+      "actual": "FAIL",
+      "result_sha256": "904955b5a27ff7088d57652d6e7414b947cfbafcbddfb5f825d69d0680f1d6bb"
+    }
+  ],
+  "tests": {
+    "win32": {
+      "electrical": {
+        "record.json": {
+          "path": "docs/validation/sky130-filled-electrical-2026-10-14/win32/electrical/record.json",
+          "sha256": "671c5b37bd9fac8169385f904cd85f212cf48a67469b0eacdb9e727fa37a1f36"
+        },
+        "tests.log": {
+          "path": "docs/validation/sky130-filled-electrical-2026-10-14/win32/electrical/tests.log",
+          "sha256": "125152c3947c391dd6bd610f286e929072ba1e387053ebc151af1e6f77fb1a31"
+        }
+      },
+      "density": {
+        "record.json": {
+          "path": "docs/validation/sky130-filled-electrical-2026-10-14/win32/density/record.json",
+          "sha256": "c7ee69acd95afc00e3bc66c15af992092b41a879e51573f559ed94234f08e2bb"
+        },
+        "tests.log": {
+          "path": "docs/validation/sky130-filled-electrical-2026-10-14/win32/density/tests.log",
+          "sha256": "f7d68b6750cd34fb1daba561d7368d4e0dfaaddea79cb33555af6753431f6ec1"
+        }
+      }
+    },
+    "linux": {
+      "electrical": {
+        "record.json": {
+          "path": "docs/validation/sky130-filled-electrical-2026-10-14/linux/electrical/record.json",
+          "sha256": "cfc87c684c38969a9ae1245d70b52e9305b0ca9991d6ea6614b421ef3e29e5c7"
+        },
+        "tests.log": {
+          "path": "docs/validation/sky130-filled-electrical-2026-10-14/linux/electrical/tests.log",
+          "sha256": "05cb491b03d3c3a573063c63ed89bd171de896b1e0c20d440874769feafa0a3a"
+        }
+      },
+      "density": {
+        "record.json": {
+          "path": "docs/validation/sky130-filled-electrical-2026-10-14/linux/density/record.json",
+          "sha256": "e5b3be6986e4171c95c5df3f55c36dc2bebf25a5e55a923b2ca0a138166ddb70"
+        },
+        "tests.log": {
+          "path": "docs/validation/sky130-filled-electrical-2026-10-14/linux/density/tests.log",
+          "sha256": "98de593a2563bef4f282ab3bb4ac47a8ee59973bebd46d0d979e6ad164dea5bc"
+        }
+      }
+    }
+  },
+  "archive": {
+    "schema": 1,
+    "status": "readback-verified",
+    "layout": "sha256-addressed-blobs-with-parent-v1",
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-filled-electrical-2026-10-14-v1\\evidence.tar.gz",
+    "sha256": "e473b4d289a92a2dd196512ce20cc2a23ac5a5607715bfcbdeaf83e15e49983d",
+    "bytes": 22598988,
+    "files": 4465,
+    "unique_local_blobs": 727,
+    "reused_parent_files": 3382,
+    "manifest_sha256": "13f0993a6a28af4b28ba242ed45f5cb64bb6a31173243f9291c3d1f9a35f3b11",
+    "parent": {
+      "schema": 1,
+      "status": "readback-verified",
+      "layout": "sha256-addressed-blobs-v1",
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-scope-correction-2026-10-14-v1\\evidence.tar.gz",
+      "sha256": "c91887fe6ca5b3492baed7e461f300ac14cbb16945bf5aff11fd792fc930fedc",
+      "bytes": 44401516,
+      "files": 842,
+      "unique_blobs": 386,
+      "manifest_sha256": "1f62a0248c6486b6b9f8358477016ef8e15ec4b515d6023860294ec0a89c2465"
+    }
+  },
+  "scope": "Actual application physical checks/export, freshly captured final netlists/nominal routed parasitics, extracted timing and RTL equivalence on all three unchanged filled references. Native fault controls and cross-OS evidence readback pass. Full physical rules and delivered-runtime/foundry qualification remain open.",
+  "limitations": [
+    "OpenRCX describes checkpoint routing only; GDS-only remote fill is covered separately by the retained nominal native circuit-invariance evidence under ideal supplies.",
+    "Only the captured typical library and nominal routed extraction run here. Process/RC corners and power integrity remain separate gates.",
+    "UART frame partition passes PDR after UNKNOWN induction; the intermediate induction trace is retained.",
+    "Initial logic-fault fixture used an unmapped inverter and was refused before proof. Its replacement uses a captured technology inverter and fails formal proof with a trace.",
+    "Initial readback required no traces and rejected UART despite its completed PDR proof; corrected readback preserves bound inconclusive-strategy traces and rejects any failing strategy.",
+    "Windows sandbox temporary-folder restrictions affected the first test attempt; successful tests use a short writable temporary directory.",
+    "No new place/route, fill generation, full native geometry rerun or rebuilt installer execution is claimed."
+  ],
+  "source_baseline": "d3c9af99a67cdf60d4e7905362ca00712496c138",
+  "application_source": {
+    "archive": {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-filled-electrical-2026-10-14-v1\\application-source.tar.gz",
+      "sha256": "0b0b4b54a6eff5989b945bc90f67ae4ccf6fe02fd670d39840df583a10da194d",
+      "bytes": 211991,
+      "files": 65,
+      "manifest_sha256": "a965aeb67c96b6cc9b3459ff6bed7c08b2177c9a345a758d599b803f195ebb28"
+    },
+    "manifest": {
+      "path": "docs/validation/sky130-filled-electrical-2026-10-14/application-source.json",
+      "sha256": "a965aeb67c96b6cc9b3459ff6bed7c08b2177c9a345a758d599b803f195ebb28"
+    }
+  }
+}

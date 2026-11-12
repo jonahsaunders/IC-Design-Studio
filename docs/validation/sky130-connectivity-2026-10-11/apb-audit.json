@@ -1,0 +1,273 @@
+{
+  "schema": 1,
+  "status": "native-device-and-port-match",
+  "matched": true,
+  "qualified": false,
+  "report_sha256": "77f875de5e317216cee93e1f4a4a3b65a5b57422124d0bd54d1c5299330dfe43",
+  "top": "apb_fifo",
+  "circuits": [
+    {
+      "layout": "apb_fifo",
+      "reference": "APB_FIFO",
+      "status": "Match"
+    }
+  ],
+  "extraction_log": [],
+  "port_pairs": [
+    {
+      "layout": "N0000000,N0000160",
+      "reference": "N0000000,N0000160",
+      "status": "Match"
+    },
+    {
+      "layout": "N0000001",
+      "reference": "N0000001",
+      "status": "Match"
+    },
+    {
+      "layout": "N0000071",
+      "reference": "N0000071",
+      "status": "Match"
+    },
+    {
+      "layout": "N0000116",
+      "reference": "N0000116",
+      "status": "Match"
+    },
+    {
+      "layout": "N0000147",
+      "reference": "N0000147",
+      "status": "Match"
+    },
+    {
+      "layout": "N0000148",
+      "reference": "N0000148",
+      "status": "Match"
+    },
+    {
+      "layout": "N0000149",
+      "reference": "N0000149",
+      "status": "Match"
+    },
+    {
+      "layout": "N0000150",
+      "reference": "N0000150",
+      "status": "Match"
+    },
+    {
+      "layout": "N0000151",
+      "reference": "N0000151",
+      "status": "Match"
+    },
+    {
+      "layout": "N0000152",
+      "reference": "N0000152",
+      "status": "Match"
+    },
+    {
+      "layout": "N0000153",
+      "reference": "N0000153",
+      "status": "Match"
+    },
+    {
+      "layout": "N0000154",
+      "reference": "N0000154",
+      "status": "Match"
+    },
+    {
+      "layout": "N0000155",
+      "reference": "N0000155",
+      "status": "Match"
+    },
+    {
+      "layout": "N0000156",
+      "reference": "N0000156",
+      "status": "Match"
+    },
+    {
+      "layout": "N0000157",
+      "reference": "N0000157",
+      "status": "Match"
+    },
+    {
+      "layout": "N0000158",
+      "reference": "N0000158",
+      "status": "Match"
+    },
+    {
+      "layout": "N0000159",
+      "reference": "N0000159",
+      "status": "Match"
+    },
+    {
+      "layout": "N0000161",
+      "reference": "N0000161",
+      "status": "Match"
+    },
+    {
+      "layout": "N0000162",
+      "reference": "N0000162",
+      "status": "Match"
+    },
+    {
+      "layout": "N0000163",
+      "reference": "N0000163",
+      "status": "Match"
+    },
+    {
+      "layout": "N0000164",
+      "reference": "N0000164",
+      "status": "Match"
+    },
+    {
+      "layout": "N0000165",
+      "reference": "N0000165",
+      "status": "Match"
+    },
+    {
+      "layout": "N0000166",
+      "reference": "N0000166",
+      "status": "Match"
+    },
+    {
+      "layout": "N0000167",
+      "reference": "N0000167",
+      "status": "Match"
+    },
+    {
+      "layout": "N0000168",
+      "reference": "N0000168",
+      "status": "Match"
+    },
+    {
+      "layout": "N0000169",
+      "reference": "N0000169",
+      "status": "Match"
+    },
+    {
+      "layout": "N0000170",
+      "reference": "N0000170",
+      "status": "Match"
+    },
+    {
+      "layout": "N0000171",
+      "reference": "N0000171",
+      "status": "Match"
+    },
+    {
+      "layout": "N0000172",
+      "reference": "N0000172",
+      "status": "Match"
+    }
+  ],
+  "port_labels_match": true,
+  "expected_ports": [
+    "N0000000",
+    "N0000001",
+    "N0000071",
+    "N0000116",
+    "N0000147",
+    "N0000148",
+    "N0000149",
+    "N0000150",
+    "N0000151",
+    "N0000152",
+    "N0000153",
+    "N0000154",
+    "N0000155",
+    "N0000156",
+    "N0000157",
+    "N0000158",
+    "N0000159",
+    "N0000160",
+    "N0000161",
+    "N0000162",
+    "N0000163",
+    "N0000164",
+    "N0000165",
+    "N0000166",
+    "N0000167",
+    "N0000168",
+    "N0000169",
+    "N0000170",
+    "N0000171",
+    "N0000172"
+  ],
+  "port_case_policy": "Unique N plus seven-digit aliases; case-insensitive native graph-paired port groups must agree exactly and cover every declared port once.",
+  "inventory": {
+    "layout": {
+      "devices": {
+        "pfet_01v8_hvt": 1112,
+        "nfet_01v8": 1112
+      },
+      "pins": [
+        "n0000000,n0000160",
+        "n0000001",
+        "n0000071",
+        "n0000116",
+        "n0000147",
+        "n0000148",
+        "n0000149",
+        "n0000150",
+        "n0000151",
+        "n0000152",
+        "n0000153",
+        "n0000154",
+        "n0000155",
+        "n0000156",
+        "n0000157",
+        "n0000158",
+        "n0000159",
+        "n0000161",
+        "n0000162",
+        "n0000163",
+        "n0000164",
+        "n0000165",
+        "n0000166",
+        "n0000167",
+        "n0000168",
+        "n0000169",
+        "n0000170",
+        "n0000171",
+        "n0000172"
+      ]
+    },
+    "reference": {
+      "devices": {
+        "nfet_01v8": 1112,
+        "pfet_01v8_hvt": 1112
+      },
+      "pins": [
+        "n0000000,n0000160",
+        "n0000001",
+        "n0000071",
+        "n0000116",
+        "n0000147",
+        "n0000148",
+        "n0000149",
+        "n0000150",
+        "n0000151",
+        "n0000152",
+        "n0000153",
+        "n0000154",
+        "n0000155",
+        "n0000156",
+        "n0000157",
+        "n0000158",
+        "n0000159",
+        "n0000161",
+        "n0000162",
+        "n0000163",
+        "n0000164",
+        "n0000165",
+        "n0000166",
+        "n0000167",
+        "n0000168",
+        "n0000169",
+        "n0000170",
+        "n0000171",
+        "n0000172"
+      ]
+    }
+  }
+}

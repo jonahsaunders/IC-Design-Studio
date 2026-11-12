@@ -1,0 +1,80 @@
+{
+  "schema": 1,
+  "status": "source-and-plumbing-verified",
+  "qualified": false,
+  "full_family": false,
+  "release_ready": false,
+  "installed_acceptance": false,
+  "native_execution": false,
+  "scope": "Additive packaged guard producer and exact-candidate Linux/Windows installed verifier plumbing. No frozen installed execution yet.",
+  "source_gui": {
+    "path": "/workspace/shared/ihp-guard-ui-packaged-source-20261110-a/report.json",
+    "sha256": "b4fc8a49fbd17b3851d3a91bf6586f5c09c1e22302ee0ae0f0bf632935bb2a4c",
+    "cases": 6,
+    "controls": 18,
+    "legacy_projects": 2,
+    "source_unchanged": true,
+    "frozen": false,
+    "source_inventory_count": 499,
+    "source_inventory_sha256": "530ba38af24174d713ea5087ecef0a8e83031f895a65141a5d08b4830f82a6ba"
+  },
+  "independent_readback": {
+    "path": "/workspace/shared/ihp-guard-packaged-source-readback.json",
+    "sha256": "3ae37aec229e484b1947dd1f2971239438ef897a266210133b96ff75fc8185f1",
+    "status": "PASS"
+  },
+  "tests": [
+    {
+      "log": "/workspace/shared/ihp-guard-installed-plumbing-unit.log",
+      "count": 36,
+      "status": "PASS"
+    },
+    {
+      "log": "/workspace/shared/ihp-guard-frozen-verifier-unit.log",
+      "count": 24,
+      "status": "PASS"
+    }
+  ],
+  "implemented_installed_contract": {
+    "gui_cases": 6,
+    "gui_controls": 18,
+    "legacy_projects": 2,
+    "native_positives": 6,
+    "native_faults": 15,
+    "fresh_managed_jobs": 21,
+    "timeout_seconds": 900,
+    "platforms": [
+      "Linux",
+      "Windows-WSL"
+    ],
+    "faults": [
+      "complete54guard-via-cutset-open",
+      "body-contact-open",
+      "R1-R2-terminal-short",
+      "reference-width",
+      "reference-model"
+    ],
+    "legacy_60_positive_165_fault_gate_unchanged": true
+  },
+  "source_inputs": {
+    "scripts/verify_frozen_ihp_guard_corner.py": "0c5c890bc4323b5b5d6ee7d91086dc150e2b14af0c75c72ea90a42093a4cdcc2",
+    "icstudio/ihp_guard_corner_desktop_probe.py": "542b42da66cadd1460a5c3445a6a928b3532f216c3ec5d6c4154e3fe0cbcf717",
+    "icstudio/__main__.py": "dfe187e42b1ab64b4a40b3feaf345dfec3e3e2c547c6293f1805c87dd9797340",
+    "tests/gui_ihp_guard_corner.py": "4b8713273a9c715f5073e52593e15589e2845820a07e7154d3da2fcaf3c984e7",
+    "tests/test_frozen_ihp_guard_corner.py": "a00244f8c4ca012f8629c0be301d8cf63893fbad76676bdaab53e4857ac38b08",
+    ".github/workflows/build-desktop.yml": "01132f84c26c58473ee5990de33da7f91220a2286ce90dd34e0c283b067164fe",
+    "scripts/verify_windows.ps1": "b20c29f13cb1f2fdb14fb387e0b0acf3e25411093f348d2cd2ada7af6ad73ff8",
+    "docs/IHP_GUARD_CORNER_SAFE.md": "d86b17750a5c15f6b2dccd660e136736b37e38b371ca26d839fc5340d0cb0c32"
+  },
+  "remaining": [
+    "Exact clean candidate build and hosted installed gate execution on Linux and Windows.",
+    "This finite corrected routing does not establish full-family/process/operating qualification."
+  ],
+  "historical_screenshot_evidence": "chunk7-ihp-guard-app-source-2026-11-10.json retains the actual inspected Qt form/layout screenshots before packaged producer migration.",
+  "retained_artifact": {
+    "path": "docs/validation/artifacts/ihp-guard-installed-plumbing-source-v1.zip",
+    "bytes": 3901694,
+    "sha256": "a7b926bab923ffca03f85103c2ecd9b9e53dbc20712f07faa2894af7b4ea1ba8",
+    "scope": "Packaged producer source GUI evidence and readback only; no frozen installed or native execution. Explicit omission list retained inside archive."
+  }
+}

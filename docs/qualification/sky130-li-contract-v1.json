@@ -1,0 +1,1130 @@
+{
+  "schema": 1,
+  "id": "sky130-li-contract-v1",
+  "as_of": "2026-10-23",
+  "source_baseline": "b6c623b44ba7ad2e30adb5a8c00a1e13807d8db5",
+  "chunk": 7,
+  "status": "source_review_complete_with_open_requirements",
+  "qualified": false,
+  "chunk_complete": false,
+  "catalog_entry": "sky130_fd_pr/res_generic_li.sym",
+  "target": "sky130A",
+  "scope": "Source-backed LI requirement contract and planned linked acceptance example. No new native execution or device-status change.",
+  "claim_boundaries": [
+    "LI only. M1-M4 require their own electrical evidence and contracts; the five-model physical batch does not grant it.",
+    "The existing chunk-7 gate is unchanged. Missing required definitions remain blockers, not exclusions.",
+    "No analog precision, complete operating-envelope, calibrated statistics, installed-release, reliability or foundry qualification.",
+    "No source/bound absent from inspected files is asserted absent from all possible public resources."
+  ],
+  "sources": {
+    "device_docs": {
+      "path": "docs/qualification/sky130-mos-bias-sources-v1/device-details.rst",
+      "sha256": "506021827f52b26673daf8b580f8d79d408724af3138a65695bde86e5c1c6e49",
+      "bytes": 45543,
+      "kind": "public_document",
+      "upstream_revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+      "upstream_path": "docs/rules/device-details.rst",
+      "url": "https://raw.githubusercontent.com/google/skywater-pdk/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details.rst",
+      "license": "Apache-2.0",
+      "selectors": {
+        "generic_section": {
+          "contains": "Generic resistors",
+          "lines": [
+            1025,
+            1028
+          ]
+        },
+        "analog_caution": {
+          "contains": "not recommended for analog applications",
+          "lines": [
+            1028
+          ]
+        },
+        "li_identity": {
+          "contains": "Local interconnect (:model:",
+          "lines": [
+            1039
+          ]
+        },
+        "res_high_start": {
+          "contains": "P+ poly precision resistors",
+          "lines": [
+            1087
+          ]
+        }
+      }
+    },
+    "generic_specs": {
+      "path": "docs/qualification/sky130-li-sources-v1/res_generic-table0.rst",
+      "sha256": "97341fdc15c209037fb441ba083a3198bc12f4f5e9cbfe44cf5c27ed42d354d6",
+      "bytes": 1859,
+      "kind": "public_document",
+      "upstream_revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+      "url": "https://raw.githubusercontent.com/google/skywater-pdk/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details/res_generic/res_generic-table0.rst",
+      "license": "Apache-2.0",
+      "selectors": {
+        "li_spec": {
+          "contains": "* - RSLI",
+          "lines": [
+            90
+          ]
+        }
+      }
+    },
+    "li_rules": {
+      "path": "docs/qualification/sky130-li-sources-v1/p035-li_dotdash_dotdash.csv",
+      "sha256": "2a70ccb00ed7dbcaa0b636c99df6edf683b714437b4570808ab48743236ccf69",
+      "bytes": 675,
+      "kind": "public_document",
+      "upstream_revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+      "url": "https://raw.githubusercontent.com/google/skywater-pdk/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/periphery/p035-li_dotdash_dotdash.csv",
+      "license": "Apache-2.0",
+      "selectors": {
+        "li_1": {
+          "contains": "(li.1.-)",
+          "lines": [
+            2
+          ]
+        },
+        "li_2": {
+          "contains": "(li.2.-)",
+          "lines": [
+            4
+          ]
+        },
+        "li_3": {
+          "contains": "(li.3.-)",
+          "lines": [
+            5
+          ]
+        },
+        "li_5": {
+          "contains": "(li.5.-)",
+          "lines": [
+            7
+          ]
+        },
+        "li_6": {
+          "contains": "(li.6.-)",
+          "lines": [
+            8
+          ]
+        },
+        "li_7": {
+          "contains": "(li.7.-)",
+          "lines": [
+            9
+          ]
+        }
+      }
+    },
+    "package": {
+      "path": "icstudio/assets/pdks/sky130A/package.json",
+      "sha256": "840f7af802b07346650c50a5967e532a4cb1716623cf0c9d6fd6c58eaf35fcbe",
+      "bytes": 915525,
+      "kind": "bundled_pdk",
+      "package_revision": "b26f7f28e659ddc1",
+      "upstream_lock_source": "upstream_lock"
+    },
+    "upstream_lock": {
+      "path": "icstudio/assets/pdks/sky130A/UPSTREAM-LOCK.json",
+      "sha256": "35b2b6c4da999f41ebafb8a4f414cff9911bf168c388d8ba70aae360a982fd2c",
+      "bytes": 407,
+      "kind": "bundled_pdk",
+      "package_revision": "b26f7f28e659ddc1",
+      "upstream_lock_source": "upstream_lock"
+    },
+    "symbol": {
+      "path": "icstudio/assets/pdks/sky130A/libs.tech/xschem/sky130_fd_pr/res_generic_li.sym",
+      "sha256": "0074841d358fc35f443b6ed79181e6ccd424365836b6130c7f35cbf283ce354e",
+      "bytes": 1309,
+      "kind": "bundled_pdk",
+      "package_revision": "b26f7f28e659ddc1",
+      "upstream_lock_source": "upstream_lock",
+      "selectors": {
+        "format": {
+          "contains": "format=",
+          "lines": [
+            19
+          ]
+        },
+        "default": {
+          "contains": "W=1",
+          "lines": [
+            21
+          ]
+        },
+        "model_spelling": {
+          "contains": "model=res_generic_li",
+          "lines": [
+            23
+          ]
+        },
+        "m_pin": {
+          "contains": "name=M",
+          "lines": [
+            40
+          ]
+        },
+        "p_pin": {
+          "contains": "name=P",
+          "lines": [
+            41
+          ]
+        }
+      }
+    },
+    "model": {
+      "path": "icstudio/assets/pdks/sky130A/libs.tech/ngspice/sky130_fd_pr__model__r+c.model.spice",
+      "sha256": "277930447149f1b40ffda6959a990e473bbda7bdf97ce6180f5e563fe5957eea",
+      "bytes": 9789,
+      "kind": "bundled_pdk",
+      "package_revision": "b26f7f28e659ddc1",
+      "upstream_lock_source": "upstream_lock",
+      "selectors": {
+        "tc1": {
+          "contains": ".param   tc1rl1=",
+          "lines": [
+            30
+          ]
+        },
+        "tc2": {
+          "contains": ".param   tc2rl1=",
+          "lines": [
+            31
+          ]
+        },
+        "width_parameter": {
+          "contains": "+ wminl1=",
+          "lines": [
+            68
+          ]
+        },
+        "width_correction": {
+          "contains": "+ li_dw =",
+          "lines": [
+            79
+          ]
+        },
+        "li_model": {
+          "contains": ".model sky130_fd_pr__res_generic_l1 ",
+          "lines": [
+            136
+          ]
+        }
+      }
+    },
+    "library": {
+      "path": "icstudio/assets/pdks/sky130A/libs.tech/ngspice/sky130.lib.spice",
+      "sha256": "fa39ed2a7845082fe57970d32c155cb9ac082c62b3c35fa75ffafd7f40f418d2",
+      "bytes": 6634,
+      "kind": "bundled_pdk",
+      "package_revision": "b26f7f28e659ddc1",
+      "upstream_lock_source": "upstream_lock",
+      "selectors": {
+        "tt": {
+          "contains": ".lib tt",
+          "lines": [
+            18,
+            141
+          ]
+        },
+        "ss": {
+          "contains": ".lib ss",
+          "lines": [
+            61,
+            180
+          ]
+        },
+        "ff": {
+          "contains": ".lib ff",
+          "lines": [
+            46,
+            167
+          ]
+        },
+        "ll": {
+          "contains": ".lib ll",
+          "lines": [
+            89,
+            206
+          ]
+        },
+        "hh": {
+          "contains": ".lib hh",
+          "lines": [
+            102,
+            219
+          ]
+        },
+        "hl": {
+          "contains": ".lib hl",
+          "lines": [
+            115,
+            232
+          ]
+        },
+        "lh": {
+          "contains": ".lib lh",
+          "lines": [
+            128,
+            245
+          ]
+        },
+        "mc": {
+          "contains": ".lib mc",
+          "lines": [
+            259
+          ]
+        }
+      }
+    },
+    "corner_tt": {
+      "path": "icstudio/assets/pdks/sky130A/libs.tech/ngspice/r+c/res_typical__cap_typical.spice",
+      "sha256": "7c29723076a22fe5b080d245adb97451de5ad0812f0344f6bfe31c9697b71f0d",
+      "bytes": 937,
+      "kind": "bundled_pdk",
+      "package_revision": "b26f7f28e659ddc1",
+      "upstream_lock_source": "upstream_lock",
+      "selectors": {
+        "sheet": {
+          "contains": "+ rl1=",
+          "lines": [
+            23
+          ]
+        },
+        "width": {
+          "contains": "+ tol_li",
+          "lines": [
+            7
+          ]
+        }
+      }
+    },
+    "corner_ll": {
+      "path": "icstudio/assets/pdks/sky130A/libs.tech/ngspice/r+c/res_low__cap_low.spice",
+      "sha256": "8d8f19bfd7d9728508b0a45bfbfae293fed168b902cb2fc820fb40a7c2627ac0",
+      "bytes": 1003,
+      "kind": "bundled_pdk",
+      "package_revision": "b26f7f28e659ddc1",
+      "upstream_lock_source": "upstream_lock",
+      "selectors": {
+        "sheet": {
+          "contains": "+ rl1=",
+          "lines": [
+            23
+          ]
+        },
+        "width": {
+          "contains": "+ tol_li",
+          "lines": [
+            7
+          ]
+        }
+      }
+    },
+    "corner_hh": {
+      "path": "icstudio/assets/pdks/sky130A/libs.tech/ngspice/r+c/res_high__cap_high.spice",
+      "sha256": "38ec47a4a5fa0d5a23dcab8dee6c43086503204c71ea956e0d78471cadc909a4",
+      "bytes": 1022,
+      "kind": "bundled_pdk",
+      "package_revision": "b26f7f28e659ddc1",
+      "upstream_lock_source": "upstream_lock",
+      "selectors": {
+        "sheet": {
+          "contains": "+ rl1=",
+          "lines": [
+            23
+          ]
+        },
+        "width": {
+          "contains": "+ tol_li",
+          "lines": [
+            7
+          ]
+        }
+      }
+    },
+    "corner_hl": {
+      "path": "icstudio/assets/pdks/sky130A/libs.tech/ngspice/r+c/res_high__cap_low.spice",
+      "sha256": "fa31c9c9a72f46cd4666428ff3c338a2e912578914f77049d7d15980fb546b85",
+      "bytes": 976,
+      "kind": "bundled_pdk",
+      "package_revision": "b26f7f28e659ddc1",
+      "upstream_lock_source": "upstream_lock",
+      "selectors": {
+        "sheet": {
+          "contains": "+ rl1=",
+          "lines": [
+            23
+          ]
+        },
+        "width": {
+          "contains": "+ tol_li",
+          "lines": [
+            7
+          ]
+        }
+      }
+    },
+    "corner_lh": {
+      "path": "icstudio/assets/pdks/sky130A/libs.tech/ngspice/r+c/res_low__cap_high.spice",
+      "sha256": "30bf08f792bb9c569f76b3fe3c81825551f5a0750a65208b49a2010ad9b765c3",
+      "bytes": 977,
+      "kind": "bundled_pdk",
+      "package_revision": "b26f7f28e659ddc1",
+      "upstream_lock_source": "upstream_lock",
+      "selectors": {
+        "sheet": {
+          "contains": "+ rl1=",
+          "lines": [
+            23
+          ]
+        },
+        "width": {
+          "contains": "+ tol_li",
+          "lines": [
+            7
+          ]
+        }
+      }
+    },
+    "montecarlo": {
+      "path": "icstudio/assets/pdks/sky130A/libs.tech/ngspice/parameters/montecarlo.spice",
+      "sha256": "6560d54b3d4514b36abd792ba962f0d4911d25b83fe4cb92dd383a8b264a73d0",
+      "bytes": 1279149,
+      "kind": "bundled_pdk",
+      "package_revision": "b26f7f28e659ddc1",
+      "upstream_lock_source": "upstream_lock",
+      "selectors": {
+        "li_sheet": {
+          "contains": "+ rl1 =",
+          "lines": [
+            12691
+          ]
+        },
+        "li_tolerance": {
+          "contains": "+ tol_li =",
+          "lines": [
+            12701
+          ]
+        }
+      }
+    },
+    "binding": {
+      "path": "icstudio/sky130_li_binding.py",
+      "sha256": "1900d0f867395a7ec70f8709a6803e617ecb3437c986b5ab0750a7f25f8cc959",
+      "bytes": 826,
+      "kind": "project",
+      "project_revision": "b6c623b44ba7ad2e30adb5a8c00a1e13807d8db5",
+      "selectors": {
+        "model": {
+          "contains": "MODEL =",
+          "lines": [
+            10
+          ]
+        },
+        "symbol_hash": {
+          "contains": "SYMBOL_SHA256 =",
+          "lines": [
+            8
+          ]
+        },
+        "model_hash": {
+          "contains": "MODEL_SHA256 =",
+          "lines": [
+            9
+          ]
+        }
+      }
+    },
+    "engine_result_units": {
+      "path": "icstudio/engines.py",
+      "sha256": "ab0e2a1a1dd8f4f22b9495ae3481273965212a48bf5e3896dae69ea6d5b13049",
+      "bytes": 23961,
+      "kind": "project",
+      "project_revision": "b6c623b44ba7ad2e30adb5a8c00a1e13807d8db5",
+      "selectors": {
+        "noise_vector": {
+          "contains": "'onoise_spectrum'",
+          "lines": [
+            155,
+            156,
+            268,
+            269
+          ]
+        },
+        "noise_units": {
+          "contains": "Noise (V/√Hz)",
+          "lines": [
+            161,
+            272
+          ]
+        }
+      }
+    },
+    "electrical_runner": {
+      "path": "scripts/qualify_sky130_li.py",
+      "sha256": "d7b79c704aaed42b895a63ba47b8c0d2ad50c1c5e4a9a91fa988cf8c67a5045b",
+      "bytes": 9843,
+      "kind": "project",
+      "project_revision": "b6c623b44ba7ad2e30adb5a8c00a1e13807d8db5",
+      "selectors": {
+        "sizes": {
+          "contains": "SIZES=",
+          "lines": [
+            17
+          ]
+        },
+        "faults": {
+          "contains": "FAULTS=",
+          "lines": [
+            18
+          ]
+        },
+        "settings": {
+          "contains": "def settings(",
+          "lines": [
+            40
+          ]
+        },
+        "tolerances": {
+          "contains": "relative=2e-4",
+          "lines": [
+            78
+          ]
+        },
+        "selected_corners": {
+          "contains": "for corner in ('nominal',)",
+          "lines": [
+            139
+          ]
+        },
+        "selected_temperatures": {
+          "contains": "for temp in (27,)",
+          "lines": [
+            140
+          ]
+        }
+      }
+    },
+    "physical_runner": {
+      "path": "scripts/qualify_sky130_metal_resistor_layouts.py",
+      "sha256": "00903b1b9beca7cdc7eda7f6a4654c47df936421b7c8007ef235118c80574c66",
+      "bytes": 10389,
+      "kind": "project",
+      "project_revision": "b6c623b44ba7ad2e30adb5a8c00a1e13807d8db5",
+      "selectors": {
+        "minimum": {
+          "contains": "MODELS=",
+          "lines": [
+            24
+          ]
+        },
+        "sizes": {
+          "contains": "SIZES=",
+          "lines": [
+            25
+          ]
+        },
+        "faults": {
+          "contains": "FAULTS=",
+          "lines": [
+            26
+          ]
+        },
+        "grid": {
+          "contains": "scalegrid 1 2",
+          "lines": [
+            39
+          ]
+        },
+        "parameters": {
+          "contains": "set parameters",
+          "lines": [
+            43
+          ]
+        },
+        "native_geometry": {
+          "contains": "for key,value in",
+          "lines": [
+            96
+          ]
+        },
+        "angles": {
+          "contains": "for angle in (0,90)",
+          "lines": [
+            106
+          ]
+        }
+      }
+    },
+    "physical_adapter_lock": {
+      "path": "examples/sky130-qualification-lock.json",
+      "sha256": "3763d0aeb03b0a976cba43cacaa1b7d75c3821a35f3f8a7db6470efb22f4ef57",
+      "bytes": 376,
+      "kind": "project",
+      "project_revision": "b6c623b44ba7ad2e30adb5a8c00a1e13807d8db5"
+    },
+    "reference_archive_lock": {
+      "path": "examples/sky130-reference-assets.json",
+      "sha256": "35b2b6c4da999f41ebafb8a4f414cff9911bf168c388d8ba70aae360a982fd2c",
+      "bytes": 407,
+      "kind": "project",
+      "project_revision": "b6c623b44ba7ad2e30adb5a8c00a1e13807d8db5"
+    },
+    "historical_evidence": {
+      "path": "docs/validation/sky130-li-metal-resistors-2026-10-17.json",
+      "sha256": "b5266982513869ba5cafa11cb914ba0b7799023507726292958c1dbdb199829b",
+      "bytes": 56013,
+      "kind": "project",
+      "project_revision": "b6c623b44ba7ad2e30adb5a8c00a1e13807d8db5"
+    },
+    "binding_tests": {
+      "path": "tests/test_sky130_li_binding.py",
+      "sha256": "8f6ff699fee456a5915c4c4f0d4a6b4c151ff6f794fa33ad1682a5c97c15abf4",
+      "bytes": 3490,
+      "kind": "project",
+      "project_revision": "b6c623b44ba7ad2e30adb5a8c00a1e13807d8db5"
+    },
+    "physical_tests": {
+      "path": "tests/test_sky130_metal_resistor_layouts.py",
+      "sha256": "d6f4f4ade893f8c1b0b27017ecef9bd133de1a1085fdadebf51f1423f5334db1",
+      "bytes": 2006,
+      "kind": "project",
+      "project_revision": "b6c623b44ba7ad2e30adb5a8c00a1e13807d8db5"
+    },
+    "source_gui": {
+      "path": "tests/gui_sky130_li.py",
+      "sha256": "67b3b0fe29d780e3f8e992a563e3ea6724a330ad31d4fb30772683710e7dfe3d",
+      "bytes": 4500,
+      "kind": "project",
+      "project_revision": "b6c623b44ba7ad2e30adb5a8c00a1e13807d8db5"
+    }
+  },
+  "facts": [
+    {
+      "id": "identity",
+      "classification": "source_defined",
+      "statement": "Public documentation identifies the two-terminal local-interconnect primitive as sky130_fd_pr__res_generic_l1. The original symbol spells its model res_generic_li; the application applies an exact-source-hash-checked correction.",
+      "sources": [
+        "device_docs",
+        "symbol",
+        "model",
+        "binding"
+      ],
+      "model": "sky130_fd_pr__res_generic_l1",
+      "terminal_count": 2
+    },
+    {
+      "id": "analog_applicability",
+      "classification": "source_caution",
+      "statement": "The generic-resistor documentation cautions against analog use. This contract qualifies integration of that declared device; it does not recommend it as a precision analog resistor.",
+      "sources": [
+        "device_docs"
+      ]
+    },
+    {
+      "id": "interface",
+      "classification": "application_contract",
+      "statement": "The current catalog emits an R primitive with pin order m,p and parameters w,l,m from w,l,mult. W/L are emitted numerically in micrometres. Positive real W/L/mult are catalog checks, not foundry validity bounds.",
+      "sources": [
+        "package",
+        "symbol",
+        "binding_tests"
+      ],
+      "pin_order": [
+        "m",
+        "p"
+      ],
+      "emit_parameters": {
+        "l": "l",
+        "m": "mult",
+        "w": "w"
+      },
+      "positive_parameters": [
+        "w",
+        "l",
+        "mult"
+      ],
+      "fractional_electrical_multiplicity": "accepted by catalog; complete physical equivalence not qualified"
+    },
+    {
+      "id": "ordinary_width",
+      "classification": "physical_rule",
+      "statement": "Outside areaid.ed, li.7 gives minimum LI resistor width 0.290 um. Inside areaid.ed it delegates to li.1. The tested ordinary recipe adds no exception marker.",
+      "sources": [
+        "li_rules",
+        "physical_runner",
+        "historical_evidence"
+      ],
+      "minimum_um": 0.29,
+      "rule": "li.7.-",
+      "exception": "areaid.ed; applicability/creation outside current ordinary recipe remains unqualified"
+    },
+    {
+      "id": "li_context",
+      "classification": "physical_rules",
+      "statement": "Adjacent LI geometry must also satisfy the listed width, spacing, enclosure and area rules; meeting the resistor width alone is insufficient.",
+      "sources": [
+        "li_rules"
+      ],
+      "ordinary_li_width_um": 0.17,
+      "ordinary_spacing_um": 0.17,
+      "licon_enclosure_one_of_two_adjacent_sides_um": 0.08,
+      "minimum_li_area_um2": 0.0561,
+      "scope": "These are selected LI table rules, not the complete required DRC rule set."
+    },
+    {
+      "id": "li_ratio",
+      "classification": "source_ambiguity",
+      "statement": "li.2 records a maximum length/width ratio without licon or mcon of 10.000, flag NC, but its unit column says um. Do not infer a global resistor aspect-ratio bound or waive the rule from existing long samples; resolve segmentation/contact applicability and the unit inconsistency.",
+      "sources": [
+        "li_rules"
+      ],
+      "raw_value": "10.000",
+      "raw_unit": "um",
+      "raw_flag": "NC",
+      "status": "unresolved_interpretation"
+    },
+    {
+      "id": "sheet_spec",
+      "classification": "published_specification",
+      "statement": "The public generic-resistor table gives RSLI nominal and lower/upper specification values. It does not provide, in this table/section, the complete geometry, temperature, bias and measurement equation needed to turn them into a device pass.",
+      "sources": [
+        "generic_specs",
+        "device_docs"
+      ],
+      "nominal_ohm_per_square": 12.8,
+      "lower_ohm_per_square": 9.2,
+      "upper_ohm_per_square": 17.0,
+      "acceptance_status": "conditions_unresolved"
+    },
+    {
+      "id": "model_coefficients",
+      "classification": "model_definition_only",
+      "statement": "The LI R model names rsh=rl1, tc1r=tc1rl1, tc2r=tc2rl1, dw=-tol_li/2-li_dw/2 and tnom=30. These are simulation coefficients/reference temperature, not a qualified temperature/current/voltage range.",
+      "sources": [
+        "model"
+      ],
+      "tc1_per_c": 0.0006045,
+      "tc2_per_c2": -3.693e-07,
+      "li_dw_um": 0.017,
+      "reference_temperature_c": 30,
+      "model_width_parameter_um": 0.14,
+      "model_width_parameter_note": "wminl1 belongs to capacitive width defaults in the common R+C file; it is not the ordinary LI resistor minimum."
+    },
+    {
+      "id": "passive_corners",
+      "classification": "model_definition_only",
+      "statement": "The nominal/tt, ss, ff, sf and fs sections all include the same typical passive file. Prior nominal/ss/ff LI tests therefore do not span the four distinct passive sections ll,hh,hl,lh.",
+      "sources": [
+        "library",
+        "package",
+        "electrical_runner",
+        "historical_evidence"
+      ],
+      "distinct_sections": [
+        "tt",
+        "ll",
+        "hh",
+        "hl",
+        "lh"
+      ]
+    },
+    {
+      "id": "nominal_table_difference",
+      "classification": "unresolved_source_comparison",
+      "statement": "Bundled typical rl1 is 12.2 ohm/square while the published table nominal is 12.8. Both lie within the printed specification interval. This is a source difference to reconcile, not a demonstrated failed acceptance limit and not permission to replace either value.",
+      "sources": [
+        "corner_tt",
+        "generic_specs"
+      ]
+    },
+    {
+      "id": "statistics",
+      "classification": "partial_source_definition",
+      "statement": "The mc section selects process Monte Carlo parameters, including an ic_res expression for rl1. Presence of the expression does not establish calibrated statistics, independent device mismatch, or a complete statistical operating envelope.",
+      "sources": [
+        "library",
+        "montecarlo"
+      ]
+    },
+    {
+      "id": "existing_samples",
+      "classification": "historical_evidence_only",
+      "statement": "The prior electrical and physical experiments use distinct package revisions and finite sample selections. Their exact raw audit identities remain in the original validation record; this contract adds no executed case.",
+      "sources": [
+        "historical_evidence",
+        "electrical_runner",
+        "physical_runner"
+      ]
+    }
+  ],
+  "corner_contract": {
+    "tt": {
+      "section": "tt",
+      "model_parameter_file": "corner_tt",
+      "rl1_ohm_per_square": 12.2,
+      "tol_li_um": 0,
+      "classification": "model coefficient, not validity bound"
+    },
+    "ll": {
+      "section": "ll",
+      "model_parameter_file": "corner_ll",
+      "rl1_ohm_per_square": 10.31,
+      "tol_li_um": 0.014,
+      "classification": "model coefficient, not validity bound"
+    },
+    "hh": {
+      "section": "hh",
+      "model_parameter_file": "corner_hh",
+      "rl1_ohm_per_square": 14.02,
+      "tol_li_um": -0.014,
+      "classification": "model coefficient, not validity bound"
+    },
+    "hl": {
+      "section": "hl",
+      "model_parameter_file": "corner_hl",
+      "rl1_ohm_per_square": 14.8,
+      "tol_li_um": -0.02,
+      "classification": "model coefficient, not validity bound"
+    },
+    "lh": {
+      "section": "lh",
+      "model_parameter_file": "corner_lh",
+      "rl1_ohm_per_square": 9.5,
+      "tol_li_um": 0.02,
+      "classification": "model coefficient, not validity bound"
+    }
+  },
+  "historical_evidence": {
+    "matrix_evidence_id": "sky130-li-metal-resistors-2026-10-17",
+    "source": "historical_evidence",
+    "electrical_revision": "1901822ae8f81ae1",
+    "physical_revision": "9a491f0ebd51a0aa",
+    "electrical_selected_temperatures_c": [
+      -40,
+      27,
+      125
+    ],
+    "electrical_selected_corners": [
+      "nominal",
+      "ss",
+      "ff"
+    ],
+    "actual_resistor_parameter_corner": "typical in all three selected aliases",
+    "noise_fixture_um": [
+      0.17,
+      10
+    ],
+    "noise_multiplicity": 1,
+    "required_test_modules": [
+      "tests.test_sky130_li_binding",
+      "tests.test_sky130_metal_resistor_layouts",
+      "tests.test_resistor_layout_qualification",
+      "tests.test_default_device_packages",
+      "tests.test_pdk_qualification_matrix"
+    ],
+    "source_editor": "tests/gui_sky130_li.py",
+    "original_archive": {
+      "path": "IC-Design-Studio-evidence/sky130-li-metal-resistors-2026-10-17/evidence.zip",
+      "sha256": "5b0a1014bf82fa2d229139cee48508ff10c06ee3c823b452a5ee93161c3e8e46",
+      "bytes": 68941421,
+      "files": 98049,
+      "unique_contents": 8585,
+      "all_objects_verified": true
+    }
+  },
+  "requirements": [
+    {
+      "id": "LI-IFACE",
+      "axis": "terminal_parameter_model",
+      "status": "bounded_historical_pass",
+      "sources": [
+        "historical_evidence",
+        "binding_tests",
+        "package"
+      ],
+      "remaining": "Repeat exact current/installed package paths with invalid values, saved-revision preservation and all supported views; retain terminal and unit checks."
+    },
+    {
+      "id": "LI-PHYSICAL-CLASSES",
+      "axis": "physical_geometry",
+      "status": "partial",
+      "sources": [
+        "li_rules",
+        "physical_runner",
+        "historical_evidence"
+      ],
+      "remaining": "Reconcile supported straight/contact/array/snake/imported/hierarchical classes and parameter ranges with public generator and extraction rules; qualify every supported class. Existing single straight samples cannot certify the others."
+    },
+    {
+      "id": "LI-LI2",
+      "axis": "physical_geometry",
+      "status": "unresolved_source_interpretation",
+      "sources": [
+        "li_rules",
+        "historical_evidence"
+      ],
+      "remaining": "Resolve li.2 contact segmentation and unit column before treating long contact-free LI spans as fully rule-covered. Native DRC success alone cannot waive a nonchecked rule."
+    },
+    {
+      "id": "LI-GEOMETRY-ENVELOPE",
+      "axis": "operating_envelope",
+      "status": "unresolved_source_definition",
+      "sources": [
+        "model",
+        "device_docs",
+        "li_rules"
+      ],
+      "remaining": "No complete electrical W/L validity range or maximum geometry was established by the inspected files. Separate positive catalog inputs, selected physical cases and actual model-validity bounds."
+    },
+    {
+      "id": "LI-TEMPERATURE",
+      "axis": "operating_envelope",
+      "status": "unresolved_source_definition",
+      "sources": [
+        "model",
+        "device_docs",
+        "electrical_runner"
+      ],
+      "remaining": "Find a public LI-specific temperature validity/accuracy definition. tnom=30 C and prior -40/27/125 C samples are not the minimum/maximum valid temperature."
+    },
+    {
+      "id": "LI-LOAD-RELIABILITY",
+      "axis": "operating_envelope",
+      "status": "unresolved_source_definition",
+      "sources": [
+        "device_docs",
+        "model"
+      ],
+      "remaining": "Establish applicable voltage/current-density/power/self-heating and lifetime/reliability limits, including contact/cross-section/temperature/duty-cycle context. Do not borrow precision-poly resistor limits or a routing-layer limit without proving LI-resistor applicability."
+    },
+    {
+      "id": "LI-PASSIVE-CORNERS",
+      "axis": "operating_conditions",
+      "status": "implementation_and_execution_gap",
+      "sources": [
+        "library",
+        "corner_tt",
+        "corner_ll",
+        "corner_hh",
+        "corner_hl",
+        "corner_lh",
+        "electrical_runner"
+      ],
+      "remaining": "Extend the focused linked runner to tt,ll,hh,hl,lh and independently confirm the staged include path, actual section and rl1/tol_li used. Treat ss/ff as interface alias controls, not extra LI resistance extremes."
+    },
+    {
+      "id": "LI-SHEET-SPEC",
+      "axis": "independent_accuracy",
+      "status": "unresolved_source_definition",
+      "sources": [
+        "generic_specs",
+        "corner_tt",
+        "model"
+      ],
+      "remaining": "Establish the sheet-resistance measurement definition and source compatibility before applying 9.2/17.0 as a numerical device limit. Preserve 12.8 table nominal and 12.2 typical coefficient separately; nominal is not a tolerance band."
+    },
+    {
+      "id": "LI-FREQUENCY-NOISE",
+      "axis": "operating_envelope",
+      "status": "partial_model_integration_only",
+      "sources": [
+        "model",
+        "electrical_runner",
+        "historical_evidence"
+      ],
+      "remaining": "Existing AC/noise frequencies are selected integration points. Establish frequency-dependent model validity/parasitic applicability and noise accuracy before a full envelope claim; native R-only extraction does not establish complete distributed RC."
+    },
+    {
+      "id": "LI-STATISTICS",
+      "axis": "statistical_applicability",
+      "status": "unresolved_full_scope",
+      "sources": [
+        "library",
+        "montecarlo",
+        "historical_evidence"
+      ],
+      "remaining": "Separate global process variation, per-device mismatch and library _mm aliases; identify applicable correlations/calibration and execute source-defined controls. No absent mismatch model may be replaced with invented noise."
+    },
+    {
+      "id": "LI-EXTRACTED-ELECTRICAL",
+      "axis": "extracted_behavior",
+      "status": "implementation_and_execution_gap",
+      "sources": [
+        "physical_runner",
+        "electrical_runner",
+        "historical_evidence"
+      ],
+      "remaining": "Compare the actual native extracted 2x5um R circuit with schematic export and independently written reference; verify raw W/L/terminal/model identity, corner parameters and outputs without reconstructing extraction dimensions from schematic metadata."
+    },
+    {
+      "id": "LI-INSTALLED",
+      "axis": "installed_acceptance",
+      "status": "not_run_for_current_candidate",
+      "sources": [
+        "historical_evidence",
+        "source_gui"
+      ],
+      "remaining": "Freeze candidate and exact Windows/Linux deliverables. Execute installed place/edit/save/reopen/export/native verification and electrical cases with their engine/package identities. Historical source-GUI passes do not meet this gate."
+    }
+  ],
+  "minimal_linked_acceptance": {
+    "id": "li-straight-w2-l5-m1-linked-v1",
+    "status": "planned_not_executed",
+    "claim": "Small linked integration example; not the smallest manufacturable resistor and not complete family qualification.",
+    "geometry": {
+      "width_um": 2,
+      "length_um": 5,
+      "parallel_copies": 1,
+      "shape": "straight",
+      "rotations_degrees": [
+        0,
+        90
+      ],
+      "areaid_ed": false,
+      "source_refs": [
+        "physical_runner",
+        "historical_evidence"
+      ]
+    },
+    "physical_package": {
+      "revision": "9a491f0ebd51a0aa",
+      "manifest_sha256": "531c0a4263b839b693d171ad223d01f1484130113f0fcb9010bf99b4c2da9417",
+      "lock_source": "physical_adapter_lock"
+    },
+    "simulation_package": {
+      "revision": "b26f7f28e659ddc1",
+      "manifest_sha256": "840f7af802b07346650c50a5967e532a4cb1716623cf0c9d6fd6c58eaf35fcbe",
+      "source": "package"
+    },
+    "fixture": {
+      "reference_resistor": "RREF input output sky130_fd_pr__res_generic_l1 w=2 l=5 m=1",
+      "load_resistance_ohm": 1000,
+      "load_capacitance_f": 1e-12,
+      "dc_drive_v": {
+        "start": 0,
+        "stop": 0.001,
+        "step": 2.5e-05
+      },
+      "ac": {
+        "amplitude_v": 1,
+        "start_hz": 100,
+        "stop_hz": 10000000.0,
+        "points_per_decade": 5
+      },
+      "transient": {
+        "low_v": 0.0001,
+        "high_v": 0.001,
+        "delay_s": 1e-09,
+        "rise_s": 2e-13,
+        "fall_s": 2e-13,
+        "period_s": 2e-08,
+        "pulse_width_s": 1e-08,
+        "output_step_s": 5e-11,
+        "stop_s": 6e-08
+      },
+      "noise": {
+        "output": "output",
+        "input_source": "VDRIVE",
+        "start_hz": 100,
+        "stop_hz": 10000000.0,
+        "points_per_decade": 5
+      },
+      "temperature_c": 27,
+      "meaning": "These are inherited application/reference comparison stimuli, not physical operating limits. The AC amplitude is a small-signal normalization, not a permitted large-signal voltage. Noise is newly selected on the legal 2x5um device; the old noise fixture was .17x10um.",
+      "sources": [
+        "electrical_runner",
+        "historical_evidence"
+      ]
+    },
+    "sections": [
+      "tt",
+      "ll",
+      "hh",
+      "hl",
+      "lh"
+    ],
+    "section_sources": [
+      "library",
+      "package"
+    ],
+    "comparison_tolerances": {
+      "dc": {
+        "relative": 1e-06,
+        "absolute": 1e-10,
+        "unit": "V"
+      },
+      "ac_complex_voltage": {
+        "relative": 1e-06,
+        "absolute": 1e-10,
+        "unit": "V"
+      },
+      "transient": {
+        "relative": 0.0002,
+        "absolute": 1e-08,
+        "unit": "V"
+      },
+      "noise_output": {
+        "relative": 1e-06,
+        "absolute": 1e-18,
+        "unit": "V/sqrt(Hz)",
+        "units_source": "engine_result_units",
+        "raw_vector": "onoise_spectrum"
+      },
+      "source": "electrical_runner",
+      "meaning": "Application/reference numerical tolerances only; never widen published physical/specification limits."
+    },
+    "stages": [
+      "Authenticate current source snapshot, simulation package and separately locked physical package; freeze exact engine/runtime and all include/rule closure hashes.",
+      "Generate original 2x5um single LI case with the existing native public recipe; save/reopen; stream OASIS and GDS; verify unchanged masks, labels and terminals.",
+      "For each orientation run full native DRC, strict LVS, independent written LI-rule/contact checks including LI-LI2; read raw native R identity, both terminals, W=2 and L=5. Keep native output unchanged.",
+      "Build three paths: normal application export; native extracted subcircuit wired into the same external stimulus/load; independently written literal R reference. No schematic-derived replacement of extracted model or dimensions.",
+      "Run all four analyses at each explicit passive section. Bind the actual staged file closure and read effective rl1/tol_li, terminal voltages/currents, finite output coordinates and native noise units. Use source-defined numeric comparisons and independent terminal/KCL checks.",
+      "Require each original physical fault and each proposed electrical fault to produce the declared semantic mismatch; timeout, missing output or simulator launch failure is not fault detection.",
+      "Independent auditor rereads raw masks, native netlist, staged model parameters and native simulation arrays, verifies thresholds and every hash binding; retain original failures and exact source snapshot.",
+      "Repeat bounded pilot on Windows source/WSL and Linux with the declared local engines, then reserve installed deliverable acceptance as its separate required step."
+    ],
+    "physical_faults": [
+      "terminal-open",
+      "terminal-short",
+      "reference-width",
+      "reference-length",
+      "reference-model"
+    ],
+    "electrical_faults": [
+      "wrong-width",
+      "wrong-length",
+      "wrong-metal-model",
+      "wrong-multiplicity",
+      "disconnected-terminal",
+      "wrong-distinct-passive-section"
+    ],
+    "new_work_required": [
+      "Focused fixture linking native R extraction to electrical runs",
+      "Explicit passive-section selection and raw parameter proof",
+      "Noise output selection on 2x5um instead of the historical .17x10um point",
+      "Independent combined auditor",
+      "Resolution or explicit retained failure of LI-LI2 before a full physical-rule claim"
+    ],
+    "historical_reproduction_commands": [
+      "python scripts/qualify_sky130_metal_resistor_layouts.py --sky130 <locked-physical-package> --magic <magic> --netgen <netgen> --models l1 --pilot --workers 1 --output <new-physical-output>",
+      "python scripts/qualify_sky130_li.py --package <locked-simulation-package> --ngspice <ngspice> --pilot --output <new-electrical-output>"
+    ],
+    "command_limit": "These existing commands reproduce separate development pilots, not the new linked fixture. The electrical pilot still contains the historical .17um samples and typical passive parameters.",
+    "next_executable_milestone": "Add the linked native/schematic/reference fixture and explicit passive corners, then run the 2x5um nominal/27C two-orientation control before the other four sections. Missing full envelope definitions remain open."
+  },
+  "closure_conditions": [
+    "Every applicable requirement has a source-defined acceptance contract and completed evidence for all supported classes.",
+    "Unresolved limits/applicability and unavailable required inputs cannot be marked passed.",
+    "Exact installed candidate acceptance must be fresh; historical and development-source records keep their own identities."
+  ],
+  "validation": {
+    "downloaded_li_rules_match_existing_inventory": true,
+    "model_and_symbol_match_binding_guards": true,
+    "referenced_bundled_files_match_current_package_manifest": true,
+    "new_native_runs": 0
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "platform": "win32",
+  "case": "uart",
+  "driver_sha256": "97f77fba57ab7f8c5fe7cbf18dac60d39ac3e07db057bd07ae4d01f6ecadc5f7",
+  "qualified": false,
+  "chunk_complete": false,
+  "data_sha256": "53d284fd43d6ab3119cadb47b241aa0077459a75b99d14dd36ecc5db26367fdf",
+  "counts": {
+    "executed-reviewed": 438,
+    "absent-operand": 614,
+    "unreviewed": 406,
+    "standard-cell-wl-exempt": 90,
+    "advisory": 8
+  },
+  "gds_sha256": "23ddc5daacd4b46dda12801a191f2f68a67b305da1988115845a076f976e19f2",
+  "elapsed_seconds": 245.375
+}

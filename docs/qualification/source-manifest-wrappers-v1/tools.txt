@@ -1,0 +1,8 @@
+klayout
+magic
+netgen
+irsim
+librelane
+qflow
+xschem
+xcircuit

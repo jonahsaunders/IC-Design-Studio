@@ -1,0 +1,113 @@
+{
+  "schema": 1,
+  "status": "partial-review-reproduced",
+  "qualified": false,
+  "chunk_complete": false,
+  "platform": "linux",
+  "python": "3.12.3",
+  "klayout": "0.30.5",
+  "tests": 12,
+  "skipped": 0,
+  "tests_sha256": "92acf991707579d097f7b3471af606538ccb755ae28dddc153959ba4d3f6bf90",
+  "data_sha256": "c88d19aa1893d6a4c7fd1f7031c105e81c2e7a3c0f7c69fac1467b262654d91e",
+  "driver_sha256": "0104a99a0b28391782c092ac874be606a27a5fa8accdd3e29ca93197307d3677",
+  "source_files": {
+    "scripts/sky130_marker_reconciliation.py": "9b03452253070cfa773c51c5579794317016d7ff7fd4d27412c3dc578ff78622",
+    "tests/test_sky130_marker_reconciliation.py": "2cb1393e1ad84650eb0701267c5ac88793cf6cafaed53f7c8a2620b3d8d3498b"
+  },
+  "cases": [
+    {
+      "case": "counter",
+      "counts": {
+        "unreviewed": 1025,
+        "executed-reviewed": 356,
+        "absent-operand": 175
+      },
+      "measurement": {
+        "top": "counter",
+        "counts": {
+          "dnwell": 0,
+          "lvtn": 0,
+          "hvtr": 0,
+          "hvi": 0,
+          "rdl": 0,
+          "pad": 0,
+          "ccu1m": 0,
+          "rpm": 0,
+          "tunm": 0,
+          "hvntm": 0,
+          "vhvi": 0,
+          "areaid.en": 0,
+          "ncm": 0,
+          "nwell": 3330,
+          "nwell_holes": 0
+        },
+        "measurement": "All recursively referenced shapes per raw operand, including texts/paths. Nwell holes are measured in the exact merged polygon union; only unit orthogonal transforms and box/polygon nwell geometry are admitted.",
+        "gds_sha256": "4158b6503dc07e85f1e9e7b375a3d654cd9b64dc0498ed9fb680874e973c1ac2",
+        "checker_sha256": "9b03452253070cfa773c51c5579794317016d7ff7fd4d27412c3dc578ff78622"
+      }
+    },
+    {
+      "case": "uart",
+      "counts": {
+        "unreviewed": 1025,
+        "executed-reviewed": 356,
+        "absent-operand": 175
+      },
+      "measurement": {
+        "top": "uart_tx",
+        "counts": {
+          "dnwell": 0,
+          "lvtn": 0,
+          "hvtr": 0,
+          "hvi": 0,
+          "rdl": 0,
+          "pad": 0,
+          "ccu1m": 0,
+          "rpm": 0,
+          "tunm": 0,
+          "hvntm": 0,
+          "vhvi": 0,
+          "areaid.en": 0,
+          "ncm": 0,
+          "nwell": 17357,
+          "nwell_holes": 0
+        },
+        "measurement": "All recursively referenced shapes per raw operand, including texts/paths. Nwell holes are measured in the exact merged polygon union; only unit orthogonal transforms and box/polygon nwell geometry are admitted.",
+        "gds_sha256": "c9282fb9602ac9dbab5299032be1d4b68751bb611747d276d40435e93c37afea",
+        "checker_sha256": "9b03452253070cfa773c51c5579794317016d7ff7fd4d27412c3dc578ff78622"
+      }
+    },
+    {
+      "case": "apb",
+      "counts": {
+        "unreviewed": 1025,
+        "executed-reviewed": 356,
+        "absent-operand": 175
+      },
+      "measurement": {
+        "top": "apb_fifo",
+        "counts": {
+          "dnwell": 0,
+          "lvtn": 0,
+          "hvtr": 0,
+          "hvi": 0,
+          "rdl": 0,
+          "pad": 0,
+          "ccu1m": 0,
+          "rpm": 0,
+          "tunm": 0,
+          "hvntm": 0,
+          "vhvi": 0,
+          "areaid.en": 0,
+          "ncm": 0,
+          "nwell": 17190,
+          "nwell_holes": 0
+        },
+        "measurement": "All recursively referenced shapes per raw operand, including texts/paths. Nwell holes are measured in the exact merged polygon union; only unit orthogonal transforms and box/polygon nwell geometry are admitted.",
+        "gds_sha256": "5039221b72bfd052d3f82781f5403fb67df4261ea20add5c2047191321fe9d78",
+        "checker_sha256": "9b03452253070cfa773c51c5579794317016d7ff7fd4d27412c3dc578ff78622"
+      }
+    }
+  ]
+}

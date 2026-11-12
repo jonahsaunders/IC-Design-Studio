@@ -1,0 +1,109 @@
+{
+  "schema": 1,
+  "observed_date": "2026-11-12",
+  "scope": "Focused renamed-folder manifest save/load repair validation, not full local source/core or installed acceptance",
+  "base_commit": "4050687891baf7a0a682ef4316bf44deb6d68ba4",
+  "repair": {
+    "gui.py": "Save the exact selected folder-manifest leaf, including a renamed or uppercase-extension manifest; do not overwrite an unselected canonical sibling.",
+    "project_store.py": "Validate portable manifest_name while preserving the default canonical name.",
+    "model.py": "Dispatch .icstudio case-insensitively so generic loading agrees with supported uppercase folder manifests."
+  },
+  "base_hosted_source": {
+    "run": 43123158510,
+    "status": "SUCCESS",
+    "groups": 4,
+    "aggregate": "SUCCESS",
+    "merge_tree": "c1c246b7a9496a0cd3413c847b971cbd19c288f2",
+    "covers_this_follow_on": false
+  },
+  "validation": {
+    "actual_qt": {
+      "tests": 35,
+      "seconds": 8.22,
+      "status": "PASS",
+      "exit_code": 0
+    },
+    "affected": {
+      "modules": [
+        "test_core",
+        "test_workflows",
+        "test_reliability",
+        "test_project_pdk",
+        "test_document",
+        "test_project_data_safety",
+        "test_pdk_qualification_matrix",
+        "test_ci_feedback"
+      ],
+      "tests": 120,
+      "skips": 2,
+      "seconds": 24.084,
+      "status": "PASS",
+      "exit_code": 0
+    },
+    "bounded_receiver": {
+      "elapsed_seconds": 33.898,
+      "qt_timeout_seconds": 90,
+      "affected_timeout_seconds": 180,
+      "syntax_files": 1637,
+      "before_after_source_identities": 2561,
+      "source_unchanged": true
+    },
+    "original_control": {
+      "base_commit": "4050687891baf7a0a682ef4316bf44deb6d68ba4",
+      "methods": 2,
+      "expected_failures": 3,
+      "seconds": 0.518,
+      "status": "EXPECTED_FAILURES_CONFIRMED"
+    }
+  },
+  "evidence_roles": {
+    "icstudio-folder-open-audit.json": "PRE-FIX diagnostic demonstrating selected manifest stale-save and unintended canonical sibling replacement; not a repaired outcome",
+    "icstudio-manifest-store-final.log": "Earlier focused23-test precursor; retained for history, not substituted for final exact-source120-test result",
+    "icstudio-manifest-safety-original-control.log": "Original base negative control",
+    "actual-qt.log": "Final exact-source35Qt result",
+    "focused.log": "Final exact-source120 affected tests"
+  },
+  "not_run_for_this_follow_on": [
+    "full exhaustive core",
+    "full 14-stage local source lane",
+    "fresh hosted source matrix",
+    "exact-candidate installed acceptance"
+  ],
+  "prior_acceptance_not_inherited": "Previous base hosted/full-local results and the older f323 installed run do not cover this manifest repair.",
+  "integration_status_at_record": {
+    "pr72_base": "4050687891baf7a0a682ef4316bf44deb6d68ba4",
+    "follow_on_published": false,
+    "experimental_base": "e1d26f907214b66584ac3003c2684a7371a3c14b",
+    "follow_on_integrated": false,
+    "main_changed": false
+  },
+  "historical_retention": {
+    "manifest_sha256": "00cec9e72c4726f47f9dd6559a2400c89a55e4f89c1a3ca9762e377eba51d20a",
+    "scope": "Exact previously accepted GUI/project_store/model source only; no historical acceptance claim for repaired code."
+  },
+  "qualified": false,
+  "engineering_estimate": {
+    "chunk": 7,
+    "percent": 74,
+    "low_confidence_range": [
+      55,
+      82
+    ],
+    "acceptance_fraction": false
+  },
+  "documentation_created_after_validation": true,
+  "privacy_review": {
+    "credential_private_memory_access_link_patterns": 0,
+    "redactions": 0,
+    "ordinary_test_workspace_paths_retained_in_raw_logs": true
+  },
+  "archive": {
+    "path": "docs/validation/experimental-project-manifest-safety-2026-11-11.zip",
+    "bytes": 179833,
+    "sha256": "2f459c5446df2e200a15f648d24a29e4fb3d824946d2066d34323b87a0e2e56b",
+    "members": 16,
+    "readback": "PASS"
+  },
+  "snapshot_utc": "2026-11-12T00:05:45Z",
+  "work_day_eastern": "2026-11-11"
+}

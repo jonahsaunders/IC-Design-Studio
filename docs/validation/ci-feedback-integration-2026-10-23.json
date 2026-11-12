@@ -1,0 +1,200 @@
+{
+  "schema": 1,
+  "date": "2026-10-23",
+  "source_baseline": "b6c623b44ba7ad2e30adb5a8c00a1e13807d8db5",
+  "status": "source_feedback_passed",
+  "qualified": false,
+  "chunk_complete": false,
+  "release_acceptance": false,
+  "scope": "Local focused source feedback, selected-candidate routing, and shared-toolchain transfer/failure-control tests. No hosted-native producer build, latency improvement, enforced branch protection or installed release acceptance claim.",
+  "hosts": {
+    "Windows": {
+      "report_sha256": "0028e248e970987935e3a053dd9c01aedb24bfc7711fb43b7f7cc55af48a41e8",
+      "source_files": 1328,
+      "tests": 211,
+      "skipped": 14,
+      "syntax_files": 1313,
+      "elapsed_seconds": 67.328,
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 25.813
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 3.281
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 28.734
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 7.656
+        }
+      ],
+      "source_unchanged": true,
+      "environment": "Existing local Windows environment"
+    },
+    "Linux": {
+      "report_sha256": "6ee5429866f3c51af3bbb5a0ea1a07b15d9bc0c9ce815483dfc8660065bfe790",
+      "source_files": 1328,
+      "tests": 211,
+      "skipped": 2,
+      "syntax_files": 1313,
+      "elapsed_seconds": 33.858,
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 6.228
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 1.319
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 22.304
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 2.677
+        }
+      ],
+      "source_unchanged": true,
+      "environment": "Existing local Linux WSL environment using a verified Linux-local copy of the final source; not hosted-runner timing."
+    }
+  },
+  "workflow_validation": {
+    "status": "passed",
+    "returncode": 0,
+    "utc": "2026-10-23T20:01:09.921716+00:00",
+    "validator_sha256": "6d470a52039a433bccdf57bd65170885a5b23e511155d0de587c2c3ce0eb1c24",
+    "command": [
+      "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\chunk7-remaining-bindings-20261023-v1\\actionlint\\actionlint.exe",
+      "-shellcheck=",
+      "-pyflakes=",
+      "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\IC-Design-Studio\\.github\\workflows\\analog-campaign-qualification.yml",
+      "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\IC-Design-Studio\\.github\\workflows\\build-desktop.yml",
+      "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\IC-Design-Studio\\.github\\workflows\\digital-runtime.yml",
+      "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\IC-Design-Studio\\.github\\workflows\\digital.yml",
+      "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\IC-Design-Studio\\.github\\workflows\\ihp-inductor-qualification.yml",
+      "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\IC-Design-Studio\\.github\\workflows\\interoperability.yml",
+      "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\IC-Design-Studio\\.github\\workflows\\physical-qualification.yml",
+      "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\IC-Design-Studio\\.github\\workflows\\pr-feedback.yml",
+      "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\IC-Design-Studio\\.github\\workflows\\reference-compatibility.yml",
+      "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\IC-Design-Studio\\.github\\workflows\\release-preview.yml",
+      "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\IC-Design-Studio\\.github\\workflows\\vga-playground.yml"
+    ],
+    "workflow_sha256": {
+      ".github/workflows/analog-campaign-qualification.yml": "cfb84917db2194a1f03f4d126057b76402e6dd1cde1bff6b34185748c3311077",
+      ".github/workflows/build-desktop.yml": "a2b290e3ba6be249604faff3e81942dce6d3ebbb2debfae4b8d48d2afb06321c",
+      ".github/workflows/digital-runtime.yml": "bf322bb797c65fa7c72e84393823c2f0c5f200e708b2512ef851b0594389ee32",
+      ".github/workflows/digital.yml": "fc11e6b3aadda2d2877b9b3b1dc999ba35eb4bbb68cc858524d194b41a5a5f78",
+      ".github/workflows/ihp-inductor-qualification.yml": "e47f3a80ce9b897a36328fa3dab6f19aa7cdd4c1d00ff44ddf2d9ec5c2e63553",
+      ".github/workflows/interoperability.yml": "5a31851ff5e55d6fc9672d5fa55c4b9ddf8fa1b814ebaeaad812babc41ef2fa5",
+      ".github/workflows/physical-qualification.yml": "ea00039fcdae9d1d25717d5a3cd16ceabaadc8e71b5df9a5160b51c3c64ae3f5",
+      ".github/workflows/pr-feedback.yml": "8cf6df33956a856ebddb5c129513c0b1b6aa4c5c468af82a0eb5db51ad07479c",
+      ".github/workflows/reference-compatibility.yml": "329f97441f7ea1a5caefa2da48feda343f568d15e01cf77557838624d9370441",
+      ".github/workflows/release-preview.yml": "2ccdf04b5b30d5939bf0c12a4580a2ce621a8fa6e58932285ec1e8f87a4bfd78",
+      ".github/workflows/vga-playground.yml": "2d6dec2f594abec94f047fcedf2c46fb154421f3e46312281b667392158783d5"
+    },
+    "stdout": "",
+    "stderr": "",
+    "limitations": [
+      "ShellCheck and Pyflakes integrations disabled; GitHub workflow syntax/schema/expressions checked."
+    ]
+  },
+  "preserved_jobs": [
+    {
+      "workflow": "build-desktop.yml",
+      "existing_job_bodies_preserved": true,
+      "before_sha256": "706298454f7051e8961f298018f6e227bd6ad46dab12d083ab26d74e2fe1746f",
+      "after_sha256": "706298454f7051e8961f298018f6e227bd6ad46dab12d083ab26d74e2fe1746f"
+    },
+    {
+      "workflow": "digital-runtime.yml",
+      "existing_job_bodies_preserved": true,
+      "before_sha256": "325c9ec5f9086fe390c4a5b275e8d749af3920cb923b60ee6690103b3bd0bc9d",
+      "after_sha256": "325c9ec5f9086fe390c4a5b275e8d749af3920cb923b60ee6690103b3bd0bc9d"
+    },
+    {
+      "workflow": "physical-qualification.yml",
+      "existing_job_bodies_preserved": true,
+      "before_sha256": "a8ce3a1fc301d854da68b83da62695a88727337dd5048993c0b9118c8df3659c",
+      "after_sha256": "a8ce3a1fc301d854da68b83da62695a88727337dd5048993c0b9118c8df3659c"
+    },
+    {
+      "workflow": "interoperability.yml",
+      "existing_job_bodies_preserved": true,
+      "before_sha256": "92948d34968db57729ad128b8d245856d979705b4aea2da7f4be923f4a521446",
+      "after_sha256": "92948d34968db57729ad128b8d245856d979705b4aea2da7f4be923f4a521446"
+    },
+    {
+      "workflow": "digital.yml",
+      "existing_job_bodies_preserved": true,
+      "before_sha256": "4281b9e2c864362093a9f95ea7c042c0d56adaaa9dab5f2a6427166d644751cd",
+      "after_sha256": "4281b9e2c864362093a9f95ea7c042c0d56adaaa9dab5f2a6427166d644751cd"
+    },
+    {
+      "workflow": "vga-playground.yml",
+      "existing_job_bodies_preserved": true,
+      "before_sha256": "8f1ec1e55dfdade7d15c2715d2b10de08f55a3bffb003dd555347d704719094a",
+      "after_sha256": "8f1ec1e55dfdade7d15c2715d2b10de08f55a3bffb003dd555347d704719094a"
+    },
+    {
+      "workflow": "analog-campaign-qualification.yml",
+      "existing_job_bodies_preserved": true,
+      "before_sha256": "f7380feff612941f2fc51ca99a951201e923be4d5764b5de57050fcf5e9b7681",
+      "after_sha256": "f7380feff612941f2fc51ca99a951201e923be4d5764b5de57050fcf5e9b7681"
+    },
+    {
+      "workflow": "ihp-inductor-qualification.yml",
+      "existing_job_bodies_preserved": true,
+      "before_sha256": "4876f39f248429558e1377fe2ca911c9e0ccd58a3e15b54bd69cfd6a3b68b7d8",
+      "after_sha256": "4876f39f248429558e1377fe2ca911c9e0ccd58a3e15b54bd69cfd6a3b68b7d8"
+    },
+    {
+      "workflow": "release-preview.yml",
+      "existing_job_bodies_preserved": true,
+      "before_sha256": "2d268711e30fef70b9f521580781f2d72788017e25a071c01dcf758cda3965a5",
+      "after_sha256": "2d268711e30fef70b9f521580781f2d72788017e25a071c01dcf758cda3965a5"
+    }
+  ],
+  "geometry_helper_move": {
+    "status": "PASS",
+    "functions": [
+      "regions",
+      "same_masks",
+      "rotated"
+    ],
+    "exact_function_ast_unchanged": true,
+    "historical_imports_reexported": true,
+    "previous_module_sha256": "9605a1f4b33707a1c2df1abcc0e5c15aeda57f5cd6ff12bed47dcc2ba27c81b8",
+    "new_module_sha256": "81e9b4253290860f272ee88d0487cb0d53cb40e1df548f34800e483d5e4a1689"
+  },
+  "remaining": [
+    "Hosted PR and merge-group execution on the pushed integration candidate.",
+    "Repository currently has no branch protection/rulesets; PR feedback must be separately required by policy.",
+    "Actual hosted RC producer build, five verified artifact restores and full native acceptance.",
+    "Resumable development reuse needs complete loaded dependency identity plus independent whole-case audit and cache fault controls.",
+    "Fresh complete release acceptance remains mandatory."
+  ],
+  "source_files": {
+    "scripts/ci_candidate.py": "78edd51d48c2826b58527c8e984e6f2fe1ef1bb7ee8fe30474f10204bcf6f1d3",
+    "scripts/ci_feedback.py": "da9be8935862d9b9ba3f577a75d1540456d28e19c6e2706031ad59b01192a7c1",
+    "scripts/reference_toolchain.py": "47245c28c0f6f0ea406bdc312f1f2ffce76a1b1122010a90fb582c5496b63f31",
+    "tests/test_ci_candidate.py": "cbd7053f1c5db9d1baa7a6d2b0583985e17463cdfd04abae6887fa5f7a8e2cc3",
+    "tests/test_ci_feedback.py": "850e498a78a76d4a4025e4546816c9edc16b8f81a57f8359c9a8b701bea9430c",
+    "tests/test_reference_toolchain.py": "83e5d9b55af2d47f16c9fcf5d01366008de78849d498fc96fb93f288ce5696de",
+    "scripts/qualification_geometry.py": "81e9b4253290860f272ee88d0487cb0d53cb40e1df548f34800e483d5e4a1689"
+  }
+}

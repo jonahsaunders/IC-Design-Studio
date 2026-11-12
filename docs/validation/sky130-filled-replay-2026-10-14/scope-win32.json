@@ -1,0 +1,17 @@
+{
+  "platform": "win32",
+  "python": "3.12.14",
+  "tests": 5,
+  "skipped": 0,
+  "status": "source-scope-review-reproduced",
+  "qualified": false,
+  "chunk_complete": false,
+  "data_sha256": "d9b3e58476565723318fa0fa128d3dfe60d0051d7d89af846507cfa4b69e6b9a",
+  "log_sha256": "5e4b054c56876433429ded1baff53e0d77ec4484213ad5a0fc866578558cf433",
+  "driver_sha256": "5d1bb1bf0d98a5dd79bc26c62647abfdda8e1b02ed6737e27cc3cd6629abab76",
+  "source_files": {
+    "scripts/sky130_density_rule_scope.py": "ebcc069d036c841a8bb06712700b4d85853fc902e1240696ee4e05833059e2d7",
+    "tests/test_sky130_density_rule_scope.py": "f643fe490b06a3344b406ae2ad49b01350aaf66ffabe0cfbe3c5284c5733b14b",
+    "docs/qualification/sky130-grid-density-sources.json": "ce775cb418c5086bb11fe3eb7196fbc1043042397f2151dc122f0722a6e5f5f7"
+  }
+}

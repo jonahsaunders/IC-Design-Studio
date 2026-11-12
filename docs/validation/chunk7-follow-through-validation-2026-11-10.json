@@ -1,0 +1,391 @@
+{
+  "schema": 1,
+  "date": "2026-11-10",
+  "base_commit": "d119d88f8ea5a31abd8804cf8a4c8dbf5545d918",
+  "status": "LOCAL_AND_HOSTED_SOURCE_PASS_INSTALLED_PENDING",
+  "qualified": false,
+  "chunk_complete": false,
+  "installed_acceptance": false,
+  "estimate": {
+    "percent": 74,
+    "range_percent": [
+      55,
+      82
+    ],
+    "confidence": "low",
+    "kind": "subjective engineering estimate, not measured acceptance"
+  },
+  "first_frozen_batch": {
+    "selection": "MOS exact-number repair, six KLayout wrapper source inventory, CI registration and bounded fixture identities; excludes later cache/dynamic/storage helpers",
+    "changed_files_sha256": {
+      ".gitattributes": "63e602540939443acf66530687d4a2510e8f1a2789e29cf8fd6719d440243869",
+      "scripts/audit_source_dispositions.py": "6a6448b680b9aecc03a4ae8aca7102e653e203138f2227755428f0f848cb1770",
+      "scripts/ci_feedback.py": "dc98a0d3010021d0d3e9dc06e7ee1464ccd1d3c3f5ce4bc57edf98713cd6d983",
+      "scripts/qualification_sky130_mos_voltage_core.py": "93840fc0001a5c558d5fb912b9840c43326b34dd4084a9d19f1a710a520e1ebd",
+      "scripts/inventory_klayout_wrappers.py": "bb13406fbe14075d37e752ad01a49ab7e473f0e9f84e46e5b523a31f7ab32586",
+      "tests/test_ci_feedback.py": "ed1d1421eca4e1c588e5e39edbca56a9af7e6134f84fa8c6a4ff981d23c36a11",
+      "tests/test_sky130_mos_voltage_source.py": "389bca1c3cdb28f4d4030d9758a0717961b92797c3e0bb7cd3d0de8328b3de95",
+      "tests/test_klayout_wrappers.py": "731198ee6bac46bacfd58324abdbd04091949534b8c805e31c20dc4a3df8f4b3",
+      "docs/QUALIFICATION_PROGRESS.md": "e2a07772bec28f2fdc8ed38821b07ad224a865116d0e7c24980d52e3dbb401b3",
+      "docs/qualification/klayout-wrapper-sources-v1/README.md": "3a3129a8fd42e95963c925c33bcdce40f13c23c3ad6e4ff2f53cebdb4a417681",
+      "docs/qualification/klayout-wrapper-sources-v1/Apache-2.0.txt": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "docs/qualification/klayout-wrapper-sources-v1/source-lock.json": "b30c6d5e9b740e0461c6bfd7d83829131eb4e12614cd2a375c90d67c41587614",
+      "docs/qualification/klayout-wrapper-sources-v1/sources/gf180-fd-pv/klayout/lvs/rule_decks/devices_connections.lvs": "923f7dbcab8624185f12ec4e9acd3ed84880d8a385025cd98097e5ef5e2876c0",
+      "docs/qualification/klayout-wrapper-sources-v1/sources/ihp-sg13g2/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/devices_connections.lvs": "f8ddc90801d104b0a517ca90773c7f03b13b95f4bac95b77ebcf96f53513801b",
+      "docs/qualification/klayout-wrapper-sources-v1/sources/ihp-sg13g2/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/mos_connections.lvs": "f53e17c1f315f49fc973b8ec949ae343e2bb99c2862a51acdaa3f37f49907770",
+      "docs/qualification/klayout-wrapper-sources-v1/sources/ihp-sg13g2/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/rfmos_connections.lvs": "88d8335742119b8b88811f408defb789cc8fbde2c910c1deb33d9a4837a5b2d3",
+      "docs/qualification/klayout-wrapper-sources-v1/sources/gf180mcu/rules/klayout/macros/gf180mcu_lvs.lylvs": "cf062cabd24c257733d841bbb6b667af7f03f0c6db0019d3b98d5960a7e46e1f",
+      "docs/qualification/klayout-wrapper-sources-v1/sources/gf180mcu/rules/klayout/macros/run_drc_main/main.drc": "211d1974056662b7b11eabdd4b7d98cf6704f973a165d10e9e7b575e7e200e23",
+      "docs/validation/chunk7-mos-exact-number-repair-2026-11-10.json": "6923b8f089c88c81ae850c790f347cfff246c92ccff6df9238878bef262b1a4e",
+      "docs/validation/chunk7-klayout-wrapper-inventory-2026-11-10.json": "b6eef2e4d57e80ac1f2fcbb24e3017b85c74d738e588b91b4adf68c8d8240065",
+      "docs/validation/chunk7-missing-model-review-2026-11-10.json": "754226d6b94a20c8a187eb008d7ff8379c568973c1cf88269f0ed6dd79bd8db6",
+      "docs/validation/chunk7-hbt-update-applicability-2026-11-10.json": "a66429c2f0956a15aa63e72955f6e9d0321c004bacfb228f351bf943d25dada9"
+    },
+    "aggregate": {
+      "status": "passed",
+      "seconds": 361.337,
+      "tests": 1595,
+      "skips": 17,
+      "syntax_files": 1563,
+      "source_identities": 2383,
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 16.116,
+          "tests": 258,
+          "skips": 3,
+          "log_sha256": "f681c8e3db5803983feb494dd53edde7db69368a133da50b20e2a805d8edd0de"
+        },
+        {
+          "name": "ihp-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 31.056,
+          "tests": 229,
+          "skips": 1,
+          "log_sha256": "220afe86322d75cbd5fe334db1ad01db320467c5bcd1ed77b1a04a024638a2f0"
+        },
+        {
+          "name": "physical-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 32.058,
+          "tests": 306,
+          "skips": 10,
+          "log_sha256": "88ea9ed6edb9ef4845fbd9112099f6d86c0c95b99c7f90d9315a907d63c28059"
+        },
+        {
+          "name": "device-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 40.807,
+          "tests": 702,
+          "skips": 2,
+          "log_sha256": "c75c9047951efd705c0c8548ab5f7ee0de1121fe74755bfa6af6a380d9e649b2"
+        },
+        {
+          "name": "package-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 40.186,
+          "tests": 11,
+          "skips": 0,
+          "log_sha256": "31ba15ba9c59fc099cc0de64f5c697bd7831d7d14b0eb47f2ad711e7c6ffb4af"
+        },
+        {
+          "name": "runtime-release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 6.191,
+          "tests": 89,
+          "skips": 1,
+          "log_sha256": "539bb8c75e4a976aa6af6143571ecb58b6af66bf4013a3f070243b764c2eeaf5"
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 2.275,
+          "tests": null,
+          "skips": 0,
+          "log_sha256": "995dcfbdd0a6271833f5fd016e3a3bdb88b241e5f74fe00b8df35794a23f4335"
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 27.296,
+          "tests": null,
+          "skips": 0,
+          "log_sha256": "552379f1db433173fe4500582dbf3e018950a86d9ea50733f6b5079ecdf154ee"
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 4.929,
+          "tests": null,
+          "skips": 0,
+          "log_sha256": "66af7ee4a9c6fa1f6c1f2d6f8a220486f6467316e0f72df511d0ad0ad2505b65"
+        },
+        {
+          "name": "metal-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 8.445,
+          "tests": null,
+          "skips": 0,
+          "log_sha256": "45dd20c0e79e8b630f08e210108f92156aadc4588a59c51e8bc3fb1f7b53d315"
+        },
+        {
+          "name": "metal-resistor-parallel-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 30.253,
+          "tests": null,
+          "skips": 0,
+          "log_sha256": "f328bbe06dd809ec3cb6d9b05f19d033cdd5b871c599e689344185e47ff8e2cd"
+        },
+        {
+          "name": "ihp-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 116.169,
+          "tests": null,
+          "skips": 0,
+          "log_sha256": "9220cdaa991601a3c0cc115efcf901a5be589a582d2c68e397715a6ad83593ab"
+        },
+        {
+          "name": "ihp-capacitor-corner-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 2.32,
+          "tests": null,
+          "skips": 0,
+          "log_sha256": "f6db6b124caf4d23f43cf1c4b049ccdd22146c66e56593f18fcfb53925968d04"
+        }
+      ],
+      "report_sha256": "ad371508b90afeb803236f647f4803f2b958b35c61c9bfb6144c68ba6136bb1d",
+      "release_acceptance": false
+    },
+    "full_suite": {
+      "tests": 4693,
+      "skips": 80,
+      "seconds": 1220.499,
+      "exit_code": 0,
+      "log_sha256": "2df3746c043aab07e3b9229712632251674b50f6c937512ecf3636a4f1402387"
+    },
+    "source_snapshot_unchanged": true
+  },
+  "combined_frozen_batch": {
+    "selection": "Adds cache recovery and final LI dynamic runner/auditor/contract/tests. Later storage-only reader and dedicated cache symlink test portability correction are validated separately.",
+    "changed_files_sha256": {
+      ".gitattributes": "63e602540939443acf66530687d4a2510e8f1a2789e29cf8fd6719d440243869",
+      "docs/QUALIFICATION_PROGRESS.md": "c5aa857d1b2f4fdcbfc568d1c75c7f654b9250024d1652258b5917aee5af92df",
+      "docs/qualification/klayout-wrapper-sources-v1/Apache-2.0.txt": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "docs/qualification/klayout-wrapper-sources-v1/README.md": "3a3129a8fd42e95963c925c33bcdce40f13c23c3ad6e4ff2f53cebdb4a417681",
+      "docs/qualification/klayout-wrapper-sources-v1/source-lock.json": "b30c6d5e9b740e0461c6bfd7d83829131eb4e12614cd2a375c90d67c41587614",
+      "docs/qualification/klayout-wrapper-sources-v1/sources/gf180-fd-pv/klayout/lvs/rule_decks/devices_connections.lvs": "923f7dbcab8624185f12ec4e9acd3ed84880d8a385025cd98097e5ef5e2876c0",
+      "docs/qualification/klayout-wrapper-sources-v1/sources/gf180mcu/rules/klayout/macros/gf180mcu_lvs.lylvs": "cf062cabd24c257733d841bbb6b667af7f03f0c6db0019d3b98d5960a7e46e1f",
+      "docs/qualification/klayout-wrapper-sources-v1/sources/gf180mcu/rules/klayout/macros/run_drc_main/main.drc": "211d1974056662b7b11eabdd4b7d98cf6704f973a165d10e9e7b575e7e200e23",
+      "docs/qualification/klayout-wrapper-sources-v1/sources/ihp-sg13g2/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/devices_connections.lvs": "f8ddc90801d104b0a517ca90773c7f03b13b95f4bac95b77ebcf96f53513801b",
+      "docs/qualification/klayout-wrapper-sources-v1/sources/ihp-sg13g2/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/mos_connections.lvs": "f53e17c1f315f49fc973b8ec949ae343e2bb99c2862a51acdaa3f37f49907770",
+      "docs/qualification/klayout-wrapper-sources-v1/sources/ihp-sg13g2/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/rfmos_connections.lvs": "88d8335742119b8b88811f408defb789cc8fbde2c910c1deb33d9a4837a5b2d3",
+      "docs/qualification/sky130-li-array-dynamic-v1.json": "d010749d9278e3dcd99763af17d6f0850b1d5fb82c299c76875c3cf58193c055",
+      "docs/validation/chunk7-exact-candidate-vpp-repair-2026-11-10.json": "e277b021ccef44cfd04554e233fc1a41062552fa15c9cf87931bee3b57f6ac73",
+      "docs/validation/chunk7-hbt-update-applicability-2026-11-10.json": "a66429c2f0956a15aa63e72955f6e9d0321c004bacfb228f351bf943d25dada9",
+      "docs/validation/chunk7-klayout-wrapper-inventory-2026-11-10.json": "b6eef2e4d57e80ac1f2fcbb24e3017b85c74d738e588b91b4adf68c8d8240065",
+      "docs/validation/chunk7-missing-model-review-2026-11-10.json": "754226d6b94a20c8a187eb008d7ff8379c568973c1cf88269f0ed6dd79bd8db6",
+      "docs/validation/chunk7-mos-exact-number-repair-2026-11-10.json": "6923b8f089c88c81ae850c790f347cfff246c92ccff6df9238878bef262b1a4e",
+      "docs/validation/chunk7-source-cache-recovery-2026-11-10.json": "0a7cc6af21ce288a1d0e8352a06f765aff0457fe7933ed4a2398d22384990542",
+      "scripts/audit_sky130_li_array_dynamic.py": "6caff231aaff5ca567dcd925200eeba9cdfe8b6db68f3038d6f7f3cf1d1cc1d3",
+      "scripts/audit_source_dispositions.py": "6a6448b680b9aecc03a4ae8aca7102e653e203138f2227755428f0f848cb1770",
+      "scripts/ci_feedback.py": "8fbc593f7fb17124a503a5f26bb1c96c46034550176579fe4dd3c9287a3d7394",
+      "scripts/inventory_klayout_wrappers.py": "bb13406fbe14075d37e752ad01a49ab7e473f0e9f84e46e5b523a31f7ab32586",
+      "scripts/qualification_sky130_mos_voltage_core.py": "93840fc0001a5c558d5fb912b9840c43326b34dd4084a9d19f1a710a520e1ebd",
+      "scripts/qualify_sky130_li_array_dynamic.py": "15e546ed15d9f2245700e0ab9efda035c28f997c82f38a2c27b342007b32d4e5",
+      "scripts/recover_source_disposition_cache.py": "9e5f7521010fe8a14d3c2ba2427837bcac2dc9e9b16a0f46d11a84ad2d86c6e3",
+      "tests/test_ci_feedback.py": "4c522d5f2feceb7e97ff2ce97142f91e1f3e417363dc4b9bc807331fa05c7c5e",
+      "tests/test_klayout_wrappers.py": "731198ee6bac46bacfd58324abdbd04091949534b8c805e31c20dc4a3df8f4b3",
+      "tests/test_sky130_li_array_dynamic.py": "3f94857542c7019b6c41cca1ea4b5643d09f5339a61f3459a0d301196d6bfff5",
+      "tests/test_sky130_mos_voltage_source.py": "389bca1c3cdb28f4d4030d9758a0717961b92797c3e0bb7cd3d0de8328b3de95",
+      "tests/test_source_disposition_cache.py": "8e8b1295f1cd8415b2022412cfa8160abe58ec379f815658de92ba744716178d"
+    },
+    "aggregate": {
+      "status": "passed",
+      "seconds": 382.308,
+      "tests": 1621,
+      "skips": 17,
+      "syntax_files": 1568,
+      "source_identities": 2390,
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 16.969,
+          "tests": 258,
+          "skips": 3,
+          "log_sha256": "60e5061a4bf0c6407c067afd5c29e8e001dff57390911c8e2c0c7de3ce5e62c2"
+        },
+        {
+          "name": "ihp-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 32.533,
+          "tests": 239,
+          "skips": 1,
+          "log_sha256": "ea43f01d1156260105e15f05e2996919579cbb620cedf433103b3f4c3e96dd07"
+        },
+        {
+          "name": "physical-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 32.323,
+          "tests": 306,
+          "skips": 10,
+          "log_sha256": "c277e993d3c16feb89279069251f0b541f59e60b2088cf652e79e74180e3cc14"
+        },
+        {
+          "name": "device-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 42.124,
+          "tests": 718,
+          "skips": 2,
+          "log_sha256": "4767a282b6025d403396959b77399b7a95de26ed5a92047f41c01e99b57d0761"
+        },
+        {
+          "name": "package-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 44.71,
+          "tests": 11,
+          "skips": 0,
+          "log_sha256": "2b6d905358ec6f6fe5972bd10d4baf7c135ccd4e0dd6c5fa98e07283cc0a2ba3"
+        },
+        {
+          "name": "runtime-release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 7.239,
+          "tests": 89,
+          "skips": 1,
+          "log_sha256": "e614cdf7437e386c97d3087d5bad1a73a00544294fe45ad5df2b7906f271cb0e"
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 2.623,
+          "tests": null,
+          "skips": 0,
+          "log_sha256": "995dcfbdd0a6271833f5fd016e3a3bdb88b241e5f74fe00b8df35794a23f4335"
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 28.71,
+          "tests": null,
+          "skips": 0,
+          "log_sha256": "552379f1db433173fe4500582dbf3e018950a86d9ea50733f6b5079ecdf154ee"
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 5.331,
+          "tests": null,
+          "skips": 0,
+          "log_sha256": "66af7ee4a9c6fa1f6c1f2d6f8a220486f6467316e0f72df511d0ad0ad2505b65"
+        },
+        {
+          "name": "metal-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 8.389,
+          "tests": null,
+          "skips": 0,
+          "log_sha256": "8145e4995005daae49e5782792778b53c6fad3a56a6407ef24841053ad477fc3"
+        },
+        {
+          "name": "metal-resistor-parallel-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 31.858,
+          "tests": null,
+          "skips": 0,
+          "log_sha256": "d6c06f18a4c0e98843d10b250af491efa2d6f4d8f6d3a31c13c9f4559e3f6db6"
+        },
+        {
+          "name": "ihp-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 123.367,
+          "tests": null,
+          "skips": 0,
+          "log_sha256": "98ef5b64138f24fb1f70c899c457d5c9e09ea4752e5ba6999b25e5974928d3d2"
+        },
+        {
+          "name": "ihp-capacitor-corner-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 2.521,
+          "tests": null,
+          "skips": 0,
+          "log_sha256": "f6db6b124caf4d23f43cf1c4b049ccdd22146c66e56593f18fcfb53925968d04"
+        }
+      ],
+      "report_sha256": "92a16d1b2f641f5bec4f87179c5100bd1a93bd430ea799920e35dbab8a2aa638",
+      "release_acceptance": false
+    }
+  },
+  "retained_invocation_failure": {
+    "log_sha256": "6f61a5018bd4a064f82266cc465f2eaf526d06729d0fdf88cc6e2a032a7318f4",
+    "cause": "Initial focused invocation omitted PYTHONPATH=tests required by existing cross-test imports; no production regression.",
+    "corrected_tests": 61,
+    "corrected_seconds": 7.038,
+    "corrected_log_sha256": "40aa78f105453078863e9041b0d260f7dd4ad2fe0cad548980dd6529e9a10dbd"
+  },
+  "final_reconstruction_and_ci_focused": {
+    "tests": 46,
+    "seconds": 4.622,
+    "log_sha256": "960023e871c20028317f86ed007d2810c4c03a715ae814535efdba56986adb09",
+    "full_reconstructed_report_sha256": "263b17bf6dc2c010e230ded19bb4e0c8c4cc3712b7a321ffc84d5be10d7d7216",
+    "full_report_byte_comparison": "identical to actual complete audit output",
+    "acquisition_helper_changed": false
+  },
+  "windows_portability_control": "Dedicated symbolic-link fixture skips only if Windows host cannot create that link; all other cache integrity assertions and Linux link rejection remain required.",
+  "limitations": [
+    "Local Linux source checks do not replace fresh Windows/Linux installed acceptance.",
+    "Finite LI dynamic source linkage is not new physical extraction, calibration or full-family acceptance.",
+    "Four exact model bindings, full applicability/reliability/calibration, 101 inventory gaps and remaining physical/installed gates remain open."
+  ],
+  "final_affected_required_stages": {
+    "status": "passed",
+    "stages": [
+      "unit-contracts",
+      "device-contracts",
+      "release-contracts"
+    ],
+    "results": [
+      "Ran 258 tests in 14.477s",
+      "OK (skipped=3)",
+      "PASS unit-contracts 14.91",
+      "Ran 725 tests in 38.452s",
+      "OK (skipped=2)",
+      "PASS device-contracts 39.033",
+      "PASS release-contracts 2.223"
+    ],
+    "log_sha256": "116093d4dea69bc046bc104f55484e618116746cc51c4e958823abf25bc30801",
+    "changed_files_sha256": {
+      "scripts/ci_feedback.py": "61aa8380e10c47cfd3082ea9345bd0f9e288395340f39d7dafa47b17bb95f490",
+      "tests/test_ci_feedback.py": "0afb8844cdc7ac3e2b801916673845a6f512307bcaaa79f50e1314936363edcd",
+      "tests/test_source_disposition_cache.py": "69d84b7c2572fddb9aa4c75f1131d75dd24c94d54cf896bdfa44956bf88a3b5e",
+      "scripts/reconstruct_source_dispositions.py": "41a1eca318cc14a0d772df107915ef1c49cfecdb4a91ae7fd44faa2fbc3de61c",
+      "tests/test_source_disposition_reconstruction.py": "6208260a7348870b99794b3082f89485e6f0c01518bb64c3ab82550c5df02c83",
+      "docs/qualification/source-dispositions-2026-11-10-v1.delta.json.gz": "418fe4b99877317afade4a3717d712ea68b66d2591cd68433635e6499df01503"
+    },
+    "scope": "Required affected stages rerun after storage-reader/CI registration and cache test portability correction; other production stages unchanged from combined 13-stage pass."
+  },
+  "hosted_source_feedback": {
+    "candidate": "8fec49215fa4332897f44312baead817b69794d3",
+    "run_id": 42822402279,
+    "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/42822402279",
+    "jobs": [
+      {
+        "name": "source feedback (windows-2022)",
+        "id": 129850960154,
+        "status": "success"
+      },
+      {
+        "name": "source feedback (ubuntu-24.04)",
+        "id": 129850960452,
+        "status": "success"
+      },
+      {
+        "name": "PR feedback",
+        "id": 129857898385,
+        "status": "success"
+      }
+    ],
+    "installed_acceptance": false
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "status": "remote-physical-candidates-audited",
+  "qualified": false,
+  "chunk_complete": false,
+  "platform": "win32",
+  "data_sha256": "6c782eb2f89d7ed4defb6a4bbe404697d606836a220dcab158f365ddf76bd98d",
+  "driver_sha256": "e1b2f79cf705e3ba478319bf979b3fbd894b49bf7443f65500fb497846293cb1",
+  "scope": "Independent decap/mask reconstruction, original circuit-clearance preservation, density screen and physical reports. Complete manual coverage and application acceptance remain separate."
+}

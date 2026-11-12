@@ -1,0 +1,65 @@
+{
+  "schema": 1,
+  "status": "BLOCKED_NATIVE_TIMEOUT",
+  "qualified": false,
+  "independent_calibration": false,
+  "installed_acceptance": false,
+  "contract_sha256": "a0399a3975af323a120910920d879261c71a44ec545a51f919a800b0fcd62556",
+  "run_receipt_sha256": "788a40f03e094b431bd210efcd865f930077f270e6f25e56123e6b9a6527977e",
+  "engine_sha256": "67399d2db139e9a8e7bfd118cab8acfa290bb6db003c996333e55ed682a65d25",
+  "attempted_jobs": 2,
+  "completed_jobs": 1,
+  "complete_nominal_grid_points": 28,
+  "failed_job": {
+    "route": "nominal",
+    "gate_index": 1,
+    "returncode": null,
+    "command": [
+      "/workspace/shared/ihp-pmos-measured-v2-attempt-1/engine/runtime/ngspice",
+      "-n",
+      "-D",
+      "filetype=ascii",
+      "-D",
+      "ngbehavior=hsa",
+      "-b",
+      "-r",
+      "/workspace/shared/ihp-pmos-measured-v2-attempt-1/runs/nominal-1/result.raw",
+      "/workspace/shared/ihp-pmos-measured-v2-attempt-1/runs/nominal-1/input.cir"
+    ],
+    "cwd": "/workspace/shared/ihp-pmos-measured-v2-attempt-1",
+    "environment": {
+      "PATH": "/usr/bin:/bin",
+      "HOME": "/workspace/shared/ihp-pmos-measured-v2-attempt-1",
+      "LANG": "C",
+      "LC_ALL": "C",
+      "TZ": "UTC",
+      "SPICE_SCRIPTS": "/workspace/shared/ihp-pmos-measured-v2-attempt-1/engine/runtime",
+      "OMP_NUM_THREADS": "1"
+    },
+    "timed_out": true
+  },
+  "failure": "Second nominal gate -0.672 V exceeded unchanged 90-second deadline. Actual KLU readback retained; last drain progress reference -0.55 then transient OP. No additional runs.",
+  "selection_complete": false,
+  "numerical_interface_batch_audit": "Offline auditor executed and correctly rejected incomplete Cartesian selection: Missing/duplicate/reordered route. Full numerical interface checks not reached.",
+  "scope": "One successful diagnostic gate on a separately built instrumented engine does not establish success on unchanged production engine or all gates. No general KLU remedy established.",
+  "bundle": {
+    "path": "attempt-1-partial.zip",
+    "sha256": "829ffa8e47908e28bbfa5e5f571c548c15f7344c544cdfe80246b50d1bcea6ce",
+    "bytes": 1412821,
+    "included_members": 229,
+    "partial": true
+  },
+  "sources": {
+    "docs/qualification/ihp-pmos-measured-reference-v2/contract.json": "a0399a3975af323a120910920d879261c71a44ec545a51f919a800b0fcd62556",
+    "docs/qualification/ihp-pmos-measured-reference-v1/contract.json": "7891995d390dd80654168aefce77fab329b7d3e57454743a81f6b210deb6bb4a",
+    "docs/qualification/ihp-pmos-measured-reference-v1/measurement.mdm": "bb12389d5789b8035d388e00253b7d65e5d95d6fdf95d1ee147859b564dd2e47",
+    "docs/qualification/ihp-pmos-measured-reference-v1/UPSTREAM-README.md": "20c526c6348f9bc73cdc283847e7df1c9c80547f0711c97285454f35a13a8635",
+    "docs/qualification/ihp-pmos-measured-reference-v1/LICENSE": "c95bae1d1ce0235ecccd3560b772ec1efb97f348a79f0fbe0a634f0c2ccefe2c",
+    "scripts/ihp_pmos_measured_reference_v2.py": "ad12a30fb4be9bca796fdbaaab4d08cd6dbf787f62dae11c3fc1e7e3d14d8a4e",
+    "scripts/run_ihp_pmos_measured_reference_v2.py": "2ddd50f5ba8f30cd9a06851320dc53bddf1fa2dad2e59b9599694ec8dd96d2d2",
+    "scripts/audit_ihp_pmos_measured_reference_v2.py": "9c7b508d4eda8e296f527e088ea006ad7460af0e07d6be1c30147cc9e370d41c",
+    "scripts/audit_sky130_li_linked.py": "9a44a27caad1744acbe852689d81c13abbfe9360fab20f87e0143d35035cc273",
+    "scripts/stage_linux_ngspice.py": "69cb887aff79a239e7670a50d517d9ec460df8d06eedf134f6c42e5a4ae5ce8f",
+    "tests/test_ihp_pmos_measured_reference_v2.py": "7e14c322c3df14b65ed67634001521011bb9d721c76fc021312bf2c9ab44c9f9"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "scope": "License/attribution locations retained with source and binaries; does not relicense upstream model code.",
+  "ngspice": {
+    "paths": [
+      "measured-v3/attempt-1/engine/licenses/ngspice/COPYING",
+      "measured-v3/attempt-1/engine/sources/ngspice-47.tar.gz",
+      "measured-v3/attempt-1/engine/sources/ICSTUDIO-MODIFICATIONS.txt"
+    ]
+  },
+  "pdk_and_measurement": {
+    "paths": [
+      "measured-v3/attempt-1/pdk/LICENSE",
+      "measured-v3/docs/qualification/ihp-pmos-measured-reference-v1/LICENSE",
+      "measured-v3/docs/qualification/ihp-pmos-measured-reference-v1/UPSTREAM-README.md"
+    ]
+  },
+  "psp_and_nqs": {
+    "paths": [
+      "measured-v3/attempt-1/pdk/libs.tech/verilog-a/psp103/psp103.va",
+      "measured-v3/attempt-1/pdk/libs.tech/verilog-a/psp103/psp103_nqs.va",
+      "measured-v3/attempt-1/pdk/libs.tech/verilog-a/psp103/releasenotesPSP103.8.2.txt"
+    ],
+    "note": "Full source/include closure and original NXP/CEA-Leti/TU Delft/ASU notices preserved; do not infer a replacement license from generated-module status."
+  },
+  "experimental_compiler_and_helper": {
+    "paths": [
+      "measured-v3/compiler-reproducibility/compiler-source-734-files.zip",
+      "measured-v3/compiler-reproducibility/compiler-complete.patch",
+      "measured-v3/attempt-1/runtime-provenance/licenses/openvaf/LICENSE",
+      "measured-v3/attempt-1/runtime-provenance/licenses/openvaf/copyright/LICENSE_MIT",
+      "measured-v3/attempt-1/runtime-provenance/licenses/openvaf/copyright/LICENSE_APACHE",
+      "measured-v3/attempt-1/runtime-provenance/licenses/openvaf/copyright/LICENSE_BSD3_INSTANT"
+    ],
+    "note": "Full candidate archive includes LICENSE (GPL-3.0), copyright directory, osdi Cargo.toml GPL-3.0 package declaration, helper and integer guard source. Experimental patch does not replace upstream notices."
+  },
+  "limits": "Model/engine/helper corresponding sources and receipts are retained. Full compiler/toolchain binaries, large LLVM build/source installation, Debian sysroot and Cargo cache are explicitly omitted; reconstructing the recorded toolchain is needed to rebuild."
+}

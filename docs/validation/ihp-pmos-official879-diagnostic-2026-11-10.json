@@ -1,0 +1,84 @@
+{
+  "schema": 1,
+  "date": "2026-11-10",
+  "status": "NO_REMEDY_IN_BOUNDED_PAIRED_DIAGNOSTIC",
+  "qualified": false,
+  "chunk_complete": false,
+  "installed_acceptance": false,
+  "independent_calibration": false,
+  "runtime_replaced": false,
+  "result_source_sha256": "25caf77cb6d946051ef5ec216c725821a3ce247fee5b84e0f76127b937100448",
+  "result": {
+    "schema": 1,
+    "status": "OFFICIAL879_FIX_DID_NOT_COMPLETE_FROZEN_GATE",
+    "qualified": false,
+    "scope": "Two controlled local diagnostic engines only; not application runtime replacement, calibration, full140point grid, full20job interface controls or cross-platform acceptance.",
+    "run_receipt_sha256": "0dd3c40fc20ada11c41f5c959a40f3e9a4bd4be8abb01138c6c90cdd72884a00",
+    "helper_sha256": "f970b7e22b8bc3e98d106dd954d59b84da58fb81e43c0b5e75a3059e05022f21",
+    "build_contract_sha256": "9ae0a95ae4d0b2f1cbfbc3b37f62f7ea2d712b8f7ef48899626c85367b1ba9b2",
+    "official_commit": "277e7654a93fdd872f436ebae50691eac5421748",
+    "cleanup_commit": "dde043369fc90fcc65b48a724d7ac7cda8325d19",
+    "paired_diff_sha256": "7e03722edd307801c6471ddcd3866c6372d95ab5421060cace38e15616a4a7f3",
+    "results": [
+      {
+        "variant": "baseline",
+        "timed_out": true,
+        "seconds": 90.00531056199907,
+        "returncode": null,
+        "affected_branch_observed": true,
+        "trace_events": 270,
+        "trace_bytes": 45662,
+        "engine_sha256": "cc968f9f2ca537dca322c4dcf094235d7a16630ef06c41aa993a88a0dceafe28",
+        "files": {
+          "console.log": "099bc93b4c8d18df2254acc874376dfeabf4af71b0fde36c7f657a60ac2e3253",
+          "input.cir": "f82ca946d4df2cbd3bda97e87eae72146eddc6afdfda965428f2dcb5161a19bf",
+          "result.raw": "3730c1ea175abc103053888e7155b2a3f30f4977151fa6e37539f63f13c2f20b"
+        }
+      },
+      {
+        "variant": "patched",
+        "timed_out": true,
+        "seconds": 90.00209873400127,
+        "returncode": null,
+        "affected_branch_observed": true,
+        "trace_events": 270,
+        "trace_bytes": 45662,
+        "engine_sha256": "5429c0b06aeadfcb05b3f94a5414b6d16095974aed7faa304205a6614352bfcf",
+        "files": {
+          "console.log": "ac0eddd23fca492063a8d214eb4bde863f7ef31a4959201daf134c34577f75f2",
+          "input.cir": "f82ca946d4df2cbd3bda97e87eae72146eddc6afdfda965428f2dcb5161a19bf",
+          "result.raw": "292eea2e243815b506a8d0c4bce4d993c9275a3f92763510bce89a4c0c699d58"
+        }
+      }
+    ],
+    "sampled_traces_identical": false,
+    "sampled_trace_differences": {
+      "count": 14,
+      "first_baseline": "IC879 kind=retry-after count=1 time=0 delta=1.2500000000000001e-10 result=103 nodes=12 bad=0 oldsum=-2.2479999999412681 rhssum=-2.2479999999412534",
+      "first_patched": "IC879 kind=retry-after count=1 time=0 delta=1.2500000000000001e-10 result=103 nodes=12 bad=0 oldsum=-2.2479999999412534 rhssum=-2.2479999999412534",
+      "interpretation": "The official rollback demonstrably changes sampled old-RHS state, but does not complete this case. Coarse sums cannot prove full-vector equality."
+    },
+    "conclusions": [
+      "Both variants reached the affected OPtran nonconvergence/retry branch; this is no longer merely a bug-report analogy.",
+      "NIiter returned103 (E_ITERLIM), and retry events reduced timestep; later samples show many successful tiny steps rather than one permanently stuck initial Newton invocation.",
+      "The exact official retry fix plus teardown cleanup did not complete this frozen gate within the unchanged90second cap. Both raw files end in an unfinished point-count header; no complete measured comparison can be audited.",
+      "Sampled finite RHS sums are coarse read-only observations, not complete-vector equality or absence-of-all-NaN proof. Instrumented timings are not general performance results.",
+      "Do not infer that more time, a looser tolerance or a new model is valid. Stop this hypothesis; no further solver sweep or model change was performed."
+    ],
+    "next_defensible_work": "A separately authorized targeted numerical investigation of why this unchanged PSP/OSDI circuit repeatedly reaches the iteration limit and tiny accepted steps is required before any new run. Missing measurement uncertainty/holdout metadata remains an independent calibration blocker even if completion is fixed.",
+    "provenance": "Full source trees, official bare repository, authenticated Debian packages/sysroot, compiler/dependency/build manifests/logs, complete executables and both process outputs retained locally in this investigation directory. Original attempt3/main/next and bundled engine untouched."
+  },
+  "independent_review": {
+    "status": "PASS_READBACK_NOT_ACCEPTANCE",
+    "observation": "Both engines reach nonzero NIiter return103 and failed-step retry. Patched rollback changes observed state in14 of270 sampled trace lines, but both still reach90-second timeout with no complete raw grid. All retained input/build/dependency/deck/trace identities independently verified.",
+    "limitations": "Not an exact root-cause attribution, successful measured comparison, general engine regression suite or calibration."
+  },
+  "artifact": {
+    "path": "docs/validation/artifacts/ihp-pmos-official879-diagnostic-2026-11-10.zip",
+    "sha256": "10c65263d9baab1fed9aa2358e36daa0f281181b7bfe84304b01a7c62a642279",
+    "bytes": 2041835,
+    "members": 215,
+    "scope": "Verified report-only evidence: raw/log/decks, exact patches, manifests, build/runtime contracts, source/provenance and licenses. Explicit engine/compiler/full-source duplicates omitted; not standalone replay."
+  },
+  "next_step": "Preserve original application engine and strict measured contract. No further speculative protocol/patch sweeps; a source-level numerical diagnosis or independently validated model/solver remedy is required."
+}

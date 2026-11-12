@@ -1,10 +1,12 @@
 """Application sources must compile and locked assets must survive checkout."""
 import hashlib
+import os
 from pathlib import Path
 import shutil
 import subprocess
 import tempfile
 import unittest
+from unittest.mock import patch
 
 ROOT=Path(__file__).resolve().parents[1]
 
@@ -22,7 +24,10 @@ class CheckoutIntegrityTests(unittest.TestCase):
     def test_locked_sources_survive_windows_line_ending_settings(self):
         paths=['icstudio/assets/exchange/xschem/COPYRIGHT',
                'examples/gf180-bandgap/5vfullv2-original.sch']
-        with tempfile.TemporaryDirectory() as folder:
+        # A caller's GIT_DIR/GIT_WORK_TREE must never redirect fixture writes
+        # into its live repository, even when -C points to our temporary path.
+        env={k:v for k,v in os.environ.items() if not k.upper().startswith('GIT_')}
+        with patch.dict(os.environ,env,clear=True), tempfile.TemporaryDirectory() as folder:
             root=Path(folder);repo=root/'repository';repo.mkdir();checkout=root/'checkout';checkout.mkdir()
             def git(*args):
                 subprocess.run(['git','-C',str(repo),'-c','core.autocrlf=true',*args],check=True,capture_output=True)

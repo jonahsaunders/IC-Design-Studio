@@ -1,0 +1,102 @@
+{
+  "schema": 1,
+  "date": "2026-11-11",
+  "scope": "Risk-scaled stale-export repair validation; not full local source/core or installed acceptance",
+  "base_commit": "5f4b441219413419a5876055ccf52cfbd4d5f28d",
+  "repair": {
+    "xschem": "Flush pending analysis and inspector before snapshot export. Cancel may apply analysis to current in-memory state; it does not save the source file.",
+    "structural_verilog": "Flush inspector after destination selection; Cancel does not flush.",
+    "limits": "Analysis/inspector synchronization only; no new scientific qualification or destination-tool acceptance."
+  },
+  "evidence_roles": {
+    "icstudio-export-draft-audit.json": "PRE-FIX diagnostics demonstrating stale analysis/resistor output, not repaired output",
+    "icstudio-export-safety-original-control.log": "Original exact base: two selected output tests fail as expected",
+    "icstudio-export-safety-tests-final.log": "Repaired actual Qt regression suite",
+    "focused.log": "Nine affected modules, including current real Qt wrapper"
+  },
+  "validation": {
+    "actual_qt": {
+      "tests": 30,
+      "seconds": 9.213,
+      "status": "PASS",
+      "new_export_cases": 7
+    },
+    "wrapper": {
+      "tests": 1,
+      "seconds": 8.476,
+      "status": "PASS"
+    },
+    "original_control": {
+      "tests": 2,
+      "seconds": 0.464,
+      "expected_failures": 2,
+      "causes": [
+        "stale exported analysis",
+        "stale resistor value"
+      ],
+      "base_unchanged": true
+    },
+    "focused": {
+      "modules": [
+        "test_project_data_safety",
+        "test_workflows",
+        "test_native_exchange",
+        "test_native_workflows",
+        "test_xschem_project",
+        "test_xschem_paths",
+        "test_xschem_compatible",
+        "test_pdk_qualification_matrix",
+        "test_ci_feedback"
+      ],
+      "tests": 132,
+      "skips": 5,
+      "test_seconds": 24.285,
+      "process_seconds": 24.949,
+      "exit_code": 0,
+      "status": "PASS",
+      "timeout_seconds": 180,
+      "syntax_files": 1637,
+      "before_after_source_identities": 2556,
+      "source_unchanged": true
+    }
+  },
+  "not_run_for_this_follow_on": [
+    "full exhaustive core",
+    "full 14-stage local source lane",
+    "fresh hosted source matrix",
+    "exact-candidate installed acceptance"
+  ],
+  "prior_validation_not_inherited": "Previous full source/core results for the copy-safety base do not validate this export follow-on. The older f323 installed run does not cover it.",
+  "integration_status_at_record": {
+    "published_copy_candidate": "5f4b441219413419a5876055ccf52cfbd4d5f28d",
+    "experimental_base": "e1d26f907214b66584ac3003c2684a7371a3c14b",
+    "follow_on_integrated": false,
+    "main_changed": false,
+    "draft_pr": 72,
+    "follow_on_publication_pending": true
+  },
+  "historical_retention": "Exact previously accepted native_workspace source is retained without relabeling repaired code as historically accepted.",
+  "qualified": false,
+  "estimate": {
+    "chunk": 7,
+    "percent": 74,
+    "low_confidence_range": [
+      55,
+      82
+    ],
+    "acceptance_fraction": false
+  },
+  "documentation_created_after_tests": true,
+  "privacy_review": {
+    "credential_private_memory_access_link_patterns": 0,
+    "redactions": 0,
+    "ordinary_test_workspace_paths_retained_in_raw_logs": true
+  },
+  "archive": {
+    "path": "docs/validation/experimental-project-export-safety-2026-11-11.zip",
+    "bytes": 164039,
+    "sha256": "88236c15d2bc40f2bce1378fd8d0805070649ca24a70e4e689f1b8d7e82a4261",
+    "members": 14,
+    "readback": "PASS"
+  }
+}

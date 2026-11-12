@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "platform": "linux",
+  "tests": 11,
+  "qualified": false,
+  "chunk_complete": false,
+  "data_sha256": "9757823897dcc17028442528caf1e32ba6a37292e33fe168e8bcebed88187719",
+  "tests_sha256": "2ab09c59d28a8c5ca3a3a9ce78964ee91125f224c24e6f00e3081bacd3e1f953",
+  "driver_sha256": "6e08d9be9863f8e6c1e35850897b38fa36742434607a4ce475442013a712bec3",
+  "source_files": {
+    "scripts/sky130_selected_subject_review.py": "40002d7e33547e3baf8a138c37d6805ffb6801d434453adf2d2aa441774ba378",
+    "tests/test_sky130_selected_subjects.py": "eb3d4bd0db08b2f754214daad58c17837f794eb472f72501e39d8d1e14c2d76d",
+    "scripts/sky130_grid_geometry.py": "0e24c568f582725ad034cf5fd4346a04756e69e0d34c00d47c959d1d5dcff28a",
+    "scripts/sky130_block_applicability.py": "fcafea17b84219eb19d26bc325911b931d35030067408f23377db8c988abf009"
+  }
+}

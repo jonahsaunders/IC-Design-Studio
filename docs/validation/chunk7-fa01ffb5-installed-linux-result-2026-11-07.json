@@ -1,0 +1,367 @@
+{
+  "schema": 1,
+  "status": "LINUX_HOSTED_PASS_SELECTED_READBACK_PASS",
+  "chunk": 7,
+  "chunk_complete": false,
+  "candidate": "fa01ffb566ba1fa1903dec58dabd9838a901712d",
+  "run_id": 42379707594,
+  "run_attempt": 1,
+  "platform": "Linux",
+  "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/42379707594",
+  "observed_utc": "2026-11-07T19:29:50.268353+00:00",
+  "scope": "Completed exact-fa Linux installed job, complete raw CMIM selected-member readback and selected release-validation binding.",
+  "hosted_linux_job": {
+    "id": 128457154772,
+    "name": "installed-acceptance (ubuntu-24.04)",
+    "status": "completed",
+    "conclusion": "success",
+    "started_at": "2026-11-07T16:18:06Z",
+    "completed_at": "2026-11-07T19:28:13Z",
+    "metadata": {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\desktop-fa01ffb5-followthrough\\jobs\\128457154772.json",
+      "bytes": 8146,
+      "sha256": "6b0148ccb0b370309e0f480e1a22131fe5c135b643e31686032206d66e1d4f11"
+    },
+    "full_raw_log": {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\desktop-fa01ffb5-followthrough\\jobs\\128457154772.log",
+      "bytes": 4935633,
+      "sha256": "b587f3c6f86ae112d62a8cd61a06b9ee6d813671b047c02a9fbd0010d959e4b4"
+    },
+    "archive_assembly_execution": {
+      "name": "Assemble and execute Linux release archives",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 30,
+      "started_at": "2026-11-07T18:33:33Z",
+      "completed_at": "2026-11-07T19:08:00Z"
+    }
+  },
+  "selected_member_readbacks": {
+    "cmim-readback-linux.json": {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\desktop-fa01ffb5-followthrough\\cmim-readback-linux.json",
+      "bytes": 4502,
+      "sha256": "21b1363b4734141ce2cc2150799faf96f2ab8a3443a486233ef15f1481f3983e",
+      "result": {
+        "candidate": "fa01ffb566ba1fa1903dec58dabd9838a901712d",
+        "run_id": 42379707594,
+        "scope": "Independent complete selected-member raw IHP CMIM installed-gate readback. This is not a full artifact or release-distribution digest verification.",
+        "full_artifact_digest_verified": false,
+        "full_release_archive_verified": false,
+        "chunk_complete": false,
+        "reader_source": {
+          "commit": "fa01ffb566ba1fa1903dec58dabd9838a901712d",
+          "run_id": 42379707594,
+          "files": [
+            {
+              "path": "scripts/release_ihp_cmim_evidence.py",
+              "bytes": 12232,
+              "sha256": "4b5f7485d2ff3cb4b0a662aaa4ed38ee304ef512b1325b5c5b468269631e5aa9",
+              "git_blob_sha1": "2bdd3bc2aa6dfdfbad52e295965dddf6ea541442",
+              "working_copy_matches_candidate": true
+            },
+            {
+              "path": "scripts/verify_frozen_ihp_cmim.py",
+              "bytes": 56728,
+              "sha256": "90a9c582974922fac3e59da88709823e97a9a93c78c0c5b01374164d3fefcb1d",
+              "git_blob_sha1": "dba05f84b3112409cf46a4270687fc3a2aaeca4d",
+              "working_copy_matches_candidate": true
+            },
+            {
+              "path": "scripts/verify_frozen_ihp_resistors.py",
+              "bytes": 49972,
+              "sha256": "fadb2211556a22d98ff456e732600fd2aa9f898b5d6cb642dd403f897bd8928f",
+              "git_blob_sha1": "143f695cfe3ae17b36ad25a37939ba0a5577f596",
+              "working_copy_matches_candidate": true
+            },
+            {
+              "path": "scripts/verify_frozen_mim.py",
+              "bytes": 39777,
+              "sha256": "fc3aa7256ef03dadc388cdd9f37a4585db9503ffe93acc25ba6941d56045fb57",
+              "git_blob_sha1": "586a0e22b547190336059c98ceb0c85560bbe05e",
+              "working_copy_matches_candidate": true
+            },
+            {
+              "path": ".github/workflows/build-desktop.yml",
+              "bytes": 75016,
+              "sha256": "e13032acca5550860bfba43dd2e6067312233ae63bb9347b485e1044f7f7d587",
+              "git_blob_sha1": "3d5d0c3589b19efbd64b3177d7d57ccb165f4d4e",
+              "working_copy_matches_candidate": true
+            },
+            {
+              "path": "scripts/prepare_release_payload.py",
+              "bytes": 10698,
+              "sha256": "b5f1760b04160b899fd9d263e837cc7f85fd93e88f49e7f49523589059a3724c",
+              "git_blob_sha1": "4e296cf5a350bc7abc9c14e36e363e0da114d3b2",
+              "working_copy_matches_candidate": true
+            },
+            {
+              "path": "scripts/release_pw2dn_evidence.py",
+              "bytes": 15393,
+              "sha256": "3c94ecfdd4ba373cc6846f9459a19fd640eb09343b5ad3482fdf7101175ee194",
+              "git_blob_sha1": "0108a7c3ff0d6662ccd30964c92a2b5ccc9486e7",
+              "working_copy_matches_candidate": true
+            }
+          ]
+        },
+        "immutable_source_snapshot": {
+          "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\desktop-fa01ffb5-followthrough\\fa-source-input",
+          "commit": "fa01ffb566ba1fa1903dec58dabd9838a901712d",
+          "tree": "1e40946f88765d3fdf8f68750f7d4d8f31a84c07",
+          "files_verified": 7005,
+          "manifest_sha256": "65ec2c3c402cdc13b4af26c933f1fa6efa6b2ecb571057f53b66f1ab6e783836"
+        },
+        "readback_runtime": {
+          "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+          "klayout": "0.30.5"
+        },
+        "hosts": {
+          "Linux": {
+            "status": "PASS",
+            "counts": {
+              "gui_layouts": 1,
+              "fresh_managed_jobs": 2
+            },
+            "execution_id": "e44129ee5bba496ca704381ba0186275",
+            "distribution_files": 17399,
+            "distribution_links": 170,
+            "raw_files": 432,
+            "verification_sha256": "e99f70d582fecb8add3bb389e13541c1973a24c9e92e5c4e31469acded6d2e23",
+            "artifact_id": 13585468720,
+            "full_artifact_digest_verified": false
+          }
+        },
+        "immutable_imported_application_dependencies": {
+          "scripts.release_ihp_cmim_evidence": {
+            "path": "scripts/release_ihp_cmim_evidence.py",
+            "sha256": "4b5f7485d2ff3cb4b0a662aaa4ed38ee304ef512b1325b5c5b468269631e5aa9"
+          },
+          "scripts.verify_frozen_ihp_cmim": {
+            "path": "scripts/verify_frozen_ihp_cmim.py",
+            "sha256": "90a9c582974922fac3e59da88709823e97a9a93c78c0c5b01374164d3fefcb1d"
+          },
+          "scripts.verify_frozen_ihp_resistors": {
+            "path": "scripts/verify_frozen_ihp_resistors.py",
+            "sha256": "fadb2211556a22d98ff456e732600fd2aa9f898b5d6cb642dd403f897bd8928f"
+          },
+          "scripts.verify_frozen_mim": {
+            "path": "scripts/verify_frozen_mim.py",
+            "sha256": "fc3aa7256ef03dadc388cdd9f37a4585db9503ffe93acc25ba6941d56045fb57"
+          }
+        },
+        "both_hosts_read_back": false
+      }
+    },
+    "release-receipt-readback-linux.json": {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\desktop-fa01ffb5-followthrough\\release-receipt-readback-linux.json",
+      "bytes": 1579,
+      "sha256": "6351f02e6d10b049e318a90f4f8a4bda66698a5c8ff4388039e275c2412fc0b2",
+      "result": {
+        "candidate": "fa01ffb566ba1fa1903dec58dabd9838a901712d",
+        "run_id": 42379707594,
+        "scope": "Selected full release-validation JSON member readback and binding to independently rechecked raw CMIM evidence; asset hashes remain hosted declarations.",
+        "full_artifact_digest_verified": false,
+        "full_release_archive_verified": false,
+        "chunk_complete": false,
+        "hosts": {
+          "Linux": {
+            "status": "PASS",
+            "artifact_id": 13587080737,
+            "member": "IC-Design-Studio-0.23.0-Validation-Linux.json",
+            "member_sha256": "d7a914975182414d94671e591a0c573cb241985bd0753e75188bfa6c65255407",
+            "member_crc32": 3519822652,
+            "hosted_asset_hashes": {
+              "IC-Design-Studio-0.23.0-Linux-x86_64.tar.gz": "403fb765f2a19d8656debb7449e0328bc55529c1010667b484c3d5415a064571",
+              "IC-Design-Studio-0.23.0-Source-Linux.zip": "a0fd07a67df4d1366947a2dd79a0f8bd85394a3ffecd914c536a0f135c3e4cb2",
+              "IC-Design-Studio-0.23.0-Evidence-Linux.zip": "d71427d4e725e358b49462c6966613dd296f8e7577ef54e32656f094dbaf83e2"
+            },
+            "hosted_archive_execution": "passed",
+            "cmim_execution_id": "e44129ee5bba496ca704381ba0186275",
+            "cmim_receipt_matches_independent_raw_readback": true,
+            "limitations": [
+              "Engineering preview; no foundry signoff.",
+              "Windows signing is not configured.",
+              "Clean Windows 10/11 consumer-machine and upgrade acceptance remain manual gates.",
+              "Linux archive execution uses offscreen Qt on Ubuntu 24.04."
+            ]
+          }
+        },
+        "both_hosts_read_back": false
+      }
+    }
+  },
+  "retained_artifact_member_receipts": {
+    "cmim-selected": {
+      "receipt": {
+        "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\desktop-fa01ffb5-followthrough\\Linux-cmim-selected-receipt.json",
+        "bytes": 43499190,
+        "sha256": "51b14a86240a7d1846d968f7c313f445e9fc84e359565ebb3ae3bf86a505eb34"
+      },
+      "artifact_id": 13585468720,
+      "artifact_name": "desktop-installed-checkpoint-Linux",
+      "artifact_bytes": 1708815839,
+      "github_reported_digest": "sha256:bcbde1d7e9b5787f4c539954bec01ca0f65e6198d55bb2da45ca45cb47222655",
+      "full_digest_locally_verified": false,
+      "selected_members": 432,
+      "selected_raw_bytes": 49971656,
+      "transferred_range_bytes": 52751294
+    },
+    "selected": {
+      "receipt": {
+        "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\desktop-fa01ffb5-followthrough\\Linux-selected-receipt.json",
+        "bytes": 43394520,
+        "sha256": "371336f4ebdea22dc279005498411526107ee960d6235d92896c0a8b966b1b4d"
+      },
+      "artifact_id": 13585468720,
+      "artifact_name": "desktop-installed-checkpoint-Linux",
+      "artifact_bytes": 1708815839,
+      "github_reported_digest": "sha256:bcbde1d7e9b5787f4c539954bec01ca0f65e6198d55bb2da45ca45cb47222655",
+      "full_digest_locally_verified": false,
+      "selected_members": 14,
+      "selected_raw_bytes": 8463712,
+      "transferred_range_bytes": 39119806
+    },
+    "release-selected": {
+      "receipt": {
+        "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\desktop-fa01ffb5-followthrough\\Linux-release-selected-receipt.json",
+        "bytes": 2152,
+        "sha256": "907095e669a5b159833ddc3826d1c26e57fdd7be039ed6cfef499dabded99e41"
+      },
+      "artifact_id": 13587080737,
+      "artifact_name": "release-Linux",
+      "artifact_bytes": 3906871136,
+      "github_reported_digest": "sha256:257f8b94e39419f566ded8cc52a1815acfd81a84546a8aff50c74ec9a842e596",
+      "full_digest_locally_verified": false,
+      "selected_members": 1,
+      "selected_raw_bytes": 2991698,
+      "transferred_range_bytes": 925536
+    }
+  },
+  "prior_source_isolated_cmim_record": {
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\IC-Design-Studio\\docs\\validation\\chunk7-fa01ffb5-installed-linux-cmim-readback-2026-11-07.json",
+    "bytes": 15107,
+    "sha256": "a20e5da3059306bed9d213773163ff963164a18b2ed0dc646025d714e367fd77"
+  },
+  "immutable_candidate_source": {
+    "manifest": {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\desktop-fa01ffb5-followthrough\\fa-source-input-manifest.json",
+      "bytes": 1971344,
+      "sha256": "65ec2c3c402cdc13b4af26c933f1fa6efa6b2ecb571057f53b66f1ab6e783836"
+    },
+    "commit": "fa01ffb566ba1fa1903dec58dabd9838a901712d",
+    "tree": "1e40946f88765d3fdf8f68750f7d4d8f31a84c07",
+    "full_source_files": 7005,
+    "full_source_bytes": 320937434,
+    "full_archive_tree_and_extracted_files_verified_against_git_blobs": true,
+    "full_source_rechecked_before_and_after_readback": true,
+    "full_source_rechecked_at_retention": true,
+    "explicit_pythonpath": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\desktop-fa01ffb5-followthrough\\fa-source-input",
+    "actual_imported_application_closure": {
+      "scripts.release_ihp_cmim_evidence": {
+        "path": "scripts/release_ihp_cmim_evidence.py",
+        "sha256": "4b5f7485d2ff3cb4b0a662aaa4ed38ee304ef512b1325b5c5b468269631e5aa9"
+      },
+      "scripts.verify_frozen_ihp_cmim": {
+        "path": "scripts/verify_frozen_ihp_cmim.py",
+        "sha256": "90a9c582974922fac3e59da88709823e97a9a93c78c0c5b01374164d3fefcb1d"
+      },
+      "scripts.verify_frozen_ihp_resistors": {
+        "path": "scripts/verify_frozen_ihp_resistors.py",
+        "sha256": "fadb2211556a22d98ff456e732600fd2aa9f898b5d6cb642dd403f897bd8928f"
+      },
+      "scripts.verify_frozen_mim": {
+        "path": "scripts/verify_frozen_mim.py",
+        "sha256": "fc3aa7256ef03dadc388cdd9f37a4585db9503ffe93acc25ba6941d56045fb57"
+      }
+    },
+    "isolation_preflight": {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\desktop-fa01ffb5-followthrough\\source-isolation-probe.json",
+      "bytes": 3727,
+      "sha256": "66e5eea25d9de1ac320d65d5c3b7d31b68d396076dea939a6f938cf7755513f2"
+    },
+    "separate_source_preparation_issue_history": {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\desktop-fa01ffb5-followthrough\\source-preparation-issues.json",
+      "bytes": 1239,
+      "sha256": "d2495e98a9196d7ce4e2c7ac44112b8320ee3e8f48c4a78e3c92b162b0845502"
+    }
+  },
+  "full_artifact_digests_locally_verified": false,
+  "full_release_archives_locally_verified": false,
+  "hosted_nine_job_acceptance_complete": false,
+  "hosted_successful_jobs": 8,
+  "current_windows_job": {
+    "id": 128457154752,
+    "status": "in_progress",
+    "conclusion": null,
+    "started_at": "2026-11-07T16:18:06Z",
+    "completed_at": null,
+    "active_steps": [
+      {
+        "name": "Verify installed Windows app",
+        "status": "in_progress",
+        "conclusion": null,
+        "number": 13,
+        "started_at": "2026-11-07T17:16:36Z",
+        "completed_at": null
+      }
+    ],
+    "last_steps": [
+      {
+        "name": "Configure Windows virtual desktop for native DPI checks",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 10,
+        "started_at": "2026-11-07T16:30:42Z",
+        "completed_at": "2026-11-07T16:30:51Z"
+      },
+      {
+        "name": "Install Linux libraries for frozen execution",
+        "status": "completed",
+        "conclusion": "skipped",
+        "number": 11,
+        "started_at": "2026-11-07T16:30:51Z",
+        "completed_at": "2026-11-07T16:30:51Z"
+      },
+      {
+        "name": "Qualify included digital engines through the frozen desktop",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 12,
+        "started_at": "2026-11-07T16:30:51Z",
+        "completed_at": "2026-11-07T17:16:36Z"
+      }
+    ]
+  },
+  "failed_steps": [],
+  "metadata_snapshot": {
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\desktop-fa01ffb5-followthrough\\metadata-history\\20261107T192947540Z",
+    "sha256": {
+      "run": "059baf7a6764da3feb793edc5eb73f7c131b02cac1cf66cb112aeba2c2c248a6",
+      "jobs": "1d2a503154856b6bc0b3299f4d0b33c0a03e8d385081dd7e7a3a119a6926967a",
+      "artifacts": "59a651b21c3165e683d5ad55f59e3064dbe3531bcb2f225ef45e9f173b64b30c"
+    }
+  },
+  "helpers": [
+    {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\desktop-fa01ffb5-followthrough\\readback_release_receipts.py",
+      "bytes": 6021,
+      "sha256": "9d2d2878efd5d162c8c1916fd966cd50f834d9e70b3c5027c3cf4e869edfe0ed"
+    },
+    {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\desktop-fa01ffb5-followthrough\\retain_job.py",
+      "bytes": 1494,
+      "sha256": "43b38a5d7658a7a06789b13f8c7553664e734146453b6ec2a593928601c75c91"
+    },
+    {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\desktop-fa01ffb5-followthrough\\record_linux_result.py",
+      "bytes": 5294,
+      "sha256": "e1b00bfd641f16e04d897379931dc9a74574e9d7cab25da9e9858ee1aae55eb3"
+    }
+  ],
+  "boundaries": [
+    "Linux hosted completion and selected-member independent readback passed. Windows and nine-job desktop acceptance remain pending at this observation.",
+    "CMIM raw readback uses only the immutable fa candidate source and manifest-bound imported application closure; later source fixes are outside this result.",
+    "Selected files pass ZIP CRC32 and SHA-256 checks. Entire multi-gigabyte checkpoint/release archives and distribution assets were not independently full-hashed locally.",
+    "Release asset digests and archive execution are hosted declarations, cross-bound internally to the retained selected validation receipt.",
+    "This result is a finite installed gate, not complete device-family, missing-model, operating-envelope or chunk qualification."
+  ]
+}

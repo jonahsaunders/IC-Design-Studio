@@ -1,0 +1,158 @@
+{
+  "schema": 1,
+  "date": "2026-11-11",
+  "candidate": "eb0018c9c024588358b3f4f12f0af6a0581da937",
+  "tree": "b06d0dada01f0a6e4e99349b71466effe0038cf1",
+  "status": "EXACT_CANDIDATE_DESKTOP_SUCCESS_WITH_DUPLICATE_FAILURE_RETAINED",
+  "full_family": false,
+  "foundry_signoff": false,
+  "runs": [
+    {
+      "id": 42850803710,
+      "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/42850803710",
+      "status": "completed",
+      "conclusion": "success",
+      "updated_at": "2026-11-10T23:40:56Z",
+      "jobs": [
+        {
+          "id": 129950632126,
+          "name": "candidate",
+          "conclusion": "success"
+        },
+        {
+          "id": 129951041306,
+          "name": "release-tools (ubuntu-24.04)",
+          "conclusion": "success"
+        },
+        {
+          "id": 129951041510,
+          "name": "release-tools (windows-2022)",
+          "conclusion": "success"
+        },
+        {
+          "id": 129951042032,
+          "name": "digital-runtime / candidate",
+          "conclusion": "success"
+        },
+        {
+          "id": 129951479686,
+          "name": "digital-runtime / runtime",
+          "conclusion": "success"
+        },
+        {
+          "id": 129961954498,
+          "name": "package (ubuntu-24.04)",
+          "conclusion": "success"
+        },
+        {
+          "id": 129961954569,
+          "name": "package (windows-2022)",
+          "conclusion": "success"
+        },
+        {
+          "id": 130047153495,
+          "name": "installed-acceptance (windows-2022)",
+          "conclusion": "success"
+        },
+        {
+          "id": 130047153640,
+          "name": "installed-acceptance (ubuntu-24.04)",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 42850869471,
+      "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/42850869471",
+      "status": "completed",
+      "conclusion": "failure",
+      "updated_at": "2026-11-10T22:53:50Z",
+      "jobs": [
+        {
+          "id": 129950866849,
+          "name": "candidate",
+          "conclusion": "success"
+        },
+        {
+          "id": 129951116037,
+          "name": "release-tools (windows-2022)",
+          "conclusion": "success"
+        },
+        {
+          "id": 129951116889,
+          "name": "release-tools (ubuntu-24.04)",
+          "conclusion": "success"
+        },
+        {
+          "id": 129951117014,
+          "name": "digital-runtime / candidate",
+          "conclusion": "success"
+        },
+        {
+          "id": 129951350746,
+          "name": "digital-runtime / runtime",
+          "conclusion": "success"
+        },
+        {
+          "id": 129962157386,
+          "name": "package (windows-2022)",
+          "conclusion": "success"
+        },
+        {
+          "id": 129962157404,
+          "name": "package (ubuntu-24.04)",
+          "conclusion": "success"
+        },
+        {
+          "id": 130070556868,
+          "name": "installed-acceptance (windows-2022)",
+          "conclusion": "failure"
+        },
+        {
+          "id": 130070556894,
+          "name": "installed-acceptance (ubuntu-24.04)",
+          "conclusion": "success"
+        }
+      ]
+    }
+  ],
+  "verified_scope": "Authenticated run/job metadata and job-log readback establish all nine successful jobs, including both installed platforms, archive execution and uploads, for run 42850803710. Duplicate 42850869471 retains Windows failure. Large artifact payloads were not downloaded or independently replayed.",
+  "failure": {
+    "run": 42850869471,
+    "job": 130070556868,
+    "site": "scripts/qualify_installed_sky130_pw2dn.py:166",
+    "message": "ValueError: Independent native reference child failed.",
+    "outer_900_second_timeout": false,
+    "underlying_child_cause": "unknown",
+    "required_child_files": [
+      "pw2dn/reference-launcher.log",
+      "pw2dn/reference-invocation.json",
+      "pw2dn/native-references/failure.json"
+    ],
+    "artifact": {
+      "id": 13810605104,
+      "name": "desktop-diagnostics-Windows",
+      "size_in_bytes": 1552333914,
+      "digest": "sha256:fc5a688b8aa85b6770b1164238399da0e89dc35d603f8b7ec1259c29dc18a6af",
+      "expired": false,
+      "created_at": "2026-11-10T22:37:42Z",
+      "updated_at": "2026-11-10T22:37:42Z",
+      "workflow_run": {
+        "id": 42850869471,
+        "repository_id": 1362004644,
+        "head_repository_id": 1362004644,
+        "head_branch": "codex/chunk7-blockers-20261108",
+        "head_sha": "eb0018c9c024588358b3f4f12f0af6a0581da937"
+      }
+    },
+    "access_limit": "1,552,333,914-byte artifact exceeds connector 512 MiB download limit. Anonymous official API requires authentication. Existing workflow contents:read permissions do not grant cross-run actions:read. No permission expansion or authentication bypass performed."
+  },
+  "evidence": {
+    "path": "artifacts/chunk7-eb0018c9-desktop-terminal-2026-11-11.zip",
+    "sha256": "80029b9228a3672e03c2f70d79cef221e3118eb19e3679a0c36e49ee68743ec6",
+    "bytes": 29087,
+    "payload_files": 3,
+    "manifest_files": 1
+  },
+  "acceptance_limit": "These results belong only to the exact published candidate. They do not accept the unpublished follow-on, all model families or calibration. A passing duplicate does not resolve the failed child."
+}

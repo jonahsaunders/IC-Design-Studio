@@ -1,0 +1,98 @@
+{
+  "schema": 1,
+  "date": "2026-11-07",
+  "status": "PASS_BOUNDED_SOURCE_INTEGRATION",
+  "base_commit": "590daef062cf002d5b71e382ec5eaa5f63e4c51e",
+  "qualified": false,
+  "installed_acceptance": false,
+  "scope": "Final parallel-CMIM app, native evidence reader and affected source regressions; no full-family or installed parallel acceptance.",
+  "source_manifest_sha256": "9c77b5b0682f59577821c8d402bceac96a561e7fe2adc5b9c493329b552a1bac",
+  "source_files": 7048,
+  "changed_source_files": {
+    "docs/IHP_CMIM_REQUIREMENTS.md": "e6b22b5a6512f7ef09d86d1d806990cf7c2f2583c91fd427d98a18c9eeeba13f",
+    "docs/IHP_CMIM_SAVED_BENCH.md": "9e0c08a5d0ebfe6e7ca3db8edc42f649a297f52520c06c292f354e7fa999f1bd",
+    "docs/QUALIFICATION_PROGRESS.md": "a5ef125bfc70a0e833b3021545e241eae07d3135d5da1a6cda99bf65784c655c",
+    "icstudio/hierarchical_flow.py": "97df4f1480468c784f851ef1ffe5bcb13d296e6a400d09fbae189122dabecc29",
+    "icstudio/ihp_cmim_capacitance.py": "fbba9c3577c7b4f3d682ba293cf9250d4910bb984c2083d592afefed4019d7ea",
+    "scripts/check_ihp_cmim_parallel.py": "f826a4625a2d1557db915256f8fcf714e02f44901f85e831418e600974e99207",
+    "scripts/ci_feedback.py": "815825716094e73e984e5c21dee3110b7450976f88b8e7b6dcd3b72ef767637c",
+    "scripts/qualify_ihp_cmim_parallel.py": "0c8c2d92110d9913625689024955e7e8d4d94cb5dc8293bc63dfe6711c7b6cc4",
+    "tests/fixtures/ihp-cmim-parallel-v1/LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "tests/fixtures/ihp-cmim-parallel-v1/SOURCE.json": "332df3d342794fbd11a145b759b5229f20b0725d72d2bb44674ecbc9e9a59fc2",
+    "tests/fixtures/ihp-cmim-parallel-v1/coupon.ext": "8ee791dbed9b7930fa73760dc3281c3ebdcd5045839f92c8d1ab647a62068218",
+    "tests/fixtures/ihp-cmim-parallel-v1/flat.spice": "a875d1505f2409f31e4eb9e059dfa1856ecd6100011eefd3b3273df543d79154",
+    "tests/fixtures/ihp-cmim-parallel-v1/hierarchical.spice": "ade75bd0ccc93a3c5e1cbd259923663cb5376bbeab25d3cd08f37514c070ac0f",
+    "tests/test_ci_feedback.py": "5cedf74e39571710139c65cee7074cbdfe3f80abf216c3d35f9cb2631ad79d9f",
+    "tests/test_ihp_cmim_capacitance.py": "da24500364ed19dd104d523907345dd3b93da332d382087b950710fb54540120",
+    "tests/test_ihp_cmim_parallel.py": "f99af769c1134a2b50538d88ddd6e5a84091127ec0c5e4309f4c67736f844b61"
+  },
+  "hosts": [
+    {
+      "platform": "Windows",
+      "base": "590daef062cf002d5b71e382ec5eaa5f63e4c51e",
+      "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+      "source": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\IC-Design-Studio",
+      "files_verified": 7048,
+      "source_unchanged": true,
+      "source_manifest_sha256": "9c77b5b0682f59577821c8d402bceac96a561e7fe2adc5b9c493329b552a1bac",
+      "modules_sha256": "60f3492f6b0ed7f73d924813dac979e0e97a28b2386297034d9fcf0b2915f877",
+      "tests": 255,
+      "tests_seconds": 80.963,
+      "returncode": 0,
+      "seconds": 81.46900000001187,
+      "deadline_seconds": 300,
+      "skips": [
+        "'Directory symlink creation is not assumed on Windows.'"
+      ],
+      "log_sha256": "e989f6028cb5440344791811040170430d81048218c7a91682bbecc63e7164aa"
+    },
+    {
+      "platform": "Linux",
+      "base": "590daef062cf002d5b71e382ec5eaa5f63e4c51e",
+      "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+      "source": "/var/tmp/icstudio-cmim-parallel-integration-20261107-v3/source",
+      "files_verified": 7048,
+      "source_unchanged": true,
+      "source_manifest_sha256": "9c77b5b0682f59577821c8d402bceac96a561e7fe2adc5b9c493329b552a1bac",
+      "modules_sha256": "60f3492f6b0ed7f73d924813dac979e0e97a28b2386297034d9fcf0b2915f877",
+      "tests": 255,
+      "tests_seconds": 33.711,
+      "returncode": 0,
+      "seconds": 34.33957449699665,
+      "deadline_seconds": 300,
+      "skips": [
+        "'Windows PowerShell required'"
+      ],
+      "log_sha256": "13729c60b09f1713375689740f5390772fd21189dacde176d53191c116a23434"
+    }
+  ],
+  "native_record": {
+    "path": "docs/validation/ihp-cmim-parallel-2026-11-07.json",
+    "sha256": "495bc2eb53edda562ac1bbfa079335b0347e45defb457a8964a6e3092c07bbc5",
+    "positive_cases": 4,
+    "native_lvs_faults": 3,
+    "files_independently_read_back": 836
+  },
+  "independent_review": {
+    "path": "work/ihp-cmim-independent-review/cmim-parallel-independent-review-final-2026-11-07.json",
+    "sha256": "041c55e1fde90f39624b07f7f959ddeb00a61001c1c210f7217513f57b6b9510",
+    "passed_controls": 49,
+    "historical_source_mocked_controls_are_mutation_only": true
+  },
+  "prior_attempts": [
+    "Direct CI precheck omitted tests/ from PYTHONPATH and failed its import guard; corrected invocation passed.",
+    "Snapshot preparation v1 failed on scratch git argument placement before any tests started.",
+    "Pre-UTF8 v2 native snapshot passed255 tests. Windows passed255 tests then correctly rejected changed reader bytes. Neither is final source acceptance."
+  ],
+  "evidence_archive": "chunk7-cmim-parallel-evidence.zip",
+  "documentation_scope": "Final native/review receipts and this integration record were authored after execution and are not relabelled as tested snapshot inputs.",
+  "estimate": {
+    "percent": 74,
+    "confidence": "low",
+    "range": [
+      55,
+      82
+    ],
+    "kind": "subjective engineering estimate; not verified completion"
+  }
+}

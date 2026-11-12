@@ -1,0 +1,181 @@
+{
+  "schema": 1,
+  "date": "2026-11-10",
+  "base_commit": "eb0018c9c024588358b3f4f12f0af6a0581da937",
+  "scope": "Isolated PMOS v2 source feedback; native KLU batch remains failed and unpublished",
+  "status": "PASS_SOURCE_ONLY",
+  "qualified": false,
+  "installed_acceptance": false,
+  "source_feedback": {
+    "status": "passed",
+    "base_commit": "eb0018c9c024588358b3f4f12f0af6a0581da937",
+    "source_identity_count": 2471,
+    "source_unchanged": true,
+    "snapshot_unchanged": true,
+    "report_identity_matches": true,
+    "syntax_files": 1600,
+    "elapsed_seconds": 430.541,
+    "stages": [
+      {
+        "name": "unit-contracts",
+        "returncode": 0,
+        "elapsed_seconds": 16.663,
+        "unittest_runs": [
+          [
+            "262",
+            "16.076"
+          ]
+        ],
+        "skipped": 3
+      },
+      {
+        "name": "ihp-contracts",
+        "returncode": 0,
+        "elapsed_seconds": 49.371,
+        "unittest_runs": [
+          [
+            "328",
+            "48.979"
+          ]
+        ],
+        "skipped": 1
+      },
+      {
+        "name": "physical-contracts",
+        "returncode": 0,
+        "elapsed_seconds": 30.808,
+        "unittest_runs": [
+          [
+            "306",
+            "30.397"
+          ]
+        ],
+        "skipped": 10
+      },
+      {
+        "name": "device-contracts",
+        "returncode": 0,
+        "elapsed_seconds": 41.389,
+        "unittest_runs": [
+          [
+            "751",
+            "40.801"
+          ]
+        ],
+        "skipped": 3
+      },
+      {
+        "name": "package-contracts",
+        "returncode": 0,
+        "elapsed_seconds": 41.697,
+        "unittest_runs": [
+          [
+            "11",
+            "41.570"
+          ]
+        ],
+        "skipped": 0
+      },
+      {
+        "name": "runtime-release-contracts",
+        "returncode": 0,
+        "elapsed_seconds": 6.386,
+        "unittest_runs": [
+          [
+            "89",
+            "6.183"
+          ]
+        ],
+        "skipped": 1
+      },
+      {
+        "name": "release-contracts",
+        "returncode": 0,
+        "elapsed_seconds": 2.373,
+        "unittest_runs": [],
+        "skipped": 0
+      },
+      {
+        "name": "menu-smoke",
+        "returncode": 0,
+        "elapsed_seconds": 27.243,
+        "unittest_runs": [],
+        "skipped": 0
+      },
+      {
+        "name": "project-hub-smoke",
+        "returncode": 0,
+        "elapsed_seconds": 4.628,
+        "unittest_runs": [],
+        "skipped": 0
+      },
+      {
+        "name": "metal-resistor-editor-smoke",
+        "returncode": 0,
+        "elapsed_seconds": 7.835,
+        "unittest_runs": [],
+        "skipped": 0
+      },
+      {
+        "name": "metal-resistor-parallel-smoke",
+        "returncode": 0,
+        "elapsed_seconds": 31.855,
+        "unittest_runs": [],
+        "skipped": 0
+      },
+      {
+        "name": "ihp-resistor-editor-smoke",
+        "returncode": 0,
+        "elapsed_seconds": 120.282,
+        "unittest_runs": [],
+        "skipped": 0
+      },
+      {
+        "name": "ihp-guard-corner-smoke",
+        "returncode": 0,
+        "elapsed_seconds": 43.544,
+        "unittest_runs": [],
+        "skipped": 0
+      },
+      {
+        "name": "ihp-capacitor-corner-smoke",
+        "returncode": 0,
+        "elapsed_seconds": 2.421,
+        "unittest_runs": [],
+        "skipped": 0
+      }
+    ],
+    "tests": 1747,
+    "skips": 18,
+    "installed_acceptance": false,
+    "native_pmos_rerun": false,
+    "all_copied_paths_unchanged": true,
+    "copied_paths": 2478,
+    "identity_manifest_sha256": "60d295618abd32444f3d11b4271976b78986930cd62db149ca7431bc1fe9cf48",
+    "snapshot_report_sha256": "a90416cb14fb8b02f387d64e5a47949d364674376d8f4969a2406134d23b0131",
+    "abort_retained": "aborted-wrong-cwd.json"
+  },
+  "artifact": {
+    "path": "docs/validation/artifacts/ihp-pmos-v2-source-feedback-2026-11-10.zip",
+    "sha256": "cca1e906519ee8d5e0c1b4b648b5be1882fb6b2eda9cdbe331d8f0c42c195d41",
+    "bytes": 1124243,
+    "payload_files": 29,
+    "zip_entries": 30,
+    "scope": "Bounded source feedback and explicit aborted-launch receipt; not native or installed acceptance",
+    "omissions": [
+      "All raw GUI projects/screenshots remain in the retained local snapshot outputs; this compact transport includes console logs, reports and source/copy identities only.",
+      "Unchanged repo, native runtime and model binaries are not duplicated; not a self-contained simulation or installation."
+    ]
+  },
+  "focused_ci_and_v2_tests": {
+    "tests": 49,
+    "seconds": 5.543,
+    "status": "PASS",
+    "sha256": "33a446abd9720b00fcc98efe58a3b5bb096fc59c16918136aa9b93148cf5d267"
+  },
+  "native_result": "docs/qualification/ihp-pmos-measured-reference-v2/attempt-1-result.json",
+  "native_status": "BLOCKED_NATIVE_TIMEOUT",
+  "full_core_discovery_for_this_new_snapshot": false,
+  "v1_historical_inputs_unchanged": true,
+  "initial_source_launch": "Incorrect cwd invocation was interrupted with exit130, never accepted; all source identities unchanged and abort receipt retained separately. Final accepted run executes only from the verified native-local snapshot."
+}

@@ -1,0 +1,1282 @@
+{
+  "schema": 1,
+  "date": "2026-10-25",
+  "chunk": 7,
+  "status": "selected_editor_and_linked_source_integration_passed",
+  "qualified": false,
+  "chunk_complete": false,
+  "installed_acceptance": false,
+  "signoff": false,
+  "source_baseline": "6a9980bc83e7594d86b65034ff5b115b03cc14ef",
+  "scope": "Native source-editor support for straight SKY130 LI/M1-M4 plus finite M1-M4 application/extraction/analytical electrical integration. Selected recipes and conditions only; no full device envelope, installed, statistical, reliability or manufacturing qualification.",
+  "delivered_capabilities": [
+    "Native preview/apply placement and regeneration for five resistor types with preserved terminals, undo/redo, save/reopen and package identity.",
+    "Actual marker-derived live contact topology; missing/moved/narrow markers and external bypasses expose shorts, with flat/hierarchical connected-edit spacing.",
+    "Separate source-locked M1-M4 extraction/application/reference electrical contract across all five selected passive sections."
+  ],
+  "contract": {
+    "path": "docs/qualification/sky130-metal-resistors-linked-v1.json",
+    "sha256": "2c0ad7e2142ec684bebe843596b84a1e6809e3f5a52195660bba8509e190c612",
+    "bytes": 14973
+  },
+  "simulation_package": {
+    "manifest_sha256": "840f7af802b07346650c50a5967e532a4cb1716623cf0c9d6fd6c58eaf35fcbe",
+    "path": "icstudio/assets/pdks/sky130A",
+    "revision": "b26f7f28e659ddc1"
+  },
+  "physical_package": {
+    "manifest_sha256": "531c0a4263b839b693d171ad223d01f1484130113f0fcb9010bf99b4c2da9417",
+    "revision": "9a491f0ebd51a0aa",
+    "scope": "Separate locked physical adapter; its model/deck revision is recorded independently from the bundled simulation PDK.",
+    "target": "sky130A"
+  },
+  "editor": {
+    "status": "PASS",
+    "models": [
+      "l1",
+      "m1",
+      "m2",
+      "m3",
+      "m4"
+    ],
+    "width_length_um": [
+      [
+        0.5,
+        0.5
+      ],
+      [
+        2,
+        5
+      ],
+      [
+        5,
+        2
+      ],
+      [
+        0.505,
+        2.005
+      ],
+      [
+        10,
+        10
+      ],
+      [
+        10,
+        0.5
+      ]
+    ],
+    "rotations": [
+      0,
+      90
+    ],
+    "recipe_bounds_um": [
+      0.5,
+      10
+    ],
+    "grid_nm": 5,
+    "terminal_extension_um": 0.5,
+    "multiplicity": 1,
+    "bounds_are": "application recipe support, not physical operating limits",
+    "qualification_sha256": "dcc0388118f65187abfe8cbb1472c93cdafa9fc127fcf03a7659c95b5a093198",
+    "source_files_sha256": "2d1894819c6998f86e4c0f388aba9f5165422494d5541deef8614bad5ca5e3c1",
+    "tools": {
+      "magic": {
+        "path": "/opt/icstudio/bin/magic",
+        "sha256": "359bd5dbfccf21114b2f18e2ffa008debf159bd0d1ab78e01738d2af9500b223"
+      },
+      "netgen": {
+        "path": "/opt/icstudio/bin/netgen",
+        "sha256": "209cc0bab75420d13094a99de13e94af05d735e744e06d817fac022ac74401d3"
+      }
+    },
+    "independent_readback": {
+      "status": "PASS",
+      "archive_sha256": "8728264c41fb0b16843889eedf4021d7ce90e11b833462e27dba4cd27f2ed6f5",
+      "report_sha256": "dcc0388118f65187abfe8cbb1472c93cdafa9fc127fcf03a7659c95b5a093198",
+      "full_file_bindings": 5792,
+      "coupons": 30,
+      "native_layouts": 60,
+      "detected_faults": 150,
+      "exact_stream_mask_comparisons": 360,
+      "native_model_dimension_checks": 60,
+      "source_files_sha256": "2d1894819c6998f86e4c0f388aba9f5165422494d5541deef8614bad5ca5e3c1",
+      "scope": "Independent ZIP/native-log/netlist/GDS/OASIS readback. No installed or full-family claim."
+    },
+    "independent_readback_receipt": {
+      "path": "C:/Users/jonah/Documents/Codex/2026-10-06/go/work/chunk7-metal-editor-20261025-v1/editor-independent-readback.json",
+      "sha256": "c7004f15208a3f8887514badf4d9f959fd7e807ba847720286114a27812fc76f",
+      "bytes": 1318
+    },
+    "source_scope_note": "The full native editor batch precedes the final hierarchy-only connected-edit spacing repair and final linked producer/auditor. The exact source delta is retained; actual generation/extraction is byte-bridged to all 24 linked electrical inputs. Final source tests separately cover the hierarchy repair. Final source differences are enumerated in source_feedback; no old native receipt is relabelled."
+  },
+  "linked_electrical": {
+    "status": "PASS",
+    "qualification": {
+      "bytes": 6800388,
+      "path": "/var/tmp/icstudio-metal-linked-20261025-v1/linked-full-v1/qualification.json",
+      "sha256": "26007989c9d1c6454c7d05f3e54b91752b030e8ca42aae213608708972fe3911"
+    },
+    "manifest": {
+      "bytes": 664809,
+      "path": "/var/tmp/icstudio-metal-linked-20261025-v1/linked-full-v1/manifest.json",
+      "sha256": "e723649a9f06ed0f8b421784b8c4a22a87f5c9748f5d67b5ba4c4d03b8f6fdde"
+    },
+    "source_inventory": {
+      "bytes": 89064,
+      "path": "/var/tmp/icstudio-metal-linked-20261025-v1/linked-full-v1/source-files.json",
+      "sha256": "c68a75cb6d2a498e29a235ec1a5ed8db2073f30ebfd587d140f759117804eddb"
+    },
+    "source_hashes": {
+      "docs/qualification/sky130-metal-resistors-linked-v1.json": "2c0ad7e2142ec684bebe843596b84a1e6809e3f5a52195660bba8509e190c612",
+      "scripts/audit_sky130_metal_resistors_linked.py": "a175a04a9a867fc790cfefa8ccd89d52f6f3329f9c3cf4bb13b6bbaa0f3ead7b",
+      "scripts/qualify_sky130_metal_resistors_linked.py": "6e798c1c657c9f18a63e32c29628c3ee6eb3ff7938dd4247f8dae70fd43c3218",
+      "tests/test_sky130_metal_resistors_linked.py": "9a686f8f70dce2e1c2ccadb99032127f9f3a226dd9f512192b543629a0518406",
+      "tests/test_sky130_metal_resistors_linked_audit.py": "8f294677f25916519674db6fe272e6a4a219bdee747ab9d34dcea9aa58862d87"
+    },
+    "source_members": 842,
+    "manifest_members": 5278,
+    "seconds": 214.975261589,
+    "selection": {
+      "ac_amplitude": 1,
+      "context_controls": [
+        "wrong-section",
+        "wrong-temperature"
+      ],
+      "dc_start_v": -0.001,
+      "dc_step_v": 0.0001,
+      "dc_stop_v": 0.001,
+      "faults": [
+        "wrong-width",
+        "wrong-length",
+        "wrong-model",
+        "wrong-multiplicity",
+        "disconnected-terminal"
+      ],
+      "frequency_start_hz": 1000,
+      "frequency_stop_hz": 10000000000.0,
+      "geometries_um": [
+        [
+          0.5,
+          0.5
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          5,
+          2
+        ]
+      ],
+      "load_farad": 1e-09,
+      "load_ohm": 1,
+      "models": [
+        "m1",
+        "m2",
+        "m3",
+        "m4"
+      ],
+      "multiplicities": [
+        1,
+        3
+      ],
+      "multiplicity_scope": "m=3 native path is three identical extracted two-terminal coupons in electrical parallel. No physical array qualification.",
+      "noise_geometry_index": 1,
+      "noise_paths": [
+        "application",
+        "native",
+        "analytic"
+      ],
+      "noise_rotation": 0,
+      "pilot": {
+        "geometry_indices": [
+          1
+        ],
+        "models": [
+          "m1"
+        ],
+        "sections": [
+          "tt"
+        ],
+        "temperatures_c": [
+          27
+        ]
+      },
+      "points_per_decade": 3,
+      "pulse_delay_s": 1e-09,
+      "pulse_edge_s": 1e-13,
+      "pulse_high_v": 0.001,
+      "pulse_low_v": 0.0001,
+      "pulse_period_s": 1e-08,
+      "pulse_width_s": 5e-09,
+      "rotations": [
+        0,
+        90
+      ],
+      "sections": [
+        "tt",
+        "ll",
+        "hh",
+        "hl",
+        "lh"
+      ],
+      "temperatures_c": [
+        -40,
+        27,
+        125
+      ],
+      "transient_step_s": 2e-11,
+      "transient_stop_s": 2.1e-08
+    },
+    "counts": {
+      "conditions_by_analysis": {
+        "ac": 720,
+        "dc": 720,
+        "noise": 120,
+        "tran": 720
+      },
+      "detected_branch_controls": 4680,
+      "editor_native_input_bridge": 24,
+      "evidence_corruption_controls": 12,
+      "independently_read_branch_samples": 7829496,
+      "injected_branch_controls": 1800,
+      "logical_variants": 48,
+      "paths": [
+        "application",
+        "native extraction",
+        "independent numeric analytical reference"
+      ],
+      "physical": {
+        "coupons": 12,
+        "faults": 60,
+        "layouts": 24
+      },
+      "simulator_processes": 90,
+      "wrong_context_branch_controls": 2880
+    },
+    "batches": {
+      "ac/positive": 15,
+      "dc/positive": 15,
+      "dc/wrong-section": 15,
+      "dc/wrong-temperature": 15,
+      "noise/positive": 15,
+      "tran/positive": 15
+    },
+    "maximum_normalized_errors": {
+      "ac": 1.3073664071422826e-09,
+      "dc": 7.506595509501755e-10,
+      "noise": 8.259433735212002e-10,
+      "tran": 0.9216023077388009
+    },
+    "input_guards": {
+      "physical_package": true,
+      "runtime": true,
+      "simulation_package": true,
+      "source": true,
+      "staged_models": true
+    },
+    "identical_before_after_receipts": {
+      "physical_runtime": "d726d4b50f9ed83e3243a384359a5fa36256f12caff7f81d215e9c849f213691",
+      "runtime": "4833e2887a56114908513ba9066e8989c618f04196234bffd516064a6f6a936e"
+    },
+    "independent_audit": {
+      "bytes": 920,
+      "data": {
+        "analyses": {
+          "ac": 15,
+          "dc": 45,
+          "noise": 15,
+          "tran": 15
+        },
+        "branch_samples": 7829496,
+        "contexts": 90,
+        "detected_branch_controls": 4680,
+        "logical_variants": 48,
+        "manifest_sha256": "e723649a9f06ed0f8b421784b8c4a22a87f5c9748f5d67b5ba4c4d03b8f6fdde",
+        "maximum_normalized_errors": {
+          "ac": 1.3073664071422826e-09,
+          "dc": 7.506595509501755e-10,
+          "noise": 8.259433735212002e-10,
+          "tran": 0.9216023077388009
+        },
+        "physical": {
+          "coupons": 12,
+          "faults": 60,
+          "layouts": 24
+        },
+        "qualification_sha256": "26007989c9d1c6454c7d05f3e54b91752b030e8ca42aae213608708972fe3911",
+        "scope": "selected source integration; no installed, envelope, statistical, silicon or signoff qualification",
+        "source_binding": "all captured files compared to reviewed source",
+        "source_files_sha256": "c68a75cb6d2a498e29a235ec1a5ed8db2073f30ebfd587d140f759117804eddb",
+        "status": "PASS"
+      },
+      "path": "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/chunk7-metal-independent-20261025-v1/full-native-audit.json",
+      "sha256": "597e250ca0a289cc01d8aac9d87c3dd10aabd2e3f512647b33089694bf6b0e47"
+    },
+    "independent_controls": {
+      "bytes": 6906,
+      "data": {
+        "auditor_sha256": "a175a04a9a867fc790cfefa8ccd89d52f6f3329f9c3cf4bb13b6bbaa0f3ead7b",
+        "controls": [
+          {
+            "changed_sha256": "054fb195c4f89ebcf44e7b07560d3c582794ab347c49cd84824e0286b9b32f3c",
+            "member": "tt-t27-dc-positive/input.cir",
+            "name": "electrically-identical-m3-to-m4",
+            "original_sha256": "72224f5ebe51c3948dabcc83b00eb307ce8a72e009d5398ab061e49b00460010",
+            "reason": "Circuit model, terminal, context or directive differs: sky130_fd_pr__res_generic_m4 != sky130_fd_pr__res_generic_m3",
+            "rehashed_case_inventory_sha256": "6be6ee828064fa26c7a3026aa1021582030ff684a1ea2b4880d7c2e3b367051d",
+            "status": "REJECTED"
+          },
+          {
+            "changed_sha256": "e2c465fa8b9babb507ea26416e33232d37d20a252840f116961867f4344f8736",
+            "member": "tt-t27-dc-positive/input.cir",
+            "name": "other-orientation-native-file",
+            "original_sha256": "72224f5ebe51c3948dabcc83b00eb307ce8a72e009d5398ab061e49b00460010",
+            "reason": "Circuit model, terminal, context or directive differs: /var/tmp/icstudio-metal-linked-20261025-v1/linked-full-v1/physical/m3-w2-l5/physical-90/lvs-extraction/extracted.spice != /var/tmp/icstudio-metal-linked-20261025-v1/linked-full-v1/physical/m3-w2-l5/physical-0/lvs-extraction/extracted.spice",
+            "rehashed_case_inventory_sha256": "5de5b6123e9d92d67e6bc25470facd1c08f1c093c0e2552658780f0fdd9704d2",
+            "status": "REJECTED"
+          },
+          {
+            "changed_sha256": "b27d55d67280a40d6a335662241dfc10e8bd9909467591a260d3a66df20e0ac8",
+            "member": "tt-t27-dc-positive/input.cir",
+            "name": "missing-parallel-native-instance",
+            "original_sha256": "72224f5ebe51c3948dabcc83b00eb307ce8a72e009d5398ab061e49b00460010",
+            "reason": "Extra or missing circuit statements.",
+            "rehashed_case_inventory_sha256": "50343f6c2d80cbb077c2945f34bd885632a82b00155ac7e809a7310428c4b6a6",
+            "status": "REJECTED"
+          },
+          {
+            "changed_sha256": "4783b6c06975569de5d299af383becf1e5517897d395ed5e3540ac3172c0962b",
+            "member": "tt-t27-dc-positive/input.cir",
+            "name": "manual-switch-override",
+            "original_sha256": "72224f5ebe51c3948dabcc83b00eb307ce8a72e009d5398ab061e49b00460010",
+            "reason": "Extra or missing circuit statements.",
+            "rehashed_case_inventory_sha256": "aa61f15b11544dc6187b64773d9fcababed1ecbff44a34c4342e5c7e0d64b0bf",
+            "status": "REJECTED"
+          },
+          {
+            "changed_sha256": "70b8f370d8a014ddc6446d325a15280323d5456e0f34c1b760ad7e8ba3f65721",
+            "member": "tt-t27-dc-positive/result.raw",
+            "name": "signed-current-reversed",
+            "original_sha256": "e9215c640a9a5268a9f2b7ce528624f7c2b243e9000f474b87a938f70243b2b5",
+            "reason": "Actual branch current differs.",
+            "rehashed_case_inventory_sha256": "c2c2d004ffcef8e9561d185b8a44a112dd7c967d65b5739d473375be3d366cd2",
+            "status": "REJECTED"
+          },
+          {
+            "changed_sha256": "157837223f131323ea07cd673db639f2bed4abbaad39529684ee8bb0d0925bd2",
+            "member": "tt-t27-dc-positive/record.json",
+            "name": "false-finite-saved-summary",
+            "original_sha256": "acc8f3931ed41e8552d95f21e199ff163c2a13c32d0e41b29cc34bfa78befe45",
+            "reason": "Saved observation differs from independent raw readback.",
+            "rehashed_case_inventory_sha256": "f542441a9f04de7642854eaf3a89e6b0712c8be645ffa10929e20b037740116f",
+            "status": "REJECTED"
+          },
+          {
+            "changed_sha256": "e6c2ba3c39272105463806709fd9e8e1af32e8259d50a103251efbcb4fca348d",
+            "member": "tt-t27-noise-positive/noise_a_m1_g1_r0_m1.raw",
+            "name": "noise-other-multiplicity-vector",
+            "original_sha256": "96b3fa2a2ee2ada93b8a1ac3c4303d667b9bb7ccecccf2a5cc66cffb9dc46507",
+            "reason": "Noise output branch differs.",
+            "rehashed_case_inventory_sha256": "6abdda2b94a755d7b9a63a90ed17487a9d63a0ffdfedaab0970ce2a440a9c4a8",
+            "status": "REJECTED"
+          },
+          {
+            "changed_sha256": "c8a1a297a6be4cd5f2174f13e8f6c88495016c06d823807ee5cb4cfe61f78c92",
+            "member": "tt-t27-noise-positive/input.cir",
+            "name": "noise-wrong-output-node",
+            "original_sha256": "560a1ec32610ac8f0d59f373ff6eed1f100544508b7c196ca9bcf4be749e01a1",
+            "reason": "Circuit model, terminal, context or directive differs: v(out_a_m1_g1_r0_m3) != v(out_a_m1_g1_r0_m1)",
+            "rehashed_case_inventory_sha256": "4da1d0852d024ddc500255c0b787e03c73b724e4f8ca156df819d448b7ff1331",
+            "status": "REJECTED"
+          },
+          {
+            "changed_sha256": "f108fb56c790299a295ed4ed2d13166364ed37e02b110beb58f1520e15d6ff6d",
+            "member": "tt-t27-tran-positive/result.raw",
+            "name": "transient-other-execution",
+            "original_sha256": "f67b6668d3c701717da1b46ecc2ee1d20f0b512688e5670089ef882c9a04b0ab",
+            "reason": "Raw execution/context title differs.",
+            "rehashed_case_inventory_sha256": "73152ee44b29796987e3b2cc9f923e207ac83a9a6fc0da94eceae4e40992fa68",
+            "status": "REJECTED"
+          },
+          {
+            "changed_sha256": "8e7d3f6121c51d22da438cc491654a504864350d3f459d061fa9b138fec90ac7",
+            "member": "native-physical/lvs-extraction/extracted.spice",
+            "name": "native-port-substitution",
+            "original_sha256": "cd8e513eda67ef7ce2cca155df88e2590dcbe6a9b76e9753137327e26a82e75b",
+            "reason": "Native model or connectivity differs.",
+            "rehashed_case_inventory_sha256": "10610c7150c1d2a02c100c0f038e50e011d450eb25dfe61d23365abae0454909",
+            "status": "REJECTED"
+          },
+          {
+            "changed_sha256": "f9b3290c23551cbb7f0c968c570cd3c7c49288133c44fb9fc21165628b9f647c",
+            "member": "native-physical/drc/run.tcl",
+            "name": "native-drc-ignore-all",
+            "original_sha256": "484ee758f89b50b18defd8cbc56306eb59d660697fecd6905e8d205d684e8091",
+            "reason": "Native drc script/source/settings differ from the fixed case.",
+            "rehashed_case_inventory_sha256": "4409fbb381803d82ac05f313a745ac4930fce5e68e10ff9a90f001c9bf711ca0",
+            "status": "REJECTED"
+          },
+          {
+            "changed_sha256": "34fd0374e94e64b33ed69dff047a861c5660c4510d3a56b6e297c2f8a3b2aaef",
+            "member": "native-physical/lvs/console.log",
+            "name": "wrong-netgen-setup",
+            "original_sha256": "71fca2ee9664d2c2e2d89d9d6c674f280be1291053e04580b914cadf4cf8b2ef",
+            "reason": "Netgen setup differs from captured PDK.",
+            "rehashed_case_inventory_sha256": "5f491950d7da75135e2fecdbb8bcb9a9f8cfe1177e924e1392cec2bdf8851cdd",
+            "status": "REJECTED"
+          }
+        ],
+        "manifest_sha256": "e723649a9f06ed0f8b421784b8c4a22a87f5c9748f5d67b5ba4c4d03b8f6fdde",
+        "original_selected_inventory_unchanged": true,
+        "pristine_and_restored_cases_passed": true,
+        "qualification_sha256": "26007989c9d1c6454c7d05f3e54b91752b030e8ca42aae213608708972fe3911",
+        "scope": "Bounded retained-member corruption controls; original run stays untouched.\n\nEach copied case is rehashed after mutation before independent semantic checks.\nThese are targeted raw/deck/native checks, not whole-root re-qualification.\n",
+        "status": "PASS"
+      },
+      "path": "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/chunk7-metal-independent-20261025-v1/controls-review.json",
+      "sha256": "fb80a3884fffdb5cfbf46e3beae0bd964fbe24333b3dd93382621101bb363b58"
+    },
+    "editor_bridge": {
+      "bytes": 14317,
+      "data": {
+        "editor_qualification_sha256": "dcc0388118f65187abfe8cbb1472c93cdafa9fc127fcf03a7659c95b5a093198",
+        "gate": "editor-to-linked-exact-extracted-input-bridge",
+        "linked_qualification_sha256": "26007989c9d1c6454c7d05f3e54b91752b030e8ca42aae213608708972fe3911",
+        "native_inputs_sha256": "4fe7a73d127b27f7c2e2242ccd46cc535c2309fa98d11417f3e146a06852dc30",
+        "rows": [
+          {
+            "bytes": 140,
+            "bytes_equal": true,
+            "case": "m1-w0.5-l0.5-r0",
+            "editor_path": "/var/tmp/icstudio-metal-linked-20261025-v1/editor-full-v1/m1-w0.5-l0.5/physical-0/lvs-extraction/extracted.spice",
+            "editor_sha256": "159dc0b7826089d790754ea714d2f33122357e7af93602163850ce43c2263c58",
+            "electrical_input_path": "/var/tmp/icstudio-metal-linked-20261025-v1/linked-full-v1/physical/m1-w0.5-l0.5/physical-0/lvs-extraction/extracted.spice",
+            "electrical_input_sha256": "159dc0b7826089d790754ea714d2f33122357e7af93602163850ce43c2263c58"
+          },
+          {
+            "bytes": 140,
+            "bytes_equal": true,
+            "case": "m1-w0.5-l0.5-r90",
+            "editor_path": "/var/tmp/icstudio-metal-linked-20261025-v1/editor-full-v1/m1-w0.5-l0.5/physical-90/lvs-extraction/extracted.spice",
+            "editor_sha256": "159dc0b7826089d790754ea714d2f33122357e7af93602163850ce43c2263c58",
+            "electrical_input_path": "/var/tmp/icstudio-metal-linked-20261025-v1/linked-full-v1/physical/m1-w0.5-l0.5/physical-90/lvs-extraction/extracted.spice",
+            "electrical_input_sha256": "159dc0b7826089d790754ea714d2f33122357e7af93602163850ce43c2263c58"
+          },
+          {
+            "bytes": 136,
+            "bytes_equal": true,
+            "case": "m1-w2-l5-r0",
+            "editor_path": "/var/tmp/icstudio-metal-linked-20261025-v1/editor-full-v1/m1-w2-l5/physical-0/lvs-extraction/extracted.spice",
+            "editor_sha256": "01ed7938489629cec68daca5f52c4d32fff1fceeca52cc3312bb3614a1302f4e",
+            "electrical_input_path": "/var/tmp/icstudio-metal-linked-20261025-v1/linked-full-v1/physical/m1-w2-l5/physical-0/lvs-extraction/extracted.spice",
+            "electrical_input_sha256": "01ed7938489629cec68daca5f52c4d32fff1fceeca52cc3312bb3614a1302f4e"
+          },
+          {
+            "bytes": 136,
+            "bytes_equal": true,
+            "case": "m1-w2-l5-r90",
+            "editor_path": "/var/tmp/icstudio-metal-linked-20261025-v1/editor-full-v1/m1-w2-l5/physical-90/lvs-extraction/extracted.spice",
+            "editor_sha256": "01ed7938489629cec68daca5f52c4d32fff1fceeca52cc3312bb3614a1302f4e",
+            "electrical_input_path": "/var/tmp/icstudio-metal-linked-20261025-v1/linked-full-v1/physical/m1-w2-l5/physical-90/lvs-extraction/extracted.spice",
+            "electrical_input_sha256": "01ed7938489629cec68daca5f52c4d32fff1fceeca52cc3312bb3614a1302f4e"
+          },
+          {
+            "bytes": 136,
+            "bytes_equal": true,
+            "case": "m1-w5-l2-r0",
+            "editor_path": "/var/tmp/icstudio-metal-linked-20261025-v1/editor-full-v1/m1-w5-l2/physical-0/lvs-extraction/extracted.spice",
+            "editor_sha256": "d214653f54939ce915552ef01271b32e1e1f99962c2bec083d3459cf0d814e52",
+            "electrical_input_path": "/var/tmp/icstudio-metal-linked-20261025-v1/linked-full-v1/physical/m1-w5-l2/physical-0/lvs-extraction/extracted.spice",
+            "electrical_input_sha256": "d214653f54939ce915552ef01271b32e1e1f99962c2bec083d3459cf0d814e52"
+          },
+          {
+            "bytes": 136,
+            "bytes_equal": true,
+            "case": "m1-w5-l2-r90",
+            "editor_path": "/var/tmp/icstudio-metal-linked-20261025-v1/editor-full-v1/m1-w5-l2/physical-90/lvs-extraction/extracted.spice",
+            "editor_sha256": "d214653f54939ce915552ef01271b32e1e1f99962c2bec083d3459cf0d814e52",
+            "electrical_input_path": "/var/tmp/icstudio-metal-linked-20261025-v1/linked-full-v1/physical/m1-w5-l2/physical-90/lvs-extraction/extracted.spice",
+            "electrical_input_sha256": "d214653f54939ce915552ef01271b32e1e1f99962c2bec083d3459cf0d814e52"
+          },
+          {
+            "bytes": 140,
+            "bytes_equal": true,
+            "case": "m2-w0.5-l0.5-r0",
+            "editor_path": "/var/tmp/icstudio-metal-linked-20261025-v1/editor-full-v1/m2-w0.5-l0.5/physical-0/lvs-extraction/extracted.spice",
+            "editor_sha256": "55bab52e284cd5ba0b5d0c3dbe50b828e38d1caf341f6f882dfe917e623ca8bf",
+            "electrical_input_path": "/var/tmp/icstudio-metal-linked-20261025-v1/linked-full-v1/physical/m2-w0.5-l0.5/physical-0/lvs-extraction/extracted.spice",
+            "electrical_input_sha256": "55bab52e284cd5ba0b5d0c3dbe50b828e38d1caf341f6f882dfe917e623ca8bf"
+          },
+          {
+            "bytes": 140,
+            "bytes_equal": true,
+            "case": "m2-w0.5-l0.5-r90",
+            "editor_path": "/var/tmp/icstudio-metal-linked-20261025-v1/editor-full-v1/m2-w0.5-l0.5/physical-90/lvs-extraction/extracted.spice",
+            "editor_sha256": "55bab52e284cd5ba0b5d0c3dbe50b828e38d1caf341f6f882dfe917e623ca8bf",
+            "electrical_input_path": "/var/tmp/icstudio-metal-linked-20261025-v1/linked-full-v1/physical/m2-w0.5-l0.5/physical-90/lvs-extraction/extracted.spice",
+            "electrical_input_sha256": "55bab52e284cd5ba0b5d0c3dbe50b828e38d1caf341f6f882dfe917e623ca8bf"
+          },
+          {
+            "bytes": 136,
+            "bytes_equal": true,
+            "case": "m2-w2-l5-r0",
+            "editor_path": "/var/tmp/icstudio-metal-linked-20261025-v1/editor-full-v1/m2-w2-l5/physical-0/lvs-extraction/extracted.spice",
+            "editor_sha256": "fcd3a39fd6317f45d022a9db0ccfafd920971b9fa2576ea62e96286cf4e8b47c",
+            "electrical_input_path": "/var/tmp/icstudio-metal-linked-20261025-v1/linked-full-v1/physical/m2-w2-l5/physical-0/lvs-extraction/extracted.spice",
+            "electrical_input_sha256": "fcd3a39fd6317f45d022a9db0ccfafd920971b9fa2576ea62e96286cf4e8b47c"
+          },
+          {
+            "bytes": 136,
+            "bytes_equal": true,
+            "case": "m2-w2-l5-r90",
+            "editor_path": "/var/tmp/icstudio-metal-linked-20261025-v1/editor-full-v1/m2-w2-l5/physical-90/lvs-extraction/extracted.spice",
+            "editor_sha256": "fcd3a39fd6317f45d022a9db0ccfafd920971b9fa2576ea62e96286cf4e8b47c",
+            "electrical_input_path": "/var/tmp/icstudio-metal-linked-20261025-v1/linked-full-v1/physical/m2-w2-l5/physical-90/lvs-extraction/extracted.spice",
+            "electrical_input_sha256": "fcd3a39fd6317f45d022a9db0ccfafd920971b9fa2576ea62e96286cf4e8b47c"
+          },
+          {
+            "bytes": 136,
+            "bytes_equal": true,
+            "case": "m2-w5-l2-r0",
+            "editor_path": "/var/tmp/icstudio-metal-linked-20261025-v1/editor-full-v1/m2-w5-l2/physical-0/lvs-extraction/extracted.spice",
+            "editor_sha256": "4be0de869c00f699074999fb9b57258e6e8557d228587a6cfa7285a469249557",
+            "electrical_input_path": "/var/tmp/icstudio-metal-linked-20261025-v1/linked-full-v1/physical/m2-w5-l2/physical-0/lvs-extraction/extracted.spice",
+            "electrical_input_sha256": "4be0de869c00f699074999fb9b57258e6e8557d228587a6cfa7285a469249557"
+          },
+          {
+            "bytes": 136,
+            "bytes_equal": true,
+            "case": "m2-w5-l2-r90",
+            "editor_path": "/var/tmp/icstudio-metal-linked-20261025-v1/editor-full-v1/m2-w5-l2/physical-90/lvs-extraction/extracted.spice",
+            "editor_sha256": "4be0de869c00f699074999fb9b57258e6e8557d228587a6cfa7285a469249557",
+            "electrical_input_path": "/var/tmp/icstudio-metal-linked-20261025-v1/linked-full-v1/physical/m2-w5-l2/physical-90/lvs-extraction/extracted.spice",
+            "electrical_input_sha256": "4be0de869c00f699074999fb9b57258e6e8557d228587a6cfa7285a469249557"
+          },
+          {
+            "bytes": 140,
+            "bytes_equal": true,
+            "case": "m3-w0.5-l0.5-r0",
+            "editor_path": "/var/tmp/icstudio-metal-linked-20261025-v1/editor-full-v1/m3-w0.5-l0.5/physical-0/lvs-extraction/extracted.spice",
+            "editor_sha256": "c34d4e948243a4b39dbe1166eeaf51739724417e42fb11ce1149ee641137fe29",
+            "electrical_input_path": "/var/tmp/icstudio-metal-linked-20261025-v1/linked-full-v1/physical/m3-w0.5-l0.5/physical-0/lvs-extraction/extracted.spice",
+            "electrical_input_sha256": "c34d4e948243a4b39dbe1166eeaf51739724417e42fb11ce1149ee641137fe29"
+          },
+          {
+            "bytes": 140,
+            "bytes_equal": true,
+            "case": "m3-w0.5-l0.5-r90",
+            "editor_path": "/var/tmp/icstudio-metal-linked-20261025-v1/editor-full-v1/m3-w0.5-l0.5/physical-90/lvs-extraction/extracted.spice",
+            "editor_sha256": "c34d4e948243a4b39dbe1166eeaf51739724417e42fb11ce1149ee641137fe29",
+            "electrical_input_path": "/var/tmp/icstudio-metal-linked-20261025-v1/linked-full-v1/physical/m3-w0.5-l0.5/physical-90/lvs-extraction/extracted.spice",
+            "electrical_input_sha256": "c34d4e948243a4b39dbe1166eeaf51739724417e42fb11ce1149ee641137fe29"
+          },
+          {
+            "bytes": 136,
+            "bytes_equal": true,
+            "case": "m3-w2-l5-r0",
+            "editor_path": "/var/tmp/icstudio-metal-linked-20261025-v1/editor-full-v1/m3-w2-l5/physical-0/lvs-extraction/extracted.spice",
+            "editor_sha256": "cd8e513eda67ef7ce2cca155df88e2590dcbe6a9b76e9753137327e26a82e75b",
+            "electrical_input_path": "/var/tmp/icstudio-metal-linked-20261025-v1/linked-full-v1/physical/m3-w2-l5/physical-0/lvs-extraction/extracted.spice",
+            "electrical_input_sha256": "cd8e513eda67ef7ce2cca155df88e2590dcbe6a9b76e9753137327e26a82e75b"
+          },
+          {
+            "bytes": 136,
+            "bytes_equal": true,
+            "case": "m3-w2-l5-r90",
+            "editor_path": "/var/tmp/icstudio-metal-linked-20261025-v1/editor-full-v1/m3-w2-l5/physical-90/lvs-extraction/extracted.spice",
+            "editor_sha256": "cd8e513eda67ef7ce2cca155df88e2590dcbe6a9b76e9753137327e26a82e75b",
+            "electrical_input_path": "/var/tmp/icstudio-metal-linked-20261025-v1/linked-full-v1/physical/m3-w2-l5/physical-90/lvs-extraction/extracted.spice",
+            "electrical_input_sha256": "cd8e513eda67ef7ce2cca155df88e2590dcbe6a9b76e9753137327e26a82e75b"
+          },
+          {
+            "bytes": 136,
+            "bytes_equal": true,
+            "case": "m3-w5-l2-r0",
+            "editor_path": "/var/tmp/icstudio-metal-linked-20261025-v1/editor-full-v1/m3-w5-l2/physical-0/lvs-extraction/extracted.spice",
+            "editor_sha256": "fcf371d076a85f5561264fdd474afe468b56f1aeccdc8e5f43dae8da5c20f321",
+            "electrical_input_path": "/var/tmp/icstudio-metal-linked-20261025-v1/linked-full-v1/physical/m3-w5-l2/physical-0/lvs-extraction/extracted.spice",
+            "electrical_input_sha256": "fcf371d076a85f5561264fdd474afe468b56f1aeccdc8e5f43dae8da5c20f321"
+          },
+          {
+            "bytes": 136,
+            "bytes_equal": true,
+            "case": "m3-w5-l2-r90",
+            "editor_path": "/var/tmp/icstudio-metal-linked-20261025-v1/editor-full-v1/m3-w5-l2/physical-90/lvs-extraction/extracted.spice",
+            "editor_sha256": "fcf371d076a85f5561264fdd474afe468b56f1aeccdc8e5f43dae8da5c20f321",
+            "electrical_input_path": "/var/tmp/icstudio-metal-linked-20261025-v1/linked-full-v1/physical/m3-w5-l2/physical-90/lvs-extraction/extracted.spice",
+            "electrical_input_sha256": "fcf371d076a85f5561264fdd474afe468b56f1aeccdc8e5f43dae8da5c20f321"
+          },
+          {
+            "bytes": 140,
+            "bytes_equal": true,
+            "case": "m4-w0.5-l0.5-r0",
+            "editor_path": "/var/tmp/icstudio-metal-linked-20261025-v1/editor-full-v1/m4-w0.5-l0.5/physical-0/lvs-extraction/extracted.spice",
+            "editor_sha256": "962e915e9762348919b327cf05c586421d8557240d98ff7240132933dc62e8ea",
+            "electrical_input_path": "/var/tmp/icstudio-metal-linked-20261025-v1/linked-full-v1/physical/m4-w0.5-l0.5/physical-0/lvs-extraction/extracted.spice",
+            "electrical_input_sha256": "962e915e9762348919b327cf05c586421d8557240d98ff7240132933dc62e8ea"
+          },
+          {
+            "bytes": 140,
+            "bytes_equal": true,
+            "case": "m4-w0.5-l0.5-r90",
+            "editor_path": "/var/tmp/icstudio-metal-linked-20261025-v1/editor-full-v1/m4-w0.5-l0.5/physical-90/lvs-extraction/extracted.spice",
+            "editor_sha256": "962e915e9762348919b327cf05c586421d8557240d98ff7240132933dc62e8ea",
+            "electrical_input_path": "/var/tmp/icstudio-metal-linked-20261025-v1/linked-full-v1/physical/m4-w0.5-l0.5/physical-90/lvs-extraction/extracted.spice",
+            "electrical_input_sha256": "962e915e9762348919b327cf05c586421d8557240d98ff7240132933dc62e8ea"
+          },
+          {
+            "bytes": 136,
+            "bytes_equal": true,
+            "case": "m4-w2-l5-r0",
+            "editor_path": "/var/tmp/icstudio-metal-linked-20261025-v1/editor-full-v1/m4-w2-l5/physical-0/lvs-extraction/extracted.spice",
+            "editor_sha256": "b857fecc0b072e88a08b51760e2b010e03bcab97040357070a0271631d6a6e9c",
+            "electrical_input_path": "/var/tmp/icstudio-metal-linked-20261025-v1/linked-full-v1/physical/m4-w2-l5/physical-0/lvs-extraction/extracted.spice",
+            "electrical_input_sha256": "b857fecc0b072e88a08b51760e2b010e03bcab97040357070a0271631d6a6e9c"
+          },
+          {
+            "bytes": 136,
+            "bytes_equal": true,
+            "case": "m4-w2-l5-r90",
+            "editor_path": "/var/tmp/icstudio-metal-linked-20261025-v1/editor-full-v1/m4-w2-l5/physical-90/lvs-extraction/extracted.spice",
+            "editor_sha256": "b857fecc0b072e88a08b51760e2b010e03bcab97040357070a0271631d6a6e9c",
+            "electrical_input_path": "/var/tmp/icstudio-metal-linked-20261025-v1/linked-full-v1/physical/m4-w2-l5/physical-90/lvs-extraction/extracted.spice",
+            "electrical_input_sha256": "b857fecc0b072e88a08b51760e2b010e03bcab97040357070a0271631d6a6e9c"
+          },
+          {
+            "bytes": 136,
+            "bytes_equal": true,
+            "case": "m4-w5-l2-r0",
+            "editor_path": "/var/tmp/icstudio-metal-linked-20261025-v1/editor-full-v1/m4-w5-l2/physical-0/lvs-extraction/extracted.spice",
+            "editor_sha256": "d0166d54a772ba259f9d9413134cd57a48c228642799cebe933547129095214a",
+            "electrical_input_path": "/var/tmp/icstudio-metal-linked-20261025-v1/linked-full-v1/physical/m4-w5-l2/physical-0/lvs-extraction/extracted.spice",
+            "electrical_input_sha256": "d0166d54a772ba259f9d9413134cd57a48c228642799cebe933547129095214a"
+          },
+          {
+            "bytes": 136,
+            "bytes_equal": true,
+            "case": "m4-w5-l2-r90",
+            "editor_path": "/var/tmp/icstudio-metal-linked-20261025-v1/editor-full-v1/m4-w5-l2/physical-90/lvs-extraction/extracted.spice",
+            "editor_sha256": "d0166d54a772ba259f9d9413134cd57a48c228642799cebe933547129095214a",
+            "electrical_input_path": "/var/tmp/icstudio-metal-linked-20261025-v1/linked-full-v1/physical/m4-w5-l2/physical-90/lvs-extraction/extracted.spice",
+            "electrical_input_sha256": "d0166d54a772ba259f9d9413134cd57a48c228642799cebe933547129095214a"
+          }
+        ],
+        "schema": 1,
+        "scope": "Exact bytes from 24 new editor-generated native extractions equal inputs consumed by the linked electrical suite. No new native run, installed claim, continuous geometry claim or full-family promotion.",
+        "status": "PASS"
+      },
+      "path": "/var/tmp/icstudio-metal-linked-20261025-v1/editor-linked-input-bridge.json",
+      "sha256": "9758477175a9c86cf9fd17d48fdf97a43585343044bd6148a1b3762a104bbf6f"
+    },
+    "limitations": [
+      "Public generic-resistor documentation cautions against analog precision use.",
+      "Complete electrical geometry, bias/current density, temperature validity and reliability envelopes are not established by these selected points.",
+      "Sheet specification accuracy and measured/statistical/RF model validity remain unqualified.",
+      "Native extraction is a compact R device, not complete distributed interconnect RC.",
+      "Installed delivery acceptance is separate."
+    ]
+  },
+  "native_engine": {
+    "profile": "Linux ngspice42",
+    "sha256": "820658317b0b54035208da41936fd6871ce924036e5ea4113a4168b821b7fc45",
+    "windows_electrical_execution": "not claimed for this new matrix"
+  },
+  "historical_acceptance_preservation": {
+    "path": "docs/validation/gf180-tested-source-2026-10-25-metal-editor/manifest.json",
+    "sha256": "1c1ff00a94f0cbaa4f99291bad71c53119cab7bd4365a074bae539cc7193d5c4",
+    "purpose": "Retain five exact original GF180-tested Git blobs. Does not transfer original GF180 native acceptance to the changed application; original gate unchanged."
+  },
+  "retained_failures": {
+    "linked": {
+      "first_native_pilot": {
+        "bytes": 55674,
+        "path": "/var/tmp/icstudio-metal-linked-20261025-v1/linked-pilot-v1/qualification.json",
+        "sha256": "a0f748cc56a7f8a54ec203b2a58aa6985966a340adf810978077294c1dc77257"
+      },
+      "first_native_pilot_source_sha256": "3a48d4961f5a2e8e51198576c14849b0f792718d79b0124e4887985d5b94625b",
+      "first_native_pilot_status": "FAIL: transient integration accuracy; other five batches passed; final after-guards were not run",
+      "first_unit_attempt": {
+        "bytes": 472,
+        "data": {
+          "attempt": "Windows-unit-v1",
+          "causes": [
+            "New fixture left zero-volt sense-source default AC amplitude at1; source-export assertion correctly rejected it.",
+            "Sandbox TEMP rejected native.spice file writes and temporary-directory cleanup in2tests."
+          ],
+          "errors": 2,
+          "failures": 1,
+          "recovery": "Set sense-source AC amplitude0 in fixture and use known short writable TEMP with ordinary account; preserve original sources. No native run occurred.",
+          "schema": 1,
+          "status": "FAIL",
+          "tests": 7
+        },
+        "path": "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/chunk7-metal-linked-20261025-v1/unit-v1.json",
+        "sha256": "a0b4d40a9c3347ffd9d61afdeca3db487ee7e6f72dd1f93893481f5d83603e2f"
+      },
+      "repair": "Only transient solver charge LTE controls changed: chgtol=1e-24 and trtol=1. Fixed contract, waveform, step and acceptance tolerances unchanged.",
+      "transient_accuracy_probe": {
+        "bytes": 5165,
+        "data": {
+          "case": "tt-t27-tran-positive",
+          "command": [
+            "/usr/bin/ngspice",
+            "-n",
+            "-D",
+            "filetype=ascii",
+            "-D",
+            "ngbehavior=hsa",
+            "-b",
+            "-r",
+            "/var/tmp/icstudio-metal-linked-20261025-v1/transient-accuracy-v1/result.raw",
+            "/var/tmp/icstudio-metal-linked-20261025-v1/transient-accuracy-v1/input.cir"
+          ],
+          "cwd": "/var/tmp/icstudio-metal-linked-20261025-v1/linked-pilot-v1",
+          "deck_sha256": "2575c9dce63be8e42017bac775bbf2d356707faf535c8c5d9bfae946c4b24fff",
+          "environment": {
+            "HOME": "/var/tmp/icstudio-metal-linked-20261025-v1/transient-accuracy-v1/empty-home",
+            "LANG": "C",
+            "LC_ALL": "C",
+            "PATH": "/usr/bin:/usr/bin:/bin",
+            "SPICE_SCRIPTS": "/usr/share/ngspice/scripts",
+            "TEMP": "/var/tmp/icstudio-metal-linked-20261025-v1/transient-accuracy-v1/temporary",
+            "TMP": "/var/tmp/icstudio-metal-linked-20261025-v1/transient-accuracy-v1/temporary",
+            "TZ": "UTC",
+            "USERPROFILE": "/var/tmp/icstudio-metal-linked-20261025-v1/transient-accuracy-v1/empty-home"
+          },
+          "execution": {
+            "nonce": "ac202610250000000000000000000001",
+            "root": "/var/tmp/icstudio-metal-linked-20261025-v1/transient-accuracy-v1"
+          },
+          "log_sha256": "e875380d5d98fc502de5693b3410ffc5454467955b0d1be76205bba5c542ae64",
+          "method_sha256": "62084a5f87ea7397cdeda6ea5edfc73a9bc2829aa8dedc7d1a6330fa9ea4548d",
+          "observation": {
+            "branches": {
+              "a_m1_g1_r0_m1": {
+                "fault_detected_relative": null,
+                "maximum_normalized_error": 0.1326451508483198,
+                "resistance_ohm": 0.31567624445436004,
+                "samples": 2264
+              },
+              "a_m1_g1_r0_m3": {
+                "fault_detected_relative": null,
+                "maximum_normalized_error": 0.30723908052369603,
+                "resistance_ohm": 0.10522541481812002,
+                "samples": 2264
+              },
+              "a_m1_g1_r90_m1": {
+                "fault_detected_relative": null,
+                "maximum_normalized_error": 0.1326451508483198,
+                "resistance_ohm": 0.31567624445436004,
+                "samples": 2264
+              },
+              "a_m1_g1_r90_m3": {
+                "fault_detected_relative": null,
+                "maximum_normalized_error": 0.30723908052369603,
+                "resistance_ohm": 0.10522541481812002,
+                "samples": 2264
+              },
+              "c_m1_g1_r0_m1": {
+                "fault_detected_relative": null,
+                "maximum_normalized_error": 0.1326451508483198,
+                "resistance_ohm": 0.31567624445436004,
+                "samples": 2264
+              },
+              "c_m1_g1_r0_m3": {
+                "fault_detected_relative": null,
+                "maximum_normalized_error": 0.30723908052369603,
+                "resistance_ohm": 0.10522541481812002,
+                "samples": 2264
+              },
+              "c_m1_g1_r90_m1": {
+                "fault_detected_relative": null,
+                "maximum_normalized_error": 0.1326451508483198,
+                "resistance_ohm": 0.31567624445436004,
+                "samples": 2264
+              },
+              "c_m1_g1_r90_m3": {
+                "fault_detected_relative": null,
+                "maximum_normalized_error": 0.30723908052369603,
+                "resistance_ohm": 0.10522541481812002,
+                "samples": 2264
+              },
+              "n_m1_g1_r0_m1": {
+                "fault_detected_relative": null,
+                "maximum_normalized_error": 0.1326451508483198,
+                "resistance_ohm": 0.31567624445436004,
+                "samples": 2264
+              },
+              "n_m1_g1_r0_m3": {
+                "fault_detected_relative": null,
+                "maximum_normalized_error": 0.307239080578985,
+                "resistance_ohm": 0.10522541481812002,
+                "samples": 2264
+              },
+              "n_m1_g1_r90_m1": {
+                "fault_detected_relative": null,
+                "maximum_normalized_error": 0.1326451508483198,
+                "resistance_ohm": 0.31567624445436004,
+                "samples": 2264
+              },
+              "n_m1_g1_r90_m3": {
+                "fault_detected_relative": null,
+                "maximum_normalized_error": 0.307239080578985,
+                "resistance_ohm": 0.10522541481812002,
+                "samples": 2264
+              }
+            },
+            "parameters": {
+              "m1_dw": -3.9e-08,
+              "m2_dw": -3.9e-08,
+              "m3_dw": -2.5e-08,
+              "m4_dw": -2.5e-08,
+              "mc_mm_switch": 0.0,
+              "mc_pr_switch": 0.0,
+              "rm1": 0.125,
+              "rm2": 0.125,
+              "rm3": 0.047,
+              "rm4": 0.047,
+              "tc1rm1": 0.003179,
+              "tc1rm2": 0.003161,
+              "tc1rm3": 0.003424,
+              "tc1rm4": 0.003424,
+              "tc2rm1": 3.094e-07,
+              "tc2rm2": -7.272e-07,
+              "tc2rm3": -7.739e-07,
+              "tc2rm4": -7.739e-07,
+              "tol_m1": 0.0,
+              "tol_m2": 0.0,
+              "tol_m3": 0.0,
+              "tol_m4": 0.0
+            },
+            "raw_sha256": "7a103d5b99f8351e3178ee5e4806c466419aa269d5e5c8378019beb61948bf5d",
+            "samples": 27168
+          },
+          "original_inventory_unchanged": true,
+          "original_qualification_sha256": "a0f748cc56a7f8a54ec203b2a58aa6985966a340adf810978077294c1dc77257",
+          "original_root": "/var/tmp/icstudio-metal-linked-20261025-v1/linked-pilot-v1",
+          "producer_sha256": "3a48d4961f5a2e8e51198576c14849b0f792718d79b0124e4887985d5b94625b",
+          "raw_sha256": "7a103d5b99f8351e3178ee5e4806c466419aa269d5e5c8378019beb61948bf5d",
+          "schema": 1,
+          "scope": "Single transient numerical-accuracy development probe; no full suite, physical or release acceptance.",
+          "sole_numerical_change": "Explicit chgtol=1e-24 trtol=1; waveform, maxstep and fixed acceptance thresholds unchanged.",
+          "status": "PASS"
+        },
+        "path": "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/chunk7-metal-linked-20261025-v1/probe_transient_accuracy.json",
+        "sha256": "2cbf2375b499a857b1cf71683cf211bf890851cc5a9b08d94df0ea7cca4a0f6d"
+      },
+      "transient_failure_review": {
+        "bytes": 3200,
+        "data": {
+          "branches": {
+            "a_m1_g1_r0_m1": {
+              "actual": 0.0001075118086720715,
+              "analytic": 0.00010753129675902038,
+              "maximum_normalized_error": 0.4695216397050792,
+              "resistance_ohm": 0.31567624445436004,
+              "time_s": 6.738493726476228e-09
+            },
+            "a_m1_g1_r0_m3": {
+              "actual": 0.0002082606786594695,
+              "analytic": 0.00020832623485245654,
+              "maximum_normalized_error": 1.063097874535442,
+              "resistance_ohm": 0.10522541481812002,
+              "time_s": 6.184181582642897e-09
+            },
+            "a_m1_g1_r90_m1": {
+              "actual": 0.0001075118086720715,
+              "analytic": 0.00010753129675902038,
+              "maximum_normalized_error": 0.4695216397050792,
+              "resistance_ohm": 0.31567624445436004,
+              "time_s": 6.738493726476228e-09
+            },
+            "a_m1_g1_r90_m3": {
+              "actual": 0.0002082606786594695,
+              "analytic": 0.00020832623485245654,
+              "maximum_normalized_error": 1.063097874535442,
+              "resistance_ohm": 0.10522541481812002,
+              "time_s": 6.184181582642897e-09
+            },
+            "c_m1_g1_r0_m1": {
+              "actual": 0.0001075118086720715,
+              "analytic": 0.00010753129675902038,
+              "maximum_normalized_error": 0.4695216397050792,
+              "resistance_ohm": 0.31567624445436004,
+              "time_s": 6.738493726476228e-09
+            },
+            "c_m1_g1_r0_m3": {
+              "actual": 0.0002082606786594695,
+              "analytic": 0.00020832623485245654,
+              "maximum_normalized_error": 1.063097874535442,
+              "resistance_ohm": 0.10522541481812002,
+              "time_s": 6.184181582642897e-09
+            },
+            "c_m1_g1_r90_m1": {
+              "actual": 0.0001075118086720715,
+              "analytic": 0.00010753129675902038,
+              "maximum_normalized_error": 0.4695216397050792,
+              "resistance_ohm": 0.31567624445436004,
+              "time_s": 6.738493726476228e-09
+            },
+            "c_m1_g1_r90_m3": {
+              "actual": 0.0002082606786594695,
+              "analytic": 0.00020832623485245654,
+              "maximum_normalized_error": 1.063097874535442,
+              "resistance_ohm": 0.10522541481812002,
+              "time_s": 6.184181582642897e-09
+            },
+            "n_m1_g1_r0_m1": {
+              "actual": 0.0001075118086720715,
+              "analytic": 0.00010753129675902038,
+              "maximum_normalized_error": 0.4695216397050792,
+              "resistance_ohm": 0.31567624445436004,
+              "time_s": 6.738493726476228e-09
+            },
+            "n_m1_g1_r0_m3": {
+              "actual": 0.0002082606786594698,
+              "analytic": 0.00020832623485245654,
+              "maximum_normalized_error": 1.063097874530607,
+              "resistance_ohm": 0.10522541481812002,
+              "time_s": 6.184181582642897e-09
+            },
+            "n_m1_g1_r90_m1": {
+              "actual": 0.0001075118086720715,
+              "analytic": 0.00010753129675902038,
+              "maximum_normalized_error": 0.4695216397050792,
+              "resistance_ohm": 0.31567624445436004,
+              "time_s": 6.738493726476228e-09
+            },
+            "n_m1_g1_r90_m3": {
+              "actual": 0.0002082606786594698,
+              "analytic": 0.00020832623485245654,
+              "maximum_normalized_error": 1.063097874530607,
+              "resistance_ohm": 0.10522541481812002,
+              "time_s": 6.184181582642897e-09
+            }
+          },
+          "classification": "Read-only diagnostic; not acceptance or a tolerance change.",
+          "raw_sha256": "8b4b1925ff5aea07476d60d4c78a8efd05bc7817cfc563c14492882c3d5f2334",
+          "samples": 1596,
+          "schema": 1
+        },
+        "path": "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/chunk7-metal-linked-20261025-v1/review_transient_v1.json",
+        "sha256": "07b2f2e09e338824a867abc3d39d45d84437de949d354db3887bb8cffbe6470e"
+      }
+    },
+    "editor_pilot": "First pilot passed unrotated DRC/LVS but lacked imported stream label-to-port assignments needed by rotation; corrected pilot and full batch pass.",
+    "windows_feedback_v1": "Six failures plus one error: historical GF180 identity binding; repaired by original source snapshot.",
+    "windows_feedback_v2": "One of432 tests failed: old MiM lifecycle PDK installation final rename WinError5. Narrow Windows publication repair and final442-test source feedback now pass. Holder of original denial is unknown.",
+    "linux_feedback_attempts": "Original historical identity failure, then one omitted historical JSON in reused fixture; exact documentation closure repaired separately."
+  },
+  "remaining": [
+    "All287 available catalog entries remain partial; six required real device bindings remain unavailable.",
+    "Source-backed continuous geometry, voltage/current/power, temperature and reliability envelopes.",
+    "Contacts/vias/snakes/physical arrays and other declared geometry/process/tool classes.",
+    "Measured resistance/noise/statistical calibration and full distributed interconnect RC.",
+    "Exact installed Windows/Linux acceptance for these new editor and electrical recipes."
+  ],
+  "engineering_estimate": {
+    "percent": 65,
+    "range_percent": [
+      55,
+      75
+    ],
+    "confidence": "low",
+    "basis": "Delivered missing native editor functionality for five device types and completed four-model extracted-electrical integration, not the number of samples or tests."
+  },
+  "licensing": "New implementation and independent checks are project code under the existing GPL-3.0 license. Public PDK model bytes and retained upstream Apache notices are unchanged; no private rule package or service is used.",
+  "source_integration_acceptance": true,
+  "source_feedback": {
+    "status": "PASS",
+    "baseline": "6a9980bc83e7594d86b65034ff5b115b03cc14ef",
+    "platforms": {
+      "windows": {
+        "status": "PASS",
+        "tests": 442,
+        "skips": 16,
+        "seconds": 124.828,
+        "stages": [
+          {
+            "name": "unit-contracts",
+            "returncode": 0,
+            "elapsed_seconds": 71.828
+          },
+          {
+            "name": "release-contracts",
+            "returncode": 0,
+            "elapsed_seconds": 3.875
+          },
+          {
+            "name": "menu-smoke",
+            "returncode": 0,
+            "elapsed_seconds": 29.203
+          },
+          {
+            "name": "project-hub-smoke",
+            "returncode": 0,
+            "elapsed_seconds": 8.984
+          },
+          {
+            "name": "metal-resistor-editor-smoke",
+            "returncode": 0,
+            "elapsed_seconds": 8.86
+          }
+        ],
+        "syntax_files": 1350,
+        "source_bindings": 1365,
+        "source_metadata_commit": "6a9980bc83e7594d86b65034ff5b115b03cc14ef",
+        "report_sha256": "0cc36fe58f5d6723f6b50075db0292660322c56a871b6be5f2dc0600c7a425ec",
+        "source_identity_sha256": "fae8d1c353146b9411d693f7129e8db4afcea5907a5660543d4cf279e49eeb89",
+        "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\chunk7-metal-editor-20261025-v1\\windows-feedback-final-v3"
+      },
+      "linux": {
+        "status": "PASS",
+        "tests": 442,
+        "skips": 4,
+        "seconds": 55.642,
+        "stages": [
+          {
+            "name": "unit-contracts",
+            "returncode": 0,
+            "elapsed_seconds": 20.121
+          },
+          {
+            "name": "release-contracts",
+            "returncode": 0,
+            "elapsed_seconds": 1.619
+          },
+          {
+            "name": "menu-smoke",
+            "returncode": 0,
+            "elapsed_seconds": 23.177
+          },
+          {
+            "name": "project-hub-smoke",
+            "returncode": 0,
+            "elapsed_seconds": 3.574
+          },
+          {
+            "name": "metal-resistor-editor-smoke",
+            "returncode": 0,
+            "elapsed_seconds": 5.582
+          }
+        ],
+        "syntax_files": 1350,
+        "source_bindings": 1365,
+        "source_metadata_commit": "65614924f125200db068d66669af6fe102c71e45",
+        "report_sha256": "5f11c755c4e3ffbf64cad9e143e1e1db48900c30336343a681b2256ea65421e6",
+        "source_identity_sha256": "fae8d1c353146b9411d693f7129e8db4afcea5907a5660543d4cf279e49eeb89",
+        "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\chunk7-metal-linked-linux-20261025-v1\\linux-receipts\\combined-linux-final-v2"
+      }
+    },
+    "all_final_source_hashes_match": true,
+    "editor_native_to_final_source_delta": {
+      "icstudio/layout_topology.py": {
+        "executed": "04b8b2872826f9b73348d7a767f529ca3c33b813622f9531a0565c318fd40373",
+        "final": "9d120b9ad2d9c84f8e732b1b047c3cdd319f70baabaacf91364f5c9c45aa5b03"
+      },
+      "icstudio/pdks.py": {
+        "executed": "b1e25d33a6c1d81847972a9f3507e840ad1b541232120ea82c48f98994e2b77e",
+        "final": "6995cc171a286f425dc315fb316f1b2aa7bf25a21472cef15d7b9b73b7597340"
+      },
+      "scripts/audit_sky130_metal_resistors_linked.py": {
+        "executed": "edd2884b435520adda8f22f271b0e250bcab0581d6df45cdd851ebe659dc41b6",
+        "final": "a175a04a9a867fc790cfefa8ccd89d52f6f3329f9c3cf4bb13b6bbaa0f3ead7b"
+      },
+      "scripts/ci_feedback.py": {
+        "executed": "429ef6991f7c96894781b42fa980cf924666452aa3969d8cabfee80fbcae88b5",
+        "final": "cc4b5def33f76817a90c05c648a7d923f59f68d0a21cea597f0730ce1b538f0e"
+      },
+      "scripts/qualify_sky130_metal_resistors_linked.py": {
+        "executed": "8d0b20dce2eebca2e85c36790ba52ae87f256530198fb9d8d69ff1a91a884272",
+        "final": "6e798c1c657c9f18a63e32c29628c3ee6eb3ff7938dd4247f8dae70fd43c3218"
+      }
+    },
+    "linked_native_to_final_source_delta": [
+      {
+        "path": "icstudio/pdks.py",
+        "native_source_sha256": "b1e25d33a6c1d81847972a9f3507e840ad1b541232120ea82c48f98994e2b77e",
+        "final_source_sha256": "6995cc171a286f425dc315fb316f1b2aa7bf25a21472cef15d7b9b73b7597340"
+      },
+      {
+        "path": "scripts/ci_feedback.py",
+        "native_source_sha256": "429ef6991f7c96894781b42fa980cf924666452aa3969d8cabfee80fbcae88b5",
+        "final_source_sha256": "cc4b5def33f76817a90c05c648a7d923f59f68d0a21cea597f0730ce1b538f0e"
+      }
+    ],
+    "scope": "Native batches retain original exact sources. Final source feedback covers hierarchy spacing and Windows-only publication repair; all geometry/electrical generation and model/runtime identities are preserved as explicitly reviewed. Linux fixture Git metadata is historical; file manifest/deltas establish tested bytes."
+  },
+  "publication_repair": {
+    "review": {
+      "behavior": {
+        "attempts": 6,
+        "checks": "Recheck original path components, stage and registry identities, and absent destination before each attempt; never delete or merge destination.",
+        "non_windows": "unchanged single direct os.replace; no retry",
+        "operation": "os.rename (no overwrite)",
+        "persistent_and_unrelated_errors": "raise; no success claim",
+        "platform": "Windows only",
+        "retry_windows_errors": [
+          5,
+          32,
+          33
+        ],
+        "total_delay_seconds": 0.3
+      },
+      "evidence_treatment": "Original native acceptance and 842-source snapshot remain immutable. This later Windows-only publication change requires the final source-feedback lane; it is not represented as freshly executed native qualification.",
+      "focused_tests": {
+        "actual_controls": [
+          "Reader opened on a staged asset without FILE_SHARE_DELETE; directory rename denied, then successful after handle release.",
+          "Existing empty and nonempty destinations retained; competitor destination appearing after denial retained.",
+          "Real junction destination and junction introduced during retry rejected.",
+          "Verified install, local registration, persistent lock exhaustion, unrelated error preservation and existing long paths."
+        ],
+        "count": 14,
+        "log": "focused-windows-frozen.log",
+        "log_sha256": "90c44d1046e929e70cbf0fcf799e73cb688b7c5936f2017a4d137a7f91b36d16",
+        "seconds": 0.244,
+        "skip": "Windows symbolic-link privilege unavailable; actual ordinary-user junction protection passed.",
+        "skipped": 1
+      },
+      "observed_failure": {
+        "code": "WinError5",
+        "limitation": "The log does not establish which reader or operating-system component held the path.",
+        "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\chunk7-metal-editor-20261025-v1\\windows-feedback-final-v2\\unit-contracts.log",
+        "sha256": "c0dd4e9ce88f60ea804cb8821399e35e4cae30f9cb721a71c175d317e57fb531",
+        "stage": "PDKRegistry.install final staging-directory rename"
+      },
+      "retained_test_failures": [
+        "focused-windows-v1.log: restricted execution denied junction setup; initial zero-access directory handle did not block rename.",
+        "focused-windows-v2.log: ordinary junction setup passed; initial directory-handle fixture still did not block rename.",
+        "Fixture corrected to an actual staged-asset reader, then exact final focused suite passed."
+      ],
+      "schema": 1,
+      "scope": "Focused Windows verified-PDK directory publication robustness. Linux publication semantics and electrical/model staging functions are unchanged.",
+      "sources": {
+        "final_pdks_sha256": "6995cc171a286f425dc315fb316f1b2aa7bf25a21472cef15d7b9b73b7597340",
+        "original_native_pdks_sha256": "b1e25d33a6c1d81847972a9f3507e840ad1b541232120ea82c48f98994e2b77e",
+        "original_native_source_files_sha256": "c68a75cb6d2a498e29a235ec1a5ed8db2073f30ebfd587d140f759117804eddb",
+        "tests_sha256": "99518f711f12ca14546a06b65c943399a6bec67cd2e827983a84cbdb51885216",
+        "unchanged_function_asts": [
+          "model_lines",
+          "stage_model_deck"
+        ]
+      },
+      "status": "PASS"
+    },
+    "source_delta_review": {
+      "status": "PASS",
+      "base": "6a9980bc83e7594d86b65034ff5b115b03cc14ef",
+      "old_sha256": "b1e25d33a6c1d81847972a9f3507e840ad1b541232120ea82c48f98994e2b77e",
+      "new_sha256": "6995cc171a286f425dc315fb316f1b2aa7bf25a21472cef15d7b9b73b7597340",
+      "original_registry_ast_identical_except_two_publication_calls": true,
+      "all_original_top_level_functions_unchanged": true,
+      "non_windows_operation": "Exact original os.replace(io_path(stage),io_path(destination)); no retry.",
+      "scope": "Review of Windows-only publication repair; original native execution remains bound to original source snapshot.",
+      "review_script_sha256": "86729fe22ca410d899f82f1aed18e4869ba58d3a87a2826c672e58dbdc0622f7"
+    },
+    "scope": "Bounded Windows directory-publication retry only. Actual original error was WinError5; its external holder is unknown. Existing non-Windows operation remains unchanged."
+  },
+  "archive": {
+    "schema": 1,
+    "status": "PASS",
+    "archive": "/mnt/c/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/sky130-metal-editor-linked-2026-10-25-v1/evidence.zip",
+    "archive_sha256": "774c392bd55be672a892cefd6a753492dc9bbea2a88730c1651e0c3c0ab8cf97",
+    "archive_bytes": 93817109,
+    "manifest_sha256": "a171c3a4165bc332b93c4b3e7205f6f9bf7eff71c2f11fe39b8de383058c4c55",
+    "logical_files": 66920,
+    "logical_bytes": 4411685004,
+    "unique_local_objects": 5942,
+    "unique_verified_members": 11310,
+    "all_referenced_members_fully_read_back": true,
+    "dependency_sha256": "03a75a194d165ed5fad0486f5a9a1fec0a5daa7c751c23f72beb9a17c031d430",
+    "originals_removed": false,
+    "directory": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-metal-editor-linked-2026-10-25-v1",
+    "dependency": {
+      "path": "sky130-mim-passive-2026-10-23-v1/evidence.zip",
+      "sha256": "03a75a194d165ed5fad0486f5a9a1fec0a5daa7c751c23f72beb9a17c031d430"
+    },
+    "verification_receipt_sha256": "8c68a3ceb204992bc527804ac26addc92714e63c83c579e7442e56f6efc0e5ea",
+    "selected_restore": {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-metal-editor-linked-2026-10-25-v1\\post-seal\\restore-verification.json",
+      "sha256": "24900ce0514df9fb06071eddec0aa17beee73c1e5f9ed4f57ac9af2ccebbe572",
+      "result": {
+        "schema": 1,
+        "status": "PASS",
+        "archive_sha256": "774c392bd55be672a892cefd6a753492dc9bbea2a88730c1651e0c3c0ab8cf97",
+        "restore_method_sha256": "3a4c29225f6011ef0c03ad9666ec45356a8f8e69a920f463bb4364ad0ca56372",
+        "dependency": {
+          "passive": {
+            "path": "sky130-mim-passive-2026-10-23-v1/evidence.zip",
+            "sha256": "03a75a194d165ed5fad0486f5a9a1fec0a5daa7c751c23f72beb9a17c031d430"
+          }
+        },
+        "rows": [
+          {
+            "name": "primitive-sources",
+            "prefix": "native/linked-full-v1/engine-reference",
+            "files": 7,
+            "bytes": 77298,
+            "storage_sources": [
+              "passive",
+              "self"
+            ],
+            "command": [
+              "/usr/bin/python3",
+              "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/chunk7-metal-linked-linux-20261025-v1/restore_evidence.py",
+              "/mnt/c/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/sky130-metal-editor-linked-2026-10-25-v1/evidence.zip",
+              "native/linked-full-v1/engine-reference",
+              "/var/tmp/icstudio-metal-linked-archive-restore-20261025-v1/primitive-sources",
+              "--sha256",
+              "774c392bd55be672a892cefd6a753492dc9bbea2a88730c1651e0c3c0ab8cf97"
+            ],
+            "stdout": "{\"status\": \"PASS\", \"files\": 7, \"prefix\": \"native/linked-full-v1/engine-reference/\", \"output\": \"/var/tmp/icstudio-metal-linked-archive-restore-20261025-v1/primitive-sources\"}",
+            "exact_original_bytes": true
+          },
+          {
+            "name": "native-input",
+            "prefix": "native/linked-full-v1/physical/m1-w2-l5/physical-0/lvs-extraction",
+            "files": 5,
+            "bytes": 2951,
+            "storage_sources": [
+              "self"
+            ],
+            "command": [
+              "/usr/bin/python3",
+              "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/chunk7-metal-linked-linux-20261025-v1/restore_evidence.py",
+              "/mnt/c/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/sky130-metal-editor-linked-2026-10-25-v1/evidence.zip",
+              "native/linked-full-v1/physical/m1-w2-l5/physical-0/lvs-extraction",
+              "/var/tmp/icstudio-metal-linked-archive-restore-20261025-v1/native-input",
+              "--sha256",
+              "774c392bd55be672a892cefd6a753492dc9bbea2a88730c1651e0c3c0ab8cf97"
+            ],
+            "stdout": "{\"status\": \"PASS\", \"files\": 5, \"prefix\": \"native/linked-full-v1/physical/m1-w2-l5/physical-0/lvs-extraction/\", \"output\": \"/var/tmp/icstudio-metal-linked-archive-restore-20261025-v1/native-input\"}",
+            "exact_original_bytes": true
+          },
+          {
+            "name": "public-resistor-models",
+            "prefix": "native/linked-full-v1/original-package/libs.tech/ngspice/r+c",
+            "files": 10,
+            "bytes": 15308,
+            "storage_sources": [
+              "passive"
+            ],
+            "command": [
+              "/usr/bin/python3",
+              "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/chunk7-metal-linked-linux-20261025-v1/restore_evidence.py",
+              "/mnt/c/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/sky130-metal-editor-linked-2026-10-25-v1/evidence.zip",
+              "native/linked-full-v1/original-package/libs.tech/ngspice/r+c",
+              "/var/tmp/icstudio-metal-linked-archive-restore-20261025-v1/public-resistor-models",
+              "--sha256",
+              "774c392bd55be672a892cefd6a753492dc9bbea2a88730c1651e0c3c0ab8cf97"
+            ],
+            "stdout": "{\"status\": \"PASS\", \"files\": 10, \"prefix\": \"native/linked-full-v1/original-package/libs.tech/ngspice/r+c/\", \"output\": \"/var/tmp/icstudio-metal-linked-archive-restore-20261025-v1/public-resistor-models\"}",
+            "exact_original_bytes": true
+          }
+        ],
+        "restored_root": "/var/tmp/icstudio-metal-linked-archive-restore-20261025-v1",
+        "native_processes_run": false,
+        "originals_removed": false
+      }
+    }
+  }
+}

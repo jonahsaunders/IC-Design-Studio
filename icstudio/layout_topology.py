@@ -51,19 +51,21 @@ def _check_clearance(before, after, cid, graph=None):
         changed=[s for s in c['shapes'] if s!=old_shapes.get(s['id'])]
         errors=preview(after,cid,changed)+contact_findings(after,cid)
         if errors:raise ValueError(errors[0]['message'])
-    if not c.get('layout_instances'):
+    if not c.get('layout_instances') or after['pdk'].get('connectivity',{}).get('resistive_masks'):
         from .layout_graph import GeometryGraph,key
-        prior={s['id']:s for s in _cell(before,cid)['shapes']};db=kdb()
-        if graph is None:graph=GeometryGraph().sync(contact_shapes(after,cid,c['shapes']),after['pdk'])
+        after_shapes=flatten_layout(after,cid) if c.get('layout_instances') else c['shapes']
+        before_shapes=flatten_layout(before,cid) if _cell(before,cid).get('layout_instances') else _cell(before,cid)['shapes']
+        prior={key(s):s for s in before_shapes};db=kdb()
+        if graph is None:graph=GeometryGraph().sync(contact_shapes(after,cid,after_shapes),after['pdk'])
         spacing={l['name']:l['space'] for l in after['pdk']['layers']}
-        for s in c['shapes']:
-            ident=key(s)
-            if s==prior.get(s['id']) or ident not in graph.records:continue
-            row=graph.records[ident];space=spacing[s['layer']];box=row['box'];obstacles=db.Region()
-            for other in graph.query((box[0]-space,box[1]-space,box[2]+space,box[3]+space)):
-                target=graph.records[other]
-                if target['shape']['layer']==s['layer'] and graph.groups[other]!=graph.groups[ident]:obstacles.insert(target['poly'])
-            if not obstacles.is_empty() and not (row['region'] & obstacles.merged().sized(space)).is_empty():raise ValueError('The connected edit violates declared spacing. Reserve room for the adjusted leads.')
+        for s in after_shapes:
+            if s==prior.get(key(s)):continue
+            for ident in graph.source_keys.get(key(s),()):
+                row=graph.records[ident];space=spacing[s['layer']];box=row['box'];obstacles=db.Region()
+                for other in graph.query((box[0]-space,box[1]-space,box[2]+space,box[3]+space)):
+                    target=graph.records[other]
+                    if target['shape']['layer']==s['layer'] and graph.groups[other]!=graph.groups[ident]:obstacles.insert(target['poly'])
+                if not obstacles.is_empty() and not (row['region'] & obstacles.merged().sized(space)).is_empty():raise ValueError('The connected edit violates declared spacing. Reserve room for the adjusted leads.')
         return
     from .layout_routing import Geometry
     prior = {shape_key(s):s for s in flatten_layout(before,cid)}; groups = partition(after,cid)

@@ -1,0 +1,61 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "qualified": false,
+  "chunk_complete": false,
+  "system": "win32",
+  "python": "3.12.14",
+  "tests": 97,
+  "skips": [
+    [
+      "test_builder_normalizes_docker_system_links_before_publication (tests.test_digital_runtime.DigitalRuntimeTests.test_builder_normalizes_docker_system_links_before_publication)",
+      "Native tar symlink extraction is tested on Linux"
+    ],
+    [
+      "test_legacy_cleanup_rejects_symlinked_directory_and_parent (tests.test_digital_runtime.DigitalRuntimeTests.test_legacy_cleanup_rejects_symlinked_directory_and_parent)",
+      "Symlink creation may require Windows administrator permission"
+    ],
+    [
+      "test_native_flow_restores_scripts_after_windows_transfer (tests.test_digital_runtime.DigitalRuntimeTests.test_native_flow_restores_scripts_after_windows_transfer)",
+      "Unix executable permissions are restored inside Linux"
+    ],
+    [
+      "test_native_setup_rejects_symlinked_target_and_parent_before_integrity_repair (tests.test_digital_runtime.DigitalRuntimeTests.test_native_setup_rejects_symlinked_target_and_parent_before_integrity_repair)",
+      "Symlink creation may require Windows administrator permission"
+    ],
+    [
+      "test_native_supervisor_cancels_descendants_in_separate_sessions (tests.test_digital_runtime.DigitalRuntimeTests.test_native_supervisor_cancels_descendants_in_separate_sessions)",
+      "Process-tree supervision requires Linux procfs"
+    ],
+    [
+      "test_partial_cleanup_rejects_symlinked_directory_and_parent (tests.test_digital_runtime.DigitalRuntimeTests.test_partial_cleanup_rejects_symlinked_directory_and_parent)",
+      "Symlink creation may require Windows administrator permission"
+    ],
+    [
+      "test_retry_reclaims_partial_unpacking_after_worker_is_killed (tests.test_digital_runtime.DigitalRuntimeTests.test_retry_reclaims_partial_unpacking_after_worker_is_killed)",
+      "Native Linux unpacking lifecycle"
+    ]
+  ],
+  "failures": 0,
+  "errors": 0,
+  "source_files": {
+    "icstudio/digital_sky130_antenna.py": "4222e6a560bf5c52fd1e8df1b9da0ff968de83d9f94f38055b98a1868a9d2fab",
+    "scripts/prepare_sky130_antenna.py": "ddeb221e6a485d75ef2f95b8fcb4b541658af044ef33249ae9408d22cca33afe",
+    "scripts/sky130_staged_antenna.drc": "92b0378b845c81f2e5ec46918f894988f8648fd0a8f4482441de325aa3cc18fc",
+    "icstudio/digital_platform.py": "1b1d27ee5720df21a9d8015cb5722e2a9cb0cab054bbc2c3ef37de86f2811de2",
+    "icstudio/digital_flow.py": "00890dc2b8c4e46d479be02c4d087038493738284b773e092050276e9a08fe33",
+    "icstudio/digital_physical.py": "d4194806456c1ebacc16c6d118f00e32cf11493c1a4c97e632bc07825655c728",
+    "icstudio/digital_macro.py": "6b94f5dbf0f11b428b34926586044f803203037631e7f241f162c3ddd89bd9f9",
+    "scripts/build_digital_runtime.py": "9484c50e9a653e4bdaed8d8fae467b941673c3c3ea63ba5ba2f52f0ee469e0a9",
+    "packaging/digital/bundle_platforms.py": "198092baf3a91bf2979cf1258eaab27fe85c9c326ca070240c1104ab24b9ce82",
+    "tests/test_sky130_application_antenna.py": "d2867e0fabffc94fb849edab90b36916d0d53331a0b8eb37c5c92ca4728e393c",
+    "tests/test_sky130_application_rules.py": "c99c1f016d8cb98a4fc2cf4cafb2257d65cf497074fd60f9cf9b29dc2fe60977",
+    "tests/test_digital_macro.py": "702e186259abb9d8b9c9abdb2d59fd66d6b792795578cebd0599c05137ef9b33",
+    "tests/test_digital_physical_checks.py": "5db530c51c56d467ba9275e81f6a959dedf7980ce4145f9ef8096da135b6daa5",
+    "tests/test_digital_platforms.py": "f317f36da45f81dfbed7864de07133db84aa8f72193e703447abcfb705cd5abd",
+    "tests/test_digital_runtime.py": "33aa1b7dd1d3a50114121a3f9792530e05421c7c962f54c130c6cd88ad869392",
+    "tests/test_sky130_pins.py": "d72ec483990f6d87c98e56b62ca30ecba2c8fd47c599e5679f775016fa47680b"
+  },
+  "tests_sha256": "35fa3102c1574f8f1388104042fff4952340cc2910f0c44f1a4ed9c774f4fa99",
+  "driver_sha256": "3798f2775c6d27df25e83cceb783a3e150f7d2a4a9cf97fa010319b6596736a0"
+}

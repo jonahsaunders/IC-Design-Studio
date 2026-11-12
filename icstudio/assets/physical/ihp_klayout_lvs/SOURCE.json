@@ -1,0 +1,315 @@
+{
+  "schema": 1,
+  "repository": "IHP-GmbH/IHP-Open-PDK",
+  "commit": "5e6d592e4002946a4616f798c357f0f3c06cf3b6",
+  "license": "Apache-2.0",
+  "entry": "sg13g2.lvs",
+  "files": {
+    "rule_decks/bjt_connections.lvs": {
+      "sha256": "0b3f536a25d8b8d5b37dc5eeb8e1bc8554e78694bb4398f6dd48ac3d9e528c8c",
+      "git_blob_sha1": "a1cc56110458bfc21a067eb3721046d4fae63c0d",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/bjt_connections.lvs",
+      "bytes": 2055
+    },
+    "rule_decks/bjt_derivations.lvs": {
+      "sha256": "03fa1f8a2d22639d4e5e478fb89cdc818de8a45ee81fed7a2c799b95b5a94c0b",
+      "git_blob_sha1": "a6adfd7cc975e4f12cfeee36c19200a99a739eea",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/bjt_derivations.lvs",
+      "bytes": 4832
+    },
+    "rule_decks/bjt_extraction.lvs": {
+      "sha256": "8989e8263a6de8cb40077b5995b559fb938025fd991a3e4f7a52a7ab89d524a3",
+      "git_blob_sha1": "1f6397bddb217a68241344f50e5aa4c86d187fb3",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/bjt_extraction.lvs",
+      "bytes": 2912
+    },
+    "rule_decks/cap_cmomf_connections.lvs": {
+      "sha256": "6d62d634122eb8fe78f4f4382e9d1353d88c67aa6ce225ed46a76722d89fd80f",
+      "git_blob_sha1": "f0c285feaae3784dde1c2e9efa2a9d0ff15ce742",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/cap_cmomf_connections.lvs",
+      "bytes": 1788
+    },
+    "rule_decks/cap_cmomf_derivations.lvs": {
+      "sha256": "061c5e94be5cef7074f311d60196a2f39298978648f57151c18d3ac9f71caa1c",
+      "git_blob_sha1": "1ef6722f1b4dc5cb3b470d0651f788c79b3b0e5f",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/cap_cmomf_derivations.lvs",
+      "bytes": 2470
+    },
+    "rule_decks/cap_cmomi_connections.lvs": {
+      "sha256": "87bbea2850a7594859ddddae0b0db56bc4642bd0edc61ee7e89bef935fc8216b",
+      "git_blob_sha1": "c1297e23abc07df40cf47c0aa5abff9e403c335f",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/cap_cmomi_connections.lvs",
+      "bytes": 1690
+    },
+    "rule_decks/cap_cmomi_derivations.lvs": {
+      "sha256": "291f94fdd77012f381a6e0bc9eaa030889f01d8365a24f536d033f692b697786",
+      "git_blob_sha1": "8f48322da2bad31745ade6574b29f69816f1548e",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/cap_cmomi_derivations.lvs",
+      "bytes": 2107
+    },
+    "rule_decks/cap_connections.lvs": {
+      "sha256": "adba1f9e036ec47b6f431615c1538073aafbab51087ba57dee6b0080699face6",
+      "git_blob_sha1": "59e893c839d99b086baacce7dc7043f4b301062b",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/cap_connections.lvs",
+      "bytes": 1693
+    },
+    "rule_decks/cap_derivations.lvs": {
+      "sha256": "2122ca992df4983e32dda8e85fdffabab2bc90eed0cebc1372c4069c78ef1157",
+      "git_blob_sha1": "8cad95e839e28d9b5a5b0d8d494e2ce069caefa7",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/cap_derivations.lvs",
+      "bytes": 5585
+    },
+    "rule_decks/cap_extraction.lvs": {
+      "sha256": "ae5cd8746f7dd4772c7fa618ed09bf009bd394d801a19928ea3c9c0d6ab5b226",
+      "git_blob_sha1": "aa3af96aade98e9141de9b3e1d7d53573e23dd91",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/cap_extraction.lvs",
+      "bytes": 4245
+    },
+    "rule_decks/custom_bjt_extractor.lvs": {
+      "sha256": "0cd07122454e4ffefb702861e1c11bdc0cef779a9564649462bbb750d9b4229b",
+      "git_blob_sha1": "3669604ac66130613986ca30f43831711c12fa59",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/custom_bjt_extractor.lvs",
+      "bytes": 7000
+    },
+    "rule_decks/custom_classes.lvs": {
+      "sha256": "65eb31e73784b6d5df279b6e9f4a0beca378b4c0ddccc105f6c4312faf8215b1",
+      "git_blob_sha1": "d41ea44ba54b89c8d2ecc561f3cad8d8e1810f81",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/custom_classes.lvs",
+      "bytes": 1722
+    },
+    "rule_decks/custom_combiner.lvs": {
+      "sha256": "2e9f341023b96ab64ef83110d0a57d5f8be8a6906e67db60edbb62cfadeed56d",
+      "git_blob_sha1": "384b1cfd8834ae7bdb4c6d31ad35fb7a7a4b3eca",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/custom_combiner.lvs",
+      "bytes": 7691
+    },
+    "rule_decks/custom_devices.lvs": {
+      "sha256": "b062c2ed0bb15a41fd21b38e5e6e74a1a5cf3abf463f8535b946a2f662453b63",
+      "git_blob_sha1": "1ed5563a1fa246c031cf47689a193e219ceae5db",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/custom_devices.lvs",
+      "bytes": 7436
+    },
+    "rule_decks/custom_extractor.lvs": {
+      "sha256": "6bde15ff3d3702eac7ab372c74b21752c179b66c21c076350d258397986fc8ba",
+      "git_blob_sha1": "fc112c13942649cdeae3d7b40240484a0e6dd038",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/custom_extractor.lvs",
+      "bytes": 15226
+    },
+    "rule_decks/custom_isolbox_extractor.lvs": {
+      "sha256": "1ca2293fa3c5c45f04c15e277b0b1fa0ac21735e0504911269580e4afd77499e",
+      "git_blob_sha1": "248b964893db0aedca4f450f2cffdb1501fa4e14",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/custom_isolbox_extractor.lvs",
+      "bytes": 3249
+    },
+    "rule_decks/custom_mim_extractor.lvs": {
+      "sha256": "2e4a47be7bf2ec9ba87611e2ab32e97d5369f726ded328d2e291d94e845f40dd",
+      "git_blob_sha1": "7f97d4d6236859719e8ee8ae40cdc27f4e09e1fd",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/custom_mim_extractor.lvs",
+      "bytes": 9197
+    },
+    "rule_decks/custom_mom_extractor.lvs": {
+      "sha256": "c59d8439058eb434ec0feb2ea495f6e78e5fcbefd51072e50db4b47254624ca7",
+      "git_blob_sha1": "12387c78c48dfff1f40b3d10c644a3423cc6d95e",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/custom_mom_extractor.lvs",
+      "bytes": 6985
+    },
+    "rule_decks/custom_moscap_extractor.lvs": {
+      "sha256": "47ab35e77bcf6bdc807ca93ec8b9b5fd9ebabfb7ba5a3c4214a311f560998255",
+      "git_blob_sha1": "05a6eb8bfc7713fcd6de8b484f8311ed42af9e66",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/custom_moscap_extractor.lvs",
+      "bytes": 4115
+    },
+    "rule_decks/custom_reader.lvs": {
+      "sha256": "c71b6713d8a62055d3d8e9e75a7f5f78140001bf76e3fa573b9883fab5e49f06",
+      "git_blob_sha1": "71b579407b618fde868457825bfe44bf952fdda0",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/custom_reader.lvs",
+      "bytes": 23322
+    },
+    "rule_decks/custom_writer.lvs": {
+      "sha256": "bada63cfda80316f64ffbd1f6ed2a9cc06cd337b7244fe7d608ae4a20dfc0c36",
+      "git_blob_sha1": "9725a7bd7717be1ac00f98f83ff493f4461e2750",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/custom_writer.lvs",
+      "bytes": 4320
+    },
+    "rule_decks/devices_connections.lvs": {
+      "sha256": "f8ddc90801d104b0a517ca90773c7f03b13b95f4bac95b77ebcf96f53513801b",
+      "git_blob_sha1": "0d9c923fbc51997add381aaf8977ff5879a110c7",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/devices_connections.lvs",
+      "bytes": 2447
+    },
+    "rule_decks/diode_connections.lvs": {
+      "sha256": "a55896d567a14240ae33faa8799daed545b06bd777245c3731fa4c632e9833f3",
+      "git_blob_sha1": "9de8251cdc3e4a0b7f233f9511efaf3fd80a47c4",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/diode_connections.lvs",
+      "bytes": 1419
+    },
+    "rule_decks/diode_derivations.lvs": {
+      "sha256": "aa366ee04f0ab5030131d12d26e421c9bdf7dc4d7b0840f0ac43309557b411bf",
+      "git_blob_sha1": "9137c05b2191b695c80746a60fa00872258676fe",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/diode_derivations.lvs",
+      "bytes": 3443
+    },
+    "rule_decks/diode_extraction.lvs": {
+      "sha256": "9d060ddb655bf8fce7363aabb02800ffe8138b745aa9cff724b34c248770e006",
+      "git_blob_sha1": "03e8bdb19caa6303b6ed195cec3134b0d8f037fc",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/diode_extraction.lvs",
+      "bytes": 2103
+    },
+    "rule_decks/esd_connections.lvs": {
+      "sha256": "cdd0aad08c99bfdda7f38ced6a87531192bb4e2051e84c8fb6a6cb35f782f27c",
+      "git_blob_sha1": "6a0c5cb934e665450a24666c32c3b1630e971a7b",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/esd_connections.lvs",
+      "bytes": 3287
+    },
+    "rule_decks/esd_derivations.lvs": {
+      "sha256": "b1c584735c3228bb6abb178da577d1495debb15669748f5879c9261710757ffd",
+      "git_blob_sha1": "b879d183c18620797e9fdc5a221a26e66469bf7d",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/esd_derivations.lvs",
+      "bytes": 7217
+    },
+    "rule_decks/esd_extraction.lvs": {
+      "sha256": "93a26d226548c5a4b871f5016de21ce812eca1d561af781f2909521659d82a86",
+      "git_blob_sha1": "3e502961676a912fd5dc1a9a20d68b18e3ee7cfd",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/esd_extraction.lvs",
+      "bytes": 5775
+    },
+    "rule_decks/general_connections.lvs": {
+      "sha256": "bb61656b3564cf08558b83cf27d09854049eb30b5b7ade6610045d43c4b53e97",
+      "git_blob_sha1": "19131bfbfacae60ae15c2db97143836a09415852",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/general_connections.lvs",
+      "bytes": 2112
+    },
+    "rule_decks/general_derivations.lvs": {
+      "sha256": "d386598b10809388bfa690644b5a6a8f49c532b9d04caf9d2d014f4de12db043",
+      "git_blob_sha1": "6faccdb756786a0e94f01868b3dbac89b7774131",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/general_derivations.lvs",
+      "bytes": 4311
+    },
+    "rule_decks/globals.lvs": {
+      "sha256": "170fe4fd4b796a1a4db9626506c304fb5c01716070a0ae1903166d75470ed758",
+      "git_blob_sha1": "d7af33d662a79c876cf929a0e97d8960320307c3",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/globals.lvs",
+      "bytes": 3010
+    },
+    "rule_decks/ind_connections.lvs": {
+      "sha256": "05682e9e05c6a18bc67b512276e0d6b5bb90c051e4982dab44a7a3bc34a33b92",
+      "git_blob_sha1": "b615d09951ddfeac78e992c8b01447bd31aa2044",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/ind_connections.lvs",
+      "bytes": 1468
+    },
+    "rule_decks/ind_derivations.lvs": {
+      "sha256": "af116ba0df67f771852bc4f6e68e480ce3fb356aced52348636b0171512c3da5",
+      "git_blob_sha1": "c4ec50af1a983f29ded1575187f5569ad32b623c",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/ind_derivations.lvs",
+      "bytes": 3932
+    },
+    "rule_decks/ind_extraction.lvs": {
+      "sha256": "bcf182be57689e2571d3748973bad31b4e084837faf3cbcc3a9a72c6acc63a2a",
+      "git_blob_sha1": "34c8e1daf459cc8c26cf32f33f9c715d582d5bfc",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/ind_extraction.lvs",
+      "bytes": 1645
+    },
+    "rule_decks/layers_definitions.lvs": {
+      "sha256": "2165a344d178eff60c2c79ad73108d74b8a1d2b1a5183e8b3492aa249887e58c",
+      "git_blob_sha1": "7a0659b19e02fd83a37f2cf3868cba7a7b620641",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/layers_definitions.lvs",
+      "bytes": 43846
+    },
+    "rule_decks/mos_connections.lvs": {
+      "sha256": "f53e17c1f315f49fc973b8ec949ae343e2bb99c2862a51acdaa3f37f49907770",
+      "git_blob_sha1": "ca676a72d86a701ba1daddbf53b2053b0f7708c3",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/mos_connections.lvs",
+      "bytes": 951
+    },
+    "rule_decks/mos_derivations.lvs": {
+      "sha256": "ec4ea7cd367ad32d83ebb64234967b13c3dc4c0482570722e8c0a48135b90828",
+      "git_blob_sha1": "d328c9246cabc6352a0ba1e3988313d4f8a56a28",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/mos_derivations.lvs",
+      "bytes": 3249
+    },
+    "rule_decks/mos_extraction.lvs": {
+      "sha256": "dea4df60fced945fb182e2d2e511a73b6b2863d70acfbbb9875e8535bc0caa49",
+      "git_blob_sha1": "a6275d1052b0ca1d7fdda13bcc3cb82640999881",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/mos_extraction.lvs",
+      "bytes": 2377
+    },
+    "rule_decks/res_connections.lvs": {
+      "sha256": "a42d02de14a62c239850946bd0f1831408b9076ee43c5a38bb261c72659bc448",
+      "git_blob_sha1": "627c1869cc4d4e7c45c2f0d82e07d6cf7a3c4861",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/res_connections.lvs",
+      "bytes": 1393
+    },
+    "rule_decks/res_derivations.lvs": {
+      "sha256": "3c32e371d71ddbb7190769db6aac4676d65f75eff1ca994fbf720ceb06255754",
+      "git_blob_sha1": "dd9e53c8c2e1eac1476f8dc4bf3a2e52095722b0",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/res_derivations.lvs",
+      "bytes": 2724
+    },
+    "rule_decks/res_extraction.lvs": {
+      "sha256": "f3913114d4eafc36f6baf8c47a5de4867270e41955572af7f25c5f498ccec4b1",
+      "git_blob_sha1": "2086dd253cf869b71d0597c36e13f2d8145ce321",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/res_extraction.lvs",
+      "bytes": 3606
+    },
+    "rule_decks/rfmos_connections.lvs": {
+      "sha256": "88d8335742119b8b88811f408defb789cc8fbde2c910c1deb33d9a4837a5b2d3",
+      "git_blob_sha1": "2245c9e41ba02fa9b453adb56036669f7d6f35de",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/rfmos_connections.lvs",
+      "bytes": 954
+    },
+    "rule_decks/rfmos_derivations.lvs": {
+      "sha256": "5ae022be71ec90487ebf4636820563bc665815dfc12a36068b331d9571f54677",
+      "git_blob_sha1": "87a0f0a3f9902b3734781e56643a40673a5e31c6",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/rfmos_derivations.lvs",
+      "bytes": 1422
+    },
+    "rule_decks/rfmos_extraction.lvs": {
+      "sha256": "114bafea13d39aff60411442efb768f45b9460068b0fa25f85e36762ee89e3cd",
+      "git_blob_sha1": "37a20a491d52a15e04666109cc1c857d72ae32fd",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/rfmos_extraction.lvs",
+      "bytes": 2510
+    },
+    "rule_decks/rfmos_model_mapping.lvs": {
+      "sha256": "effbefbe9c0007bc2df0d23e1ebb7585487a6bf6dc0a7e11c4167765fee8d33f",
+      "git_blob_sha1": "ab680d4578b9a13b728471c8d4683ed2a2d18a97",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/rfmos_model_mapping.lvs",
+      "bytes": 4689
+    },
+    "rule_decks/sram_integration.lvs": {
+      "sha256": "447e02305b8896fde8b3ce71de31a686775953695322b88298f04949b4f123de",
+      "git_blob_sha1": "be9f9276e1c96ace0b5c4ede9e090201040a59b5",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/sram_integration.lvs",
+      "bytes": 1975
+    },
+    "rule_decks/tap_connections.lvs": {
+      "sha256": "b78c5b3cf4e328c915d52f210c6457790ec7ef56eb08d88dedb825ca3bc59b3b",
+      "git_blob_sha1": "dfadb8379d745d2e812277c958b2f5b139f44b37",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/tap_connections.lvs",
+      "bytes": 1500
+    },
+    "rule_decks/tap_derivations.lvs": {
+      "sha256": "b6e9ff382b6f8c392ab699d09832ea7e0ad120bc1b35b51a778e8b188b0ce6c2",
+      "git_blob_sha1": "986335ca258e474b198f585ef4d2ca5fcd497894",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/tap_derivations.lvs",
+      "bytes": 2099
+    },
+    "rule_decks/tap_extraction.lvs": {
+      "sha256": "e17c779eacdcab3bfa2287ca265d7836dde0e9e7fec4b4e7bf79bf2b2dd9120b",
+      "git_blob_sha1": "d664c91d3177cf09cd07241f7b6d7f6f299536e9",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/tap_extraction.lvs",
+      "bytes": 2254
+    },
+    "sg13g2.lvs": {
+      "sha256": "866c32c88e6e3fbf25fefaf2c19bb710cfce74645a313d91ec06ae05aa051c10",
+      "git_blob_sha1": "c57e34fc71625a4391348c0ce0e8ac1c8695b191",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/sg13g2.lvs",
+      "bytes": 16626
+    },
+    "LICENSE": {
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "bytes": 11357,
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/LICENSE"
+    }
+  },
+  "modified_upstream_files": false
+}

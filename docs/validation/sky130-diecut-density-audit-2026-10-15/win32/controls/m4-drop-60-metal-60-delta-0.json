@@ -1,0 +1,673 @@
+{
+  "schema": 1,
+  "recipe": "sky130-waffle-window-predicates-v1",
+  "source": {
+    "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+    "files": {
+      "docs/rules/periphery/p038-m1_dotdash.csv": "3cd3bb93c13b72f75113ac4fa78e344ae185cf758c489858323fddc0273a5675",
+      "docs/rules/periphery/p040-m2_dotdash.csv": "edd28e2d9e3740575bf9e44df7dd31ab6443b376ff6e8978c2b9210647a5d24e",
+      "docs/rules/periphery/p042-m3_dotdash.csv": "6dc78a855fd347f0c9c0625316cbbadd7c2923a14b5552ce505b62df12639f55",
+      "docs/rules/periphery/p044-m4_dotdash.csv": "f25981fd9accb2426482320aa5c648c718f418c7a17546de0265c122565cef06",
+      "docs/rules/errors.csv": "d613c19c0f5de3938980ce98b0e50e0cfb9b537b2cfdb32a3b9b4b03236ef9ed",
+      "docs/rules/gds_layers.csv": "a424c152e2d300992f743f17abdb6fb72402c4c9a4bbdcdbab439757fd0c89b5"
+    },
+    "native_fill": {
+      "path": "tests/fixtures/sky130-metal-width-native.tech",
+      "sha256": "5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e"
+    }
+  },
+  "scope": "Six independent required waffle-drop predicates per metal m1-m4, with exact integer-area comparisons on explicitly supplied 700 by 700 um windows. Drawing and native fill are unioned before intersection; holes, overlapping shapes and hierarchy are preserved. These are numerical observations of drawn-plus-fill metal, not an oxide metric or acceptance of a generated final mask. No window origin, step, boundary clipping or small-cell exclusion is inferred. Nonempty drop operands remain unreviewed even when every sampled window passes, or no full window is supplied. Only an empty raw drop layer proves the corresponding 12 catalog antecedents absent everywhere. No previously absent catalog records become newly executed from these observations.",
+  "qualified": false,
+  "chunk_complete": false,
+  "acceptance_established": false,
+  "top": "control",
+  "gds_sha256": "cde891276cf05109c8be04e49d12cc0334b207162e8917698c0d7c0ee55aea61",
+  "measurements": {
+    "windows_nm": [
+      [
+        0,
+        0,
+        700000,
+        700000
+      ]
+    ],
+    "layers": {
+      "m1": {
+        "raw_drop_shapes": 0,
+        "drop_texts": 0,
+        "samples": [
+          {
+            "drop_area_nm2": 0,
+            "metal_area_nm2": 0
+          }
+        ]
+      },
+      "m2": {
+        "raw_drop_shapes": 0,
+        "drop_texts": 0,
+        "samples": [
+          {
+            "drop_area_nm2": 0,
+            "metal_area_nm2": 0
+          }
+        ]
+      },
+      "m3": {
+        "raw_drop_shapes": 0,
+        "drop_texts": 0,
+        "samples": [
+          {
+            "drop_area_nm2": 0,
+            "metal_area_nm2": 0
+          }
+        ]
+      },
+      "m4": {
+        "raw_drop_shapes": 1,
+        "drop_texts": 0,
+        "samples": [
+          {
+            "drop_area_nm2": 294000000000,
+            "metal_area_nm2": 294000000000
+          }
+        ]
+      }
+    }
+  },
+  "rows": [
+    {
+      "id": "r1210",
+      "rule": "m1.x.1",
+      "disposition": "absent-operand",
+      "reason": "empty-raw-waffle-drop"
+    },
+    {
+      "id": "s44",
+      "rule": "m1.x.1",
+      "disposition": "absent-operand",
+      "reason": "empty-raw-waffle-drop"
+    },
+    {
+      "id": "r1211",
+      "rule": "m1.x.1",
+      "disposition": "absent-operand",
+      "reason": "empty-raw-waffle-drop"
+    },
+    {
+      "id": "s45",
+      "rule": "m1.x.1",
+      "disposition": "absent-operand",
+      "reason": "empty-raw-waffle-drop"
+    },
+    {
+      "id": "r1212",
+      "rule": "m1.x.1",
+      "disposition": "absent-operand",
+      "reason": "empty-raw-waffle-drop"
+    },
+    {
+      "id": "s46",
+      "rule": "m1.x.1",
+      "disposition": "absent-operand",
+      "reason": "empty-raw-waffle-drop"
+    },
+    {
+      "id": "r1213",
+      "rule": "m1.x.1",
+      "disposition": "absent-operand",
+      "reason": "empty-raw-waffle-drop"
+    },
+    {
+      "id": "s47",
+      "rule": "m1.x.1",
+      "disposition": "absent-operand",
+      "reason": "empty-raw-waffle-drop"
+    },
+    {
+      "id": "r1214",
+      "rule": "m1.x.1",
+      "disposition": "absent-operand",
+      "reason": "empty-raw-waffle-drop"
+    },
+    {
+      "id": "s48",
+      "rule": "m1.x.1",
+      "disposition": "absent-operand",
+      "reason": "empty-raw-waffle-drop"
+    },
+    {
+      "id": "r1215",
+      "rule": "m1.x.1",
+      "disposition": "absent-operand",
+      "reason": "empty-raw-waffle-drop"
+    },
+    {
+      "id": "s49",
+      "rule": "m1.x.1",
+      "disposition": "absent-operand",
+      "reason": "empty-raw-waffle-drop"
+    },
+    {
+      "id": "r1216",
+      "rule": "m2.x.1",
+      "disposition": "absent-operand",
+      "reason": "empty-raw-waffle-drop"
+    },
+    {
+      "id": "s50",
+      "rule": "m2.x.1",
+      "disposition": "absent-operand",
+      "reason": "empty-raw-waffle-drop"
+    },
+    {
+      "id": "r1217",
+      "rule": "m2.x.1",
+      "disposition": "absent-operand",
+      "reason": "empty-raw-waffle-drop"
+    },
+    {
+      "id": "s51",
+      "rule": "m2.x.1",
+      "disposition": "absent-operand",
+      "reason": "empty-raw-waffle-drop"
+    },
+    {
+      "id": "r1218",
+      "rule": "m2.x.1",
+      "disposition": "absent-operand",
+      "reason": "empty-raw-waffle-drop"
+    },
+    {
+      "id": "s52",
+      "rule": "m2.x.1",
+      "disposition": "absent-operand",
+      "reason": "empty-raw-waffle-drop"
+    },
+    {
+      "id": "r1219",
+      "rule": "m2.x.1",
+      "disposition": "absent-operand",
+      "reason": "empty-raw-waffle-drop"
+    },
+    {
+      "id": "s53",
+      "rule": "m2.x.1",
+      "disposition": "absent-operand",
+      "reason": "empty-raw-waffle-drop"
+    },
+    {
+      "id": "r1220",
+      "rule": "m2.x.1",
+      "disposition": "absent-operand",
+      "reason": "empty-raw-waffle-drop"
+    },
+    {
+      "id": "s54",
+      "rule": "m2.x.1",
+      "disposition": "absent-operand",
+      "reason": "empty-raw-waffle-drop"
+    },
+    {
+      "id": "r1221",
+      "rule": "m2.x.1",
+      "disposition": "absent-operand",
+      "reason": "empty-raw-waffle-drop"
+    },
+    {
+      "id": "s55",
+      "rule": "m2.x.1",
+      "disposition": "absent-operand",
+      "reason": "empty-raw-waffle-drop"
+    },
+    {
+      "id": "r1222",
+      "rule": "m3.x.1",
+      "disposition": "absent-operand",
+      "reason": "empty-raw-waffle-drop"
+    },
+    {
+      "id": "s56",
+      "rule": "m3.x.1",
+      "disposition": "absent-operand",
+      "reason": "empty-raw-waffle-drop"
+    },
+    {
+      "id": "r1223",
+      "rule": "m3.x.1",
+      "disposition": "absent-operand",
+      "reason": "empty-raw-waffle-drop"
+    },
+    {
+      "id": "s57",
+      "rule": "m3.x.1",
+      "disposition": "absent-operand",
+      "reason": "empty-raw-waffle-drop"
+    },
+    {
+      "id": "r1224",
+      "rule": "m3.x.1",
+      "disposition": "absent-operand",
+      "reason": "empty-raw-waffle-drop"
+    },
+    {
+      "id": "s58",
+      "rule": "m3.x.1",
+      "disposition": "absent-operand",
+      "reason": "empty-raw-waffle-drop"
+    },
+    {
+      "id": "r1225",
+      "rule": "m3.x.1",
+      "disposition": "absent-operand",
+      "reason": "empty-raw-waffle-drop"
+    },
+    {
+      "id": "s59",
+      "rule": "m3.x.1",
+      "disposition": "absent-operand",
+      "reason": "empty-raw-waffle-drop"
+    },
+    {
+      "id": "r1226",
+      "rule": "m3.x.1",
+      "disposition": "absent-operand",
+      "reason": "empty-raw-waffle-drop"
+    },
+    {
+      "id": "s60",
+      "rule": "m3.x.1",
+      "disposition": "absent-operand",
+      "reason": "empty-raw-waffle-drop"
+    },
+    {
+      "id": "r1227",
+      "rule": "m3.x.1",
+      "disposition": "absent-operand",
+      "reason": "empty-raw-waffle-drop"
+    },
+    {
+      "id": "s61",
+      "rule": "m3.x.1",
+      "disposition": "absent-operand",
+      "reason": "empty-raw-waffle-drop"
+    },
+    {
+      "id": "r1228",
+      "rule": "m4.x.1",
+      "disposition": "unreviewed",
+      "reason": "window-and-cell-policy-unqualified"
+    },
+    {
+      "id": "s62",
+      "rule": "m4.x.1",
+      "disposition": "unreviewed",
+      "reason": "window-and-cell-policy-unqualified"
+    },
+    {
+      "id": "r1229",
+      "rule": "m4.x.1",
+      "disposition": "unreviewed",
+      "reason": "window-and-cell-policy-unqualified"
+    },
+    {
+      "id": "s63",
+      "rule": "m4.x.1",
+      "disposition": "unreviewed",
+      "reason": "window-and-cell-policy-unqualified"
+    },
+    {
+      "id": "r1230",
+      "rule": "m4.x.1",
+      "disposition": "unreviewed",
+      "reason": "window-and-cell-policy-unqualified"
+    },
+    {
+      "id": "s64",
+      "rule": "m4.x.1",
+      "disposition": "unreviewed",
+      "reason": "window-and-cell-policy-unqualified"
+    },
+    {
+      "id": "r1231",
+      "rule": "m4.x.1",
+      "disposition": "unreviewed",
+      "reason": "window-and-cell-policy-unqualified"
+    },
+    {
+      "id": "s65",
+      "rule": "m4.x.1",
+      "disposition": "unreviewed",
+      "reason": "window-and-cell-policy-unqualified"
+    },
+    {
+      "id": "r1232",
+      "rule": "m4.x.1",
+      "disposition": "unreviewed",
+      "reason": "window-and-cell-policy-unqualified"
+    },
+    {
+      "id": "s66",
+      "rule": "m4.x.1",
+      "disposition": "unreviewed",
+      "reason": "window-and-cell-policy-unqualified"
+    },
+    {
+      "id": "r1233",
+      "rule": "m4.x.1",
+      "disposition": "unreviewed",
+      "reason": "window-and-cell-policy-unqualified"
+    },
+    {
+      "id": "s67",
+      "rule": "m4.x.1",
+      "disposition": "unreviewed",
+      "reason": "window-and-cell-policy-unqualified"
+    }
+  ],
+  "unreviewed": 12,
+  "observations": {
+    "m1": [
+      {
+        "bounds_nm": [
+          0,
+          0,
+          700000,
+          700000
+        ],
+        "area_nm2": 490000000000,
+        "drop_area_nm2": 0,
+        "metal_area_nm2": 0,
+        "predicates": [
+          {
+            "coverage_percent": [
+              100,
+              100
+            ],
+            "minimum_metal_percent": 70,
+            "antecedent": false,
+            "below_minimum": true,
+            "triggered": false
+          },
+          {
+            "coverage_percent": [
+              80,
+              100
+            ],
+            "minimum_metal_percent": 65,
+            "antecedent": false,
+            "below_minimum": true,
+            "triggered": false
+          },
+          {
+            "coverage_percent": [
+              60,
+              80
+            ],
+            "minimum_metal_percent": 60,
+            "antecedent": false,
+            "below_minimum": true,
+            "triggered": false
+          },
+          {
+            "coverage_percent": [
+              50,
+              60
+            ],
+            "minimum_metal_percent": 50,
+            "antecedent": false,
+            "below_minimum": true,
+            "triggered": false
+          },
+          {
+            "coverage_percent": [
+              40,
+              50
+            ],
+            "minimum_metal_percent": 40,
+            "antecedent": false,
+            "below_minimum": true,
+            "triggered": false
+          },
+          {
+            "coverage_percent": [
+              30,
+              40
+            ],
+            "minimum_metal_percent": 30,
+            "antecedent": false,
+            "below_minimum": true,
+            "triggered": false
+          }
+        ]
+      }
+    ],
+    "m2": [
+      {
+        "bounds_nm": [
+          0,
+          0,
+          700000,
+          700000
+        ],
+        "area_nm2": 490000000000,
+        "drop_area_nm2": 0,
+        "metal_area_nm2": 0,
+        "predicates": [
+          {
+            "coverage_percent": [
+              100,
+              100
+            ],
+            "minimum_metal_percent": 70,
+            "antecedent": false,
+            "below_minimum": true,
+            "triggered": false
+          },
+          {
+            "coverage_percent": [
+              80,
+              100
+            ],
+            "minimum_metal_percent": 65,
+            "antecedent": false,
+            "below_minimum": true,
+            "triggered": false
+          },
+          {
+            "coverage_percent": [
+              60,
+              80
+            ],
+            "minimum_metal_percent": 60,
+            "antecedent": false,
+            "below_minimum": true,
+            "triggered": false
+          },
+          {
+            "coverage_percent": [
+              50,
+              60
+            ],
+            "minimum_metal_percent": 50,
+            "antecedent": false,
+            "below_minimum": true,
+            "triggered": false
+          },
+          {
+            "coverage_percent": [
+              40,
+              50
+            ],
+            "minimum_metal_percent": 40,
+            "antecedent": false,
+            "below_minimum": true,
+            "triggered": false
+          },
+          {
+            "coverage_percent": [
+              30,
+              40
+            ],
+            "minimum_metal_percent": 30,
+            "antecedent": false,
+            "below_minimum": true,
+            "triggered": false
+          }
+        ]
+      }
+    ],
+    "m3": [
+      {
+        "bounds_nm": [
+          0,
+          0,
+          700000,
+          700000
+        ],
+        "area_nm2": 490000000000,
+        "drop_area_nm2": 0,
+        "metal_area_nm2": 0,
+        "predicates": [
+          {
+            "coverage_percent": [
+              100,
+              100
+            ],
+            "minimum_metal_percent": 70,
+            "antecedent": false,
+            "below_minimum": true,
+            "triggered": false
+          },
+          {
+            "coverage_percent": [
+              80,
+              100
+            ],
+            "minimum_metal_percent": 65,
+            "antecedent": false,
+            "below_minimum": true,
+            "triggered": false
+          },
+          {
+            "coverage_percent": [
+              60,
+              80
+            ],
+            "minimum_metal_percent": 60,
+            "antecedent": false,
+            "below_minimum": true,
+            "triggered": false
+          },
+          {
+            "coverage_percent": [
+              50,
+              60
+            ],
+            "minimum_metal_percent": 50,
+            "antecedent": false,
+            "below_minimum": true,
+            "triggered": false
+          },
+          {
+            "coverage_percent": [
+              40,
+              50
+            ],
+            "minimum_metal_percent": 40,
+            "antecedent": false,
+            "below_minimum": true,
+            "triggered": false
+          },
+          {
+            "coverage_percent": [
+              30,
+              40
+            ],
+            "minimum_metal_percent": 30,
+            "antecedent": false,
+            "below_minimum": true,
+            "triggered": false
+          }
+        ]
+      }
+    ],
+    "m4": [
+      {
+        "bounds_nm": [
+          0,
+          0,
+          700000,
+          700000
+        ],
+        "area_nm2": 490000000000,
+        "drop_area_nm2": 294000000000,
+        "metal_area_nm2": 294000000000,
+        "predicates": [
+          {
+            "coverage_percent": [
+              100,
+              100
+            ],
+            "minimum_metal_percent": 70,
+            "antecedent": false,
+            "below_minimum": true,
+            "triggered": false
+          },
+          {
+            "coverage_percent": [
+              80,
+              100
+            ],
+            "minimum_metal_percent": 65,
+            "antecedent": false,
+            "below_minimum": true,
+            "triggered": false
+          },
+          {
+            "coverage_percent": [
+              60,
+              80
+            ],
+            "minimum_metal_percent": 60,
+            "antecedent": true,
+            "below_minimum": false,
+            "triggered": false
+          },
+          {
+            "coverage_percent": [
+              50,
+              60
+            ],
+            "minimum_metal_percent": 50,
+            "antecedent": true,
+            "below_minimum": false,
+            "triggered": false
+          },
+          {
+            "coverage_percent": [
+              40,
+              50
+            ],
+            "minimum_metal_percent": 40,
+            "antecedent": false,
+            "below_minimum": false,
+            "triggered": false
+          },
+          {
+            "coverage_percent": [
+              30,
+              40
+            ],
+            "minimum_metal_percent": 30,
+            "antecedent": false,
+            "below_minimum": false,
+            "triggered": false
+          }
+        ]
+      }
+    ]
+  },
+  "triggered_observations": 0,
+  "window_policy": "caller-selected-full-windows",
+  "status": "review-required"
+}

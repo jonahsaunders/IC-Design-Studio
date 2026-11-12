@@ -1,0 +1,110 @@
+{
+  "schema": 1,
+  "chunk": 6,
+  "status": "in_progress",
+  "qualified": false,
+  "chunk_complete": false,
+  "scope": "Fifty-six additional selected aluminium interconnect/contact requirements executed on all three final layouts with all companion implant/geometry checks and profile guards passing. 117 requirements now have reviewed execution bindings; full chunk 6 remains open.",
+  "data": {
+    "path": "docs/validation/sky130-interconnect-2026-10-11/data.json",
+    "sha256": "78271a83e2513a8d522f4206f7cf297ad755df3058d5c9dac549c1970bc7356b"
+  },
+  "audits": {
+    "win32": {
+      "path": "docs/validation/sky130-interconnect-2026-10-11/win32.json",
+      "sha256": "591c65879ca7ed807ae7772b42b68efcc312685a9c077d1926a7a0b902f99887"
+    },
+    "linux": {
+      "path": "docs/validation/sky130-interconnect-2026-10-11/linux.json",
+      "sha256": "1c6282a3232e46d24129f2ea7240460b9eb29ebd2a888bcbf3dd50a63d60c41f"
+    }
+  },
+  "baseline_commit": "389a7a0",
+  "source_files": {
+    "scripts/sky130_raw_feol.py": "a8556fcc162393a6a16d41e6b059587771b20528f312a6ff53dc7e70ab667fe9",
+    "scripts/sky130_low_voltage_geometry.py": "774b00f5b960c54f5a17a94bd7d5cc75be6e545e6de9be660d0654e7b867f283",
+    "scripts/sky130_interconnect_geometry.py": "95c6bb9a5d5dafd6e54248349595310e501ac1c5d5ab5f42164fab5bd0713b34",
+    "scripts/sky130_rule_execution.py": "fdd3132ebca25b6f9225d1eceb7d61c72cb9abff2fc52fe1b84286a4297e0f20",
+    "scripts/sky130_block_applicability.py": "fe49d9bdd213366620731b25e5860c182f319fe6b48653b1caa40178bbe2a873",
+    "tests/test_sky130_raw_feol.py": "a9be93fc67a0a6ded8cbc639db7894038d34951f33a0e41c01a803b6b9eba882",
+    "tests/test_sky130_low_voltage_geometry.py": "1182d3adf26253d2c0c8d1d3355f45300ae05f5a3476313a237d7f732cce6b81",
+    "tests/test_sky130_interconnect_geometry.py": "f20e78eb16afec8e79b8b760de4c8b65368337b74467881eef735a9df3934e6c",
+    "tests/test_sky130_rule_execution.py": "4d7d4f4bc16235fed11f62f61627cc2eef93af0cb4776816a55d36a29219d28e"
+  },
+  "archive": {
+    "schema": 1,
+    "status": "readback-verified",
+    "layout": "sha256-addressed-blobs-v1",
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-interconnect-2026-10-11-v1\\evidence.tar.gz",
+    "sha256": "f414d4a4feb2cdad6e9b3066c1423e323ccb61d9eac0eded8ce4035e764b8038",
+    "bytes": 296746,
+    "files": 200,
+    "unique_blobs": 199,
+    "manifest_sha256": "20feb65b5f4e767b2da0877ecefc76bb64c8f554d158dc626acc5a9da8ecdeaa",
+    "dependency": {
+      "schema": 1,
+      "status": "readback-verified",
+      "layout": "sha256-addressed-blobs-v1",
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-fill-progress-2026-10-11-v1\\evidence.tar.gz",
+      "sha256": "ccef87b3fdbd89009e33449fc1be84eb4e3899ada61163ae99007eef3b6307e0",
+      "bytes": 920448744,
+      "files": 1959,
+      "unique_blobs": 1399,
+      "manifest_sha256": "81f06b06441a6c9864cc93abcd90af2ab87b5658fef3a2953efcedb90c2da9b0",
+      "seconds": 162.43700000000536,
+      "scope": "SKY130 fill, failed attempts, final physical/native circuit checks, partial rule applicability and diode comparison. Not chunk 6 acceptance."
+    }
+  },
+  "cases": [
+    {
+      "case": "counter",
+      "gds_sha256": "4158b6503dc07e85f1e9e7b375a3d654cd9b64dc0498ed9fb680874e973c1ac2",
+      "counts": {
+        "absent-operand": 207,
+        "advisory": 27,
+        "definition-required": 1,
+        "executed-reviewed": 117,
+        "execution-review-required": 111,
+        "other-backend": 61,
+        "upstream-na": 77
+      },
+      "executed_requirements": 117
+    },
+    {
+      "case": "uart",
+      "gds_sha256": "c9282fb9602ac9dbab5299032be1d4b68751bb611747d276d40435e93c37afea",
+      "counts": {
+        "absent-operand": 207,
+        "advisory": 27,
+        "definition-required": 1,
+        "executed-reviewed": 117,
+        "execution-review-required": 111,
+        "other-backend": 61,
+        "upstream-na": 77
+      },
+      "executed_requirements": 117
+    },
+    {
+      "case": "apb",
+      "gds_sha256": "5039221b72bfd052d3f82781f5403fb67df4261ea20add5c2047191321fe9d78",
+      "counts": {
+        "absent-operand": 207,
+        "advisory": 27,
+        "definition-required": 1,
+        "executed-reviewed": 117,
+        "execution-review-required": 111,
+        "other-backend": 61,
+        "upstream-na": 77
+      },
+      "executed_requirements": 117
+    }
+  ],
+  "notes": [
+    "All 62 implant, geometry, interconnect and binding tests pass on Windows and Linux without skips; both platforms produce identical execution ledgers.",
+    "Physical width, spacing/notch, area and hole checks combine drawn metal with the installed fill purposes; electrical contact enclosure uses drawn conductors only.",
+    "Square size, contact spacing, complete enclosure and missing-conductor controls cover every selected contact level, including zero-enclosure LI coverage.",
+    "Adjacent enclosure preserves actual failing edge portions and detects where adjacent portions meet at a contact corner, following the pinned reference deck algorithm. The APB nor4b_2 T-junction passes; a five-nanometre corner fault fails in every orientation.",
+    "The initial checker incorrectly promoted partial insufficient enclosure to whole sides and rejected one APB library contact. That exact source and report are retained as a rejected checker; no layout was modified to hide the discrepancy.",
+    "All 601 periphery records remain: 117 executed-reviewed, 207 absent-operand, 77 upstream-NA, 27 advisory, 61 other-backend, 111 execution-review-required and one definition-required."
+  ]
+}

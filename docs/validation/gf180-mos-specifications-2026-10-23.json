@@ -1,0 +1,1842 @@
+{
+  "schema": 1,
+  "date": "2026-10-23",
+  "chunk": 7,
+  "chunk_complete": false,
+  "qualified": false,
+  "status": "execution_valid_public_current_mismatch",
+  "source_baseline": "da9759cd46592ac43b7e8562559f2bc572628e17",
+  "source_files": {
+    "docs/qualification/gf180-mos-spec-sources-v1/LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "docs/qualification/gf180-mos-spec-sources-v1/README.md": "db75b9482173bdd143adb856f5de0f8f1879c6f6a8a07f7264a15d752697fd96",
+    "docs/qualification/gf180-mos-spec-sources-v1/docs/analog/model_parameters/LV/LV_2_4.rst": "7f564e6e5673f495823eb3ecc5d1403b0a1f8be2a1d19e844e51186753e48c29",
+    "docs/qualification/gf180-mos-spec-sources-v1/docs/analog/model_parameters/LV/LV_2_5.rst": "4c6580655db93edcbda59bec3285b14960d82a1ef8d380119361b79bf89e824b",
+    "docs/qualification/gf180-mos-spec-sources-v1/docs/analog/model_parameters/LV/tables_clear/18_Corner.csv": "62c59793b0e40feb918981eafd28488c0b479fb858083ef03c8b86d952e8c8b7",
+    "docs/qualification/gf180-mos-spec-sources-v1/docs/analog/model_parameters/LV/tables_clear/19_mos_3p3.csv": "c3f0cca345c65babe328554f543a2eb9a79e4612e318320ea5019c0bbdcb2724",
+    "docs/qualification/gf180-mos-spec-sources-v1/docs/analog/spice/elec_specs/elec_specs_1.rst": "89d19dd6c1289da1fb956bb2e2fe9993641119ff1f9c1ed7400625bf1e04319f",
+    "docs/qualification/gf180-mos-spec-sources-v1/docs/analog/spice/elec_specs/tables_clear/1_Low_Voltage_Devices.csv": "7d63fbb662dc4fbc74897d985b5820b685e3d3f3b48f31c98a7eef0a925049cf",
+    "docs/qualification/gf180-mos-spec-sources-v1/sources.json": "9abd84303cc6d19b46b228cf50e42e4c054c0d4679f33c1340c079ef68d7870a",
+    "scripts/qualify_gf180_mos_specs.py": "4044f8ecfa42b3f279b3caf520dc27b94e89e491f87bfebab814fb05ee4f8b39",
+    "tests/test_gf180_mos_specs.py": "827d8833d642d2ed999302409dab9865b04d2c957f158c7b94bf99a094f82bb9"
+  },
+  "source_manifest_sha256": "4c755e8504b5dba5eb004a0c3d94b6845ba4f312967404126edbc583d62e44e7",
+  "scope": "GF180 C/D nfet_03v3 and pfet_03v3 at W/L=10/0.28 um, 25 C, five process selections. Literal public Idsat/Ioff bounds, independent export equivalence, four-terminal bias/KCL checks and deliberate faults. Threshold is diagnostic. Full device envelopes, layouts, statistical/reliability and installed qualification remain open.",
+  "native": {
+    "Windows": {
+      "host": "Windows",
+      "exit": 2,
+      "seconds": 70.53099999995902,
+      "source_unchanged": true,
+      "source_manifest_sha256": "4c755e8504b5dba5eb004a0c3d94b6845ba4f312967404126edbc583d62e44e7",
+      "record_sha256": "0ceccb6998cbc8645efd99c06946ca5549db2399f78001877ad046fa2b9218d3",
+      "execution_status": "PASS",
+      "specification_status": "MISMATCH"
+    },
+    "Linux": {
+      "host": "Linux",
+      "exit": 2,
+      "seconds": 40.77769281400833,
+      "source_unchanged": true,
+      "source_manifest_sha256": "4c755e8504b5dba5eb004a0c3d94b6845ba4f312967404126edbc583d62e44e7",
+      "record_sha256": "170e0b95aaa0ac21ac9838d202e22bed61db338afcecf5dc01e60623891825d2",
+      "execution_status": "PASS",
+      "specification_status": "MISMATCH"
+    }
+  },
+  "independent_audits": {
+    "Windows": {
+      "status": "PASS",
+      "host": "Windows",
+      "execution_status": "PASS",
+      "specification_status": "MISMATCH",
+      "qualified": false,
+      "raw_files": 80,
+      "current_samples": 1585920,
+      "faulty_instances": 240,
+      "model_file_bindings": 400,
+      "cases": [
+        {
+          "target": "gf180mcuC",
+          "corner": "ff",
+          "specification_status": "MISMATCH",
+          "measurements": {
+            "n": {
+              "idsat": {
+                "status": "OUTSIDE_PUBLISHED_BOUND",
+                "value": 590.2774461457483,
+                "minimum": 430.0,
+                "maximum": 590.0,
+                "typical": 510.0,
+                "difference_from_typical": 80.27744614574829,
+                "units": "μA/um"
+              },
+              "ioff": {
+                "status": "PASS",
+                "value": 21.75859492581367,
+                "minimum": null,
+                "maximum": 100.0,
+                "typical": 1.0,
+                "difference_from_typical": 20.75859492581367,
+                "units": "pA/μm"
+              },
+              "threshold": {
+                "maximum_gm_a_v": 0.0002513880728805025,
+                "peak_gate_v": 0.7724999999999945,
+                "tangent_intercept_v": 0.5548892468992612,
+                "linear_threshold_v": 0.5298892468992612,
+                "used_for_acceptance": false
+              }
+            },
+            "p": {
+              "idsat": {
+                "status": "OUTSIDE_PUBLISHED_BOUND",
+                "value": -290.3901988460689,
+                "minimum": -290.0,
+                "maximum": -210.0,
+                "typical": -250.0,
+                "difference_from_typical": -40.39019884606893,
+                "units": "μA/um"
+              },
+              "ioff": {
+                "status": "PASS",
+                "value": -0.8320455435750773,
+                "minimum": -20.0,
+                "maximum": null,
+                "typical": -1.0,
+                "difference_from_typical": 0.16795445642492268,
+                "units": "pA/μm"
+              },
+              "threshold": {
+                "maximum_gm_a_v": 7.924327194431007e-05,
+                "peak_gate_v": -0.844999999999993,
+                "tangent_intercept_v": -0.6338616262513987,
+                "linear_threshold_v": -0.6088616262513987,
+                "used_for_acceptance": false
+              }
+            }
+          },
+          "grid_change": {
+            "n": 1.3083774360600486e-05,
+            "p": 6.162435559065038e-06
+          }
+        },
+        {
+          "target": "gf180mcuC",
+          "corner": "fs",
+          "specification_status": "PASS",
+          "measurements": {
+            "n": {
+              "idsat": {
+                "status": "PASS",
+                "value": 562.4768133412061,
+                "minimum": 430.0,
+                "maximum": 590.0,
+                "typical": 510.0,
+                "difference_from_typical": 52.47681334120614,
+                "units": "μA/um"
+              },
+              "ioff": {
+                "status": "PASS",
+                "value": 10.59845544659765,
+                "minimum": null,
+                "maximum": 100.0,
+                "typical": 1.0,
+                "difference_from_typical": 9.59845544659765,
+                "units": "pA/μm"
+              },
+              "threshold": {
+                "maximum_gm_a_v": 0.00024131065193833774,
+                "peak_gate_v": 0.8024999999999939,
+                "tangent_intercept_v": 0.5807945443970659,
+                "linear_threshold_v": 0.5557945443970659,
+                "used_for_acceptance": false
+              }
+            },
+            "p": {
+              "idsat": {
+                "status": "PASS",
+                "value": -223.47892093570468,
+                "minimum": -290.0,
+                "maximum": -210.0,
+                "typical": -250.0,
+                "difference_from_typical": 26.52107906429532,
+                "units": "μA/um"
+              },
+              "ioff": {
+                "status": "PASS",
+                "value": -0.5062616992290714,
+                "minimum": -20.0,
+                "maximum": null,
+                "typical": -1.0,
+                "difference_from_typical": 0.4937383007709286,
+                "units": "pA/μm"
+              },
+              "threshold": {
+                "maximum_gm_a_v": 6.433755799229129e-05,
+                "peak_gate_v": -1.064999999999988,
+                "tangent_intercept_v": -0.8445997516946623,
+                "linear_threshold_v": -0.8195997516946623,
+                "used_for_acceptance": false
+              }
+            }
+          },
+          "grid_change": {
+            "n": 7.296040221427269e-06,
+            "p": 5.60944103134009e-06
+          }
+        },
+        {
+          "target": "gf180mcuC",
+          "corner": "nominal",
+          "specification_status": "PASS",
+          "measurements": {
+            "n": {
+              "idsat": {
+                "status": "PASS",
+                "value": 509.7824690469821,
+                "minimum": 430.0,
+                "maximum": 590.0,
+                "typical": 510.0,
+                "difference_from_typical": -0.21753095301789926,
+                "units": "μA/um"
+              },
+              "ioff": {
+                "status": "PASS",
+                "value": 1.3923084907219159,
+                "minimum": null,
+                "maximum": 100.0,
+                "typical": 1.0,
+                "difference_from_typical": 0.39230849072191587,
+                "units": "pA/μm"
+              },
+              "threshold": {
+                "maximum_gm_a_v": 0.00022542726471064736,
+                "peak_gate_v": 0.8799999999999922,
+                "tangent_intercept_v": 0.6551899936737554,
+                "linear_threshold_v": 0.6301899936737554,
+                "used_for_acceptance": false
+              }
+            },
+            "p": {
+              "idsat": {
+                "status": "PASS",
+                "value": -250.2842564108931,
+                "minimum": -290.0,
+                "maximum": -210.0,
+                "typical": -250.0,
+                "difference_from_typical": -0.28425641089310716,
+                "units": "μA/um"
+              },
+              "ioff": {
+                "status": "PASS",
+                "value": -0.553157519789238,
+                "minimum": -20.0,
+                "maximum": null,
+                "typical": -1.0,
+                "difference_from_typical": 0.446842480210762,
+                "units": "pA/μm"
+              },
+              "threshold": {
+                "maximum_gm_a_v": 6.973001511756509e-05,
+                "peak_gate_v": -0.9724999999999903,
+                "tangent_intercept_v": -0.7551081429594609,
+                "linear_threshold_v": -0.7301081429594609,
+                "used_for_acceptance": false
+              }
+            }
+          },
+          "grid_change": {
+            "n": 6.606799665354046e-06,
+            "p": 1.0888730630376209e-05
+          }
+        },
+        {
+          "target": "gf180mcuC",
+          "corner": "sf",
+          "specification_status": "PASS",
+          "measurements": {
+            "n": {
+              "idsat": {
+                "status": "PASS",
+                "value": 456.1748867129012,
+                "minimum": 430.0,
+                "maximum": 590.0,
+                "typical": 510.0,
+                "difference_from_typical": -53.825113287098816,
+                "units": "μA/um"
+              },
+              "ioff": {
+                "status": "PASS",
+                "value": 0.4725109192804666,
+                "minimum": null,
+                "maximum": 100.0,
+                "typical": 1.0,
+                "difference_from_typical": -0.5274890807195334,
+                "units": "pA/μm"
+              },
+              "threshold": {
+                "maximum_gm_a_v": 0.00021065297518552578,
+                "peak_gate_v": 0.9574999999999906,
+                "tangent_intercept_v": 0.7296136523028163,
+                "linear_threshold_v": 0.7046136523028163,
+                "used_for_acceptance": false
+              }
+            },
+            "p": {
+              "idsat": {
+                "status": "PASS",
+                "value": -277.48948020303027,
+                "minimum": -290.0,
+                "maximum": -210.0,
+                "typical": -250.0,
+                "difference_from_typical": -27.48948020303027,
+                "units": "μA/um"
+              },
+              "ioff": {
+                "status": "PASS",
+                "value": -0.673949784868455,
+                "minimum": -20.0,
+                "maximum": null,
+                "typical": -1.0,
+                "difference_from_typical": 0.326050215131545,
+                "units": "pA/μm"
+              },
+              "threshold": {
+                "maximum_gm_a_v": 7.581788664667948e-05,
+                "peak_gate_v": -0.8774999999999923,
+                "tangent_intercept_v": -0.6654535154800904,
+                "linear_threshold_v": -0.6404535154800903,
+                "used_for_acceptance": false
+              }
+            }
+          },
+          "grid_change": {
+            "n": 1.124338063551722e-05,
+            "p": 7.966238224743627e-06
+          }
+        },
+        {
+          "target": "gf180mcuC",
+          "corner": "ss",
+          "specification_status": "PASS",
+          "measurements": {
+            "n": {
+              "idsat": {
+                "status": "PASS",
+                "value": 430.1611564379471,
+                "minimum": 430.0,
+                "maximum": 590.0,
+                "typical": 510.0,
+                "difference_from_typical": -79.83884356205289,
+                "units": "μA/um"
+              },
+              "ioff": {
+                "status": "PASS",
+                "value": 0.41957548546633916,
+                "minimum": null,
+                "maximum": 100.0,
+                "typical": 1.0,
+                "difference_from_typical": -0.5804245145336608,
+                "units": "pA/μm"
+              },
+              "threshold": {
+                "maximum_gm_a_v": 0.0002026347421191262,
+                "peak_gate_v": 0.9874999999999899,
+                "tangent_intercept_v": 0.7554070639686301,
+                "linear_threshold_v": 0.7304070639686301,
+                "used_for_acceptance": false
+              }
+            },
+            "p": {
+              "idsat": {
+                "status": "PASS",
+                "value": -210.50347435860323,
+                "minimum": -290.0,
+                "maximum": -210.0,
+                "typical": -250.0,
+                "difference_from_typical": 39.49652564139677,
+                "units": "μA/um"
+              },
+              "ioff": {
+                "status": "PASS",
+                "value": -0.4739320047519868,
+                "minimum": -20.0,
+                "maximum": null,
+                "typical": -1.0,
+                "difference_from_typical": 0.5260679952480132,
+                "units": "pA/μm"
+              },
+              "threshold": {
+                "maximum_gm_a_v": 6.183904530665252e-05,
+                "peak_gate_v": -1.099999999999988,
+                "tangent_intercept_v": -0.876042140830967,
+                "linear_threshold_v": -0.851042140830967,
+                "used_for_acceptance": false
+              }
+            }
+          },
+          "grid_change": {
+            "n": 8.422103701999362e-06,
+            "p": 5.428167325627342e-06
+          }
+        },
+        {
+          "target": "gf180mcuD",
+          "corner": "ff",
+          "specification_status": "MISMATCH",
+          "measurements": {
+            "n": {
+              "idsat": {
+                "status": "OUTSIDE_PUBLISHED_BOUND",
+                "value": 590.2774461457483,
+                "minimum": 430.0,
+                "maximum": 590.0,
+                "typical": 510.0,
+                "difference_from_typical": 80.27744614574829,
+                "units": "μA/um"
+              },
+              "ioff": {
+                "status": "PASS",
+                "value": 21.75859492581367,
+                "minimum": null,
+                "maximum": 100.0,
+                "typical": 1.0,
+                "difference_from_typical": 20.75859492581367,
+                "units": "pA/μm"
+              },
+              "threshold": {
+                "maximum_gm_a_v": 0.0002513880728805025,
+                "peak_gate_v": 0.7724999999999945,
+                "tangent_intercept_v": 0.5548892468992612,
+                "linear_threshold_v": 0.5298892468992612,
+                "used_for_acceptance": false
+              }
+            },
+            "p": {
+              "idsat": {
+                "status": "OUTSIDE_PUBLISHED_BOUND",
+                "value": -290.3901988460689,
+                "minimum": -290.0,
+                "maximum": -210.0,
+                "typical": -250.0,
+                "difference_from_typical": -40.39019884606893,
+                "units": "μA/um"
+              },
+              "ioff": {
+                "status": "PASS",
+                "value": -0.8320455435750773,
+                "minimum": -20.0,
+                "maximum": null,
+                "typical": -1.0,
+                "difference_from_typical": 0.16795445642492268,
+                "units": "pA/μm"
+              },
+              "threshold": {
+                "maximum_gm_a_v": 7.924327194431007e-05,
+                "peak_gate_v": -0.844999999999993,
+                "tangent_intercept_v": -0.6338616262513987,
+                "linear_threshold_v": -0.6088616262513987,
+                "used_for_acceptance": false
+              }
+            }
+          },
+          "grid_change": {
+            "n": 1.3083774360600486e-05,
+            "p": 6.162435559065038e-06
+          }
+        },
+        {
+          "target": "gf180mcuD",
+          "corner": "fs",
+          "specification_status": "PASS",
+          "measurements": {
+            "n": {
+              "idsat": {
+                "status": "PASS",
+                "value": 562.4768133412061,
+                "minimum": 430.0,
+                "maximum": 590.0,
+                "typical": 510.0,
+                "difference_from_typical": 52.47681334120614,
+                "units": "μA/um"
+              },
+              "ioff": {
+                "status": "PASS",
+                "value": 10.59845544659765,
+                "minimum": null,
+                "maximum": 100.0,
+                "typical": 1.0,
+                "difference_from_typical": 9.59845544659765,
+                "units": "pA/μm"
+              },
+              "threshold": {
+                "maximum_gm_a_v": 0.00024131065193833774,
+                "peak_gate_v": 0.8024999999999939,
+                "tangent_intercept_v": 0.5807945443970659,
+                "linear_threshold_v": 0.5557945443970659,
+                "used_for_acceptance": false
+              }
+            },
+            "p": {
+              "idsat": {
+                "status": "PASS",
+                "value": -223.47892093570468,
+                "minimum": -290.0,
+                "maximum": -210.0,
+                "typical": -250.0,
+                "difference_from_typical": 26.52107906429532,
+                "units": "μA/um"
+              },
+              "ioff": {
+                "status": "PASS",
+                "value": -0.5062616992290714,
+                "minimum": -20.0,
+                "maximum": null,
+                "typical": -1.0,
+                "difference_from_typical": 0.4937383007709286,
+                "units": "pA/μm"
+              },
+              "threshold": {
+                "maximum_gm_a_v": 6.433755799229129e-05,
+                "peak_gate_v": -1.064999999999988,
+                "tangent_intercept_v": -0.8445997516946623,
+                "linear_threshold_v": -0.8195997516946623,
+                "used_for_acceptance": false
+              }
+            }
+          },
+          "grid_change": {
+            "n": 7.296040221427269e-06,
+            "p": 5.60944103134009e-06
+          }
+        },
+        {
+          "target": "gf180mcuD",
+          "corner": "nominal",
+          "specification_status": "PASS",
+          "measurements": {
+            "n": {
+              "idsat": {
+                "status": "PASS",
+                "value": 509.7824690469821,
+                "minimum": 430.0,
+                "maximum": 590.0,
+                "typical": 510.0,
+                "difference_from_typical": -0.21753095301789926,
+                "units": "μA/um"
+              },
+              "ioff": {
+                "status": "PASS",
+                "value": 1.3923084907219159,
+                "minimum": null,
+                "maximum": 100.0,
+                "typical": 1.0,
+                "difference_from_typical": 0.39230849072191587,
+                "units": "pA/μm"
+              },
+              "threshold": {
+                "maximum_gm_a_v": 0.00022542726471064736,
+                "peak_gate_v": 0.8799999999999922,
+                "tangent_intercept_v": 0.6551899936737554,
+                "linear_threshold_v": 0.6301899936737554,
+                "used_for_acceptance": false
+              }
+            },
+            "p": {
+              "idsat": {
+                "status": "PASS",
+                "value": -250.2842564108931,
+                "minimum": -290.0,
+                "maximum": -210.0,
+                "typical": -250.0,
+                "difference_from_typical": -0.28425641089310716,
+                "units": "μA/um"
+              },
+              "ioff": {
+                "status": "PASS",
+                "value": -0.553157519789238,
+                "minimum": -20.0,
+                "maximum": null,
+                "typical": -1.0,
+                "difference_from_typical": 0.446842480210762,
+                "units": "pA/μm"
+              },
+              "threshold": {
+                "maximum_gm_a_v": 6.973001511756509e-05,
+                "peak_gate_v": -0.9724999999999903,
+                "tangent_intercept_v": -0.7551081429594609,
+                "linear_threshold_v": -0.7301081429594609,
+                "used_for_acceptance": false
+              }
+            }
+          },
+          "grid_change": {
+            "n": 6.606799665354046e-06,
+            "p": 1.0888730630376209e-05
+          }
+        },
+        {
+          "target": "gf180mcuD",
+          "corner": "sf",
+          "specification_status": "PASS",
+          "measurements": {
+            "n": {
+              "idsat": {
+                "status": "PASS",
+                "value": 456.1748867129012,
+                "minimum": 430.0,
+                "maximum": 590.0,
+                "typical": 510.0,
+                "difference_from_typical": -53.825113287098816,
+                "units": "μA/um"
+              },
+              "ioff": {
+                "status": "PASS",
+                "value": 0.4725109192804666,
+                "minimum": null,
+                "maximum": 100.0,
+                "typical": 1.0,
+                "difference_from_typical": -0.5274890807195334,
+                "units": "pA/μm"
+              },
+              "threshold": {
+                "maximum_gm_a_v": 0.00021065297518552578,
+                "peak_gate_v": 0.9574999999999906,
+                "tangent_intercept_v": 0.7296136523028163,
+                "linear_threshold_v": 0.7046136523028163,
+                "used_for_acceptance": false
+              }
+            },
+            "p": {
+              "idsat": {
+                "status": "PASS",
+                "value": -277.48948020303027,
+                "minimum": -290.0,
+                "maximum": -210.0,
+                "typical": -250.0,
+                "difference_from_typical": -27.48948020303027,
+                "units": "μA/um"
+              },
+              "ioff": {
+                "status": "PASS",
+                "value": -0.673949784868455,
+                "minimum": -20.0,
+                "maximum": null,
+                "typical": -1.0,
+                "difference_from_typical": 0.326050215131545,
+                "units": "pA/μm"
+              },
+              "threshold": {
+                "maximum_gm_a_v": 7.581788664667948e-05,
+                "peak_gate_v": -0.8774999999999923,
+                "tangent_intercept_v": -0.6654535154800904,
+                "linear_threshold_v": -0.6404535154800903,
+                "used_for_acceptance": false
+              }
+            }
+          },
+          "grid_change": {
+            "n": 1.124338063551722e-05,
+            "p": 7.966238224743627e-06
+          }
+        },
+        {
+          "target": "gf180mcuD",
+          "corner": "ss",
+          "specification_status": "PASS",
+          "measurements": {
+            "n": {
+              "idsat": {
+                "status": "PASS",
+                "value": 430.1611564379471,
+                "minimum": 430.0,
+                "maximum": 590.0,
+                "typical": 510.0,
+                "difference_from_typical": -79.83884356205289,
+                "units": "μA/um"
+              },
+              "ioff": {
+                "status": "PASS",
+                "value": 0.41957548546633916,
+                "minimum": null,
+                "maximum": 100.0,
+                "typical": 1.0,
+                "difference_from_typical": -0.5804245145336608,
+                "units": "pA/μm"
+              },
+              "threshold": {
+                "maximum_gm_a_v": 0.0002026347421191262,
+                "peak_gate_v": 0.9874999999999899,
+                "tangent_intercept_v": 0.7554070639686301,
+                "linear_threshold_v": 0.7304070639686301,
+                "used_for_acceptance": false
+              }
+            },
+            "p": {
+              "idsat": {
+                "status": "PASS",
+                "value": -210.50347435860323,
+                "minimum": -290.0,
+                "maximum": -210.0,
+                "typical": -250.0,
+                "difference_from_typical": 39.49652564139677,
+                "units": "μA/um"
+              },
+              "ioff": {
+                "status": "PASS",
+                "value": -0.4739320047519868,
+                "minimum": -20.0,
+                "maximum": null,
+                "typical": -1.0,
+                "difference_from_typical": 0.5260679952480132,
+                "units": "pA/μm"
+              },
+              "threshold": {
+                "maximum_gm_a_v": 6.183904530665252e-05,
+                "peak_gate_v": -1.099999999999988,
+                "tangent_intercept_v": -0.876042140830967,
+                "linear_threshold_v": -0.851042140830967,
+                "used_for_acceptance": false
+              }
+            }
+          },
+          "grid_change": {
+            "n": 8.422103701999362e-06,
+            "p": 5.428167325627342e-06
+          }
+        }
+      ],
+      "record_sha256": "0ceccb6998cbc8645efd99c06946ca5549db2399f78001877ad046fa2b9218d3",
+      "source_manifest_sha256": "4c755e8504b5dba5eb004a0c3d94b6845ba4f312967404126edbc583d62e44e7"
+    },
+    "Linux": {
+      "status": "PASS",
+      "host": "Linux",
+      "execution_status": "PASS",
+      "specification_status": "MISMATCH",
+      "qualified": false,
+      "raw_files": 80,
+      "current_samples": 1585920,
+      "faulty_instances": 240,
+      "model_file_bindings": 400,
+      "cases": [
+        {
+          "target": "gf180mcuC",
+          "corner": "ff",
+          "specification_status": "MISMATCH",
+          "measurements": {
+            "n": {
+              "idsat": {
+                "status": "OUTSIDE_PUBLISHED_BOUND",
+                "value": 590.2774461457483,
+                "minimum": 430.0,
+                "maximum": 590.0,
+                "typical": 510.0,
+                "difference_from_typical": 80.27744614574829,
+                "units": "μA/um"
+              },
+              "ioff": {
+                "status": "PASS",
+                "value": 21.75859492581367,
+                "minimum": null,
+                "maximum": 100.0,
+                "typical": 1.0,
+                "difference_from_typical": 20.75859492581367,
+                "units": "pA/μm"
+              },
+              "threshold": {
+                "maximum_gm_a_v": 0.0002513880728805025,
+                "peak_gate_v": 0.7724999999999945,
+                "tangent_intercept_v": 0.5548892468992612,
+                "linear_threshold_v": 0.5298892468992612,
+                "used_for_acceptance": false
+              }
+            },
+            "p": {
+              "idsat": {
+                "status": "OUTSIDE_PUBLISHED_BOUND",
+                "value": -290.3901988460689,
+                "minimum": -290.0,
+                "maximum": -210.0,
+                "typical": -250.0,
+                "difference_from_typical": -40.39019884606893,
+                "units": "μA/um"
+              },
+              "ioff": {
+                "status": "PASS",
+                "value": -0.8320455435750773,
+                "minimum": -20.0,
+                "maximum": null,
+                "typical": -1.0,
+                "difference_from_typical": 0.16795445642492268,
+                "units": "pA/μm"
+              },
+              "threshold": {
+                "maximum_gm_a_v": 7.924327194431007e-05,
+                "peak_gate_v": -0.844999999999993,
+                "tangent_intercept_v": -0.6338616262513987,
+                "linear_threshold_v": -0.6088616262513987,
+                "used_for_acceptance": false
+              }
+            }
+          },
+          "grid_change": {
+            "n": 1.3083774360600486e-05,
+            "p": 6.162435559065038e-06
+          }
+        },
+        {
+          "target": "gf180mcuC",
+          "corner": "fs",
+          "specification_status": "PASS",
+          "measurements": {
+            "n": {
+              "idsat": {
+                "status": "PASS",
+                "value": 562.4768133412061,
+                "minimum": 430.0,
+                "maximum": 590.0,
+                "typical": 510.0,
+                "difference_from_typical": 52.47681334120614,
+                "units": "μA/um"
+              },
+              "ioff": {
+                "status": "PASS",
+                "value": 10.59845544659765,
+                "minimum": null,
+                "maximum": 100.0,
+                "typical": 1.0,
+                "difference_from_typical": 9.59845544659765,
+                "units": "pA/μm"
+              },
+              "threshold": {
+                "maximum_gm_a_v": 0.00024131065193833774,
+                "peak_gate_v": 0.8024999999999939,
+                "tangent_intercept_v": 0.5807945443970659,
+                "linear_threshold_v": 0.5557945443970659,
+                "used_for_acceptance": false
+              }
+            },
+            "p": {
+              "idsat": {
+                "status": "PASS",
+                "value": -223.47892093570468,
+                "minimum": -290.0,
+                "maximum": -210.0,
+                "typical": -250.0,
+                "difference_from_typical": 26.52107906429532,
+                "units": "μA/um"
+              },
+              "ioff": {
+                "status": "PASS",
+                "value": -0.5062616992290714,
+                "minimum": -20.0,
+                "maximum": null,
+                "typical": -1.0,
+                "difference_from_typical": 0.4937383007709286,
+                "units": "pA/μm"
+              },
+              "threshold": {
+                "maximum_gm_a_v": 6.433755799229129e-05,
+                "peak_gate_v": -1.064999999999988,
+                "tangent_intercept_v": -0.8445997516946623,
+                "linear_threshold_v": -0.8195997516946623,
+                "used_for_acceptance": false
+              }
+            }
+          },
+          "grid_change": {
+            "n": 7.296040221427269e-06,
+            "p": 5.60944103134009e-06
+          }
+        },
+        {
+          "target": "gf180mcuC",
+          "corner": "nominal",
+          "specification_status": "PASS",
+          "measurements": {
+            "n": {
+              "idsat": {
+                "status": "PASS",
+                "value": 509.7824690469821,
+                "minimum": 430.0,
+                "maximum": 590.0,
+                "typical": 510.0,
+                "difference_from_typical": -0.21753095301789926,
+                "units": "μA/um"
+              },
+              "ioff": {
+                "status": "PASS",
+                "value": 1.3923084907219159,
+                "minimum": null,
+                "maximum": 100.0,
+                "typical": 1.0,
+                "difference_from_typical": 0.39230849072191587,
+                "units": "pA/μm"
+              },
+              "threshold": {
+                "maximum_gm_a_v": 0.00022542726471064736,
+                "peak_gate_v": 0.8799999999999922,
+                "tangent_intercept_v": 0.6551899936737554,
+                "linear_threshold_v": 0.6301899936737554,
+                "used_for_acceptance": false
+              }
+            },
+            "p": {
+              "idsat": {
+                "status": "PASS",
+                "value": -250.2842564108931,
+                "minimum": -290.0,
+                "maximum": -210.0,
+                "typical": -250.0,
+                "difference_from_typical": -0.28425641089310716,
+                "units": "μA/um"
+              },
+              "ioff": {
+                "status": "PASS",
+                "value": -0.553157519789238,
+                "minimum": -20.0,
+                "maximum": null,
+                "typical": -1.0,
+                "difference_from_typical": 0.446842480210762,
+                "units": "pA/μm"
+              },
+              "threshold": {
+                "maximum_gm_a_v": 6.973001511756509e-05,
+                "peak_gate_v": -0.9724999999999903,
+                "tangent_intercept_v": -0.7551081429594609,
+                "linear_threshold_v": -0.7301081429594609,
+                "used_for_acceptance": false
+              }
+            }
+          },
+          "grid_change": {
+            "n": 6.606799665354046e-06,
+            "p": 1.0888730630376209e-05
+          }
+        },
+        {
+          "target": "gf180mcuC",
+          "corner": "sf",
+          "specification_status": "PASS",
+          "measurements": {
+            "n": {
+              "idsat": {
+                "status": "PASS",
+                "value": 456.1748867129012,
+                "minimum": 430.0,
+                "maximum": 590.0,
+                "typical": 510.0,
+                "difference_from_typical": -53.825113287098816,
+                "units": "μA/um"
+              },
+              "ioff": {
+                "status": "PASS",
+                "value": 0.4725109192804666,
+                "minimum": null,
+                "maximum": 100.0,
+                "typical": 1.0,
+                "difference_from_typical": -0.5274890807195334,
+                "units": "pA/μm"
+              },
+              "threshold": {
+                "maximum_gm_a_v": 0.00021065297518552578,
+                "peak_gate_v": 0.9574999999999906,
+                "tangent_intercept_v": 0.7296136523028163,
+                "linear_threshold_v": 0.7046136523028163,
+                "used_for_acceptance": false
+              }
+            },
+            "p": {
+              "idsat": {
+                "status": "PASS",
+                "value": -277.48948020303027,
+                "minimum": -290.0,
+                "maximum": -210.0,
+                "typical": -250.0,
+                "difference_from_typical": -27.48948020303027,
+                "units": "μA/um"
+              },
+              "ioff": {
+                "status": "PASS",
+                "value": -0.673949784868455,
+                "minimum": -20.0,
+                "maximum": null,
+                "typical": -1.0,
+                "difference_from_typical": 0.326050215131545,
+                "units": "pA/μm"
+              },
+              "threshold": {
+                "maximum_gm_a_v": 7.581788664667948e-05,
+                "peak_gate_v": -0.8774999999999923,
+                "tangent_intercept_v": -0.6654535154800904,
+                "linear_threshold_v": -0.6404535154800903,
+                "used_for_acceptance": false
+              }
+            }
+          },
+          "grid_change": {
+            "n": 1.124338063551722e-05,
+            "p": 7.966238224743627e-06
+          }
+        },
+        {
+          "target": "gf180mcuC",
+          "corner": "ss",
+          "specification_status": "PASS",
+          "measurements": {
+            "n": {
+              "idsat": {
+                "status": "PASS",
+                "value": 430.1611564379471,
+                "minimum": 430.0,
+                "maximum": 590.0,
+                "typical": 510.0,
+                "difference_from_typical": -79.83884356205289,
+                "units": "μA/um"
+              },
+              "ioff": {
+                "status": "PASS",
+                "value": 0.41957548546633916,
+                "minimum": null,
+                "maximum": 100.0,
+                "typical": 1.0,
+                "difference_from_typical": -0.5804245145336608,
+                "units": "pA/μm"
+              },
+              "threshold": {
+                "maximum_gm_a_v": 0.0002026347421191262,
+                "peak_gate_v": 0.9874999999999899,
+                "tangent_intercept_v": 0.7554070639686301,
+                "linear_threshold_v": 0.7304070639686301,
+                "used_for_acceptance": false
+              }
+            },
+            "p": {
+              "idsat": {
+                "status": "PASS",
+                "value": -210.50347435860323,
+                "minimum": -290.0,
+                "maximum": -210.0,
+                "typical": -250.0,
+                "difference_from_typical": 39.49652564139677,
+                "units": "μA/um"
+              },
+              "ioff": {
+                "status": "PASS",
+                "value": -0.4739320047519868,
+                "minimum": -20.0,
+                "maximum": null,
+                "typical": -1.0,
+                "difference_from_typical": 0.5260679952480132,
+                "units": "pA/μm"
+              },
+              "threshold": {
+                "maximum_gm_a_v": 6.183904530665252e-05,
+                "peak_gate_v": -1.099999999999988,
+                "tangent_intercept_v": -0.876042140830967,
+                "linear_threshold_v": -0.851042140830967,
+                "used_for_acceptance": false
+              }
+            }
+          },
+          "grid_change": {
+            "n": 8.422103701999362e-06,
+            "p": 5.428167325627342e-06
+          }
+        },
+        {
+          "target": "gf180mcuD",
+          "corner": "ff",
+          "specification_status": "MISMATCH",
+          "measurements": {
+            "n": {
+              "idsat": {
+                "status": "OUTSIDE_PUBLISHED_BOUND",
+                "value": 590.2774461457483,
+                "minimum": 430.0,
+                "maximum": 590.0,
+                "typical": 510.0,
+                "difference_from_typical": 80.27744614574829,
+                "units": "μA/um"
+              },
+              "ioff": {
+                "status": "PASS",
+                "value": 21.75859492581367,
+                "minimum": null,
+                "maximum": 100.0,
+                "typical": 1.0,
+                "difference_from_typical": 20.75859492581367,
+                "units": "pA/μm"
+              },
+              "threshold": {
+                "maximum_gm_a_v": 0.0002513880728805025,
+                "peak_gate_v": 0.7724999999999945,
+                "tangent_intercept_v": 0.5548892468992612,
+                "linear_threshold_v": 0.5298892468992612,
+                "used_for_acceptance": false
+              }
+            },
+            "p": {
+              "idsat": {
+                "status": "OUTSIDE_PUBLISHED_BOUND",
+                "value": -290.3901988460689,
+                "minimum": -290.0,
+                "maximum": -210.0,
+                "typical": -250.0,
+                "difference_from_typical": -40.39019884606893,
+                "units": "μA/um"
+              },
+              "ioff": {
+                "status": "PASS",
+                "value": -0.8320455435750773,
+                "minimum": -20.0,
+                "maximum": null,
+                "typical": -1.0,
+                "difference_from_typical": 0.16795445642492268,
+                "units": "pA/μm"
+              },
+              "threshold": {
+                "maximum_gm_a_v": 7.924327194431007e-05,
+                "peak_gate_v": -0.844999999999993,
+                "tangent_intercept_v": -0.6338616262513987,
+                "linear_threshold_v": -0.6088616262513987,
+                "used_for_acceptance": false
+              }
+            }
+          },
+          "grid_change": {
+            "n": 1.3083774360600486e-05,
+            "p": 6.162435559065038e-06
+          }
+        },
+        {
+          "target": "gf180mcuD",
+          "corner": "fs",
+          "specification_status": "PASS",
+          "measurements": {
+            "n": {
+              "idsat": {
+                "status": "PASS",
+                "value": 562.4768133412061,
+                "minimum": 430.0,
+                "maximum": 590.0,
+                "typical": 510.0,
+                "difference_from_typical": 52.47681334120614,
+                "units": "μA/um"
+              },
+              "ioff": {
+                "status": "PASS",
+                "value": 10.59845544659765,
+                "minimum": null,
+                "maximum": 100.0,
+                "typical": 1.0,
+                "difference_from_typical": 9.59845544659765,
+                "units": "pA/μm"
+              },
+              "threshold": {
+                "maximum_gm_a_v": 0.00024131065193833774,
+                "peak_gate_v": 0.8024999999999939,
+                "tangent_intercept_v": 0.5807945443970659,
+                "linear_threshold_v": 0.5557945443970659,
+                "used_for_acceptance": false
+              }
+            },
+            "p": {
+              "idsat": {
+                "status": "PASS",
+                "value": -223.47892093570468,
+                "minimum": -290.0,
+                "maximum": -210.0,
+                "typical": -250.0,
+                "difference_from_typical": 26.52107906429532,
+                "units": "μA/um"
+              },
+              "ioff": {
+                "status": "PASS",
+                "value": -0.5062616992290714,
+                "minimum": -20.0,
+                "maximum": null,
+                "typical": -1.0,
+                "difference_from_typical": 0.4937383007709286,
+                "units": "pA/μm"
+              },
+              "threshold": {
+                "maximum_gm_a_v": 6.433755799229129e-05,
+                "peak_gate_v": -1.064999999999988,
+                "tangent_intercept_v": -0.8445997516946623,
+                "linear_threshold_v": -0.8195997516946623,
+                "used_for_acceptance": false
+              }
+            }
+          },
+          "grid_change": {
+            "n": 7.296040221427269e-06,
+            "p": 5.60944103134009e-06
+          }
+        },
+        {
+          "target": "gf180mcuD",
+          "corner": "nominal",
+          "specification_status": "PASS",
+          "measurements": {
+            "n": {
+              "idsat": {
+                "status": "PASS",
+                "value": 509.7824690469821,
+                "minimum": 430.0,
+                "maximum": 590.0,
+                "typical": 510.0,
+                "difference_from_typical": -0.21753095301789926,
+                "units": "μA/um"
+              },
+              "ioff": {
+                "status": "PASS",
+                "value": 1.3923084907219159,
+                "minimum": null,
+                "maximum": 100.0,
+                "typical": 1.0,
+                "difference_from_typical": 0.39230849072191587,
+                "units": "pA/μm"
+              },
+              "threshold": {
+                "maximum_gm_a_v": 0.00022542726471064736,
+                "peak_gate_v": 0.8799999999999922,
+                "tangent_intercept_v": 0.6551899936737554,
+                "linear_threshold_v": 0.6301899936737554,
+                "used_for_acceptance": false
+              }
+            },
+            "p": {
+              "idsat": {
+                "status": "PASS",
+                "value": -250.2842564108931,
+                "minimum": -290.0,
+                "maximum": -210.0,
+                "typical": -250.0,
+                "difference_from_typical": -0.28425641089310716,
+                "units": "μA/um"
+              },
+              "ioff": {
+                "status": "PASS",
+                "value": -0.553157519789238,
+                "minimum": -20.0,
+                "maximum": null,
+                "typical": -1.0,
+                "difference_from_typical": 0.446842480210762,
+                "units": "pA/μm"
+              },
+              "threshold": {
+                "maximum_gm_a_v": 6.973001511756509e-05,
+                "peak_gate_v": -0.9724999999999903,
+                "tangent_intercept_v": -0.7551081429594609,
+                "linear_threshold_v": -0.7301081429594609,
+                "used_for_acceptance": false
+              }
+            }
+          },
+          "grid_change": {
+            "n": 6.606799665354046e-06,
+            "p": 1.0888730630376209e-05
+          }
+        },
+        {
+          "target": "gf180mcuD",
+          "corner": "sf",
+          "specification_status": "PASS",
+          "measurements": {
+            "n": {
+              "idsat": {
+                "status": "PASS",
+                "value": 456.1748867129012,
+                "minimum": 430.0,
+                "maximum": 590.0,
+                "typical": 510.0,
+                "difference_from_typical": -53.825113287098816,
+                "units": "μA/um"
+              },
+              "ioff": {
+                "status": "PASS",
+                "value": 0.4725109192804666,
+                "minimum": null,
+                "maximum": 100.0,
+                "typical": 1.0,
+                "difference_from_typical": -0.5274890807195334,
+                "units": "pA/μm"
+              },
+              "threshold": {
+                "maximum_gm_a_v": 0.00021065297518552578,
+                "peak_gate_v": 0.9574999999999906,
+                "tangent_intercept_v": 0.7296136523028163,
+                "linear_threshold_v": 0.7046136523028163,
+                "used_for_acceptance": false
+              }
+            },
+            "p": {
+              "idsat": {
+                "status": "PASS",
+                "value": -277.48948020303027,
+                "minimum": -290.0,
+                "maximum": -210.0,
+                "typical": -250.0,
+                "difference_from_typical": -27.48948020303027,
+                "units": "μA/um"
+              },
+              "ioff": {
+                "status": "PASS",
+                "value": -0.673949784868455,
+                "minimum": -20.0,
+                "maximum": null,
+                "typical": -1.0,
+                "difference_from_typical": 0.326050215131545,
+                "units": "pA/μm"
+              },
+              "threshold": {
+                "maximum_gm_a_v": 7.581788664667948e-05,
+                "peak_gate_v": -0.8774999999999923,
+                "tangent_intercept_v": -0.6654535154800904,
+                "linear_threshold_v": -0.6404535154800903,
+                "used_for_acceptance": false
+              }
+            }
+          },
+          "grid_change": {
+            "n": 1.124338063551722e-05,
+            "p": 7.966238224743627e-06
+          }
+        },
+        {
+          "target": "gf180mcuD",
+          "corner": "ss",
+          "specification_status": "PASS",
+          "measurements": {
+            "n": {
+              "idsat": {
+                "status": "PASS",
+                "value": 430.1611564379471,
+                "minimum": 430.0,
+                "maximum": 590.0,
+                "typical": 510.0,
+                "difference_from_typical": -79.83884356205289,
+                "units": "μA/um"
+              },
+              "ioff": {
+                "status": "PASS",
+                "value": 0.41957548546633916,
+                "minimum": null,
+                "maximum": 100.0,
+                "typical": 1.0,
+                "difference_from_typical": -0.5804245145336608,
+                "units": "pA/μm"
+              },
+              "threshold": {
+                "maximum_gm_a_v": 0.0002026347421191262,
+                "peak_gate_v": 0.9874999999999899,
+                "tangent_intercept_v": 0.7554070639686301,
+                "linear_threshold_v": 0.7304070639686301,
+                "used_for_acceptance": false
+              }
+            },
+            "p": {
+              "idsat": {
+                "status": "PASS",
+                "value": -210.50347435860323,
+                "minimum": -290.0,
+                "maximum": -210.0,
+                "typical": -250.0,
+                "difference_from_typical": 39.49652564139677,
+                "units": "μA/um"
+              },
+              "ioff": {
+                "status": "PASS",
+                "value": -0.4739320047519868,
+                "minimum": -20.0,
+                "maximum": null,
+                "typical": -1.0,
+                "difference_from_typical": 0.5260679952480132,
+                "units": "pA/μm"
+              },
+              "threshold": {
+                "maximum_gm_a_v": 6.183904530665252e-05,
+                "peak_gate_v": -1.099999999999988,
+                "tangent_intercept_v": -0.876042140830967,
+                "linear_threshold_v": -0.851042140830967,
+                "used_for_acceptance": false
+              }
+            }
+          },
+          "grid_change": {
+            "n": 8.422103701999362e-06,
+            "p": 5.428167325627342e-06
+          }
+        }
+      ],
+      "record_sha256": "170e0b95aaa0ac21ac9838d202e22bed61db338afcecf5dc01e60623891825d2",
+      "source_manifest_sha256": "4c755e8504b5dba5eb004a0c3d94b6845ba4f312967404126edbc583d62e44e7"
+    }
+  },
+  "cross_host_current_differences": 0,
+  "diagnostic": {
+    "status": "COMPLETE",
+    "qualified": false,
+    "scope": "Diagnostic only. Public subcircuit defaults use zero junction areas/perimeters and series resistance. Neither this change nor default solver settings changes the acceptance run.",
+    "engine_sha256": "4c38c46c06cbe65d4111e392b93fd0b4a09250bd7f93bb3eed8f8f0af2bddcc9",
+    "cases": [
+      {
+        "corner": "nominal",
+        "variant": "public-default-parasitics",
+        "raw_sha256": "58ee160ccb9d05c64dc7197639dbc6303888d8a33f711cfee6a7f5e92f222554",
+        "measurements": {
+          "n": {
+            "idsat": {
+              "status": "PASS",
+              "value": 509.9621903295985,
+              "minimum": 430.0,
+              "maximum": 590.0,
+              "typical": 510.0,
+              "difference_from_typical": -0.03780967040148653,
+              "units": "μA/um"
+            },
+            "ioff": {
+              "status": "PASS",
+              "value": 1.393081372357752,
+              "minimum": null,
+              "maximum": 100.0,
+              "typical": 1.0,
+              "difference_from_typical": 0.393081372357752,
+              "units": "pA/μm"
+            },
+            "threshold": {
+              "maximum_gm_a_v": 0.0002255337674750367,
+              "peak_gate_v": 0.8800000000000007,
+              "tangent_intercept_v": 0.655238506636172,
+              "linear_threshold_v": 0.630238506636172,
+              "used_for_acceptance": false
+            }
+          },
+          "p": {
+            "idsat": {
+              "status": "PASS",
+              "value": -250.34517991979493,
+              "minimum": -290.0,
+              "maximum": -210.0,
+              "typical": -250.0,
+              "difference_from_typical": -0.3451799197949299,
+              "units": "μA/um"
+            },
+            "ioff": {
+              "status": "PASS",
+              "value": -0.5507647326056497,
+              "minimum": -20.0,
+              "maximum": null,
+              "typical": -1.0,
+              "difference_from_typical": 0.44923526739435027,
+              "units": "pA/μm"
+            },
+            "threshold": {
+              "maximum_gm_a_v": 6.973712624911087e-05,
+              "peak_gate_v": -0.9700000000000008,
+              "tangent_intercept_v": -0.7551131954228336,
+              "linear_threshold_v": -0.7301131954228336,
+              "used_for_acceptance": false
+            }
+          }
+        }
+      },
+      {
+        "corner": "nominal",
+        "variant": "catalog-parasitics-default-solver",
+        "raw_sha256": "e1f861cf8c666e754bd00d43eac910a4a4e2865581da788e51db984c55fa0d98",
+        "measurements": {
+          "n": {
+            "idsat": {
+              "status": "PASS",
+              "value": 509.7824690469821,
+              "minimum": 430.0,
+              "maximum": 590.0,
+              "typical": 510.0,
+              "difference_from_typical": -0.21753095301789926,
+              "units": "μA/um"
+            },
+            "ioff": {
+              "status": "PASS",
+              "value": 1.3923084907219159,
+              "minimum": null,
+              "maximum": 100.0,
+              "typical": 1.0,
+              "difference_from_typical": 0.39230849072191587,
+              "units": "pA/μm"
+            },
+            "threshold": {
+              "maximum_gm_a_v": 0.00022542063995989507,
+              "peak_gate_v": 0.8800000000000007,
+              "tangent_intercept_v": 0.6551833868683076,
+              "linear_threshold_v": 0.6301833868683075,
+              "used_for_acceptance": false
+            }
+          },
+          "p": {
+            "idsat": {
+              "status": "PASS",
+              "value": -250.2842564108931,
+              "minimum": -290.0,
+              "maximum": -210.0,
+              "typical": -250.0,
+              "difference_from_typical": -0.28425641089310716,
+              "units": "μA/um"
+            },
+            "ioff": {
+              "status": "PASS",
+              "value": -0.553157519789238,
+              "minimum": -20.0,
+              "maximum": null,
+              "typical": -1.0,
+              "difference_from_typical": 0.446842480210762,
+              "units": "pA/μm"
+            },
+            "threshold": {
+              "maximum_gm_a_v": 6.972648038394695e-05,
+              "peak_gate_v": -0.9700000000000008,
+              "tangent_intercept_v": -0.7550972542630485,
+              "linear_threshold_v": -0.7300972542630485,
+              "used_for_acceptance": false
+            }
+          }
+        }
+      },
+      {
+        "corner": "ff",
+        "variant": "public-default-parasitics",
+        "raw_sha256": "b695eacf3e7693aa6acf553e930fb65f3d61c336a8d1e922c1150584b85e42c4",
+        "measurements": {
+          "n": {
+            "idsat": {
+              "status": "OUTSIDE_PUBLISHED_BOUND",
+              "value": 590.5043754594769,
+              "minimum": 430.0,
+              "maximum": 590.0,
+              "typical": 510.0,
+              "difference_from_typical": 80.50437545947693,
+              "units": "μA/um"
+            },
+            "ioff": {
+              "status": "PASS",
+              "value": 21.75954381330954,
+              "minimum": null,
+              "maximum": 100.0,
+              "typical": 1.0,
+              "difference_from_typical": 20.75954381330954,
+              "units": "pA/μm"
+            },
+            "threshold": {
+              "maximum_gm_a_v": 0.00025150854436281216,
+              "peak_gate_v": 0.7750000000000006,
+              "tangent_intercept_v": 0.5549329858489112,
+              "linear_threshold_v": 0.5299329858489111,
+              "used_for_acceptance": false
+            }
+          },
+          "p": {
+            "idsat": {
+              "status": "OUTSIDE_PUBLISHED_BOUND",
+              "value": -290.4653589589051,
+              "minimum": -290.0,
+              "maximum": -210.0,
+              "typical": -250.0,
+              "difference_from_typical": -40.465358958905085,
+              "units": "μA/um"
+            },
+            "ioff": {
+              "status": "PASS",
+              "value": -0.8295123612400339,
+              "minimum": -20.0,
+              "maximum": null,
+              "typical": -1.0,
+              "difference_from_typical": 0.1704876387599661,
+              "units": "pA/μm"
+            },
+            "threshold": {
+              "maximum_gm_a_v": 7.925444923367378e-05,
+              "peak_gate_v": -0.8450000000000006,
+              "tangent_intercept_v": -0.6338729321639184,
+              "linear_threshold_v": -0.6088729321639184,
+              "used_for_acceptance": false
+            }
+          }
+        }
+      },
+      {
+        "corner": "ff",
+        "variant": "catalog-parasitics-default-solver",
+        "raw_sha256": "40c6a726418436481ab009b4b2a2cfe4cf387583cf524d4f155765fff447827f",
+        "measurements": {
+          "n": {
+            "idsat": {
+              "status": "OUTSIDE_PUBLISHED_BOUND",
+              "value": 590.2774461457483,
+              "minimum": 430.0,
+              "maximum": 590.0,
+              "typical": 510.0,
+              "difference_from_typical": 80.27744614574829,
+              "units": "μA/um"
+            },
+            "ioff": {
+              "status": "PASS",
+              "value": 21.75823965444579,
+              "minimum": null,
+              "maximum": 100.0,
+              "typical": 1.0,
+              "difference_from_typical": 20.75823965444579,
+              "units": "pA/μm"
+            },
+            "threshold": {
+              "maximum_gm_a_v": 0.00025137277531173027,
+              "peak_gate_v": 0.7700000000000006,
+              "tangent_intercept_v": 0.55487616312015,
+              "linear_threshold_v": 0.52987616312015,
+              "used_for_acceptance": false
+            }
+          },
+          "p": {
+            "idsat": {
+              "status": "OUTSIDE_PUBLISHED_BOUND",
+              "value": -290.3901988460689,
+              "minimum": -290.0,
+              "maximum": -210.0,
+              "typical": -250.0,
+              "difference_from_typical": -40.39019884606893,
+              "units": "μA/um"
+            },
+            "ioff": {
+              "status": "PASS",
+              "value": -0.8320455435750773,
+              "minimum": -20.0,
+              "maximum": null,
+              "typical": -1.0,
+              "difference_from_typical": 0.16795445642492268,
+              "units": "pA/μm"
+            },
+            "threshold": {
+              "maximum_gm_a_v": 7.924095916100875e-05,
+              "peak_gate_v": -0.8450000000000006,
+              "tangent_intercept_v": -0.6338554638158397,
+              "linear_threshold_v": -0.6088554638158397,
+              "used_for_acceptance": false
+            }
+          }
+        }
+      }
+    ]
+  },
+  "regression": {
+    "Windows": {
+      "host": "Windows",
+      "status": "PASS",
+      "exit": 0,
+      "modules": [
+        "test_gf180_mos_specs",
+        "test_standard_mos_qualification",
+        "test_standard_mos_bias_qualification",
+        "test_mos_boundaries",
+        "test_qualification_evidence",
+        "test_pdk_qualification_matrix",
+        "test_release_notes"
+      ],
+      "log_sha256": "009dd7e971a12fb6073c596149cb7abd0e7bb7ab5871b3019cdbe89e8609c762"
+    },
+    "Linux": {
+      "host": "Linux",
+      "status": "PASS",
+      "exit": 0,
+      "modules": [
+        "test_gf180_mos_specs",
+        "test_standard_mos_qualification",
+        "test_standard_mos_bias_qualification",
+        "test_mos_boundaries",
+        "test_qualification_evidence",
+        "test_pdk_qualification_matrix",
+        "test_release_notes"
+      ],
+      "log_sha256": "7763264ac491848ab9e671b0785397bbd8a1e421baa1d1be85057ed40f17cc47"
+    }
+  },
+  "archives": {
+    "Windows": {
+      "status": "PASS",
+      "archive": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\gf180-mos-specs-2026-10-23-v1\\Windows-evidence.zip",
+      "sha256": "1d6fad2d0c13ebc13eb7390c72145c8363498bb8caebcfde17b3ea4cc88ea930",
+      "bytes": 83559187,
+      "files": 1807,
+      "source_roots": [
+        "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\chunk7-mos-electrical-specs-20261023-v1\\Windows-final-v1"
+      ],
+      "uncompressed_bytes": 675525670
+    },
+    "Linux": {
+      "status": "PASS",
+      "archive": "/mnt/c/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/gf180-mos-specs-2026-10-23-v1/Linux-evidence.zip",
+      "sha256": "c95545361c8b50fcaf02eb2a578fc1ef36b1aa86406a7f31c1fd5520fb1bd3d0",
+      "bytes": 101422280,
+      "files": 2214,
+      "source_roots": [
+        "/var/tmp/icstudio-mos-electrical-specs-20261023-probe-v1",
+        "/var/tmp/icstudio-mos-electrical-specs-20261023-pilot-v1",
+        "/var/tmp/icstudio-mos-electrical-specs-20261023-pilot-v2",
+        "/var/tmp/icstudio-mos-electrical-specs-20261023-pilot-v3",
+        "/var/tmp/icstudio-mos-electrical-specs-20261023-pilot-v4",
+        "/var/tmp/icstudio-mos-electrical-specs-20261023-model-diagnostic-v1",
+        "/var/tmp/icstudio-mos-electrical-specs-20261023-final-v1"
+      ],
+      "uncompressed_bytes": 813747321
+    }
+  },
+  "source_archive": {
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\gf180-mos-specs-2026-10-23-v1\\source.zip",
+    "sha256": "ea418d5008aef9bb4fa260ff4bd93159bb1a756d17d0e2edf0d7aac8b6136f41",
+    "bytes": 88697341,
+    "final_delta": {
+      "scripts/qualify_gf180_mos_specs.py": "4044f8ecfa42b3f279b3caf520dc27b94e89e491f87bfebab814fb05ee4f8b39"
+    }
+  },
+  "acceptance": {
+    "execution_cases_per_host": 10,
+    "printed_current_bounds_pass_cases_per_host": 8,
+    "printed_current_bounds_mismatch_cases_per_host": 2,
+    "faulty_instances_detected_per_host": 240,
+    "threshold_used_for_acceptance": false,
+    "limits_widened": false,
+    "model_assets_changed": false
+  },
+  "initial_failures": {
+    "current_conservation": "The 1 fA initial check and 10 fA refinement rejected real low-current solver residuals; tightened solver settings did not remove them. Final application/reference absolute allowance is 100 fA (0.01 pA/um), plus 1 ppm relative. Published bounds are unchanged. Failed pilots and exact native inputs are archived.",
+    "windows_unit_sandbox": "First 47-test attempt had 20 temporary-file permission errors. Same tests pass as the ordinary user without Windows administrator access. The failing log and record are retained.",
+    "audit_version_assumption": "Initial independent Windows readback expected Linux ngspice 47; actual Windows engine is 46 with the previously validated runtime hash. Final audit verifies the distinct exact hashes and version headers. No engine was substituted.",
+    "fault_metadata": "The first complete batch recorded the original case corner in wrong-corner diagnostic metadata. The final runner records the actually selected fault corner. Both complete final batches and their audits were rerun; native outcomes are unchanged."
+  },
+  "numerical_policy": {
+    "solver": ".options reltol=1e-9 abstol=1e-18 vntol=1e-12",
+    "default_gmin_unchanged": true,
+    "comparison_absolute_a": 1e-13,
+    "comparison_relative": 1e-06,
+    "threshold_grid_tolerance_v": 0.0001,
+    "published_bound_tolerance": 0,
+    "threshold_equation": "Conventional max-gm tangent minus signed VDS/2; inferred diagnostic, not fully defined by the retained public source."
+  },
+  "parent_hosted_snapshot": {
+    "sha": "da9759cd46592ac43b7e8562559f2bc572628e17",
+    "checked_at": "2026-10-23T18:56:25.985049+00:00",
+    "counts": {
+      "success": 6,
+      "in_progress": 6,
+      "pending": 3,
+      "queued": 2
+    },
+    "scope": "Six successful workflows, others unfinished; not final hosted acceptance of this change."
+  },
+  "remaining": [
+    "Resolve interpretation/model agreement for literal printed ff current bounds; no upstream cause or rounding policy asserted.",
+    "Complete public threshold measurement definition and applicable numerical acceptance.",
+    "Other geometries, temperature, voltage, statistical and reliability envelopes.",
+    "Six unavailable real model bindings, remaining physical/process/tool views and exact final installed acceptance."
+  ],
+  "final_regression": {
+    "Windows": {
+      "host": "Windows",
+      "status": "PASS",
+      "exit": 0,
+      "tests": 47,
+      "log_sha256": "05f5b45632bb5e6865006a3727b60b6c104d044869ed3916403efa1cdc8e8bcd",
+      "source_files": {
+        "scripts/qualify_gf180_mos_specs.py": "4044f8ecfa42b3f279b3caf520dc27b94e89e491f87bfebab814fb05ee4f8b39",
+        "tests/test_gf180_mos_specs.py": "827d8833d642d2ed999302409dab9865b04d2c957f158c7b94bf99a094f82bb9"
+      }
+    },
+    "Linux": {
+      "host": "Linux",
+      "status": "PASS",
+      "exit": 0,
+      "tests": 47,
+      "log_sha256": "91bc03d0c24c61b93b57fc5367b859c48aa47ffaa70dd1999972e96657ebb6af",
+      "source_files": {
+        "scripts/qualify_gf180_mos_specs.py": "4044f8ecfa42b3f279b3caf520dc27b94e89e491f87bfebab814fb05ee4f8b39",
+        "tests/test_gf180_mos_specs.py": "827d8833d642d2ed999302409dab9865b04d2c957f158c7b94bf99a094f82bb9"
+      }
+    }
+  },
+  "restore_replay": {
+    "status": "PASS",
+    "source_unchanged": true,
+    "native_exit": 0,
+    "tests_exit": 0,
+    "cases": 2,
+    "faulty_instances": 48,
+    "tests": 7,
+    "record_sha256": "e6d142af808fda7f5dcf31892adcc2b2295c0e335bb78b6f008a7023ed2d4c58",
+    "test_log_sha256": "f70f37dda9c0130d2393b0be91e3a2dd6f469bbf605cb1f1058df3cd5e85d1d1",
+    "source_manifest_sha256": "a5f14affe0e8f0eacb3f91b4616173d0e3a618ec7b4b9706b2376c7bf1e8054c",
+    "delta_sha256": "c939664c96487dec5b99d3804e41dd407e2fca4d72293bb4298bc84919339dfe",
+    "archive_sha256": "600f734acbd7ce92b99c3c41b92ca3a7d4829694e479698265c74768fc0ca12e",
+    "archive_bytes": 8331497
+  },
+  "cleanup": {
+    "Windows": {
+      "removed_bytes": 1038229027,
+      "status": "PASS",
+      "administrator_used": false,
+      "roots": [
+        "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\chunk7-mos-electrical-specs-20261023-v1\\Windows-final-v1",
+        "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\chunk7-mos-electrical-specs-20261023-v1\\source.zip"
+      ],
+      "verified_files": 8185
+    },
+    "Linux": {
+      "status": "PASS",
+      "removed_bytes": 1427499773,
+      "verified_files": 15152,
+      "roots": [
+        "/var/tmp/icstudio-mos-electrical-specs-20261023-probe-v1",
+        "/var/tmp/icstudio-mos-electrical-specs-20261023-pilot-v1",
+        "/var/tmp/icstudio-mos-electrical-specs-20261023-pilot-v2",
+        "/var/tmp/icstudio-mos-electrical-specs-20261023-pilot-v3",
+        "/var/tmp/icstudio-mos-electrical-specs-20261023-pilot-v4",
+        "/var/tmp/icstudio-mos-electrical-specs-20261023-model-diagnostic-v1",
+        "/var/tmp/icstudio-mos-electrical-specs-20261023-final-v1",
+        "/var/tmp/icstudio-mos-electrical-specs-20261023-replay-v1"
+      ],
+      "administrator_used": false,
+      "scope": "Space freed inside Linux; no claim that the Windows virtual disk has shrunk."
+    }
+  },
+  "release_document_check": {
+    "version": "0.23.0",
+    "status": "passed",
+    "documents": 170,
+    "local_links": 1790,
+    "gallery_examples": 13,
+    "pdk_coverage": {
+      "status": "matrix_consistent",
+      "process_qualification": "unqualified",
+      "targets": 4,
+      "requirements": 125,
+      "device_entries": 302,
+      "requirement_statuses": {
+        "not_run": 73,
+        "partial": 34,
+        "needs_definition": 4,
+        "passed_reference": 14
+      }
+    }
+  },
+  "retention_directory": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\gf180-mos-specs-2026-10-23-v1",
+  "initial_runner_sources": {
+    "status": "PASS",
+    "scope": "Exact pilot runner bytes reconstructed from recorded edits and verified against the original source-file hashes before archival.",
+    "sha256": "086405f431c7e8985e6fe5ac4bc0540d020ffdacbc8732c2ba1fe044f2b41cf5",
+    "files": {
+      "pilot-v2/scripts/qualify_gf180_mos_specs.py": "96965ebb6680b79201bd97d565dd75680e87b1ea282e9196ccb56bdf0a5e88bb",
+      "pilot-v4/scripts/qualify_gf180_mos_specs.py": "c1da0d577878281c7b6c295057624bbbcffe8d6b373f0cea64d520339b0bf5f8",
+      "pilot-v1/scripts/qualify_gf180_mos_specs.py": "9037a652a57a5ee6b069caa2dcf9c6b2dd57f4527a1272b732243961c7044fc1",
+      "pilot-v3/scripts/qualify_gf180_mos_specs.py": "42cb9e58d4f21bc9070a845f8ee486a1d1ba14f415ed386e7aed8a7ebf6a4cd5"
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "schema": 1,
+  "purpose": "Authenticate the original sources of retained SKY130 integration results after current application code changes. These snapshots do not qualify current source or replace fresh execution.",
+  "repository": "https://github.com/jonahsaunders/IC-Design-Studio",
+  "files": {
+    "digital_flow.py.txt": {
+      "source": "icstudio/digital_flow.py",
+      "commit": "39d0b61a35f628372b04ae1cac49cd1e1e097f30",
+      "sha256": "855c59d78a340f09ee6ba484744b1bbd6877527bc492b27227163cc9da07ddfb"
+    },
+    "digital_macro.py.txt": {
+      "source": "icstudio/digital_macro.py",
+      "commit": "39d0b61a35f628372b04ae1cac49cd1e1e097f30",
+      "sha256": "8effc00c6e73442fe3ea84234d0631a5ad153358e73a431b96ab8b48de734e71"
+    },
+    "interchange.py.txt": {
+      "source": "icstudio/interchange.py",
+      "commit": "30dae7b2bcfcae0346d316d09ec0c31caec28537",
+      "sha256": "29993ee82c62651d08334f94aebffac2b6c162681f5b6ef429c8c556dde34616"
+    }
+  },
+  "related_test_preservation": {
+    "source": "tests/test_sky130_interconnect_geometry.py",
+    "commit": "bf471e1c9e7a50458f9c28bf70165fc4667c3c00",
+    "sha256": "f20e78eb16afec8e79b8b760de4c8b65368337b74467881eef735a9df3934e6c",
+    "note": "Restore the test bytes authenticated by the floating-review checkpoint. The subsequent contact core-marker regression is retained in test_sky130_contact_core_marker.py."
+  }
+}

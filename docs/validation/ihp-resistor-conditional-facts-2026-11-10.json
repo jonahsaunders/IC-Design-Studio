@@ -1,0 +1,399 @@
+{
+  "schema": 1,
+  "as_of": "2026-11-10",
+  "status": "AUTHENTICATED_CONDITIONAL_SOURCE_FACTS_ONLY",
+  "qualified": false,
+  "chunk_complete": false,
+  "operating_envelope_complete": false,
+  "reliability_qualified": false,
+  "runtime_binding": null,
+  "numeric_safe_unsafe_screen": false,
+  "scope": "Read-only newly identified IHP resistor conditional documentation facts and bounded SKY130 source-gap assessment. No simulation, model import, limit changes or qualification promotion.",
+  "sources": {
+    "rppd_params.csv": {
+      "repository": "IHP-GmbH/IHP-Open-PDK-docs",
+      "revision": "f79c1aa616361a5980994feffda1e2766a4b500b",
+      "path": "docs/process_specs/tables/rppd_params.csv",
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK-docs/blob/f79c1aa616361a5980994feffda1e2766a4b500b/docs/process_specs/tables/rppd_params.csv",
+      "git_blob_sha1": "cf26477bdea514c4479ae1e403b716aafb54d3be",
+      "sha256": "2771f60d1fcf90ebb71725540d1c89d7bf57b14ee14070742c4b171b63a2fb08",
+      "bytes": 524,
+      "line_excerpts": [
+        {
+          "start_line": 1,
+          "end_line": 10,
+          "text": "Sheet Resistance,RSRPPD,\u03a9,:red:`235`,:blue:`260`,:red:`285`,A.i,\nLine Width Delta,DWRPPD,nm,:blue:`-24`,:blue:`6`,:blue:`36`,A.i,\nTemperature Coefficients,TC1NRPPD,ppm/K,,:ital:`170`,,A.af,\nTemperature Coefficients,TC2NRPPD,ppm/K\u00b2,,:ital:`0.4`,,A.af,\nMatching Coefficient,MATRPPD,nm,,:ital:`15`,,A.ac,\n\"Metal-to-Body-\nResistance\",RCRPPD,\u03a9*\u00b5m,,:ital:`35`,,A.ae,\n\"Temperature Coefficient\nMetal-toBody-Resistance\",TC3NRPPD,ppm/K,,:ital:`-950`,,,\nMax. Current Density,IMRPPD,mA/\u03bcm,,,:ital:`1.2`,,11 years @105\u00b0C"
+        }
+      ]
+    },
+    "rhigh_params.csv": {
+      "repository": "IHP-GmbH/IHP-Open-PDK-docs",
+      "revision": "f79c1aa616361a5980994feffda1e2766a4b500b",
+      "path": "docs/process_specs/tables/rhigh_params.csv",
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK-docs/blob/f79c1aa616361a5980994feffda1e2766a4b500b/docs/process_specs/tables/rhigh_params.csv",
+      "git_blob_sha1": "27a29b1693e1d67dc31452f9caff8baa01a261e5",
+      "sha256": "571c0ee3b4fa81747037432255ce5d59a6263c7706946bf4d73d8bace2924bec",
+      "bytes": 453,
+      "line_excerpts": [
+        {
+          "start_line": 1,
+          "end_line": 8,
+          "text": "Sheet Resistance,RSRHIGH,\u03a9,:red:`1160`,:blue:`1360`,:red:`1560`,A.i,\nLine Width Delta,DWRHIGH,nm,:blue:`-80`,:blue:`-40`,:blue:`0`,A.i,\nTemperature Coefficients,TC1NRHIGH,ppm/K,,:ital:`-2300`,,A.af,\nTemperature Coefficients,TC2NRHIGH,ppm/K\u00b2,,:ital:`2.1`,,A.af,\nMatching Coefficient,MATRHIGH,nm,,:ital:`48`,,A.ac,\n\"Metal-to-Body-\nResistance\",RCRHIGH,\u03a9*\u00b5m,,:ital:`80`,,A.ae,\nMax. Current Density,IMRHIGH,mA/\u03bcm,,,:ital:`0.6`,,11 years @105\u00b0C"
+        }
+      ]
+    },
+    "rsil_params.csv": {
+      "repository": "IHP-GmbH/IHP-Open-PDK-docs",
+      "revision": "f79c1aa616361a5980994feffda1e2766a4b500b",
+      "path": "docs/process_specs/tables/rsil_params.csv",
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK-docs/blob/f79c1aa616361a5980994feffda1e2766a4b500b/docs/process_specs/tables/rsil_params.csv",
+      "git_blob_sha1": "3d3262267874caad898d6ab24be170b43ffc9cd2",
+      "sha256": "ce2fe8d91511b07108ded59803d645397cf5d2040e38857d4596dcdebd1cd025",
+      "bytes": 494,
+      "line_excerpts": [
+        {
+          "start_line": 1,
+          "end_line": 9,
+          "text": "Sheet Resistance,RSNRSIL,\u03a9,:red:`6.2`,:blue:`7.0`,:red:`7.8`,A.i,\nLine Width Delta,DWRSIL,nm,:blue:`-20`,:blue:`10`,:blue:`40`,A.i,\nTemperature Coefficients,TC1NRSIL,ppm/K,,:ital:`3100`,,A.af,\nTemperature Coefficients,TC2NRSIL,ppm/K\u00b2,,:ital:`0.3`,,A.af,\nMatching Coefficient,MATRSIL1,nm,,:ital:`6`,,A.ac,\nMatching Coefficient,MATRSIL2,nm,,:ital:`1.4`,,A.ac,\n\"Metal-to-Body-\nResistance\",RCRSIL,,,:ital:`4.5`,,A.ae,\nMax. Current Density,,,,,,,\"Is limited by contacts, please refer chapter 2.9\""
+        }
+      ]
+    },
+    "curr_dens_params.csv": {
+      "repository": "IHP-GmbH/IHP-Open-PDK-docs",
+      "revision": "f79c1aa616361a5980994feffda1e2766a4b500b",
+      "path": "docs/process_specs/tables/curr_dens_params.csv",
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK-docs/blob/f79c1aa616361a5980994feffda1e2766a4b500b/docs/process_specs/tables/curr_dens_params.csv",
+      "git_blob_sha1": "f60cf811cad88da2b152a02fee4391b662b7132c",
+      "sha256": "5e012f221a3ff4ddec6e895ceab9af5d6865c644abd3f8e9232caeb3779f24df",
+      "bytes": 916,
+      "line_excerpts": [
+        {
+          "start_line": 1,
+          "end_line": 19,
+          "text": "Metal1,IMAXM1,mA,,,:ital:`0.36`,A.v,w = 0.16 ... 0.36 \u00b5m\nMetal1,JMAXM1,mA/\u00b5m,,,:ital:`1`,A.v,w > 0.36 \u00b5m\nMetal2,IMAXM2,mA,,,:ital:`0.6`,A.v,w = 0.2 \u2026 0.3 \u00b5m\nMetal2,JMAXM2,mA/\u00b5m,,,:ital:`2`,A.v,w > 0.3 \u00b5m\nMetal3,IMAXM3,mA,,,:ital:`0.6`,A.v,w = 0.2 \u2026 0.3 \u00b5m\nMetal3,JMAXM3,mA/\u00b5m,,,:ital:`2`,A.v,w > 0.3 \u00b5m\nMetal4,IMAXM4,mA,,,:ital:`0.6`,A.v,w = 0.2 \u2026 0.3 \u00b5m\nMetal4,JMAXM4,mA/\u00b5m,,,:ital:`2`,A.v,w > 0.3 \u00b5m\nMetal5,IMAXM5,mA,,,:ital:`0.6`,A.v,w = 0.2 \u2026 0.3 \u00b5m\nMetal5,JMAXM5,mA/\u00b5m,,,:ital:`2`,A.v,w > 0.3 \u00b5m\nTopMetal1,JMAXM6,mA/\u00b5m,,,:ital:`15`,A.v,\nTopMetal2,JMAXM7,mA/\u00b5m,,,:ital:`16`,A.v,\nContact,JMAXCNT,mA/Cnt,,,:ital:`0.3`,A.v,\nVia1,JMAXVIA1,mA/Via,,,:ital:`0.4`,A.v,\nVia2,JMAXVIA2,mA/Via,,,:ital:`0.4`,A.v,\nVia3,JMAXVIA3,mA/Via,,,:ital:`0.4`,A.v,\nVia4,JMAXVIA4,mA/Via,,,:ital:`0.4`,A.v,\nTopVia1,JMAXTVIA1,mA/Via,,,:ital:`1.4`,A.v,\nTopVia2,JMAXTVIA2,mA/Via,,,:ital:`10`,A.v,"
+        }
+      ]
+    },
+    "process_control": {
+      "repository": "IHP-GmbH/IHP-Open-PDK-docs",
+      "revision": "f79c1aa616361a5980994feffda1e2766a4b500b",
+      "path": "docs/process_specs/01_02_process_control.rst",
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK-docs/blob/f79c1aa616361a5980994feffda1e2766a4b500b/docs/process_specs/01_02_process_control.rst",
+      "git_blob_sha1": "72d23ce9ff58ed79406f097b438504fdd919b598",
+      "sha256": "5160cae6765529bc698d8aef60912c3bce011fe7483e0c033b00b5188a2c131f",
+      "bytes": 2271,
+      "line_excerpts": [
+        {
+          "start_line": 4,
+          "end_line": 7,
+          "text": ".. note::\n   - Several geometrical and electrical parameters are measured for process control purposes. \n   - Electrical measurements are typically performed at T0 = 27\u00b0C (300K). \n   - Coefficients describing the temperature behavior of parameters are extracted for the temperature range `-40\u00b0C < T < 125\u00b0C`."
+        },
+        {
+          "start_line": 17,
+          "end_line": 19,
+          "text": "Pass/fail parameters are used for wafer selection during the wafer fabrication process. \n\nPass/Fail parameters are measured on each wafer and are characterized by SPEC limits in :red:`bold red`."
+        },
+        {
+          "start_line": 31,
+          "end_line": 41,
+          "text": "Information parameters are provided in order to increase the knowledge about the process. These parameters do not lead to wafer scrap. \n\n**There are two groups of information parameters:**\n\n1. The first group of information parameters is measured, identically to the pass/fail parameters, on each\nwafer. These parameters are characterized by SPEC limits in :blue:`bold blue`.\n\n2. The second group of information parameters is not measured on each wafer. This group includes, for\nexample, the layer thickness values measured during the wafer fabrication process or taken from REM\ncross-sections, and the coefficients describing the temperature, voltage and matching behavior of active\nand passive devices. This group of information parameters is given in :ital:`italic blue`."
+        },
+        {
+          "start_line": 43,
+          "end_line": 48,
+          "text": ".. note::\n\n   - The process control transistor parameters must not be used for circuit simulation purposes. They are often extracted from simplified model equations in order to increase the speed of the measurements.  \n   - Special circuit simulation transistor parameters are provided in the model parameter section 5. Those are extracted from the complete set of model equations in order to give the best fit of the entire characteristic for all operating points. Therefore, process control transistor parameters may differ from their corresponding circuit simulation parameters.\n\n   - It is strongly recommended that a design shall rely only on pass/fail parameters."
+        }
+      ]
+    },
+    "general": {
+      "repository": "IHP-GmbH/IHP-Open-PDK-docs",
+      "revision": "f79c1aa616361a5980994feffda1e2766a4b500b",
+      "path": "docs/process_specs/01_general.rst",
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK-docs/blob/f79c1aa616361a5980994feffda1e2766a4b500b/docs/process_specs/01_general.rst",
+      "git_blob_sha1": "4abce5fc2c7087dc9885272ae44592db77a5389d",
+      "sha256": "1e10f2b680504974adb2243fa2cc5ebdd8fad946e156a17f5c01a0ebdc38b41d",
+      "bytes": 976,
+      "line_excerpts": [
+        {
+          "start_line": 4,
+          "end_line": 11,
+          "text": ".. note::\n    - SG13S is a high performance BiCMOS technology with a 0.13 \u00b5m CMOS process. It contains bipolar devices based on SiGe:C npn-HBT's with up to 250 GHz transit frequency (fT) and 300 GHz maximum oscillation frequency. \n    \n    - This process provides 2 gate oxides: A thin gate oxide for the 1.2 V digital logic and a thick oxide for a 3.3 V supply voltage. For both modules NMOS, PMOS and isolated NMOS transistors are offered. Further passive components like poly silicon resistors and MIM capacitors are available. \n    \n    - The backend option offers 5 thin Al metal layers, two thick Al metal layers (2 and 3 \u00b5m thick)and a MIM layer.\n\n    - SG13G2 has the same device portfolio as SG13S but much higher bipolar performance with f T = 300 GHz and 500 GHz maximum oscillation frequency."
+        }
+      ]
+    },
+    "measurement_conditions": {
+      "repository": "IHP-GmbH/IHP-Open-PDK-docs",
+      "revision": "f79c1aa616361a5980994feffda1e2766a4b500b",
+      "path": "docs/process_specs/tables/meas_cond.csv",
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK-docs/blob/f79c1aa616361a5980994feffda1e2766a4b500b/docs/process_specs/tables/meas_cond.csv",
+      "git_blob_sha1": "26a0cc91cb3dfb6df66c86d4101d0bfebb848964",
+      "sha256": "99294a0697a52b3c9863a2d8c40c75d1fe1148a40dd853b98ef0f55187205e3a",
+      "bytes": 9939,
+      "line_excerpts": [
+        {
+          "start_line": 77,
+          "end_line": 80,
+          "text": "A.i, \"Sheet Resistance, Line Width Delta\", \"- The sheet resistance R s and the line width delta (= \u0394W) values are calculated from the resistances of two resistors R1 and RN:\n- R1: one single stripe with the dimension `W x L`\n- RN: N stripes in parallel with dimensions (W/N) x L each Formulas: `R1 = Rs L / (W + \u0394W)` and `RN = Rs (L / N) / (W/N + \u0394W)`\n- Voltage across both resistors in series: 0.5V\""
+        },
+        {
+          "start_line": 95,
+          "end_line": 96,
+          "text": "A.v, \"Maximum Current Density of Metal Lines, Contacts and Vias\", \"- The maximum current density is determined via electromigration measurements as part of the process qualification procedure. \n- The current density values given were estimated to reach less than 0.01% failure in 11years of operation at 105\u00b0C (for SG13RH: 20 years at 125\u00b0C)\""
+        },
+        {
+          "start_line": 102,
+          "end_line": 114,
+          "text": "A.ac, Resistor Matching Coefficient k, \"- Measuring the matching behavior of resistor pairs, differing in the resistor area, are investigated. \n- The least square fit \u03c3(dR/R) vs. inverse square root of area is estimated: \u03c3(dR/R) = k*A^(-0.5)\"\nA.ad, MIM Capacitor Temperature Coefficient, \"- Measurement of capacitance (at VMIM = 0V, f = 1MHz) as a function of temperature in the range -40\u00b0C to 125\u00b0C.\n- Temperature coefficients TCMIM1 and TCMIM2; T0 = 300K\n- `C(T) = C(T0) * [1 + TCMIM1 * (T - T0) + TCMIM2 * (T - T0)\u00b2]`\"\nA.ae, Salicide to GatPoly Contact Resistance, \"- RRES = (2* RCONT / # of contacts) + (2* RC2POLY / resistor width) + RPOLY\n- Note that this formula is only valid for resistors with same width of unsalicided and salicided regions\n- RRES: Total resistance of a resistor; RCONT: Contribution of a single W-plug (typically < 1\u03a9)\n- RC2POLY: Salicide to GatPoly contact resistance\n- RPOLY: Contribution of the unsalicided polysilicon stripe (= `RS* L / W`)\"\nA.af, Resistor Temperature Coefficients, \"- Measurement of R as a function of temperature in the range -40\u00b0C to 125\u00b0C.\n- Temperature coefficients TC1 and TC2; T0 = 300K\n- `R(T) = R(T0) * [1 + TC1 * (T - T0) + TC2 * (T - T0)\u00b2]`\""
+        }
+      ]
+    },
+    "resistor_material_and_precision": {
+      "repository": "IHP-GmbH/IHP-Open-PDK-docs",
+      "revision": "f79c1aa616361a5980994feffda1e2766a4b500b",
+      "path": "docs/process_specs/02_process_control_params.rst",
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK-docs/blob/f79c1aa616361a5980994feffda1e2766a4b500b/docs/process_specs/02_process_control_params.rst",
+      "git_blob_sha1": "37cfb0dba757d451f63c60ede0d5f1980165b7f8",
+      "sha256": "b95376d55e13087af9b81084ee02df88c3e71c76f390fb41f4986561345c9893",
+      "bytes": 6084,
+      "line_excerpts": [
+        {
+          "start_line": 89,
+          "end_line": 125,
+          "text": "Rsil-Specs\n----------\n\n.. tip::\n    Rsil utilizes **salicided, n-doped gate polysilicon** as resistor material.\n\n.. csv-table:: Rsil - Process Control Parameters\n    :header: \"Parameter\", \"Name\", \"Unit\", \"Min\", \"Target\", \"Max\", \"Meas.Cond.\", \"Comment\"\n    :stub-columns: 0\n    :file: tables/rsil_params.csv\n    :widths: 200, 150, 150, 100, 100, 100, 100, 300\n\n\nRppd-Specs\n----------\n\n.. tip::\n    Rppd utilizes **unsalicided, p-doped gate polysilicon** as resistor material. For realizing precision resistors, a line width of 2\u00b5m or higher is recommended.\n\n.. csv-table:: Rppd - Process Control Parameters\n    :header: \"Parameter\", \"Name\", \"Unit\", \"Min\", \"Target\", \"Max\", \"Meas.Cond.\", \"Comment\"\n    :stub-columns: 0\n    :file: tables/rppd_params.csv\n    :widths: 200, 150, 150, 100, 100, 100, 100, 300\n\n\nRhigh-Specs\n-----------\n\n.. tip::\n    Rhigh utilizes **unsalicided, partially compensated gate polysilicon** as resistor material.\n\n.. csv-table:: Rhigh - Process Control Parameters\n    :header: \"Parameter\", \"Name\", \"Unit\", \"Min\", \"Target\", \"Max\", \"Meas.Cond.\", \"Comment\"\n    :stub-columns: 0\n    :file: tables/rhigh_params.csv\n    :widths: 200, 150, 150, 100, 100, 100, 100, 300"
+        }
+      ]
+    },
+    "experimental_status": {
+      "repository": "IHP-GmbH/IHP-Open-PDK-docs",
+      "revision": "f79c1aa616361a5980994feffda1e2766a4b500b",
+      "path": "README.rst",
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK-docs/blob/f79c1aa616361a5980994feffda1e2766a4b500b/README.rst",
+      "git_blob_sha1": "5532f643e021ea54f2b35cb8e116aa4ecedfe3ff",
+      "sha256": "6e51e6b29e52aac2871b91f1500dd1b4310ccedd77008e982306891cc77197af",
+      "bytes": 4866,
+      "line_excerpts": [
+        {
+          "start_line": 24,
+          "end_line": 38,
+          "text": "\nCurrent Status -- |current-status|\n==================================\n\n.. current_status_text\n\n\u26a0 **Warning**: IHP Open Source PDK are currently treating the current content as an **experimental preview** / **alpha release**.\n\nWhile the SG13G2 process node and the PDK from which this open source release was derived have been \nused to create many designs that have been successfully manufactured in significant quantities, \nthe open source PDK is not intended to be used for production at this moment.\n\nThe PDK will be tagged with a production version when ready to do production design.\n\nSG13G2 Process Node"
+        }
+      ]
+    },
+    "bundled_resistors_model": {
+      "repository": "IHP-GmbH/IHP-Open-PDK",
+      "revision": "5e6d592e4002946a4616f798c357f0f3c06cf3b6",
+      "path": "ihp-sg13g2/libs.tech/ngspice/models/resistors_mod.lib",
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/ngspice/models/resistors_mod.lib",
+      "git_blob_sha1": "f10daeda590250dc1a3688c3d85a068f649089f4",
+      "sha256": "7c77da0c0419c8a332550da3f934f530262bd452734090db827b68ff88d09c43",
+      "bytes": 5327,
+      "line_excerpts": [
+        {
+          "start_line": 45,
+          "end_line": 51,
+          "text": ".subckt rsil 1 2 bn\n.param w=0.5e-6 l=0.5e-6 mm_ok=0 m=1 trise=0 sw_et=0\n+postsim=0\n+kappa=1.85\n+ps=0.18e-6\n+weff=w+dw_rsil_par\n+leff=l"
+        },
+        {
+          "start_line": 74,
+          "end_line": 86,
+          "text": ".model rmod_rsil r3_cmc\n+rsh=rsh_rsil\n+ecrit=1000\n+dfinf=1e-4\n+dp=1000\n+xw=0.01\n+rc=rz\n+ca=cax\n+cp=cpx\n+tc1=3100e-6\n+tc2=0.3e-6\n+tc1rc=3100e-6\n+tc2rc=0.3e-6"
+        },
+        {
+          "start_line": 107,
+          "end_line": 114,
+          "text": ".subckt rhigh 1 2 bn\n.param w=0.5e-6 l=0.96e-6 mm_ok=0 b=0 trise=0 m=1 sw_et=0\n+postsim=0\n+kappa=1.85\n+ps=0.18e-6\n+weff=w+dw_rhigh_par\n+leff=(b+1)*l+(2/kappa*weff+ps)*b\n+lhead=0.86e-6"
+        },
+        {
+          "start_line": 136,
+          "end_line": 148,
+          "text": ".model rmod_rhigh r3_cmc\n+rsh=rsh_rhigh\n+ecrit=1000\n+dfinf=1e-4\n+dp=1000\n+xw=-0.04\n+rc=rz\n+ca=cax\n+cp=cpx\n+tc1=-2300e-6\n+tc2=2.1e-6\n+tc1rc=-2300e-6\n+tc2rc=2.1e-6"
+        },
+        {
+          "start_line": 169,
+          "end_line": 175,
+          "text": ".subckt rppd 1 2 bn\n.param w=0.5e-6 l=0.5e-6 mm_ok=0 b=0 ps=0.18e-6 trise=0 m=1 sw_et=0\n+postsim=0\n+kappa=1.85\n+weff=w+dw_rppd_par\n+leff=(b+1)*l+(2/kappa*weff+ps)*b\n+lhead=0.86e-6"
+        },
+        {
+          "start_line": 196,
+          "end_line": 208,
+          "text": ".model res_rppd r3_cmc\n+rsh=rsh_rppd\n+ecrit=1000\n+dfinf=1e-4\n+dp=1000\n+xw=0.006\n+rc=rz\n+ca=cax\n+cp=cpx\n+tc1=170e-6\n+tc2=0.4e-6\n+tc1rc=-950e-6\n+gth0=1e-12"
+        }
+      ]
+    }
+  },
+  "facts": [
+    {
+      "id": "IMRPPD",
+      "device": "rppd",
+      "quantity": "current_per_width",
+      "value_decimal": "1.2",
+      "unit_literal": "mA/\u03bcm",
+      "column": "Max",
+      "classification": "INFORMATION_NOT_MEASURED_EVERY_WAFER",
+      "condition_literal": "11 years @105\u00b0C",
+      "source": "rppd_params.csv",
+      "source_lines": [
+        10
+      ],
+      "width_definition": null,
+      "current_sharing_definition": null,
+      "safe_limit": false
+    },
+    {
+      "id": "IMRHIGH",
+      "device": "rhigh",
+      "quantity": "current_per_width",
+      "value_decimal": "0.6",
+      "unit_literal": "mA/\u03bcm",
+      "column": "Max",
+      "classification": "INFORMATION_NOT_MEASURED_EVERY_WAFER",
+      "condition_literal": "11 years @105\u00b0C",
+      "source": "rhigh_params.csv",
+      "source_lines": [
+        8
+      ],
+      "width_definition": null,
+      "current_sharing_definition": null,
+      "safe_limit": false
+    },
+    {
+      "id": "RSIL_CURRENT",
+      "device": "rsil",
+      "quantity": "current_limit",
+      "value_decimal": null,
+      "classification": "CONTACT_LIMITED_SOURCE_STATEMENT",
+      "condition_literal": "Is limited by contacts, please refer chapter 2.9",
+      "source": "rsil_params.csv",
+      "source_lines": [
+        9
+      ],
+      "safe_limit": false
+    },
+    {
+      "id": "JMAXCNT",
+      "device": "Contact",
+      "quantity": "current_per_contact",
+      "value_decimal": "0.3",
+      "unit_literal": "mA/Cnt",
+      "column": "Max",
+      "classification": "INFORMATION_NOT_MEASURED_EVERY_WAFER",
+      "measurement_condition": "A.v",
+      "source": "curr_dens_params.csv",
+      "source_lines": [
+        13
+      ],
+      "condition_literal": "The current density values given were estimated to reach less than 0.01% failure in 11years of operation at 105\u00b0C (for SG13RH: 20 years at 125\u00b0C)",
+      "condition_source": "measurement_conditions",
+      "condition_lines": [
+        95,
+        96
+      ],
+      "safe_limit": false
+    },
+    {
+      "id": "RPPD_PRECISION_WIDTH",
+      "device": "rppd",
+      "quantity": "recommended_width_for_precision",
+      "value_decimal": "2",
+      "unit_literal": "\u00b5m",
+      "relation": "or higher",
+      "classification": "DESIGN_RECOMMENDATION_NOT_HARD_MINIMUM_OR_PRECISION_GUARANTEE",
+      "source": "resistor_material_and_precision",
+      "source_lines": [
+        106
+      ],
+      "safe_limit": false
+    }
+  ],
+  "applicability": {
+    "documentation_repository_and_commit": "IHP-GmbH/IHP-Open-PDK-docs@f79c1aa616361a5980994feffda1e2766a4b500b",
+    "bundled_package_revision": "cfb96b74cf33877e",
+    "bundled_upstream_commit": "5e6d592e4002946a4616f798c357f0f3c06cf3b6",
+    "upstream_lock_sha256": "a4fb9307f96eb812864be404f4c4ca72b64a592847ac6835ad30e712450bd220",
+    "model_cache_git_blob": "f10daeda590250dc1a3688c3d85a068f649089f4",
+    "cached_source_matches_bundled_bytes": true,
+    "established": "Official SG13G2 documentation names the same three resistor materials/models. Listed body temperature coefficients match literal bundled model coefficients. This establishes source correspondence, not measured device equivalence or full documentation applicability to every layout/model revision.",
+    "not_established": [
+      "Current-density width basis: drawn mask width versus corrected/effective model width.",
+      "Per-contact current distribution, current crowding, layout-specific limiting contact and correspondence to resistor body current.",
+      "Any general operating-temperature range, current/power safe envelope, lifetime guarantee, temperature derating, pulse/duty-cycle limit or lower-temperature/shorter-lifetime extrapolation.",
+      "Independent silicon calibration, measurement uncertainty, wafer/lot applicability or guaranteed precision."
+    ],
+    "information_parameter_semantics": "Italic-blue values are the second group of information parameters, not measured on each wafer; not pass/fail wafer selection. Source recommends designs rely only on pass/fail parameters. A maximum-column entry is not promoted to a guaranteed safe limit.",
+    "temperature_domain": "A.af describes resistor temperature-coefficient measurement over -40\u00b0C to 125\u00b0C; general prose uses strict -40\u00b0C < T < 125\u00b0C. Neither is a rated operating envelope. Preserve this endpoint distinction rather than invent one common range.",
+    "reference_temperature_precision": "General prose prints T0 = 27\u00b0C (300K), but 27\u00b0C is 300.15K. A.af explicitly prints T0 = 300K. Preserve these separate source literals; do not silently normalize 300K to 27\u00b0C or claim precision-level calibration.",
+    "material_distinction": "A.v parenthetical SG13RH 20 years at 125\u00b0C does not apply automatically to SG13G2. Rppd/Rhigh current-density rows state 11 years at 105\u00b0C but have no A.v code; do not attach the A.v failure percentage to those rows by inference.",
+    "power_limit": "No explicit resistor power bound or power-density/derating law established by these reviewed files. Model thermal parameters/ecrit or source sweep ranges are not substituted."
+  },
+  "source_only_model_crosscheck": {
+    "rsil_body_tc1_ppm_per_k": "3100",
+    "rsil_body_tc2_ppm_per_k2": "0.3",
+    "rhigh_body_tc1_ppm_per_k": "-2300",
+    "rhigh_body_tc2_ppm_per_k2": "2.1",
+    "rppd_body_tc1_ppm_per_k": "170",
+    "rppd_body_tc2_ppm_per_k2": "0.4",
+    "rppd_contact_tc1_ppm_per_k": "-950",
+    "interpretation": "Literal coefficient agreement only, not a native simulation or silicon calibration result."
+  },
+  "sky130_bounded_negative_findings": {
+    "documentation_revision": "google/skywater-pdk@7198cf647113f56041e02abf3eb623692820c5e1",
+    "li_rule_source": {
+      "path": "docs/qualification/sky130-li-sources-v1/p035-li_dotdash_dotdash.csv",
+      "sha256": "2a70ccb00ed7dbcaa0b636c99df6edf683b714437b4570808ab48743236ccf69",
+      "line": 4,
+      "literal": "(li.2.-),Max ratio of length to width of LI without licon or mcon,NC,10.000,\u00b5m",
+      "url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/periphery/p035-li_dotdash_dotdash.csv"
+    },
+    "sheet_source": {
+      "path": "docs/qualification/sky130-li-sources-v1/res_generic-table0.rst",
+      "sha256": "97341fdc15c209037fb441ba083a3198bc12f4f5e9cbfe44cf5c27ed42d354d6",
+      "lines": [
+        90,
+        95
+      ],
+      "literal_summary": "RSLI NOM 12.8, LSL 9.2, USL 17.0 \u03a9/\u25a1; no applicable geometry, temperature, bias or measurement protocol stated in table.",
+      "url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details/res_generic/res_generic-table0.rst"
+    },
+    "recovered_archive": {
+      "name": "common.tar.zst",
+      "release": "sky130-fa87f8f4bbcc7255b6f0c0fb506960f531ae2392",
+      "sha256": "c7c155596a1fd1fcf6d5414dfcffcbbcf4e35b2b33160af97f4340e763c97406",
+      "magic_member": "sky130A/libs.tech/magic/sky130A.tech",
+      "magic_sha256": "5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e",
+      "magic_li_lines": [
+        4378,
+        4409
+      ],
+      "klayout_member": "sky130A/libs.tech/klayout/drc/sky130A_mr.drc",
+      "klayout_sha256": "d4cc44d9c95c9b97b994904b20c573333636a8c6e3918bb3bb9e5534d7253149",
+      "klayout_li_lines": [
+        395,
+        407
+      ],
+      "url": "https://github.com/chipfoundry/volare/releases/download/sky130-fa87f8f4bbcc7255b6f0c0fb506960f531ae2392/common.tar.zst"
+    },
+    "conclusion": "Reviewed implementations cover LI width, spacing, enclosure and area but provide no LI2 ratio/contact-segmentation interpretation. Dimensionless-ratio/\u00b5m-unit ambiguity and missing sheet-table applicability remain unresolved. DRC passes do not establish these missing requirements."
+  },
+  "license": {
+    "applicable": "Apache-2.0 source notices retained in existing official documentation fixture and bundled model source. This record quotes attributed source excerpts.",
+    "existing_documentation_license_path": "docs/qualification/ihp-cmim-applicability-v1/LICENSE",
+    "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+  },
+  "verification": [
+    "Fetched exact immutable official documentation paths through GitHub connector; recomputed raw byte sizes, SHA256 and Git blob SHA1. Four new table blob IDs match official directory metadata.",
+    "Reauthenticated existing documentation source files against retained source-ledger hashes.",
+    "Compared bundled resistor model bytes to recovered pinned Git blob; exact match.",
+    "Checked recovered SKY130 common archive SHA and selected Magic/KLayout member hashes against release inventory; inspected bounded relevant rule sections."
+  ],
+  "next_defensible_step": "Use facts as explicitly informational documentation only. Obtain authoritative width definition/contact-current mapping and rating/derating conditions before proposing a numerical safe/unsafe screen. No existing model, runtime or qualification gate modified.",
+  "independent_retained_source_verification": {
+    "status": "PASS",
+    "sources": 10,
+    "checks": [
+      "Exact raw byte sizes, SHA256 and Git blob identities",
+      "Every retained line excerpt compared to authenticated retained source",
+      "Informational classification and unknown applicability preserved"
+    ],
+    "numeric_screen_added": false
+  }
+}

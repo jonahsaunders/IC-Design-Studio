@@ -1,0 +1,329 @@
+{
+  "schema": 1,
+  "date": "2026-11-10",
+  "status": "LOCAL_SOURCE_AND_CORRECTED_HOSTED_SOURCE_PASS_INSTALLED_PENDING",
+  "base": "3dcf4484a109b5a083898815eaaee6f8cd1116d7",
+  "branch": "codex/chunk7-blockers-20261108",
+  "chunk": 7,
+  "chunk_complete": false,
+  "qualified": false,
+  "installed_acceptance": false,
+  "estimate": {
+    "percent": 74,
+    "confidence": "low",
+    "range_percent": [
+      55,
+      82
+    ],
+    "kind": "subjective engineering estimate; not verified acceptance"
+  },
+  "historical_hosted_observation": {
+    "run_id": 42511675151,
+    "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/42511675151",
+    "candidate": "3dcf4484a109b5a083898815eaaee6f8cd1116d7",
+    "jobs_passed": 8,
+    "jobs_total": 9,
+    "windows_installed": "success",
+    "linux_installed": "failure",
+    "failed_step": "Verify frozen Linux physical workflow",
+    "subsequent_linux_stages": "skipped",
+    "artifact": {
+      "id": 13636834483,
+      "name": "desktop-diagnostics-Linux",
+      "sha256": "90cab021b44b63e081016d94bdc9cafc6ef8f6c086bf54a783d762b9d2f10754",
+      "bytes": 333887009,
+      "downloaded_complete_and_digest_verified": true
+    },
+    "retained_members": {
+      "frozen-physical-evidence/probe/report.json": {
+        "sha256": "61ed6501f75b17450cf2fb744d19189eaf0f67c29b08e68baf3770b36529290c",
+        "bytes": 780,
+        "status": "passed",
+        "report": {
+          "status": "passed",
+          "checks": [
+            "Real queued DRC, LVS, extraction and before/after simulation pass",
+            "Editing invalidates the previous passing physical result",
+            "A deliberate defect fails DRC and clicking its finding navigates to geometry",
+            "Undo repairs the layout and a fresh verification passes",
+            "A missing physical executable is shown as blocked, never passed"
+          ],
+          "frozen": true,
+          "scope": "Real Linux Qt worker with installed managed tools; frozen application.",
+          "build": {
+            "version": "0.23.0",
+            "commit": "3dcf4484a109b5a083898815eaaee6f8cd1116d7",
+            "branch": "codex/chunk7-blockers-20261108",
+            "dirty": false,
+            "frozen": true
+          },
+          "executable_sha256": "182b6a3442eca1ba209b487e608e9513b43b1c25b679c4dd039d3811eb7f508e"
+        }
+      },
+      "frozen-physical-evidence/probe/nominal.json": {
+        "sha256": "a0894d7a2aac61024d8b4f823f858f2b8c7cafd64fca530def5824fee5c73754",
+        "bytes": 56739,
+        "status": "passed"
+      },
+      "frozen-physical-evidence/probe/defect.json": {
+        "sha256": "e1c28c59c647b057f182adfe4d5694a578bbe23724c61f8a29381abbe51310e7",
+        "bytes": 51312,
+        "status": "failed"
+      },
+      "frozen-physical-evidence/probe/repaired.json": {
+        "sha256": "c3ff93f125937c8c613e3b0f57938018c4a3b42300f625739e5b2bf8e9977161",
+        "bytes": 56739,
+        "status": "passed"
+      },
+      "frozen-physical-evidence/probe/missing-engine.json": {
+        "sha256": "5550e98bdfa74dde96aa141ea062cd97accc2cce5a619b9987b02997734e5266",
+        "bytes": 1004,
+        "status": "blocked"
+      }
+    },
+    "diagnosis": "Retained producer build is the correct clean frozen candidate. Host comparison failed. The host comparison value and exact failing Git operation were not logged. A regression reproduces UI identity discarding known HEAD after status timeout; this mechanism is not claimed as a retained CI observation."
+  },
+  "changes": [
+    "Require explicit full candidate and authenticate HEAD before/after the physical probe; keep dirty/frozen build and executable validation, unchanged 3-second Git and 1200-second GUI deadlines; retain fresh output and failures.",
+    "Pass the exact selected commit from both Linux workflow and Windows wrapper; register regression in required fast feedback.",
+    "Preserve exact bounded JSON decimals in VPP plate-voltage screening and output; enough subtraction precision to reject small violations and underflow/cancellation without changing the source-derived 5.5 V limit."
+  ],
+  "source_checks": {
+    "status": "local aggregate and full suite passed; Windows fixture correction passed on both hosted platforms",
+    "focused_physical_tests": 11,
+    "focused_vpp_tests": 21,
+    "independent_review": "Windows required-argument regression identified, fixed and independently rechecked; both platform callers covered. Independent 11 physical and 21 VPP tests pass; no remaining blocking finding.",
+    "full_unit_suite": {
+      "status": "passed",
+      "candidate": "77ef33a7894e6c0a21d06925597a3624312e9f0b",
+      "command": "QT_QPA_PLATFORM=offscreen .venv/bin/python -m unittest discover -s tests -v",
+      "tests": 4674,
+      "skipped": 80,
+      "seconds": 1159.51,
+      "exit_code": 0,
+      "log_sha256": "48c595ffe24b7da4c0eff1d5cffbc60059fc408f251e283f1ff2a2ce0a501a14",
+      "source_unchanged": true
+    },
+    "aggregate_source_feedback": {
+      "status": "passed",
+      "command": ".venv/bin/python scripts/ci_feedback.py --output build/chunk7-repair-evidence/source-feedback",
+      "elapsed_seconds": 369.783,
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 15.411,
+          "tests": 257,
+          "skipped": 3,
+          "log_sha256": "06e398a1c2c63ea35590d3417ad95caa4340e04d9ad1d874309d72e86cc044fe"
+        },
+        {
+          "name": "ihp-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 32.372,
+          "tests": 229,
+          "skipped": 1,
+          "log_sha256": "37bd8b90c73419eb8261232ef3a90079dd30ee94b70a4c33909aaa0551dbd559"
+        },
+        {
+          "name": "physical-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 28.362,
+          "tests": 300,
+          "skipped": 10,
+          "log_sha256": "2e9fe01cddeb0c3f611ddfffed69ce1618b8bede8d554ac6f10da9138bcd9584"
+        },
+        {
+          "name": "device-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 42.663,
+          "tests": 690,
+          "skipped": 2,
+          "log_sha256": "7135ca15af4b25c2356fb7a0076fd72a9e5f0834b6dd9f63e4f1196dda36836c"
+        },
+        {
+          "name": "package-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 45.36,
+          "tests": 11,
+          "skipped": 0,
+          "log_sha256": "a791bb8512f3012293af91e8cbf13e12ea5f996eed3a41fa504054bfd952ddd7"
+        },
+        {
+          "name": "runtime-release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 5.878,
+          "tests": 89,
+          "skipped": 1,
+          "log_sha256": "1dbd70024460d93e9bd2f4978b8990f36019ac88c5a52e680bafe74c7782affe"
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 2.22,
+          "tests": null,
+          "skipped": 0,
+          "log_sha256": "c8f16ac9b78bf542b798bbc692047957533e3b24de23b9ee8c762402f73ae874"
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 27.086,
+          "tests": null,
+          "skipped": 0,
+          "log_sha256": "552379f1db433173fe4500582dbf3e018950a86d9ea50733f6b5079ecdf154ee"
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 4.225,
+          "tests": null,
+          "skipped": 0,
+          "log_sha256": "66af7ee4a9c6fa1f6c1f2d6f8a220486f6467316e0f72df511d0ad0ad2505b65"
+        },
+        {
+          "name": "metal-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 7.535,
+          "tests": null,
+          "skipped": 0,
+          "log_sha256": "61abfa85714ac2f754803deca476b5933841f8e355e3c0e33b61f4fa54ffa98a"
+        },
+        {
+          "name": "metal-resistor-parallel-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 31.158,
+          "tests": null,
+          "skipped": 0,
+          "log_sha256": "a08c3e2b820f965f92c6623b09c5b62662e5d8bb9d5ef19d4acf9e31a2438dd2"
+        },
+        {
+          "name": "ihp-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 121.794,
+          "tests": null,
+          "skipped": 0,
+          "log_sha256": "ebbed30ccab5d1655298e623f01d77483601469bc9be0c682be22fdf927eb242"
+        },
+        {
+          "name": "ihp-capacitor-corner-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 2.474,
+          "tests": null,
+          "skipped": 0,
+          "log_sha256": "f6db6b124caf4d23f43cf1c4b049ccdd22146c66e56593f18fcfb53925968d04"
+        }
+      ],
+      "tests": 1576,
+      "skips": 17,
+      "source_files": 2372,
+      "report_sha256": "8afe1c3b3449bac4c73705d276d68a863a55fac9f6c5cb731bdf7d59d948405b",
+      "source_unchanged": true,
+      "syntax_files": 1561,
+      "release_acceptance": false
+    },
+    "host": {
+      "system": "Linux",
+      "machine": "x86_64",
+      "python": "3.12.14"
+    },
+    "release_materials_check": "passed",
+    "hosted_corrected_candidate": {
+      "candidate": "d119d88f8ea5a31abd8804cf8a4c8dbf5545d918",
+      "run_id": 42817018280,
+      "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/42817018280",
+      "jobs": [
+        {
+          "id": 129832561377,
+          "name": "source feedback (windows-2022)",
+          "conclusion": "success"
+        },
+        {
+          "id": 129832561908,
+          "name": "source feedback (ubuntu-24.04)",
+          "conclusion": "success"
+        },
+        {
+          "id": 129839174198,
+          "name": "PR feedback",
+          "conclusion": "success"
+        }
+      ],
+      "installed_acceptance": false
+    }
+  },
+  "limitations": [
+    "No fresh frozen/native acceptance on this repaired candidate has run.",
+    "Historical diagnostic member readback is not complete independent numerical replay or new installed acceptance.",
+    "Only Linux local source execution is available in this environment.",
+    "Four absent required model bindings, complete operating/reliability envelopes, calibration, remaining physical/extracted coverage and 107 source-inventory gaps remain unresolved."
+  ],
+  "vpp_original_failure_and_repair": {
+    "base": "3dcf4484a109b5a083898815eaaee6f8cd1116d7",
+    "input_sha256": "d024259a479c19dfd6145bca8b0ecf147197769c4e76d3e2f07a9093fb738141",
+    "results": {
+      "before": {
+        "returncode": 0,
+        "stdout_sha256": "2a6f950c6ff6795869e40c99a21d7825ffa53c4f15ba894f4637824881c6581b",
+        "status": "WITHIN_DOCUMENTED_LIMITS",
+        "difference": "5.5",
+        "source_sha256": "acabdf72068166f2c71d9ddc04fac9877025d56602385f3e0d34d3e8aa5f0875",
+        "coordinates_v_decimal_strings": {
+          "c0": "5.5",
+          "c1": "0"
+        }
+      },
+      "after": {
+        "returncode": 2,
+        "stdout_sha256": "28a608de35dad332a9fbf718fa79dda4faee3467b331327aa674c24743bae2a7",
+        "status": "OUTSIDE_DOCUMENTED_LIMITS",
+        "difference": "5.5000000000000000001",
+        "source_sha256": "abebb061abd751a020c57a8d832ae4c0cd08ae56cc7cb6003f2410016d9dc6cc",
+        "coordinates_v_decimal_strings": {
+          "c0": "5.5000000000000000001",
+          "c1": "0"
+        }
+      }
+    }
+  },
+  "source_files_sha256": {
+    ".github/workflows/build-desktop.yml": "d726d69fc16edc5b89dfd4c46b6183f3c3bf468ed64cb94e8d93608081b3730c",
+    "scripts/ci_feedback.py": "5c846d50cfce41415687bfbeed27089ba777df00b1002b61eb76b34d055f1710",
+    "scripts/qualification_sky130_vpp_voltage.py": "abebb061abd751a020c57a8d832ae4c0cd08ae56cc7cb6003f2410016d9dc6cc",
+    "scripts/verify_frozen_physical.py": "8b36551512e38655bd8414ec5e5720cc4d4c6dfee471880e1fa4cad3b5b930fe",
+    "scripts/verify_windows.ps1": "4517fcdd34b1b3281df1129aad9dcdc97f28e4ad801e096fd0b31419ee0e125e",
+    "tests/test_sky130_vpp_applicability.py": "eeac83b2ac1dc4ea9affb810958ce3617ae30ea379e8349a4ce7363f79c8371b",
+    "tests/test_frozen_physical.py": "b14ab2fccc714a07edae2b49416ff72a65e6e606505869cbcb52a71463843dee"
+  },
+  "publication_scope": "Prepared source repair. Fresh hosted source and installed acceptance for the repaired candidate remain separate and pending.",
+  "publication": {
+    "candidate": "77ef33a7894e6c0a21d06925597a3624312e9f0b",
+    "branch": "codex/chunk7-blockers-20261108",
+    "tree": "99b4d4806161e0c2cdd64801b4910ba150bba06e",
+    "pr": 70,
+    "draft": true,
+    "verified_via": [
+      "GitHub PR head readback",
+      "git ls-remote",
+      "fetched Git tree equals tested local index"
+    ]
+  },
+  "hosted_repair_feedback": {
+    "run_id": 42815809106,
+    "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/42815809106",
+    "windows_job_id": 129828485498,
+    "windows_status": "failure",
+    "windows_detail": "Four new physical-gate fixture command assertions compare Windows TEMP short-path spelling with production-resolved long paths. Production checks do not fail. Canonicalize the test fixture root, preserving exact command comparison.",
+    "linux_status": "pending"
+  },
+  "windows_fixture_repair": {
+    "status": "local affected tests passed; fresh hosted replay pending",
+    "source": "tests/test_frozen_physical.py",
+    "source_sha256": "cb2f7e9d3c99b427df9187acb0719a0722ff3aebc2469f8f9732e90fc52ca423",
+    "change": "Canonicalize TemporaryDirectory root before asserting the exact production command; preserve all semantic, candidate, executable and timeout assertions.",
+    "tests": 11,
+    "skips": 0,
+    "log_sha256": "05881569d7c1bce17bfbf0918bd42cccc2f608a14bb3f45e9bee590440e6ba27",
+    "full_suite_scope": "4674-test pass above applies to candidate77ef33a before this test-fixture-only path correction."
+  }
+}

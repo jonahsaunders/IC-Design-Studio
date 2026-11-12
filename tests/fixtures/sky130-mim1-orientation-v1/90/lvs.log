@@ -1,0 +1,40 @@
+
+Circuit 1 cell sky130_fd_pr__cap_mim_m3_1 and Circuit 2 cell sky130_fd_pr__cap_mim_m3_1 are black boxes.
+Warning: Equate pins:  cell sky130_fd_pr__cap_mim_m3_1 is a placeholder, treated as a black box.
+Warning: Equate pins:  cell sky130_fd_pr__cap_mim_m3_1 is a placeholder, treated as a black box.
+
+Subcircuit pins:
+Circuit 1: sky130_fd_pr__cap_mim_m3_1      |Circuit 2: sky130_fd_pr__cap_mim_m3_1      
+-------------------------------------------|-------------------------------------------
+1                                          |1                                          
+2                                          |2                                          
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes sky130_fd_pr__cap_mim_m3_1 and sky130_fd_pr__cap_mim_m3_1 are equivalent.
+
+Subcircuit summary:
+Circuit 1: device_coupon                   |Circuit 2: device_coupon                   
+-------------------------------------------|-------------------------------------------
+sky130_fd_pr__cap_mim_m3_1 (1)             |sky130_fd_pr__cap_mim_m3_1 (1)             
+Number of devices: 1                       |Number of devices: 1                       
+Number of nets: 2                          |Number of nets: 2                          
+---------------------------------------------------------------------------------------
+Netlists match uniquely with property errors.
+sky130_fd_pr__cap_mim_m3_1:1 vs. sky130_fd_pr__cap_mim_m3_1:0:
+ l circuit1: 10   circuit2: 2   (delta=133%, cutoff=1%)
+ w circuit1: 2   circuit2: 10   (delta=133%, cutoff=1%)
+
+Subcircuit pins:
+Circuit 1: device_coupon                   |Circuit 2: device_coupon                   
+-------------------------------------------|-------------------------------------------
+P                                          |P                                          
+N                                          |N                                          
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes device_coupon and device_coupon are equivalent.
+
+Final result: Circuits match uniquely.
+Property errors were found.
+
+The following cells had property errors:
+ device_coupon

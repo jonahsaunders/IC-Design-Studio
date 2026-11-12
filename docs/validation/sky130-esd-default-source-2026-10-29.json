@@ -1,0 +1,57 @@
+{
+  "schema": 1,
+  "date": "2026-10-29",
+  "status": "SOURCE_BOTH_HOSTS_PASS",
+  "package_revision": "5dda725c94efe3c2",
+  "package_manifest_sha256": "125cde7c313ee18a05a7ec5c280d514b99aea521d6b39476e44f486ae494153b",
+  "counts_per_host": {
+    "conditions": 19,
+    "native_executions": 98,
+    "devices": 6,
+    "detected_fault_device_instances": 360
+  },
+  "maximum_normalized_error": 0,
+  "host_identities": {
+    "windows": {
+      "execution_id": "64000000000000000000000000000007",
+      "producer_report_sha256": "669de29c0376364bcbb42e2fa7a5d7669a7e9c809c7ce6f24e85053e8814020a",
+      "producer_manifest_sha256": "a220608f3b758254fd0ff8fe32b7e492067ae377e2bc7695c7b28194f0da312d",
+      "reference_manifest_sha256": "f28098e60861110eec83787f7b499042b3b69b010186adc1a0cd9d454538aaad",
+      "installed_acceptance": false
+    },
+    "linux": {
+      "execution_id": "63000000000000000000000000000007",
+      "producer_report_sha256": "02a6319ebea2615845aa81e5696957b6e5e6a12f19721cffbc091481ff53d1d4",
+      "producer_manifest_sha256": "6f7af007d50f2873125ff70f340fdc44c3cea653eb927ac69481e7d9a8102922",
+      "reference_manifest_sha256": "cd42208e28bcd0212842d8ce4b7ab0e9dd61f24bfd2595cb38bba2f661b66bcd",
+      "installed_acceptance": false
+    }
+  },
+  "independent_review": "Separate Astra full raw readback on both original host captures passed.",
+  "archive": {
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\chunk7-esd-default-source-20261029-v1\\evidence.zip",
+    "sha256": "a91375c8797d7a7536a882fbe9d79f6fcea3ef97cfabf50362203c848abe0caa",
+    "bytes": 46768210,
+    "manifest_sha256": "14387ea5390e2000fd50b0096283d008f4e32c71d778aef8bd2075a9d0ea530b",
+    "logical_files": 85761,
+    "unique_objects": 2549,
+    "root_full_hash_readback": true
+  },
+  "original_attempts": "Interrupted preliminary source executions retained separately in the archive; never accepted.",
+  "source_candidate_inventory": {
+    "partial": 288,
+    "unavailable": 5,
+    "utilities": 9
+  },
+  "accepted_predecessor_inventory": {
+    "partial": 287,
+    "unavailable": 6,
+    "utilities": 9
+  },
+  "installed_acceptance": false,
+  "default_promotion_accepted": false,
+  "full_family": false,
+  "qualified": false,
+  "chunk_complete": false,
+  "remaining": "Fresh exact-candidate default installed acceptance on Windows and Linux; remaining operating envelopes, physical classes and unavailable model bindings."
+}

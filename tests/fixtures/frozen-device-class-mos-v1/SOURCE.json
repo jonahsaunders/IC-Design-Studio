@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "kind": "Generated finite native MOS readback regression fixture, not model sources or installed acceptance.",
+  "source_execution": "managed-mos-fix-v1/mos-gf180mcuC-standard-n-matching",
+  "source_receipt_sha256": "fd10f94f0ebaba940ac6eb0bdcb69ed75a746794d21d1b1bd0e3f9fba2d6707f",
+  "runtime_sha256": "3f4275776fcb73d658265577dd0f5840171b5711fdb21cd1e675ed80a13c9f38",
+  "target": "gf180mcuC",
+  "polarity": "n",
+  "width_um": 3.015,
+  "length_um": 1.005,
+  "fingers": 3,
+  "copies": 2,
+  "rotation": 90,
+  "files": {
+    "layout.gds": "5f2de4959eaee5fc9947207196b74a923152c00096c6273eefcecdb5792cd3d9",
+    "lvs-extraction/extracted.spice": "b4150b479b8c4630c42d881c54c69d491b326ca9242a0e670a941dc5fa47694b",
+    "lvs/lvs.log": "bd909e886c01f13f6c97494c2a831f770198adad370cec0f63806c4f675dcb43",
+    "mos-grouping/console.log": "281d35fa2a4e56087d62d6abe624fd3aa76e0e8ae8250d8ab9e467fa65376c46",
+    "mos-grouping/extracted.spice": "b4150b479b8c4630c42d881c54c69d491b326ca9242a0e670a941dc5fa47694b",
+    "mos-grouping/parallel_coupon.ext": "b45791e1bb2bf8b51b16ef2e37ddd346d2d55bd8051ce5f2c2227f37ac85171f",
+    "mos-grouping/proof.json": "53ce2169297c1186666aa1ace19089ea13beb58c327f4cece2e3647dc12f0ae3",
+    "mos-grouping/run.tcl": "5f4961ba3789ca6f232cd3b4ff62421e667325f8bb6e007921964481734843cc",
+    "mos-grouping/startup.tcl": "eb02f33f5e21b74282e96b553d1234ccfd6345b63511896a5327bf7cfd6a35f5",
+    "report.json": "63c42f1e67c93a55576b34c6c1c9d648b03c111b3717a81f04cdd3cde87977ea",
+    "schematic.spice": "d26970fde6b97c5e18db1f52d43c6070612cc7cdacfdc916c9cd747b1befa956"
+  }
+}

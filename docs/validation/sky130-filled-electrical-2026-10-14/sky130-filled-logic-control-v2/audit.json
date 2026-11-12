@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "qualified": false,
+  "driver_sha256": "6e6fa78f88309ff5fc0af8c024c50e35bbb040346f2cad1c92bde29d7780c7ef",
+  "fault": "logic",
+  "actual": "FAIL",
+  "expected": "FAIL",
+  "result_sha256": "904955b5a27ff7088d57652d6e7414b947cfbafcbddfb5f825d69d0680f1d6bb",
+  "counterexamples": [
+    "strategies/counter.count/smtbmc/counter.count/engine_0/trace.vcd"
+  ]
+}

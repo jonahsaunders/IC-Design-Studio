@@ -1,0 +1,53 @@
+{
+  "schema": 1,
+  "as_of": "2026-11-10",
+  "base_commit": "77ef33a7894e6c0a21d06925597a3624312e9f0b",
+  "scope": "Exact numeric JSON for the existing static SKY130 MOS three-axis source screen. Not simulator, native extraction, installed acceptance, ratings, SOA or full envelope qualification.",
+  "qualified": false,
+  "chunk_complete": false,
+  "defect": {
+    "input": {
+      "model": "sky130_fd_pr__nfet_g5v0d16v0",
+      "vds": "16",
+      "vgs": "1e-400",
+      "vbs": "0",
+      "temperature_c": "27"
+    },
+    "before": "Default JSON binary float parsing underflowed the nonzero gate to zero, incorrectly selecting the extended 16 V drain allowance and exit 0.",
+    "after": "Exact nonzero gate retained, ordinary drain bound applied, OUTSIDE_DOCUMENTED_LIMITS, exit 2."
+  },
+  "source_contracts_unchanged": {
+    "path": "docs/qualification/sky130-mos-voltage-v1/gap-acceptance-table.json",
+    "sha256": "f95def326e8cc74b297958e668b56d0976276c20164b498f360e7ab82c9ef2d3",
+    "source_lock_sha256": "7a57cc833225664e09665a43880b410de9ce70d65e80d1f268b74e3967f0a0f1"
+  },
+  "implementation": "Preserve exact finite Decimal JSON numbers and independently decode authenticated source decimals for Decimal comparisons. Existing Python float comparisons and outputs retain their semantics. Arbitrarily large finite integers now receive explicit limit classification instead of incidental math.isfinite conversion overflow. Source-relative coordinates are supplied, not derived by subtraction. JSON output keeps decimal numeric tokens rather than strings or rounded floats.",
+  "verification": {
+    "command": ".venv/bin/python -m unittest tests.test_sky130_mos_voltage_source tests.test_sky130_mos_voltage_contract -v",
+    "tests": 26,
+    "failures": 0,
+    "skips": 0,
+    "elapsed_seconds": 2.724,
+    "coverage": [
+      "102 source-boundary visits, exact boundary and 1e-70 outside, independent Fraction oracle under Decimal precision 3",
+      "NMOS and PMOS nonzero subnormal gates, signed exact zero, conditional drain decimal boundaries",
+      "Exact source-relative cancellation residues from independent rational arithmetic",
+      "Large finite integers/decimals and nonfinite rejection",
+      "Existing Pythonfloat one-ULP boundary semantics",
+      "Unchanged unknown ratings, SOA, temperature, ESD and fifth-terminal status"
+    ]
+  },
+  "changed_source_files": {
+    "scripts/qualification_sky130_mos_voltage_core.py": "93840fc0001a5c558d5fb912b9840c43326b34dd4084a9d19f1a710a520e1ebd",
+    "tests/test_sky130_mos_voltage_source.py": "389bca1c3cdb28f4d4030d9758a0717961b92797c3e0bb7cd3d0de8328b3de95"
+  },
+  "not_run": [
+    "Native ngspice electrical acceptance",
+    "Native Magic/Netgen physical acceptance",
+    "Fresh installed Linux/Windows desktop acceptance",
+    "Full source suite for this new MOS change"
+  ],
+  "remaining_gates": [
+    "All preexisting full operating/reliability/calibration/physical/installed gates remain open; this repair fixes a static numerical screen and promotes no device status."
+  ]
+}

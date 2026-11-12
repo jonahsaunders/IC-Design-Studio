@@ -1,0 +1,279 @@
+{
+  "schema": 1,
+  "date": "2026-11-07",
+  "status": "PASS_LOCAL_REPAIR_PENDING_HOSTED_DESKTOP",
+  "chunk_complete": false,
+  "qualified": false,
+  "release_acceptance": false,
+  "failed_candidate": "19dfbe2af822f1ea60ce1606007aeec2e1b9f388",
+  "failed_run_id": 42303725949,
+  "failed_run_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/42303725949",
+  "failed_jobs": {
+    "installed-acceptance (windows-2022)": {
+      "id": 128261874515,
+      "failed_steps": [
+        "Assemble and execute Windows release archives"
+      ]
+    },
+    "installed-acceptance (ubuntu-24.04)": {
+      "id": 128261874621,
+      "failed_steps": [
+        "Assemble and execute Linux release archives"
+      ]
+    }
+  },
+  "passed_before_release_assembly": {
+    "all_seven_build_jobs": true,
+    "core_tests_per_host": 4267,
+    "core_skips": {
+      "Windows": 62,
+      "Linux": 49
+    },
+    "installed_application_sequences_both_hosts": true
+  },
+  "independent_cmim_readback": {
+    "candidate": "19dfbe2af822f1ea60ce1606007aeec2e1b9f388",
+    "run_id": 42303725949,
+    "scope": "Independent raw IHP CMIM installed-gate readback only. Both release-archive failures remain failures.",
+    "release_acceptance": false,
+    "chunk_complete": false,
+    "hosts": {
+      "Linux": {
+        "status": "PASS",
+        "counts": {
+          "gui_layouts": 1,
+          "fresh_managed_jobs": 2
+        },
+        "execution_id": "354abee3c6c64e22b55f55c3da719064",
+        "distribution_files": 17394,
+        "distribution_links": 170,
+        "raw_files": 432,
+        "verification_sha256": "393d4d5cbfe096bab13c12b5565b95b1bc24673903dab22186d9ba3e508c34eb",
+        "artifact_id": 13559323878,
+        "full_artifact_digest_verified": false
+      },
+      "Windows": {
+        "status": "PASS",
+        "counts": {
+          "gui_layouts": 1,
+          "fresh_managed_jobs": 2
+        },
+        "execution_id": "174bd0031df641828517c45a10ebc978",
+        "distribution_files": 15116,
+        "distribution_links": 0,
+        "raw_files": 432,
+        "verification_sha256": "1265765d682d57245ea288a2679257a5290f403d667ceb64c32e0535427b0382",
+        "artifact_id": 13562737026,
+        "full_artifact_digest_verified": false
+      }
+    }
+  },
+  "defects": [
+    {
+      "platform": "Linux",
+      "cause": "The release receipt applied Windows case-folding to 25 distinct terminfo filename pairs in the Linux solver runtime.",
+      "repair": "Use the declared target platform for file/link identity; preserve exact names, hashes, link endpoints, missing/extra member checks, and Windows case-alias rejection."
+    },
+    {
+      "platform": "Windows",
+      "cause": "The installed solver rewrote a cached Python module after installation; the archive validator correctly rejected different bytes.",
+      "reported_path": "ICDesignStudio/_internal/icstudio/assets/runtime/openems/python/Lib/site-packages/CSXCAD/__pycache__/SmoothMeshLines.cpython-311.pyc",
+      "repair": "Set PYTHONDONTWRITEBYTECODE=1 in the shared solver child environment; keep bytecode in the complete archive identity check. A real interpreter regression checks stale-cache preservation and no new cache creation, with an unprotected import as a positive mutation control."
+    }
+  ],
+  "historical_scope": "The original GF180-tested openEMS launcher is retained byte-for-byte, authenticated against the original accepted Git commit and digest. Only its snapshot binding changes; production evidence and qualification scope remain unchanged.",
+  "earlier_local_attempts": [
+    {
+      "attempt": "v6",
+      "result": "Focused run failed two feedback tests: newly added required module expectation not yet updated, and missing tests import path in the ad-hoc invocation. Fourteen focused repair tests passed separately."
+    },
+    {
+      "attempt": "v7",
+      "result": "Both source lanes rejected the changed live openEMS module in historical GF180 evidence. Complete failed feedback reports and source manifests are retained."
+    }
+  ],
+  "local_feedback": {
+    "windows": {
+      "tests": 1172,
+      "skips": 38,
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 37.188
+        },
+        {
+          "name": "ihp-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 75.172
+        },
+        {
+          "name": "physical-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 79.734
+        },
+        {
+          "name": "device-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 135.89
+        },
+        {
+          "name": "package-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 112.344
+        },
+        {
+          "name": "runtime-release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 12.016
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 3.515
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 27.969
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 7.859
+        },
+        {
+          "name": "metal-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 7.453
+        },
+        {
+          "name": "metal-resistor-parallel-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 30.688
+        },
+        {
+          "name": "ihp-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 92.703
+        },
+        {
+          "name": "ihp-capacitor-corner-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 2.546
+        }
+      ],
+      "seconds": 625.077,
+      "source_files": 7004,
+      "source_unchanged": true,
+      "manifest_sha256": "a3bcfb70fae27654875da4a329599b3147bf5f1d8636c573c71d150d42ebae28"
+    },
+    "linux": {
+      "tests": 1172,
+      "skips": 16,
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 11.641
+        },
+        {
+          "name": "ihp-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 25.026
+        },
+        {
+          "name": "physical-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 19.711
+        },
+        {
+          "name": "device-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 19.455
+        },
+        {
+          "name": "package-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 26.175
+        },
+        {
+          "name": "runtime-release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 4.273
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 1.367
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 22.966
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 2.82
+        },
+        {
+          "name": "metal-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 4.473
+        },
+        {
+          "name": "metal-resistor-parallel-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 20.161
+        },
+        {
+          "name": "ihp-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 73.622
+        },
+        {
+          "name": "ihp-capacitor-corner-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 1.416
+        }
+      ],
+      "seconds": 233.106,
+      "source_files": 7004,
+      "source_unchanged": true,
+      "manifest_sha256": "a3bcfb70fae27654875da4a329599b3147bf5f1d8636c573c71d150d42ebae28"
+    }
+  },
+  "repair_source_sha256": {
+    "icstudio/openems_runtime.py": "3e0963481ae0f83b89ad214b50d1134703b8972fbcaaa98f80252c66cebcbe06",
+    "scripts/release_ihp_cmim_evidence.py": "4b5f7485d2ff3cb4b0a662aaa4ed38ee304ef512b1325b5c5b468269631e5aa9",
+    "scripts/ci_feedback.py": "0c193450672e78e377b0edf4555af61d367d59f1110db6c061dd4229b74395e6",
+    "tests/test_openems_runtime.py": "0035bc09d4135d12347d88a849d5ccef72070ef85d395d012cb73de835461ab6",
+    "tests/test_release_ihp_cmim_evidence.py": "ebc5d3d4efda62859762426c2705e3e21d87fed39ebe0545dc3c1358635ad630",
+    "tests/test_ci_feedback.py": "4377fc2dbc9736c80f627c7ecb2a3af19d710f6090d6bbd68086e3ee44096a3a",
+    "tests/test_pdk_qualification_matrix.py": "c3554032dcca311e2aab0e6710617d4f4848d4556d5e8cf39131a4a4d06ab89e",
+    "docs/qualification/pdk-matrix.json": "641c5b299fbf77ec5e27092b0e84daf11f4aca79986df66db3751f9572cb0db5",
+    "LICENSE": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+    "docs/validation/chunk7-openems-retained-source-2026-11-07/chunk4-manifest.json": "8f0940a7e89809e20b137c6b0c63a644d65883312918329370d083dc0f7db8e2",
+    "docs/validation/chunk7-openems-retained-source-2026-11-07/openems_runtime.py.txt": "cde41317ac8710d2d189f881b16bdfe53f4fe5f841f4ee7de215582315546a18",
+    "docs/validation/chunk7-openems-retained-source-2026-11-07/README.md": "d9fdf1582aa71872adc13bb8a385b346a2b46deab0f304db10c35b3f4b6d52ce"
+  },
+  "retention": {
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\outputs\\chunk7-release-repair-evidence.zip",
+    "sha256": "5468b01e93fe2e40a320380355086bad49b509f52dd5c1905f97c6e96ba8aef7",
+    "bytes": 74650181,
+    "members": 3386,
+    "all_members_verified": true,
+    "full_hosted_artifact_digest_verified": false
+  },
+  "remaining": "Fresh exact-candidate hosted source and complete desktop release-archive acceptance. Four unavailable device bindings and full operating/reliability/calibration, physical/extracted and statistical/RF requirements still keep chunk 7 open.",
+  "progress": {
+    "estimated_percent": 74,
+    "confidence": "low",
+    "range_percent": [
+      55,
+      82
+    ],
+    "basis": "Subjective engineering estimate; not verified full-family acceptance."
+  }
+}

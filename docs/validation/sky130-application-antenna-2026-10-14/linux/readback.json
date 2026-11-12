@@ -1,0 +1,55 @@
+{
+  "status": "PASS",
+  "system": "linux",
+  "qualified": false,
+  "chunk_complete": false,
+  "cases": [
+    {
+      "case": "counter",
+      "kind": "filled",
+      "status": "PASS",
+      "gds_sha256": "4158b6503dc07e85f1e9e7b375a3d654cd9b64dc0498ed9fb680874e973c1ac2",
+      "report_sha256": "8b92d42d8adf718db6f55622476c02de0814f80a19a4930d215148d6960e3892"
+    },
+    {
+      "case": "counter",
+      "kind": "application-export",
+      "status": "PASS",
+      "gds_sha256": "4832c2d52e14ec217bbf3dd14c34288d781a8b9edf252afa350136140daee872",
+      "report_sha256": "2c3d2d99e801c85d6be7afc1b81f9d6fb65039b181e012a584c6a85c230b1621",
+      "macro_sha256": "a1a660776d80c1166866ac388868689ec4beff84d1394cfcf032f6a1a74a9634"
+    },
+    {
+      "case": "uart",
+      "kind": "filled",
+      "status": "PASS",
+      "gds_sha256": "c9282fb9602ac9dbab5299032be1d4b68751bb611747d276d40435e93c37afea",
+      "report_sha256": "4652f57f659d4b43a42dcdee651cf23d074e403353ec8195e4584c7f61d36536"
+    },
+    {
+      "case": "uart",
+      "kind": "application-export",
+      "status": "PASS",
+      "gds_sha256": "e4815341c418f4630eaed1fc52a29b6c9865e6dc2411c14b8bc5ec216f123e45",
+      "report_sha256": "4e83fd41e1b813ed5e31b6467b1e619628310161f067e27349e89a6c5ea39ff5",
+      "macro_sha256": "01bb29e52ff9d5340445c460defdcb50564cdad003e3d36e4c1e89fd4f0ac9e0"
+    },
+    {
+      "case": "apb",
+      "kind": "filled",
+      "status": "PASS",
+      "gds_sha256": "5039221b72bfd052d3f82781f5403fb67df4261ea20add5c2047191321fe9d78",
+      "report_sha256": "0bafc685d62a2b959e3313090b688a39fe7f6969c263dd65a468992e571f3561"
+    },
+    {
+      "case": "apb",
+      "kind": "application-export",
+      "status": "PASS",
+      "gds_sha256": "ee514670858619ef2065d02b149a87a55ca836bab93b56ac05a6fc235dea3111",
+      "report_sha256": "b2c11299a4d13468c10a04e5b195efbfceb2f9472c65770379737eeb5609b624",
+      "macro_sha256": "f4a74c65c79d54ce3a0ca37c9e86ad50ac4662cea220e2ec24fd011592160850"
+    }
+  ],
+  "driver_sha256": "25a80e82d4173c6c7840054ed0adba2cebb4623a237793c2b146beccb1f62252",
+  "gate_sha256": "4222e6a560bf5c52fd1e8df1b9da0ff968de83d9f94f38055b98a1868a9d2fab"
+}

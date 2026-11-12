@@ -1,0 +1,57 @@
+{
+  "schema": 1,
+  "date": "2026-11-11",
+  "base_commit": "00d92f35746aa120321d08ee232b0d83e3941600",
+  "status": "REVIEWED_SOURCE_REPAIRS_PENDING_HOSTED_REPLAY",
+  "qualified": false,
+  "installed_acceptance": false,
+  "native_execution": false,
+  "original_failures": {
+    "source_run": 43027406393,
+    "windows_job": 130545486229,
+    "linux": "success",
+    "windows": "Mocked collector fixture did not simulate Linux admission; real Linux host guard rejected",
+    "real_windows_junction_test": "passed",
+    "actual_merge_commit": "d803d1f8fc9d74d4d1473b94a2fb2a68feecbb7f",
+    "merge_tree_equals_candidate": "725eba41e66ddcf4092cb1f072677fb44bc69d10",
+    "build_run": 43027392046,
+    "build_job": 130545439897,
+    "build_and_packaging": "PermissionError reading host-proof/receipt/apt/lists/lock",
+    "full_host_proof_replayed_locally": false
+  },
+  "repairs": [
+    "Test-only explicit collector-local Linux/allowlisted Unix-output fixture with real non-Linux and unsafe-output guard tests",
+    "Collector runs as current validated ordinary host numeric UID:GID; rejects root/elevated/foreign output",
+    "Bounded allowlisted incomplete-proof diagnostics, retaining original exception and nonzero failure"
+  ],
+  "fresh_policy_sha256": "db13e2b1f83ff11e706086390b6d91c6d384e21852668d62938ffca209bac436",
+  "unchanged": [
+    "Production collector and signature checks",
+    "Default runtime and physical models",
+    "Complete successful proof requirement",
+    "Original stage and native job timeouts",
+    "Native authorization remains false"
+  ],
+  "local_validation": {
+    "runtime_tests": 194,
+    "runtime_skips": 1,
+    "test_seconds": 13.889,
+    "process_seconds": 14.569044200999997,
+    "source_identities": 2536,
+    "unchanged": true,
+    "syntax_files": 1635,
+    "offline_apt": "Empty sources/private configuration, nonroot lock owner/readability verified; no network or package installation",
+    "full_source_or_core_rerun": false
+  },
+  "evidence": {
+    "path": "artifacts/ihp-wsl-hosted-repairs-2026-11-11.zip",
+    "bytes": 727545,
+    "sha256": "4ed4e7a416daedf3c57cd7e657917371e0a234dda28fad7e0561fc48c1f22445"
+  },
+  "pending": [
+    "Hosted Windows fixture replay",
+    "Fresh build-only Docker/APT host proof and cleanup",
+    "Exact final-tree source acceptance",
+    "Final-tree installed acceptance and all scientific exclusions"
+  ]
+}

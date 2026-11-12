@@ -1,0 +1,160 @@
+{
+  "schema": 1,
+  "date": "2026-10-26",
+  "status": "local_control_flow_passed",
+  "candidate_baseline": "e3fa0cc60da18cee8359817bb5321923587abc50",
+  "hosted_acceptance": false,
+  "measured_speedup": false,
+  "chunk_complete": false,
+  "change": "Install five Linux openEMS development packages only if the existing restored-runtime verification fails; preserve runtime prerequisites and all preparation/native/release gates.",
+  "workflow": {
+    "schema": 1,
+    "status": "PASS",
+    "baseline": "e3fa0cc60da18cee8359817bb5321923587abc50",
+    "before_sha256": "194d81734b97fb9cee6e8bc186f79b461fbc1abc7347e2b8c402c8f313dcb201",
+    "after_sha256": "7f5f6dbcb9cd21e4ad3d6864e30f61fd1e49156a162a349c4cefc0540562bc14",
+    "exact_change_proof": "All original workflow bytes and gates are unchanged except moving five Linux openEMS development packages behind existing verify, after cache restore. Compiler/CMake, simulation and desktop runtime packages remain unconditional.",
+    "native_verification": "Existing stage_openems.verify checks pinned metadata/file hashes and executes the included native probe; no verifier implementation or acceptance gate changed.",
+    "scope": "Exact workflow byte comparison. Command control-flow results are recorded separately; no measured hosted speedup."
+  },
+  "controls": {
+    "schema": 1,
+    "status": "PASS",
+    "controls": [
+      {
+        "case": "verified-cache",
+        "status": "PASS",
+        "returncode": 0,
+        "calls": [
+          "python scripts/stage_openems.py --verify",
+          "python scripts/stage_openems.py",
+          "python tests/probe_openems.py --out build/openems-native-evidence --margin-um 50"
+        ],
+        "stdout": "Cached openEMS passed file integrity and native execution verification.\n",
+        "stderr": ""
+      },
+      {
+        "case": "missing-cache",
+        "status": "PASS",
+        "returncode": 0,
+        "calls": [
+          "python scripts/stage_openems.py --verify",
+          "sudo apt-get update",
+          "sudo apt-get install -y libhdf5-dev libvtk9-dev libboost-all-dev libcgal-dev libtinyxml-dev",
+          "python scripts/stage_openems.py",
+          "python tests/probe_openems.py --out build/openems-native-evidence --margin-um 50"
+        ],
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "case": "changed-cache",
+        "status": "PASS",
+        "returncode": 0,
+        "calls": [
+          "python scripts/stage_openems.py --verify",
+          "sudo apt-get update",
+          "sudo apt-get install -y libhdf5-dev libvtk9-dev libboost-all-dev libcgal-dev libtinyxml-dev",
+          "python scripts/stage_openems.py",
+          "python tests/probe_openems.py --out build/openems-native-evidence --margin-um 50"
+        ],
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "case": "apt-update-failure",
+        "status": "PASS",
+        "returncode": 42,
+        "calls": [
+          "python scripts/stage_openems.py --verify",
+          "sudo apt-get update"
+        ],
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "case": "apt-install-failure",
+        "status": "PASS",
+        "returncode": 43,
+        "calls": [
+          "python scripts/stage_openems.py --verify",
+          "sudo apt-get update",
+          "sudo apt-get install -y libhdf5-dev libvtk9-dev libboost-all-dev libcgal-dev libtinyxml-dev"
+        ],
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "case": "preparation-failure",
+        "status": "PASS",
+        "returncode": 44,
+        "calls": [
+          "python scripts/stage_openems.py --verify",
+          "python scripts/stage_openems.py"
+        ],
+        "stdout": "Cached openEMS passed file integrity and native execution verification.\n",
+        "stderr": ""
+      },
+      {
+        "case": "native-probe-failure",
+        "status": "PASS",
+        "returncode": 45,
+        "calls": [
+          "python scripts/stage_openems.py --verify",
+          "python scripts/stage_openems.py",
+          "python tests/probe_openems.py --out build/openems-native-evidence --margin-um 50"
+        ],
+        "stdout": "Cached openEMS passed file integrity and native execution verification.\n",
+        "stderr": ""
+      }
+    ],
+    "script_sha256": "216cb3a89cccf7af5a4204cdd073a7cdcd7d2b4b6494271f7bed7e983ea9bc85",
+    "uid": 1000,
+    "scope": "Actual bash control-flow execution with isolated stub commands. No package installation, real native solver run, or measured hosted speedup. Existing native/file-verification logic remains unchanged."
+  },
+  "previous_delay": {
+    "schema": 1,
+    "run_id": 40216858937,
+    "candidate": "38fccf7242bac4c86117982ce03c78dd07302cf2",
+    "job_id": 121245099876,
+    "source": "linux-job.log, retained byte identity recorded in desktop-core-failure-2026-10-26-v1/manifest.json",
+    "step": "Install Linux simulation engine and desktop runtime",
+    "step_started_at": "2026-10-25T18:06:15Z",
+    "step_completed_at": "2026-10-25T19:53:03Z",
+    "step_seconds": 6408,
+    "conclusion": "success",
+    "exact_download_summary": "2026-10-25T19:52:28.3570869Z Fetched 428 MB in 1h 46min 11s (67.2 kB/s)",
+    "observed_package_host": "azure.archive.ubuntu.com",
+    "interpretation": "The apt log directly attributes almost all of the delay to downloading packages. No stalled installer or compiler failure is established.",
+    "large_download_observations": [
+      {
+        "package": "openjdk-21-jdk-headless",
+        "reported_mb": 82.8,
+        "next_log_gap_seconds": 1258.7450854
+      },
+      {
+        "package": "openjdk-21-jre-headless",
+        "reported_mb": 46.5,
+        "next_log_gap_seconds": 1077.1982112
+      },
+      {
+        "package": "libvtk9.1t64",
+        "reported_mb": 20.3,
+        "next_log_gap_seconds": 282.8621824
+      }
+    ],
+    "limitations": "Log gaps are observations between package messages, not independent per-package throughput measurements. No repository change or new run was made."
+  },
+  "retained_work": "C:/Users/jonah/Documents/Codex/2026-10-06/go/work/chunk7-openems-setup-20261026-v1",
+  "remaining": "Verify the actual cache and build branches on a future immutable hosted candidate. The active e3fa0cc desktop run uses the earlier workflow.",
+  "archive": {
+    "schema": 1,
+    "status": "PASS",
+    "archive": "C:/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/openems-build-dependencies-2026-10-26-v1/evidence.zip",
+    "archive_sha256": "9c0a68cdfe2fa5070bccd4cc2c453a1a7740d82d15023049c0c49f17e129c28e",
+    "archive_bytes": 26394,
+    "manifest_sha256": "842ef9ad7cc47ef04b4925cfe77096ec276593b3382d1e77750d17b65953bc1d",
+    "verified_members": 11,
+    "scope": "Original workflow, proposed workflow and local command-control evidence retained. No real hosted execution or speedup claim."
+  }
+}

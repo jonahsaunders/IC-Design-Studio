@@ -1,0 +1,88 @@
+{
+  "schema": 1,
+  "chunk": 7,
+  "status": "partial",
+  "chunk_complete": false,
+  "qualified": false,
+  "scope": "Resolve artifact paths before generating portable job-relative identities. Regression evidence for short/full Windows aliases, Linux symlinks, Windows long paths, containment and digital export; not new device or physical signoff.",
+  "failure": {
+    "ci_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39034087817",
+    "source_commit": "d444dbe525ffb65de75d9e95ccecb2e2b40b2e2b",
+    "tests": [
+      "tests.test_sky130_application_isolation.Sky130ApplicationIsolationTests.test_bulk_retains_counts_and_exports_not_requested",
+      "tests.test_sky130_application_isolation.Sky130ApplicationIsolationTests.test_changed_policy_status_counts_and_input_identity_rejected",
+      "tests.test_sky130_application_isolation.Sky130ApplicationIsolationTests.test_missing_entire_claim_or_individual_artifacts_blocks_export",
+      "tests.test_sky130_application_isolation.Sky130ApplicationIsolationTests.test_required_isolation_passes_only_when_contained",
+      "tests.test_sky130_application_isolation.Sky130ApplicationIsolationTests.test_worker_authenticates_resources_before_import",
+      "tests.test_sky130_application_rules.Sky130ApplicationRuleTests.test_changed_profile_rows_counts_or_bindings_cannot_claim_pass",
+      "tests.test_sky130_application_rules.Sky130ApplicationRuleTests.test_executor_keeps_failed_worker_evidence",
+      "tests.test_sky130_application_rules.Sky130ApplicationRuleTests.test_export_refuses_missing_or_changed_policy_and_evidence",
+      "tests.test_sky130_application_rules.Sky130ApplicationRuleTests.test_missing_changed_and_relocked_helpers_are_rejected",
+      "tests.test_sky130_application_rules.Sky130ApplicationRuleTests.test_preparation_relocates_without_reference_layouts_or_network",
+      "tests.test_sky130_application_rules.Sky130ApplicationRuleTests.test_saved_report_exports_and_survives_relocated_artifact_paths",
+      "tests.test_sky130_application_rules.Sky130ApplicationRuleTests.test_worker_authenticates_before_import_and_retains_failure",
+      "tests.test_sky130_frame_scope.FrameScopeTests.test_application_rejects_removed_review_and_restored_false_absence",
+      "tests.test_sky130_pad_scope.PadScopeTests.test_application_and_export_require_the_reopened_mask_obligation",
+      "tests.test_sky130_scope_corrections.Sky130ScopeCorrectionTests.test_saved_application_gate_requires_current_scope_review"
+    ],
+    "reason": "Windows TEMP used RUNNER~1 while prepared resources used runneradmin. Lexical relative_to rejected paths identifying the same directory.",
+    "local_reproduction": "Two real Windows short/full alias errors and one noncanonical relative-path assertion fail before the source correction. Original failures are preserved."
+  },
+  "correction": {
+    "source_sha256": "02ec110ffa54420e3c4fdc06e398e9e5ae915444a7ed108752e1ae5205d3ff61",
+    "test_sha256": "8eb747f697e69489a096b5467e64e3a979b31a4b4b44210bc1d1022945acf9a6",
+    "behavior": "Resolve both root and file to canonical paths; require the result to remain inside the root, then hash and store a portable relative path."
+  },
+  "regressions": {
+    "Windows": {
+      "discovered": 45,
+      "passed": 40,
+      "skipped": 5,
+      "retried_ci_failures": 15,
+      "skip_reasons": [
+        "Install Icarus or set ICSTUDIO_TEST_IVERILOG/VVP",
+        "Install Icarus or set ICSTUDIO_TEST_IVERILOG/VVP",
+        "Install Icarus or set ICSTUDIO_TEST_IVERILOG/VVP",
+        "Install Verilator or set ICSTUDIO_TEST_VERILATOR",
+        "Install Yosys or set ICSTUDIO_TEST_YOSYS"
+      ],
+      "tests_log_sha256": "fa634e63be9da715cd28485cad3049ab04393b2e6959cef073d45825f2a8b6d5",
+      "execution_sha256": "e65486ba3c9541ba2e9bf077087f9bc1416ce2a9032516a6a20a4fb705ea85a4",
+      "source_unchanged": true
+    },
+    "Linux": {
+      "discovered": 45,
+      "passed": 42,
+      "skipped": 3,
+      "retried_ci_failures": 15,
+      "skip_reasons": [
+        "Windows extended-length filesystem paths",
+        "Windows extended-length filesystem paths",
+        "Windows extended-length filesystem paths"
+      ],
+      "tests_log_sha256": "73d4177bb8da8b8b3c5325ddbe0939602a04daddf01f67c113449b5adbbc05ef",
+      "execution_sha256": "089bda7dbf1cae72f3537a375c618419cf717f9427a528e3aaa9b9699829c05f",
+      "source_unchanged": true
+    }
+  },
+  "additional_windows_path_checks": {
+    "passed": 7,
+    "skipped": 0
+  },
+  "full_suite_scope": "The fixed-geometry full-suite runs predate this path correction. All 15 original CI failures pass on both hosts, with focused digital/export regressions. The final-head CI and installer outcomes remain pending.",
+  "source_base_archive": {
+    "path": "IC-Design-Studio-evidence/fixed-geometry-and-model-inventory-2026-10-17/evidence.zip",
+    "sha256": "cb1cf615422974097857a4babbb7ce90b46c8281b6a2e40302ac81efd9533b0f",
+    "bytes": 197006310,
+    "file_paths": 190640,
+    "unique_contents": 11288,
+    "all_objects_and_copy_verified": true
+  },
+  "archive": {
+    "path": "IC-Design-Studio-evidence/artifact-path-portability-2026-10-17/evidence.zip",
+    "sha256": "59eee578d122fb1f425e071b5664f963eff07d2e77896002463acbdf0f2e4e27",
+    "bytes": 167090,
+    "files": 11,
+    "all_objects_verified": true
+  }
+}

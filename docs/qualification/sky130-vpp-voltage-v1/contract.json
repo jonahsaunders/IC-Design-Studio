@@ -1,0 +1,290 @@
+{
+  "bindings": {
+    "sky130_fd_pr/vpp_cap.sym": {
+      "catalog_pins": [
+        "c0",
+        "c1",
+        "sub",
+        "top"
+      ],
+      "model": "sky130_fd_pr__cap_vpp_11p5x11p7_l1m1m2m3m4_shieldm5",
+      "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__cap_vpp_11p5x11p7_l1m1m2m3m4_shieldm5.model.spice",
+      "model_source_sha256": "7710a12e99c750841df77b352eb240e818a995e20474ebad70021e4a739adab2",
+      "parameters": {
+        "mult": {
+          "default": "1",
+          "derived": false,
+          "integer": false,
+          "positive": true
+        }
+      },
+      "source_pins": [
+        "c0",
+        "c1",
+        "b",
+        "m5"
+      ],
+      "symbol": "libs.tech/xschem/sky130_fd_pr/vpp_cap.sym",
+      "symbol_sha256": "48aa348373dc6dd1549023c2b974d868452a5e6cdf248a13e287c418a861a69e"
+    },
+    "sky130_fd_pr/vpp_cap__sky130_fd_pr__cap_vpp_04p4x04p6_m1m2m3_shieldl1m5_floatm4.sym": {
+      "catalog_pins": [
+        "c0",
+        "c1",
+        "sub",
+        "top"
+      ],
+      "model": "sky130_fd_pr__cap_vpp_04p4x04p6_m1m2m3_shieldl1m5_floatm4",
+      "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__cap_vpp_04p4x04p6_m1m2m3_shieldl1m5_floatm4.model.spice",
+      "model_source_sha256": "9cd50eec5de2cbcb01ec1b6c1505d406a82d1acc4be011a979ade0e0cbcabe4f",
+      "parameters": {
+        "mult": {
+          "default": "1",
+          "derived": false,
+          "integer": false,
+          "positive": true
+        }
+      },
+      "source_pins": [
+        "c0",
+        "c1",
+        "b",
+        "m5"
+      ],
+      "symbol": "libs.tech/xschem/sky130_fd_pr/vpp_cap.sym",
+      "symbol_sha256": "48aa348373dc6dd1549023c2b974d868452a5e6cdf248a13e287c418a861a69e"
+    },
+    "sky130_fd_pr/vpp_cap__sky130_fd_pr__cap_vpp_06p8x06p1_l1m1m2m3_shieldpom4.sym": {
+      "catalog_pins": [
+        "c0",
+        "c1",
+        "sub",
+        "top"
+      ],
+      "model": "sky130_fd_pr__cap_vpp_06p8x06p1_l1m1m2m3_shieldpom4",
+      "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__cap_vpp_06p8x06p1_l1m1m2m3_shieldpom4.model.spice",
+      "model_source_sha256": "98c8daf1285647e2f17af847cfcc143a580c2851d117da687faa75ee1874de65",
+      "parameters": {
+        "mult": {
+          "default": "1",
+          "derived": false,
+          "integer": false,
+          "positive": true
+        }
+      },
+      "source_pins": [
+        "c0",
+        "c1",
+        "b",
+        "m4"
+      ],
+      "symbol": "libs.tech/xschem/sky130_fd_pr/vpp_cap.sym",
+      "symbol_sha256": "48aa348373dc6dd1549023c2b974d868452a5e6cdf248a13e287c418a861a69e"
+    },
+    "sky130_fd_pr/vpp_cap__sky130_fd_pr__cap_vpp_06p8x06p1_m1m2m3_shieldl1m4.sym": {
+      "catalog_pins": [
+        "c0",
+        "c1",
+        "sub",
+        "top"
+      ],
+      "model": "sky130_fd_pr__cap_vpp_06p8x06p1_m1m2m3_shieldl1m4",
+      "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__cap_vpp_06p8x06p1_m1m2m3_shieldl1m4.model.spice",
+      "model_source_sha256": "d2e90cfd8356e33b52d0ad761a0aa1d0f0712082244d10fb4139664837889779",
+      "parameters": {
+        "mult": {
+          "default": "1",
+          "derived": false,
+          "integer": false,
+          "positive": true
+        }
+      },
+      "source_pins": [
+        "c0",
+        "c1",
+        "b",
+        "m4"
+      ],
+      "symbol": "libs.tech/xschem/sky130_fd_pr/vpp_cap.sym",
+      "symbol_sha256": "48aa348373dc6dd1549023c2b974d868452a5e6cdf248a13e287c418a861a69e"
+    },
+    "sky130_fd_pr/vpp_cap__sky130_fd_pr__cap_vpp_08p6x07p8_m1m2m3_shieldl1m5_floatm4.sym": {
+      "catalog_pins": [
+        "c0",
+        "c1",
+        "sub",
+        "top"
+      ],
+      "model": "sky130_fd_pr__cap_vpp_08p6x07p8_m1m2m3_shieldl1m5_floatm4",
+      "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__cap_vpp_08p6x07p8_m1m2m3_shieldl1m5_floatm4.model.spice",
+      "model_source_sha256": "be4d8281ed86aaf1b1be60084f02dbf7b121d59ba0a24acb72d66c3a3abf61c8",
+      "parameters": {
+        "mult": {
+          "default": "1",
+          "derived": false,
+          "integer": false,
+          "positive": true
+        }
+      },
+      "source_pins": [
+        "c0",
+        "c1",
+        "b",
+        "m5"
+      ],
+      "symbol": "libs.tech/xschem/sky130_fd_pr/vpp_cap.sym",
+      "symbol_sha256": "48aa348373dc6dd1549023c2b974d868452a5e6cdf248a13e287c418a861a69e"
+    },
+    "sky130_fd_pr/vpp_cap__sky130_fd_pr__cap_vpp_11p5x11p7_l1m1m2m3_shieldm4.sym": {
+      "catalog_pins": [
+        "c0",
+        "c1",
+        "sub",
+        "top"
+      ],
+      "model": "sky130_fd_pr__cap_vpp_11p5x11p7_l1m1m2m3_shieldm4",
+      "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__cap_vpp_11p5x11p7_l1m1m2m3_shieldm4.model.spice",
+      "model_source_sha256": "b1666dbeb1ae6f4937900524d3b620815fc0cdeb19782536b4ff0e2c06e3df0d",
+      "parameters": {
+        "mult": {
+          "default": "1",
+          "derived": false,
+          "integer": false,
+          "positive": true
+        }
+      },
+      "source_pins": [
+        "c0",
+        "c1",
+        "b",
+        "m4"
+      ],
+      "symbol": "libs.tech/xschem/sky130_fd_pr/vpp_cap.sym",
+      "symbol_sha256": "48aa348373dc6dd1549023c2b974d868452a5e6cdf248a13e287c418a861a69e"
+    },
+    "sky130_fd_pr/vpp_cap__sky130_fd_pr__cap_vpp_11p5x11p7_l1m1m2m3m4_shieldpom5.sym": {
+      "catalog_pins": [
+        "c0",
+        "c1",
+        "sub",
+        "top"
+      ],
+      "model": "sky130_fd_pr__cap_vpp_11p5x11p7_l1m1m2m3m4_shieldpom5",
+      "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__cap_vpp_11p5x11p7_l1m1m2m3m4_shieldpom5.model.spice",
+      "model_source_sha256": "80722d5749c3c2644342f7fee626f60cfcdd15c1867e6d4bb42dd788f7be9070",
+      "parameters": {
+        "mult": {
+          "default": "1",
+          "derived": false,
+          "integer": false,
+          "positive": true
+        }
+      },
+      "source_pins": [
+        "c0",
+        "c1",
+        "b",
+        "m5"
+      ],
+      "symbol": "libs.tech/xschem/sky130_fd_pr/vpp_cap.sym",
+      "symbol_sha256": "48aa348373dc6dd1549023c2b974d868452a5e6cdf248a13e287c418a861a69e"
+    },
+    "sky130_fd_pr/vpp_cap__sky130_fd_pr__cap_vpp_11p5x11p7_m1m2m3_shieldl1m5_floatm4.sym": {
+      "catalog_pins": [
+        "c0",
+        "c1",
+        "sub",
+        "top"
+      ],
+      "model": "sky130_fd_pr__cap_vpp_11p5x11p7_m1m2m3_shieldl1m5_floatm4",
+      "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__cap_vpp_11p5x11p7_m1m2m3_shieldl1m5_floatm4.model.spice",
+      "model_source_sha256": "b4f0e48b187334a1d043a79ef4e08a4bfb35870748521e54906a63ed5730eebc",
+      "parameters": {
+        "mult": {
+          "default": "1",
+          "derived": false,
+          "integer": false,
+          "positive": true
+        }
+      },
+      "source_pins": [
+        "c0",
+        "c1",
+        "b",
+        "m5"
+      ],
+      "symbol": "libs.tech/xschem/sky130_fd_pr/vpp_cap.sym",
+      "symbol_sha256": "48aa348373dc6dd1549023c2b974d868452a5e6cdf248a13e287c418a861a69e"
+    },
+    "sky130_fd_pr/vpp_cap__sky130_fd_pr__cap_vpp_11p5x11p7_m1m2m3m4_shieldl1m5.sym": {
+      "catalog_pins": [
+        "c0",
+        "c1",
+        "sub",
+        "top"
+      ],
+      "model": "sky130_fd_pr__cap_vpp_11p5x11p7_m1m2m3m4_shieldl1m5",
+      "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__cap_vpp_11p5x11p7_m1m2m3m4_shieldl1m5.model.spice",
+      "model_source_sha256": "6b59f00cb7050984f65dd5bd4d4df8b656c0e790804c5196eaeae64d18c88e8b",
+      "parameters": {
+        "mult": {
+          "default": "1",
+          "derived": false,
+          "integer": false,
+          "positive": true
+        }
+      },
+      "source_pins": [
+        "c0",
+        "c1",
+        "b",
+        "m5"
+      ],
+      "symbol": "libs.tech/xschem/sky130_fd_pr/vpp_cap.sym",
+      "symbol_sha256": "48aa348373dc6dd1549023c2b974d868452a5e6cdf248a13e287c418a861a69e"
+    }
+  },
+  "chunk_complete": false,
+  "corrected_package_manifest_sha256": "c8e8809d2b8be152a7746f8eb9d9230df3b47d459d21c29a17a1688a421392ee",
+  "corrected_package_revision": "67c7ad29c1c08d6b",
+  "family": "sky130-vpp",
+  "fixed_geometry": true,
+  "geometry_scaling_supported": false,
+  "package_manifest_sha256": "0c19e0ea5718a841045b597022d13f2dcb57e35cf8be9757b254fb465f2a35c4",
+  "package_revision": "47dbd4fe43bfa7e4",
+  "qualified": false,
+  "quantity": {
+    "lower": "0",
+    "lower_inclusive": true,
+    "relation": "abs(V(c0)-V(c1))",
+    "semantic_kind": "SPICE-model-validity",
+    "unit": "V",
+    "upper": "5.5",
+    "upper_inclusive": true
+  },
+  "schema": 1,
+  "source": {
+    "line": 18,
+    "path": "docs/rules/device-details/cap_vpp/index.rst",
+    "repository": "google/skywater-pdk",
+    "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+    "sha256": "2dfd8816663aa70e365e65e9e9c38cd3475d8b0efd1c087e19d474c784398ca7"
+  },
+  "unavailable": {
+    "sky130_fd_pr/vpp_cap__sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5.sym": {
+      "model": "sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5",
+      "reason": "The source symbol lists this model, but its definition is absent from the locked simulation libraries. No substitute is selected."
+    }
+  },
+  "unknown": [
+    "body-voltage domain",
+    "shield-voltage domain",
+    "common-mode domain",
+    "temperature domain",
+    "frequency domain",
+    "lifetime/stress/duty-cycle limits",
+    "statistical calibration",
+    "measurement fixture for published capacitance limits",
+    "full operating envelope"
+  ]
+}

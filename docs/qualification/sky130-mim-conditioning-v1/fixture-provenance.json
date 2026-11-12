@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "old_manifest_sha256": "6f095e6cf9a82dea4f6d842d1071abc7a41fae3978d0f75aa9c85fdb8b08eb29",
+  "new_manifest_sha256": "1d433b5a3317b36bbcfaa8cf9037146a74256c76e5f40ba4f2aac35463631eed",
+  "unchanged_native_source_files": 346,
+  "unchanged_decks": 40,
+  "omitted_metadata": {
+    "path": "assets/shared-models/source-identity.json",
+    "sha256": "52814b89217140523d8783decc7eab3f334f832ee95cdc6d6c85a37ab3f4a09b",
+    "referenced_by_spice_or_deck": false
+  },
+  "scope": "Only unreferenced staging metadata omitted; no electrical source or deck bytes changed."
+}

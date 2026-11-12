@@ -1,0 +1,16 @@
+{
+  "device-details.rst": {
+    "url": "https://raw.githubusercontent.com/google/skywater-pdk/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details.rst",
+    "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+    "path": "docs/rules/device-details.rst",
+    "sha256": "506021827f52b26673daf8b580f8d79d408724af3138a65695bde86e5c1c6e49",
+    "bytes": 45543
+  },
+  "LICENSE": {
+    "url": "https://raw.githubusercontent.com/google/skywater-pdk/7198cf647113f56041e02abf3eb623692820c5e1/LICENSE",
+    "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+    "path": "LICENSE",
+    "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "bytes": 11358
+  }
+}

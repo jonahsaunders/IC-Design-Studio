@@ -1,0 +1,59 @@
+{
+  "schema": 1,
+  "status": "application-checks-and-export-pass",
+  "qualified": false,
+  "chunk_complete": false,
+  "case": "uart",
+  "platform": "linux",
+  "driver_sha256": "527b21ba2ef928d23a8369366824abbdcfb610adce944e75300084528094ba03",
+  "source_result_sha256": "d85812ac451b2ef0a2b639b4647572df8f7e351ba60e8d789f903809b50fe8ab",
+  "source_input_sha256": "ecdf75aa48f65ad8ca837703cdadc93b51d1503ea522f6e4bc0d3893bf3be660",
+  "scope": "Actual Runner execution of six partial geometry profiles, reopened hugePad mask scope, antenna, isolation, OpenDB checks and export on unchanged final filled GDS/checkpoints. Prior nominal timing/equivalence remains separate; no new place/route, extraction, full physical signoff or installer qualification.",
+  "isolation": "NOT_REQUESTED",
+  "pad_scope_review": {
+    "schema": 1,
+    "revision": "sky130-hugepad-mask-scope-v1",
+    "qualified": false,
+    "source": "docs/rules/layers/table-c3-device-lvs-other.csv",
+    "source_sha256": "e56b7c0570f4ce5e4c0a002ddd0cc82f4c0e0d12d98a7634d419e0abd6a1fd98",
+    "definition": "pad.mk with width > 100um",
+    "correction": {
+      "id": "docs/rules/periphery/p045-pad_dotdash.csv#2",
+      "source": "docs/rules/periphery/p045-pad_dotdash.csv",
+      "record": 2,
+      "rule": "pad.3",
+      "source_sha256": "e01d6f79b2aaaee9f7422170c60f4cccdba989bfba67fefd06c7f6cf34c1a395"
+    },
+    "reason": "C3 defines hugePad as pad.mk with width > 100um. Absence of drawn pad:dg does not prove that mask-derived subject absent. Mask construction and the conflicting maximum/minimum area descriptions require review."
+  },
+  "pending_pad_rule": {
+    "id": "docs/rules/periphery/p045-pad_dotdash.csv#2",
+    "rule": "pad.3",
+    "source": "docs/rules/periphery/p045-pad_dotdash.csv",
+    "record": 2,
+    "source_sha256": "e01d6f79b2aaaee9f7422170c60f4cccdba989bfba67fefd06c7f6cf34c1a395",
+    "disposition": "execution-review-required",
+    "reason": "C3 defines hugePad as pad.mk with width > 100um. Absence of drawn pad:dg does not prove that mask-derived subject absent. Mask construction and the conflicting maximum/minimum area descriptions require review.",
+    "witnesses": {
+      "(76, 20)": 0
+    }
+  },
+  "periphery_counts": {
+    "execution-review-required": 28,
+    "upstream-na": 77,
+    "executed-reviewed": 133,
+    "absent-operand": 273,
+    "advisory": 28,
+    "definition-required": 1,
+    "other-backend": 61
+  },
+  "rejected_controls": {
+    "missing-review": "SKY130 hugePad mask review is missing or discharged; recheck this saved result.",
+    "restored-absence": "SKY130 hugePad mask review is missing or discharged; recheck this saved result."
+  },
+  "result_sha256": "415b5eea568a0951c231aeb19825914e3cef799cb568a2eaf4e7d1b1b179464d",
+  "macro_sha256": "8905120cd6dfaa5ebe8b51774a78fb4b159218b48e84352837f5fd725d377d7a",
+  "gds_sha256": "c9282fb9602ac9dbab5299032be1d4b68751bb611747d276d40435e93c37afea",
+  "checkpoint_sha256": "27ec03d13a0264feea11df78633ca56d7f068ed74b1f06478f3fe9db058d2d32",
+  "elapsed_seconds": 101.374210707
+}

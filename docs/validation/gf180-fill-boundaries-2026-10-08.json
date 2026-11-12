@@ -1,0 +1,636 @@
+{
+  "schema_version": 1,
+  "status": "declared-boundary-controls-passed; chunk-4-incomplete",
+  "qualified": false,
+  "observed_at": "2026-10-08T16:50:02.126505+00:00",
+  "application_backend": "cd6a3cd4e4b280c812456e0113ddb0b46dde728e76f8a80a9e25400856f030ef",
+  "sources": {
+    "scripts/check_gf180_fill.py": "c7ae81dd832828e84ced8b4a12af513622c92b13927fe5da95d045952e05f56d",
+    "scripts/gf180_fill_boundaries.py": "4c376d6d3648b1774d79d309968c4f85cfbe35ad9823d64573857b85741db8bb",
+    "scripts/gf180_comp_sites.py": "785cd0c3ef3f7fa762cf1e9788bde8e81aed12199d43c19b25c82971c0d686be",
+    "scripts/gf180_fill_patterns.py": "2169684c257b583279fa507d55c1a5ef138223f1207be8f3b3a376e1c99c1c4a",
+    "tests/test_gf180_fill_boundaries.py": "b2a19204b2e43a099768b41fbab16f44fa9c610b1143b78263aed139c9c968d2",
+    "tests/test_gf180_fill_checks.py": "14df548b3dd51ea1171fafb25e1a4eb0ab346102a749f5bcd05a7f4fcbfe3493",
+    "tests/test_gf180_fill_patterns.py": "ad0678198f40fd7700c243a5b85e74ac8b2d758d5a2236c1514a5c6819030bbd",
+    "tests/test_gf180_fill_sites.py": "da8322d0c4ecc94b5d66d56383d4847318da4ea96fdb82aae928193ed42a38c4",
+    "examples/gf180-boundary-manual-lock.json": "17daeb675e6c87afaf19d2319e85a8f3ff991b218e21d19c36ebd07717dca593",
+    "examples/gf180-fill-pattern-lock.json": "cf88c12b2f7c28abe82db779bafa9e24a239b9e72304923cdda7b81e3f0558e5",
+    "examples/gf180-fill-manual-lock.json": "96db8b10b3564eed4589e304e1f5a9dc5b10c9f426f1dd0b19d105a03fa996e1",
+    "examples/gf180-fill-coverage-lock.json": "e76113dd556fd192c5b7a21744602ce57e2cf7f6e5623046c33b15dcbaee7bac",
+    "examples/gf180-counter-fill-pattern.json": "244a6947ad702019dd098fa8679e368a205a00814b4c70a2b60c44cd53bd7c5d",
+    "docs/GF180_FILL_BOUNDARIES.md": "281e349d9affeb8f620150050037a3583288759bc9f25519e9c36e597b425eb7",
+    "docs/PDK_QUALIFICATION_PLAN.md": "e4a182a8518ce3293aa33071ababb833baa49dc27c5bcbe59a1232d9cc11a7ab"
+  },
+  "both_os": {
+    "windows": {
+      "process": {
+        "path": "outputs/gf180-boundary-windows-v1/process.json",
+        "sha256": "bd797601cfb993cbad79a61c34f8e2611f4060db93c584c640d1b857673e9f8c"
+      },
+      "tests": 55,
+      "failures": 0,
+      "skips": 0,
+      "cases": {
+        "valid-C": {
+          "report": {
+            "path": "outputs/gf180-boundary-windows-v1/valid/C.json",
+            "sha256": "addeff7d86dca972afc8ab0cbff616e72b556337614223f8db5d18e967fc6614"
+          },
+          "checks": 114,
+          "failed_rules": [],
+          "exit_code": 2,
+          "boundary_status": "declared_boundary_checks_passed"
+        },
+        "valid-D": {
+          "report": {
+            "path": "outputs/gf180-boundary-windows-v1/valid/D.json",
+            "sha256": "0b8ef3e696d72421973856c731c346a7bb9819841f4f4ee086b8873f3713c6ac"
+          },
+          "checks": 114,
+          "failed_rules": [],
+          "exit_code": 2,
+          "boundary_status": "declared_boundary_checks_passed"
+        },
+        "prime-edge-short-C": {
+          "report": {
+            "path": "outputs/gf180-boundary-windows-v1/prime-edge-short/C.json",
+            "sha256": "e346ee752cf6262dcb9f3d64d3e1ccf1c21b8c903a9b3c736abc9f58670363ad"
+          },
+          "checks": 114,
+          "failed_rules": [
+            "DCF.7a",
+            "DPF.7"
+          ],
+          "exit_code": 1,
+          "boundary_status": "failed"
+        },
+        "prime-edge-short-D": {
+          "report": {
+            "path": "outputs/gf180-boundary-windows-v1/prime-edge-short/D.json",
+            "sha256": "75fa8fac171eed558a184bbd59baa9e95a2ded0f58d2e5a8f16bf2b0db18b2c0"
+          },
+          "checks": 114,
+          "failed_rules": [
+            "DCF.7a",
+            "DPF.7"
+          ],
+          "exit_code": 1,
+          "boundary_status": "failed"
+        },
+        "frame-edge-short-C": {
+          "report": {
+            "path": "outputs/gf180-boundary-windows-v1/frame-edge-short/C.json",
+            "sha256": "d566af074f66124f040bac43115b267c3bee071c6dc7036d3f5fb9b11a362f1d"
+          },
+          "checks": 114,
+          "failed_rules": [
+            "DCF.7b"
+          ],
+          "exit_code": 1,
+          "boundary_status": "failed"
+        },
+        "frame-edge-short-D": {
+          "report": {
+            "path": "outputs/gf180-boundary-windows-v1/frame-edge-short/D.json",
+            "sha256": "1ae5efa72254fe7d43616f422e16986d827541793718c2e97d820e94686115dc"
+          },
+          "checks": 114,
+          "failed_rules": [
+            "DCF.7b"
+          ],
+          "exit_code": 1,
+          "boundary_status": "failed"
+        },
+        "frame-cell-short-C": {
+          "report": {
+            "path": "outputs/gf180-boundary-windows-v1/frame-cell-short/C.json",
+            "sha256": "c6498d171137a3b8d473d8a7c780680d344661b1ec2f775cca4c37a12549e92a"
+          },
+          "checks": 114,
+          "failed_rules": [
+            "DCF.7c"
+          ],
+          "exit_code": 1,
+          "boundary_status": "failed"
+        },
+        "frame-cell-short-D": {
+          "report": {
+            "path": "outputs/gf180-boundary-windows-v1/frame-cell-short/D.json",
+            "sha256": "18606e5b0b31dc75baa595025909847581425399d3b1e566930a227d6f59b6f7"
+          },
+          "checks": 114,
+          "failed_rules": [
+            "DCF.7c"
+          ],
+          "exit_code": 1,
+          "boundary_status": "failed"
+        },
+        "etest-edge-short-C": {
+          "report": {
+            "path": "outputs/gf180-boundary-windows-v1/etest-edge-short/C.json",
+            "sha256": "3be375f4ab331244cc6c0d732d2acd758e99e380c6454b2035dba4f27cc60091"
+          },
+          "checks": 114,
+          "failed_rules": [
+            "DCF.7d"
+          ],
+          "exit_code": 1,
+          "boundary_status": "failed"
+        },
+        "etest-edge-short-D": {
+          "report": {
+            "path": "outputs/gf180-boundary-windows-v1/etest-edge-short/D.json",
+            "sha256": "78dc340fcb1e63b32127abb85a2bd876810de8152208b2e2abc4d4183d2de98f"
+          },
+          "checks": 114,
+          "failed_rules": [
+            "DCF.7d"
+          ],
+          "exit_code": 1,
+          "boundary_status": "failed"
+        },
+        "reliability-edge-short-C": {
+          "report": {
+            "path": "outputs/gf180-boundary-windows-v1/reliability-edge-short/C.json",
+            "sha256": "4c394a5344a503a7f83ff2a8264d52f08712e04d078ba9da727f0138b99ba4e7"
+          },
+          "checks": 114,
+          "failed_rules": [
+            "DCF.7d"
+          ],
+          "exit_code": 1,
+          "boundary_status": "failed"
+        },
+        "reliability-edge-short-D": {
+          "report": {
+            "path": "outputs/gf180-boundary-windows-v1/reliability-edge-short/D.json",
+            "sha256": "e3cebd7b83f8ed2e8a4ff894adcc7c25f8460b0666a390d5a1cda9c0453ada81"
+          },
+          "checks": 114,
+          "failed_rules": [
+            "DCF.7d"
+          ],
+          "exit_code": 1,
+          "boundary_status": "failed"
+        },
+        "missing-region-C": {
+          "report": {
+            "path": "outputs/gf180-boundary-windows-v1/missing-region/C.json",
+            "sha256": "fd349264394f72f8d8573fc266e09a0bde208e8c1651f96b86a186d525e6adf0"
+          },
+          "checks": 112,
+          "failed_rules": [
+            "boundary-region-coverage"
+          ],
+          "exit_code": 1,
+          "boundary_status": "failed"
+        },
+        "missing-region-D": {
+          "report": {
+            "path": "outputs/gf180-boundary-windows-v1/missing-region/D.json",
+            "sha256": "3fab29162e61e153644962926842ae39ec20649cfe053a25d1c3e43fc9f3d32d"
+          },
+          "checks": 112,
+          "failed_rules": [
+            "boundary-region-coverage"
+          ],
+          "exit_code": 1,
+          "boundary_status": "failed"
+        },
+        "poly-in-frame-C": {
+          "report": {
+            "path": "outputs/gf180-boundary-windows-v1/poly-in-frame/C.json",
+            "sha256": "d13944519e68cbd1ba9186d592a28974a060e6104b50ac82af0658c734f022ba"
+          },
+          "checks": 114,
+          "failed_rules": [
+            "DPF.1-prime-die-scope"
+          ],
+          "exit_code": 1,
+          "boundary_status": "failed"
+        },
+        "poly-in-frame-D": {
+          "report": {
+            "path": "outputs/gf180-boundary-windows-v1/poly-in-frame/D.json",
+            "sha256": "e9eb23165ac20bb5da528b485814c758820ac5978a0371e07aaebde3c8aecd95"
+          },
+          "checks": 114,
+          "failed_rules": [
+            "DPF.1-prime-die-scope"
+          ],
+          "exit_code": 1,
+          "boundary_status": "failed"
+        },
+        "non-et-exception-C": {
+          "report": {
+            "path": "outputs/gf180-boundary-windows-v1/non-et-exception/C.json",
+            "sha256": "c7fe9a7ed6d8289b263043db3a5b472ff36b9eef15bc1ce93c671b8b2c0cce40"
+          },
+          "checks": 114,
+          "failed_rules": [],
+          "exit_code": 2,
+          "boundary_status": "declared_boundary_checks_passed"
+        },
+        "non-et-exception-D": {
+          "report": {
+            "path": "outputs/gf180-boundary-windows-v1/non-et-exception/D.json",
+            "sha256": "956361e696bfd1189374efcbd0377cb2926766c066c7b1f5ba5b1cf532231087"
+          },
+          "checks": 114,
+          "failed_rules": [],
+          "exit_code": 2,
+          "boundary_status": "declared_boundary_checks_passed"
+        },
+        "counter-C": {
+          "report": {
+            "path": "outputs/gf180-boundary-windows-v1/counter-C.json",
+            "sha256": "eae8d9a24829cba4ed823c1791dfe0adab25621267330a586a9555548b604537"
+          },
+          "checks": 104,
+          "failed_rules": [],
+          "exit_code": 2,
+          "boundary_status": "missing_boundary_plan"
+        },
+        "counter-D": {
+          "report": {
+            "path": "outputs/gf180-boundary-windows-v1/counter-D.json",
+            "sha256": "7ec845d9bd5604035cdecd434e9ecd31973b5216c72d8d2cd180e4caa61bb868"
+          },
+          "checks": 104,
+          "failed_rules": [],
+          "exit_code": 2,
+          "boundary_status": "missing_boundary_plan"
+        }
+      }
+    },
+    "linux": {
+      "process": {
+        "path": "outputs/gf180-boundary-linux-v1/process.json",
+        "sha256": "caaf10990fd22214c2e875af6f62ce9be406548ba4943c497ce961ba31804338"
+      },
+      "tests": 55,
+      "failures": 0,
+      "skips": 0,
+      "cases": {
+        "valid-C": {
+          "report": {
+            "path": "outputs/gf180-boundary-linux-v1/valid/C.json",
+            "sha256": "addeff7d86dca972afc8ab0cbff616e72b556337614223f8db5d18e967fc6614"
+          },
+          "checks": 114,
+          "failed_rules": [],
+          "exit_code": 2,
+          "boundary_status": "declared_boundary_checks_passed"
+        },
+        "valid-D": {
+          "report": {
+            "path": "outputs/gf180-boundary-linux-v1/valid/D.json",
+            "sha256": "0b8ef3e696d72421973856c731c346a7bb9819841f4f4ee086b8873f3713c6ac"
+          },
+          "checks": 114,
+          "failed_rules": [],
+          "exit_code": 2,
+          "boundary_status": "declared_boundary_checks_passed"
+        },
+        "prime-edge-short-C": {
+          "report": {
+            "path": "outputs/gf180-boundary-linux-v1/prime-edge-short/C.json",
+            "sha256": "e346ee752cf6262dcb9f3d64d3e1ccf1c21b8c903a9b3c736abc9f58670363ad"
+          },
+          "checks": 114,
+          "failed_rules": [
+            "DCF.7a",
+            "DPF.7"
+          ],
+          "exit_code": 1,
+          "boundary_status": "failed"
+        },
+        "prime-edge-short-D": {
+          "report": {
+            "path": "outputs/gf180-boundary-linux-v1/prime-edge-short/D.json",
+            "sha256": "75fa8fac171eed558a184bbd59baa9e95a2ded0f58d2e5a8f16bf2b0db18b2c0"
+          },
+          "checks": 114,
+          "failed_rules": [
+            "DCF.7a",
+            "DPF.7"
+          ],
+          "exit_code": 1,
+          "boundary_status": "failed"
+        },
+        "frame-edge-short-C": {
+          "report": {
+            "path": "outputs/gf180-boundary-linux-v1/frame-edge-short/C.json",
+            "sha256": "d566af074f66124f040bac43115b267c3bee071c6dc7036d3f5fb9b11a362f1d"
+          },
+          "checks": 114,
+          "failed_rules": [
+            "DCF.7b"
+          ],
+          "exit_code": 1,
+          "boundary_status": "failed"
+        },
+        "frame-edge-short-D": {
+          "report": {
+            "path": "outputs/gf180-boundary-linux-v1/frame-edge-short/D.json",
+            "sha256": "1ae5efa72254fe7d43616f422e16986d827541793718c2e97d820e94686115dc"
+          },
+          "checks": 114,
+          "failed_rules": [
+            "DCF.7b"
+          ],
+          "exit_code": 1,
+          "boundary_status": "failed"
+        },
+        "frame-cell-short-C": {
+          "report": {
+            "path": "outputs/gf180-boundary-linux-v1/frame-cell-short/C.json",
+            "sha256": "c6498d171137a3b8d473d8a7c780680d344661b1ec2f775cca4c37a12549e92a"
+          },
+          "checks": 114,
+          "failed_rules": [
+            "DCF.7c"
+          ],
+          "exit_code": 1,
+          "boundary_status": "failed"
+        },
+        "frame-cell-short-D": {
+          "report": {
+            "path": "outputs/gf180-boundary-linux-v1/frame-cell-short/D.json",
+            "sha256": "18606e5b0b31dc75baa595025909847581425399d3b1e566930a227d6f59b6f7"
+          },
+          "checks": 114,
+          "failed_rules": [
+            "DCF.7c"
+          ],
+          "exit_code": 1,
+          "boundary_status": "failed"
+        },
+        "etest-edge-short-C": {
+          "report": {
+            "path": "outputs/gf180-boundary-linux-v1/etest-edge-short/C.json",
+            "sha256": "3be375f4ab331244cc6c0d732d2acd758e99e380c6454b2035dba4f27cc60091"
+          },
+          "checks": 114,
+          "failed_rules": [
+            "DCF.7d"
+          ],
+          "exit_code": 1,
+          "boundary_status": "failed"
+        },
+        "etest-edge-short-D": {
+          "report": {
+            "path": "outputs/gf180-boundary-linux-v1/etest-edge-short/D.json",
+            "sha256": "78dc340fcb1e63b32127abb85a2bd876810de8152208b2e2abc4d4183d2de98f"
+          },
+          "checks": 114,
+          "failed_rules": [
+            "DCF.7d"
+          ],
+          "exit_code": 1,
+          "boundary_status": "failed"
+        },
+        "reliability-edge-short-C": {
+          "report": {
+            "path": "outputs/gf180-boundary-linux-v1/reliability-edge-short/C.json",
+            "sha256": "4c394a5344a503a7f83ff2a8264d52f08712e04d078ba9da727f0138b99ba4e7"
+          },
+          "checks": 114,
+          "failed_rules": [
+            "DCF.7d"
+          ],
+          "exit_code": 1,
+          "boundary_status": "failed"
+        },
+        "reliability-edge-short-D": {
+          "report": {
+            "path": "outputs/gf180-boundary-linux-v1/reliability-edge-short/D.json",
+            "sha256": "e3cebd7b83f8ed2e8a4ff894adcc7c25f8460b0666a390d5a1cda9c0453ada81"
+          },
+          "checks": 114,
+          "failed_rules": [
+            "DCF.7d"
+          ],
+          "exit_code": 1,
+          "boundary_status": "failed"
+        },
+        "missing-region-C": {
+          "report": {
+            "path": "outputs/gf180-boundary-linux-v1/missing-region/C.json",
+            "sha256": "fd349264394f72f8d8573fc266e09a0bde208e8c1651f96b86a186d525e6adf0"
+          },
+          "checks": 112,
+          "failed_rules": [
+            "boundary-region-coverage"
+          ],
+          "exit_code": 1,
+          "boundary_status": "failed"
+        },
+        "missing-region-D": {
+          "report": {
+            "path": "outputs/gf180-boundary-linux-v1/missing-region/D.json",
+            "sha256": "3fab29162e61e153644962926842ae39ec20649cfe053a25d1c3e43fc9f3d32d"
+          },
+          "checks": 112,
+          "failed_rules": [
+            "boundary-region-coverage"
+          ],
+          "exit_code": 1,
+          "boundary_status": "failed"
+        },
+        "poly-in-frame-C": {
+          "report": {
+            "path": "outputs/gf180-boundary-linux-v1/poly-in-frame/C.json",
+            "sha256": "d13944519e68cbd1ba9186d592a28974a060e6104b50ac82af0658c734f022ba"
+          },
+          "checks": 114,
+          "failed_rules": [
+            "DPF.1-prime-die-scope"
+          ],
+          "exit_code": 1,
+          "boundary_status": "failed"
+        },
+        "poly-in-frame-D": {
+          "report": {
+            "path": "outputs/gf180-boundary-linux-v1/poly-in-frame/D.json",
+            "sha256": "e9eb23165ac20bb5da528b485814c758820ac5978a0371e07aaebde3c8aecd95"
+          },
+          "checks": 114,
+          "failed_rules": [
+            "DPF.1-prime-die-scope"
+          ],
+          "exit_code": 1,
+          "boundary_status": "failed"
+        },
+        "non-et-exception-C": {
+          "report": {
+            "path": "outputs/gf180-boundary-linux-v1/non-et-exception/C.json",
+            "sha256": "c7fe9a7ed6d8289b263043db3a5b472ff36b9eef15bc1ce93c671b8b2c0cce40"
+          },
+          "checks": 114,
+          "failed_rules": [],
+          "exit_code": 2,
+          "boundary_status": "declared_boundary_checks_passed"
+        },
+        "non-et-exception-D": {
+          "report": {
+            "path": "outputs/gf180-boundary-linux-v1/non-et-exception/D.json",
+            "sha256": "956361e696bfd1189374efcbd0377cb2926766c066c7b1f5ba5b1cf532231087"
+          },
+          "checks": 114,
+          "failed_rules": [],
+          "exit_code": 2,
+          "boundary_status": "declared_boundary_checks_passed"
+        },
+        "counter-C": {
+          "report": {
+            "path": "outputs/gf180-boundary-linux-v1/counter-C.json",
+            "sha256": "eae8d9a24829cba4ed823c1791dfe0adab25621267330a586a9555548b604537"
+          },
+          "checks": 104,
+          "failed_rules": [],
+          "exit_code": 2,
+          "boundary_status": "missing_boundary_plan"
+        },
+        "counter-D": {
+          "report": {
+            "path": "outputs/gf180-boundary-linux-v1/counter-D.json",
+            "sha256": "7ec845d9bd5604035cdecd434e9ecd31973b5216c72d8d2cd180e4caa61bb868"
+          },
+          "checks": 104,
+          "failed_rules": [],
+          "exit_code": 2,
+          "boundary_status": "missing_boundary_plan"
+        }
+      }
+    }
+  },
+  "source_revision": "de3240d7529a6970437ac3344820aaae7839f215",
+  "scope": "DCF.7a/b/c/d and DPF.7 distances on explicitly declared, source-bound rectangular regions. Declaration completeness, guard-ring correctness, chip/reticle/package acceptance and full fill/electrical qualification remain open.",
+  "rules_um": {
+    "DCF.7a": 26.0,
+    "DPF.7": 25.7,
+    "DCF.7b": 6.0,
+    "DCF.7c": 10.0,
+    "DCF.7d": 6.0
+  },
+  "source_discrepancy": {
+    "rule": "DCF.7a",
+    "main_table_um": 26.0,
+    "appendix_um": 8.0,
+    "enforced_minimum_um": 26.0,
+    "handling": "Retain both values; 26 satisfies both numeric minima. No waiver, reticle dimensions or counter boundary declaration is inferred."
+  },
+  "remaining": [
+    "Declared die/prime-die/scribe scope verified against the complete-chip floorplan",
+    "DCF.1a empty-field coverage and local COMP density",
+    "DCF/DPF scribe/frame scope and COMP-to-pad RF guideline",
+    "DCF exclusion-edge tie/fill rows",
+    "Embedded-memory fill coverage beyond supported MTPMARK; vendor implant layers are unsupported",
+    "Foundry acceptance limits for local metal density and clipped die-edge windows",
+    "Independent full native geometry, antenna and final-layout LVS",
+    "Post-fill extraction, timing and foundry acceptance"
+  ],
+  "byte_identical_os_artifacts": [
+    "counter-C.json",
+    "counter-D.json",
+    "etest-edge-short/boundary.json",
+    "etest-edge-short/C.json",
+    "etest-edge-short/coupon.gds",
+    "etest-edge-short/D.json",
+    "etest-edge-short/floorplan-source.json",
+    "frame-cell-short/boundary.json",
+    "frame-cell-short/C.json",
+    "frame-cell-short/coupon.gds",
+    "frame-cell-short/D.json",
+    "frame-cell-short/floorplan-source.json",
+    "frame-edge-short/boundary.json",
+    "frame-edge-short/C.json",
+    "frame-edge-short/coupon.gds",
+    "frame-edge-short/D.json",
+    "frame-edge-short/floorplan-source.json",
+    "missing-region/boundary.json",
+    "missing-region/C.json",
+    "missing-region/coupon.gds",
+    "missing-region/D.json",
+    "missing-region/floorplan-source.json",
+    "non-et-exception/boundary.json",
+    "non-et-exception/C.json",
+    "non-et-exception/coupon.gds",
+    "non-et-exception/D.json",
+    "non-et-exception/floorplan-source.json",
+    "poly-in-frame/boundary.json",
+    "poly-in-frame/C.json",
+    "poly-in-frame/coupon.gds",
+    "poly-in-frame/D.json",
+    "poly-in-frame/floorplan-source.json",
+    "prime-edge-short/boundary.json",
+    "prime-edge-short/C.json",
+    "prime-edge-short/coupon.gds",
+    "prime-edge-short/D.json",
+    "prime-edge-short/floorplan-source.json",
+    "reliability-edge-short/boundary.json",
+    "reliability-edge-short/C.json",
+    "reliability-edge-short/coupon.gds",
+    "reliability-edge-short/D.json",
+    "reliability-edge-short/floorplan-source.json",
+    "valid/boundary.json",
+    "valid/C.json",
+    "valid/coupon.gds",
+    "valid/D.json",
+    "valid/floorplan-source.json"
+  ],
+  "full_windows_suite": {
+    "tests": 1512,
+    "skips": 62,
+    "failures": 0,
+    "seconds": 311.356,
+    "process": {
+      "path": "outputs/gf180-boundary-suite-v1/process.json",
+      "sha256": "3f738ad9982bf8c6d2e01f36b08e5b684d9904bb8a510aa18ce3784c16afb220"
+    },
+    "log": {
+      "path": "outputs/gf180-boundary-suite-v1/tests.log",
+      "sha256": "5ce765fae327ebf3580f8bec5cacd7e567a538eb4a330bc478e270b87d72315d"
+    }
+  },
+  "precision_colamd_observation": {
+    "record": {
+      "path": "outputs/gf180-boundary-checkpoint-v1/colamd-snapshot.json",
+      "sha256": "7f0b09045a148b645b94dd5fcd434e354486c3082769e03a95481371a9c41827"
+    },
+    "exec_session": 76921,
+    "status": "running",
+    "cases": {
+      "before": {
+        "status": "running",
+        "progress": {
+          "wall_seconds": 8954.342975139618,
+          "cpu_seconds": 6921.75,
+          "last_reported_simulation_seconds": 4.70627e-07,
+          "observed_unix_seconds": 1791478194.1799626
+        }
+      },
+      "filled": {
+        "status": "running",
+        "progress": {
+          "wall_seconds": 8954.03283238411,
+          "cpu_seconds": 6884.02,
+          "last_reported_simulation_seconds": 2.96217e-07,
+          "observed_unix_seconds": 1791478194.1843014
+        }
+      }
+    },
+    "scope": "Observation only. Complete waveform and post-fill timing acceptance are still required. Preserve the live process handle."
+  },
+  "archive": {
+    "path": "outputs/gf180-boundary-checkpoint-v1/evidence.tar.gz",
+    "sha256": "c0139b05b4e74e9b4647ea782ea4c13b83fbbe77c11e4dccbc7b8423e333cacb",
+    "bytes": 1162466,
+    "verified_members": 231
+  },
+  "manifest": {
+    "path": "outputs/gf180-boundary-checkpoint-v1/manifest.json",
+    "sha256": "eebfa31da10406b2f912da9dc287929c391479134f2e7f1a35d4d8d59a30fc46"
+  }
+}

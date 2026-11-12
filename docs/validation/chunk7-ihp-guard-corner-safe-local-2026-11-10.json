@@ -1,0 +1,115 @@
+{
+  "schema": 1,
+  "date": "2026-11-10",
+  "status": "finite_corner_safe_routing_pass",
+  "qualified": false,
+  "chunk_complete": false,
+  "foundry_signoff": false,
+  "native_equivalence": false,
+  "scope": "Explicit corner-safe routing profile for threeIHP resistor models at2/7um; local native tools, not hostedinstalled acceptance. Original raw all100 nativefailures preserved.",
+  "cases": 21,
+  "positive_rotations": 42,
+  "fault_controls_detected": 105,
+  "implementation_unchanged": true,
+  "report_sha256": "46cf624f183d76bad3b8b33f0bf04f3e7a1c427d918c1d779b6a152e44de8111",
+  "runner_sha256": "9d4a09f46552c7960b0c6763d3a35f5c94ec26a7588d0053626058ab553ae86d",
+  "conditioner_sha256": "01899b5185125fd4167fc74d26997ebde861da476910153c6a2d93ed43587e28",
+  "contract_sha256": "04ed8338f7a5c24cc09253dfff288e03cd935085974f654139f194596ce681a9",
+  "tool_profile_sha256": "54e229b30cdf187ec25958935e332e393cddab42001c026b5acdf02d95f8e79b",
+  "original_failed_attempt_record": "chunk7-ihp-guard-vias-local-2026-11-10.json",
+  "correction": {
+    "only_all100": true,
+    "M2_added_nm2_each": 250000,
+    "M2_removed_nm2_each": 0,
+    "Via1_before_each": 56,
+    "Via1_after_each": 54,
+    "horizontal_cuts_unchanged": 14,
+    "vertical_cuts_per_side": 20,
+    "cut_nm": 190,
+    "gap_nm": 220,
+    "pitch_nm": 410,
+    "source_rule": "squares-grid 5 190 220",
+    "other_masks_unchanged": true,
+    "interpretation": "All four sides selected, maximal legal array within explicitly corner-excludedspan; not unchangednative100%masks or cutcount."
+  },
+  "readback": {
+    "native_positives_all_stages_passed": 42,
+    "unchanged_v1_case_masks": [
+      "rhigh-bottom50",
+      "rhigh-top50",
+      "rhigh-left50",
+      "rppd-bottom_minus50",
+      "rhigh-right50",
+      "rhigh-bottom_plus50",
+      "rsil-right50",
+      "rppd-bottom50",
+      "rsil-top50",
+      "rsil-bottom_plus50",
+      "rsil-bottom_minus50",
+      "rhigh-bottom_minus50",
+      "rppd-left50",
+      "rppd-top50",
+      "rppd-bottom_plus50",
+      "rsil-bottom50",
+      "rppd-right50",
+      "rsil-left50"
+    ]
+  },
+  "evidence_bundle": {
+    "name": "guard-corner-safe-evidence-v2.zip",
+    "sha256": "c3c58221e75e7ee2db903dfc6cdbff0630a8612f86f506ac797991f29a1db56c",
+    "bytes": 19642412,
+    "payload_files": 4875,
+    "all_members_verified": true,
+    "includes_original_raw_failures": true,
+    "omissions": "Tool/compiler/runtimebinarybytes and baseline rawoutputs omitted from compactbundle; exactidentities+reports retained, originals local."
+  },
+  "transport_parts": {
+    "guard-corner-safe-v2-raw-results-a.zip": {
+      "sha256": "9ada8438e08ac7beecceb2ee60c50bc985e31264cc63690161e29afc3a80398d",
+      "bytes": 8668947
+    },
+    "guard-corner-safe-v2-provenance.zip": {
+      "sha256": "5c7061bbaab90ec6bef7fccad49adc0bb5bb9cdb90de7b775471cf699c7ea78e",
+      "bytes": 2278658
+    },
+    "guard-corner-safe-v2-raw-results-b.zip": {
+      "sha256": "e7947affbb339deb3617105b9305f0556f97ccd01b54f54b3bc929a0ca232472",
+      "bytes": 8694851
+    }
+  },
+  "transport_map": {
+    "name": "guard-corner-safe-v2-split-map.json",
+    "sha256": "3514c708ff34cf7a280cf041579943ad0dcd88f4f243060f74ac53832a4baf22",
+    "entries": 4876,
+    "union_exactly_matches_full_archive": true,
+    "each_part_is_incomplete_alone": true
+  },
+  "tests": {
+    "modules": [
+      "tests.test_ihp_guard_vias",
+      "tests.test_ihp_guard_corner_safe",
+      "tests.test_ihp_resistor_via_class"
+    ],
+    "passed": 19
+  },
+  "limits": [
+    "No fullfamily qualification",
+    "No electricalcalibration/current/reliability envelope",
+    "Not hostedinstalled desktop acceptance",
+    "No foundrysignoff",
+    "Correction is explicit finite routing, not a vendor PDK patch"
+  ],
+  "retained_transport_root": "artifacts/ihp-guard-vias-2026-11-10",
+  "independent_outcome_review": {
+    "status": "PASS",
+    "qualification_promoted": false,
+    "scope": "Current sources/profile and complete raw report/extraction/mask-delta identities verified; exact disjoint split union checked."
+  },
+  "fault_outcomes": {
+    "native_lvs_rejections": 84,
+    "native_extraction_port_contract_rejections": 21,
+    "launch_failures_counted_as_faults": 0,
+    "meaning": "Guard-short controls collapse actual extracted ports to B and fail the port contract before native LVS. They are not claimed as LVS executions."
+  }
+}

@@ -1,0 +1,54 @@
+# frozen_string_literal: true
+
+#==========================================================================
+# Copyright 2024 IHP PDK Authors
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# SPDX-License-Identifier: Apache-2.0
+#==========================================================================
+
+#================================
+# ------- TAPS EXTRACTIONS ------
+#================================
+
+logger.info('Starting Taps EXTRACTION')
+
+# ntap1/ptap1 device extraction is gated by DISABLE_TAP_EXTRACTION (see sg13g2.lvs).
+# Extraction is enabled by default. When it is disabled, taps are not extracted as
+# devices so the schematic does not need to contain them, matching Magic+Netgen LVS
+# behavior. The tap tie regions are still connected to their well/substrate nets via
+# tap_connections.lvs.
+unless DISABLE_TAP_EXTRACTION
+  # ntap1
+  logger.info('Extracting ntap1 device')
+  # ntap1 is extracted with the diode extractor because the geometry is a nested
+  # junction (tie inside well). We map diode regions as:
+  #   - P => ntap1_tie  (tie contact)
+  #   - N => ntap1_well (nwell body)
+  # This preserves PDK terminal order in the written netlist as "TIE WELL".
+  # See: https://www.klayout.de/doc/manual/lvs_device_extractors.html#h2-117
+  cheat("*") {
+    extract_devices(diode('ntap1', CustomTap), { 'P' => ntap1_tie, 'N' => ntap1_well })
+  }
+
+  # ptap1
+  logger.info('Extracting ptap1 device')
+  # ptap1 follows the same P/N region mapping rule:
+  #   - P => ptap1_tie (tie contact)
+  #   - N => ptap1_sub (substrate/body region)
+  cheat("*") {
+    extract_devices(diode('ptap1', CustomTap), { 'P' => ptap1_tie, 'N' => ptap1_sub })
+  }
+else
+  logger.info('DISABLE_TAP_EXTRACTION is enabled: skipping ntap1/ptap1 device extraction.')
+end

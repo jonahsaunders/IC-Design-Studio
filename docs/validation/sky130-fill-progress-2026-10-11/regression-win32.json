@@ -1,0 +1,67 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "platform": "win32",
+  "tests": 128,
+  "skipped": [
+    {
+      "test": "test_equivalence_actual_mapped_netlist_and_fault (tests.test_digital_implementation.DigitalImplementationTests.test_equivalence_actual_mapped_netlist_and_fault)",
+      "reason": "Set ICSTUDIO_TEST_ORFS and install Yosys for real implementation tests"
+    },
+    {
+      "test": "test_hierarchical_apb_peripheral_maps_and_proves (tests.test_digital_implementation.DigitalImplementationTests.test_hierarchical_apb_peripheral_maps_and_proves)",
+      "reason": "Set ICSTUDIO_TEST_ORFS and install Yosys for real implementation tests"
+    },
+    {
+      "test": "test_mapped_cells_published_symbol_and_stale_rejection (tests.test_digital_implementation.DigitalImplementationTests.test_mapped_cells_published_symbol_and_stale_rejection)",
+      "reason": "Set ICSTUDIO_TEST_ORFS and install Yosys for real implementation tests"
+    },
+    {
+      "test": "test_physical_checkpoints_resume_gds_and_extracted_timing (tests.test_digital_implementation.DigitalImplementationTests.test_physical_checkpoints_resume_gds_and_extracted_timing)",
+      "reason": "Set ICSTUDIO_TEST_ORFS and install Yosys for real implementation tests"
+    },
+    {
+      "test": "test_timing_real_paths_clock_failure_and_unconstrained (tests.test_digital_implementation.DigitalImplementationTests.test_timing_real_paths_clock_failure_and_unconstrained)",
+      "reason": "Set ICSTUDIO_TEST_ORFS and install Yosys for real implementation tests"
+    },
+    {
+      "test": "test_uart_cases_coverage_and_failed_assertion (tests.test_digital_implementation.DigitalRegressionTests.test_uart_cases_coverage_and_failed_assertion)",
+      "reason": "Install Icarus and Verilator with coverage"
+    }
+  ],
+  "source_files": {
+    "icstudio/digital_sky130_pins.py": "e7bbf52b7c0f3d727c758fe927b134bb23d734712c864eb05f96c68b9d984e63",
+    "icstudio/digital_sky130_pin_inventory.py": "3b2b236c02444d5084104621e93b5632dbf7681d81f691eab0f407022e495249",
+    "icstudio/digital_flow.py": "3875b75a55c3e983f6e1cf587cbd5de3e18c3bbb40d54931872ff49f5c768600",
+    "icstudio/digital_macro.py": "b5d887a0d3b1af4ca212e6fd5d4ab8f179969ad1740eb1978ac73447df0130ad",
+    "icstudio/digital_physical.py": "ae83b932252be7899a10cdcad4eb030211cddb3524a7f18a08b7a5432f36a1b6",
+    "scripts/sky130_pin_coverage.py": "a17855958781008cb4ba73d8ca62a09681c62c160c49a6b2ee600e87f4bf696e",
+    "scripts/sky130_fill_geometry.py": "6dc6eb2baa4f14e32667f8b9e3bb1927df3957095c048562d1809213f1b683d7",
+    "scripts/sky130_rule_errors.py": "a99e219f108e0274ff1926046c6bbfc6494cc3dd391d55a6fccfccaf99f860f1",
+    "scripts/check_ihp_fill_closure.py": "9c647d52ba6f3143a0227e7cb6a547d8cb988658db362a058f7f19c5f8f88802",
+    "scripts/check_pdk_qualification.py": "5a21e12e37a730ee183adbf737e2133f19bd9e038dbcfc3bb852699deae65140",
+    "scripts/check_sky130_circuit_invariance.py": "893682f0d08f1b85521d91cd94dde4d118c55c756c0ba856d6ef36f9b6e38706",
+    "scripts/sky130_raw_feol.py": "5e3dc7a2e2acf2fe214c819ab305bec30487197b6e8f06be81fddc43aa03bbdb",
+    "scripts/sky130_block_applicability.py": "ab5246ed227615f339b010b505d72c9f82adbeb184281626de360fb634d6dae5",
+    "tests/test_sky130_circuit_invariance.py": "756829ca473d218474deb04c280333a6ea0a06c52b2bbbb0931d09238803f2c0",
+    "tests/test_sky130_raw_feol.py": "7c57f5e44becb370812167cf773c3954f4163df0f0f138b05f24666effdfb68a",
+    "tests/test_sky130_block_applicability.py": "01297f49e0866e69b2e9ea1d94f3049e7e02e14a03601692bc7d95f4f266c941"
+  },
+  "modules": [
+    "tests.test_sky130_pins",
+    "tests.test_sky130_lvs",
+    "tests.test_digital_macro",
+    "tests.test_digital_implementation",
+    "tests.test_digital_rc",
+    "tests.test_sky130_digital_builder",
+    "tests.test_ihp_fill_closure",
+    "tests.test_sky130_fill_geometry",
+    "tests.test_sky130_rule_errors",
+    "tests.test_sky130_rule_inventory",
+    "tests.test_sky130_raw_feol",
+    "tests.test_sky130_block_applicability",
+    "tests.test_sky130_circuit_invariance"
+  ],
+  "driver_sha256": "284f568447d58b28cc67da3ae7bda89ce6b6c82f33035bd762cba5b4db8a78b0",
+  "log_sha256": "8f00c44fc0384b631deb039882de0559777145de3f47254edf6a922b955b807a"
+}

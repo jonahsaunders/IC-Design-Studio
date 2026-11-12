@@ -1,0 +1,43 @@
+{
+  "schema": 1,
+  "date": "2026-10-29",
+  "candidate": "f67b8ff6377c96816392a0a91bcc2063fddd54ab",
+  "published_branch": "experimental",
+  "remote_head_verified": true,
+  "verified_git_blobs": 2940,
+  "reviewed_changed_files": 89,
+  "source_manifest_sha256": "dc162f0c002809333bc19a689b3a53794dc8cec95c74bbc9ede57665e92b35c9",
+  "desktop": {
+    "run_id": 40931627021,
+    "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/40931627021",
+    "event": "workflow_dispatch",
+    "created_at": "2026-10-29T18:31:32Z",
+    "head_sha": "f67b8ff6377c96816392a0a91bcc2063fddd54ab",
+    "dispatch_count": 1,
+    "observed_status": "in_progress",
+    "conclusion": null,
+    "candidate_check": "success",
+    "release_tools_linux": "success",
+    "release_tools_windows_step": "success",
+    "runtime": "in_progress"
+  },
+  "hosted_feedback": {
+    "run_id": 40931119936,
+    "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/40931119936",
+    "head_sha": "f67b8ff6377c96816392a0a91bcc2063fddd54ab",
+    "observed_status": "in_progress"
+  },
+  "installed_acceptance": false,
+  "qualified": false,
+  "chunk_complete": false,
+  "chunk7_estimate": {
+    "percent": 70,
+    "range_percent": [
+      55,
+      80
+    ],
+    "confidence": "low",
+    "kind": "engineering estimate"
+  },
+  "scope": "Publication and dispatch evidence only. The source checks pass separately; this record does not establish fresh installed acceptance or full family qualification."
+}

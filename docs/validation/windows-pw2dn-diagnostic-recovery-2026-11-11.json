@@ -1,0 +1,41 @@
+{
+  "schema": 1,
+  "date": "2026-11-11",
+  "source_candidate": "eb0018c9c024588358b3f4f12f0af6a0581da937",
+  "failed_desktop_run": 42850869471,
+  "source_artifact": 13810605104,
+  "source_artifact_bytes": 1552333914,
+  "source_artifact_sha256": "fc5a688b8aa85b6770b1164238399da0e89dc35d603f8b7ec1259c29dc18a6af",
+  "successful_recovery_run": 42932489456,
+  "recovery_candidate": "753f040c02d95eb1b4d50728699f83a5ba15dc10",
+  "small_artifact": 13816019083,
+  "small_artifact_bytes": 2217,
+  "small_artifact_sha256": "0c4d552ca3802f2160b8b015daea3575dfc73ea68fac8ade7a6d806097c1a2ab",
+  "status": "ALL_THREE_ALLOWLISTED_DIAGNOSTICS_RECOVERED",
+  "source_archive_verified": true,
+  "archive_entries_verified": 132140,
+  "confirmed_failure": "ValueError('Changed native timing/analysis contract.')",
+  "failure_site": "scripts/audit_installed_sky130_pw2dn_native.py:181 via measured_guard/readback",
+  "diagnostic_scope": "Only three sanitized allowlisted projections, not full original artifact or individual native invocation receipts. No electrical comparison failure inferred from this timing/analysis guard.",
+  "timing_investigation": "Exact failed invocation values were not among the approved three files. A separately reviewed perf_counter_ns repair preserves strict positive duration, timeout, electrical and provenance guards; zero elapsed time is not a confirmed historical cause. See pw2dn-elapsed-clock-repair-2026-11-11.json.",
+  "prior_recovery_attempts": [
+    {
+      "run": 42931387707,
+      "artifact": 13815494667,
+      "status": "failed after exact archive verification; structure code not retained"
+    },
+    {
+      "run": 42932025466,
+      "artifact": 13816142612,
+      "status": "failed before scanning: authenticated132140 entries exceed original100000 diagnostic budget"
+    }
+  ],
+  "permission_scope": "User-approved temporary job only contents:read/actions:read, exact repo/run/artifact/candidate; no write/admin/2FA, other workflows unchanged. This follow-on removes the active workflow and retains its exact original bytes as a historical fixture.",
+  "evidence": {
+    "path": "artifacts/windows-pw2dn-recovery-2026-11-11.zip",
+    "sha256": "984f243526bc0fb00c63c7bba20e4685805bd551fac23a2db37b4bac9baa132d",
+    "bytes": 9827,
+    "payload_files": 5,
+    "manifest_files": 1
+  }
+}

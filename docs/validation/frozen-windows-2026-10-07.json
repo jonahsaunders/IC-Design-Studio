@@ -1,0 +1,239 @@
+{
+  "date": "2026-10-07",
+  "status": "passed",
+  "scope": "Exact downloaded 0a62eca Windows package, using repaired verifier cd9cdbd. Does not qualify subsequent source changes, consumer workflows or tapeout.",
+  "executable_sha256": "3e878a52130c80fbee4d992fd304d1f968d15e44b848eabd618c4499d24a2ca5",
+  "backend_sha256": "78d79ccd5591961129689a93eba808fc38d871c9001722a342da0274a7ecb5cd",
+  "source_commit": "0a62eca8bff708e0be7f317df61f70b01a5ff938",
+  "ci_merge_commit": "86813576eb720b51bc1569bc598f8da02d94e8bb",
+  "seconds": 837.875,
+  "digital_checks": 26,
+  "platforms": [
+    {
+      "name": "sky130hd",
+      "constraint_sha256": "af89b7d6fc88f4261462a8978f9c931f709ad3499557b0d83611bbf51494db16",
+      "stages": [
+        {
+          "stage": "mapped",
+          "summary": "Mapped synthesis complete \u00b7 sky130hd / typical",
+          "verdict": null,
+          "result_sha256": "ca23b308b3565b0f1ecfcf9828313447bfaf96aa760494f1e777b0a1c20aefcf"
+        },
+        {
+          "stage": "equivalence",
+          "summary": "Equivalence PASS \u00b7 captured mapped netlist",
+          "verdict": "PASS",
+          "result_sha256": "961bb8012dc6dd9e0c8f21089dcb0d02b6284485afaccff6a04898638b128835"
+        },
+        {
+          "stage": "fault-detected",
+          "summary": "Equivalence FAIL \u00b7 captured mapped netlist",
+          "verdict": "FAIL",
+          "result_sha256": "be82d846f360c20be450f71fd312f52827d6a47cc9d336f9b4dc9c9eb72d2a22"
+        },
+        {
+          "stage": "timing",
+          "summary": "Timing FAIL \u00b7 typical, slow, fast \u00b7 No extracted interconnect; pre-layout estimate",
+          "verdict": "FAIL",
+          "result_sha256": "b3dbdb838d523c52b13358f277d4eee4967b6f9c9c01b3bac8d694318b23ff8d"
+        },
+        {
+          "stage": "floorplan",
+          "summary": "Physical floorplan complete \u00b7 342 placed cells",
+          "verdict": null,
+          "result_sha256": "85b88e22df5715418bf01ccb4c35c2a0ad37ddcec07fbfbfd9f74846075f8cd5"
+        },
+        {
+          "stage": "gds",
+          "summary": "Physical finish complete \u00b7 3341 placed cells",
+          "verdict": null,
+          "result_sha256": "5553e109d95684fbc51ede4bbbaef8bd0304bbf41af8f7cd41abcb425878505d",
+          "router_checks": {
+            "detailed_route_drc_errors": [
+              0
+            ],
+            "scope": "Router rule checks; not foundry DRC/LVS"
+          }
+        },
+        {
+          "stage": "extracted-timing",
+          "summary": "Timing PASS \u00b7 typical, slow, fast \u00b7 RC minimum, nominal, maximum \u00b7 extracted SPEF",
+          "verdict": "PASS",
+          "result_sha256": "478ffc1a2804e94d5897e448ae345f68ddc3bd73fe3a656ea0e3000e4b3c4287",
+          "coverage": {
+            "library_corners": [
+              "typical",
+              "slow",
+              "fast"
+            ],
+            "interconnect_corners": [
+              "minimum",
+              "nominal",
+              "maximum"
+            ]
+          },
+          "timing_pairs": 9
+        },
+        {
+          "stage": "physical-equivalence",
+          "summary": "Equivalence PASS \u00b7 captured mapped netlist",
+          "verdict": "PASS",
+          "result_sha256": "3b8e2e2ec9bbf15fb6e2e93852d82205bb7bee6af6a265b9709310f38414be81"
+        }
+      ]
+    },
+    {
+      "name": "gf180",
+      "constraint_sha256": "af89b7d6fc88f4261462a8978f9c931f709ad3499557b0d83611bbf51494db16",
+      "stages": [
+        {
+          "stage": "mapped",
+          "summary": "Mapped synthesis complete \u00b7 gf180 / typical",
+          "verdict": null,
+          "result_sha256": "effd3da62e4ca39b0e38f08dc43741a529e5f5e82c28661dc7fe914f43c8fa97"
+        },
+        {
+          "stage": "equivalence",
+          "summary": "Equivalence PASS \u00b7 captured mapped netlist",
+          "verdict": "PASS",
+          "result_sha256": "0dc07071e3eb24ffb9ad7fc3a7410a885105f94da5e5024283f1c7f4adb527d9"
+        },
+        {
+          "stage": "fault-detected",
+          "summary": "Equivalence FAIL \u00b7 captured mapped netlist",
+          "verdict": "FAIL",
+          "result_sha256": "0bfc9cc9588e0118a34f1e51c3b7e1e922a6ec493e3f6b1fc4637d880ae5bbf7"
+        },
+        {
+          "stage": "timing",
+          "summary": "Timing FAIL \u00b7 typical, slow, fast \u00b7 No extracted interconnect; pre-layout estimate",
+          "verdict": "FAIL",
+          "result_sha256": "be1a082c35440a77bef1bca74ba43ed0c1e54619153eea9dd0e0a589d5e73180"
+        },
+        {
+          "stage": "floorplan",
+          "summary": "Physical floorplan complete \u00b7 91 placed cells",
+          "verdict": null,
+          "result_sha256": "9863c9ca46dc7d68cc13e5a43001e38572f8208e35cf912b6da605e85871dccb"
+        },
+        {
+          "stage": "gds",
+          "summary": "Physical finish complete \u00b7 375 placed cells",
+          "verdict": null,
+          "result_sha256": "c3d139bf5aca298b5cf6d3230507b1ead9fd13caf8c6100b004dfa5e8c5cf83a",
+          "router_checks": {
+            "detailed_route_drc_errors": [
+              0
+            ],
+            "scope": "Router rule checks; not foundry DRC/LVS"
+          }
+        },
+        {
+          "stage": "extracted-timing",
+          "summary": "Timing PASS \u00b7 typical, slow, fast \u00b7 extracted SPEF",
+          "verdict": "PASS",
+          "result_sha256": "8cf4acca99a31b8f3aecc410973130ee7531f9eb84c169f4e2c591d85d3e35a0",
+          "coverage": {
+            "library_corners": [
+              "typical",
+              "slow",
+              "fast"
+            ],
+            "interconnect_corners": []
+          },
+          "timing_pairs": 3
+        },
+        {
+          "stage": "physical-equivalence",
+          "summary": "Equivalence PASS \u00b7 captured mapped netlist",
+          "verdict": "PASS",
+          "result_sha256": "b4d181bae69b00c700d01f7a89f74716ba8146b9c05f7392c681978296f92bbb"
+        }
+      ]
+    },
+    {
+      "name": "ihp-sg13g2",
+      "constraint_sha256": "af89b7d6fc88f4261462a8978f9c931f709ad3499557b0d83611bbf51494db16",
+      "stages": [
+        {
+          "stage": "mapped",
+          "summary": "Mapped synthesis complete \u00b7 ihp-sg13g2 / typical",
+          "verdict": null,
+          "result_sha256": "2aaa535ce65b0e3ec5d67cd4360ca2acc89b7dd1aa5a3589926e0960e3aaf1b7"
+        },
+        {
+          "stage": "equivalence",
+          "summary": "Equivalence PASS \u00b7 captured mapped netlist",
+          "verdict": "PASS",
+          "result_sha256": "acf8d57e6cd57f5a9c0830530a7a5947ec009c48de8b1a30e4087829100fa334"
+        },
+        {
+          "stage": "fault-detected",
+          "summary": "Equivalence FAIL \u00b7 captured mapped netlist",
+          "verdict": "FAIL",
+          "result_sha256": "1c0c9b4f14e89c63a04ed5703ed5f5cc58c593bca0009a0dc58eaf402fc4fe71"
+        },
+        {
+          "stage": "timing",
+          "summary": "Timing FAIL \u00b7 typical, slow, fast \u00b7 No extracted interconnect; pre-layout estimate",
+          "verdict": "FAIL",
+          "result_sha256": "e75c577659d57e54c8bfd2d7f9962ed41bd08c659bd139599cb1e0c41b050177"
+        },
+        {
+          "stage": "floorplan",
+          "summary": "Physical floorplan complete \u00b7 17 placed cells",
+          "verdict": null,
+          "result_sha256": "e3159e6a783b6a833721c4c84e410237ff8d58d229d8b560aa6fa80e50570df9"
+        },
+        {
+          "stage": "gds",
+          "summary": "Physical finish complete \u00b7 1976 placed cells",
+          "verdict": null,
+          "result_sha256": "470c5920d067d10d76a9465549c36081239cde2777db94e9ece6134083426cde",
+          "router_checks": {
+            "detailed_route_drc_errors": [
+              0
+            ],
+            "scope": "Router rule checks; not foundry DRC/LVS"
+          }
+        },
+        {
+          "stage": "extracted-timing",
+          "summary": "Timing PASS \u00b7 typical, slow, fast \u00b7 extracted SPEF",
+          "verdict": "PASS",
+          "result_sha256": "616ad6f01d12aec0ae834ee45749ad0a075535fa5b6543dc2cbab8de73780fab",
+          "coverage": {
+            "library_corners": [
+              "typical",
+              "slow",
+              "fast"
+            ],
+            "interconnect_corners": []
+          },
+          "timing_pairs": 3
+        },
+        {
+          "stage": "physical-equivalence",
+          "summary": "Equivalence PASS \u00b7 captured mapped netlist",
+          "verdict": "PASS",
+          "result_sha256": "20f030347eda876993ddce90a3fa3e35dee448b2c0e5b7515533362f2bc476c0"
+        }
+      ]
+    }
+  ],
+  "timing_pairs": 15,
+  "archive": {
+    "name": "frozen-windows-evidence.tar.gz",
+    "sha256": "dad93fafafa62b7571a905cc7031949a51f4e99a5238e3a4b37aa6db68c51a8a",
+    "bytes": 28932313
+  },
+  "audit_script_sha256": "cfdb25b06ef5c706d4d5db18d8571013f42af3eefe249e1c0a3836066dec4e7a",
+  "receipt_sha256": "5874efa05c0a24d71a0f216937173edc35f0a511ee763e6f8488bbdd207b70db",
+  "setup_log_sha256": "85484db09dce49c67559860e7e2db30f561b1f067e684a837029aba9bb9ad2e6",
+  "artifact_identity_sha256": "ec15bbb21645041cf19fc414631b6ceb7a71eb52d6ae19f40c7fea5b2cb8b04b",
+  "verifier_commit": "cd9cdbde5e9bbb3bd4c7d5060088616befd154e6",
+  "runtime_sha256": "63983730d94be96a69486da2d6b65b35588a7173c07359e523b1323550b752a3",
+  "github_run": 37558913429,
+  "github_artifact": 11459617195,
+  "physical_tool_checks_status": "passed"
+}

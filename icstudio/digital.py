@@ -97,6 +97,8 @@ def validate_config(config):
         corners = config['timing_corners']
         if not isinstance(corners, list) or not corners or len(corners) != len(set(corners)) or any(c not in config.get('platform', {}).get('corners', {}) for c in corners):
             raise ValueError('Select unique timing corners from the locked platform.')
+    from .digital_rc import selected as extraction_corners
+    extraction_corners(config)
     return config
 
 

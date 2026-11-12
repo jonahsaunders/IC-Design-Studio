@@ -1,0 +1,65 @@
+{
+  "schema": 1,
+  "date": "2026-11-04",
+  "status": "PASS_SOURCE_PACKAGING_CHECKS",
+  "scope": "Packaging-only source change stages both complete, locked public IHP KLayout source bundles into the included digital backend. Focused source checks and independent review passed; a fresh built application and installed acceptance remain unverified.",
+  "qualified": false,
+  "installed_acceptance": false,
+  "family_complete": false,
+  "chunk_complete": false,
+  "matrix_status_promoted": false,
+  "original_installed_failure": {
+    "candidate": "39b24815a96b5b6140825a1c8371adde80f877c0",
+    "desktop_run": 41745895103,
+    "linux": {
+      "job_id": 126359987761,
+      "failed_step": "Verify frozen Linux IHP capacitor catalog and both native checkers",
+      "log_member": "evidence/linux-installed.log",
+      "log_sha256": "f87e0a2754b706f9c8da1486b690f02c3d90834994317b8f04d769950743dae9"
+    },
+    "windows": {
+      "job_id": 126359987839,
+      "failed_step": "Verify installed Windows app",
+      "log_member": "evidence/windows-installed.log",
+      "log_sha256": "5c943805fd0e9b1654453f60fb0a4086c2ccdf671a35d78a8d12c5f649d80385"
+    },
+    "cause": "Both installed checks encountered FileNotFoundError for _internal/icstudio/assets/runtime/digital/backend/icstudio/assets/physical/ihp_klayout_lvs/LICENSE. The old backend staging excluded assets and restored only selected SKY130 and IHP resistor resources; it did not stage the public IHP LVS or DRC bundles required by the frozen capacitor verifier.",
+    "package_jobs": "Both prior package jobs succeeded; both subsequent installed acceptance jobs failed."
+  },
+  "source_change": {
+    "base_candidate_for_public_asset_inventory": "995bbcacad596f15f2c9b79eec7ca7e7b5edfe88",
+    "files_sha256": {
+      "scripts/package.py": "bc295b1b59d7e94b10b42a3c388beb3dc911bb2b52b49c364bf46ff28e5442ee",
+      "scripts/stage_ihp_backend_assets.py": "00977d42a11690b6445032673c74965644d1d6479db9066bb283244057db8d0d",
+      "tests/test_ihp_backend_packaging.py": "0b5c3e335c90c7fd33c4479a89c90f5909b5e9a3edf85c7c2ac8993c61e802d6",
+      "scripts/ci_feedback.py": "ca8f5ec60045d16132cb5318d03cb9f2f1d901c99c2ed3e6277af9385bb4452a"
+    },
+    "application_backend_source_changed": false,
+    "public_asset_counts": {"lvs": 53, "drc": 52, "total": 105},
+    "closure": "Includes both original LICENSE files, both source locks and all locked rule assets, plus the candidate LVS README outside its source lock. All 105 candidate tracked asset bytes were checked against the stated Git candidate.",
+    "source_inventory_sha256": "1686393102f1cde3d30974a728bd34c5ee298111dc308d40f023f62cc0cafba3",
+    "controls": ["missing LVS license", "changed LVS README", "changed DRC deck", "changed DRC license", "README mutation during staging", "unexpected output entry", "complete staged source and license inventory", "package entry point invokes the tested stage"]
+  },
+  "source_checks": {
+    "windows": {"tests": 40, "skipped": 1, "log_member": "evidence/windows-focused-v6.log", "log_sha256": "9ef71b841063ad95876808fd92bb1c7ad65e094ecb70d49cdd84f1650f8d580d"},
+    "linux": {"tests": 40, "skipped": 0, "log_member": "native/linux-focused.log", "log_sha256": "d15b0c622b39ca973712cea4cffcd6e241487ab86747959732112f49cec8d0a1", "source_manifest_sha256": "bcafc2257cf37e83d7f35dc68ba7241454c10da68c9dddf44cc23c9474be0a83", "source_files_before_after": 6988, "predecessor_files_before_after": 6986},
+    "history": "The initial local Windows test run failed because the newly typed expected README digest was incorrect. That original failure remains retained; the digest was corrected and the final tests ran against the final source hashes above. Neither the failed nor the passing source checks constitute installed acceptance."
+  },
+  "independent_review": {
+    "status": "PASS_INDEPENDENT_RELEASE_STAGE_SOURCE_REVIEW",
+    "review_sha256": "d9d45df52b9c2bfe42879b88f3b0b68a2cec169a502d033123f6c0efe2daf949",
+    "scope": "Source staging and adversarial controls, including independent real-stage license and target-corruption checks; not a fresh installed-package result."
+  },
+  "retained_evidence": {
+    "root": "IC-Design-Studio-evidence",
+    "packaging_archive": "chunk7-installed-ihp-backend-assets-2026-11-04-v1/evidence.zip",
+    "packaging_archive_sha256": "2f5f5ca59b6ad52c1467a297585e7d586e120e7b353e6d61e0540a8663c09bc5",
+    "packaging_retention": "chunk7-installed-ihp-backend-assets-2026-11-04-v1/retention.json",
+    "packaging_retention_sha256": "84f821ac0577c18e3e501f841ac7145a232bafb5192c5837405bf7024ebc63a1",
+    "advisor_archive": "chunk7-packaging-advisor-2026-11-04-v1/advisor.zip",
+    "advisor_archive_sha256": "674cdb698608e37561e871f1167f1047e15af4f32f386ef8edeb4963b4faddd7",
+    "advisor_retention": "chunk7-packaging-advisor-2026-11-04-v1/retention.json",
+    "advisor_retention_sha256": "f0932474cbb7e0d15303322603544b4ac05abdec6697ec5cb92e104e7430d708",
+    "verification": "All retained archive members passed CRC and SHA-256 readback; source evidence remained unchanged."
+  }
+}

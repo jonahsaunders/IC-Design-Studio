@@ -1,0 +1,180 @@
+{
+  "schema": 1,
+  "id": "sky130-li-array-dynamic-v1",
+  "status": "PROPOSED_BEFORE_ARRAY_EXECUTION",
+  "scope": "Finite fresh ngspice47 transient/thermal-noise-density linkage using explicitly historical actual installed GUI/native-extracted arrays. No new extraction or current installed acceptance, operating/reliability envelope, calibrated noise/matching, full-family or signoff qualification.",
+  "qualified": false,
+  "historical_inputs": {
+    "artifact_id": 12689257141,
+    "run_id": 40387247059,
+    "archive_sha256": "1d0ec0f2afa8739754dc85e34ec5c2fcfe82a640dae043b11960418e225771fa",
+    "archive_bytes": 202098990,
+    "candidate": "53c17aa78eb510715eaa28ed34e4f576a7fe7b40",
+    "package_sha256": "840f7af802b07346650c50a5967e532a4cb1716623cf0c9d6fd6c58eaf35fcbe",
+    "cases": [
+      "l1-m3-r0",
+      "l1-m3-r90",
+      "l1-m16-r0",
+      "l1-m16-r90"
+    ],
+    "reuse": "Authenticate entire ZIP, historical clean candidate/nonce receipts, all GUI/electrical manifest members, selected actual layout and native/reference hashes and top-name-only normalization proof. Never label historical DRC/LVS as fresh."
+  },
+  "runtime": {
+    "profile": "corrected-ngspice47-scalar-debian13-native-v1",
+    "archive_path": "packaging/ngspice/ngspice-linux47-corrected-v1.zip",
+    "archive_sha256": "e74736fd70b2fa6972bb0e0ab77cf87fff38f5926a7cb19d03431c2663e2b714",
+    "manifest_sha256": "133a6dcfa101d18e36bc20445f281b985b2cba11abe0e9936065b5aa52c091ae",
+    "engine_sha256": "67399d2db139e9a8e7bfd118cab8acfa290bb6db003c996333e55ed682a65d25",
+    "spinit_sha256": "cef1e2ffa61cf0fae3afe80afa94800df8fadc67df3178aa7f1e3216ccfb0e91",
+    "actual_host_dependencies": {
+      "/lib/x86_64-linux-gnu/libtinfo.so.6": {
+        "resolved": "/usr/lib/x86_64-linux-gnu/libtinfo.so.6.5",
+        "sha256": "4013e7651ac68f547d8333517def25b2366c97eec7de7f06e105dbf3444ffebf"
+      },
+      "/lib/x86_64-linux-gnu/libm.so.6": {
+        "resolved": "/usr/lib/x86_64-linux-gnu/libm.so.6",
+        "sha256": "6d567d53e895273ca14a1f9dc164fc6c8d39aed2f60aa46a733c2784228915f3"
+      },
+      "/lib/x86_64-linux-gnu/libstdc++.so.6": {
+        "resolved": "/usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.33",
+        "sha256": "972bb2a18b71140dab0240f8a1f68ab3fb1d56bcd4c4f824a91b70888faf5a00"
+      },
+      "/lib/x86_64-linux-gnu/libreadline.so.8": {
+        "resolved": "/usr/lib/x86_64-linux-gnu/libreadline.so.8.2",
+        "sha256": "a3334d88f3f6c6a25736667e0b39db0f68b4e7e6bf758a475aff681ddb33ad8b"
+      },
+      "/lib/x86_64-linux-gnu/libgomp.so.1": {
+        "resolved": "/usr/lib/x86_64-linux-gnu/libgomp.so.1.0.0",
+        "sha256": "6456b504ac347bd50c419667440b691f6966ad8aff5309d2f06c977fe2f9debe"
+      },
+      "/lib/x86_64-linux-gnu/libgcc_s.so.1": {
+        "resolved": "/usr/lib/x86_64-linux-gnu/libgcc_s.so.1",
+        "sha256": "30c61ab012a4241bed033725a09b61f5fdd3bb7df95ee852d0b096520524c7af"
+      },
+      "/lib/x86_64-linux-gnu/libc.so.6": {
+        "resolved": "/usr/lib/x86_64-linux-gnu/libc.so.6",
+        "sha256": "9792e3cbb541c8f44c7acf5f14f4022ea62998ecc787d326bed4d8b6547dfd92"
+      },
+      "/lib64/ld-linux-x86-64.so.2": {
+        "resolved": "/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2",
+        "sha256": "c8438e4fde1934e61c88311633f00949ff645d5c04cdb8671fa3d78164d2f307"
+      }
+    },
+    "old42_contracts": "Unchanged. This separate profile cannot satisfy their engine identity requirements.",
+    "source_archive_sha256": "894e649651f1838a14095e5a5439e7d3aa63e87ede14d283173fda4fcdef675f",
+    "source_members": {
+      "src/include/ngspice/const.h": "000d6dda4b539e748c8aeabcea866c866dd7f5145aa745dcb575eb2a83947551",
+      "src/spicelib/analysis/nevalsrc.c": "ce85b15a7f30479f51d4f9bf38c7c581a0949dee3613bbd59a806c59930398cc",
+      "src/spicelib/devices/res/resnoise.c": "247d90ebd48f4b4354afd28807b8f15fd148d067d1459ee346230f422c73b692",
+      "src/spicelib/devices/res/restemp.c": "a8e0dab3b7da66a98220746e1e165651a7126e41eef7d9db2a051dd443949a6f"
+    },
+    "license": "Retain complete upstream source/COPYING, local patch and modification notices, build records and actual dependency notices; no reproducible-binary claim."
+  },
+  "selection": {
+    "width_um": 2,
+    "length_um": 5,
+    "multiplicities": [
+      3,
+      16
+    ],
+    "rotations_degrees": [
+      0,
+      90
+    ],
+    "temperature_c": 27,
+    "section": "tt",
+    "positive_paths": [
+      "application",
+      "native",
+      "analytic"
+    ],
+    "analyses": [
+      "tran",
+      "noise"
+    ],
+    "positive_processes": 24,
+    "fault_processes": 6
+  },
+  "model_equation": {
+    "rsh_ohm_sq": 12.2,
+    "width_correction_m": 1.7e-08,
+    "tol_m": 0,
+    "tnom_c": 30,
+    "tc1": 0.0006045,
+    "tc2": -3.693e-07,
+    "primitive": "Runit=rsh*L*1e-6/(W*1e-6+tol+dw)*(1+tc1*(T-30)+tc2*(T-30)^2); Rarray=Runit/N",
+    "not_calibration": true
+  },
+  "network": {
+    "load_ohm": 10,
+    "load_capacitance_f": 1e-09,
+    "both_resistors_thermal_noise": true,
+    "boltzmann_engine_j_k": 1.38064852e-23,
+    "temperature_k": 300.15
+  },
+  "transient": {
+    "source": "PWL(0 0 1n .001 100n .001) AC 1",
+    "stop_s": 1e-07,
+    "output_step_s": 5e-11,
+    "maximum_step_s": 5e-11,
+    "observables": [
+      "v(input)",
+      "v(output)",
+      "i(vdrive)"
+    ],
+    "minimum_samples": 2000,
+    "oracle": "Closed-form response to finite1ns ramp through Rarray into Rload||C; evaluated independently at every raw native time. Terminal Ohm/KCL current checked separately.",
+    "tolerance": {
+      "relative": 0.0002,
+      "absolute_v": 1e-08,
+      "kcl_absolute_a": 1e-11
+    }
+  },
+  "noise": {
+    "start_hz": 1000.0,
+    "stop_hz": 1000000000.0,
+    "points_per_decade": 20,
+    "samples": 121,
+    "observable": "onoise_spectrum in V/sqrt(Hz), not PSD",
+    "oracle": "sqrt(4*k*T*Req/(1+(2*pi*f*Req*C)^2)), Req=Rarray||Rload, both resistor thermal sources included; negligible/default-zero flicker for this generic metal model.",
+    "tolerance": {
+      "relative": 1e-06,
+      "absolute_v_per_sqrt_hz": 1e-18
+    },
+    "integrated_noise": "Require finite positive native trailer only; no integrated-noise numerical acceptance or calibrated-frequency-range claim."
+  },
+  "solver": {
+    "reltol": 1e-08,
+    "abstol": 1e-16,
+    "vntol": 1e-13,
+    "method": "gear",
+    "ngbehavior": "hsa",
+    "filetype": "ascii",
+    "OMP_NUM_THREADS": "1"
+  },
+  "controls": {
+    "selection": "l1-m3-r0 native path only, each tran/noise",
+    "faults": [
+      "remove-one-unit",
+      "one-unit-width-3um",
+      "load-capacitance-2nF"
+    ],
+    "intent": "Simulator must complete successfully and independently reject nominal dynamic oracle; infrastructure failures are not detection. Netlist-only perturbations are not new physical fault extractions.",
+    "evidence_tampering": [
+      "raw truncation",
+      "nonfinite data",
+      "changed raw hash",
+      "changed input/deck",
+      "missing positive/fault case",
+      "altered source/runtime hash"
+    ]
+  },
+  "tolerance_basis": "Frozen before actual-array execution. Numerical source-linkage tolerance compatible with earlier finite LI dynamic comparisons; not a physical tolerance or fit to measured silicon. Primitive10ohm preflight passed these bounds before array execution.",
+  "preflight": {
+    "transient_samples": 2091,
+    "transient_maximum_normalized_error": 0.06247952578356501,
+    "noise_samples": 121,
+    "noise_maximum_normalized_error": 5.731365797720967e-10,
+    "retained_failure": "Initial noise deck inherited transient .save directives, produced no noise data and failed. Separate v2 noise deck removes incompatible .save, succeeds. Neither attempt is array acceptance."
+  }
+}

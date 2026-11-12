@@ -1,0 +1,139 @@
+{
+  "schema": 1,
+  "date": "2026-10-20",
+  "chunk": 7,
+  "status": "pinned_file_inventory_verified",
+  "chunk_complete": false,
+  "qualified": false,
+  "baseline": "19ceb8e74614cabb5b2d7d2e498320ccbddc3623",
+  "scope": "File identity and tool-view enumeration for the exact named inputs. No semantic device/process-option, operating-envelope, electrical/physical or installed-release qualification.",
+  "source_files": {
+    "scripts/inventory_upstream_views.py": "28e7535ce81920330c886c5790efe92b9040e0ff154cbdd39a47d61925f70013",
+    "scripts/reconcile_primitive_inventory.py": "dbed6d25b2836f4914186caf91911d6cdc8621fc5a9998e932e3e5958198e661",
+    "tests/test_upstream_view_inventory.py": "6a33e3daad7b4c281396c767bc7985488b534aa5b3cc598ff19fc389a2c0c528",
+    "tests/test_primitive_inventory.py": "5f53981fa99346d5cc6073417086aa7e7783a86b49c1686e6870d0afb4ee7012"
+  },
+  "retained_inputs": {
+    "path": "docs/qualification/upstream-view-inputs-2026-10-20.json.gz",
+    "sha256": "239cac490df3738164dc3e84e00f14e327d15a1747e9feebc2f34d6bc034ac23",
+    "bytes": 305467
+  },
+  "retained_report": {
+    "path": "docs/qualification/upstream-views-2026-10-20.json.gz",
+    "sha256": "9f9a65cdcf88c781622f1aba8faf40b5347f2dccd24a52715eb5872dd1676d00",
+    "bytes": 729763
+  },
+  "file_counts": {
+    "gf180mcu": 1028,
+    "ihp-sg13g2": 6210,
+    "sky130A": 2981,
+    "sky130B": 2984
+  },
+  "total_file_entries": 13203,
+  "repositories": 7,
+  "submodule_edges": 5,
+  "comparisons": {
+    "gf180mcuC": {
+      "no_identical_bundled_file": 954,
+      "identical_bytes_bundled": 74
+    },
+    "gf180mcuD": {
+      "no_identical_bundled_file": 954,
+      "identical_bytes_bundled": 74
+    },
+    "ihp-sg13g2": {
+      "no_identical_bundled_file": 5973,
+      "identical_bytes_bundled": 237
+    },
+    "sky130A": {
+      "no_identical_bundled_file": 2593,
+      "identical_bytes_bundled": 388
+    }
+  },
+  "package_files": {
+    "gf180mcuC": 83,
+    "gf180mcuD": 83,
+    "ihp-sg13g2": 163,
+    "sky130A": 412
+  },
+  "packages": {
+    "gf180mcuC": {
+      "files": 83,
+      "manifest_sha256": "abfbf8702d759247ad77075c72c7b042a6f9b89d2629f5c194a925a0d4f6194c",
+      "revision": "b661a751abfc662a"
+    },
+    "gf180mcuD": {
+      "files": 83,
+      "manifest_sha256": "d46a592f236f5a42356db52e861b17f1412ec826cd19a73452f1aa3a50a1e6ae",
+      "revision": "2f92b1f05da58bd7"
+    },
+    "ihp-sg13g2": {
+      "files": 163,
+      "manifest_sha256": "da58ba2de122d67d232ab20ca4fb353b70bdc68c00ef4279f9be7da640a68ae0",
+      "revision": "cfb96b74cf33877e"
+    },
+    "sky130A": {
+      "files": 412,
+      "manifest_sha256": "42cafd2b1407783d361cfbb276abe3ba9e97b2c06a716af6c9069c8426852413",
+      "revision": "1901822ae8f81ae1"
+    }
+  },
+  "hosts": {
+    "Windows": {
+      "status": "PASS",
+      "report_sha256": "9f9a65cdcf88c781622f1aba8faf40b5347f2dccd24a52715eb5872dd1676d00",
+      "focused_tests": 15,
+      "failures": 0,
+      "skips": 0
+    },
+    "Linux": {
+      "status": "PASS",
+      "report_sha256": "9f9a65cdcf88c781622f1aba8faf40b5347f2dccd24a52715eb5872dd1676d00",
+      "focused_tests": 15,
+      "failures": 0,
+      "skips": 0
+    }
+  },
+  "replay": {
+    "status": "PASS",
+    "input": "Retained compressed metadata and unchanged retained SKY130 archives",
+    "report_sha256": "9f9a65cdcf88c781622f1aba8faf40b5347f2dccd24a52715eb5872dd1676d00"
+  },
+  "independent_readback": {
+    "status": "PASS",
+    "git_blob_rows": 7238,
+    "total_unique_paths": 13203,
+    "package_byte_comparisons_verified": true
+  },
+  "integrity_controls": [
+    "Omitted/renamed/altered Git objects and directory parents",
+    "Wrong or truncated tree responses",
+    "Missing/wrong/duplicate/extra gitlinks and changed .gitmodules",
+    "Changed commit/tree association and missing repository",
+    "Wrong archive hash, duplicate/unsafe/nonregular/unexpected-process members",
+    "Changed bundled bytes and misleading matching basename",
+    "Duplicate effective paths, symlink false matches and host-dependent gzip metadata"
+  ],
+  "source_authentication": "Pinned complete tree object hashes and retained commit API associations; no commit-signature verification claim.",
+  "archives": {
+    "archives": {
+      "common.tar.zst": "c7c155596a1fd1fcf6d5414dfcffcbbcf4e35b2b33160af97f4340e763c97406",
+      "sky130_fd_pr.tar.zst": "41dc9098541ed3329eba4ec7f5dfd1422eb09e94b623ea1f6dc3895f9ccebf63"
+    },
+    "release": "sky130-fa87f8f4bbcc7255b6f0c0fb506960f531ae2392"
+  },
+  "exclusions": [
+    "SKY130 standard-cell and other library archives outside the two named inputs",
+    "GF180 repositories other than the named primitive repository",
+    "Device model semantics, operating envelopes and physical/electrical qualification",
+    "Availability or qualification of a tool is not inferred from source-file presence"
+  ],
+  "licensing": "Only source identities, paths, public API metadata and the parent .gitmodules blob are retained. No additional model, generator or solver source is copied or relicensed.",
+  "remaining": [
+    "Semantic model/PCell/extracted-device and process-option disposition",
+    "Other GF180 repositories and SKY130 library archives",
+    "Required unavailable devices and supported operating envelopes",
+    "Broader physical/extracted connectivity",
+    "Exact installed-release acceptance"
+  ]
+}

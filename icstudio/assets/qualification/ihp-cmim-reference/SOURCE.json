@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "scope": "Mask and terminal metadata only from a previously audited imported public IHP 7 um cap_cmim. No schematic, simulation model, qualification or operating rating is included.",
+  "original_project_sha256": "4935eab2169f74c058def21cd00f509712c930b71eb78b026cd814dccaceebeb",
+  "original_evidence_archive_sha256": "e0bcff69bf17586e2db8fbd319b75287cfbeab530e5ac5c804f570fbf4d72136",
+  "selected_fields": ["shapes", "layout_instances", "layout_texts", "external_properties", "layout_ports", "layout_label_mode"],
+  "mask_only_sha256": "e228d35180cb12fa72b1dd0b119a17db7dadac02b3204146d150b45392a3c1a3",
+  "pdk_manifest_sha256": "da58ba2de122d67d232ab20ca4fb353b70bdc68c00ef4279f9be7da640a68ae0",
+  "public_magic_generator": "libs.tech/magic/ihp-sg13g2-cap.tcl",
+  "public_magic_generator_sha256": "c81143a75d036ea48b4b9054347e12d9f16ebb3739c39a36df2cc5f4d1d6f94b",
+  "upstream_repository": "https://github.com/IHP-GmbH/IHP-Open-PDK",
+  "license": "Apache-2.0; original IHP package LICENSE retained alongside this fixture",
+  "license_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+}

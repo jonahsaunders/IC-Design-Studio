@@ -1,0 +1,94 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "qualified": false,
+  "chunk_complete": false,
+  "platform": "linux",
+  "cases": [
+    {
+      "case": "counter",
+      "status": "exact-filled-reference-replayed",
+      "exit_code": 0,
+      "elapsed_seconds": 11.502131598999995,
+      "gds_sha256": "4158b6503dc07e85f1e9e7b375a3d654cd9b64dc0498ed9fb680874e973c1ac2",
+      "checkpoint_sha256": "10de8332ad78bba19e93e78eb5247040d74b8a8cd0b186dde19484254577ca9d",
+      "report_sha256": "abd096c27d52fa5016eeb03ea41e6269c0305061d1e8dd63fe40400de9da4aaf",
+      "log_sha256": "5844ad8d6491d7728790d410d8beeb0fecb9029a7240cf619b34fc828f30cf58",
+      "profiles": {
+        "floating_connectivity": "PASS",
+        "global_geometry": "PASS",
+        "interconnect_geometry": "PASS",
+        "low_voltage_geometry": "PASS",
+        "raw_geometry": "PASS",
+        "wide_metal_geometry": "PASS"
+      }
+    },
+    {
+      "case": "uart",
+      "status": "exact-filled-reference-replayed",
+      "exit_code": 0,
+      "elapsed_seconds": 52.506731453999976,
+      "gds_sha256": "c9282fb9602ac9dbab5299032be1d4b68751bb611747d276d40435e93c37afea",
+      "checkpoint_sha256": "27ec03d13a0264feea11df78633ca56d7f068ed74b1f06478f3fe9db058d2d32",
+      "report_sha256": "329561903d40ade773f8199d678facc527451cb40b945fc34477d51872b1a974",
+      "log_sha256": "5844ad8d6491d7728790d410d8beeb0fecb9029a7240cf619b34fc828f30cf58",
+      "profiles": {
+        "floating_connectivity": "PASS",
+        "global_geometry": "PASS",
+        "interconnect_geometry": "PASS",
+        "low_voltage_geometry": "PASS",
+        "raw_geometry": "PASS",
+        "wide_metal_geometry": "PASS"
+      }
+    },
+    {
+      "case": "apb",
+      "status": "exact-filled-reference-replayed",
+      "exit_code": 0,
+      "elapsed_seconds": 48.76705023699998,
+      "gds_sha256": "5039221b72bfd052d3f82781f5403fb67df4261ea20add5c2047191321fe9d78",
+      "checkpoint_sha256": "cd1a997dac190164ab96bac0ae0eaee91865ff2ed0f983865daa644cae60bf7d",
+      "report_sha256": "e57b984556086016da0810a4efb1cc6c5b8a529613ed07739d677d8727d4fe7c",
+      "log_sha256": "5844ad8d6491d7728790d410d8beeb0fecb9029a7240cf619b34fc828f30cf58",
+      "profiles": {
+        "floating_connectivity": "PASS",
+        "global_geometry": "PASS",
+        "interconnect_geometry": "PASS",
+        "low_voltage_geometry": "PASS",
+        "raw_geometry": "PASS",
+        "wide_metal_geometry": "PASS"
+      }
+    },
+    {
+      "case": "negative",
+      "status": "invalid-mask-rejected-with-all-six-reports",
+      "exit_code": 1,
+      "elapsed_seconds": 7.234381267999993,
+      "gds_sha256": "c990e919db516452841d0a6afb303e25d0fed446347dfa5cde916a98ab8a963b",
+      "checkpoint_sha256": "10de8332ad78bba19e93e78eb5247040d74b8a8cd0b186dde19484254577ca9d",
+      "report_sha256": "419235d66c7a411ece36aaec4eb2aeb44dc99039bacb38d165493ce15296e5b2",
+      "log_sha256": "d57cd19163050281371036ee85d8e5317bcd646674c8d96297dd61b1fcd09ef6",
+      "profiles": {
+        "floating_connectivity": "FAIL",
+        "global_geometry": "PASS",
+        "interconnect_geometry": "FAIL",
+        "low_voltage_geometry": "PASS",
+        "raw_geometry": "PASS",
+        "wide_metal_geometry": "PASS"
+      }
+    }
+  ],
+  "runtime": {
+    "python": "3.12.3",
+    "klayout": "0.30.5",
+    "module_sha256": "5e90cee14038c41a00e7312ac6f1b84c59a570052cd34b5003349a92e495c4ef"
+  },
+  "driver_sha256": "be8867229eaf9b2eaf293100d4b5f824a4393da3cd5bd758bc3ebce05a6ee247",
+  "sources": {
+    "icstudio/digital_sky130_rules.py": "3672c5a87a7d2ca218c2685f63e8cc15dcb93060a65a7c3413e021b177c08f3e",
+    "icstudio/digital_sky130_rules_lock.py": "7f4463e6d1f184c649fb7be13c1e0717e538ba46d2efa4b3f40f51badff94fab",
+    "icstudio/digital_sky130_rule_worker.py": "2846309a442f05791d3d707112163305a485e6434b3f0b21d2fe6b1170976595",
+    "icstudio/digital_sky130_scope.py": "9f081c4229441aef29380b44e776d2890c20ec3df316d9a0b9dbfafa2864f95f"
+  },
+  "scope": "Actual isolated application worker against the three previously accepted filled GDS/OpenDB candidates and a deliberately invalid synthetic metal mask. No new fill generation, full-deck run, extraction, timing, or desktop installer qualification."
+}

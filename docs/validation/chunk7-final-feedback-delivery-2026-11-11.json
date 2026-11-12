@@ -1,0 +1,70 @@
+{
+  "schema": 1,
+  "date": "2026-11-11",
+  "base_commit": "f9817a2f6e845c8f01d252d4bbb7f2df70f0003f",
+  "status": "REVIEWED_FINAL_SOURCE_DELIVERY_CANDIDATE_PENDING_HOSTED_ACCEPTANCE",
+  "qualified": false,
+  "installed_acceptance": false,
+  "native_execution": false,
+  "original_results": {
+    "source_run": 43030700897,
+    "linux": "success",
+    "windows_job": 130556675148,
+    "windows": "Cancelled after GitHub maximum15m0s annotation;12 stages passed; final2 GUI stages unfinished",
+    "actual_windows_runtime_stage": {
+      "tests": 194,
+      "skips": 2,
+      "seconds": 25.925,
+      "status": "success"
+    },
+    "source_merge_commit": "895e5dabcfce841e4ad427ae6c555b1819a09443",
+    "source_merge_tree_matches_candidate": "e694b0e257493e7da1abf14ad072dfcb1e1691af",
+    "build_run": 43030688906,
+    "build": "Failed acquiring ncurses source: Could not resolve archive.ubuntu.com",
+    "proof_packaging": "success",
+    "cleanup": "success",
+    "native_pmos_executed": false
+  },
+  "changes": [
+    "Fixed required parallel contracts/gui source groups on bothOSes; default localall14 stages unchanged",
+    "Exact original base archive retained in existing complete proof parts; no derived/base substitution"
+  ],
+  "unchanged_guards": {
+    "child_seconds": 300,
+    "job_minutes": 15,
+    "proof_total_bytes_max": 3221225472,
+    "proof_part_bytes_max": 251658240,
+    "proof_parts_max": 16,
+    "permissions": "contents:read",
+    "native_authorized": false
+  },
+  "fresh_policy_sha256": "d4d0fad7f497857a69a2d2436cc6c887836c413dbd54ddfde3fcc38aa9f2d291",
+  "local_validation": {
+    "tests": 231,
+    "skips": 1,
+    "test_seconds": 20.731,
+    "process_seconds": 21.464371131000007,
+    "source_identities": 2540,
+    "unchanged": true,
+    "syntax_files": 1635,
+    "full_source_or_core_rerun": false,
+    "groups": [
+      7,
+      7
+    ],
+    "default_stages": 14,
+    "independent_reviews": "Source grouping33 tests; base delivery18 tests; final policyjoin verified"
+  },
+  "evidence": {
+    "path": "artifacts/chunk7-final-feedback-delivery-2026-11-11.zip",
+    "bytes": 768567,
+    "sha256": "edb249844474bd57a26cc8d34eef823c91161f6ebc0fb96afd9f3a5d734a4bda"
+  },
+  "limitations": [
+    "Hosted four-job source matrix pending",
+    "New actual build/proof delivery and independent full host readback pending",
+    "No DNS, mirror, signature or timeout override",
+    "Final-candidate installed acceptance remains separate",
+    "Scientific model/applicability/calibration/physical exclusions remain unchanged"
+  ]
+}

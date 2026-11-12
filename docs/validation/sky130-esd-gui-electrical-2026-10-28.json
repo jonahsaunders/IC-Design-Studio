@@ -1,0 +1,194 @@
+{
+  "schema": 1,
+  "date": "2026-10-28",
+  "chunk": 7,
+  "id": "chunk7-esd-gui-electrical-2026-10-28",
+  "status": "PASS",
+  "mode": "source",
+  "source_only": true,
+  "installed_acceptance": false,
+  "qualified": false,
+  "default_promoted": false,
+  "full_family": false,
+  "chunk_complete": false,
+  "release_ready": false,
+  "signoff": false,
+  "scope": "Compact retention and portable independent readback of the completed Windows and Linux source-only opt-in ESD GUI/electrical batch. This does not add installed acceptance, physical qualification, ESD ratings, default promotion or full-family acceptance.",
+  "captured_source": {
+    "zip_sha256": "580ddaac52f744f2160f2b6729cd4e96e5c1264eddb851bd58cf02565c18336e",
+    "files": 467,
+    "app_source_files": 461,
+    "both_host_source_maps_identical": true,
+    "capture_before_production_integration": true
+  },
+  "reader_identities": {
+    "original_flat_reader_sha256": "2c143eb7d98aff179635dc27ae914cbb3dd6c63974ad74ef2eec514911447df4",
+    "portable_api_reader_sha256": "b7a4f47d25f2bd53afbb899dee26ebdba5a1373da0de018c850968e36148b1c9",
+    "note": "Original flat reader and expected-input files are preserved. The independently reviewed API reader is bound separately in trusted restore inputs; no producer report or provenance was rewritten."
+  },
+  "provenance_rules": {
+    "original_expected_immutable": true,
+    "original_report_and_execution_roots_immutable": true,
+    "original_producer_and_reference_manifests_separate": true,
+    "allowed_trusted_restore_changes": [
+      "artifact_paths",
+      "reader_files"
+    ],
+    "all_objects_and_index_entries_verified": true,
+    "native_resimulations": 0
+  },
+  "archive_readback_host_scope": "Native Linux reread both original Windows and original Linux producer/reference trees. The original Windows native execution and original Windows reader result remain retained; no additional Windows archive tree was duplicated.",
+  "original_hosts": {
+    "windows": {
+      "execution_id": "51000000000000000000000000000007",
+      "expected_sha256": "20924f6ed7b60fe295e69927aa051ca1d4d1cf70bfba29f060253cd3722b056d",
+      "report_sha256": "edbcdbe24986928129b604830b3c2712f9d5ec0ea14552e6ea50a8205072dded",
+      "producer_manifest_sha256": "fd4da682e4497e5daf654661b9285202270b0cc4dbcd6621bbc0bf38cc892c57",
+      "reference_manifest_sha256": "c363d97af78e694c66635dcab43c5db88ee21ef24816735c68b5dd4c0d49d31f",
+      "readback_sha256": "e456cc92deb77d30689448a9abee60fdb5354ee8cd1ba474b7cf2b60eb0e4a77",
+      "producer_files": 27014,
+      "reference_files": 6234,
+      "original_reader_sha256": "2c143eb7d98aff179635dc27ae914cbb3dd6c63974ad74ef2eec514911447df4",
+      "reviewing_reader_sha256": "b7a4f47d25f2bd53afbb899dee26ebdba5a1373da0de018c850968e36148b1c9",
+      "mode": "source",
+      "installed_acceptance": false
+    },
+    "linux": {
+      "execution_id": "52000000000000000000000000000007",
+      "expected_sha256": "77c508953bff52c9fd6aae1766f66fec90bcabe1f7d3f7ba7a0b150c0d4be790",
+      "report_sha256": "9deac962a6bcddd380536c9cd7963c7bda536d2e9828fd702f097e9c20e83d66",
+      "producer_manifest_sha256": "bd32bb7a7a58f859e53b002fa211a755d5e014fee70fb4540857e9752de6e65b",
+      "reference_manifest_sha256": "06a7b313c29cf71766c7636d0e642c9552802532bf531146d6731dcd36e4d16d",
+      "readback_sha256": "875bebfb443f12cc00f8858c901eea83aea3ee48157b0d83e500c4b2148c225f",
+      "producer_files": 27014,
+      "reference_files": 6234,
+      "original_reader_sha256": "2c143eb7d98aff179635dc27ae914cbb3dd6c63974ad74ef2eec514911447df4",
+      "reviewing_reader_sha256": "b7a4f47d25f2bd53afbb899dee26ebdba5a1373da0de018c850968e36148b1c9",
+      "mode": "source",
+      "installed_acceptance": false
+    }
+  },
+  "archive": {
+    "schema": 1,
+    "status": "PASS",
+    "archive_sha256": "82714876811c9418c9d0284b89f6162ed6c5bb66f0c56a5775f9524bac72d5e4",
+    "archive_bytes": 45054049,
+    "manifest_sha256": "b62bea507ee4fa4676624eca6068817134625655409a7d5627b3932f45576f36",
+    "logical_files": 67328,
+    "unique_objects": 2017,
+    "logical_bytes": 7238817179,
+    "unique_payload_bytes": 338013191,
+    "all_objects_and_index_entries_verified": true,
+    "original_manifest_expected_and_source_zip_unchanged": true,
+    "scope": "Source-only GUI/electrical ESD evidence; not installed delivery, default promotion, physical qualification or ESD ratings.",
+    "location": "chunk7-esd-gui-electrical-2026-10-28-v1/evidence.zip",
+    "final_record_sha256": "4402bbe736b98b1ad35153d4959017907654de9c23d6178f3ea00da6eb4698b5",
+    "sidecars": {
+      "recovery.json": "a8b1096417d7c83d3490191f0a79ac33c512284a81feec6368a83f3677bc3ebc",
+      "readback-linux.json": "8cb8df85fa8b2d39cde95c61c0549961414a97ec2bb012a0b8dc0a4b37244a4f",
+      "readback-windows.json": "db652a965e17c0f713d6b7437b01f00314b45ea873a1b58898bb9a6ec3c27570",
+      "trusted-restore-expected-linux.json": "09e0c46ceb1f54e9c6e27abc684693853d2b5c613589cbe4905a3f65527b03be",
+      "trusted-restore-expected-windows.json": "786bcb2e97351a09d6764d65bf34d539845d26fdb2201a7a3dac098c0c337d19",
+      "original-expected-linux.json": "77c508953bff52c9fd6aae1766f66fec90bcabe1f7d3f7ba7a0b150c0d4be790",
+      "original-expected-windows.json": "20924f6ed7b60fe295e69927aa051ca1d4d1cf70bfba29f060253cd3722b056d",
+      "pack-esd-source.py": "a00d085caa30e18730de8c70d48fa14bfa5f8f0ccd3adf73e5584279cc507b27",
+      "restore-and-audit-source.py": "38a28f8ce396eec1f06f4455d7aa41dbd062ba350b23c9bb9d049c6d0457eeb2"
+    }
+  },
+  "recovery": {
+    "schema": 1,
+    "status": "PASS",
+    "archive_sha256": "82714876811c9418c9d0284b89f6162ed6c5bb66f0c56a5775f9524bac72d5e4",
+    "manifest_sha256": "b62bea507ee4fa4676624eca6068817134625655409a7d5627b3932f45576f36",
+    "readback_host": "linux",
+    "logical_files": 67328,
+    "unique_objects": 2017,
+    "all_objects_and_index_entries_verified": true,
+    "all_restored_original_members_unchanged": true,
+    "original_provenance_unchanged": true,
+    "native_resimulations": 0,
+    "source_only": true,
+    "installed_acceptance": false,
+    "qualified": false,
+    "default_promoted": false,
+    "chunk_complete": false,
+    "reviewing_reader_sha256": "b7a4f47d25f2bd53afbb899dee26ebdba5a1373da0de018c850968e36148b1c9",
+    "captured_source_files": 467,
+    "hosts": {
+      "linux": {
+        "result": {
+          "status": "PASS",
+          "mode": "source",
+          "installed_acceptance": false,
+          "cases": 19,
+          "native_executions": 98,
+          "devices": 6,
+          "fault_device_instances": 360,
+          "maximum_normalized_error": 0.0,
+          "qualified": false,
+          "default_promoted": false,
+          "chunk_complete": false,
+          "report_sha256": "9deac962a6bcddd380536c9cd7963c7bda536d2e9828fd702f097e9c20e83d66",
+          "producer_manifest_sha256": "bd32bb7a7a58f859e53b002fa211a755d5e014fee70fb4540857e9752de6e65b",
+          "reference_manifest_sha256": "06a7b313c29cf71766c7636d0e642c9552802532bf531146d6731dcd36e4d16d",
+          "reader_sha256": "b7a4f47d25f2bd53afbb899dee26ebdba5a1373da0de018c850968e36148b1c9"
+        },
+        "readback_sha256": "8cb8df85fa8b2d39cde95c61c0549961414a97ec2bb012a0b8dc0a4b37244a4f",
+        "original_expected_sha256": "77c508953bff52c9fd6aae1766f66fec90bcabe1f7d3f7ba7a0b150c0d4be790",
+        "trusted_restore_expected_sha256": "09e0c46ceb1f54e9c6e27abc684693853d2b5c613589cbe4905a3f65527b03be",
+        "execution_id": "52000000000000000000000000000007",
+        "changed_expected_fields": [
+          "artifact_paths",
+          "reader_files"
+        ],
+        "original_expected_unchanged": true
+      },
+      "windows": {
+        "result": {
+          "status": "PASS",
+          "mode": "source",
+          "installed_acceptance": false,
+          "cases": 19,
+          "native_executions": 98,
+          "devices": 6,
+          "fault_device_instances": 360,
+          "maximum_normalized_error": 0.0,
+          "qualified": false,
+          "default_promoted": false,
+          "chunk_complete": false,
+          "report_sha256": "edbcdbe24986928129b604830b3c2712f9d5ec0ea14552e6ea50a8205072dded",
+          "producer_manifest_sha256": "fd4da682e4497e5daf654661b9285202270b0cc4dbcd6621bbc0bf38cc892c57",
+          "reference_manifest_sha256": "c363d97af78e694c66635dcab43c5db88ee21ef24816735c68b5dd4c0d49d31f",
+          "reader_sha256": "b7a4f47d25f2bd53afbb899dee26ebdba5a1373da0de018c850968e36148b1c9"
+        },
+        "readback_sha256": "db652a965e17c0f713d6b7437b01f00314b45ea873a1b58898bb9a6ec3c27570",
+        "original_expected_sha256": "20924f6ed7b60fe295e69927aa051ca1d4d1cf70bfba29f060253cd3722b056d",
+        "trusted_restore_expected_sha256": "786bcb2e97351a09d6764d65bf34d539845d26fdb2201a7a3dac098c0c337d19",
+        "execution_id": "51000000000000000000000000000007",
+        "changed_expected_fields": [
+          "artifact_paths",
+          "reader_files"
+        ],
+        "original_expected_unchanged": true
+      }
+    },
+    "immutable_manifests": {
+      "linux": {
+        "producer_manifest_sha256": "bd32bb7a7a58f859e53b002fa211a755d5e014fee70fb4540857e9752de6e65b",
+        "reference_manifest_sha256": "06a7b313c29cf71766c7636d0e642c9552802532bf531146d6731dcd36e4d16d"
+      },
+      "windows": {
+        "producer_manifest_sha256": "fd4da682e4497e5daf654661b9285202270b0cc4dbcd6621bbc0bf38cc892c57",
+        "reference_manifest_sha256": "c363d97af78e694c66635dcab43c5db88ee21ef24816735c68b5dd4c0d49d31f"
+      }
+    },
+    "scope": "Portable independent readback on this reader host of both original-host source-only 98-run producer/reference evidence sets; no fresh native execution or installed acceptance."
+  },
+  "root_retention_verification": {
+    "status": "PASS",
+    "object_hashes_verified": 2017,
+    "logical_entries_verified": 67328,
+    "sidecars_verified": 9
+  },
+  "integration_note": "The archived source experiment precedes entrypoint/launcher integration and the later Linux packaging-manifest correction. The exact reviewed probe and scientific reader are retained. Fresh frozen acceptance of the integrated candidate is required separately."
+}

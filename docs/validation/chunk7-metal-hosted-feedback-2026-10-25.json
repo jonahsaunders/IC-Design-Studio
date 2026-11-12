@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "run": 40211589240,
+  "candidate": "489b0ea0310aea74a7c298b842362e7851f3f868",
+  "status": "success",
+  "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/40211589240",
+  "platforms": [
+    {
+      "artifact": "source-feedback-Linux-e0965a0bcc55ebfd9ad84c7fb257eff9a1f686b9",
+      "artifact_sha256": "31cb3b571c3bd7399dbef50afa59efef2e27a4baabc1e4fd966332128bb1d5b0",
+      "tests": 442,
+      "counts": "skipped=4",
+      "source_bindings": 1365,
+      "source_report_sha256": "fae8d1c353146b9411d693f7129e8db4afcea5907a5660543d4cf279e49eeb89",
+      "status": "passed",
+      "merge_commit": "e0965a0bcc55ebfd9ad84c7fb257eff9a1f686b9",
+      "seconds": 59.986
+    },
+    {
+      "artifact": "source-feedback-Windows-e0965a0bcc55ebfd9ad84c7fb257eff9a1f686b9",
+      "artifact_sha256": "9d3846f1fcaefc2dcb87dbbf3b41464c0941b9a44e6f88c4a7a8771a90269f41",
+      "tests": 442,
+      "counts": "skipped=15",
+      "source_bindings": 1365,
+      "source_report_sha256": "fae8d1c353146b9411d693f7129e8db4afcea5907a5660543d4cf279e49eeb89",
+      "status": "passed",
+      "merge_commit": "e0965a0bcc55ebfd9ad84c7fb257eff9a1f686b9",
+      "seconds": 136.406
+    }
+  ],
+  "merge_commit": "e0965a0bcc55ebfd9ad84c7fb257eff9a1f686b9",
+  "parents": [
+    "49c79957b4d6f4978127da612e167e5c75cda6b3",
+    "489b0ea0310aea74a7c298b842362e7851f3f868"
+  ],
+  "all_candidate_source_bindings_verified": true,
+  "installed_acceptance": false,
+  "chunk_complete": false,
+  "retained_directory": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-metal-editor-linked-2026-10-25-v1\\post-seal\\hosted-feedback-40211589240",
+  "retention": {
+    "files": 8,
+    "bytes": 1672673,
+    "sha256": "fef7e568e353a28784b2ee4360dd45e90ee04ebbcf38fc48d6907f7cc737169a"
+  },
+  "date": "2026-10-25",
+  "scope": "Hosted source merge compatibility and GUI checks, not installed deliverable or native full-family qualification.",
+  "publication_state": "Local receipt for next substantive project push; source candidate and primary milestone record are already pushed."
+}

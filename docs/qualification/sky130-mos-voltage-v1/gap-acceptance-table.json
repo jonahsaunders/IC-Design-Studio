@@ -1,0 +1,1708 @@
+{
+  "schema": 1,
+  "as_of": "2026-10-28",
+  "qualified": false,
+  "chunk_complete": false,
+  "status": "proposed_static_screen_not_integrated",
+  "scope": "Distinct non-RF MOS catalog models plus explicit public ESD PMOS and differently named public native ESD model. No RF, SRAM or SONOS inheritance.",
+  "closure_candidate": "Authenticate and enforce documented signed three-axis model voltage constraints, including conditional 16 V drain allowance, with explicit unknown temperature/rating/SOA results.",
+  "coordinate_definition": "vds=V(d)-V(s), vgs=V(g)-V(s), vbs=V(b)-V(s); signed volts, inclusive bounds, no source/drain interchange.",
+  "sources": "source-lock.json",
+  "generic_hv_failure_context": {
+    "file": "sources/hv.rst",
+    "sha256": "f355ddf478c129661e96b44d4c4509a124e85e2e44d51bd3b072b43aee7e1f98",
+    "anchors": [
+      {
+        "line": 16,
+        "text": "   a. Any HV NMOS device: 7.3 V @ 25C."
+      },
+      {
+        "line": 17,
+        "text": "   b. Any HV PMOS device: 8.1 V @ 25C."
+      },
+      {
+        "line": 19,
+        "text": "  These voltages are not operating voltages, but points of failure."
+      },
+      {
+        "line": 25,
+        "text": "  a. Any HV NMOS device: 11.0 V @ 25C."
+      },
+      {
+        "line": 26,
+        "text": "  b. Any HV PMOS device: 11.0 V @ 25C."
+      },
+      {
+        "line": 28,
+        "text": "  These voltages are not operating voltages, but points of failure."
+      },
+      {
+        "line": 159,
+        "text": "Very High Voltage is defined as a voltage outside the range of GND to High Voltage (11V). Very high voltage is 16V (12V nominal) Vcc."
+      },
+      {
+        "line": 177,
+        "text": "  a. Any VHV NMOS device: 5.5V."
+      },
+      {
+        "line": 178,
+        "text": "  b. Any VHV PMOS device: 5.5V."
+      },
+      {
+        "line": 183,
+        "text": "  a. Any VHV NMOS device: 16.0V."
+      },
+      {
+        "line": 184,
+        "text": "  b. Any VHV PMOS device: 16.0V."
+      }
+    ],
+    "decision": "HV 7.3/8.1 V gate and 11 V junction @25C are explicitly failure points, not operating ratings. VHV nominal 12 V/max16 V and 5.5 V criteria are class/context facts; do not map to a named modern model or derive SOA without explicit applicability."
+  },
+  "temperature_decision": "0/27/85 C are selected integration points, not supported extrema. A model tnom example is a nominal reference parameter. No public MOS temperature range established in reviewed sources.",
+  "models": [
+    {
+      "model": "sky130_fd_pr__esd_nfet_01v8",
+      "catalog_views": [
+        "sky130_fd_pr/nfet_01v8_esd.sym"
+      ],
+      "catalog_availability": "bound",
+      "next_bounded_acceptance": {
+        "requirement": "authenticated_documented_three_axis_voltage_screen",
+        "prototype_status": "blocked_by_source_semantics",
+        "integration_status": "proposed_outside_repository_only",
+        "accept_when": "Obtain an unambiguous exact-model source definition before implementing limits; no core-model alias inheritance."
+      },
+      "nominal_voltage_label": "esd_nfet_01v8",
+      "nominal_label_scope": "Name/section identifier only; not a guaranteed or rated operating bound.",
+      "model_voltage_limits_v": null,
+      "off_state_vds_v": null,
+      "off_state_predicate": null,
+      "source_anchor": {
+        "file": "sources/device-details.rst",
+        "sha256": "506021827f52b26673daf8b580f8d79d408724af3138a65695bde86e5c1c6e49",
+        "lines": [
+          709,
+          719
+        ],
+        "url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details.rst#L709-L719"
+      },
+      "source_kind": "ambiguous_or_different_model_name",
+      "guaranteed_bounds": null,
+      "rated_operating_bounds": null,
+      "temperature_validity_c": null,
+      "temperature_unknown_scope": "No general-MOS temperature-validity/rated range established by these reviewed sources. SONOS-only ranges at device-details.rst:981-982 cannot be inherited.",
+      "model_nominal_temperature_examples": [
+        {
+          "source_file": "sources/sky130_fd_pr__esd_nfet_01v8.pm3.spice",
+          "sha256": "b00978da581468871971827a5d635440c7df9b7648ee52ba3dd8b8f26da64d80",
+          "first_line": 24,
+          "nominal_parameter_values_c": [
+            30.0
+          ],
+          "scope": "Selected model card nominal reference parameter only; not TEMP, temperature minimum/maximum, or rated range."
+        }
+      ],
+      "existing_sampled_acceptance": {
+        "record": null,
+        "scope": "Outside 11-model core-bias acceptance; other catalog/default/fixed-geometry evidence must retain its own scope."
+      },
+      "soa_source_required": false,
+      "proposal_check": "blocked",
+      "blocked_reasons": [
+        "No unambiguous model-specific voltage transcription: ESD paragraph selectors omit esd prefix; native public executable spelling differs from historical name. Do not inherit core bounds or alias."
+      ],
+      "remaining_acceptance_gaps": [
+        "temperature_model_validity_range",
+        "rated_operating_voltage_and_temperature",
+        "reliability_duration_duty_cycle",
+        "continuous_geometry_and_operating_envelope",
+        "independent_silicon_accuracy",
+        "model_specific_voltage_semantics"
+      ],
+      "qualified": false
+    },
+    {
+      "model": "sky130_fd_pr__esd_nfet_05v0_nvt",
+      "catalog_views": [],
+      "catalog_availability": "public_source_only",
+      "next_bounded_acceptance": {
+        "requirement": "authenticated_documented_three_axis_voltage_screen",
+        "prototype_status": "blocked_by_source_semantics",
+        "integration_status": "proposed_outside_repository_only",
+        "accept_when": "Obtain an unambiguous exact-model source definition before implementing limits; no core-model alias inheritance."
+      },
+      "nominal_voltage_label": "esd_nfet_05v0_nvt",
+      "nominal_label_scope": "Name/section identifier only; not a guaranteed or rated operating bound.",
+      "model_voltage_limits_v": null,
+      "off_state_vds_v": null,
+      "off_state_predicate": null,
+      "source_anchor": {
+        "file": "sources/device-details.rst",
+        "sha256": "506021827f52b26673daf8b580f8d79d408724af3138a65695bde86e5c1c6e49",
+        "lines": [
+          709,
+          719
+        ],
+        "url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details.rst#L709-L719"
+      },
+      "source_kind": "ambiguous_or_different_model_name",
+      "guaranteed_bounds": null,
+      "rated_operating_bounds": null,
+      "temperature_validity_c": null,
+      "temperature_unknown_scope": "No general-MOS temperature-validity/rated range established by these reviewed sources. SONOS-only ranges at device-details.rst:981-982 cannot be inherited.",
+      "model_nominal_temperature_examples": [],
+      "existing_sampled_acceptance": {
+        "record": null,
+        "scope": "Outside 11-model core-bias acceptance; other catalog/default/fixed-geometry evidence must retain its own scope."
+      },
+      "soa_source_required": false,
+      "proposal_check": "blocked",
+      "blocked_reasons": [
+        "No unambiguous model-specific voltage transcription: ESD paragraph selectors omit esd prefix; native public executable spelling differs from historical name. Do not inherit core bounds or alias."
+      ],
+      "remaining_acceptance_gaps": [
+        "temperature_model_validity_range",
+        "rated_operating_voltage_and_temperature",
+        "reliability_duration_duty_cycle",
+        "continuous_geometry_and_operating_envelope",
+        "independent_silicon_accuracy",
+        "model_specific_voltage_semantics"
+      ],
+      "qualified": false
+    },
+    {
+      "model": "sky130_fd_pr__esd_nfet_g5v0d10v5",
+      "catalog_views": [
+        "sky130_fd_pr/nfet_g5v0d10v5_esd.sym"
+      ],
+      "catalog_availability": "bound",
+      "next_bounded_acceptance": {
+        "requirement": "authenticated_documented_three_axis_voltage_screen",
+        "prototype_status": "blocked_by_source_semantics",
+        "integration_status": "proposed_outside_repository_only",
+        "accept_when": "Obtain an unambiguous exact-model source definition before implementing limits; no core-model alias inheritance."
+      },
+      "nominal_voltage_label": "esd_nfet_g5v0d10v5",
+      "nominal_label_scope": "Name/section identifier only; not a guaranteed or rated operating bound.",
+      "model_voltage_limits_v": null,
+      "off_state_vds_v": null,
+      "off_state_predicate": null,
+      "source_anchor": {
+        "file": "sources/device-details.rst",
+        "sha256": "506021827f52b26673daf8b580f8d79d408724af3138a65695bde86e5c1c6e49",
+        "lines": [
+          709,
+          719
+        ],
+        "url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details.rst#L709-L719"
+      },
+      "source_kind": "ambiguous_or_different_model_name",
+      "guaranteed_bounds": null,
+      "rated_operating_bounds": null,
+      "temperature_validity_c": null,
+      "temperature_unknown_scope": "No general-MOS temperature-validity/rated range established by these reviewed sources. SONOS-only ranges at device-details.rst:981-982 cannot be inherited.",
+      "model_nominal_temperature_examples": [
+        {
+          "source_file": "sources/sky130_fd_pr__esd_nfet_g5v0d10v5.pm3.spice",
+          "sha256": "167d3a824f9402a1c75ce96b2e393d7e044578a488fcd5e5155b59ddeabace04",
+          "first_line": 24,
+          "nominal_parameter_values_c": [
+            30.0
+          ],
+          "scope": "Selected model card nominal reference parameter only; not TEMP, temperature minimum/maximum, or rated range."
+        }
+      ],
+      "existing_sampled_acceptance": {
+        "record": null,
+        "scope": "Outside 11-model core-bias acceptance; other catalog/default/fixed-geometry evidence must retain its own scope."
+      },
+      "soa_source_required": false,
+      "proposal_check": "blocked",
+      "blocked_reasons": [
+        "No unambiguous model-specific voltage transcription: ESD paragraph selectors omit esd prefix; native public executable spelling differs from historical name. Do not inherit core bounds or alias."
+      ],
+      "remaining_acceptance_gaps": [
+        "temperature_model_validity_range",
+        "rated_operating_voltage_and_temperature",
+        "reliability_duration_duty_cycle",
+        "continuous_geometry_and_operating_envelope",
+        "independent_silicon_accuracy",
+        "model_specific_voltage_semantics"
+      ],
+      "qualified": false
+    },
+    {
+      "model": "sky130_fd_pr__esd_nfet_g5v0d10v5_nvt",
+      "catalog_views": [
+        "sky130_fd_pr/nfet_g5v0d10v5_nvt_esd.sym"
+      ],
+      "catalog_availability": "unavailable_historical_name",
+      "next_bounded_acceptance": {
+        "requirement": "authenticated_documented_three_axis_voltage_screen",
+        "prototype_status": "blocked_by_source_semantics",
+        "integration_status": "proposed_outside_repository_only",
+        "accept_when": "Obtain an unambiguous exact-model source definition before implementing limits; no core-model alias inheritance."
+      },
+      "nominal_voltage_label": "esd_nfet_g5v0d10v5_nvt",
+      "nominal_label_scope": "Name/section identifier only; not a guaranteed or rated operating bound.",
+      "model_voltage_limits_v": null,
+      "off_state_vds_v": null,
+      "off_state_predicate": null,
+      "source_anchor": {
+        "file": "sources/device-details.rst",
+        "sha256": "506021827f52b26673daf8b580f8d79d408724af3138a65695bde86e5c1c6e49",
+        "lines": [
+          709,
+          719
+        ],
+        "url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details.rst#L709-L719"
+      },
+      "source_kind": "ambiguous_or_different_model_name",
+      "guaranteed_bounds": null,
+      "rated_operating_bounds": null,
+      "temperature_validity_c": null,
+      "temperature_unknown_scope": "No general-MOS temperature-validity/rated range established by these reviewed sources. SONOS-only ranges at device-details.rst:981-982 cannot be inherited.",
+      "model_nominal_temperature_examples": [],
+      "existing_sampled_acceptance": {
+        "record": null,
+        "scope": "Outside 11-model core-bias acceptance; other catalog/default/fixed-geometry evidence must retain its own scope."
+      },
+      "soa_source_required": false,
+      "proposal_check": "blocked",
+      "blocked_reasons": [
+        "No unambiguous model-specific voltage transcription: ESD paragraph selectors omit esd prefix; native public executable spelling differs from historical name. Do not inherit core bounds or alias."
+      ],
+      "remaining_acceptance_gaps": [
+        "temperature_model_validity_range",
+        "rated_operating_voltage_and_temperature",
+        "reliability_duration_duty_cycle",
+        "continuous_geometry_and_operating_envelope",
+        "independent_silicon_accuracy",
+        "model_specific_voltage_semantics"
+      ],
+      "qualified": false
+    },
+    {
+      "model": "sky130_fd_pr__esd_pfet_g5v0d10v5",
+      "catalog_views": [],
+      "catalog_availability": "public_source_only",
+      "next_bounded_acceptance": {
+        "requirement": "authenticated_documented_three_axis_voltage_screen",
+        "prototype_status": "implemented_with_boundary_and_rejection_controls",
+        "integration_status": "proposed_outside_repository_only",
+        "accept_when": "Exact model identity and signed terminal differences match hash-locked source limits, all published endpoint/adjacent-outside controls pass, zero-gate extended-drain conditional is preserved, and unknown temperature/rating/SOA is retained."
+      },
+      "nominal_voltage_label": "esd_pfet_g5v0d10v5",
+      "nominal_label_scope": "Name/section identifier only; not a guaranteed or rated operating bound.",
+      "model_voltage_limits_v": {
+        "vds": [
+          -11,
+          0
+        ],
+        "vgs": [
+          -5.5,
+          0
+        ],
+        "vbs": [
+          0,
+          5.5
+        ]
+      },
+      "off_state_vds_v": null,
+      "off_state_predicate": null,
+      "source_anchor": {
+        "file": "sources/device-details.rst",
+        "sha256": "506021827f52b26673daf8b580f8d79d408724af3138a65695bde86e5c1c6e49",
+        "lines": [
+          389,
+          396
+        ],
+        "slice_sha256": "942e49a3182f0dfa782e9d30d028b24b258cadbbe48e28f3d442305f9ac140c8",
+        "url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details.rst#L389-L396"
+      },
+      "source_kind": "published_SPICE_model_validity",
+      "guaranteed_bounds": null,
+      "rated_operating_bounds": null,
+      "temperature_validity_c": null,
+      "temperature_unknown_scope": "No general-MOS temperature-validity/rated range established by these reviewed sources. SONOS-only ranges at device-details.rst:981-982 cannot be inherited.",
+      "model_nominal_temperature_examples": [],
+      "existing_sampled_acceptance": {
+        "record": null,
+        "scope": "Outside 11-model core-bias acceptance; other catalog/default/fixed-geometry evidence must retain its own scope."
+      },
+      "soa_source_required": false,
+      "proposal_check": "documented_three_axis_voltage_screen",
+      "blocked_reasons": [],
+      "remaining_acceptance_gaps": [
+        "temperature_model_validity_range",
+        "rated_operating_voltage_and_temperature",
+        "reliability_duration_duty_cycle",
+        "continuous_geometry_and_operating_envelope",
+        "independent_silicon_accuracy"
+      ],
+      "qualified": false
+    },
+    {
+      "model": "sky130_fd_pr__nfet_01v8",
+      "catalog_views": [
+        "sky130_fd_pr/nfet3_01v8.sym",
+        "sky130_fd_pr/nfet_01v8.sym",
+        "sky130_fd_pr/nfet_01v8_nf.sym"
+      ],
+      "catalog_availability": "bound",
+      "next_bounded_acceptance": {
+        "requirement": "authenticated_documented_three_axis_voltage_screen",
+        "prototype_status": "implemented_with_boundary_and_rejection_controls",
+        "integration_status": "proposed_outside_repository_only",
+        "accept_when": "Exact model identity and signed terminal differences match hash-locked source limits, all published endpoint/adjacent-outside controls pass, zero-gate extended-drain conditional is preserved, and unknown temperature/rating/SOA is retained."
+      },
+      "nominal_voltage_label": "nfet_01v8",
+      "nominal_label_scope": "Name/section identifier only; not a guaranteed or rated operating bound.",
+      "model_voltage_limits_v": {
+        "vds": [
+          0,
+          1.95
+        ],
+        "vgs": [
+          0,
+          1.95
+        ],
+        "vbs": [
+          -1.95,
+          0.3
+        ]
+      },
+      "off_state_vds_v": null,
+      "off_state_predicate": null,
+      "source_anchor": {
+        "file": "sources/device-details.rst",
+        "sha256": "506021827f52b26673daf8b580f8d79d408724af3138a65695bde86e5c1c6e49",
+        "lines": [
+          9,
+          17
+        ],
+        "slice_sha256": "700206d2e2a6f078225ef46b13a78bb38370e83097e62add14c257a70173e41d",
+        "url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details.rst#L9-L17"
+      },
+      "source_kind": "published_SPICE_model_validity",
+      "guaranteed_bounds": null,
+      "rated_operating_bounds": null,
+      "temperature_validity_c": null,
+      "temperature_unknown_scope": "No general-MOS temperature-validity/rated range established by these reviewed sources. SONOS-only ranges at device-details.rst:981-982 cannot be inherited.",
+      "model_nominal_temperature_examples": [
+        {
+          "source_file": "sources/sky130_fd_pr__nfet_01v8__tt.pm3.spice",
+          "sha256": "fda72fe5717ce354d61887bef1432478be431121f70896b39f653eacc6f8eafa",
+          "first_line": 240,
+          "nominal_parameter_values_c": [
+            30.0
+          ],
+          "scope": "Selected model card nominal reference parameter only; not TEMP, temperature minimum/maximum, or rated range."
+        }
+      ],
+      "existing_sampled_acceptance": {
+        "record": "docs/validation/sky130-mos-bias-2026-10-21.json",
+        "temperatures_c": [
+          0,
+          27,
+          85
+        ],
+        "corners": [
+          "nominal",
+          "ss",
+          "ff",
+          "sf",
+          "fs"
+        ],
+        "voltage_axes": [
+          "gate",
+          "drain",
+          "body"
+        ],
+        "scope": "Finite 41-coordinate sweeps; two geometries and two contexts per symbol. No continuous-envelope claim."
+      },
+      "soa_source_required": false,
+      "proposal_check": "documented_three_axis_voltage_screen",
+      "blocked_reasons": [],
+      "remaining_acceptance_gaps": [
+        "temperature_model_validity_range",
+        "rated_operating_voltage_and_temperature",
+        "reliability_duration_duty_cycle",
+        "continuous_geometry_and_operating_envelope",
+        "independent_silicon_accuracy"
+      ],
+      "qualified": false
+    },
+    {
+      "model": "sky130_fd_pr__nfet_01v8_lvt",
+      "catalog_views": [
+        "sky130_fd_pr/nfet3_01v8_lvt.sym",
+        "sky130_fd_pr/nfet_01v8_lvt.sym",
+        "sky130_fd_pr/nfet_01v8_lvt_nf.sym"
+      ],
+      "catalog_availability": "bound",
+      "next_bounded_acceptance": {
+        "requirement": "authenticated_documented_three_axis_voltage_screen",
+        "prototype_status": "implemented_with_boundary_and_rejection_controls",
+        "integration_status": "proposed_outside_repository_only",
+        "accept_when": "Exact model identity and signed terminal differences match hash-locked source limits, all published endpoint/adjacent-outside controls pass, zero-gate extended-drain conditional is preserved, and unknown temperature/rating/SOA is retained."
+      },
+      "nominal_voltage_label": "nfet_01v8_lvt",
+      "nominal_label_scope": "Name/section identifier only; not a guaranteed or rated operating bound.",
+      "model_voltage_limits_v": {
+        "vds": [
+          0,
+          1.95
+        ],
+        "vgs": [
+          0,
+          1.95
+        ],
+        "vbs": [
+          -1.95,
+          0.3
+        ]
+      },
+      "off_state_vds_v": null,
+      "off_state_predicate": null,
+      "source_anchor": {
+        "file": "sources/device-details.rst",
+        "sha256": "506021827f52b26673daf8b580f8d79d408724af3138a65695bde86e5c1c6e49",
+        "lines": [
+          48,
+          56
+        ],
+        "slice_sha256": "819eea9ea1e58f76019d8fa07139b45640078492822649848d786865230ed1b3",
+        "url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details.rst#L48-L56"
+      },
+      "source_kind": "published_SPICE_model_validity",
+      "guaranteed_bounds": null,
+      "rated_operating_bounds": null,
+      "temperature_validity_c": null,
+      "temperature_unknown_scope": "No general-MOS temperature-validity/rated range established by these reviewed sources. SONOS-only ranges at device-details.rst:981-982 cannot be inherited.",
+      "model_nominal_temperature_examples": [
+        {
+          "source_file": "sources/sky130_fd_pr__nfet_01v8_lvt__tt.pm3.spice",
+          "sha256": "848471966a7f41daaa44b2f03636d0652136714e0b9a365bb0e537651640ddcf",
+          "first_line": 38,
+          "nominal_parameter_values_c": [
+            30.0
+          ],
+          "scope": "Selected model card nominal reference parameter only; not TEMP, temperature minimum/maximum, or rated range."
+        }
+      ],
+      "existing_sampled_acceptance": {
+        "record": "docs/validation/sky130-mos-bias-2026-10-21.json",
+        "temperatures_c": [
+          0,
+          27,
+          85
+        ],
+        "corners": [
+          "nominal",
+          "ss",
+          "ff",
+          "sf",
+          "fs"
+        ],
+        "voltage_axes": [
+          "gate",
+          "drain",
+          "body"
+        ],
+        "scope": "Finite 41-coordinate sweeps; two geometries and two contexts per symbol. No continuous-envelope claim."
+      },
+      "soa_source_required": false,
+      "proposal_check": "documented_three_axis_voltage_screen",
+      "blocked_reasons": [],
+      "remaining_acceptance_gaps": [
+        "temperature_model_validity_range",
+        "rated_operating_voltage_and_temperature",
+        "reliability_duration_duty_cycle",
+        "continuous_geometry_and_operating_envelope",
+        "independent_silicon_accuracy"
+      ],
+      "qualified": false
+    },
+    {
+      "model": "sky130_fd_pr__nfet_03v3_nvt",
+      "catalog_views": [
+        "sky130_fd_pr/nfet3_03v3_nvt.sym",
+        "sky130_fd_pr/nfet_03v3_nvt.sym",
+        "sky130_fd_pr/nfet_03v3_nvt_nf.sym"
+      ],
+      "catalog_availability": "bound",
+      "next_bounded_acceptance": {
+        "requirement": "authenticated_documented_three_axis_voltage_screen",
+        "prototype_status": "implemented_with_boundary_and_rejection_controls",
+        "integration_status": "proposed_outside_repository_only",
+        "accept_when": "Exact model identity and signed terminal differences match hash-locked source limits, all published endpoint/adjacent-outside controls pass, zero-gate extended-drain conditional is preserved, and unknown temperature/rating/SOA is retained."
+      },
+      "nominal_voltage_label": "nfet_03v3_nvt",
+      "nominal_label_scope": "Name/section identifier only; not a guaranteed or rated operating bound.",
+      "model_voltage_limits_v": {
+        "vds": [
+          0,
+          3.3
+        ],
+        "vgs": [
+          0,
+          3.3
+        ],
+        "vbs": [
+          -3.3,
+          0
+        ]
+      },
+      "off_state_vds_v": null,
+      "off_state_predicate": null,
+      "source_anchor": {
+        "file": "sources/device-details.rst",
+        "sha256": "506021827f52b26673daf8b580f8d79d408724af3138a65695bde86e5c1c6e49",
+        "lines": [
+          268,
+          276
+        ],
+        "slice_sha256": "1112fca33baad802c571b70397e291314183765e5db6422a07b4bd96857f50c5",
+        "url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details.rst#L268-L276"
+      },
+      "source_kind": "published_SPICE_model_validity",
+      "guaranteed_bounds": null,
+      "rated_operating_bounds": null,
+      "temperature_validity_c": null,
+      "temperature_unknown_scope": "No general-MOS temperature-validity/rated range established by these reviewed sources. SONOS-only ranges at device-details.rst:981-982 cannot be inherited.",
+      "model_nominal_temperature_examples": [
+        {
+          "source_file": "sources/sky130_fd_pr__nfet_03v3_nvt.pm3.spice",
+          "sha256": "042730a5b254b5508e4ef366784d972a8e10ed133f23ec7fdfc4ef9b3e545932",
+          "first_line": 38,
+          "nominal_parameter_values_c": [
+            30.0
+          ],
+          "scope": "Selected model card nominal reference parameter only; not TEMP, temperature minimum/maximum, or rated range."
+        }
+      ],
+      "existing_sampled_acceptance": {
+        "record": "docs/validation/sky130-mos-bias-2026-10-21.json",
+        "temperatures_c": [
+          0,
+          27,
+          85
+        ],
+        "corners": [
+          "nominal",
+          "ss",
+          "ff",
+          "sf",
+          "fs"
+        ],
+        "voltage_axes": [
+          "gate",
+          "drain",
+          "body"
+        ],
+        "scope": "Finite 41-coordinate sweeps; two geometries and two contexts per symbol. No continuous-envelope claim."
+      },
+      "soa_source_required": false,
+      "proposal_check": "documented_three_axis_voltage_screen",
+      "blocked_reasons": [],
+      "remaining_acceptance_gaps": [
+        "temperature_model_validity_range",
+        "rated_operating_voltage_and_temperature",
+        "reliability_duration_duty_cycle",
+        "continuous_geometry_and_operating_envelope",
+        "independent_silicon_accuracy"
+      ],
+      "qualified": false
+    },
+    {
+      "model": "sky130_fd_pr__nfet_05v0_nvt",
+      "catalog_views": [
+        "sky130_fd_pr/nfet3_05v0_nvt.sym",
+        "sky130_fd_pr/nfet_05v0_nvt.sym",
+        "sky130_fd_pr/nfet_05v0_nvt_nf.sym"
+      ],
+      "catalog_availability": "bound",
+      "next_bounded_acceptance": {
+        "requirement": "authenticated_documented_three_axis_voltage_screen",
+        "prototype_status": "implemented_with_boundary_and_rejection_controls",
+        "integration_status": "proposed_outside_repository_only",
+        "accept_when": "Exact model identity and signed terminal differences match hash-locked source limits, all published endpoint/adjacent-outside controls pass, zero-gate extended-drain conditional is preserved, and unknown temperature/rating/SOA is retained."
+      },
+      "nominal_voltage_label": "nfet_05v0_nvt",
+      "nominal_label_scope": "Name/section identifier only; not a guaranteed or rated operating bound.",
+      "model_voltage_limits_v": {
+        "vds": [
+          0,
+          5.5
+        ],
+        "vgs": [
+          0,
+          5.5
+        ],
+        "vbs": [
+          -5.5,
+          0.3
+        ]
+      },
+      "off_state_vds_v": null,
+      "off_state_predicate": null,
+      "source_anchor": {
+        "file": "sources/device-details.rst",
+        "sha256": "506021827f52b26673daf8b580f8d79d408724af3138a65695bde86e5c1c6e49",
+        "lines": [
+          309,
+          317
+        ],
+        "slice_sha256": "dc59ec6f9eb3f0fa33b8328eb52c735c0a0b929815dfcd67e98c6006493932f2",
+        "url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details.rst#L309-L317"
+      },
+      "source_kind": "published_SPICE_model_validity",
+      "guaranteed_bounds": null,
+      "rated_operating_bounds": null,
+      "temperature_validity_c": null,
+      "temperature_unknown_scope": "No general-MOS temperature-validity/rated range established by these reviewed sources. SONOS-only ranges at device-details.rst:981-982 cannot be inherited.",
+      "model_nominal_temperature_examples": [
+        {
+          "source_file": "sources/sky130_fd_pr__nfet_05v0_nvt.pm3.spice",
+          "sha256": "c023cbfd9a518a3f9f87c45f85f7690324e23e5d1125bce37c84d2e3f9cc164c",
+          "first_line": 41,
+          "nominal_parameter_values_c": [
+            30.0
+          ],
+          "scope": "Selected model card nominal reference parameter only; not TEMP, temperature minimum/maximum, or rated range."
+        }
+      ],
+      "existing_sampled_acceptance": {
+        "record": "docs/validation/sky130-mos-bias-2026-10-21.json",
+        "temperatures_c": [
+          0,
+          27,
+          85
+        ],
+        "corners": [
+          "nominal",
+          "ss",
+          "ff",
+          "sf",
+          "fs"
+        ],
+        "voltage_axes": [
+          "gate",
+          "drain",
+          "body"
+        ],
+        "scope": "Finite 41-coordinate sweeps; two geometries and two contexts per symbol. No continuous-envelope claim."
+      },
+      "soa_source_required": false,
+      "proposal_check": "documented_three_axis_voltage_screen",
+      "blocked_reasons": [],
+      "remaining_acceptance_gaps": [
+        "temperature_model_validity_range",
+        "rated_operating_voltage_and_temperature",
+        "reliability_duration_duty_cycle",
+        "continuous_geometry_and_operating_envelope",
+        "independent_silicon_accuracy"
+      ],
+      "qualified": false
+    },
+    {
+      "model": "sky130_fd_pr__nfet_20v0",
+      "catalog_views": [
+        "sky130_fd_pr/nfet3_20v0.sym",
+        "sky130_fd_pr/nfet_20v0.sym"
+      ],
+      "catalog_availability": "bound",
+      "next_bounded_acceptance": {
+        "requirement": "authenticated_documented_three_axis_voltage_screen",
+        "prototype_status": "implemented_with_boundary_and_rejection_controls",
+        "integration_status": "proposed_outside_repository_only",
+        "accept_when": "Exact model identity and signed terminal differences match hash-locked source limits, all published endpoint/adjacent-outside controls pass, zero-gate extended-drain conditional is preserved, and unknown temperature/rating/SOA is retained."
+      },
+      "nominal_voltage_label": "nfet_20v0",
+      "nominal_label_scope": "Name/section identifier only; not a guaranteed or rated operating bound.",
+      "model_voltage_limits_v": {
+        "vds": [
+          0,
+          22
+        ],
+        "vgs": [
+          0,
+          5.5
+        ],
+        "vbs": [
+          -2,
+          0
+        ]
+      },
+      "off_state_vds_v": null,
+      "off_state_predicate": null,
+      "source_anchor": {
+        "file": "sources/device-details.rst",
+        "sha256": "506021827f52b26673daf8b580f8d79d408724af3138a65695bde86e5c1c6e49",
+        "lines": [
+          509,
+          517
+        ],
+        "slice_sha256": "eb19c4ca932c986dee368ed554753601cae9853c14bf088e095a1e26c679f49e",
+        "url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details.rst#L509-L517"
+      },
+      "source_kind": "published_SPICE_model_validity",
+      "guaranteed_bounds": null,
+      "rated_operating_bounds": null,
+      "temperature_validity_c": null,
+      "temperature_unknown_scope": "No general-MOS temperature-validity/rated range established by these reviewed sources. SONOS-only ranges at device-details.rst:981-982 cannot be inherited.",
+      "model_nominal_temperature_examples": [
+        {
+          "source_file": "sources/sky130_fd_pr__nfet_20v0__subcircuit.pm3.spice",
+          "sha256": "64b63a8bd76ca1a5f7f14849d80399e99dd85ed39534c452ae65c4a3fa19e270",
+          "first_line": 68,
+          "nominal_parameter_values_c": [
+            30.0
+          ],
+          "scope": "Selected model card nominal reference parameter only; not TEMP, temperature minimum/maximum, or rated range."
+        }
+      ],
+      "existing_sampled_acceptance": {
+        "record": null,
+        "scope": "Outside 11-model core-bias acceptance; other catalog/default/fixed-geometry evidence must retain its own scope."
+      },
+      "soa_source_required": true,
+      "proposal_check": "documented_three_axis_voltage_screen",
+      "blocked_reasons": [],
+      "remaining_acceptance_gaps": [
+        "temperature_model_validity_range",
+        "rated_operating_voltage_and_temperature",
+        "reliability_duration_duty_cycle",
+        "continuous_geometry_and_operating_envelope",
+        "independent_silicon_accuracy",
+        "explicit_source_required_SOA"
+      ],
+      "qualified": false
+    },
+    {
+      "model": "sky130_fd_pr__nfet_20v0_iso",
+      "catalog_views": [
+        "sky130_fd_pr/nfet_20v0_iso.sym"
+      ],
+      "catalog_availability": "bound",
+      "next_bounded_acceptance": {
+        "requirement": "authenticated_documented_three_axis_voltage_screen",
+        "prototype_status": "implemented_with_boundary_and_rejection_controls",
+        "integration_status": "proposed_outside_repository_only",
+        "accept_when": "Exact model identity and signed terminal differences match hash-locked source limits, all published endpoint/adjacent-outside controls pass, zero-gate extended-drain conditional is preserved, and unknown temperature/rating/SOA is retained."
+      },
+      "nominal_voltage_label": "nfet_20v0_iso",
+      "nominal_label_scope": "Name/section identifier only; not a guaranteed or rated operating bound.",
+      "model_voltage_limits_v": {
+        "vds": [
+          0,
+          22
+        ],
+        "vgs": [
+          0,
+          5.5
+        ],
+        "vbs": [
+          -2,
+          0
+        ]
+      },
+      "off_state_vds_v": null,
+      "off_state_predicate": null,
+      "source_anchor": {
+        "file": "sources/device-details.rst",
+        "sha256": "506021827f52b26673daf8b580f8d79d408724af3138a65695bde86e5c1c6e49",
+        "lines": [
+          628,
+          636
+        ],
+        "slice_sha256": "4c82330c47ef130bdcce5647ed435f23ba3626f955df649ba282401c3301ac67",
+        "url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details.rst#L628-L636"
+      },
+      "source_kind": "published_SPICE_model_validity",
+      "guaranteed_bounds": null,
+      "rated_operating_bounds": null,
+      "temperature_validity_c": null,
+      "temperature_unknown_scope": "No general-MOS temperature-validity/rated range established by these reviewed sources. SONOS-only ranges at device-details.rst:981-982 cannot be inherited.",
+      "model_nominal_temperature_examples": [
+        {
+          "source_file": "sources/sky130_fd_pr__nfet_20v0_iso__subcircuit.pm3.spice",
+          "sha256": "0ba6101d75c9ca9271c9e0254901804a33f2981d6a7b60e35d3a71e311e9fc56",
+          "first_line": 72,
+          "nominal_parameter_values_c": [
+            30.0
+          ],
+          "scope": "Selected model card nominal reference parameter only; not TEMP, temperature minimum/maximum, or rated range."
+        }
+      ],
+      "existing_sampled_acceptance": {
+        "record": null,
+        "scope": "Outside 11-model core-bias acceptance; other catalog/default/fixed-geometry evidence must retain its own scope."
+      },
+      "soa_source_required": true,
+      "proposal_check": "documented_three_axis_voltage_screen",
+      "blocked_reasons": [
+        "Fifth substrate terminal has no independent bias bound in this paragraph."
+      ],
+      "remaining_acceptance_gaps": [
+        "temperature_model_validity_range",
+        "rated_operating_voltage_and_temperature",
+        "reliability_duration_duty_cycle",
+        "continuous_geometry_and_operating_envelope",
+        "independent_silicon_accuracy",
+        "explicit_source_required_SOA",
+        "model_specific_voltage_semantics"
+      ],
+      "qualified": false
+    },
+    {
+      "model": "sky130_fd_pr__nfet_20v0_nvt",
+      "catalog_views": [
+        "sky130_fd_pr/nfet_20v0_nvt.sym"
+      ],
+      "catalog_availability": "bound",
+      "next_bounded_acceptance": {
+        "requirement": "authenticated_documented_three_axis_voltage_screen",
+        "prototype_status": "implemented_with_boundary_and_rejection_controls",
+        "integration_status": "proposed_outside_repository_only",
+        "accept_when": "Exact model identity and signed terminal differences match hash-locked source limits, all published endpoint/adjacent-outside controls pass, zero-gate extended-drain conditional is preserved, and unknown temperature/rating/SOA is retained."
+      },
+      "nominal_voltage_label": "nfet_20v0_nvt",
+      "nominal_label_scope": "Name/section identifier only; not a guaranteed or rated operating bound.",
+      "model_voltage_limits_v": {
+        "vds": [
+          0,
+          22
+        ],
+        "vgs": [
+          0,
+          5.5
+        ],
+        "vbs": [
+          -2,
+          0
+        ]
+      },
+      "off_state_vds_v": null,
+      "off_state_predicate": null,
+      "source_anchor": {
+        "file": "sources/device-details.rst",
+        "sha256": "506021827f52b26673daf8b580f8d79d408724af3138a65695bde86e5c1c6e49",
+        "lines": [
+          553,
+          561
+        ],
+        "slice_sha256": "6f3be7b76c06a81b003a3a00b566125522e2f2d8fe1336572dddd12524f8bbdd",
+        "url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details.rst#L553-L561"
+      },
+      "source_kind": "published_SPICE_model_validity",
+      "guaranteed_bounds": null,
+      "rated_operating_bounds": null,
+      "temperature_validity_c": null,
+      "temperature_unknown_scope": "No general-MOS temperature-validity/rated range established by these reviewed sources. SONOS-only ranges at device-details.rst:981-982 cannot be inherited.",
+      "model_nominal_temperature_examples": [
+        {
+          "source_file": "sources/sky130_fd_pr__nfet_20v0_nvt__subcircuit.pm3.spice",
+          "sha256": "1b3c68a09794e92515d24ff596f92e087b527f68eb696df63dfadb3a78cb9c04",
+          "first_line": 72,
+          "nominal_parameter_values_c": [
+            30.0
+          ],
+          "scope": "Selected model card nominal reference parameter only; not TEMP, temperature minimum/maximum, or rated range."
+        }
+      ],
+      "existing_sampled_acceptance": {
+        "record": null,
+        "scope": "Outside 11-model core-bias acceptance; other catalog/default/fixed-geometry evidence must retain its own scope."
+      },
+      "soa_source_required": true,
+      "proposal_check": "documented_three_axis_voltage_screen",
+      "blocked_reasons": [],
+      "remaining_acceptance_gaps": [
+        "temperature_model_validity_range",
+        "rated_operating_voltage_and_temperature",
+        "reliability_duration_duty_cycle",
+        "continuous_geometry_and_operating_envelope",
+        "independent_silicon_accuracy",
+        "explicit_source_required_SOA"
+      ],
+      "qualified": false
+    },
+    {
+      "model": "sky130_fd_pr__nfet_20v0_zvt",
+      "catalog_views": [
+        "sky130_fd_pr/nfet_20v0_zvt.sym"
+      ],
+      "catalog_availability": "bound",
+      "next_bounded_acceptance": {
+        "requirement": "authenticated_documented_three_axis_voltage_screen",
+        "prototype_status": "implemented_with_boundary_and_rejection_controls",
+        "integration_status": "proposed_outside_repository_only",
+        "accept_when": "Exact model identity and signed terminal differences match hash-locked source limits, all published endpoint/adjacent-outside controls pass, zero-gate extended-drain conditional is preserved, and unknown temperature/rating/SOA is retained."
+      },
+      "nominal_voltage_label": "nfet_20v0_zvt",
+      "nominal_label_scope": "Name/section identifier only; not a guaranteed or rated operating bound.",
+      "model_voltage_limits_v": {
+        "vds": [
+          0,
+          22
+        ],
+        "vgs": [
+          0,
+          5.5
+        ],
+        "vbs": [
+          -2,
+          0
+        ]
+      },
+      "off_state_vds_v": null,
+      "off_state_predicate": null,
+      "source_anchor": {
+        "file": "sources/device-details.rst",
+        "sha256": "506021827f52b26673daf8b580f8d79d408724af3138a65695bde86e5c1c6e49",
+        "lines": [
+          592,
+          600
+        ],
+        "slice_sha256": "19419c745e5e80bf8154feaf7030509a99a512f7c572b0d80e9c13368e4aa464",
+        "url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details.rst#L592-L600"
+      },
+      "source_kind": "published_SPICE_model_validity",
+      "guaranteed_bounds": null,
+      "rated_operating_bounds": null,
+      "temperature_validity_c": null,
+      "temperature_unknown_scope": "No general-MOS temperature-validity/rated range established by these reviewed sources. SONOS-only ranges at device-details.rst:981-982 cannot be inherited.",
+      "model_nominal_temperature_examples": [
+        {
+          "source_file": "sources/sky130_fd_pr__nfet_20v0_zvt__subcircuit.pm3.spice",
+          "sha256": "a2173e3b3d601fc070e8c2babad25c01f6d0c61df8b3432d25245c800d51389d",
+          "first_line": 67,
+          "nominal_parameter_values_c": [
+            30.0
+          ],
+          "scope": "Selected model card nominal reference parameter only; not TEMP, temperature minimum/maximum, or rated range."
+        }
+      ],
+      "existing_sampled_acceptance": {
+        "record": null,
+        "scope": "Outside 11-model core-bias acceptance; other catalog/default/fixed-geometry evidence must retain its own scope."
+      },
+      "soa_source_required": true,
+      "proposal_check": "documented_three_axis_voltage_screen",
+      "blocked_reasons": [],
+      "remaining_acceptance_gaps": [
+        "temperature_model_validity_range",
+        "rated_operating_voltage_and_temperature",
+        "reliability_duration_duty_cycle",
+        "continuous_geometry_and_operating_envelope",
+        "independent_silicon_accuracy",
+        "explicit_source_required_SOA"
+      ],
+      "qualified": false
+    },
+    {
+      "model": "sky130_fd_pr__nfet_g5v0d10v5",
+      "catalog_views": [
+        "sky130_fd_pr/nfet3_g5v0d10v5.sym",
+        "sky130_fd_pr/nfet_g5v0d10v5.sym",
+        "sky130_fd_pr/nfet_g5v0d10v5_nf.sym"
+      ],
+      "catalog_availability": "bound",
+      "next_bounded_acceptance": {
+        "requirement": "authenticated_documented_three_axis_voltage_screen",
+        "prototype_status": "implemented_with_boundary_and_rejection_controls",
+        "integration_status": "proposed_outside_repository_only",
+        "accept_when": "Exact model identity and signed terminal differences match hash-locked source limits, all published endpoint/adjacent-outside controls pass, zero-gate extended-drain conditional is preserved, and unknown temperature/rating/SOA is retained."
+      },
+      "nominal_voltage_label": "nfet_g5v0d10v5",
+      "nominal_label_scope": "Name/section identifier only; not a guaranteed or rated operating bound.",
+      "model_voltage_limits_v": {
+        "vds": [
+          0,
+          11
+        ],
+        "vgs": [
+          0,
+          5.5
+        ],
+        "vbs": [
+          -5.5,
+          0
+        ]
+      },
+      "off_state_vds_v": null,
+      "off_state_predicate": null,
+      "source_anchor": {
+        "file": "sources/device-details.rst",
+        "sha256": "506021827f52b26673daf8b580f8d79d408724af3138a65695bde86e5c1c6e49",
+        "lines": [
+          351,
+          359
+        ],
+        "slice_sha256": "eb3dd4f3fd9498be8d873d3d7d1c115e90ba1451a2b3735b2d977ee26049c10c",
+        "url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details.rst#L351-L359"
+      },
+      "source_kind": "published_SPICE_model_validity",
+      "guaranteed_bounds": null,
+      "rated_operating_bounds": null,
+      "temperature_validity_c": null,
+      "temperature_unknown_scope": "No general-MOS temperature-validity/rated range established by these reviewed sources. SONOS-only ranges at device-details.rst:981-982 cannot be inherited.",
+      "model_nominal_temperature_examples": [
+        {
+          "source_file": "sources/sky130_fd_pr__nfet_g5v0d10v5__tt.pm3.spice",
+          "sha256": "c685365ea7b4678a05ea2eb70d4ba6081a507b6337279f58301e846a39d80ef4",
+          "first_line": 38,
+          "nominal_parameter_values_c": [
+            30.0
+          ],
+          "scope": "Selected model card nominal reference parameter only; not TEMP, temperature minimum/maximum, or rated range."
+        }
+      ],
+      "existing_sampled_acceptance": {
+        "record": "docs/validation/sky130-mos-bias-2026-10-21.json",
+        "temperatures_c": [
+          0,
+          27,
+          85
+        ],
+        "corners": [
+          "nominal",
+          "ss",
+          "ff",
+          "sf",
+          "fs"
+        ],
+        "voltage_axes": [
+          "gate",
+          "drain",
+          "body"
+        ],
+        "scope": "Finite 41-coordinate sweeps; two geometries and two contexts per symbol. No continuous-envelope claim."
+      },
+      "soa_source_required": false,
+      "proposal_check": "documented_three_axis_voltage_screen",
+      "blocked_reasons": [],
+      "remaining_acceptance_gaps": [
+        "temperature_model_validity_range",
+        "rated_operating_voltage_and_temperature",
+        "reliability_duration_duty_cycle",
+        "continuous_geometry_and_operating_envelope",
+        "independent_silicon_accuracy"
+      ],
+      "qualified": false
+    },
+    {
+      "model": "sky130_fd_pr__nfet_g5v0d16v0",
+      "catalog_views": [
+        "sky130_fd_pr/nfet3_g5v0d16v0.sym",
+        "sky130_fd_pr/nfet_g5v0d16v0.sym",
+        "sky130_fd_pr/nfet_g5v0d16v0_nf.sym"
+      ],
+      "catalog_availability": "bound",
+      "next_bounded_acceptance": {
+        "requirement": "authenticated_documented_three_axis_voltage_screen",
+        "prototype_status": "implemented_with_boundary_and_rejection_controls",
+        "integration_status": "proposed_outside_repository_only",
+        "accept_when": "Exact model identity and signed terminal differences match hash-locked source limits, all published endpoint/adjacent-outside controls pass, zero-gate extended-drain conditional is preserved, and unknown temperature/rating/SOA is retained."
+      },
+      "nominal_voltage_label": "nfet_g5v0d16v0",
+      "nominal_label_scope": "Name/section identifier only; not a guaranteed or rated operating bound.",
+      "model_voltage_limits_v": {
+        "vds": [
+          0,
+          11
+        ],
+        "vgs": [
+          0,
+          5.5
+        ],
+        "vbs": [
+          -2,
+          0
+        ]
+      },
+      "off_state_vds_v": [
+        0,
+        16
+      ],
+      "off_state_predicate": "vgs == 0 exactly; no epsilon expands off-state allowance",
+      "source_anchor": {
+        "file": "sources/device-details.rst",
+        "sha256": "506021827f52b26673daf8b580f8d79d408724af3138a65695bde86e5c1c6e49",
+        "lines": [
+          471,
+          480
+        ],
+        "slice_sha256": "f139222cb2c1d85be2043fcd885037db3f2cc3db3b22deafc606a562c06bff7c",
+        "url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details.rst#L471-L480"
+      },
+      "source_kind": "published_SPICE_model_validity",
+      "guaranteed_bounds": null,
+      "rated_operating_bounds": null,
+      "temperature_validity_c": null,
+      "temperature_unknown_scope": "No general-MOS temperature-validity/rated range established by these reviewed sources. SONOS-only ranges at device-details.rst:981-982 cannot be inherited.",
+      "model_nominal_temperature_examples": [],
+      "existing_sampled_acceptance": {
+        "record": "docs/validation/sky130-mos-bias-2026-10-21.json",
+        "temperatures_c": [
+          0,
+          27,
+          85
+        ],
+        "corners": [
+          "nominal",
+          "ss",
+          "ff",
+          "sf",
+          "fs"
+        ],
+        "voltage_axes": [
+          "gate",
+          "drain",
+          "body",
+          "off-drain"
+        ],
+        "scope": "Finite 41-coordinate sweeps; two geometries and two contexts per symbol. No continuous-envelope claim."
+      },
+      "soa_source_required": true,
+      "proposal_check": "documented_three_axis_voltage_screen",
+      "blocked_reasons": [],
+      "remaining_acceptance_gaps": [
+        "temperature_model_validity_range",
+        "rated_operating_voltage_and_temperature",
+        "reliability_duration_duty_cycle",
+        "continuous_geometry_and_operating_envelope",
+        "independent_silicon_accuracy",
+        "explicit_source_required_SOA"
+      ],
+      "qualified": false
+    },
+    {
+      "model": "sky130_fd_pr__pfet_01v8",
+      "catalog_views": [
+        "sky130_fd_pr/pfet3_01v8.sym",
+        "sky130_fd_pr/pfet_01v8.sym",
+        "sky130_fd_pr/pfet_01v8_nf.sym"
+      ],
+      "catalog_availability": "bound",
+      "next_bounded_acceptance": {
+        "requirement": "authenticated_documented_three_axis_voltage_screen",
+        "prototype_status": "implemented_with_boundary_and_rejection_controls",
+        "integration_status": "proposed_outside_repository_only",
+        "accept_when": "Exact model identity and signed terminal differences match hash-locked source limits, all published endpoint/adjacent-outside controls pass, zero-gate extended-drain conditional is preserved, and unknown temperature/rating/SOA is retained."
+      },
+      "nominal_voltage_label": "pfet_01v8",
+      "nominal_label_scope": "Name/section identifier only; not a guaranteed or rated operating bound.",
+      "model_voltage_limits_v": {
+        "vds": [
+          -1.95,
+          0
+        ],
+        "vgs": [
+          -1.95,
+          0
+        ],
+        "vbs": [
+          -0.1,
+          1.95
+        ]
+      },
+      "off_state_vds_v": null,
+      "off_state_predicate": null,
+      "source_anchor": {
+        "file": "sources/device-details.rst",
+        "sha256": "506021827f52b26673daf8b580f8d79d408724af3138a65695bde86e5c1c6e49",
+        "lines": [
+          92,
+          100
+        ],
+        "slice_sha256": "2ebcbba24ae59d7e239c7af847dc0b951f790a9005c6f3bc1c2ad4eb14cf75b6",
+        "url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details.rst#L92-L100"
+      },
+      "source_kind": "published_SPICE_model_validity",
+      "guaranteed_bounds": null,
+      "rated_operating_bounds": null,
+      "temperature_validity_c": null,
+      "temperature_unknown_scope": "No general-MOS temperature-validity/rated range established by these reviewed sources. SONOS-only ranges at device-details.rst:981-982 cannot be inherited.",
+      "model_nominal_temperature_examples": [
+        {
+          "source_file": "sources/sky130_fd_pr__pfet_01v8__tt.pm3.spice",
+          "sha256": "06b8e3f4b3d8a40c248adae022a4d8ebdd3c6499633deab6615b9794878f997f",
+          "first_line": 38,
+          "nominal_parameter_values_c": [
+            30.0
+          ],
+          "scope": "Selected model card nominal reference parameter only; not TEMP, temperature minimum/maximum, or rated range."
+        }
+      ],
+      "existing_sampled_acceptance": {
+        "record": "docs/validation/sky130-mos-bias-2026-10-21.json",
+        "temperatures_c": [
+          0,
+          27,
+          85
+        ],
+        "corners": [
+          "nominal",
+          "ss",
+          "ff",
+          "sf",
+          "fs"
+        ],
+        "voltage_axes": [
+          "gate",
+          "drain",
+          "body"
+        ],
+        "scope": "Finite 41-coordinate sweeps; two geometries and two contexts per symbol. No continuous-envelope claim."
+      },
+      "soa_source_required": false,
+      "proposal_check": "documented_three_axis_voltage_screen",
+      "blocked_reasons": [],
+      "remaining_acceptance_gaps": [
+        "temperature_model_validity_range",
+        "rated_operating_voltage_and_temperature",
+        "reliability_duration_duty_cycle",
+        "continuous_geometry_and_operating_envelope",
+        "independent_silicon_accuracy"
+      ],
+      "qualified": false
+    },
+    {
+      "model": "sky130_fd_pr__pfet_01v8_hvt",
+      "catalog_views": [
+        "sky130_fd_pr/pfet3_01v8_hvt.sym",
+        "sky130_fd_pr/pfet_01v8_hvt.sym",
+        "sky130_fd_pr/pfet_01v8_hvt_nf.sym"
+      ],
+      "catalog_availability": "bound",
+      "next_bounded_acceptance": {
+        "requirement": "authenticated_documented_three_axis_voltage_screen",
+        "prototype_status": "implemented_with_boundary_and_rejection_controls",
+        "integration_status": "proposed_outside_repository_only",
+        "accept_when": "Exact model identity and signed terminal differences match hash-locked source limits, all published endpoint/adjacent-outside controls pass, zero-gate extended-drain conditional is preserved, and unknown temperature/rating/SOA is retained."
+      },
+      "nominal_voltage_label": "pfet_01v8_hvt",
+      "nominal_label_scope": "Name/section identifier only; not a guaranteed or rated operating bound.",
+      "model_voltage_limits_v": {
+        "vds": [
+          -1.95,
+          0
+        ],
+        "vgs": [
+          -1.95,
+          0
+        ],
+        "vbs": [
+          -0.1,
+          1.95
+        ]
+      },
+      "off_state_vds_v": null,
+      "off_state_predicate": null,
+      "source_anchor": {
+        "file": "sources/device-details.rst",
+        "sha256": "506021827f52b26673daf8b580f8d79d408724af3138a65695bde86e5c1c6e49",
+        "lines": [
+          180,
+          188
+        ],
+        "slice_sha256": "42d647594015ade86c653ecc37c5ddb63e7d0c70621f2f79b9e7ab4375df3621",
+        "url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details.rst#L180-L188"
+      },
+      "source_kind": "published_SPICE_model_validity",
+      "guaranteed_bounds": null,
+      "rated_operating_bounds": null,
+      "temperature_validity_c": null,
+      "temperature_unknown_scope": "No general-MOS temperature-validity/rated range established by these reviewed sources. SONOS-only ranges at device-details.rst:981-982 cannot be inherited.",
+      "model_nominal_temperature_examples": [
+        {
+          "source_file": "sources/sky130_fd_pr__pfet_01v8_hvt__tt.pm3.spice",
+          "sha256": "9ee2827efa84cdb6d3c8c2110b0b8b3665973d4da5032b63bb78e0a1ee20d983",
+          "first_line": 242,
+          "nominal_parameter_values_c": [
+            30.0
+          ],
+          "scope": "Selected model card nominal reference parameter only; not TEMP, temperature minimum/maximum, or rated range."
+        }
+      ],
+      "existing_sampled_acceptance": {
+        "record": "docs/validation/sky130-mos-bias-2026-10-21.json",
+        "temperatures_c": [
+          0,
+          27,
+          85
+        ],
+        "corners": [
+          "nominal",
+          "ss",
+          "ff",
+          "sf",
+          "fs"
+        ],
+        "voltage_axes": [
+          "gate",
+          "drain",
+          "body"
+        ],
+        "scope": "Finite 41-coordinate sweeps; two geometries and two contexts per symbol. No continuous-envelope claim."
+      },
+      "soa_source_required": false,
+      "proposal_check": "documented_three_axis_voltage_screen",
+      "blocked_reasons": [],
+      "remaining_acceptance_gaps": [
+        "temperature_model_validity_range",
+        "rated_operating_voltage_and_temperature",
+        "reliability_duration_duty_cycle",
+        "continuous_geometry_and_operating_envelope",
+        "independent_silicon_accuracy"
+      ],
+      "qualified": false
+    },
+    {
+      "model": "sky130_fd_pr__pfet_01v8_lvt",
+      "catalog_views": [
+        "sky130_fd_pr/pfet3_01v8_lvt.sym",
+        "sky130_fd_pr/pfet_01v8_lvt.sym",
+        "sky130_fd_pr/pfet_01v8_lvt_nf.sym"
+      ],
+      "catalog_availability": "bound",
+      "next_bounded_acceptance": {
+        "requirement": "authenticated_documented_three_axis_voltage_screen",
+        "prototype_status": "implemented_with_boundary_and_rejection_controls",
+        "integration_status": "proposed_outside_repository_only",
+        "accept_when": "Exact model identity and signed terminal differences match hash-locked source limits, all published endpoint/adjacent-outside controls pass, zero-gate extended-drain conditional is preserved, and unknown temperature/rating/SOA is retained."
+      },
+      "nominal_voltage_label": "pfet_01v8_lvt",
+      "nominal_label_scope": "Name/section identifier only; not a guaranteed or rated operating bound.",
+      "model_voltage_limits_v": {
+        "vds": [
+          -1.95,
+          0
+        ],
+        "vgs": [
+          -1.95,
+          0
+        ],
+        "vbs": [
+          -0.1,
+          1.95
+        ]
+      },
+      "off_state_vds_v": null,
+      "off_state_predicate": null,
+      "source_anchor": {
+        "file": "sources/device-details.rst",
+        "sha256": "506021827f52b26673daf8b580f8d79d408724af3138a65695bde86e5c1c6e49",
+        "lines": [
+          136,
+          144
+        ],
+        "slice_sha256": "393c4abccff3037324c0941226e6ba01ee906b3dc63040f5f9b162b6083afe77",
+        "url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details.rst#L136-L144"
+      },
+      "source_kind": "published_SPICE_model_validity",
+      "guaranteed_bounds": null,
+      "rated_operating_bounds": null,
+      "temperature_validity_c": null,
+      "temperature_unknown_scope": "No general-MOS temperature-validity/rated range established by these reviewed sources. SONOS-only ranges at device-details.rst:981-982 cannot be inherited.",
+      "model_nominal_temperature_examples": [
+        {
+          "source_file": "sources/sky130_fd_pr__pfet_01v8_lvt__tt.pm3.spice",
+          "sha256": "3148bdcac99f8f4efefb49882ac81fab817a581c3e0b54df09ee14f0482f6e71",
+          "first_line": 38,
+          "nominal_parameter_values_c": [
+            30.0
+          ],
+          "scope": "Selected model card nominal reference parameter only; not TEMP, temperature minimum/maximum, or rated range."
+        }
+      ],
+      "existing_sampled_acceptance": {
+        "record": "docs/validation/sky130-mos-bias-2026-10-21.json",
+        "temperatures_c": [
+          0,
+          27,
+          85
+        ],
+        "corners": [
+          "nominal",
+          "ss",
+          "ff",
+          "sf",
+          "fs"
+        ],
+        "voltage_axes": [
+          "gate",
+          "drain",
+          "body"
+        ],
+        "scope": "Finite 41-coordinate sweeps; two geometries and two contexts per symbol. No continuous-envelope claim."
+      },
+      "soa_source_required": false,
+      "proposal_check": "documented_three_axis_voltage_screen",
+      "blocked_reasons": [],
+      "remaining_acceptance_gaps": [
+        "temperature_model_validity_range",
+        "rated_operating_voltage_and_temperature",
+        "reliability_duration_duty_cycle",
+        "continuous_geometry_and_operating_envelope",
+        "independent_silicon_accuracy"
+      ],
+      "qualified": false
+    },
+    {
+      "model": "sky130_fd_pr__pfet_20v0",
+      "catalog_views": [
+        "sky130_fd_pr/pfet3_20v0.sym",
+        "sky130_fd_pr/pfet_20v0.sym"
+      ],
+      "catalog_availability": "bound",
+      "next_bounded_acceptance": {
+        "requirement": "authenticated_documented_three_axis_voltage_screen",
+        "prototype_status": "implemented_with_boundary_and_rejection_controls",
+        "integration_status": "proposed_outside_repository_only",
+        "accept_when": "Exact model identity and signed terminal differences match hash-locked source limits, all published endpoint/adjacent-outside controls pass, zero-gate extended-drain conditional is preserved, and unknown temperature/rating/SOA is retained."
+      },
+      "nominal_voltage_label": "pfet_20v0",
+      "nominal_label_scope": "Name/section identifier only; not a guaranteed or rated operating bound.",
+      "model_voltage_limits_v": {
+        "vds": [
+          -22,
+          0
+        ],
+        "vgs": [
+          -5.5,
+          0
+        ],
+        "vbs": [
+          0,
+          2
+        ]
+      },
+      "off_state_vds_v": null,
+      "off_state_predicate": null,
+      "source_anchor": {
+        "file": "sources/device-details.rst",
+        "sha256": "506021827f52b26673daf8b580f8d79d408724af3138a65695bde86e5c1c6e49",
+        "lines": [
+          667,
+          675
+        ],
+        "slice_sha256": "6766deacdba32af84d7122b18032997d22b868e35fd9368cd0d842f675c48d0f",
+        "url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details.rst#L667-L675"
+      },
+      "source_kind": "published_SPICE_model_validity",
+      "guaranteed_bounds": null,
+      "rated_operating_bounds": null,
+      "temperature_validity_c": null,
+      "temperature_unknown_scope": "No general-MOS temperature-validity/rated range established by these reviewed sources. SONOS-only ranges at device-details.rst:981-982 cannot be inherited.",
+      "model_nominal_temperature_examples": [
+        {
+          "source_file": "sources/sky130_fd_pr__pfet_20v0__subcircuit.pm3.spice",
+          "sha256": "5ac0449e927e098e43b89b7ad84c506e59aca864fd8d1dae8e1f15b1dece9660",
+          "first_line": 42,
+          "nominal_parameter_values_c": [
+            30.0
+          ],
+          "scope": "Selected model card nominal reference parameter only; not TEMP, temperature minimum/maximum, or rated range."
+        }
+      ],
+      "existing_sampled_acceptance": {
+        "record": null,
+        "scope": "Outside 11-model core-bias acceptance; other catalog/default/fixed-geometry evidence must retain its own scope."
+      },
+      "soa_source_required": true,
+      "proposal_check": "documented_three_axis_voltage_screen",
+      "blocked_reasons": [],
+      "remaining_acceptance_gaps": [
+        "temperature_model_validity_range",
+        "rated_operating_voltage_and_temperature",
+        "reliability_duration_duty_cycle",
+        "continuous_geometry_and_operating_envelope",
+        "independent_silicon_accuracy",
+        "explicit_source_required_SOA"
+      ],
+      "qualified": false
+    },
+    {
+      "model": "sky130_fd_pr__pfet_g5v0d10v5",
+      "catalog_views": [
+        "sky130_fd_pr/pfet3_g5v0d10v5.sym",
+        "sky130_fd_pr/pfet_g5v0d10v5.sym",
+        "sky130_fd_pr/pfet_g5v0d10v5_nf.sym"
+      ],
+      "catalog_availability": "bound",
+      "next_bounded_acceptance": {
+        "requirement": "authenticated_documented_three_axis_voltage_screen",
+        "prototype_status": "implemented_with_boundary_and_rejection_controls",
+        "integration_status": "proposed_outside_repository_only",
+        "accept_when": "Exact model identity and signed terminal differences match hash-locked source limits, all published endpoint/adjacent-outside controls pass, zero-gate extended-drain conditional is preserved, and unknown temperature/rating/SOA is retained."
+      },
+      "nominal_voltage_label": "pfet_g5v0d10v5",
+      "nominal_label_scope": "Name/section identifier only; not a guaranteed or rated operating bound.",
+      "model_voltage_limits_v": {
+        "vds": [
+          -11,
+          0
+        ],
+        "vgs": [
+          -5.5,
+          0
+        ],
+        "vbs": [
+          0,
+          5.5
+        ]
+      },
+      "off_state_vds_v": null,
+      "off_state_predicate": null,
+      "source_anchor": {
+        "file": "sources/device-details.rst",
+        "sha256": "506021827f52b26673daf8b580f8d79d408724af3138a65695bde86e5c1c6e49",
+        "lines": [
+          389,
+          396
+        ],
+        "slice_sha256": "942e49a3182f0dfa782e9d30d028b24b258cadbbe48e28f3d442305f9ac140c8",
+        "url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details.rst#L389-L396"
+      },
+      "source_kind": "published_SPICE_model_validity",
+      "guaranteed_bounds": null,
+      "rated_operating_bounds": null,
+      "temperature_validity_c": null,
+      "temperature_unknown_scope": "No general-MOS temperature-validity/rated range established by these reviewed sources. SONOS-only ranges at device-details.rst:981-982 cannot be inherited.",
+      "model_nominal_temperature_examples": [
+        {
+          "source_file": "sources/sky130_fd_pr__pfet_g5v0d10v5__tt.pm3.spice",
+          "sha256": "48512e0cc4ae95fc8030db3c86d2e33cd27db5d392aa5e09627368a9684e24be",
+          "first_line": 38,
+          "nominal_parameter_values_c": [
+            30.0
+          ],
+          "scope": "Selected model card nominal reference parameter only; not TEMP, temperature minimum/maximum, or rated range."
+        }
+      ],
+      "existing_sampled_acceptance": {
+        "record": "docs/validation/sky130-mos-bias-2026-10-21.json",
+        "temperatures_c": [
+          0,
+          27,
+          85
+        ],
+        "corners": [
+          "nominal",
+          "ss",
+          "ff",
+          "sf",
+          "fs"
+        ],
+        "voltage_axes": [
+          "gate",
+          "drain",
+          "body"
+        ],
+        "scope": "Finite 41-coordinate sweeps; two geometries and two contexts per symbol. No continuous-envelope claim."
+      },
+      "soa_source_required": false,
+      "proposal_check": "documented_three_axis_voltage_screen",
+      "blocked_reasons": [],
+      "remaining_acceptance_gaps": [
+        "temperature_model_validity_range",
+        "rated_operating_voltage_and_temperature",
+        "reliability_duration_duty_cycle",
+        "continuous_geometry_and_operating_envelope",
+        "independent_silicon_accuracy"
+      ],
+      "qualified": false
+    },
+    {
+      "model": "sky130_fd_pr__pfet_g5v0d16v0",
+      "catalog_views": [
+        "sky130_fd_pr/pfet3_g5v0d16v0.sym",
+        "sky130_fd_pr/pfet_g5v0d16v0.sym",
+        "sky130_fd_pr/pfet_g5v0d16v0_nf.sym"
+      ],
+      "catalog_availability": "bound",
+      "next_bounded_acceptance": {
+        "requirement": "authenticated_documented_three_axis_voltage_screen",
+        "prototype_status": "implemented_with_boundary_and_rejection_controls",
+        "integration_status": "proposed_outside_repository_only",
+        "accept_when": "Exact model identity and signed terminal differences match hash-locked source limits, all published endpoint/adjacent-outside controls pass, zero-gate extended-drain conditional is preserved, and unknown temperature/rating/SOA is retained."
+      },
+      "nominal_voltage_label": "pfet_g5v0d16v0",
+      "nominal_label_scope": "Name/section identifier only; not a guaranteed or rated operating bound.",
+      "model_voltage_limits_v": {
+        "vds": [
+          -10,
+          0
+        ],
+        "vgs": [
+          -5.5,
+          0
+        ],
+        "vbs": [
+          0,
+          2
+        ]
+      },
+      "off_state_vds_v": [
+        -16,
+        0
+      ],
+      "off_state_predicate": "vgs == 0 exactly; no epsilon expands off-state allowance",
+      "source_anchor": {
+        "file": "sources/device-details.rst",
+        "sha256": "506021827f52b26673daf8b580f8d79d408724af3138a65695bde86e5c1c6e49",
+        "lines": [
+          433,
+          442
+        ],
+        "slice_sha256": "0613c9fe5473a5c204f9bf9f36b610332aa43960f921403dea9848d5e619787f",
+        "url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details.rst#L433-L442"
+      },
+      "source_kind": "published_SPICE_model_validity",
+      "guaranteed_bounds": null,
+      "rated_operating_bounds": null,
+      "temperature_validity_c": null,
+      "temperature_unknown_scope": "No general-MOS temperature-validity/rated range established by these reviewed sources. SONOS-only ranges at device-details.rst:981-982 cannot be inherited.",
+      "model_nominal_temperature_examples": [],
+      "existing_sampled_acceptance": {
+        "record": "docs/validation/sky130-mos-bias-2026-10-21.json",
+        "temperatures_c": [
+          0,
+          27,
+          85
+        ],
+        "corners": [
+          "nominal",
+          "ss",
+          "ff",
+          "sf",
+          "fs"
+        ],
+        "voltage_axes": [
+          "gate",
+          "drain",
+          "body",
+          "off-drain"
+        ],
+        "scope": "Finite 41-coordinate sweeps; two geometries and two contexts per symbol. No continuous-envelope claim."
+      },
+      "soa_source_required": true,
+      "proposal_check": "documented_three_axis_voltage_screen",
+      "blocked_reasons": [],
+      "remaining_acceptance_gaps": [
+        "temperature_model_validity_range",
+        "rated_operating_voltage_and_temperature",
+        "reliability_duration_duty_cycle",
+        "continuous_geometry_and_operating_envelope",
+        "independent_silicon_accuracy",
+        "explicit_source_required_SOA"
+      ],
+      "qualified": false
+    }
+  ]
+}

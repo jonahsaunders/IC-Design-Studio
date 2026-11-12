@@ -1,0 +1,113 @@
+{
+  "schema": 1,
+  "id": "ihp-resistor-guard-corner-safe-v2",
+  "qualified": false,
+  "chunk_complete": false,
+  "models": [
+    "rsil",
+    "rppd",
+    "rhigh"
+  ],
+  "width_um": 2,
+  "length_um": 7,
+  "terminal_vias": 0,
+  "coverage_cases": {
+    "bottom50": {
+      "viagb": "50"
+    },
+    "top50": {
+      "viagt": "50"
+    },
+    "left50": {
+      "viagl": "50"
+    },
+    "right50": {
+      "viagr": "50"
+    },
+    "all100": {
+      "viagb": "100",
+      "viagt": "100",
+      "viagl": "100",
+      "viagr": "100"
+    },
+    "bottom_plus50": {
+      "viagb": "+50"
+    },
+    "bottom_minus50": {
+      "viagb": "-50"
+    }
+  },
+  "unspecified_coverage": "0",
+  "rotations_degrees": [
+    0,
+    90
+  ],
+  "access": "Explicit corner-safe routing conditioner before B access; R1/R2 nativeM1, B actualM2, no lowerBlabel. Corrected all100 is not native100% mask/cutcount equivalence.",
+  "positive_gates": [
+    "source hashes equal historical pinned resistor/via/rule contract",
+    "native generator success",
+    "independent M1/contact and B M1/Via1/M2 conductor graph",
+    "save/reopen mask equality",
+    "independent OASIS rewrite and GDS geometry/text agreement",
+    "full native DRC",
+    "strict native LVS",
+    "one extracted resistor with model/R1/R2/B and W/L identity"
+  ],
+  "dimension_tolerance": {
+    "relative": 1e-10,
+    "absolute_um": 1e-09
+  },
+  "faults": [
+    "remove complete selected B Metal2 component Via1 cut set",
+    "remove all B M1 guard contacts",
+    "short B to R1 on Metal1",
+    "wrong reference width",
+    "wrong reference model"
+  ],
+  "fault_gates": "All must fail native physical verification. Via/contact open additionally require graph rejection, successful native extraction, and independently floating extracted B with unchanged resistor dimensions/model. Do not claim removal of one redundant side opens an all-sided guard.",
+  "provenance": "separate local-debian-trixie-native-v1 native tool profile, not hosted CI restore",
+  "limits": [
+    "finite2/7um geometry only",
+    "all100 conditioned routing adds0.25um\u00b2M2 and changes56to54Via1cuts",
+    "other50/+50/-50 cases unchanged by conditioner",
+    "no electricalcalibration/operating/reliability envelope",
+    "no foundrysignoff",
+    "originalnativefailures retained in v1; correctedrouting has distinctcontract"
+  ],
+  "native_equivalence": false,
+  "raw_mask_sha256": {
+    "rsil": "18b7037ac3ef739ba39eeb202770c71ae40d296716db0b661584f24fb942d1b9",
+    "rppd": "c028fce719a70ea41a27d01cbccbdf37f4404aa60c90bbc3e6224a70f0c9dcee",
+    "rhigh": "f78c4037a84e68c57bc798e7842c422075cfcc591ec7580e000c503514b1b17f"
+  },
+  "unchanged_coverage_cases": [
+    {
+      "viagb": "50"
+    },
+    {
+      "viagt": "50"
+    },
+    {
+      "viagl": "50"
+    },
+    {
+      "viagr": "50"
+    },
+    {
+      "viagb": "+50"
+    },
+    {
+      "viagb": "-50"
+    }
+  ],
+  "cifout_sha256": "b972c6d07557e0147462ad533aaf2f3aea14404437f800a1f8fc96ba13086dc8",
+  "cifout_rule": "squares-grid 5 190 220",
+  "correction": {
+    "scope": "all100 only, exactfinite rawgeometry",
+    "M2": "outerbbox minus unchangedrectangularhole; adds250000nm\u00b2/removes0",
+    "Via1": "keep14horizontalcuts; replace21verticalcuts/side by20centered190nm squares at410nm pitch; safeY excludes220nm from nearest horizontalcut;56\u219254 explicitly",
+    "other_masks": "unchanged",
+    "semantics": "allfoursides selected with maximallegalarray in cornerexcludedspan, NOT native100% geometry/cutcount equivalence"
+  },
+  "original_failure_report_sha256": "630a1ca9fd0d3d597a6cdcd36e87c9613006964a14c8b46422cfe3dc05299feb"
+}

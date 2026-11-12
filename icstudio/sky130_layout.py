@@ -1,4 +1,4 @@
-"""Editable, one-to-eight-finger SKY130 1.8 V MOS layouts in integer nanometres.
+"""Editable, one-to-eight-finger SKY130 MOS layouts in integer nanometres.
 
 This is a bounded Studio generator, not the upstream Magic PCell generator.
 Actual DRC and extracted LVS are separate gates, including after manual edits.
@@ -13,6 +13,22 @@ MASKS = {'diff': (65,20), 'tap': (65,44), 'nwell': (64,20),
          'mcon': (67,44), 'm1': (68,20), 'via': (68,44),
          'm2': (69,20), 'm1label': (68,5), 'm2label': (69,5)}
 MODELS = {'NMOS': 'sky130_fd_pr__nfet_01v8', 'PMOS': 'sky130_fd_pr__pfet_01v8'}
+THRESHOLD_MASKS = {'sky130_fd_pr__nfet_01v8_lvt': (125,44),
+                   'sky130_fd_pr__pfet_01v8_lvt': (125,44),
+                   'sky130_fd_pr__pfet_01v8_hvt': (78,44),
+                   'sky130_fd_pr__nfet_03v3_nvt': (125,44),
+                   'sky130_fd_pr__nfet_05v0_nvt': (125,44)}
+VOLTAGE_MODELS = ('sky130_fd_pr__nfet_g5v0d10v5', 'sky130_fd_pr__pfet_g5v0d10v5',
+                  'sky130_fd_pr__nfet_03v3_nvt', 'sky130_fd_pr__nfet_05v0_nvt')
+# Nominal per-finger W/L bin centers in the bundled native model definitions.
+# This recipe uses centers only; the surrounding numerical bin windows are not
+# an independently qualified continuous geometry envelope.
+NATIVE_SIZES = {
+    'sky130_fd_pr__nfet_03v3_nvt': ((10000,500),(1000,500),(1000,600),(4000,500),
+        (420,500),(420,600),(420,800),(700,500),(700,600)),
+    'sky130_fd_pr__nfet_05v0_nvt': ((10000,2000),(10000,4000),(10000,900),
+        (1000,25000),(1000,2000),(1000,4000),(1000,8000),(1000,900),(420,1000),(420,900),(700,900)),
+}
 API = 1
 
 
@@ -37,8 +53,18 @@ def specification(tech, d):
         return passive_specification(tech,d)
     layers(tech)
     b = binding_for(tech,d)
-    if not b or b['model'] != MODELS.get(d['kind']) or set(d['nets']) != {'d','g','s','b'}:
-        raise ValueError(d['name']+': select a standard four-terminal SKY130 nfet_01v8 or pfet_01v8.')
+    from .process_mos import SKY130_MODELS
+    if not b or b['model'] not in SKY130_MODELS.get(d['kind'], ()) or set(d['nets']) != {'d','g','s','b'}:
+        raise ValueError(d['name']+': select a supported four-terminal SKY130 MOS.')
+    mask = THRESHOLD_MASKS.get(b['model'])
+    if mask and not any((v['gds'],v['datatype'])==mask for v in tech['layers']):
+        raise ValueError('PDK is missing the required threshold implant mask.')
+    if b['model'] in VOLTAGE_MODELS:
+        required={(75,20)}
+        if d['kind']=='NMOS':required.add((125,20))
+        if b['model']=='sky130_fd_pr__nfet_03v3_nvt':required.add((81,60))
+        if not required<={(v['gds'],v['datatype']) for v in tech['layers']}:
+            raise ValueError('PDK is missing required voltage or native-identification masks.')
     values = parameter_values(b,d)
     from .process_mos import dimensions
     geometry = dimensions(tech, d, b)
@@ -46,8 +72,11 @@ def specification(tech, d):
     if nf!=int(nf) or not 1<=nf<=8 or geometry['multiplicity']>16:
         raise ValueError(d['name']+': this layout supports 1–8 fingers and 1–16 parallel copies.')
     size = {}
-    for k, minimum in (('w',420),('l',150)):
-        maximum=30000 if k=='w' else 10000
+    minimum_length = (900 if b['model']=='sky130_fd_pr__nfet_05v0_nvt' else
+                      500 if b['model'] in VOLTAGE_MODELS else
+                      350 if b['model']=='sky130_fd_pr__pfet_01v8_lvt' else 150)
+    for k, minimum in (('w',420),('l',minimum_length)):
+        maximum=(30000 if k=='w' else 25000 if b['model']=='sky130_fd_pr__nfet_05v0_nvt' else 10000)
         raw = (geometry['total_width'] if k == 'w' else geometry['length'])*1e9
         value = round(raw)
         if abs(raw-value)>1e-6 or value%5 or not minimum<=value<=maximum:
@@ -55,6 +84,10 @@ def specification(tech, d):
         size[k]=value
     if size['w']%int(nf) or size['w']//int(nf)<420 or (size['w']//int(nf))%5:
         raise ValueError(d['name']+': total W divided by nf must be at least 0.42 µm on the 5 nm grid.')
+    if b['model'] in NATIVE_SIZES and (size['w']//int(nf),size['l']) not in NATIVE_SIZES[b['model']]:
+        raise ValueError(d['name']+': native MOS layout requires a supported nominal per-finger W/L model bin.')
+    if size['l']>10000 and nf!=1:
+        raise ValueError(d['name']+': the 25 µm native recipe requires one finger; use separate parallel copies.')
     # The shared contract resolves the catalog's explicit per-finger W * nf
     # template to total W. Geometry and netlisting now use the same dimensions.
     result={'api':API,'model_ref':clone(d.get('model_ref')),'model':b['model'],
@@ -70,6 +103,78 @@ def specification(tech, d):
     return result
 
 
+def threshold_geometry(tech,d,data):
+    """Add the drawn Vt implant around every channel, before parallel copying.
+
+    Public lvtn.4b/hvtp.3 enclose the channel by 180 nm. A single rectangle
+    spans shared fingers. PMOS LVT additionally retains 380 nm of NWell above
+    the implant (lvtn.10). Ordinary MOS output is unchanged.
+    """
+    pair=THRESHOLD_MASKS.get(data['record']['spec']['model'])
+    if pair is None:return data
+    from .layout import kdb,polygon
+    ls=layers(tech);db=kdb();active=db.Region();poly=db.Region()
+    for shape in data['shapes']:
+        if shape['layer']==ls['diff']:active.insert(polygon(shape))
+        elif shape['layer']==ls['poly']:poly.insert(polygon(shape))
+    channels=active & poly
+    if channels.is_empty():raise ValueError('Threshold implant requires physical MOS channels.')
+    bounds=channels.bbox().enlarged(180)
+    layer=next(v['name'] for v in tech['layers'] if (v['gds'],v['datatype'])==pair)
+    shape=rect(layer,bounds.left,bounds.bottom,bounds.width(),bounds.height(),d['id'])
+    shape.update(generated_device=d['id'],generator_role='threshold_implant')
+    data['shapes'].append(shape)
+    if d['kind']=='PMOS' and pair==(125,44):
+        # Only the upper well edge needs enlargement for the existing generator.
+        for well in data['shapes']:
+            if well['layer']==ls['nwell']:
+                high=max(y for x,y in well['points'])
+                well['points']=[[x,max(y,bounds.top+380) if y==high else y] for x,y in well['points']]
+    return data
+
+
+def voltage_geometry(tech,d,data):
+    """Retain explicit thick oxide, N-tip implant and 3.3 V native identity.
+
+    HVI encloses active/tap by 180 nm (hvdifftap.22); for PMOS it coincides
+    with the existing NWell to satisfy hvi.5. HVNTM encloses NMOS active by
+    185 nm (hvntm.3). The locked Magic mapping uses 81/60 around the channel
+    to distinguish the 3.3 V native model; this marker is not an extra mask.
+    """
+    model=data['record']['spec']['model']
+    if model not in VOLTAGE_MODELS:return data
+    from .layout import kdb,polygon
+    ls=layers(tech);db=kdb();regions={}
+    spec=data['record']['spec']
+    if model=='sky130_fd_pr__nfet_05v0_nvt' and spec['dimensions_nm']['l']>10000:
+        # LU.2 requires a P-tap within 15 um of each N-diffusion. The 25 um
+        # native model needs a second contacted body tap at the drain end.
+        # Its separate metal rail connects to the original body access.
+        body=next(p['point'] for p in data['pins'] if p['pin']=='b')
+        ox,oy=data['record']['origin'];length=spec['dimensions_nm']['l']
+        width=spec['dimensions_nm']['w']//int(spec['values'].get('nf',1))
+        nf=int(spec['values'].get('nf',1));px=ox+(nf-1)*(length+1000)+length+2200;py=body[1]
+        for key,half in [('tap',250),('psdm',380),('licon',85),('li',170),('mcon',85),('m1',170)]:
+            shape=rect(ls[key],px-half,py-half,2*half,2*half,d['id'],d['nets']['b'] if key in ('li','m1') else '')
+            shape.update(generated_device=d['id'],generator_role='long_channel_body_'+key);data['shapes'].append(shape)
+        rail=oy+width+1500
+        data['shapes'].append(dict(id=uid(),kind='path',layer=ls['m1'],points=[clone(body),[body[0],rail],[px,rail],[px,py]],
+            width=340,net=d['nets']['b'],device_id=d['id'],generated_device=d['id'],generator_role='long_channel_body_rail'))
+    for key in ('diff','tap','poly','nwell'):
+        regions[key]=db.Region([polygon(s) for s in data['shapes'] if s['layer']==ls[key]])
+    by={(v['gds'],v['datatype']):v['name'] for v in tech['layers']}
+    def add(pair,bounds,role):
+        shape=rect(by[pair],bounds.left,bounds.bottom,bounds.width(),bounds.height(),d['id'])
+        shape.update(generated_device=d['id'],generator_role=role);data['shapes'].append(shape)
+    bounds=(regions['nwell'].bbox() if d['kind']=='PMOS' else
+            (regions['diff']|regions['tap']).bbox().enlarged(180))
+    add((75,20),bounds,'thick_oxide')
+    if d['kind']=='NMOS':add((125,20),regions['diff'].bbox().enlarged(185),'high_voltage_ntip')
+    if model=='sky130_fd_pr__nfet_03v3_nvt':
+        add((81,60),(regions['diff']&regions['poly']).bbox().enlarged(100),'native_3v3_identifier')
+    return data
+
+
 def mos(tech,d,x=0,y=0):
     if d['kind']=='PDK':
         from .sky130_devices import geometry
@@ -79,7 +184,7 @@ def mos(tech,d,x=0,y=0):
     if int(spec['values'].get('nf',1))>1:
         from .sky130_fingers import generate
         from .sky130_devices import finish_mos, parallel_geometry
-        return parallel_geometry(tech,d,finish_mos(tech,d,generate(tech,d,x,y,spec)),spec.get('multiplicity',1))
+        return parallel_geometry(tech,d,finish_mos(tech,d,voltage_geometry(tech,d,threshold_geometry(tech,d,generate(tech,d,x,y,spec)))),spec.get('multiplicity',1))
     shapes=[];pins=[]
     def box(key,a,b,c,e,net=''):
         s=rect(ls[key],x+a,y+b,c-a,e-b,d['id'],net);s['generated_device']=d['id'];shapes.append(s)
@@ -101,7 +206,7 @@ def mos(tech,d,x=0,y=0):
         pins.append({'id':uid(),'device_id':d['id'],'pin':pin,'layer':ls['m1'],'point':[x+px,y+py]})
     from .layout_eco import roles
     from .sky130_devices import finish_mos, parallel_geometry
-    return parallel_geometry(tech,d,finish_mos(tech,d,roles({'shapes':shapes,'pins':pins,'record':{'device_id':d['id'],'spec':spec,'origin':[x,y]}})),spec.get('multiplicity',1))
+    return parallel_geometry(tech,d,finish_mos(tech,d,voltage_geometry(tech,d,threshold_geometry(tech,d,roles({'shapes':shapes,'pins':pins,'record':{'device_id':d['id'],'spec':spec,'origin':[x,y]}})))),spec.get('multiplicity',1))
 
 
 def install_mos(p,cid,did,x=0,y=0):

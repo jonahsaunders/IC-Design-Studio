@@ -52,7 +52,9 @@ def symbol_context(device, technology):
             values.update({k:device['params'][k] for k in ('w','l')})
         else:
             values=parameter_values(binding,device)
-        for key in set(context)|set(values)|{k.upper() for k in values}:
+        placeholders={name for item in device.get('symbol',{}).get('primitives',[])
+                      if item.get('kind')=='text' for name in re.findall(r'@([A-Za-z_][A-Za-z0-9_]*)',item['text'])}
+        for key in set(context)|set(values)|{k.upper() for k in values}|placeholders:
             if key.lower() in values:
                 raw=values[key.lower()]
                 context[key]=str(raw) if symbolic_geometry else format(raw,'.12g')
@@ -69,8 +71,12 @@ def emit(device, technology, mode='simulation'):
         copy['native_spice']['parameters'].update({k:context[k] for k in copy['native_spice']['parameters'] if k in context})
         return render(copy)
     values=emitted_parameters(device,technology)
-    return (instance_name(device,binding)+' '+' '.join(device['nets'][p] for p in binding['pin_order'])+
-            ' '+binding['model']+''.join(' '+k+'='+v for k,v in values.items()))
+    line=(instance_name(device,binding)+' '+' '.join(device['nets'][p] for p in binding['pin_order'])+
+          ' '+binding['model']+''.join(' '+k+'='+v for k,v in values.items()))
+    if mode=='lvs' and technology.get('package_lock',{}).get('id')=='ihp-sg13g2' and binding.get('model')=='cap_cmim':
+        from .native_spice import lvs_defaults
+        line,_=lvs_defaults(line,technology)
+    return line
 
 
 def emitted_parameters(device,technology):

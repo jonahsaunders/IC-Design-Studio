@@ -1,0 +1,113 @@
+{
+  "schema": 1,
+  "date": "2026-11-10",
+  "status": "source_app_adoption_pass",
+  "qualified": false,
+  "chunk_complete": false,
+  "foundry_signoff": false,
+  "installed_acceptance": false,
+  "scope": "Opt-in finite corner-safe IHP body guard routing in the actual editor, linked spec/template/rotation/ECO lifecycle and managed backend transfer; source GUI plus six native saved-project checks.",
+  "base_commit": "fb4919d8df5ed3ef7571853276617a48c5fc57f5",
+  "dirty_source_snapshot": true,
+  "new_recipe": "ihp-resistor-guard-corner-safe-v1",
+  "new_device_option": "physical_guard_routing=corner-safe-m2-v1",
+  "geometry_scope": {
+    "models": [
+      "rsil",
+      "rppd",
+      "rhigh"
+    ],
+    "w_um": 2,
+    "l_um": 7,
+    "resistor_terminal_access": "Metal1 only",
+    "body_access": "Metal2",
+    "native_equivalence": false,
+    "M2_addition_um2": 0.25,
+    "guard_vias_before": 56,
+    "guard_vias_after": 54
+  },
+  "default_legacy_behavior": "Absent option retains the exact prior spec recipe/template hash; existing legacy assets unchanged. Invalid dimensions, null/unknown options and Metal2 resistor-terminal combination reject.",
+  "template_sha256": "f1ade4a445f011532622f78a23b30a90f5b3607d4944b3634abf8ef5b68e3d31",
+  "template_source": "Authenticated original v2 aggregate plus exact saved project bytes, including ports and labels; producer byte-for-byte replay verified.",
+  "gui": {
+    "report_sha256": "4224b5cc64ca183b05d036f22168d214992d0586beee63fcbcb7fd34485f0138",
+    "cases": 6,
+    "controls": 18,
+    "legacy_projects": 2,
+    "source_inputs": 498,
+    "source_unchanged": true,
+    "source_inventory_sha256": "3316bd56f31ced241f93ac19a15d9b77710367b861292052f5690882e4235053",
+    "visual_review_sha256": "51e055ea20790ad0688e250b9b13b61514f1661e2a80886f833465df01e2d8c1",
+    "inspected": "Generation/regeneration scope, preview controls, six layout screenshots; supplemental settled-form controls retained.",
+    "earlier_attempts_retained": [
+      "a failed helper/identity check",
+      "b passed prior revision",
+      "c passed prior null-handling revision"
+    ]
+  },
+  "native_saved_gui_projects": {
+    "report_sha256": "b0e5efaa97b0e14b5797a8a4efb330fbe498eec2c51ac1a2d731a1316a0464b7",
+    "passed": 6,
+    "source_unchanged": true,
+    "tool_profile_sha256": "54e229b30cdf187ec25958935e332e393cddab42001c026b5acdf02d95f8e79b",
+    "initial_preflight_failure": "A rejected GUI status spelling before native execution; original console retained; B passed on corrected verifier."
+  },
+  "unit_tests": {
+    "passed": 48,
+    "log_sha256": "54c6e9b54c59512fe7d5109a7c3aedfccf74bab006062bd6be7185b90630af80",
+    "windows_symlink_capability": "Only Windows error1/50/1314 may skip unsupported symlink creation; all other errors propagate."
+  },
+  "backend_transfer": "Legacy inventory/return unchanged; new pinned assets copied additively and new recipe manifest preserved; tamper/missing/symlink and native-stage roundtrips tested.",
+  "implementation_files": {
+    "docs/IHP_GUARD_CORNER_SAFE.md": "e8cb3dc8645539029f4108879b31ec2446ccd527bb22b51cec4cfdf3fcd593b0",
+    "icstudio/assets/qualification/ihp-guard-corner-safe/Apache-2.0.txt": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "icstudio/assets/qualification/ihp-guard-corner-safe/README.txt": "11d95675e6f215447e082ba896d3b6ab89c3375a1a7ac99270dcc80a06490f12",
+    "icstudio/assets/qualification/ihp-guard-corner-safe/templates.json": "f1ade4a445f011532622f78a23b30a90f5b3607d4944b3634abf8ef5b68e3d31",
+    "icstudio/ihp_guard_routing.py": "9df0d6669be03b5e919a052494b03b53bc639924c1c058af3ab1697fa0bb1d56",
+    "icstudio/ihp_resistor_assets.py": "0c927dad0163ca71a65f712554d094e87447f6e29fe7a9bca0b0bafc70934572",
+    "icstudio/ihp_resistors.py": "cbc04476b3b14041125a8d80ef74b8162b9b4fcbf0d65c9a1863065b8262d298",
+    "icstudio/silicon_ui.py": "0934af9d34ad77cb65dcd13da2dce9d79ead98f522da2c5cd7beb56361424e8b",
+    "icstudio/sky130_devices_ui.py": "4a692332fe4c3bc661c0b59bdc6abd83ddd7dea6e680757861576ffd83a18896",
+    "scripts/build_ihp_guard_app_templates.py": "98aadcd1af9a47bff61c9e9283fa5e26718b869351d64d8ec03f21e80d65ab83",
+    "scripts/verify_ihp_guard_gui_native.py": "af99d2bd9fb73cc34f43dc541c20ee34cea7b8f9f58a1b5d087ec3db313aac5d",
+    "tests/gui_ihp_guard_corner.py": "48911041c8d345800bc54eeca2bf7a4a1be979e14dd61dff5d01a221a49148bd",
+    "tests/test_ihp_guard_app.py": "3a300a3b11f32c294f29b73c0fbe970c375f12c95d563b20c1333d91a47845ba",
+    "tests/test_ihp_guard_backend_assets.py": "78b7cb4cd24e6bc92d5fc998be474b7211693b581a238dbf7a0c7794a6ea7d4d"
+  },
+  "prerequisite_files": {
+    "scripts/qualify_ihp_guard_vias.py": "9905f88b7c6c3bbb762bfc6812c058778da607648ddf80fd573cf36ac9f2d209",
+    "scripts/ihp_guard_corner_conditioner.py": "01899b5185125fd4167fc74d26997ebde861da476910153c6a2d93ed43587e28",
+    "scripts/qualify_ihp_guard_corner_safe.py": "9d4a09f46552c7960b0c6763d3a35f5c94ec26a7588d0053626058ab553ae86d",
+    "tests/test_ihp_guard_vias.py": "5862545c02ebf026393134114ebf5ae9d6efb11f8043e3f6bfe5e0348ac8e9d5",
+    "tests/test_ihp_guard_corner_safe.py": "5b304cc9d60b4c8b10059ddf9d23fcc3ab3d1409a5145e6ebadadf19b9e1ad45",
+    "tests/fixtures/ihp-guard-raw-all100-v1.json": "b0b0b64858d7f253f17541b840ace86f7abc99b7dbe2b1b1e59dd70c8cd18066",
+    "docs/qualification/ihp-resistor-guard-vias-v1.json": "eba71edf69a52b3a7d28778e4eb2cf873ae7536b151cc020d9c4eeff9a5eb1ba",
+    "docs/qualification/ihp-resistor-guard-corner-safe-v2.json": "04ed8338f7a5c24cc09253dfff288e03cd935085974f654139f194596ce681a9",
+    "docs/validation/chunk7-ihp-guard-vias-local-2026-11-10.json": "4a9547cb8be8e1abcbf288918d024b37dd0752048fde6f20f1963c86d0c88150",
+    "docs/validation/chunk7-ihp-guard-corner-safe-local-2026-11-10.json": "19f33bde6e64371a047625ff40ec9878d61b0dd4a82a64212fb2b0c7556a527e"
+  },
+  "evidence_archive": {
+    "name": "ihp-guard-app-evidence-v2.zip",
+    "sha256": "2410d9383a35592860f511db83faddfcf8f527207bd998c39b1786fa265f56b5",
+    "bytes": 4355409,
+    "payload_files": 556,
+    "all_members_verified": true,
+    "omissions": "Unchanged repository/tool binary bytes and earlier raw GUI attempts omitted; hashes/reports retained, full originals remain local.",
+    "path": "docs/validation/artifacts/ihp-guard-app-evidence-v2.zip"
+  },
+  "remaining": [
+    "Parent integration and reviewed source feedback after merge.",
+    "The existing installed acceptance probe does not exercise this new option; add a supported exact-installed probe and obtain fresh hosted/installed acceptance.",
+    "No complete family, operating/reliability envelope, calibration or foundry signoff claim."
+  ],
+  "chunk7_estimate": {
+    "percent": 74,
+    "range_percent": [
+      55,
+      82
+    ],
+    "confidence": "low",
+    "engineering_estimate_not_test_fraction": true
+  },
+  "subsequent_work": "Historical source/native GUI snapshot preserved. Additive packaged producer and installed verifier implementation is recorded separately in chunk7-ihp-guard-installed-plumbing-2026-11-10.json; actual installed acceptance remains pending."
+}

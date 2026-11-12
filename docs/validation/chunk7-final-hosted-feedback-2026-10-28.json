@@ -1,0 +1,86 @@
+{
+  "schema": 1,
+  "date": "2026-10-28",
+  "chunk": 7,
+  "status": "PASS",
+  "candidate": "a5148eca440e04f4c93d1f9400f80d131e211cd0",
+  "run_id": 40714365512,
+  "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/40714365512",
+  "jobs": [
+    {
+      "id": 122907892740,
+      "name": "source feedback (windows-2022)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 122907893079,
+      "name": "source feedback (ubuntu-24.04)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 122910821576,
+      "name": "PR feedback",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "hosts": {
+    "Linux": {
+      "status": "PASS",
+      "host": "Linux",
+      "run_id": 40714365512,
+      "candidate": "a5148eca440e04f4c93d1f9400f80d131e211cd0",
+      "tested_commit": "986278c75e1c625678ade2c87654929100084b76",
+      "merge_parents": [
+        "49c79957b4d6f4978127da612e167e5c75cda6b3",
+        "a5148eca440e04f4c93d1f9400f80d131e211cd0"
+      ],
+      "tests": 795,
+      "skips": 14,
+      "stages": 6,
+      "feedback_seconds": 126.923,
+      "source_files": 1452,
+      "source_binding": "All feedback hashes equal final local hashes already authenticated to exact candidate Git blobs.",
+      "archive": {
+        "path": "chunk7-final-integration-2026-10-28-v1/hosted-Linux.zip",
+        "sha256": "f16a8887ed6d50b223cc7f0de74bce79ea19de2a99c05294bde59a3d3730e851",
+        "bytes": 7478494,
+        "members": 250,
+        "all_members_read": true
+      },
+      "report_sha256": "59c935e47b37874b5dd48a935171e7e7baed9386e6d2a88f9758f78647c229db",
+      "installed_acceptance": false
+    },
+    "Windows": {
+      "status": "PASS",
+      "host": "Windows",
+      "run_id": 40714365512,
+      "candidate": "a5148eca440e04f4c93d1f9400f80d131e211cd0",
+      "tested_commit": "986278c75e1c625678ade2c87654929100084b76",
+      "merge_parents": [
+        "49c79957b4d6f4978127da612e167e5c75cda6b3",
+        "a5148eca440e04f4c93d1f9400f80d131e211cd0"
+      ],
+      "tests": 795,
+      "skips": 33,
+      "stages": 6,
+      "feedback_seconds": 235.531,
+      "source_files": 1452,
+      "source_binding": "All feedback hashes equal final local hashes already authenticated to exact candidate Git blobs.",
+      "archive": {
+        "path": "chunk7-final-integration-2026-10-28-v1/hosted-Windows.zip",
+        "sha256": "fa39a18f0008ddacee5a408402d548b90d9da77e128300d2d972c63befde3e44",
+        "bytes": 7327693,
+        "members": 218,
+        "all_members_read": true
+      },
+      "report_sha256": "7f67d8f97dffbc9b6fa1a94d6e22e2261c4c6f0d431dd8b7499b699818291fa0",
+      "installed_acceptance": false
+    }
+  },
+  "scope": "Both hosted six-stage source lanes and required aggregate, actual PR merge ancestry and all1452source/fixture hashes verified; not installed or family acceptance.",
+  "installed_acceptance": false,
+  "chunk_complete": false
+}

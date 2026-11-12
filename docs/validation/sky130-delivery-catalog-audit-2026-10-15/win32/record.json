@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "platform": "win32",
+  "tests": 74,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "modules": [
+    "tests.test_sky130_delivery_catalog",
+    "tests.test_sky130_filled_replay",
+    "tests.test_sky130_catalog_queue",
+    "tests.test_sky130_selected_subjects",
+    "tests.test_sky130_local_hv_review",
+    "tests.test_sky130_standard_cell_wl",
+    "tests.test_sky130_grid_catalog"
+  ],
+  "log_sha256": "fa5d0eabac6b457c236d89f085afe98cca543d248a56db320d5d4fd0b63b2f35",
+  "driver_sha256": "91a424e9c2f0f14e2c1e7fc2de9a5942deb3e63fb94d1a587b1c0047430cc6b1",
+  "elapsed_seconds": 34.17199999999866
+}

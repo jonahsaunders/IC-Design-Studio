@@ -1,0 +1,34 @@
+{
+  "schema": 1,
+  "repository": "https://github.com/google/skywater-pdk-libs-sky130_fd_pr",
+  "tree_sha": "f62031a1be9aefe902d6d54cddd6f59b57627436",
+  "license": "Apache-2.0",
+  "files": [
+    {
+      "path": "models/parasitics/sky130_fd_pr__model__parasitic__diode_ps2nw_noresistor.model.spice",
+      "git_blob": "9066b2ca05b37bf870b1ed8d57e53b5ad3d1fe4c",
+      "sha256": "b869dcc80134e66cc044f24304eece2ca0b797a217f5d669b06e61219f6cd4a5",
+      "local_file": "sky130_fd_pr__model__parasitic__diode_ps2nw_noresistor.model.spice"
+    },
+    {
+      "path": "models/parasitics/sky130_fd_pr__model__parasitic__diode_pw2dn_noresistor.model.spice",
+      "git_blob": "1296a73d228176a082d092ab39c531e7fb2a9f63",
+      "sha256": "dde8dc3c9d8a8e38734d0fd9c8305f9f8e4be3af3a0373f23012d76202b1b303",
+      "local_file": "sky130_fd_pr__model__parasitic__diode_pw2dn_noresistor.model.spice"
+    },
+    {
+      "path": "models/parasitics/sky130_fd_pr__model__parasitic__rf_diode_ps2nw.model.spice",
+      "git_blob": "1aaadf50c97a3ceae699fb552abb8df6a39cbd8e",
+      "sha256": "9162840af01b56ca3b36556ee7a5d996cf41f0ec63e65430337f624d7dfa358c",
+      "local_file": "sky130_fd_pr__model__parasitic__rf_diode_ps2nw.model.spice"
+    },
+    {
+      "path": "models/parasitics/sky130_fd_pr__model__parasitic__rf_diode_pw2dn.model.spice",
+      "git_blob": "f195f53a72a82d4880e8f0d15d60e0638c57e275",
+      "sha256": "e50e34a0a7fc44b30095258717e2ed394e7dc614af2d18402c0765d196ef3906",
+      "local_file": "sky130_fd_pr__model__parasitic__rf_diode_pw2dn.model.spice"
+    }
+  ],
+  "license_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+  "scope": "Unmodified public original RF diode and primitive models. Separate explicitly named derivatives add the missing perimeter parameter; no complete RF qualification."
+}

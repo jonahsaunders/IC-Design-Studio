@@ -1,0 +1,298 @@
+{
+  "schema": 1,
+  "model_sha256": "b6ae39c7334c75c222ecdee9d6b04c9be48657e91351429aebac47d1192a9abb",
+  "parent_isolation_package": {
+    "revision": "29104588b71012e8",
+    "manifest_sha256": "bb6d016214af50c68f3c134d0e88b1d028f34ff4d149deaff910519f9a1a3913",
+    "original_manifest_sha256": "63616ff9b0af1ec391e325d8f5a44ec7a5a45b420ce9a1e0946fbb14b028057c",
+    "files": 157,
+    "change": "Enable the exact three-terminal isolbox binding and require positive inner model dimensions; source assets unchanged."
+  },
+  "original_binding": {
+    "category": "Capacitors",
+    "emit_parameters": {
+      "l": "l",
+      "mm_ok": "mm_ok",
+      "nx": "nx",
+      "w": "w"
+    },
+    "kind": "PDK",
+    "label": "sg13_svaricap",
+    "model": "sg13_hv_svaricap",
+    "model_source": "libs.tech/ngspice/models/sg13g2_svaricaphv_mod.lib",
+    "notes": [
+      "Hidden body net exposed as terminal body; connect it explicitly."
+    ],
+    "parameter_scale": {
+      "l": 1,
+      "w": 1
+    },
+    "parameters": {
+      "l": {
+        "default": "0.3u",
+        "derived": false,
+        "integer": false,
+        "positive": true
+      },
+      "mm_ok": {
+        "default": "1",
+        "derived": false,
+        "integer": false,
+        "positive": false
+      },
+      "nx": {
+        "default": "1",
+        "derived": false,
+        "integer": false,
+        "positive": false
+      },
+      "w": {
+        "default": "3.74u",
+        "derived": false,
+        "integer": false,
+        "positive": true
+      }
+    },
+    "pin_order": [
+      "g2",
+      "nw",
+      "g1",
+      "body"
+    ],
+    "prefix": "X",
+    "source": "libs.tech/xschem/sg13g2_pr/sg13_svaricap.sym",
+    "symbol": {
+      "attributes": {
+        "drc": "svaricap_drc @name @symname @model @w @l @Nx",
+        "format": "@spiceprefix@name @pinlist @body @model w=@w l=@l Nx=@Nx mm_ok=@mm_ok",
+        "lvs_format": "C@name @pinlist @body @model w=@w l=@l Nx=@Nx",
+        "template": "name=C1 \nmodel=sg13_hv_svaricap \nw=3.74u \nl=0.3u \n Nx=1 \n body=sub!\n spiceprefix=X\n  mm_ok=1\n ",
+        "type": "capacitor"
+      },
+      "pin_meta": {
+        "g1": {
+          "bus": "",
+          "direction": "inout",
+          "label_visible": true,
+          "required": true,
+          "role": "signal"
+        },
+        "g2": {
+          "bus": "",
+          "direction": "inout",
+          "label_visible": true,
+          "required": true,
+          "role": "signal"
+        },
+        "nw": {
+          "bus": "",
+          "direction": "inout",
+          "label_visible": true,
+          "required": true,
+          "role": "signal"
+        }
+      },
+      "pin_order": [
+        "g2",
+        "nw",
+        "g1",
+        "body"
+      ],
+      "pins": {
+        "body": [
+          60,
+          0
+        ],
+        "g1": [
+          40.0,
+          0.0
+        ],
+        "g2": [
+          -40.0,
+          0.0
+        ],
+        "nw": [
+          0.0,
+          -30.0
+        ]
+      },
+      "primitives": [
+        {
+          "kind": "line",
+          "points": [
+            [
+              0.0,
+              -30.0
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ]
+        },
+        {
+          "kind": "line",
+          "points": [
+            [
+              17.5,
+              -10.0
+            ],
+            [
+              17.5,
+              10.0
+            ]
+          ]
+        },
+        {
+          "kind": "line",
+          "points": [
+            [
+              -17.5,
+              -10.0
+            ],
+            [
+              -17.5,
+              10.0
+            ]
+          ]
+        },
+        {
+          "kind": "line",
+          "points": [
+            [
+              -17.5,
+              -0.0
+            ],
+            [
+              17.5,
+              -0.0
+            ]
+          ]
+        },
+        {
+          "kind": "line",
+          "points": [
+            [
+              -40.0,
+              -0.0
+            ],
+            [
+              -22.0,
+              0.0
+            ]
+          ]
+        },
+        {
+          "kind": "line",
+          "points": [
+            [
+              21.5,
+              -0.0
+            ],
+            [
+              40.0,
+              -0.0
+            ]
+          ]
+        },
+        {
+          "kind": "arc",
+          "points": [
+            [
+              21.25,
+              -21.25
+            ],
+            [
+              63.75,
+              21.25
+            ]
+          ],
+          "start": -151.9275130641471,
+          "sweep": -56.14497387170592
+        },
+        {
+          "kind": "arc",
+          "points": [
+            [
+              -63.75,
+              -21.25
+            ],
+            [
+              -21.25,
+              21.25
+            ]
+          ],
+          "start": -331.927513064147,
+          "sweep": -56.14497387170592
+        },
+        {
+          "font_size": 8.0,
+          "kind": "text",
+          "points": [
+            [
+              8.75,
+              -41.25
+            ],
+            [
+              28.75,
+              -31.25
+            ]
+          ],
+          "rotation": 0,
+          "text": "@name"
+        },
+        {
+          "font_size": 8.0,
+          "kind": "text",
+          "points": [
+            [
+              5.0,
+              10.0
+            ],
+            [
+              25.0,
+              20.0
+            ]
+          ],
+          "rotation": 0,
+          "text": "@w / @l"
+        },
+        {
+          "font_size": 8.0,
+          "kind": "text",
+          "points": [
+            [
+              5.0,
+              22.5
+            ],
+            [
+              25.0,
+              32.5
+            ]
+          ],
+          "rotation": 0,
+          "text": "Nx=@Nx"
+        },
+        {
+          "font_size": 8.0,
+          "kind": "text",
+          "points": [
+            [
+              10.0,
+              -30.0
+            ],
+            [
+              30.0,
+              -20.0
+            ]
+          ],
+          "rotation": 0,
+          "text": "@model"
+        }
+      ]
+    },
+    "unavailable": ""
+  },
+  "contract": "Model G1 W G2 bn maps to g1 nw g2 body; source-declared W/L/Nx bounds. Ny remains the model default of 1.",
+  "limits": "Selected terminal integration only; no complete bias, RF, reliability, statistical or physical qualification."
+}

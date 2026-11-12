@@ -1,0 +1,2437 @@
+{
+  "base_commit": "d119d88f8ea5a31abd8804cf8a4c8dbf5545d918",
+  "bounded_facts": 84,
+  "bounded_sources": 6,
+  "chunk_complete": false,
+  "date": "2026-11-10",
+  "declaration_items": [
+    {
+      "dispositions": {
+        "ihp-sg13g2": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "device_rule_implementation": false,
+        "executed": false,
+        "kind": "reviewed-klayout-wrapper-role",
+        "name": "dependency-wrapper",
+        "text_sha256": "f8ddc90801d104b0a517ca90773c7f03b13b95f4bac95b77ebcf96f53513801b"
+      },
+      "id": "supplement:ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/devices_connections.lvs:0",
+      "kind": "reviewed-klayout-wrapper-role",
+      "name": "dependency-wrapper",
+      "sources": [
+        "ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/devices_connections.lvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "ihp-sg13g2": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "dependency_replayed": false,
+        "executed": false,
+        "kind": "klayout-preprocessor-include",
+        "line": 30,
+        "name": "general_connections.lvs",
+        "resolved_source_path": "ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/general_connections.lvs"
+      },
+      "id": "supplement:ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/devices_connections.lvs:1",
+      "kind": "klayout-preprocessor-include",
+      "name": "general_connections.lvs",
+      "sources": [
+        "ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/devices_connections.lvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "ihp-sg13g2": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "dependency_replayed": false,
+        "executed": false,
+        "kind": "klayout-preprocessor-include",
+        "line": 36,
+        "name": "mos_connections.lvs",
+        "resolved_source_path": "ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/mos_connections.lvs"
+      },
+      "id": "supplement:ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/devices_connections.lvs:2",
+      "kind": "klayout-preprocessor-include",
+      "name": "mos_connections.lvs",
+      "sources": [
+        "ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/devices_connections.lvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "ihp-sg13g2": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "dependency_replayed": false,
+        "executed": false,
+        "kind": "klayout-preprocessor-include",
+        "line": 42,
+        "name": "rfmos_connections.lvs",
+        "resolved_source_path": "ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/rfmos_connections.lvs"
+      },
+      "id": "supplement:ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/devices_connections.lvs:3",
+      "kind": "klayout-preprocessor-include",
+      "name": "rfmos_connections.lvs",
+      "sources": [
+        "ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/devices_connections.lvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "ihp-sg13g2": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "dependency_replayed": false,
+        "executed": false,
+        "kind": "klayout-preprocessor-include",
+        "line": 48,
+        "name": "bjt_connections.lvs",
+        "resolved_source_path": "ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/bjt_connections.lvs"
+      },
+      "id": "supplement:ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/devices_connections.lvs:4",
+      "kind": "klayout-preprocessor-include",
+      "name": "bjt_connections.lvs",
+      "sources": [
+        "ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/devices_connections.lvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "ihp-sg13g2": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "dependency_replayed": false,
+        "executed": false,
+        "kind": "klayout-preprocessor-include",
+        "line": 54,
+        "name": "diode_connections.lvs",
+        "resolved_source_path": "ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/diode_connections.lvs"
+      },
+      "id": "supplement:ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/devices_connections.lvs:5",
+      "kind": "klayout-preprocessor-include",
+      "name": "diode_connections.lvs",
+      "sources": [
+        "ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/devices_connections.lvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "ihp-sg13g2": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "dependency_replayed": false,
+        "executed": false,
+        "kind": "klayout-preprocessor-include",
+        "line": 60,
+        "name": "res_connections.lvs",
+        "resolved_source_path": "ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/res_connections.lvs"
+      },
+      "id": "supplement:ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/devices_connections.lvs:6",
+      "kind": "klayout-preprocessor-include",
+      "name": "res_connections.lvs",
+      "sources": [
+        "ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/devices_connections.lvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "ihp-sg13g2": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "dependency_replayed": false,
+        "executed": false,
+        "kind": "klayout-preprocessor-include",
+        "line": 66,
+        "name": "cap_connections.lvs",
+        "resolved_source_path": "ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/cap_connections.lvs"
+      },
+      "id": "supplement:ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/devices_connections.lvs:7",
+      "kind": "klayout-preprocessor-include",
+      "name": "cap_connections.lvs",
+      "sources": [
+        "ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/devices_connections.lvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "ihp-sg13g2": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "dependency_replayed": false,
+        "executed": false,
+        "kind": "klayout-preprocessor-include",
+        "line": 67,
+        "name": "cap_cmomi_connections.lvs",
+        "resolved_source_path": "ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/cap_cmomi_connections.lvs"
+      },
+      "id": "supplement:ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/devices_connections.lvs:8",
+      "kind": "klayout-preprocessor-include",
+      "name": "cap_cmomi_connections.lvs",
+      "sources": [
+        "ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/devices_connections.lvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "ihp-sg13g2": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "dependency_replayed": false,
+        "executed": false,
+        "kind": "klayout-preprocessor-include",
+        "line": 68,
+        "name": "cap_cmomf_connections.lvs",
+        "resolved_source_path": "ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/cap_cmomf_connections.lvs"
+      },
+      "id": "supplement:ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/devices_connections.lvs:9",
+      "kind": "klayout-preprocessor-include",
+      "name": "cap_cmomf_connections.lvs",
+      "sources": [
+        "ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/devices_connections.lvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "ihp-sg13g2": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "dependency_replayed": false,
+        "executed": false,
+        "kind": "klayout-preprocessor-include",
+        "line": 74,
+        "name": "esd_connections.lvs",
+        "resolved_source_path": "ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/esd_connections.lvs"
+      },
+      "id": "supplement:ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/devices_connections.lvs:10",
+      "kind": "klayout-preprocessor-include",
+      "name": "esd_connections.lvs",
+      "sources": [
+        "ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/devices_connections.lvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "ihp-sg13g2": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "dependency_replayed": false,
+        "executed": false,
+        "kind": "klayout-preprocessor-include",
+        "line": 80,
+        "name": "ind_connections.lvs",
+        "resolved_source_path": "ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/ind_connections.lvs"
+      },
+      "id": "supplement:ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/devices_connections.lvs:11",
+      "kind": "klayout-preprocessor-include",
+      "name": "ind_connections.lvs",
+      "sources": [
+        "ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/devices_connections.lvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "ihp-sg13g2": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "dependency_replayed": false,
+        "executed": false,
+        "kind": "klayout-preprocessor-include",
+        "line": 86,
+        "name": "tap_connections.lvs",
+        "resolved_source_path": "ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/tap_connections.lvs"
+      },
+      "id": "supplement:ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/devices_connections.lvs:12",
+      "kind": "klayout-preprocessor-include",
+      "name": "tap_connections.lvs",
+      "sources": [
+        "ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/devices_connections.lvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "ihp-sg13g2": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "executed": false,
+        "expression_sha256": "52a3a73936e7db915d9a7f1d4ed7fb2e172a830868409da61b12c79abc13cdfb",
+        "kind": "klayout-log-declaration",
+        "line": 24,
+        "name": "logger.info"
+      },
+      "id": "supplement:ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/devices_connections.lvs:13",
+      "kind": "klayout-log-declaration",
+      "name": "logger.info",
+      "sources": [
+        "ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/devices_connections.lvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "ihp-sg13g2": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "device_rule_implementation": false,
+        "executed": false,
+        "kind": "reviewed-klayout-wrapper-role",
+        "name": "logger-only-stub",
+        "text_sha256": "f53e17c1f315f49fc973b8ec949ae343e2bb99c2862a51acdaa3f37f49907770"
+      },
+      "id": "supplement:ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/mos_connections.lvs:0",
+      "kind": "reviewed-klayout-wrapper-role",
+      "name": "logger-only-stub",
+      "sources": [
+        "ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/mos_connections.lvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "ihp-sg13g2": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "executed": false,
+        "expression_sha256": "45a936a1129148410b92d1b6b0344d6455c8c818d88a6b45464cc67270b0875a",
+        "kind": "klayout-log-declaration",
+        "line": 24,
+        "name": "logger.info"
+      },
+      "id": "supplement:ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/mos_connections.lvs:1",
+      "kind": "klayout-log-declaration",
+      "name": "logger.info",
+      "sources": [
+        "ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/mos_connections.lvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "ihp-sg13g2": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "device_rule_implementation": false,
+        "executed": false,
+        "kind": "reviewed-klayout-wrapper-role",
+        "name": "logger-only-stub",
+        "text_sha256": "88d8335742119b8b88811f408defb789cc8fbde2c910c1deb33d9a4837a5b2d3"
+      },
+      "id": "supplement:ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/rfmos_connections.lvs:0",
+      "kind": "reviewed-klayout-wrapper-role",
+      "name": "logger-only-stub",
+      "sources": [
+        "ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/rfmos_connections.lvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "ihp-sg13g2": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "executed": false,
+        "expression_sha256": "77e2dadf41f878c78aaeac7f5868bb9f81c32910a33ccbd8f7ba24e60ad12733",
+        "kind": "klayout-log-declaration",
+        "line": 24,
+        "name": "logger.info"
+      },
+      "id": "supplement:ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/rfmos_connections.lvs:1",
+      "kind": "klayout-log-declaration",
+      "name": "logger.info",
+      "sources": [
+        "ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/rfmos_connections.lvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "autorun": "false",
+        "body_sha256": "02bf4ffdffd026b9c5a6a4a9ed04b8cae83d9d0bb95762545f65b1c41821ff7d",
+        "dsl_interpreter": "lvs-dsl-xml",
+        "executed": false,
+        "interpreter": "dsl",
+        "kind": "klayout-macro",
+        "name": "lvs"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:0",
+      "kind": "klayout-macro",
+      "name": "lvs",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "expression_sha256": "c1606a052fd6a0a2932522533d26ac54c18718cf97716f12e505d0e08efc9737",
+        "kind": "macro-assignment",
+        "line": 22,
+        "line_scope": "embedded-text",
+        "name": "layout_path"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:1",
+      "kind": "macro-assignment",
+      "name": "layout_path",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "expression_sha256": "849375e336b1ca08c52b2a96b0fe99635638aacec7d0cb178e52107474611ab4",
+        "kind": "macro-assignment",
+        "line": 25,
+        "line_scope": "embedded-text",
+        "name": "options"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:2",
+      "kind": "macro-assignment",
+      "name": "options",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "expression_sha256": "494f2da992859f82d9b269034a614573687221ceff404775187647ad940119a5",
+        "kind": "macro-assignment",
+        "line": 30,
+        "line_scope": "embedded-text",
+        "name": "net_name"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:3",
+      "kind": "macro-assignment",
+      "name": "net_name",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "expression_sha256": "ceb436418f749cf88e1f203dcdb38915841b0275c318d6fd1e5d76ee3e6e2bbc",
+        "kind": "macro-assignment",
+        "line": 31,
+        "line_scope": "embedded-text",
+        "name": "net_dir"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:4",
+      "kind": "macro-assignment",
+      "name": "net_dir",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "expression_sha256": "0ba95c1f031b9d484e30412b12d179e063fcb31856e9ac02b50aa20e86ba7ba9",
+        "kind": "macro-assignment",
+        "line": 34,
+        "line_scope": "embedded-text",
+        "name": "net_dir"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:5",
+      "kind": "macro-assignment",
+      "name": "net_dir",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "expression_sha256": "cc5eb5bd42efdb023f59bad7dcb07198f2f358985907c7db716e53fdf29f83d9",
+        "kind": "macro-assignment",
+        "line": 37,
+        "line_scope": "embedded-text",
+        "name": "net_dir"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:6",
+      "kind": "macro-assignment",
+      "name": "net_dir",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "expression_sha256": "e949c982d420f662b81b7e4c66d92332d7f2bd79f32a6801e35ad393cee12833",
+        "kind": "macro-assignment",
+        "line": 45,
+        "line_scope": "embedded-text",
+        "name": "$schematic"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:7",
+      "kind": "macro-assignment",
+      "name": "$schematic",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "expression_sha256": "f05cac6671882e6189918acb371b436cdb517cd02febad4a86aabbd2f7121a93",
+        "kind": "macro-assignment",
+        "line": 48,
+        "line_scope": "embedded-text",
+        "name": "$lvs_sub"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:8",
+      "kind": "macro-assignment",
+      "name": "$lvs_sub",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "expression_sha256": "ae5c037d69c8f48439d8c2d553a556b17ba5c438648a4f506f12f2266de30593",
+        "kind": "macro-assignment",
+        "line": 50,
+        "line_scope": "embedded-text",
+        "name": "$run_mode"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:9",
+      "kind": "macro-assignment",
+      "name": "$run_mode",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "expression_sha256": "08289c18e39fb4e1c43c58c228bede3b7bfda8b815c77acc18730e72e7bba664",
+        "kind": "macro-assignment",
+        "line": 54,
+        "line_scope": "embedded-text",
+        "name": "$metal_top"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:10",
+      "kind": "macro-assignment",
+      "name": "$metal_top",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "expression_sha256": "6242a5bf2c84baeab59710e86928c2897f9bcb30333fbfa370bfa1223bde564b",
+        "kind": "macro-assignment",
+        "line": 55,
+        "line_scope": "embedded-text",
+        "name": "$metal_level"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:11",
+      "kind": "macro-assignment",
+      "name": "$metal_level",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "expression_sha256": "fb7a7865dd8a0a954a592f3c39f201ccb41ce0fce9814688fc438ecbc3892c12",
+        "kind": "macro-assignment",
+        "line": 56,
+        "line_scope": "embedded-text",
+        "name": "$mim_option"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:12",
+      "kind": "macro-assignment",
+      "name": "$mim_option",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "expression_sha256": "f8cf7ea7688deb4b5e25c252c593e031d92b22e5b7d2bcb7fa50bb32ebf6798f",
+        "kind": "macro-assignment",
+        "line": 58,
+        "line_scope": "embedded-text",
+        "name": "$metal_top"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:13",
+      "kind": "macro-assignment",
+      "name": "$metal_top",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "expression_sha256": "467f6fb745cf52e1c0919e821e9e064393d02490b9c37937c1e6d8ca15f208d4",
+        "kind": "macro-assignment",
+        "line": 59,
+        "line_scope": "embedded-text",
+        "name": "$metal_level"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:14",
+      "kind": "macro-assignment",
+      "name": "$metal_level",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "expression_sha256": "77321470f1333ad47f0ec436fb5c1e34a8580a7f02676ac720bd53fedee5f185",
+        "kind": "macro-assignment",
+        "line": 60,
+        "line_scope": "embedded-text",
+        "name": "$mim_option"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:15",
+      "kind": "macro-assignment",
+      "name": "$mim_option",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "expression_sha256": "c6210c0ba9e8a8e9abdd7fb7b7f4f5f91c44ebdee3db8baa562efdbd36e6745e",
+        "kind": "macro-assignment",
+        "line": 62,
+        "line_scope": "embedded-text",
+        "name": "$metal_top"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:16",
+      "kind": "macro-assignment",
+      "name": "$metal_top",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "expression_sha256": "796accf49d5db3d69790695be01f706fd9ae12b58dd0e05f6052812fccd9c37e",
+        "kind": "macro-assignment",
+        "line": 63,
+        "line_scope": "embedded-text",
+        "name": "$metal_level"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:17",
+      "kind": "macro-assignment",
+      "name": "$metal_level",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "expression_sha256": "77321470f1333ad47f0ec436fb5c1e34a8580a7f02676ac720bd53fedee5f185",
+        "kind": "macro-assignment",
+        "line": 64,
+        "line_scope": "embedded-text",
+        "name": "$mim_option"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:18",
+      "kind": "macro-assignment",
+      "name": "$mim_option",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "expression_sha256": "f8cf7ea7688deb4b5e25c252c593e031d92b22e5b7d2bcb7fa50bb32ebf6798f",
+        "kind": "macro-assignment",
+        "line": 66,
+        "line_scope": "embedded-text",
+        "name": "$metal_top"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:19",
+      "kind": "macro-assignment",
+      "name": "$metal_top",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "expression_sha256": "796accf49d5db3d69790695be01f706fd9ae12b58dd0e05f6052812fccd9c37e",
+        "kind": "macro-assignment",
+        "line": 67,
+        "line_scope": "embedded-text",
+        "name": "$metal_level"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:20",
+      "kind": "macro-assignment",
+      "name": "$metal_level",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "expression_sha256": "77321470f1333ad47f0ec436fb5c1e34a8580a7f02676ac720bd53fedee5f185",
+        "kind": "macro-assignment",
+        "line": 68,
+        "line_scope": "embedded-text",
+        "name": "$mim_option"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:21",
+      "kind": "macro-assignment",
+      "name": "$mim_option",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "expression_sha256": "5b9bcbda685428a8b7967b5f1d537f6062ffed268093920de9ab103c5b3f8831",
+        "kind": "macro-assignment",
+        "line": 72,
+        "line_scope": "embedded-text",
+        "name": "$topcell"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:22",
+      "kind": "macro-assignment",
+      "name": "$topcell",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "expression_sha256": "539dc9a94f5ff4dffdb7eb8075799317342c3288e8762814dec3b7614b08853c",
+        "kind": "macro-assignment",
+        "line": 74,
+        "line_scope": "embedded-text",
+        "name": "$spice_net_names"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:23",
+      "kind": "macro-assignment",
+      "name": "$spice_net_names",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "expression_sha256": "ffca8384cd29f6e08e14ea0a8bd38d93df01d6d27973b7353d10602ef20ad897",
+        "kind": "macro-assignment",
+        "line": 76,
+        "line_scope": "embedded-text",
+        "name": "$spice_comments"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:24",
+      "kind": "macro-assignment",
+      "name": "$spice_comments",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "expression_sha256": "dc6e85f9f768ed0803eec5ed9ed16bf220c150b6f60180a83e545c3fbf8e3aec",
+        "kind": "macro-assignment",
+        "line": 78,
+        "line_scope": "embedded-text",
+        "name": "$verbose"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:25",
+      "kind": "macro-assignment",
+      "name": "$verbose",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "expression_sha256": "cff4747006f7756be65d8db4e255c481bcbdfe8adc10ffc3ae0eed84753083fa",
+        "kind": "macro-assignment",
+        "line": 80,
+        "line_scope": "embedded-text",
+        "name": "$simplify"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:26",
+      "kind": "macro-assignment",
+      "name": "$simplify",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "expression_sha256": "46a779a94d4a096d3bff09f86a4813a4a24ba7196c89018e7de4e3f694520113",
+        "kind": "macro-assignment",
+        "line": 82,
+        "line_scope": "embedded-text",
+        "name": "$net_only"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:27",
+      "kind": "macro-assignment",
+      "name": "$net_only",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "expression_sha256": "e2550be11b01596b920279669b1c2526a2b8b20a757258de7eb84654a68837fd",
+        "kind": "macro-assignment",
+        "line": 84,
+        "line_scope": "embedded-text",
+        "name": "$top_lvl_pins"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:28",
+      "kind": "macro-assignment",
+      "name": "$top_lvl_pins",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "expression_sha256": "e1ee5dde81f14a547a8fc05d0f316bff60d57c1dd8e951a060c50f39c2205561",
+        "kind": "macro-assignment",
+        "line": 86,
+        "line_scope": "embedded-text",
+        "name": "$combine"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:29",
+      "kind": "macro-assignment",
+      "name": "$combine",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "expression_sha256": "ec381eab3a83a1f4db333e7e709816ad470f907860a57fdee71d33b82dee24b6",
+        "kind": "macro-assignment",
+        "line": 88,
+        "line_scope": "embedded-text",
+        "name": "$purge"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:30",
+      "kind": "macro-assignment",
+      "name": "$purge",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "expression_sha256": "cb30fc8c78c51ae1e3c4dd752b9040c1ffc74b6547dc296a04b30ce79a9c1fde",
+        "kind": "macro-assignment",
+        "line": 90,
+        "line_scope": "embedded-text",
+        "name": "$purge_nets"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:31",
+      "kind": "macro-assignment",
+      "name": "$purge_nets",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "expression_sha256": "e42a6a782f896a9eed78791b754e4228f58cda08ddca7bc848bdccd77ff3a907",
+        "kind": "macro-assignment",
+        "line": 92,
+        "line_scope": "embedded-text",
+        "name": "$implicit_connect"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:32",
+      "kind": "macro-assignment",
+      "name": "$implicit_connect",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "expression_sha256": "247f89ed5d94b8e67116ba70f2a3dc426455020efec74d9c97b508d9424b2d19",
+        "kind": "macro-assignment",
+        "line": 94,
+        "line_scope": "embedded-text",
+        "name": "$schematic_translate"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:33",
+      "kind": "macro-assignment",
+      "name": "$schematic_translate",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "argument_identifiers": [],
+        "expression_sha256": "d4b89c6c14a33ff1a1c14059751495911ac9fc0ce3df597b6fdf0e03c3eb1fb2",
+        "kind": "ruby-mapping-or-dependency",
+        "line": 1,
+        "line_scope": "embedded-text",
+        "name": "require"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:34",
+      "kind": "ruby-mapping-or-dependency",
+      "name": "require",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "argument_identifiers": [
+          "File",
+          "__FILE__",
+          "dirname",
+          "expand_path"
+        ],
+        "expression_sha256": "f06196f68982d74fffe688c5b1c57209a09ab0d7ceecb7a288735a387376ff99",
+        "kind": "ruby-mapping-or-dependency",
+        "line": 18,
+        "line_scope": "embedded-text",
+        "name": "require"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:35",
+      "kind": "ruby-mapping-or-dependency",
+      "name": "require",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "kind": "macro-option-reference",
+        "line": 29,
+        "line_scope": "embedded-text",
+        "name": "netlist",
+        "scope": "options"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:36",
+      "kind": "macro-option-reference",
+      "name": "netlist",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "kind": "macro-option-reference",
+        "line": 38,
+        "line_scope": "embedded-text",
+        "name": "netlist",
+        "scope": "options"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:37",
+      "kind": "macro-option-reference",
+      "name": "netlist",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "kind": "macro-option-reference",
+        "line": 49,
+        "line_scope": "embedded-text",
+        "name": "sub_name",
+        "scope": "options"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:38",
+      "kind": "macro-option-reference",
+      "name": "sub_name",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "kind": "macro-option-reference",
+        "line": 51,
+        "line_scope": "embedded-text",
+        "name": "run_mode",
+        "scope": "options"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:39",
+      "kind": "macro-option-reference",
+      "name": "run_mode",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "kind": "macro-option-reference",
+        "line": 53,
+        "line_scope": "embedded-text",
+        "name": "variant",
+        "scope": "options"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:40",
+      "kind": "macro-option-reference",
+      "name": "variant",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "kind": "macro-option-reference",
+        "line": 57,
+        "line_scope": "embedded-text",
+        "name": "variant",
+        "scope": "options"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:41",
+      "kind": "macro-option-reference",
+      "name": "variant",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "kind": "macro-option-reference",
+        "line": 61,
+        "line_scope": "embedded-text",
+        "name": "variant",
+        "scope": "options"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:42",
+      "kind": "macro-option-reference",
+      "name": "variant",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "kind": "macro-option-reference",
+        "line": 65,
+        "line_scope": "embedded-text",
+        "name": "variant",
+        "scope": "options"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:43",
+      "kind": "macro-option-reference",
+      "name": "variant",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "kind": "macro-option-reference",
+        "line": 71,
+        "line_scope": "embedded-text",
+        "name": "top_cell_name",
+        "scope": "options"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:44",
+      "kind": "macro-option-reference",
+      "name": "top_cell_name",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "kind": "macro-option-reference",
+        "line": 72,
+        "line_scope": "embedded-text",
+        "name": "top_cell_name",
+        "scope": "options"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:45",
+      "kind": "macro-option-reference",
+      "name": "top_cell_name",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "kind": "macro-option-reference",
+        "line": 79,
+        "line_scope": "embedded-text",
+        "name": "verbose",
+        "scope": "options"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:46",
+      "kind": "macro-option-reference",
+      "name": "verbose",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "kind": "macro-option-reference",
+        "line": 81,
+        "line_scope": "embedded-text",
+        "name": "simplify",
+        "scope": "options"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:47",
+      "kind": "macro-option-reference",
+      "name": "simplify",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "kind": "macro-option-reference",
+        "line": 83,
+        "line_scope": "embedded-text",
+        "name": "net_only",
+        "scope": "options"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:48",
+      "kind": "macro-option-reference",
+      "name": "net_only",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "kind": "macro-option-reference",
+        "line": 85,
+        "line_scope": "embedded-text",
+        "name": "top_lvl_pins",
+        "scope": "options"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:49",
+      "kind": "macro-option-reference",
+      "name": "top_lvl_pins",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "kind": "macro-option-reference",
+        "line": 87,
+        "line_scope": "embedded-text",
+        "name": "combine",
+        "scope": "options"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:50",
+      "kind": "macro-option-reference",
+      "name": "combine",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "kind": "macro-option-reference",
+        "line": 89,
+        "line_scope": "embedded-text",
+        "name": "purge",
+        "scope": "options"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:51",
+      "kind": "macro-option-reference",
+      "name": "purge",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "kind": "macro-option-reference",
+        "line": 91,
+        "line_scope": "embedded-text",
+        "name": "purge_nets",
+        "scope": "options"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:52",
+      "kind": "macro-option-reference",
+      "name": "purge_nets",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "kind": "macro-option-reference",
+        "line": 93,
+        "line_scope": "embedded-text",
+        "name": "implicit_connect",
+        "scope": "options"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:53",
+      "kind": "macro-option-reference",
+      "name": "implicit_connect",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "kind": "macro-option-reference",
+        "line": 95,
+        "line_scope": "embedded-text",
+        "name": "schematic_translate",
+        "scope": "options"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:54",
+      "kind": "macro-option-reference",
+      "name": "schematic_translate",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "dependency_replayed": false,
+        "executed": false,
+        "kind": "klayout-preprocessor-include",
+        "line": 98,
+        "line_scope": "embedded-text",
+        "name": "../lvs/gf180mcu.lvs",
+        "resolved_source_path": "rules/klayout/lvs/gf180mcu.lvs"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:55",
+      "kind": "klayout-preprocessor-include",
+      "name": "../lvs/gf180mcu.lvs",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "device_rule_implementation": false,
+        "executed": false,
+        "kind": "reviewed-klayout-wrapper-role",
+        "name": "license-only-stub",
+        "text_sha256": "211d1974056662b7b11eabdd4b7d98cf6704f973a165d10e9e7b575e7e200e23"
+      },
+      "id": "supplement:gf180mcu:rules/klayout/macros/run_drc_main/main.drc:0",
+      "kind": "reviewed-klayout-wrapper-role",
+      "name": "license-only-stub",
+      "sources": [
+        "gf180mcu:rules/klayout/macros/run_drc_main/main.drc"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "device_rule_implementation": false,
+        "executed": false,
+        "kind": "reviewed-klayout-wrapper-role",
+        "name": "dependency-wrapper",
+        "text_sha256": "923f7dbcab8624185f12ec4e9acd3ed84880d8a385025cd98097e5ef5e2876c0"
+      },
+      "id": "supplement:gf180-fd-pv:klayout/lvs/rule_decks/devices_connections.lvs:0",
+      "kind": "reviewed-klayout-wrapper-role",
+      "name": "dependency-wrapper",
+      "sources": [
+        "gf180-fd-pv:klayout/lvs/rule_decks/devices_connections.lvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "dependency_replayed": false,
+        "executed": false,
+        "kind": "klayout-preprocessor-include",
+        "line": 27,
+        "name": "general_connections.lvs",
+        "resolved_source_path": "klayout/lvs/rule_decks/general_connections.lvs"
+      },
+      "id": "supplement:gf180-fd-pv:klayout/lvs/rule_decks/devices_connections.lvs:1",
+      "kind": "klayout-preprocessor-include",
+      "name": "general_connections.lvs",
+      "sources": [
+        "gf180-fd-pv:klayout/lvs/rule_decks/devices_connections.lvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "dependency_replayed": false,
+        "executed": false,
+        "kind": "klayout-preprocessor-include",
+        "line": 33,
+        "name": "mos_connections.lvs",
+        "resolved_source_path": "klayout/lvs/rule_decks/mos_connections.lvs"
+      },
+      "id": "supplement:gf180-fd-pv:klayout/lvs/rule_decks/devices_connections.lvs:2",
+      "kind": "klayout-preprocessor-include",
+      "name": "mos_connections.lvs",
+      "sources": [
+        "gf180-fd-pv:klayout/lvs/rule_decks/devices_connections.lvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "dependency_replayed": false,
+        "executed": false,
+        "kind": "klayout-preprocessor-include",
+        "line": 39,
+        "name": "bjt_connections.lvs",
+        "resolved_source_path": "klayout/lvs/rule_decks/bjt_connections.lvs"
+      },
+      "id": "supplement:gf180-fd-pv:klayout/lvs/rule_decks/devices_connections.lvs:3",
+      "kind": "klayout-preprocessor-include",
+      "name": "bjt_connections.lvs",
+      "sources": [
+        "gf180-fd-pv:klayout/lvs/rule_decks/devices_connections.lvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "dependency_replayed": false,
+        "executed": false,
+        "kind": "klayout-preprocessor-include",
+        "line": 45,
+        "name": "diode_connections.lvs",
+        "resolved_source_path": "klayout/lvs/rule_decks/diode_connections.lvs"
+      },
+      "id": "supplement:gf180-fd-pv:klayout/lvs/rule_decks/devices_connections.lvs:4",
+      "kind": "klayout-preprocessor-include",
+      "name": "diode_connections.lvs",
+      "sources": [
+        "gf180-fd-pv:klayout/lvs/rule_decks/devices_connections.lvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "dependency_replayed": false,
+        "executed": false,
+        "kind": "klayout-preprocessor-include",
+        "line": 51,
+        "name": "mimcap_connections.lvs",
+        "resolved_source_path": "klayout/lvs/rule_decks/mimcap_connections.lvs"
+      },
+      "id": "supplement:gf180-fd-pv:klayout/lvs/rule_decks/devices_connections.lvs:5",
+      "kind": "klayout-preprocessor-include",
+      "name": "mimcap_connections.lvs",
+      "sources": [
+        "gf180-fd-pv:klayout/lvs/rule_decks/devices_connections.lvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "dependency_replayed": false,
+        "executed": false,
+        "kind": "klayout-preprocessor-include",
+        "line": 57,
+        "name": "res_connections.lvs",
+        "resolved_source_path": "klayout/lvs/rule_decks/res_connections.lvs"
+      },
+      "id": "supplement:gf180-fd-pv:klayout/lvs/rule_decks/devices_connections.lvs:6",
+      "kind": "klayout-preprocessor-include",
+      "name": "res_connections.lvs",
+      "sources": [
+        "gf180-fd-pv:klayout/lvs/rule_decks/devices_connections.lvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "dependency_replayed": false,
+        "executed": false,
+        "kind": "klayout-preprocessor-include",
+        "line": 63,
+        "name": "efuse_connections.lvs",
+        "resolved_source_path": "klayout/lvs/rule_decks/efuse_connections.lvs"
+      },
+      "id": "supplement:gf180-fd-pv:klayout/lvs/rule_decks/devices_connections.lvs:7",
+      "kind": "klayout-preprocessor-include",
+      "name": "efuse_connections.lvs",
+      "sources": [
+        "gf180-fd-pv:klayout/lvs/rule_decks/devices_connections.lvs"
+      ]
+    },
+    {
+      "dispositions": {
+        "gf180mcuC": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        },
+        "gf180mcuD": {
+          "disposition": "unimplemented",
+          "qualified": false,
+          "reason": "This additional source view has no established complete application mapping; all declared interfaces remain unimplemented."
+        }
+      },
+      "facts": {
+        "executed": false,
+        "expression_sha256": "b9167269ec6bd68f77c2ece0e4e4c1c92281b8e35736dcdf7d0d85b4046bc659",
+        "kind": "klayout-log-declaration",
+        "line": 21,
+        "name": "logger.info"
+      },
+      "id": "supplement:gf180-fd-pv:klayout/lvs/rule_decks/devices_connections.lvs:8",
+      "kind": "klayout-log-declaration",
+      "name": "logger.info",
+      "sources": [
+        "gf180-fd-pv:klayout/lvs/rule_decks/devices_connections.lvs"
+      ]
+    }
+  ],
+  "full_inventory_rerun": false,
+  "historical_inventory": {
+    "inventory_gaps": 107,
+    "items": 776811,
+    "path": "docs/qualification/source-dispositions-2026-11-08-v1.json.gz",
+    "sha256": "ff2a08f3698dcf09d01c38f77bb9f76866e981401ae380e02efac9bc8084a442",
+    "unchanged": true
+  },
+  "implementation_and_sources_sha256": {
+    "docs/qualification/klayout-wrapper-sources-v1/Apache-2.0.txt": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "docs/qualification/klayout-wrapper-sources-v1/README.md": "3a3129a8fd42e95963c925c33bcdce40f13c23c3ad6e4ff2f53cebdb4a417681",
+    "docs/qualification/klayout-wrapper-sources-v1/source-lock.json": "b30c6d5e9b740e0461c6bfd7d83829131eb4e12614cd2a375c90d67c41587614",
+    "docs/qualification/klayout-wrapper-sources-v1/sources/gf180-fd-pv/klayout/lvs/rule_decks/devices_connections.lvs": "923f7dbcab8624185f12ec4e9acd3ed84880d8a385025cd98097e5ef5e2876c0",
+    "docs/qualification/klayout-wrapper-sources-v1/sources/gf180mcu/rules/klayout/macros/gf180mcu_lvs.lylvs": "cf062cabd24c257733d841bbb6b667af7f03f0c6db0019d3b98d5960a7e46e1f",
+    "docs/qualification/klayout-wrapper-sources-v1/sources/gf180mcu/rules/klayout/macros/run_drc_main/main.drc": "211d1974056662b7b11eabdd4b7d98cf6704f973a165d10e9e7b575e7e200e23",
+    "docs/qualification/klayout-wrapper-sources-v1/sources/ihp-sg13g2/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/devices_connections.lvs": "f8ddc90801d104b0a517ca90773c7f03b13b95f4bac95b77ebcf96f53513801b",
+    "docs/qualification/klayout-wrapper-sources-v1/sources/ihp-sg13g2/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/mos_connections.lvs": "f53e17c1f315f49fc973b8ec949ae343e2bb99c2862a51acdaa3f37f49907770",
+    "docs/qualification/klayout-wrapper-sources-v1/sources/ihp-sg13g2/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/rfmos_connections.lvs": "88d8335742119b8b88811f408defb789cc8fbde2c910c1deb33d9a4837a5b2d3",
+    "scripts/audit_source_dispositions.py": "6a6448b680b9aecc03a4ae8aca7102e653e203138f2227755428f0f848cb1770",
+    "scripts/inventory_klayout_wrappers.py": "bb13406fbe14075d37e752ad01a49ab7e473f0e9f84e46e5b523a31f7ab32586",
+    "tests/test_klayout_wrappers.py": "731198ee6bac46bacfd58324abdbd04091949534b8c805e31c20dc4a3df8f4b3"
+  },
+  "independent_readback": "Original Git blob/length/SHA256 identities matched pinned historical ledger. Split-line include readback checks all 20 references; separately enumerated assignment and option-name sequences preserve repeated branches. Upstream source not executed.",
+  "inventory_complete": false,
+  "literal_dependencies": 20,
+  "qualified": false,
+  "remaining": "Historical 107-gap count is retained; this six-source replay is not a complete 43,671-source audit. A fresh whole audit must authenticate original Git blobs and all seven SKY130 release archives. Full device envelopes, model bindings, physical and installed gates are unchanged.",
+  "schema": 1,
+  "scope": "Six exact Apache-2.0 KLayout dependency wrappers, logging/empty stubs and one LVS macro. No Ruby/DSL execution or dependency replay; no complete inventory or device qualification.",
+  "source_records": [
+    {
+      "accounting": "supplemental-declarations",
+      "bytes": 2447,
+      "family": "ihp-sg13g2",
+      "git_blob_sha1": "0d9c923fbc51997add381aaf8977ff5879a110c7",
+      "item_ids": [
+        "file:ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/devices_connections.lvs",
+        "supplement:ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/devices_connections.lvs:0",
+        "supplement:ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/devices_connections.lvs:1",
+        "supplement:ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/devices_connections.lvs:2",
+        "supplement:ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/devices_connections.lvs:3",
+        "supplement:ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/devices_connections.lvs:4",
+        "supplement:ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/devices_connections.lvs:5",
+        "supplement:ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/devices_connections.lvs:6",
+        "supplement:ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/devices_connections.lvs:7",
+        "supplement:ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/devices_connections.lvs:8",
+        "supplement:ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/devices_connections.lvs:9",
+        "supplement:ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/devices_connections.lvs:10",
+        "supplement:ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/devices_connections.lvs:11",
+        "supplement:ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/devices_connections.lvs:12",
+        "supplement:ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/devices_connections.lvs:13"
+      ],
+      "license": "Apache-2.0",
+      "local_path": "sources/ihp-sg13g2/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/devices_connections.lvs",
+      "mode": "100644",
+      "path": "ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/devices_connections.lvs",
+      "repository": "IHP-GmbH/IHP-Open-PDK@5e6d592e4002946a4616f798c357f0f3c06cf3b6",
+      "repository_path": "ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/devices_connections.lvs",
+      "sha256": "f8ddc90801d104b0a517ca90773c7f03b13b95f4bac95b77ebcf96f53513801b"
+    },
+    {
+      "accounting": "supplemental-declarations",
+      "bytes": 951,
+      "family": "ihp-sg13g2",
+      "git_blob_sha1": "ca676a72d86a701ba1daddbf53b2053b0f7708c3",
+      "item_ids": [
+        "file:ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/mos_connections.lvs",
+        "supplement:ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/mos_connections.lvs:0",
+        "supplement:ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/mos_connections.lvs:1"
+      ],
+      "license": "Apache-2.0",
+      "local_path": "sources/ihp-sg13g2/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/mos_connections.lvs",
+      "mode": "100644",
+      "path": "ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/mos_connections.lvs",
+      "repository": "IHP-GmbH/IHP-Open-PDK@5e6d592e4002946a4616f798c357f0f3c06cf3b6",
+      "repository_path": "ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/mos_connections.lvs",
+      "sha256": "f53e17c1f315f49fc973b8ec949ae343e2bb99c2862a51acdaa3f37f49907770"
+    },
+    {
+      "accounting": "supplemental-declarations",
+      "bytes": 954,
+      "family": "ihp-sg13g2",
+      "git_blob_sha1": "2245c9e41ba02fa9b453adb56036669f7d6f35de",
+      "item_ids": [
+        "file:ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/rfmos_connections.lvs",
+        "supplement:ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/rfmos_connections.lvs:0",
+        "supplement:ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/rfmos_connections.lvs:1"
+      ],
+      "license": "Apache-2.0",
+      "local_path": "sources/ihp-sg13g2/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/rfmos_connections.lvs",
+      "mode": "100644",
+      "path": "ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/rfmos_connections.lvs",
+      "repository": "IHP-GmbH/IHP-Open-PDK@5e6d592e4002946a4616f798c357f0f3c06cf3b6",
+      "repository_path": "ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/rfmos_connections.lvs",
+      "sha256": "88d8335742119b8b88811f408defb789cc8fbde2c910c1deb33d9a4837a5b2d3"
+    },
+    {
+      "accounting": "supplemental-declarations",
+      "bytes": 3033,
+      "family": "gf180mcu",
+      "git_blob_sha1": "27274eb5ed833e660f3e720074353bd777659155",
+      "item_ids": [
+        "file:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:0",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:1",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:2",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:3",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:4",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:5",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:6",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:7",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:8",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:9",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:10",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:11",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:12",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:13",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:14",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:15",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:16",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:17",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:18",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:19",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:20",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:21",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:22",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:23",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:24",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:25",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:26",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:27",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:28",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:29",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:30",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:31",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:32",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:33",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:34",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:35",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:36",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:37",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:38",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:39",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:40",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:41",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:42",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:43",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:44",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:45",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:46",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:47",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:48",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:49",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:50",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:51",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:52",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:53",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:54",
+        "supplement:gf180mcu:rules/klayout/macros/gf180mcu_lvs.lylvs:55"
+      ],
+      "license": "Apache-2.0",
+      "local_path": "sources/gf180mcu/rules/klayout/macros/gf180mcu_lvs.lylvs",
+      "mode": "100644",
+      "path": "rules/klayout/macros/gf180mcu_lvs.lylvs",
+      "repository": "fossi-foundation/globalfoundries-pdk-libs-gf180mcu_fd_pr@4d0b4cef59c7686fac5fd3f4c6fb41d251d1f90c",
+      "repository_path": "rules/klayout/macros/gf180mcu_lvs.lylvs",
+      "sha256": "cf062cabd24c257733d841bbb6b667af7f03f0c6db0019d3b98d5960a7e46e1f"
+    },
+    {
+      "accounting": "supplemental-declarations",
+      "bytes": 787,
+      "family": "gf180mcu",
+      "git_blob_sha1": "9c3927f582edc5f8f8eeeb9929948f0897315956",
+      "item_ids": [
+        "file:gf180mcu:rules/klayout/macros/run_drc_main/main.drc",
+        "supplement:gf180mcu:rules/klayout/macros/run_drc_main/main.drc:0"
+      ],
+      "license": "Apache-2.0",
+      "local_path": "sources/gf180mcu/rules/klayout/macros/run_drc_main/main.drc",
+      "mode": "100644",
+      "path": "rules/klayout/macros/run_drc_main/main.drc",
+      "repository": "fossi-foundation/globalfoundries-pdk-libs-gf180mcu_fd_pr@4d0b4cef59c7686fac5fd3f4c6fb41d251d1f90c",
+      "repository_path": "rules/klayout/macros/run_drc_main/main.drc",
+      "sha256": "211d1974056662b7b11eabdd4b7d98cf6704f973a165d10e9e7b575e7e200e23"
+    },
+    {
+      "accounting": "supplemental-declarations",
+      "bytes": 1953,
+      "family": "gf180-fd-pv",
+      "git_blob_sha1": "703c57b8f12166ca04c2b692f9c565213823067a",
+      "item_ids": [
+        "file:gf180-fd-pv:klayout/lvs/rule_decks/devices_connections.lvs",
+        "supplement:gf180-fd-pv:klayout/lvs/rule_decks/devices_connections.lvs:0",
+        "supplement:gf180-fd-pv:klayout/lvs/rule_decks/devices_connections.lvs:1",
+        "supplement:gf180-fd-pv:klayout/lvs/rule_decks/devices_connections.lvs:2",
+        "supplement:gf180-fd-pv:klayout/lvs/rule_decks/devices_connections.lvs:3",
+        "supplement:gf180-fd-pv:klayout/lvs/rule_decks/devices_connections.lvs:4",
+        "supplement:gf180-fd-pv:klayout/lvs/rule_decks/devices_connections.lvs:5",
+        "supplement:gf180-fd-pv:klayout/lvs/rule_decks/devices_connections.lvs:6",
+        "supplement:gf180-fd-pv:klayout/lvs/rule_decks/devices_connections.lvs:7",
+        "supplement:gf180-fd-pv:klayout/lvs/rule_decks/devices_connections.lvs:8"
+      ],
+      "license": "Apache-2.0",
+      "local_path": "sources/gf180-fd-pv/klayout/lvs/rule_decks/devices_connections.lvs",
+      "mode": "100644",
+      "path": "klayout/lvs/rule_decks/devices_connections.lvs",
+      "repository": "efabless/globalfoundries-pdk-libs-gf180mcu_fd_pv@05e7b6adf19edf942969c1c9625f02fd87874f06",
+      "repository_path": "klayout/lvs/rule_decks/devices_connections.lvs",
+      "sha256": "923f7dbcab8624185f12ec4e9acd3ed84880d8a385025cd98097e5ef5e2876c0"
+    }
+  ],
+  "status": "PASS_BOUNDED_SIX_SOURCE_DECLARATION_REPLAY",
+  "validation": {
+    "command": "PYTHONPATH=tests python -m unittest test_klayout_wrappers test_source_dispositions test_source_configs test_source_references test_physical_layers test_schematic_views test_verilog_fragments -v",
+    "host": "Linux",
+    "log_sha256": "7babcb7d81472bb17c6d62b85269a8ade0fdaa84e211d9816b5c70ffe6bdd29f",
+    "python": "3.12.14",
+    "seconds": 0.079,
+    "tests": 177
+  }
+}

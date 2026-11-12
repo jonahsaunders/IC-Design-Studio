@@ -1,0 +1,61 @@
+{
+  "schema": 1,
+  "status": "PASS_HOSTED_SOURCE_FEEDBACK_READBACK",
+  "run": 41745872768,
+  "aggregate_job": 126302063674,
+  "pull_request_head": "39b24815a96b5b6140825a1c8371adde80f877c0",
+  "tested_merge": "b4e183838a2a0e6dda8951fcd1127f966483ab50",
+  "merge_parents": [
+    "49c79957b4d6f4978127da612e167e5c75cda6b3",
+    "39b24815a96b5b6140825a1c8371adde80f877c0"
+  ],
+  "scope": "Hosted source feedback on the exact synthetic merge. The selected profile repair sources were also verified against the pull-request head.",
+  "stage_count_per_host": 11,
+  "seeded_gui_regression_passed_both_hosts": true,
+  "source_bindings": 2238,
+  "all_source_bindings_verified": true,
+  "source_manifest_sha256": "4250ea8aeb3bd167957c98aa1dabff7f8db9d2ca9dffd4c003d745398fb1612b",
+  "artifact_membership_sha256": "91a1db00adc047c7c48734c94c623aa7abee5133344523b863bbe4d814400f7b",
+  "tested_profile_sources_sha256": {
+    "icstudio/ihp_cmim_desktop_probe.py": "71773794a683a62aeb5c06441d58405da03c67817d2fb5210673f01fb7ea282c",
+    "tests/test_ihp_cmim_desktop_probe.py": "232dc9a29c4d217e9502fa7df6690cbfeb4cfed0c713413525c293a283643876"
+  },
+  "separate_fixture_blob_hashes": {
+    "docs/qualification/ihp-cmim-enclosures-v1.json": "8f82d1ba570a7e831a55e751700b04d9f3e35a0bc007acdf7639c223dfda501b",
+    "docs/qualification/ihp-cmim-plate-evidence-v1/SOURCE.json": "06d7d7853c3c7721c3c9c86e0dbc220ce9b489aa4ceb199ee3fdede0c084fc55",
+    "docs/qualification/ihp-cmim-plate-evidence-v1/physical-evidence.zip": "5de4278a2b44047881d9b37482edf5b9e6ec0aabb47b30449e6a727b4b572f8e"
+  },
+  "hosts": {
+    "windows": {
+      "artifact": 13284072235,
+      "archive_sha256": "8dd100f68ed07c88f93f754c4237d9d1534d8c8e51e48c3bea073a17995d63ee",
+      "archive_bytes": 16871237,
+      "members": 1238,
+      "report_sha256": "dbb11208d758f630af1a0e7cd636968c0c0a65e4f96fa90005d73f3bd92d5b48",
+      "syntax_files": 1509,
+      "tests": 1097,
+      "skipped": 37,
+      "seconds": 415.36
+    },
+    "linux": {
+      "artifact": 13284655131,
+      "archive_sha256": "08abf0c41b514220281465fde71669230c1cf1326c64eb29e6403fdde5b7ba42",
+      "archive_bytes": 17403853,
+      "members": 1291,
+      "report_sha256": "f4c0d39dc5c4dfed6f6614867be94a4241ee8a52441614fa2637b75800ef0158",
+      "syntax_files": 1509,
+      "tests": 1097,
+      "skipped": 17,
+      "seconds": 343.873
+    }
+  },
+  "installed_acceptance": false,
+  "full_family": false,
+  "chunk_complete": false,
+  "retention": {
+    "directory": "IC-Design-Studio-evidence/chunk7-39b2-hosted-feedback-2026-11-03-v1",
+    "verification_sha256": "fba51b2c34ee1c66a37f78f6bd2ad0e9227c4e07089459675cf2d833cea5a649",
+    "retention_sha256": "f5a9b5248b4e8fef16f7b28d8426e50901683b5b5924d8e08458ffc0144de24e",
+    "complete_archive_crc_sha256_readback": true
+  }
+}

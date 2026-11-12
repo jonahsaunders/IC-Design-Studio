@@ -1,0 +1,8 @@
+* NGSPICE file created from coupon.ext - technology: ihp-sg13g2
+
+.subckt coupon C1 C2
+X0 C1 C2 cap_cmim l=7u w=7u
+C0 C2 C1 0.47622f
+C1 C2 SUB 2.32718f
+.ends
+

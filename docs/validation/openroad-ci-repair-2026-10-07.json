@@ -1,0 +1,367 @@
+{
+  "date": "2026-10-07",
+  "status": "local reproduction repaired and verified; hosted rerun pending",
+  "base_commit": "3f4f9278b950d51ff4fec0d65a9f0635dbd0eeb1",
+  "change_files": {
+    ".github/workflows/digital.yml": "2adad32deab668942c8bb4eea9e10724b788672890b34e9f69c33d4671f3feac",
+    "scripts/ci/openroad": "88bd51e38300088c583276f462573002abf9f72bdbfceb81fdeffab9784916da"
+  },
+  "scope": "The pinned Ubuntu OpenROAD launcher drops inherited Python library overrides. The application interpreter and all physical checks remain unchanged.",
+  "reproduced_failure": {
+    "hosted_run": 37622880652,
+    "hosted_job": 112797264455,
+    "python": "3.12.15",
+    "archive_sha256": "fcb672b0437c2d8df5565b7cc250b2b0d7455e2b8d6a4a107cfa6f2efe4f7ed8",
+    "archive_url": "https://github.com/actions/python-versions/releases/download/3.12.15-36805895057/python-3.12.15-linux-24.04-x64.tar.gz",
+    "error": "Missing math and blake2 modules when hosted libpython is paired with Ubuntu's standard library."
+  },
+  "toolchain": {
+    "base_image": "sha256:8504da7c0b7ed0cfa99575eaaa51b7e47b1cd8d0534b3170c665fb3ddaa74e73",
+    "openroad": "26Q2-1164-g08f67ee5ec",
+    "openroad_binary_sha256": "fcd7dcfc37d329bd43a7ede75805319a2e70e6879da11d42b4fd1c2e50e645c3",
+    "system_libpython_sha256": "1021f236227334ded6d1bbbc4bb6f5d933f793d8397c969896cfbdf03ce96223",
+    "orfs_revision": "eaba6576441bf7c1743ea56ecdb1904210ec02c2"
+  },
+  "validation": {
+    "full_windows": {
+      "run": 1409,
+      "skipped": 63,
+      "failures": 0,
+      "seconds": 270.168
+    },
+    "native_integration_with_hosted_python": {
+      "run": 14,
+      "skipped": 0,
+      "failures": 0,
+      "seconds": 134.384
+    },
+    "physical_fault_cases": {
+      "schema": 1,
+      "status": "passed",
+      "scope": "Final OpenDB default-oxide LEF antenna rules and all declared POWER/GROUND net connectivity. Model/rule presence is checked; deck adequacy, streamed-GDS DRC/LVS, density, ERC, ESD/latch-up, IR drop and electromigration are not qualified by these checks.",
+      "negative_control_scope": "Isolated damaged OpenDB copies with unchanged source rules; not valid designs.",
+      "source_files": {
+        "qualify_digital_physical_checks.py": "547aed8a75a4bfae8b683f2f65ea91fbfac7b9a98fb2801f3c436c2ec82e6530",
+        "digital_physical_checks.py": "21772a144cd1c8ec0c731290cbdb30a025e9ebbbce8d3f356c8f199c324cce86",
+        "digital_physical_engine.py": "a16f4c69964dce0de519ee21788d9b9504eec4cd61b9900e43f03e1bcd2bbbdf"
+      },
+      "cases": [
+        {
+          "platform": "sky130hd",
+          "case": "baseline",
+          "status": "passed",
+          "expected_check_status": "PASS",
+          "source": {
+            "input_sha256": "49396c0479c49063a3c64d4ecdbfeba98956bc621a42fc956633bc0b4ff24905",
+            "result_sha256": "4ee9b20302ff438ab139e567d08d930d5a37b15cb4899a3dbd06ceeb87ee901a",
+            "checkpoint_sha256": "77915c5131e98c988c4a9a89cf93f406302a907a718c961447fea5f35d01e3f5",
+            "platform_fingerprint": "f7f9afb684817161ef4438506f37187c254e3dba8d5671ad101d1b0db54b2ca0"
+          },
+          "mutation": null,
+          "command": [
+            "/tmp/implementation-bin/openroad",
+            "-no_init",
+            "-exit",
+            "-python",
+            "/audit/openroad-ci-native-controls/sky130hd/baseline/checks/check.py"
+          ],
+          "checkpoint_sha256": "77915c5131e98c988c4a9a89cf93f406302a907a718c961447fea5f35d01e3f5",
+          "result_sha256": "eaed658ddef670b3239c99999b5d6c9cac1d250865ceb31f9240edc3785096e1",
+          "log_sha256": "630708a27b8af202da305e6b25da858af3e563957dba5ad0dd35dc37272337e7"
+        },
+        {
+          "platform": "sky130hd",
+          "case": "removed-grid",
+          "status": "passed",
+          "expected_check_status": "FAIL",
+          "source": {
+            "input_sha256": "49396c0479c49063a3c64d4ecdbfeba98956bc621a42fc956633bc0b4ff24905",
+            "result_sha256": "4ee9b20302ff438ab139e567d08d930d5a37b15cb4899a3dbd06ceeb87ee901a",
+            "checkpoint_sha256": "77915c5131e98c988c4a9a89cf93f406302a907a718c961447fea5f35d01e3f5",
+            "platform_fingerprint": "f7f9afb684817161ef4438506f37187c254e3dba8d5671ad101d1b0db54b2ca0"
+          },
+          "mutation": {
+            "net": "VDD",
+            "removed_special_wires": 1
+          },
+          "command": [
+            "/tmp/implementation-bin/openroad",
+            "-no_init",
+            "-exit",
+            "-python",
+            "/audit/openroad-ci-native-controls/sky130hd/removed-grid/checks/check.py"
+          ],
+          "checkpoint_sha256": "8eb8ba56a99a4e3ccc92b653d308b47fe1e9871e7f6f8f16baadd6d9e4d88a77",
+          "result_sha256": "ac16d59286a0f4164a80b1e853056bf112c2558fee9b7d77452637b14394f3c0",
+          "log_sha256": "b139d4de699dd5059f2e9de0a37f11c24160256dd9c87cdef66965f805fd92f8"
+        },
+        {
+          "platform": "sky130hd",
+          "case": "antenna-route",
+          "status": "passed",
+          "expected_check_status": "FAIL",
+          "source": {
+            "input_sha256": "49396c0479c49063a3c64d4ecdbfeba98956bc621a42fc956633bc0b4ff24905",
+            "result_sha256": "4ee9b20302ff438ab139e567d08d930d5a37b15cb4899a3dbd06ceeb87ee901a",
+            "checkpoint_sha256": "77915c5131e98c988c4a9a89cf93f406302a907a718c961447fea5f35d01e3f5",
+            "platform_fingerprint": "f7f9afb684817161ef4438506f37187c254e3dba8d5671ad101d1b0db54b2ca0"
+          },
+          "mutation": {
+            "net": "net2",
+            "instance": "_08_",
+            "pin": "A1",
+            "layer": "li1",
+            "routing_length_um": 60000
+          },
+          "command": [
+            "/tmp/implementation-bin/openroad",
+            "-no_init",
+            "-exit",
+            "-python",
+            "/audit/openroad-ci-native-controls/sky130hd/antenna-route/checks/check.py"
+          ],
+          "checkpoint_sha256": "3813d906df7b91885729d4f98fa32b8111c1ec266820f606624e95290c793e31",
+          "result_sha256": "1eeb2d8090c4fb83ae8e5fd33507c2e3a4eb6b389f0893f3aa0a1dc04a2210c0",
+          "log_sha256": "995eb0025488c334fad211de176ab2b7a3eaf3d330374d52b883d6e599835c95"
+        },
+        {
+          "platform": "gf180",
+          "case": "baseline",
+          "status": "passed",
+          "expected_check_status": "PASS",
+          "source": {
+            "input_sha256": "87384ab6ecc5d7a3dcd56b393ba4258270d456a1ee724f053aa0d959837005f7",
+            "result_sha256": "5c27656ac78d3e3cef75852f64c7838e5611a24f7f4fabbd572fbfe1d23514f6",
+            "checkpoint_sha256": "19ee7692dbf7e03796a6e3c01fde9fd1f7c077e82793e9123989db0bdbf7300d",
+            "platform_fingerprint": "6e116940694423069e0b41c9b51f329e6a7698b97fece76629e5e4b6f2f05922"
+          },
+          "mutation": null,
+          "command": [
+            "/tmp/implementation-bin/openroad",
+            "-no_init",
+            "-exit",
+            "-python",
+            "/audit/openroad-ci-native-controls/gf180/baseline/checks/check.py"
+          ],
+          "checkpoint_sha256": "19ee7692dbf7e03796a6e3c01fde9fd1f7c077e82793e9123989db0bdbf7300d",
+          "result_sha256": "55b61b64701b20d26b58432ac3c283c3906b8db56e5553501c6cb3f1ad7a63a8",
+          "log_sha256": "630708a27b8af202da305e6b25da858af3e563957dba5ad0dd35dc37272337e7"
+        },
+        {
+          "platform": "gf180",
+          "case": "removed-grid",
+          "status": "passed",
+          "expected_check_status": "FAIL",
+          "source": {
+            "input_sha256": "87384ab6ecc5d7a3dcd56b393ba4258270d456a1ee724f053aa0d959837005f7",
+            "result_sha256": "5c27656ac78d3e3cef75852f64c7838e5611a24f7f4fabbd572fbfe1d23514f6",
+            "checkpoint_sha256": "19ee7692dbf7e03796a6e3c01fde9fd1f7c077e82793e9123989db0bdbf7300d",
+            "platform_fingerprint": "6e116940694423069e0b41c9b51f329e6a7698b97fece76629e5e4b6f2f05922"
+          },
+          "mutation": {
+            "net": "VDD",
+            "removed_special_wires": 1
+          },
+          "command": [
+            "/tmp/implementation-bin/openroad",
+            "-no_init",
+            "-exit",
+            "-python",
+            "/audit/openroad-ci-native-controls/gf180/removed-grid/checks/check.py"
+          ],
+          "checkpoint_sha256": "e34492159244ab48d27ebe58f97e49a38cea484ac2c1f1a2fe23b9c05d0d83e0",
+          "result_sha256": "bb4cefa43a5089e1bf5a27e5fdb97e4d11296d65d31a611298182d578706b2f5",
+          "log_sha256": "a6ec8d8722f882123417cbe02a32b9049de61685b03ed761864a338955af9d6e"
+        },
+        {
+          "platform": "gf180",
+          "case": "antenna-route",
+          "status": "passed",
+          "expected_check_status": "FAIL",
+          "source": {
+            "input_sha256": "87384ab6ecc5d7a3dcd56b393ba4258270d456a1ee724f053aa0d959837005f7",
+            "result_sha256": "5c27656ac78d3e3cef75852f64c7838e5611a24f7f4fabbd572fbfe1d23514f6",
+            "checkpoint_sha256": "19ee7692dbf7e03796a6e3c01fde9fd1f7c077e82793e9123989db0bdbf7300d",
+            "platform_fingerprint": "6e116940694423069e0b41c9b51f329e6a7698b97fece76629e5e4b6f2f05922"
+          },
+          "mutation": {
+            "net": "net1",
+            "instance": "_09_",
+            "pin": "I",
+            "layer": "Metal1",
+            "routing_length_um": 60000
+          },
+          "command": [
+            "/tmp/implementation-bin/openroad",
+            "-no_init",
+            "-exit",
+            "-python",
+            "/audit/openroad-ci-native-controls/gf180/antenna-route/checks/check.py"
+          ],
+          "checkpoint_sha256": "81e5d39bbaf8a17a8a4c5d5391b2f25ddf5a5d1cae99b21fd156f18d49db13cc",
+          "result_sha256": "42b461d4d2938dff0d847b7407a67079c41c06f61fa75844adf4bfa5f06ab700",
+          "log_sha256": "2bd43275aa47ad6805751ce9b748992f4318f4d39d054e8f87f103346934fe9f"
+        },
+        {
+          "platform": "ihp-sg13g2",
+          "case": "baseline",
+          "status": "passed",
+          "expected_check_status": "PASS",
+          "source": {
+            "input_sha256": "715e9804ef1e61d056c4c3dbd7deae3dc7cb800287e8ca0e28a70a84c5da58da",
+            "result_sha256": "c41a806a10be11512fa618c729925d40d52049cf7be442f657505af0d3120489",
+            "checkpoint_sha256": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2",
+            "platform_fingerprint": "f66bfbfc0db0642c1c3cf11358d9c67a3c6f8525e2b9f75015f77cb69437e266"
+          },
+          "mutation": null,
+          "command": [
+            "/tmp/implementation-bin/openroad",
+            "-no_init",
+            "-exit",
+            "-python",
+            "/audit/openroad-ci-native-controls/ihp-sg13g2/baseline/checks/check.py"
+          ],
+          "checkpoint_sha256": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2",
+          "result_sha256": "89c57e7ac3636b8ae8cacfcff542bee09c9e87efaa26c28a0100c7c5e2729bc2",
+          "log_sha256": "630708a27b8af202da305e6b25da858af3e563957dba5ad0dd35dc37272337e7"
+        },
+        {
+          "platform": "ihp-sg13g2",
+          "case": "removed-grid",
+          "status": "passed",
+          "expected_check_status": "FAIL",
+          "source": {
+            "input_sha256": "715e9804ef1e61d056c4c3dbd7deae3dc7cb800287e8ca0e28a70a84c5da58da",
+            "result_sha256": "c41a806a10be11512fa618c729925d40d52049cf7be442f657505af0d3120489",
+            "checkpoint_sha256": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2",
+            "platform_fingerprint": "f66bfbfc0db0642c1c3cf11358d9c67a3c6f8525e2b9f75015f77cb69437e266"
+          },
+          "mutation": {
+            "net": "VDD",
+            "removed_special_wires": 1
+          },
+          "command": [
+            "/tmp/implementation-bin/openroad",
+            "-no_init",
+            "-exit",
+            "-python",
+            "/audit/openroad-ci-native-controls/ihp-sg13g2/removed-grid/checks/check.py"
+          ],
+          "checkpoint_sha256": "e0bbf39f00e65535a313fdd4ba618991f40d4e346289084adee74806f98df9f3",
+          "result_sha256": "8ae5ea82a288116edc0be5b966ec00eb6864b5756e63c7c29c36ede7bb4b1441",
+          "log_sha256": "03aa1b639eacda970a01cd5de6675eb96402bbd315456d6b5895e90aeec3dcfa"
+        },
+        {
+          "platform": "ihp-sg13g2",
+          "case": "antenna-route",
+          "status": "passed",
+          "expected_check_status": "FAIL",
+          "source": {
+            "input_sha256": "715e9804ef1e61d056c4c3dbd7deae3dc7cb800287e8ca0e28a70a84c5da58da",
+            "result_sha256": "c41a806a10be11512fa618c729925d40d52049cf7be442f657505af0d3120489",
+            "checkpoint_sha256": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2",
+            "platform_fingerprint": "f66bfbfc0db0642c1c3cf11358d9c67a3c6f8525e2b9f75015f77cb69437e266"
+          },
+          "mutation": {
+            "net": "net4",
+            "instance": "_10_",
+            "pin": "A",
+            "layer": "Metal1",
+            "routing_length_um": 60000
+          },
+          "command": [
+            "/tmp/implementation-bin/openroad",
+            "-no_init",
+            "-exit",
+            "-python",
+            "/audit/openroad-ci-native-controls/ihp-sg13g2/antenna-route/checks/check.py"
+          ],
+          "checkpoint_sha256": "7010ff9abcf338e06d7a4a40d351517bcc6c50f4aceaeb284b1e484bb48b37ec",
+          "result_sha256": "1927415893c6f48c791c1fc82afd86fb6a4fb36cccb4b2d1e036f13b6d77d8a4",
+          "log_sha256": "240bdf23ee9b8054fac895ca9c4f66f528f87d23d7700d6624d63bd236b1a8f1"
+        }
+      ],
+      "engine": {
+        "path": "/tmp/implementation-bin/openroad",
+        "sha256": "88bd51e38300088c583276f462573002abf9f72bdbfceb81fdeffab9784916da",
+        "version": "26Q2-1164-g08f67ee5ec"
+      }
+    },
+    "documentation": {
+      "version": "0.23.0",
+      "status": "passed",
+      "documents": 120,
+      "local_links": 1170,
+      "gallery_examples": 13
+    },
+    "final_documentation": {
+      "version": "0.23.0",
+      "status": "passed",
+      "documents": 120,
+      "local_links": 1171,
+      "gallery_examples": 13
+    }
+  },
+  "diagnostic_attempts": "Retained attempts exposed the packaged runtime missing Git metadata, a partial local clone unavailable offline, and the diagnostic hosted Python missing KLayout. The final run uses a real pinned checkout and the bundled KLayout 0.30.5 Python dependency.",
+  "evidence": [
+    {
+      "name": "openroad-ci-repair-full-tests.log",
+      "sha256": "6d07096bd7ab08ad57d00e0fc0866ef03593a385594c54dbe627d804186b9b9c",
+      "bytes": 235348
+    },
+    {
+      "name": "openroad-ci-integration-final.log",
+      "sha256": "3093d4fa77bd2b6aba0f97970bfd36e6735b4184722c67374347ab599ecc5fa6",
+      "bytes": 2484
+    },
+    {
+      "name": "openroad-ci-native-controls.log",
+      "sha256": "72d8e11751579196a1fce44507feb37d572b29f518aeb8758d51f4f7c197bff1",
+      "bytes": 240
+    },
+    {
+      "name": "openroad-hosted-python-reproduction.log",
+      "sha256": "e8457ff5add594c8ff1e524b4b595719a888f53357b584c869828a6e02cf7ea1",
+      "bytes": 828
+    },
+    {
+      "name": "openroad-ci-wrapper-probe.log",
+      "sha256": "69b151ee42b7b5f4ab6c718e1d3d1c2d5ee0a159c438b8158ea38fd0cc30905e",
+      "bytes": 939
+    },
+    {
+      "name": "openroad-ci-repair-docs-final.json",
+      "sha256": "9d21899dd38358343583386d39fe6a42e2e2e3c9725e253b340140c09f99859d",
+      "bytes": 124
+    },
+    {
+      "name": "openroad-ci-integration.log",
+      "sha256": "8fc621198a18aaa4f19320ff861acf69aef8b12ee1ac96dea89026cd9034e051",
+      "bytes": 2864
+    },
+    {
+      "name": "openroad-ci-integration-checkout.log",
+      "sha256": "09305b3104624a22b7e045e5ff253206d6dc514ba3dd20de97657d4c3081ed46",
+      "bytes": 507
+    },
+    {
+      "name": "openroad-ci-integration-pinned.log",
+      "sha256": "3996667ba8a09035bc894ac655029e426b8647f7d1d0b8622066ffe875c22c7d",
+      "bytes": 5202
+    },
+    {
+      "name": "openroad-ci-repair-evidence.tar.gz",
+      "sha256": "a49c62697d4095e96d20d62a46665488487d81613feb07975990b341c02c5206",
+      "bytes": 31897565
+    },
+    {
+      "name": "openroad-ci-repair-docs-latest.json",
+      "sha256": "8c56b4347c5a11ffa731cf02de2be45cc4757956486cbe882bbac1ad834dc79f",
+      "bytes": 124
+    }
+  ],
+  "limitations": [
+    "New hosted workflow results and exact final desktop packages remain pending.",
+    "Local implementation/antenna/PG tests do not qualify the separately failed final-GDS rules or tapeout."
+  ]
+}

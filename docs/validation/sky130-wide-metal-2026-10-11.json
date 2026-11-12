@@ -1,0 +1,112 @@
+{
+  "schema": 1,
+  "chunk": 6,
+  "status": "in_progress",
+  "qualified": false,
+  "chunk_complete": false,
+  "scope": "Eight selected Manhattan huge-metal and attached-feature requirements are explicitly executed alongside all companion checks. 125 requirements have execution bindings; full chunk 6 remains open.",
+  "data": {
+    "path": "docs/validation/sky130-wide-metal-2026-10-11/data.json",
+    "sha256": "efd79fd1adad8fbe668bdc4d907c649bddbf2ba848c4284f6c28b188fcb1d0ac"
+  },
+  "audits": {
+    "win32": {
+      "path": "docs/validation/sky130-wide-metal-2026-10-11/win32.json",
+      "sha256": "a99e52f23b9c9675a2269112fec7a6ccbb0f3fb94e5d4beedc44e4bac33e79ce"
+    },
+    "linux": {
+      "path": "docs/validation/sky130-wide-metal-2026-10-11/linux.json",
+      "sha256": "3f8ef7bf0ad07a6b4b4dbce59af69c30add8f4e1daef72b1f1e69900390e2d38"
+    }
+  },
+  "baseline_commit": "bf471e1",
+  "source_files": {
+    "scripts/sky130_raw_feol.py": "6a33521ce2ab76ca36a7eeda95d4b1018213e06eb9cd4ff2a895f05bf82d007c",
+    "scripts/sky130_low_voltage_geometry.py": "7751ceb802aafcfbb2e18b1068c2c641d422992c78ce6fc522c0915c62de3690",
+    "scripts/sky130_interconnect_geometry.py": "95c6bb9a5d5dafd6e54248349595310e501ac1c5d5ab5f42164fab5bd0713b34",
+    "scripts/sky130_wide_metal.py": "e804ee01d9516e58575f9a97be2bb012fae3b09331ee5385d5d0481389a3749a",
+    "scripts/sky130_rule_execution.py": "f5b219e0c9e9ce0d074b5c29b2fea5029d5ac788bad0aa22da769f36efcaeb36",
+    "scripts/sky130_block_applicability.py": "44e96eb5d7dcf7b1712c908e5b193c3f794ff67567db92770177527dbc24f395",
+    "tests/test_sky130_raw_feol.py": "df2f3a922135004ffa3523fa59c9570a4d060a19a33ef853443df6f3f5ad917e",
+    "tests/test_sky130_block_applicability.py": "5c6746b0ea925e1f431d0783a2e4eb7a7c739a2925900768ddbb2382f7cb7289",
+    "tests/test_sky130_low_voltage_geometry.py": "ea46325424cb3c1f774ee0f688a74756231fbedae290fc4529214617c6b9ac58",
+    "tests/test_sky130_interconnect_geometry.py": "f20e78eb16afec8e79b8b760de4c8b65368337b74467881eef735a9df3934e6c",
+    "tests/test_sky130_wide_metal.py": "979093a310b9090a7cd7ef26236539832b9e18b84c4ff47202d8fcc16547bff9",
+    "tests/test_sky130_rule_execution.py": "739d0458a75d3d58209997b0b737a05856e40e6ba09d5d1ba8e02547fc03645f"
+  },
+  "archive": {
+    "schema": 1,
+    "status": "readback-verified",
+    "layout": "sha256-addressed-blobs-v1",
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-wide-metal-2026-10-11-v1\\evidence.tar.gz",
+    "sha256": "bcfca258a0862f498fc796486f4c7e25d5a46d556abd8af6bfe48548e09406fd",
+    "bytes": 298055,
+    "files": 194,
+    "unique_blobs": 193,
+    "manifest_sha256": "6baa34dc9be1f1cdda1992f2c093805daca69041113fbe9042facc4300fc09bb",
+    "dependency": {
+      "schema": 1,
+      "status": "readback-verified",
+      "layout": "sha256-addressed-blobs-v1",
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-fill-progress-2026-10-11-v1\\evidence.tar.gz",
+      "sha256": "ccef87b3fdbd89009e33449fc1be84eb4e3899ada61163ae99007eef3b6307e0",
+      "bytes": 920448744,
+      "files": 1959,
+      "unique_blobs": 1399,
+      "manifest_sha256": "81f06b06441a6c9864cc93abcd90af2ab87b5658fef3a2953efcedb90c2da9b0",
+      "seconds": 162.43700000000536,
+      "scope": "SKY130 fill, failed attempts, final physical/native circuit checks, partial rule applicability and diode comparison. Not chunk 6 acceptance."
+    }
+  },
+  "cases": [
+    {
+      "case": "counter",
+      "gds_sha256": "4158b6503dc07e85f1e9e7b375a3d654cd9b64dc0498ed9fb680874e973c1ac2",
+      "counts": {
+        "absent-operand": 235,
+        "advisory": 28,
+        "definition-required": 1,
+        "executed-reviewed": 125,
+        "execution-review-required": 74,
+        "other-backend": 61,
+        "upstream-na": 77
+      },
+      "executed_requirements": 125
+    },
+    {
+      "case": "uart",
+      "gds_sha256": "c9282fb9602ac9dbab5299032be1d4b68751bb611747d276d40435e93c37afea",
+      "counts": {
+        "absent-operand": 235,
+        "advisory": 28,
+        "definition-required": 1,
+        "executed-reviewed": 125,
+        "execution-review-required": 74,
+        "other-backend": 61,
+        "upstream-na": 77
+      },
+      "executed_requirements": 125
+    },
+    {
+      "case": "apb",
+      "gds_sha256": "5039221b72bfd052d3f82781f5403fb67df4261ea20add5c2047191321fe9d78",
+      "counts": {
+        "absent-operand": 235,
+        "advisory": 28,
+        "definition-required": 1,
+        "executed-reviewed": 125,
+        "execution-review-required": 74,
+        "other-backend": 61,
+        "upstream-na": 77
+      },
+      "executed_requirements": 125
+    }
+  ],
+  "notes": [
+    "All 91 applicability, geometry and binding tests pass without skips on Windows and Linux; final execution ledgers match exactly.",
+    "The selected Manhattan construction identifies regions wider and longer than 3 um by square opening. The 0.280/0.400 um rules apply to actual spacing-error edge portions at huge metal and nearby attached features. The square influence region is conservative at corners.",
+    "Controls cover strict 3 um width/length boundaries, wide-metal notches, mixed drawn/fill spacing, attached-feature reach, far portions of long wires, Euclidean diagonal spacing and rejected non-Manhattan conductors.",
+    "All final m1-m4 huge-region counts are zero. Non-empty passing/failing synthetic geometry is tested separately; this result does not assert that the reference blocks contain wide-metal operands.",
+    "All 601 periphery rows remain: 125 executed-reviewed, 235 absent-operand, 77 upstream-NA, 28 advisory, 61 other-backend, 74 execution-review-required and one definition-required."
+  ]
+}

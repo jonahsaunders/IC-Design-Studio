@@ -1,0 +1,3981 @@
+{
+  "status": "PASS",
+  "paths": [
+    {
+      "check": "setup",
+      "startpoint": "paddr[3]",
+      "endpoint": "prdata[3]",
+      "slack_ns": 15.705125,
+      "pins": [
+        "paddr[3]",
+        "input4/A",
+        "input4/X",
+        "_072_/B",
+        "_072_/X",
+        "_073_/B",
+        "_073_/Y",
+        "_077_/B1",
+        "_077_/X",
+        "output21/A",
+        "output21/X",
+        "prdata[3]"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "paddr[3]",
+      "endpoint": "prdata[6]",
+      "slack_ns": 15.706667,
+      "pins": [
+        "paddr[3]",
+        "input4/A",
+        "input4/X",
+        "_072_/B",
+        "_072_/X",
+        "_073_/B",
+        "_073_/Y",
+        "_087_/A",
+        "_087_/X",
+        "output24/A",
+        "output24/X",
+        "prdata[6]"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "paddr[3]",
+      "endpoint": "prdata[5]",
+      "slack_ns": 15.708395,
+      "pins": [
+        "paddr[3]",
+        "input4/A",
+        "input4/X",
+        "_072_/B",
+        "_072_/X",
+        "_073_/B",
+        "_073_/Y",
+        "_135_/A",
+        "_135_/X",
+        "output23/A",
+        "output23/X",
+        "prdata[5]"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "paddr[3]",
+      "endpoint": "prdata[4]",
+      "slack_ns": 15.710788,
+      "pins": [
+        "paddr[3]",
+        "input4/A",
+        "input4/X",
+        "_072_/B",
+        "_072_/X",
+        "_073_/B",
+        "_073_/Y",
+        "_075_/B1",
+        "_075_/X",
+        "output22/A",
+        "output22/X",
+        "prdata[4]"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "paddr[3]",
+      "endpoint": "prdata[2]",
+      "slack_ns": 15.716199,
+      "pins": [
+        "paddr[3]",
+        "input4/A",
+        "input4/X",
+        "_072_/B",
+        "_072_/X",
+        "_073_/B",
+        "_073_/Y",
+        "_079_/B1",
+        "_079_/X",
+        "output20/A",
+        "output20/X",
+        "prdata[2]"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "paddr[3]",
+      "endpoint": "prdata[1]",
+      "slack_ns": 15.718485,
+      "pins": [
+        "paddr[3]",
+        "input4/A",
+        "input4/X",
+        "_072_/B",
+        "_072_/X",
+        "_073_/B",
+        "_073_/Y",
+        "_081_/B1",
+        "_081_/X",
+        "output19/A",
+        "output19/X",
+        "prdata[1]"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "paddr[3]",
+      "endpoint": "prdata[7]",
+      "slack_ns": 15.719727,
+      "pins": [
+        "paddr[3]",
+        "input4/A",
+        "input4/X",
+        "_072_/B",
+        "_072_/X",
+        "_073_/B",
+        "_073_/Y",
+        "_126_/A",
+        "_126_/X",
+        "output25/A",
+        "output25/X",
+        "prdata[7]"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "paddr[3]",
+      "endpoint": "prdata[0]",
+      "slack_ns": 15.724238,
+      "pins": [
+        "paddr[3]",
+        "input4/A",
+        "input4/X",
+        "_072_/B",
+        "_072_/X",
+        "_073_/B",
+        "_073_/Y",
+        "_084_/B1",
+        "_084_/Y",
+        "_085_/B",
+        "_085_/Y",
+        "output18/A",
+        "output18/X",
+        "prdata[0]"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "paddr[3]",
+      "endpoint": "pslverr",
+      "slack_ns": 16.007332,
+      "pins": [
+        "paddr[3]",
+        "input4/A",
+        "input4/X",
+        "_071_/B",
+        "_071_/Y",
+        "_130_/B1",
+        "_130_/Y",
+        "_131_/B1",
+        "_131_/Y",
+        "_132_/B",
+        "_132_/Y",
+        "_133_/B",
+        "_133_/Y",
+        "output26/A",
+        "output26/X",
+        "pslverr"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "paddr[3]",
+      "endpoint": "_145_/DE",
+      "slack_ns": 16.63472,
+      "pins": [
+        "paddr[3]",
+        "input4/A",
+        "input4/X",
+        "_071_/B",
+        "_071_/Y",
+        "_094_/C",
+        "_094_/Y",
+        "_095_/B",
+        "_095_/Y",
+        "_106_/B",
+        "_106_/Y",
+        "_107_/B",
+        "_107_/Y",
+        "_145_/DE"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "paddr[3]",
+      "endpoint": "_138_/DE",
+      "slack_ns": 16.634754,
+      "pins": [
+        "paddr[3]",
+        "input4/A",
+        "input4/X",
+        "_071_/B",
+        "_071_/Y",
+        "_094_/C",
+        "_094_/Y",
+        "_095_/B",
+        "_095_/Y",
+        "_106_/B",
+        "_106_/Y",
+        "_107_/B",
+        "_107_/Y",
+        "_138_/DE"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "paddr[3]",
+      "endpoint": "_141_/DE",
+      "slack_ns": 16.634787,
+      "pins": [
+        "paddr[3]",
+        "input4/A",
+        "input4/X",
+        "_071_/B",
+        "_071_/Y",
+        "_094_/C",
+        "_094_/Y",
+        "_095_/B",
+        "_095_/Y",
+        "_106_/B",
+        "_106_/Y",
+        "_107_/B",
+        "_107_/Y",
+        "_141_/DE"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "paddr[3]",
+      "endpoint": "_140_/DE",
+      "slack_ns": 16.634829,
+      "pins": [
+        "paddr[3]",
+        "input4/A",
+        "input4/X",
+        "_071_/B",
+        "_071_/Y",
+        "_094_/C",
+        "_094_/Y",
+        "_095_/B",
+        "_095_/Y",
+        "_106_/B",
+        "_106_/Y",
+        "_107_/B",
+        "_107_/Y",
+        "_140_/DE"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "paddr[3]",
+      "endpoint": "_143_/DE",
+      "slack_ns": 16.635181,
+      "pins": [
+        "paddr[3]",
+        "input4/A",
+        "input4/X",
+        "_071_/B",
+        "_071_/Y",
+        "_094_/C",
+        "_094_/Y",
+        "_095_/B",
+        "_095_/Y",
+        "_106_/B",
+        "_106_/Y",
+        "_107_/B",
+        "_107_/Y",
+        "_143_/DE"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "paddr[3]",
+      "endpoint": "_144_/DE",
+      "slack_ns": 16.635214,
+      "pins": [
+        "paddr[3]",
+        "input4/A",
+        "input4/X",
+        "_071_/B",
+        "_071_/Y",
+        "_094_/C",
+        "_094_/Y",
+        "_095_/B",
+        "_095_/Y",
+        "_106_/B",
+        "_106_/Y",
+        "_107_/B",
+        "_107_/Y",
+        "_144_/DE"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "paddr[3]",
+      "endpoint": "_139_/DE",
+      "slack_ns": 16.635584,
+      "pins": [
+        "paddr[3]",
+        "input4/A",
+        "input4/X",
+        "_071_/B",
+        "_071_/Y",
+        "_094_/C",
+        "_094_/Y",
+        "_095_/B",
+        "_095_/Y",
+        "_106_/B",
+        "_106_/Y",
+        "_107_/B",
+        "_107_/Y",
+        "_139_/DE"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "paddr[3]",
+      "endpoint": "_142_/DE",
+      "slack_ns": 16.635817,
+      "pins": [
+        "paddr[3]",
+        "input4/A",
+        "input4/X",
+        "_071_/B",
+        "_071_/Y",
+        "_094_/C",
+        "_094_/Y",
+        "_095_/B",
+        "_095_/Y",
+        "_106_/B",
+        "_106_/Y",
+        "_107_/B",
+        "_107_/Y",
+        "_142_/DE"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "paddr[3]",
+      "endpoint": "_174_/D",
+      "slack_ns": 16.787392,
+      "pins": [
+        "paddr[3]",
+        "input4/A",
+        "input4/X",
+        "_072_/B",
+        "_072_/X",
+        "_091_/C",
+        "_091_/X",
+        "_113_/S",
+        "_113_/X",
+        "_115_/C",
+        "_115_/X",
+        "_116_/C",
+        "_116_/Y",
+        "_174_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "paddr[3]",
+      "endpoint": "_173_/D",
+      "slack_ns": 16.8979,
+      "pins": [
+        "paddr[3]",
+        "input4/A",
+        "input4/X",
+        "_072_/B",
+        "_072_/X",
+        "_091_/C",
+        "_091_/X",
+        "_100_/B",
+        "_100_/Y",
+        "_101_/B",
+        "_101_/Y",
+        "_103_/A2",
+        "_103_/Y",
+        "_173_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "paddr[3]",
+      "endpoint": "_171_/D",
+      "slack_ns": 16.985317,
+      "pins": [
+        "paddr[3]",
+        "input4/A",
+        "input4/X",
+        "_072_/B",
+        "_072_/X",
+        "_090_/C",
+        "_090_/Y",
+        "_109_/C",
+        "_109_/X",
+        "_111_/B",
+        "_111_/Y",
+        "_171_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "paddr[3]",
+      "endpoint": "_178_/D",
+      "slack_ns": 16.986629,
+      "pins": [
+        "paddr[3]",
+        "input4/A",
+        "input4/X",
+        "_072_/B",
+        "_072_/X",
+        "_090_/C",
+        "_090_/Y",
+        "_109_/C",
+        "_109_/X",
+        "_137_/B",
+        "_137_/Y",
+        "_178_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "paddr[3]",
+      "endpoint": "_172_/D",
+      "slack_ns": 17.01346,
+      "pins": [
+        "paddr[3]",
+        "input4/A",
+        "input4/X",
+        "_072_/B",
+        "_072_/X",
+        "_091_/C",
+        "_091_/X",
+        "_099_/A",
+        "_099_/Y",
+        "_104_/B",
+        "_104_/Y",
+        "_105_/B",
+        "_105_/Y",
+        "_172_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "paddr[3]",
+      "endpoint": "_177_/D",
+      "slack_ns": 17.084272,
+      "pins": [
+        "paddr[3]",
+        "input4/A",
+        "input4/X",
+        "_072_/B",
+        "_072_/X",
+        "_090_/C",
+        "_090_/Y",
+        "_092_/A2",
+        "_092_/Y",
+        "_093_/B1",
+        "_093_/Y",
+        "_177_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "paddr[3]",
+      "endpoint": "_170_/D",
+      "slack_ns": 17.086769,
+      "pins": [
+        "paddr[3]",
+        "input4/A",
+        "input4/X",
+        "_072_/B",
+        "_072_/X",
+        "_090_/C",
+        "_090_/Y",
+        "_092_/A2",
+        "_092_/Y",
+        "_136_/B1",
+        "_136_/Y",
+        "_170_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "_172_/Q",
+      "endpoint": "irq",
+      "slack_ns": 17.111111,
+      "pins": [
+        "_172_/Q",
+        "_069_/B",
+        "_069_/Y",
+        "_127_/SLEEP",
+        "_127_/X",
+        "output17/A",
+        "output17/X",
+        "irq"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "paddr[3]",
+      "endpoint": "_149_/DE",
+      "slack_ns": 17.133181,
+      "pins": [
+        "paddr[3]",
+        "input4/A",
+        "input4/X",
+        "_071_/B",
+        "_071_/Y",
+        "_094_/C",
+        "_094_/Y",
+        "_112_/C",
+        "_112_/Y",
+        "place30/A",
+        "place30/X",
+        "_149_/DE"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "paddr[3]",
+      "endpoint": "_153_/DE",
+      "slack_ns": 17.133375,
+      "pins": [
+        "paddr[3]",
+        "input4/A",
+        "input4/X",
+        "_071_/B",
+        "_071_/Y",
+        "_094_/C",
+        "_094_/Y",
+        "_112_/C",
+        "_112_/Y",
+        "place30/A",
+        "place30/X",
+        "_153_/DE"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "paddr[3]",
+      "endpoint": "_147_/DE",
+      "slack_ns": 17.133549,
+      "pins": [
+        "paddr[3]",
+        "input4/A",
+        "input4/X",
+        "_071_/B",
+        "_071_/Y",
+        "_094_/C",
+        "_094_/Y",
+        "_112_/C",
+        "_112_/Y",
+        "place30/A",
+        "place30/X",
+        "_147_/DE"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "paddr[3]",
+      "endpoint": "_148_/DE",
+      "slack_ns": 17.133942,
+      "pins": [
+        "paddr[3]",
+        "input4/A",
+        "input4/X",
+        "_071_/B",
+        "_071_/Y",
+        "_094_/C",
+        "_094_/Y",
+        "_112_/C",
+        "_112_/Y",
+        "place30/A",
+        "place30/X",
+        "_148_/DE"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "paddr[3]",
+      "endpoint": "_152_/DE",
+      "slack_ns": 17.134708,
+      "pins": [
+        "paddr[3]",
+        "input4/A",
+        "input4/X",
+        "_071_/B",
+        "_071_/Y",
+        "_094_/C",
+        "_094_/Y",
+        "_112_/C",
+        "_112_/Y",
+        "place30/A",
+        "place30/X",
+        "_152_/DE"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "paddr[3]",
+      "endpoint": "_151_/DE",
+      "slack_ns": 17.134747,
+      "pins": [
+        "paddr[3]",
+        "input4/A",
+        "input4/X",
+        "_071_/B",
+        "_071_/Y",
+        "_094_/C",
+        "_094_/Y",
+        "_112_/C",
+        "_112_/Y",
+        "place30/A",
+        "place30/X",
+        "_151_/DE"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "paddr[3]",
+      "endpoint": "_146_/DE",
+      "slack_ns": 17.135124,
+      "pins": [
+        "paddr[3]",
+        "input4/A",
+        "input4/X",
+        "_071_/B",
+        "_071_/Y",
+        "_094_/C",
+        "_094_/Y",
+        "_112_/C",
+        "_112_/Y",
+        "place30/A",
+        "place30/X",
+        "_146_/DE"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "paddr[3]",
+      "endpoint": "_150_/DE",
+      "slack_ns": 17.13629,
+      "pins": [
+        "paddr[3]",
+        "input4/A",
+        "input4/X",
+        "_071_/B",
+        "_071_/Y",
+        "_094_/C",
+        "_094_/Y",
+        "_112_/C",
+        "_112_/Y",
+        "place30/A",
+        "place30/X",
+        "_150_/DE"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "paddr[3]",
+      "endpoint": "_167_/DE",
+      "slack_ns": 17.148069,
+      "pins": [
+        "paddr[3]",
+        "input4/A",
+        "input4/X",
+        "_071_/B",
+        "_071_/Y",
+        "_094_/C",
+        "_094_/Y",
+        "_108_/D",
+        "_108_/Y",
+        "place31/A",
+        "place31/X",
+        "_167_/DE"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "paddr[3]",
+      "endpoint": "_162_/DE",
+      "slack_ns": 17.148571,
+      "pins": [
+        "paddr[3]",
+        "input4/A",
+        "input4/X",
+        "_071_/B",
+        "_071_/Y",
+        "_094_/C",
+        "_094_/Y",
+        "_108_/D",
+        "_108_/Y",
+        "place31/A",
+        "place31/X",
+        "_162_/DE"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "paddr[3]",
+      "endpoint": "_165_/DE",
+      "slack_ns": 17.148666,
+      "pins": [
+        "paddr[3]",
+        "input4/A",
+        "input4/X",
+        "_071_/B",
+        "_071_/Y",
+        "_094_/C",
+        "_094_/Y",
+        "_108_/D",
+        "_108_/Y",
+        "place31/A",
+        "place31/X",
+        "_165_/DE"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "paddr[3]",
+      "endpoint": "_169_/DE",
+      "slack_ns": 17.148785,
+      "pins": [
+        "paddr[3]",
+        "input4/A",
+        "input4/X",
+        "_071_/B",
+        "_071_/Y",
+        "_094_/C",
+        "_094_/Y",
+        "_108_/D",
+        "_108_/Y",
+        "place31/A",
+        "place31/X",
+        "_169_/DE"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "paddr[3]",
+      "endpoint": "_166_/DE",
+      "slack_ns": 17.148949,
+      "pins": [
+        "paddr[3]",
+        "input4/A",
+        "input4/X",
+        "_071_/B",
+        "_071_/Y",
+        "_094_/C",
+        "_094_/Y",
+        "_108_/D",
+        "_108_/Y",
+        "place31/A",
+        "place31/X",
+        "_166_/DE"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "paddr[3]",
+      "endpoint": "_161_/DE",
+      "slack_ns": 17.149349,
+      "pins": [
+        "paddr[3]",
+        "input4/A",
+        "input4/X",
+        "_071_/B",
+        "_071_/Y",
+        "_094_/C",
+        "_094_/Y",
+        "_119_/D",
+        "_119_/Y",
+        "place29/A",
+        "place29/X",
+        "_161_/DE"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "paddr[3]",
+      "endpoint": "_168_/DE",
+      "slack_ns": 17.149412,
+      "pins": [
+        "paddr[3]",
+        "input4/A",
+        "input4/X",
+        "_071_/B",
+        "_071_/Y",
+        "_094_/C",
+        "_094_/Y",
+        "_108_/D",
+        "_108_/Y",
+        "place31/A",
+        "place31/X",
+        "_168_/DE"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "paddr[3]",
+      "endpoint": "_157_/DE",
+      "slack_ns": 17.149534,
+      "pins": [
+        "paddr[3]",
+        "input4/A",
+        "input4/X",
+        "_071_/B",
+        "_071_/Y",
+        "_094_/C",
+        "_094_/Y",
+        "_119_/D",
+        "_119_/Y",
+        "place29/A",
+        "place29/X",
+        "_157_/DE"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "paddr[3]",
+      "endpoint": "_155_/DE",
+      "slack_ns": 17.150698,
+      "pins": [
+        "paddr[3]",
+        "input4/A",
+        "input4/X",
+        "_071_/B",
+        "_071_/Y",
+        "_094_/C",
+        "_094_/Y",
+        "_119_/D",
+        "_119_/Y",
+        "place29/A",
+        "place29/X",
+        "_155_/DE"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "paddr[3]",
+      "endpoint": "_156_/DE",
+      "slack_ns": 17.150829,
+      "pins": [
+        "paddr[3]",
+        "input4/A",
+        "input4/X",
+        "_071_/B",
+        "_071_/Y",
+        "_094_/C",
+        "_094_/Y",
+        "_119_/D",
+        "_119_/Y",
+        "place29/A",
+        "place29/X",
+        "_156_/DE"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "paddr[3]",
+      "endpoint": "_158_/DE",
+      "slack_ns": 17.150986,
+      "pins": [
+        "paddr[3]",
+        "input4/A",
+        "input4/X",
+        "_071_/B",
+        "_071_/Y",
+        "_094_/C",
+        "_094_/Y",
+        "_119_/D",
+        "_119_/Y",
+        "place29/A",
+        "place29/X",
+        "_158_/DE"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "paddr[3]",
+      "endpoint": "_159_/DE",
+      "slack_ns": 17.151037,
+      "pins": [
+        "paddr[3]",
+        "input4/A",
+        "input4/X",
+        "_071_/B",
+        "_071_/Y",
+        "_094_/C",
+        "_094_/Y",
+        "_119_/D",
+        "_119_/Y",
+        "place29/A",
+        "place29/X",
+        "_159_/DE"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "paddr[3]",
+      "endpoint": "_160_/DE",
+      "slack_ns": 17.151062,
+      "pins": [
+        "paddr[3]",
+        "input4/A",
+        "input4/X",
+        "_071_/B",
+        "_071_/Y",
+        "_094_/C",
+        "_094_/Y",
+        "_119_/D",
+        "_119_/Y",
+        "place29/A",
+        "place29/X",
+        "_160_/DE"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "paddr[3]",
+      "endpoint": "_164_/DE",
+      "slack_ns": 17.151394,
+      "pins": [
+        "paddr[3]",
+        "input4/A",
+        "input4/X",
+        "_071_/B",
+        "_071_/Y",
+        "_094_/C",
+        "_094_/Y",
+        "_108_/D",
+        "_108_/Y",
+        "place31/A",
+        "place31/X",
+        "_164_/DE"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "paddr[3]",
+      "endpoint": "_163_/DE",
+      "slack_ns": 17.152069,
+      "pins": [
+        "paddr[3]",
+        "input4/A",
+        "input4/X",
+        "_071_/B",
+        "_071_/Y",
+        "_094_/C",
+        "_094_/Y",
+        "_108_/D",
+        "_108_/Y",
+        "place31/A",
+        "place31/X",
+        "_163_/DE"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "paddr[3]",
+      "endpoint": "_154_/DE",
+      "slack_ns": 17.153021,
+      "pins": [
+        "paddr[3]",
+        "input4/A",
+        "input4/X",
+        "_071_/B",
+        "_071_/Y",
+        "_094_/C",
+        "_094_/Y",
+        "_119_/D",
+        "_119_/Y",
+        "place29/A",
+        "place29/X",
+        "_154_/DE"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "paddr[3]",
+      "endpoint": "_176_/D",
+      "slack_ns": 17.31666,
+      "pins": [
+        "paddr[3]",
+        "input4/A",
+        "input4/X",
+        "_071_/B",
+        "_071_/Y",
+        "_094_/C",
+        "_094_/Y",
+        "_095_/B",
+        "_095_/Y",
+        "_117_/A2",
+        "_117_/Y",
+        "_118_/B1",
+        "_118_/X",
+        "_176_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "pwdata[2]",
+      "endpoint": "_148_/D",
+      "slack_ns": 0.280405,
+      "pins": [
+        "pwdata[2]",
+        "input9/A",
+        "input9/X",
+        "_148_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "pwdata[2]",
+      "endpoint": "_156_/D",
+      "slack_ns": 0.28047,
+      "pins": [
+        "pwdata[2]",
+        "input9/A",
+        "input9/X",
+        "_156_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "pwdata[2]",
+      "endpoint": "_164_/D",
+      "slack_ns": 0.280526,
+      "pins": [
+        "pwdata[2]",
+        "input9/A",
+        "input9/X",
+        "_164_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "pwdata[2]",
+      "endpoint": "_140_/D",
+      "slack_ns": 0.28119,
+      "pins": [
+        "pwdata[2]",
+        "input9/A",
+        "input9/X",
+        "_140_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "pwdata[5]",
+      "endpoint": "_151_/D",
+      "slack_ns": 0.283246,
+      "pins": [
+        "pwdata[5]",
+        "input12/A",
+        "input12/X",
+        "_151_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "pwdata[5]",
+      "endpoint": "_159_/D",
+      "slack_ns": 0.283284,
+      "pins": [
+        "pwdata[5]",
+        "input12/A",
+        "input12/X",
+        "_159_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "pwdata[5]",
+      "endpoint": "_143_/D",
+      "slack_ns": 0.283371,
+      "pins": [
+        "pwdata[5]",
+        "input12/A",
+        "input12/X",
+        "_143_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "pwdata[6]",
+      "endpoint": "_168_/D",
+      "slack_ns": 0.283814,
+      "pins": [
+        "pwdata[6]",
+        "input13/A",
+        "input13/X",
+        "_168_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "pwdata[6]",
+      "endpoint": "_144_/D",
+      "slack_ns": 0.283963,
+      "pins": [
+        "pwdata[6]",
+        "input13/A",
+        "input13/X",
+        "_144_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "pwdata[6]",
+      "endpoint": "_160_/D",
+      "slack_ns": 0.283996,
+      "pins": [
+        "pwdata[6]",
+        "input13/A",
+        "input13/X",
+        "_160_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "pwdata[6]",
+      "endpoint": "_152_/D",
+      "slack_ns": 0.284017,
+      "pins": [
+        "pwdata[6]",
+        "input13/A",
+        "input13/X",
+        "_152_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "pwdata[5]",
+      "endpoint": "_167_/D",
+      "slack_ns": 0.284654,
+      "pins": [
+        "pwdata[5]",
+        "input12/A",
+        "input12/X",
+        "_167_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "pwdata[1]",
+      "endpoint": "_147_/D",
+      "slack_ns": 0.286112,
+      "pins": [
+        "pwdata[1]",
+        "input8/A",
+        "input8/X",
+        "_147_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "pwdata[1]",
+      "endpoint": "_139_/D",
+      "slack_ns": 0.286119,
+      "pins": [
+        "pwdata[1]",
+        "input8/A",
+        "input8/X",
+        "_139_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "pwdata[1]",
+      "endpoint": "_163_/D",
+      "slack_ns": 0.286154,
+      "pins": [
+        "pwdata[1]",
+        "input8/A",
+        "input8/X",
+        "_163_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "pwdata[1]",
+      "endpoint": "_155_/D",
+      "slack_ns": 0.286189,
+      "pins": [
+        "pwdata[1]",
+        "input8/A",
+        "input8/X",
+        "_155_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "pwdata[7]",
+      "endpoint": "_145_/D",
+      "slack_ns": 0.29868,
+      "pins": [
+        "pwdata[7]",
+        "input14/A",
+        "input14/X",
+        "_145_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "pwdata[7]",
+      "endpoint": "_153_/D",
+      "slack_ns": 0.298701,
+      "pins": [
+        "pwdata[7]",
+        "input14/A",
+        "input14/X",
+        "_153_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "pwdata[7]",
+      "endpoint": "_161_/D",
+      "slack_ns": 0.299093,
+      "pins": [
+        "pwdata[7]",
+        "input14/A",
+        "input14/X",
+        "_161_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "pwdata[7]",
+      "endpoint": "_169_/D",
+      "slack_ns": 0.299109,
+      "pins": [
+        "pwdata[7]",
+        "input14/A",
+        "input14/X",
+        "_169_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "pwdata[3]",
+      "endpoint": "_141_/D",
+      "slack_ns": 0.299545,
+      "pins": [
+        "pwdata[3]",
+        "input10/A",
+        "input10/X",
+        "_141_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "pwdata[3]",
+      "endpoint": "_149_/D",
+      "slack_ns": 0.299641,
+      "pins": [
+        "pwdata[3]",
+        "input10/A",
+        "input10/X",
+        "_149_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "pwdata[3]",
+      "endpoint": "_157_/D",
+      "slack_ns": 0.299871,
+      "pins": [
+        "pwdata[3]",
+        "input10/A",
+        "input10/X",
+        "_157_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "pwdata[3]",
+      "endpoint": "_165_/D",
+      "slack_ns": 0.300242,
+      "pins": [
+        "pwdata[3]",
+        "input10/A",
+        "input10/X",
+        "_165_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "pwdata[4]",
+      "endpoint": "_150_/D",
+      "slack_ns": 0.320672,
+      "pins": [
+        "pwdata[4]",
+        "input11/A",
+        "input11/X",
+        "_150_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "pwdata[4]",
+      "endpoint": "_142_/D",
+      "slack_ns": 0.320753,
+      "pins": [
+        "pwdata[4]",
+        "input11/A",
+        "input11/X",
+        "_142_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "pwdata[4]",
+      "endpoint": "_158_/D",
+      "slack_ns": 0.320956,
+      "pins": [
+        "pwdata[4]",
+        "input11/A",
+        "input11/X",
+        "_158_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "pwdata[4]",
+      "endpoint": "_166_/D",
+      "slack_ns": 0.322056,
+      "pins": [
+        "pwdata[4]",
+        "input11/A",
+        "input11/X",
+        "_166_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "pwdata[0]",
+      "endpoint": "_154_/D",
+      "slack_ns": 0.34398,
+      "pins": [
+        "pwdata[0]",
+        "input7/A",
+        "input7/X",
+        "_154_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "pwdata[0]",
+      "endpoint": "_146_/D",
+      "slack_ns": 0.34592,
+      "pins": [
+        "pwdata[0]",
+        "input7/A",
+        "input7/X",
+        "_146_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "pwdata[0]",
+      "endpoint": "_162_/D",
+      "slack_ns": 0.34618,
+      "pins": [
+        "pwdata[0]",
+        "input7/A",
+        "input7/X",
+        "_162_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "pwdata[0]",
+      "endpoint": "_138_/D",
+      "slack_ns": 0.346275,
+      "pins": [
+        "pwdata[0]",
+        "input7/A",
+        "input7/X",
+        "_138_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "_177_/Q",
+      "endpoint": "_170_/D",
+      "slack_ns": 0.400388,
+      "pins": [
+        "_177_/Q",
+        "_136_/A1",
+        "_136_/Y",
+        "_170_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "_177_/Q",
+      "endpoint": "_177_/D",
+      "slack_ns": 0.402656,
+      "pins": [
+        "_177_/Q",
+        "_093_/A1",
+        "_093_/Y",
+        "_177_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "_179_/Q",
+      "endpoint": "_179_/D",
+      "slack_ns": 0.421057,
+      "pins": [
+        "_179_/Q",
+        "_122_/A",
+        "_122_/Y",
+        "_124_/B",
+        "_124_/Y",
+        "_179_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "_178_/Q",
+      "endpoint": "_178_/D",
+      "slack_ns": 0.438702,
+      "pins": [
+        "_178_/Q",
+        "_110_/B1",
+        "_110_/Y",
+        "_137_/C",
+        "_137_/Y",
+        "_178_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "_178_/Q",
+      "endpoint": "_171_/D",
+      "slack_ns": 0.443761,
+      "pins": [
+        "_178_/Q",
+        "_110_/B1",
+        "_110_/Y",
+        "_111_/C",
+        "_111_/Y",
+        "_171_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "_176_/Q",
+      "endpoint": "_176_/D",
+      "slack_ns": 0.471441,
+      "pins": [
+        "_176_/Q",
+        "_118_/A1",
+        "_118_/X",
+        "_176_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "_174_/Q",
+      "endpoint": "_174_/D",
+      "slack_ns": 0.47425,
+      "pins": [
+        "_174_/Q",
+        "_114_/B1",
+        "_114_/Y",
+        "_116_/B",
+        "_116_/Y",
+        "_174_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "_173_/Q",
+      "endpoint": "_173_/D",
+      "slack_ns": 0.484529,
+      "pins": [
+        "_173_/Q",
+        "_102_/A",
+        "_102_/Y",
+        "_103_/B1",
+        "_103_/Y",
+        "_173_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "reset",
+      "endpoint": "_172_/D",
+      "slack_ns": 0.497873,
+      "pins": [
+        "reset",
+        "input16/A",
+        "input16/X",
+        "_105_/A",
+        "_105_/Y",
+        "_172_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "_175_/Q",
+      "endpoint": "_175_/D",
+      "slack_ns": 0.50787,
+      "pins": [
+        "_175_/Q",
+        "_065_/A",
+        "_065_/Y",
+        "_095_/A",
+        "_095_/Y",
+        "_097_/SLEEP",
+        "_097_/X",
+        "_175_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "_175_/Q",
+      "endpoint": "_150_/DE",
+      "slack_ns": 0.678855,
+      "pins": [
+        "_175_/Q",
+        "_112_/A",
+        "_112_/Y",
+        "place30/A",
+        "place30/X",
+        "_150_/DE"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "_175_/Q",
+      "endpoint": "_146_/DE",
+      "slack_ns": 0.679932,
+      "pins": [
+        "_175_/Q",
+        "_112_/A",
+        "_112_/Y",
+        "place30/A",
+        "place30/X",
+        "_146_/DE"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "_175_/Q",
+      "endpoint": "_151_/DE",
+      "slack_ns": 0.680288,
+      "pins": [
+        "_175_/Q",
+        "_112_/A",
+        "_112_/Y",
+        "place30/A",
+        "place30/X",
+        "_151_/DE"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "_175_/Q",
+      "endpoint": "_152_/DE",
+      "slack_ns": 0.680323,
+      "pins": [
+        "_175_/Q",
+        "_112_/A",
+        "_112_/Y",
+        "place30/A",
+        "place30/X",
+        "_152_/DE"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "_175_/Q",
+      "endpoint": "_148_/DE",
+      "slack_ns": 0.681146,
+      "pins": [
+        "_175_/Q",
+        "_112_/A",
+        "_112_/Y",
+        "place30/A",
+        "place30/X",
+        "_148_/DE"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "_175_/Q",
+      "endpoint": "_147_/DE",
+      "slack_ns": 0.681536,
+      "pins": [
+        "_175_/Q",
+        "_112_/A",
+        "_112_/Y",
+        "place30/A",
+        "place30/X",
+        "_147_/DE"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "_175_/Q",
+      "endpoint": "_153_/DE",
+      "slack_ns": 0.681579,
+      "pins": [
+        "_175_/Q",
+        "_112_/A",
+        "_112_/Y",
+        "place30/A",
+        "place30/X",
+        "_153_/DE"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "_175_/Q",
+      "endpoint": "_149_/DE",
+      "slack_ns": 0.681769,
+      "pins": [
+        "_175_/Q",
+        "_112_/A",
+        "_112_/Y",
+        "place30/A",
+        "place30/X",
+        "_149_/DE"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    }
+  ],
+  "summary": {
+    "setup_worst_slack_ns": 15.705125,
+    "hold_worst_slack_ns": 0.280405,
+    "setup_reported_violations": 0,
+    "hold_reported_violations": 0,
+    "setup_total_negative_slack_ns": 0.0,
+    "hold_total_negative_slack_ns": 0.0
+  },
+  "unconstrained": false,
+  "incomplete_reasons": [],
+  "checks": "",
+  "units": " time 1ns\n capacitance 1pF\n resistance 1kohm\n voltage 1v\n current 1mA\n power 1nW\n distance 1um\n",
+  "electrical_checks": "",
+  "electrical_status": "No reported violations",
+  "scope": "Every selected library corner crossed with each captured interconnect extraction. Legacy single-SPEF and pre-layout results retain their narrower scope.",
+  "corner": "typical",
+  "parasitics": "extracted SPEF",
+  "corners": [
+    {
+      "status": "PASS",
+      "paths": [
+        {
+          "check": "setup",
+          "startpoint": "paddr[3]",
+          "endpoint": "prdata[3]",
+          "slack_ns": 15.705125,
+          "pins": [
+            "paddr[3]",
+            "input4/A",
+            "input4/X",
+            "_072_/B",
+            "_072_/X",
+            "_073_/B",
+            "_073_/Y",
+            "_077_/B1",
+            "_077_/X",
+            "output21/A",
+            "output21/X",
+            "prdata[3]"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "paddr[3]",
+          "endpoint": "prdata[6]",
+          "slack_ns": 15.706667,
+          "pins": [
+            "paddr[3]",
+            "input4/A",
+            "input4/X",
+            "_072_/B",
+            "_072_/X",
+            "_073_/B",
+            "_073_/Y",
+            "_087_/A",
+            "_087_/X",
+            "output24/A",
+            "output24/X",
+            "prdata[6]"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "paddr[3]",
+          "endpoint": "prdata[5]",
+          "slack_ns": 15.708395,
+          "pins": [
+            "paddr[3]",
+            "input4/A",
+            "input4/X",
+            "_072_/B",
+            "_072_/X",
+            "_073_/B",
+            "_073_/Y",
+            "_135_/A",
+            "_135_/X",
+            "output23/A",
+            "output23/X",
+            "prdata[5]"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "paddr[3]",
+          "endpoint": "prdata[4]",
+          "slack_ns": 15.710788,
+          "pins": [
+            "paddr[3]",
+            "input4/A",
+            "input4/X",
+            "_072_/B",
+            "_072_/X",
+            "_073_/B",
+            "_073_/Y",
+            "_075_/B1",
+            "_075_/X",
+            "output22/A",
+            "output22/X",
+            "prdata[4]"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "paddr[3]",
+          "endpoint": "prdata[2]",
+          "slack_ns": 15.716199,
+          "pins": [
+            "paddr[3]",
+            "input4/A",
+            "input4/X",
+            "_072_/B",
+            "_072_/X",
+            "_073_/B",
+            "_073_/Y",
+            "_079_/B1",
+            "_079_/X",
+            "output20/A",
+            "output20/X",
+            "prdata[2]"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "paddr[3]",
+          "endpoint": "prdata[1]",
+          "slack_ns": 15.718485,
+          "pins": [
+            "paddr[3]",
+            "input4/A",
+            "input4/X",
+            "_072_/B",
+            "_072_/X",
+            "_073_/B",
+            "_073_/Y",
+            "_081_/B1",
+            "_081_/X",
+            "output19/A",
+            "output19/X",
+            "prdata[1]"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "paddr[3]",
+          "endpoint": "prdata[7]",
+          "slack_ns": 15.719727,
+          "pins": [
+            "paddr[3]",
+            "input4/A",
+            "input4/X",
+            "_072_/B",
+            "_072_/X",
+            "_073_/B",
+            "_073_/Y",
+            "_126_/A",
+            "_126_/X",
+            "output25/A",
+            "output25/X",
+            "prdata[7]"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "paddr[3]",
+          "endpoint": "prdata[0]",
+          "slack_ns": 15.724238,
+          "pins": [
+            "paddr[3]",
+            "input4/A",
+            "input4/X",
+            "_072_/B",
+            "_072_/X",
+            "_073_/B",
+            "_073_/Y",
+            "_084_/B1",
+            "_084_/Y",
+            "_085_/B",
+            "_085_/Y",
+            "output18/A",
+            "output18/X",
+            "prdata[0]"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "paddr[3]",
+          "endpoint": "pslverr",
+          "slack_ns": 16.007332,
+          "pins": [
+            "paddr[3]",
+            "input4/A",
+            "input4/X",
+            "_071_/B",
+            "_071_/Y",
+            "_130_/B1",
+            "_130_/Y",
+            "_131_/B1",
+            "_131_/Y",
+            "_132_/B",
+            "_132_/Y",
+            "_133_/B",
+            "_133_/Y",
+            "output26/A",
+            "output26/X",
+            "pslverr"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "paddr[3]",
+          "endpoint": "_145_/DE",
+          "slack_ns": 16.63472,
+          "pins": [
+            "paddr[3]",
+            "input4/A",
+            "input4/X",
+            "_071_/B",
+            "_071_/Y",
+            "_094_/C",
+            "_094_/Y",
+            "_095_/B",
+            "_095_/Y",
+            "_106_/B",
+            "_106_/Y",
+            "_107_/B",
+            "_107_/Y",
+            "_145_/DE"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "paddr[3]",
+          "endpoint": "_138_/DE",
+          "slack_ns": 16.634754,
+          "pins": [
+            "paddr[3]",
+            "input4/A",
+            "input4/X",
+            "_071_/B",
+            "_071_/Y",
+            "_094_/C",
+            "_094_/Y",
+            "_095_/B",
+            "_095_/Y",
+            "_106_/B",
+            "_106_/Y",
+            "_107_/B",
+            "_107_/Y",
+            "_138_/DE"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "paddr[3]",
+          "endpoint": "_141_/DE",
+          "slack_ns": 16.634787,
+          "pins": [
+            "paddr[3]",
+            "input4/A",
+            "input4/X",
+            "_071_/B",
+            "_071_/Y",
+            "_094_/C",
+            "_094_/Y",
+            "_095_/B",
+            "_095_/Y",
+            "_106_/B",
+            "_106_/Y",
+            "_107_/B",
+            "_107_/Y",
+            "_141_/DE"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "paddr[3]",
+          "endpoint": "_140_/DE",
+          "slack_ns": 16.634829,
+          "pins": [
+            "paddr[3]",
+            "input4/A",
+            "input4/X",
+            "_071_/B",
+            "_071_/Y",
+            "_094_/C",
+            "_094_/Y",
+            "_095_/B",
+            "_095_/Y",
+            "_106_/B",
+            "_106_/Y",
+            "_107_/B",
+            "_107_/Y",
+            "_140_/DE"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "paddr[3]",
+          "endpoint": "_143_/DE",
+          "slack_ns": 16.635181,
+          "pins": [
+            "paddr[3]",
+            "input4/A",
+            "input4/X",
+            "_071_/B",
+            "_071_/Y",
+            "_094_/C",
+            "_094_/Y",
+            "_095_/B",
+            "_095_/Y",
+            "_106_/B",
+            "_106_/Y",
+            "_107_/B",
+            "_107_/Y",
+            "_143_/DE"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "paddr[3]",
+          "endpoint": "_144_/DE",
+          "slack_ns": 16.635214,
+          "pins": [
+            "paddr[3]",
+            "input4/A",
+            "input4/X",
+            "_071_/B",
+            "_071_/Y",
+            "_094_/C",
+            "_094_/Y",
+            "_095_/B",
+            "_095_/Y",
+            "_106_/B",
+            "_106_/Y",
+            "_107_/B",
+            "_107_/Y",
+            "_144_/DE"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "paddr[3]",
+          "endpoint": "_139_/DE",
+          "slack_ns": 16.635584,
+          "pins": [
+            "paddr[3]",
+            "input4/A",
+            "input4/X",
+            "_071_/B",
+            "_071_/Y",
+            "_094_/C",
+            "_094_/Y",
+            "_095_/B",
+            "_095_/Y",
+            "_106_/B",
+            "_106_/Y",
+            "_107_/B",
+            "_107_/Y",
+            "_139_/DE"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "paddr[3]",
+          "endpoint": "_142_/DE",
+          "slack_ns": 16.635817,
+          "pins": [
+            "paddr[3]",
+            "input4/A",
+            "input4/X",
+            "_071_/B",
+            "_071_/Y",
+            "_094_/C",
+            "_094_/Y",
+            "_095_/B",
+            "_095_/Y",
+            "_106_/B",
+            "_106_/Y",
+            "_107_/B",
+            "_107_/Y",
+            "_142_/DE"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "paddr[3]",
+          "endpoint": "_174_/D",
+          "slack_ns": 16.787392,
+          "pins": [
+            "paddr[3]",
+            "input4/A",
+            "input4/X",
+            "_072_/B",
+            "_072_/X",
+            "_091_/C",
+            "_091_/X",
+            "_113_/S",
+            "_113_/X",
+            "_115_/C",
+            "_115_/X",
+            "_116_/C",
+            "_116_/Y",
+            "_174_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "paddr[3]",
+          "endpoint": "_173_/D",
+          "slack_ns": 16.8979,
+          "pins": [
+            "paddr[3]",
+            "input4/A",
+            "input4/X",
+            "_072_/B",
+            "_072_/X",
+            "_091_/C",
+            "_091_/X",
+            "_100_/B",
+            "_100_/Y",
+            "_101_/B",
+            "_101_/Y",
+            "_103_/A2",
+            "_103_/Y",
+            "_173_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "paddr[3]",
+          "endpoint": "_171_/D",
+          "slack_ns": 16.985317,
+          "pins": [
+            "paddr[3]",
+            "input4/A",
+            "input4/X",
+            "_072_/B",
+            "_072_/X",
+            "_090_/C",
+            "_090_/Y",
+            "_109_/C",
+            "_109_/X",
+            "_111_/B",
+            "_111_/Y",
+            "_171_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "paddr[3]",
+          "endpoint": "_178_/D",
+          "slack_ns": 16.986629,
+          "pins": [
+            "paddr[3]",
+            "input4/A",
+            "input4/X",
+            "_072_/B",
+            "_072_/X",
+            "_090_/C",
+            "_090_/Y",
+            "_109_/C",
+            "_109_/X",
+            "_137_/B",
+            "_137_/Y",
+            "_178_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "paddr[3]",
+          "endpoint": "_172_/D",
+          "slack_ns": 17.01346,
+          "pins": [
+            "paddr[3]",
+            "input4/A",
+            "input4/X",
+            "_072_/B",
+            "_072_/X",
+            "_091_/C",
+            "_091_/X",
+            "_099_/A",
+            "_099_/Y",
+            "_104_/B",
+            "_104_/Y",
+            "_105_/B",
+            "_105_/Y",
+            "_172_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "paddr[3]",
+          "endpoint": "_177_/D",
+          "slack_ns": 17.084272,
+          "pins": [
+            "paddr[3]",
+            "input4/A",
+            "input4/X",
+            "_072_/B",
+            "_072_/X",
+            "_090_/C",
+            "_090_/Y",
+            "_092_/A2",
+            "_092_/Y",
+            "_093_/B1",
+            "_093_/Y",
+            "_177_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "paddr[3]",
+          "endpoint": "_170_/D",
+          "slack_ns": 17.086769,
+          "pins": [
+            "paddr[3]",
+            "input4/A",
+            "input4/X",
+            "_072_/B",
+            "_072_/X",
+            "_090_/C",
+            "_090_/Y",
+            "_092_/A2",
+            "_092_/Y",
+            "_136_/B1",
+            "_136_/Y",
+            "_170_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "_172_/Q",
+          "endpoint": "irq",
+          "slack_ns": 17.111111,
+          "pins": [
+            "_172_/Q",
+            "_069_/B",
+            "_069_/Y",
+            "_127_/SLEEP",
+            "_127_/X",
+            "output17/A",
+            "output17/X",
+            "irq"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "paddr[3]",
+          "endpoint": "_149_/DE",
+          "slack_ns": 17.133181,
+          "pins": [
+            "paddr[3]",
+            "input4/A",
+            "input4/X",
+            "_071_/B",
+            "_071_/Y",
+            "_094_/C",
+            "_094_/Y",
+            "_112_/C",
+            "_112_/Y",
+            "place30/A",
+            "place30/X",
+            "_149_/DE"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "paddr[3]",
+          "endpoint": "_153_/DE",
+          "slack_ns": 17.133375,
+          "pins": [
+            "paddr[3]",
+            "input4/A",
+            "input4/X",
+            "_071_/B",
+            "_071_/Y",
+            "_094_/C",
+            "_094_/Y",
+            "_112_/C",
+            "_112_/Y",
+            "place30/A",
+            "place30/X",
+            "_153_/DE"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "paddr[3]",
+          "endpoint": "_147_/DE",
+          "slack_ns": 17.133549,
+          "pins": [
+            "paddr[3]",
+            "input4/A",
+            "input4/X",
+            "_071_/B",
+            "_071_/Y",
+            "_094_/C",
+            "_094_/Y",
+            "_112_/C",
+            "_112_/Y",
+            "place30/A",
+            "place30/X",
+            "_147_/DE"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "paddr[3]",
+          "endpoint": "_148_/DE",
+          "slack_ns": 17.133942,
+          "pins": [
+            "paddr[3]",
+            "input4/A",
+            "input4/X",
+            "_071_/B",
+            "_071_/Y",
+            "_094_/C",
+            "_094_/Y",
+            "_112_/C",
+            "_112_/Y",
+            "place30/A",
+            "place30/X",
+            "_148_/DE"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "paddr[3]",
+          "endpoint": "_152_/DE",
+          "slack_ns": 17.134708,
+          "pins": [
+            "paddr[3]",
+            "input4/A",
+            "input4/X",
+            "_071_/B",
+            "_071_/Y",
+            "_094_/C",
+            "_094_/Y",
+            "_112_/C",
+            "_112_/Y",
+            "place30/A",
+            "place30/X",
+            "_152_/DE"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "paddr[3]",
+          "endpoint": "_151_/DE",
+          "slack_ns": 17.134747,
+          "pins": [
+            "paddr[3]",
+            "input4/A",
+            "input4/X",
+            "_071_/B",
+            "_071_/Y",
+            "_094_/C",
+            "_094_/Y",
+            "_112_/C",
+            "_112_/Y",
+            "place30/A",
+            "place30/X",
+            "_151_/DE"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "paddr[3]",
+          "endpoint": "_146_/DE",
+          "slack_ns": 17.135124,
+          "pins": [
+            "paddr[3]",
+            "input4/A",
+            "input4/X",
+            "_071_/B",
+            "_071_/Y",
+            "_094_/C",
+            "_094_/Y",
+            "_112_/C",
+            "_112_/Y",
+            "place30/A",
+            "place30/X",
+            "_146_/DE"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "paddr[3]",
+          "endpoint": "_150_/DE",
+          "slack_ns": 17.13629,
+          "pins": [
+            "paddr[3]",
+            "input4/A",
+            "input4/X",
+            "_071_/B",
+            "_071_/Y",
+            "_094_/C",
+            "_094_/Y",
+            "_112_/C",
+            "_112_/Y",
+            "place30/A",
+            "place30/X",
+            "_150_/DE"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "paddr[3]",
+          "endpoint": "_167_/DE",
+          "slack_ns": 17.148069,
+          "pins": [
+            "paddr[3]",
+            "input4/A",
+            "input4/X",
+            "_071_/B",
+            "_071_/Y",
+            "_094_/C",
+            "_094_/Y",
+            "_108_/D",
+            "_108_/Y",
+            "place31/A",
+            "place31/X",
+            "_167_/DE"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "paddr[3]",
+          "endpoint": "_162_/DE",
+          "slack_ns": 17.148571,
+          "pins": [
+            "paddr[3]",
+            "input4/A",
+            "input4/X",
+            "_071_/B",
+            "_071_/Y",
+            "_094_/C",
+            "_094_/Y",
+            "_108_/D",
+            "_108_/Y",
+            "place31/A",
+            "place31/X",
+            "_162_/DE"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "paddr[3]",
+          "endpoint": "_165_/DE",
+          "slack_ns": 17.148666,
+          "pins": [
+            "paddr[3]",
+            "input4/A",
+            "input4/X",
+            "_071_/B",
+            "_071_/Y",
+            "_094_/C",
+            "_094_/Y",
+            "_108_/D",
+            "_108_/Y",
+            "place31/A",
+            "place31/X",
+            "_165_/DE"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "paddr[3]",
+          "endpoint": "_169_/DE",
+          "slack_ns": 17.148785,
+          "pins": [
+            "paddr[3]",
+            "input4/A",
+            "input4/X",
+            "_071_/B",
+            "_071_/Y",
+            "_094_/C",
+            "_094_/Y",
+            "_108_/D",
+            "_108_/Y",
+            "place31/A",
+            "place31/X",
+            "_169_/DE"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "paddr[3]",
+          "endpoint": "_166_/DE",
+          "slack_ns": 17.148949,
+          "pins": [
+            "paddr[3]",
+            "input4/A",
+            "input4/X",
+            "_071_/B",
+            "_071_/Y",
+            "_094_/C",
+            "_094_/Y",
+            "_108_/D",
+            "_108_/Y",
+            "place31/A",
+            "place31/X",
+            "_166_/DE"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "paddr[3]",
+          "endpoint": "_161_/DE",
+          "slack_ns": 17.149349,
+          "pins": [
+            "paddr[3]",
+            "input4/A",
+            "input4/X",
+            "_071_/B",
+            "_071_/Y",
+            "_094_/C",
+            "_094_/Y",
+            "_119_/D",
+            "_119_/Y",
+            "place29/A",
+            "place29/X",
+            "_161_/DE"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "paddr[3]",
+          "endpoint": "_168_/DE",
+          "slack_ns": 17.149412,
+          "pins": [
+            "paddr[3]",
+            "input4/A",
+            "input4/X",
+            "_071_/B",
+            "_071_/Y",
+            "_094_/C",
+            "_094_/Y",
+            "_108_/D",
+            "_108_/Y",
+            "place31/A",
+            "place31/X",
+            "_168_/DE"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "paddr[3]",
+          "endpoint": "_157_/DE",
+          "slack_ns": 17.149534,
+          "pins": [
+            "paddr[3]",
+            "input4/A",
+            "input4/X",
+            "_071_/B",
+            "_071_/Y",
+            "_094_/C",
+            "_094_/Y",
+            "_119_/D",
+            "_119_/Y",
+            "place29/A",
+            "place29/X",
+            "_157_/DE"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "paddr[3]",
+          "endpoint": "_155_/DE",
+          "slack_ns": 17.150698,
+          "pins": [
+            "paddr[3]",
+            "input4/A",
+            "input4/X",
+            "_071_/B",
+            "_071_/Y",
+            "_094_/C",
+            "_094_/Y",
+            "_119_/D",
+            "_119_/Y",
+            "place29/A",
+            "place29/X",
+            "_155_/DE"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "paddr[3]",
+          "endpoint": "_156_/DE",
+          "slack_ns": 17.150829,
+          "pins": [
+            "paddr[3]",
+            "input4/A",
+            "input4/X",
+            "_071_/B",
+            "_071_/Y",
+            "_094_/C",
+            "_094_/Y",
+            "_119_/D",
+            "_119_/Y",
+            "place29/A",
+            "place29/X",
+            "_156_/DE"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "paddr[3]",
+          "endpoint": "_158_/DE",
+          "slack_ns": 17.150986,
+          "pins": [
+            "paddr[3]",
+            "input4/A",
+            "input4/X",
+            "_071_/B",
+            "_071_/Y",
+            "_094_/C",
+            "_094_/Y",
+            "_119_/D",
+            "_119_/Y",
+            "place29/A",
+            "place29/X",
+            "_158_/DE"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "paddr[3]",
+          "endpoint": "_159_/DE",
+          "slack_ns": 17.151037,
+          "pins": [
+            "paddr[3]",
+            "input4/A",
+            "input4/X",
+            "_071_/B",
+            "_071_/Y",
+            "_094_/C",
+            "_094_/Y",
+            "_119_/D",
+            "_119_/Y",
+            "place29/A",
+            "place29/X",
+            "_159_/DE"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "paddr[3]",
+          "endpoint": "_160_/DE",
+          "slack_ns": 17.151062,
+          "pins": [
+            "paddr[3]",
+            "input4/A",
+            "input4/X",
+            "_071_/B",
+            "_071_/Y",
+            "_094_/C",
+            "_094_/Y",
+            "_119_/D",
+            "_119_/Y",
+            "place29/A",
+            "place29/X",
+            "_160_/DE"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "paddr[3]",
+          "endpoint": "_164_/DE",
+          "slack_ns": 17.151394,
+          "pins": [
+            "paddr[3]",
+            "input4/A",
+            "input4/X",
+            "_071_/B",
+            "_071_/Y",
+            "_094_/C",
+            "_094_/Y",
+            "_108_/D",
+            "_108_/Y",
+            "place31/A",
+            "place31/X",
+            "_164_/DE"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "paddr[3]",
+          "endpoint": "_163_/DE",
+          "slack_ns": 17.152069,
+          "pins": [
+            "paddr[3]",
+            "input4/A",
+            "input4/X",
+            "_071_/B",
+            "_071_/Y",
+            "_094_/C",
+            "_094_/Y",
+            "_108_/D",
+            "_108_/Y",
+            "place31/A",
+            "place31/X",
+            "_163_/DE"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "paddr[3]",
+          "endpoint": "_154_/DE",
+          "slack_ns": 17.153021,
+          "pins": [
+            "paddr[3]",
+            "input4/A",
+            "input4/X",
+            "_071_/B",
+            "_071_/Y",
+            "_094_/C",
+            "_094_/Y",
+            "_119_/D",
+            "_119_/Y",
+            "place29/A",
+            "place29/X",
+            "_154_/DE"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "paddr[3]",
+          "endpoint": "_176_/D",
+          "slack_ns": 17.31666,
+          "pins": [
+            "paddr[3]",
+            "input4/A",
+            "input4/X",
+            "_071_/B",
+            "_071_/Y",
+            "_094_/C",
+            "_094_/Y",
+            "_095_/B",
+            "_095_/Y",
+            "_117_/A2",
+            "_117_/Y",
+            "_118_/B1",
+            "_118_/X",
+            "_176_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "pwdata[2]",
+          "endpoint": "_148_/D",
+          "slack_ns": 0.280405,
+          "pins": [
+            "pwdata[2]",
+            "input9/A",
+            "input9/X",
+            "_148_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "pwdata[2]",
+          "endpoint": "_156_/D",
+          "slack_ns": 0.28047,
+          "pins": [
+            "pwdata[2]",
+            "input9/A",
+            "input9/X",
+            "_156_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "pwdata[2]",
+          "endpoint": "_164_/D",
+          "slack_ns": 0.280526,
+          "pins": [
+            "pwdata[2]",
+            "input9/A",
+            "input9/X",
+            "_164_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "pwdata[2]",
+          "endpoint": "_140_/D",
+          "slack_ns": 0.28119,
+          "pins": [
+            "pwdata[2]",
+            "input9/A",
+            "input9/X",
+            "_140_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "pwdata[5]",
+          "endpoint": "_151_/D",
+          "slack_ns": 0.283246,
+          "pins": [
+            "pwdata[5]",
+            "input12/A",
+            "input12/X",
+            "_151_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "pwdata[5]",
+          "endpoint": "_159_/D",
+          "slack_ns": 0.283284,
+          "pins": [
+            "pwdata[5]",
+            "input12/A",
+            "input12/X",
+            "_159_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "pwdata[5]",
+          "endpoint": "_143_/D",
+          "slack_ns": 0.283371,
+          "pins": [
+            "pwdata[5]",
+            "input12/A",
+            "input12/X",
+            "_143_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "pwdata[6]",
+          "endpoint": "_168_/D",
+          "slack_ns": 0.283814,
+          "pins": [
+            "pwdata[6]",
+            "input13/A",
+            "input13/X",
+            "_168_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "pwdata[6]",
+          "endpoint": "_144_/D",
+          "slack_ns": 0.283963,
+          "pins": [
+            "pwdata[6]",
+            "input13/A",
+            "input13/X",
+            "_144_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "pwdata[6]",
+          "endpoint": "_160_/D",
+          "slack_ns": 0.283996,
+          "pins": [
+            "pwdata[6]",
+            "input13/A",
+            "input13/X",
+            "_160_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "pwdata[6]",
+          "endpoint": "_152_/D",
+          "slack_ns": 0.284017,
+          "pins": [
+            "pwdata[6]",
+            "input13/A",
+            "input13/X",
+            "_152_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "pwdata[5]",
+          "endpoint": "_167_/D",
+          "slack_ns": 0.284654,
+          "pins": [
+            "pwdata[5]",
+            "input12/A",
+            "input12/X",
+            "_167_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "pwdata[1]",
+          "endpoint": "_147_/D",
+          "slack_ns": 0.286112,
+          "pins": [
+            "pwdata[1]",
+            "input8/A",
+            "input8/X",
+            "_147_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "pwdata[1]",
+          "endpoint": "_139_/D",
+          "slack_ns": 0.286119,
+          "pins": [
+            "pwdata[1]",
+            "input8/A",
+            "input8/X",
+            "_139_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "pwdata[1]",
+          "endpoint": "_163_/D",
+          "slack_ns": 0.286154,
+          "pins": [
+            "pwdata[1]",
+            "input8/A",
+            "input8/X",
+            "_163_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "pwdata[1]",
+          "endpoint": "_155_/D",
+          "slack_ns": 0.286189,
+          "pins": [
+            "pwdata[1]",
+            "input8/A",
+            "input8/X",
+            "_155_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "pwdata[7]",
+          "endpoint": "_145_/D",
+          "slack_ns": 0.29868,
+          "pins": [
+            "pwdata[7]",
+            "input14/A",
+            "input14/X",
+            "_145_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "pwdata[7]",
+          "endpoint": "_153_/D",
+          "slack_ns": 0.298701,
+          "pins": [
+            "pwdata[7]",
+            "input14/A",
+            "input14/X",
+            "_153_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "pwdata[7]",
+          "endpoint": "_161_/D",
+          "slack_ns": 0.299093,
+          "pins": [
+            "pwdata[7]",
+            "input14/A",
+            "input14/X",
+            "_161_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "pwdata[7]",
+          "endpoint": "_169_/D",
+          "slack_ns": 0.299109,
+          "pins": [
+            "pwdata[7]",
+            "input14/A",
+            "input14/X",
+            "_169_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "pwdata[3]",
+          "endpoint": "_141_/D",
+          "slack_ns": 0.299545,
+          "pins": [
+            "pwdata[3]",
+            "input10/A",
+            "input10/X",
+            "_141_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "pwdata[3]",
+          "endpoint": "_149_/D",
+          "slack_ns": 0.299641,
+          "pins": [
+            "pwdata[3]",
+            "input10/A",
+            "input10/X",
+            "_149_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "pwdata[3]",
+          "endpoint": "_157_/D",
+          "slack_ns": 0.299871,
+          "pins": [
+            "pwdata[3]",
+            "input10/A",
+            "input10/X",
+            "_157_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "pwdata[3]",
+          "endpoint": "_165_/D",
+          "slack_ns": 0.300242,
+          "pins": [
+            "pwdata[3]",
+            "input10/A",
+            "input10/X",
+            "_165_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "pwdata[4]",
+          "endpoint": "_150_/D",
+          "slack_ns": 0.320672,
+          "pins": [
+            "pwdata[4]",
+            "input11/A",
+            "input11/X",
+            "_150_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "pwdata[4]",
+          "endpoint": "_142_/D",
+          "slack_ns": 0.320753,
+          "pins": [
+            "pwdata[4]",
+            "input11/A",
+            "input11/X",
+            "_142_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "pwdata[4]",
+          "endpoint": "_158_/D",
+          "slack_ns": 0.320956,
+          "pins": [
+            "pwdata[4]",
+            "input11/A",
+            "input11/X",
+            "_158_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "pwdata[4]",
+          "endpoint": "_166_/D",
+          "slack_ns": 0.322056,
+          "pins": [
+            "pwdata[4]",
+            "input11/A",
+            "input11/X",
+            "_166_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "pwdata[0]",
+          "endpoint": "_154_/D",
+          "slack_ns": 0.34398,
+          "pins": [
+            "pwdata[0]",
+            "input7/A",
+            "input7/X",
+            "_154_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "pwdata[0]",
+          "endpoint": "_146_/D",
+          "slack_ns": 0.34592,
+          "pins": [
+            "pwdata[0]",
+            "input7/A",
+            "input7/X",
+            "_146_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "pwdata[0]",
+          "endpoint": "_162_/D",
+          "slack_ns": 0.34618,
+          "pins": [
+            "pwdata[0]",
+            "input7/A",
+            "input7/X",
+            "_162_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "pwdata[0]",
+          "endpoint": "_138_/D",
+          "slack_ns": 0.346275,
+          "pins": [
+            "pwdata[0]",
+            "input7/A",
+            "input7/X",
+            "_138_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "_177_/Q",
+          "endpoint": "_170_/D",
+          "slack_ns": 0.400388,
+          "pins": [
+            "_177_/Q",
+            "_136_/A1",
+            "_136_/Y",
+            "_170_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "_177_/Q",
+          "endpoint": "_177_/D",
+          "slack_ns": 0.402656,
+          "pins": [
+            "_177_/Q",
+            "_093_/A1",
+            "_093_/Y",
+            "_177_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "_179_/Q",
+          "endpoint": "_179_/D",
+          "slack_ns": 0.421057,
+          "pins": [
+            "_179_/Q",
+            "_122_/A",
+            "_122_/Y",
+            "_124_/B",
+            "_124_/Y",
+            "_179_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "_178_/Q",
+          "endpoint": "_178_/D",
+          "slack_ns": 0.438702,
+          "pins": [
+            "_178_/Q",
+            "_110_/B1",
+            "_110_/Y",
+            "_137_/C",
+            "_137_/Y",
+            "_178_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "_178_/Q",
+          "endpoint": "_171_/D",
+          "slack_ns": 0.443761,
+          "pins": [
+            "_178_/Q",
+            "_110_/B1",
+            "_110_/Y",
+            "_111_/C",
+            "_111_/Y",
+            "_171_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "_176_/Q",
+          "endpoint": "_176_/D",
+          "slack_ns": 0.471441,
+          "pins": [
+            "_176_/Q",
+            "_118_/A1",
+            "_118_/X",
+            "_176_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "_174_/Q",
+          "endpoint": "_174_/D",
+          "slack_ns": 0.47425,
+          "pins": [
+            "_174_/Q",
+            "_114_/B1",
+            "_114_/Y",
+            "_116_/B",
+            "_116_/Y",
+            "_174_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "_173_/Q",
+          "endpoint": "_173_/D",
+          "slack_ns": 0.484529,
+          "pins": [
+            "_173_/Q",
+            "_102_/A",
+            "_102_/Y",
+            "_103_/B1",
+            "_103_/Y",
+            "_173_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "reset",
+          "endpoint": "_172_/D",
+          "slack_ns": 0.497873,
+          "pins": [
+            "reset",
+            "input16/A",
+            "input16/X",
+            "_105_/A",
+            "_105_/Y",
+            "_172_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "_175_/Q",
+          "endpoint": "_175_/D",
+          "slack_ns": 0.50787,
+          "pins": [
+            "_175_/Q",
+            "_065_/A",
+            "_065_/Y",
+            "_095_/A",
+            "_095_/Y",
+            "_097_/SLEEP",
+            "_097_/X",
+            "_175_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "_175_/Q",
+          "endpoint": "_150_/DE",
+          "slack_ns": 0.678855,
+          "pins": [
+            "_175_/Q",
+            "_112_/A",
+            "_112_/Y",
+            "place30/A",
+            "place30/X",
+            "_150_/DE"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "_175_/Q",
+          "endpoint": "_146_/DE",
+          "slack_ns": 0.679932,
+          "pins": [
+            "_175_/Q",
+            "_112_/A",
+            "_112_/Y",
+            "place30/A",
+            "place30/X",
+            "_146_/DE"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "_175_/Q",
+          "endpoint": "_151_/DE",
+          "slack_ns": 0.680288,
+          "pins": [
+            "_175_/Q",
+            "_112_/A",
+            "_112_/Y",
+            "place30/A",
+            "place30/X",
+            "_151_/DE"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "_175_/Q",
+          "endpoint": "_152_/DE",
+          "slack_ns": 0.680323,
+          "pins": [
+            "_175_/Q",
+            "_112_/A",
+            "_112_/Y",
+            "place30/A",
+            "place30/X",
+            "_152_/DE"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "_175_/Q",
+          "endpoint": "_148_/DE",
+          "slack_ns": 0.681146,
+          "pins": [
+            "_175_/Q",
+            "_112_/A",
+            "_112_/Y",
+            "place30/A",
+            "place30/X",
+            "_148_/DE"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "_175_/Q",
+          "endpoint": "_147_/DE",
+          "slack_ns": 0.681536,
+          "pins": [
+            "_175_/Q",
+            "_112_/A",
+            "_112_/Y",
+            "place30/A",
+            "place30/X",
+            "_147_/DE"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "_175_/Q",
+          "endpoint": "_153_/DE",
+          "slack_ns": 0.681579,
+          "pins": [
+            "_175_/Q",
+            "_112_/A",
+            "_112_/Y",
+            "place30/A",
+            "place30/X",
+            "_153_/DE"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "_175_/Q",
+          "endpoint": "_149_/DE",
+          "slack_ns": 0.681769,
+          "pins": [
+            "_175_/Q",
+            "_112_/A",
+            "_112_/Y",
+            "place30/A",
+            "place30/X",
+            "_149_/DE"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        }
+      ],
+      "summary": {
+        "setup_worst_slack_ns": 15.705125,
+        "setup_reported_violations": 0,
+        "setup_total_negative_slack_ns": 0.0,
+        "hold_worst_slack_ns": 0.280405,
+        "hold_reported_violations": 0,
+        "hold_total_negative_slack_ns": 0.0
+      },
+      "unconstrained": false,
+      "parasitic_annotation": {
+        "unannotated_drivers": [
+          "apb_fifo/LO",
+          "clkload0/X",
+          "clkload1/X",
+          "clkload2/X"
+        ],
+        "partially_unannotated_drivers": [],
+        "disconnected_outputs": [
+          "apb_fifo/LO",
+          "clkload0/X",
+          "clkload1/X",
+          "clkload2/X"
+        ],
+        "connected_unannotated_drivers": []
+      },
+      "incomplete_reasons": [],
+      "checks": "",
+      "units": " time 1ns\n capacitance 1pF\n resistance 1kohm\n voltage 1v\n current 1mA\n power 1nW\n distance 1um\n",
+      "electrical_checks": "",
+      "electrical_status": "No reported violations",
+      "scope": "Reported paths for the selected library corner; inspect constraints and path coverage.",
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical",
+      "parasitics": "extracted SPEF"
+    }
+  ],
+  "rc_corners": []
+}

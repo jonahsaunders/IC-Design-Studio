@@ -1,0 +1,219 @@
+{
+  "schema": 1,
+  "date": "2026-11-10",
+  "base_commit": "fb4919d8df5ed3ef7571853276617a48c5fc57f5",
+  "scope": "Isolated follow-on evidence batch before app guard-option integration; exact snapshots rather than Git-commit acceptance.",
+  "status": "PASS_SOURCE_FEEDBACK_ONLY",
+  "qualified": false,
+  "chunk_complete": false,
+  "installed_acceptance": false,
+  "runs": [
+    {
+      "name": "initial",
+      "status": "passed",
+      "seconds": 369.091,
+      "tests": 1685,
+      "skips": 18,
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 16.216
+        },
+        {
+          "name": "ihp-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 31.263
+        },
+        {
+          "name": "physical-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 31.611
+        },
+        {
+          "name": "device-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 42.252
+        },
+        {
+          "name": "package-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 43.098
+        },
+        {
+          "name": "runtime-release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 6.382
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 2.22
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 27.167
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 4.577
+        },
+        {
+          "name": "metal-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 8.037
+        },
+        {
+          "name": "metal-resistor-parallel-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 31.555
+        },
+        {
+          "name": "ihp-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 118.719
+        },
+        {
+          "name": "ihp-capacitor-corner-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 2.673
+        }
+      ],
+      "syntax_files": 1584,
+      "source_identity_count": 2442,
+      "report_sha256": "293b35328a50414819642b304e8611483a2ee70abe45e88568e8c7653ebdb2c6",
+      "snapshot_manifest_sha256": "b4937f88b9a4c600fe930aa0f73c8c97d52615f23c2658f2f36535c0ebc2caeb",
+      "logs": {
+        "unit-contracts.log": "7466a96cd280e608087ff0c8d705295902c5e4cd8d98415e7f61395cd68386d5",
+        "ihp-contracts.log": "46769500fc7ee0d32bfce8a30736e81da4eb0aeff5e93e06dad39b6817f46fe9",
+        "physical-contracts.log": "c64c216ff917db412231f3c496d8dba69412fb253d9d84694915fb9e69cf87d7",
+        "device-contracts.log": "b06c7aa1ae5cbad627084abeb5c03d8e094a305a65fc4e92e6fba7ccf3cdea80",
+        "package-contracts.log": "9682b18eb1dbccb11610018719d72ec81814b05b33d58cfd21e4e240664be72a",
+        "runtime-release-contracts.log": "f144f6bc60a9b14ce0b663bc25b2990aba0f702a6a97229dca7143940c072682",
+        "release-contracts.log": "2060608767c0763058d27ecca69ff58a7a7314075f952f156ecb1ea809dcc6fb",
+        "menu-smoke.log": "552379f1db433173fe4500582dbf3e018950a86d9ea50733f6b5079ecdf154ee",
+        "project-hub-smoke.log": "66af7ee4a9c6fa1f6c1f2d6f8a220486f6467316e0f72df511d0ad0ad2505b65",
+        "metal-resistor-editor-smoke.log": "c5ec073970628f383c7485d627aedf2d9ab9ba4d79826dc4da5a914c38a5350f",
+        "metal-resistor-parallel-smoke.log": "ddda1591b164e7b03093ffc4c3ef89fb5801bcdf7fbff905c04c37f0729a0978",
+        "ihp-resistor-editor-smoke.log": "204011ec71187d73392f04abb72931d9af9b5139db088889d3ef4a92f8cdadd2",
+        "ihp-capacitor-corner-smoke.log": "f6db6b124caf4d23f43cf1c4b049ccdd22146c66e56593f18fcfb53925968d04"
+      },
+      "retained_full_output_bytes": 265319033
+    },
+    {
+      "name": "final-evidence-batch",
+      "status": "passed",
+      "seconds": 356.794,
+      "tests": 1690,
+      "skips": 18,
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 16.765
+        },
+        {
+          "name": "ihp-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 31.567
+        },
+        {
+          "name": "physical-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 30.958
+        },
+        {
+          "name": "device-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 40.337
+        },
+        {
+          "name": "package-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 38.94
+        },
+        {
+          "name": "runtime-release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 6.186
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 2.27
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 26.54
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 4.427
+        },
+        {
+          "name": "metal-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 7.034
+        },
+        {
+          "name": "metal-resistor-parallel-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 28.947
+        },
+        {
+          "name": "ihp-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 116.821
+        },
+        {
+          "name": "ihp-capacitor-corner-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 2.722
+        }
+      ],
+      "syntax_files": 1587,
+      "source_identity_count": 2452,
+      "report_sha256": "b56adaa332d51824a6a043a242e5a940c056fe1782aca5cb70a43f81c27dc5c0",
+      "snapshot_manifest_sha256": "583c3c0118befb3b6715030359a93d5fd8ee7b813c34dc5e8825fde3c54870c0",
+      "logs": {
+        "unit-contracts.log": "410f95f02af3ee6f1c385a3f8321f36c57a28c8afb508a5037667da69a2df5d2",
+        "ihp-contracts.log": "7cc002040c22c00f3c9e42c2ae8bd7aaadd16c1eaa91ec1aa0e58f1f66d71cf1",
+        "physical-contracts.log": "e13b21c3fdbc8c3ba61ffaff3e478199076ed886b05dde7acb66fcd3f0615c6a",
+        "device-contracts.log": "f22a349173e783c80243559243f6fed794c1caa45fc583e271b93f41fef9dd15",
+        "package-contracts.log": "63f28c4a3aa3afa0d93fd23517cab2335fb0db4a019cdf3c7e4fb5957b284631",
+        "runtime-release-contracts.log": "ab679728d36b75870592028a5736c04547f907ff3bae909248f857309e95e2e4",
+        "release-contracts.log": "2060608767c0763058d27ecca69ff58a7a7314075f952f156ecb1ea809dcc6fb",
+        "menu-smoke.log": "57990457ebac8487e9b769de742a313414a8d8dcd1e9c3e069eb37b824979969",
+        "project-hub-smoke.log": "66af7ee4a9c6fa1f6c1f2d6f8a220486f6467316e0f72df511d0ad0ad2505b65",
+        "metal-resistor-editor-smoke.log": "90ce1d82d8e7339f350493ad1b5b81c4fc739aa6dd1806f316bf5eb526658df9",
+        "metal-resistor-parallel-smoke.log": "a1346c01c9e65c2e4c6cafff0d896f69baaa0ab73f96f2b0a4c9221d2caa9430",
+        "ihp-resistor-editor-smoke.log": "8cb85fa09bfa409704e8e12bfabc4932125d38046dac627536612a35402dcdd0",
+        "ihp-capacitor-corner-smoke.log": "f6db6b124caf4d23f43cf1c4b049ccdd22146c66e56593f18fcfb53925968d04"
+      },
+      "retained_full_output_bytes": 263846455
+    }
+  ],
+  "snapshot_guard_failure": {
+    "native_or_feedback_execution": false,
+    "cause": "First copy rejected differing source identities during PMOS NQS revision; an ignored required compile.log receipt was also found. Subsequent verified copy explicitly included every identity input and narrow .gitignore retention exceptions.",
+    "guards_weakened": false
+  },
+  "final_snapshot_updates": "Final batch includes explicit corner-safe routing, final PMOS continuation protocol and streamed timeout retention, narrowed Windows-only symlink skip, and exact provenance/fixture source bindings.",
+  "artifact": {
+    "path": "docs/validation/artifacts/chunk7-isolated-source-feedback-2026-11-10.zip",
+    "sha256": "5282bfab22f6ea67764d8fe9b2c98be09b413cb3b96871261e452a7a9e9968dc",
+    "bytes": 602341,
+    "scope": "Source-feedback reports, exact snapshot identities and all stage console logs only. GUI raw project/screenshots are not included in this compact archive; preserved separately in local full outputs. This is not a self-contained GUI replay or native/installed acceptance."
+  },
+  "separate_results": {
+    "inventory": "777045 facts/95 gaps in independently authenticated unpublished v3 report; not complete.",
+    "physical": "42 finite corrected-profile positives/105 intended physical fault rejections independently verified; raw-source all100 failures preserved.",
+    "measured_reference": "Blocked after84 nominal points; fourth gate90-second native convergence timeout, no full140-point or interface/calibration acceptance.",
+    "app_guard_option": "Separate subsequent isolated implementation, not covered by this batch."
+  },
+  "no_deadline_or_gate_relaxation": true
+}

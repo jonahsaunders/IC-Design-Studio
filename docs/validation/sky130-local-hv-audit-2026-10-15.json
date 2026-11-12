@@ -1,0 +1,417 @@
+{
+  "schema": 1,
+  "chunk": 6,
+  "status": "local-hv-review-and-application-pad-correction-verified",
+  "qualified": false,
+  "chunk_complete": false,
+  "source_baseline": "8c6b5a6b8239799e50b630a934c9d7c79cc27db0",
+  "scope": "Two batched exact-reference reviews resolve 29 literal error-catalog subjects as absent and reopen the unsupported pad.3 exemption. Windows/Linux results agree; the current application and exports retain the hugePad mask requirement and reject stale or restored absence claims. Nonempty resistor/pad/HV geometry, broader device support and complete required physical coverage are not qualified.",
+  "source_files": {
+    "icstudio/digital.py": "30fa25fb7132aa8117aa4a964a79fc3b6efdf72667143174d4c7e6e22713375f",
+    "icstudio/digital_apb_example.py": "0eab253a16a2292d6ca32a602f0160ab5f5f531eed7981b3cda1b28714e9c288",
+    "icstudio/digital_backend.py": "93af7cd1eecc6baadcf75e2b58bffa8176b13188e84c066270d366c318b7dbf6",
+    "icstudio/digital_cli.py": "8d32654db5cdc002926f9de14b7ae0a4d338ccc3dd728f25ea21fa6455fccd83",
+    "icstudio/digital_constraints.py": "9771a358129e78f7b7bd3dc2f08fa8fdc952d191b0f14b8873212945fc7005b6",
+    "icstudio/digital_constraints_ui.py": "a7b3a4f3b428469656d33294960d4d4a390675135b273f3ab9959b9382b42fa1",
+    "icstudio/digital_design.py": "72133fa3394e0b347ebaf81f83041fbeb30557c8e692a8471b9f2c0cb3dc2fad",
+    "icstudio/digital_editor.py": "462152c2fe423643ea203bbf5456fed342e6c33d59498636ea8953a17bfe14bd",
+    "icstudio/digital_examples.py": "9cb9e5cbf0afd01abc329a6dbcbc409680d9ddf6826073ca61297e513de55b25",
+    "icstudio/digital_fill_odb.py": "db29621e29665404d1745bfe7560f1dc82f9edc915ef48e7b2c6748a6024e658",
+    "icstudio/digital_fill_spef.py": "7a813380b0c57a9afe81ae531cb3f9286faf1e223bb8a7fedf107f6cce8662d7",
+    "icstudio/digital_flow.py": "855c59d78a340f09ee6ba484744b1bbd6877527bc492b27227163cc9da07ddfb",
+    "icstudio/digital_gf180_checks.py": "4445f1aeb56a701b9f77286fb49c7889f071f0e2ed6189b4f39d552a70d85a9e",
+    "icstudio/digital_gf180_fill.py": "163062aeb215fcdf05ac20f70d59690297dc4d70b84e692cb602015876f55436",
+    "icstudio/digital_gf180_rules.py": "12d52947ecc97f0b8af975806c1342c9f97d7c67b629b910cd9503e28cd15382",
+    "icstudio/digital_identity.py": "6ffebbc4794916d3aec84d26f33a407d7ab776bc681c76ee793d1fb993792446",
+    "icstudio/digital_ihp_fill.py": "fe90f6d0347b1183b456d4e6f06cf7f241664e21eb970880b4be64bcaf0d1352",
+    "icstudio/digital_ihp_fill_worker.py": "1d8f99775a2ea2b4d31c789c96d218b775a39a15d29fd6d76b3dde9bcf4b783a",
+    "icstudio/digital_ihp_geometry.py": "424adf96b98ef2c0da0044f07ac6013e20d848fc9063180072dfe8a0417b2b96",
+    "icstudio/digital_ihp_inventory.py": "691cd113eee5b342c7351a5ed3d9a9738a89c8b5f96ef972a33facc3373a0b7d",
+    "icstudio/digital_implementation.py": "98b2fe7441c770f7cf7fa9e062eed31ae4fcab37332d5f90f3128ba2e6f2de8e",
+    "icstudio/digital_inspection.py": "b515de8a5d8bba4cddad9a6f993b323933697e23f29195e8f98f4d204c90a6bb",
+    "icstudio/digital_layout.py": "490c6884d012a9f5348e5eef3bdbf25bc5012e9f452cb6926e24fe64d8243265",
+    "icstudio/digital_logic_ui.py": "70492458c40e98498cbe47ebd4fc0a9dbbde8912992601f39050742dcc83a7d8",
+    "icstudio/digital_lsp.py": "1555f1bde82376814d27558ecefa578389b9abe05c491c6e933e12a711c4e67f",
+    "icstudio/digital_lvs_engine.py": "306b50b2b70c0b0e4800273418f30f349f6d6ac7cacff00b5e8f2164c3198332",
+    "icstudio/digital_lvs_reference.py": "63d731488539cf4995f12f2c797f0919e1bea190ec00430a4b84f798307014b7",
+    "icstudio/digital_macro.py": "8effc00c6e73442fe3ea84234d0631a5ad153358e73a431b96ab8b48de734e71",
+    "icstudio/digital_mapping.py": "7890689f3b697c2ddd87e3cd240e4eb7307b99cce323f81b207fc40dd7b5b34d",
+    "icstudio/digital_odb.py": "83c80d8d35e2ac6edded3f022181df6d58d5111d02dca9c3b663d6446bb223cb",
+    "icstudio/digital_physical.py": "6d01df210afab330de1dfcd7281fbc36b38295ac48f7ca85daec12b0439a8cff",
+    "icstudio/digital_physical_checks.py": "b6727b27b061ed86e30666f40f04b0fc3d201577915b5453f7a13cbbf1b829ac",
+    "icstudio/digital_physical_engine.py": "f71d5d2b8d5c87ddb94761b6e27025b7db7235be3c20a6377cfc16cff87d7489",
+    "icstudio/digital_physical_ui.py": "99147597ccaca9ee1021622d4f7bfcafde1a9a66e379f9565fc5699187aee7d4",
+    "icstudio/digital_physical_view.py": "97cb2fd302523d198dfcd0da580c6884a8eb6ecf8402c95aa0a14f1d3053b7ba",
+    "icstudio/digital_planning.py": "73602bd3b1afb0aaab5243b5cbe655bda00de19dd7459713569275303b91a527",
+    "icstudio/digital_platform.py": "116dca61a91e498b91588991bfa211b407ca0023067fb8994b767f0a030866a4",
+    "icstudio/digital_qualification.py": "89995283c03fb8deca5da283e016dd506303efdedf6dabe26e947b26432c9b2e",
+    "icstudio/digital_rc.py": "40cb3cf355e14fe5badcfa45cd761c6c3dbfa69d18d4672e2f7f7fef49387ed4",
+    "icstudio/digital_recipes.py": "c602ef05777f79926d087f1a85523a72f735eadb318adef755f317b9911f51e6",
+    "icstudio/digital_regression.py": "65673f44e8fb586403257696c13fbfaccc2b692ee69e1029e9bb71e30b650f2e",
+    "icstudio/digital_reports.py": "8aed459a5b08b2277884cab51bbe31b9cb3ed35215a58107787e17915102fa14",
+    "icstudio/digital_runtime.py": "62609899c20959ff59d7673b2a801fbff50c6a63247c46798c9669076a5a2c3c",
+    "icstudio/digital_setup_probe.py": "3006e3c327d25f87bb984e4173637926ac32a812b589c725cd950132cb1380f0",
+    "icstudio/digital_setup_ui.py": "cbc4a5e21932d01e5932df27f787518f2ce6c43745a8a5e6fe88a9c1a3884c20",
+    "icstudio/digital_shell.py": "55bf0796bd46e4ed31eb2200d663cf6e5b846174cfcdd5de5d12dd96d6f22b13",
+    "icstudio/digital_sky130_antenna.py": "4222e6a560bf5c52fd1e8df1b9da0ff968de83d9f94f38055b98a1868a9d2fab",
+    "icstudio/digital_sky130_isolation.py": "89797bd6febce88062b2cdb725d1671a2eab907cb3f98507bb08873b42322834",
+    "icstudio/digital_sky130_isolation_lock.py": "36ca48ccfdec02b845bc87758589da6f361c0086522d735c852adfc133c75188",
+    "icstudio/digital_sky130_isolation_worker.py": "c713477c8f46c75c01d8e92e7a000ae13541cff684a5430b3bb69ad64182d56e",
+    "icstudio/digital_sky130_pad_scope.py": "123225c40dc494d01cc24cbedcc894e25eea3a9262347d27a6b63b01259d35e4",
+    "icstudio/digital_sky130_pins.py": "e7bbf52b7c0f3d727c758fe927b134bb23d734712c864eb05f96c68b9d984e63",
+    "icstudio/digital_sky130_pin_inventory.py": "3b2b236c02444d5084104621e93b5632dbf7681d81f691eab0f407022e495249",
+    "icstudio/digital_sky130_rules.py": "e05ec06fffe85b22d19f79e1d4f1959c46b1771112e77538f0122502aa9eeb9c",
+    "icstudio/digital_sky130_rules_lock.py": "7f4463e6d1f184c649fb7be13c1e0717e538ba46d2efa4b3f40f51badff94fab",
+    "icstudio/digital_sky130_rule_worker.py": "39a045052a7d5a5296ead86538012b79b081fb7e27fb5fda5880f12269709b3b",
+    "icstudio/digital_sky130_scope.py": "9f081c4229441aef29380b44e776d2890c20ec3df316d9a0b9dbfafa2864f95f",
+    "icstudio/digital_tools.py": "d53090a2d97f432899086846d2e2c10cc4d47bc60d78d7e3d51b06091a408660",
+    "icstudio/digital_trace_store.py": "f2b5be9e2c0d131496c707cd08073e9d452cc2ff69570f9dcb933c18b411113f",
+    "icstudio/digital_ui.py": "687e51dd51cddc0b0bf49d20de34f42d95b754cfe9c9e83caf68713c6c52b259",
+    "icstudio/digital_vga.py": "770fba42c61d20b05956b407e4d0152451b5aee377e923b554870ec79d1aef4f",
+    "icstudio/digital_vga_ui.py": "6b0c5f017cba7ecae1b2251fbce588a7477602f83a7d4f8a3117246b3256c649",
+    "icstudio/digital_waveform.py": "a1f48745cdb96e75a9bcab14646621df636272254da9fee45f43820716489ec4",
+    "icstudio/digital_wave_tools.py": "f6ac733f253fd287d1f506d76223cd580c26a63c48e80ee0926c40e10006e8c1",
+    "icstudio/digital_workspace.py": "9eff651934d4ecb602e1fef218d9a543d13b85569f312e9088a1e82311fa9124",
+    "icstudio/engines.py": "50565d2f2077a119fe77b25c79ef79729e3d0e4b3ee5dd4b37eae2c92caceafe",
+    "icstudio/gf180_cdl.py": "3faa3cfeb85d17e10f314def457c79f93371caf7612399a6fef517a715b0e924",
+    "icstudio/gf180_connectivity.py": "957f06a7457ac1d83042d411bb9bbf6d0fb75fa03b70016219dfe6d654713bbe",
+    "icstudio/fill_capacitance.py": "778c22d2e611b9562ad4d0f26c51994071cd03af57de31db6a6b9c3749143d0c",
+    "scripts/sky130_local_hv_review.py": "d0f09cba88dd09d4f488a1ea37103923f60aed53920f2851e4ca3e5822b0d37c",
+    "scripts/sky130_grid_geometry.py": "0e24c568f582725ad034cf5fd4346a04756e69e0d34c00d47c959d1d5dcff28a",
+    "scripts/sky130_catalog_queue.py": "a7e67cac3ff2c4957e9a998ac11c40e9ef0444c1bc1224bcd36b049ba40dde23",
+    "tests/test_sky130_local_hv_review.py": "9166f46432bdc93f475486e91d482aa5eb3d255115e5fe9d70fd11b133ab7ad1",
+    "tests/test_sky130_pad_scope.py": "0e05ad425e41b6e71fff222fc895259f32adf31de89ad907258733894c46d160",
+    "tests/test_sky130_application_rules.py": "3581b3673fc64426cb016d2468e0fa8f4c291a907275499bf89ac0990cbfeaf6",
+    "tests/test_digital_macro.py": "702e186259abb9d8b9c9abdb2d59fd66d6b792795578cebd0599c05137ef9b33",
+    "tests/test_sky130_catalog_queue.py": "02dad4356b7d67441376c05bab0c85bc600b519a39b8e305af6342f8d0e79e3b",
+    "scripts/check_sky130_filled_replay.py": "3b70b41abdff2032b0f7c41716466995d673a3cb43847e90200d21d9b16fe15a",
+    "scripts/prepare_sky130_rule_checks.py": "584cbd91e76f0218c43fbf2641e8ebf510018df084cb371f0e8be4b03789ae63"
+  },
+  "data": {
+    "path": "docs/validation/sky130-local-hv-2026-10-15.json",
+    "sha256": "8056cb07c88e58be1fff098881c444e204ae85b53dc21bc570a35558e0c5de9a"
+  },
+  "systems": {
+    "win32": {
+      "result": {
+        "schema": 1,
+        "status": "PASS",
+        "platform": "win32",
+        "qualified": false,
+        "chunk_complete": false,
+        "driver_sha256": "42af03b4ac4680f35b042adacf054e7c688ecc56264040bf1d7ac1963ec8c58d",
+        "tests": 36,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "log_sha256": "691b61aa31b9553eef8c1b76f04baedbffeecc852ead9f626a5763dad6e3198d",
+        "data_sha256": "8056cb07c88e58be1fff098881c444e204ae85b53dc21bc570a35558e0c5de9a",
+        "cases": {
+          "counter": {
+            "catalog": {
+              "unreviewed": 851,
+              "executed-reviewed": 356,
+              "absent-operand": 349
+            },
+            "periphery": {
+              "execution-review-required": 10,
+              "upstream-na": 77,
+              "executed-reviewed": 135,
+              "absent-operand": 280,
+              "advisory": 36,
+              "definition-required": 1,
+              "declared-option-not-required": 1,
+              "other-backend": 61
+            }
+          },
+          "uart": {
+            "catalog": {
+              "unreviewed": 851,
+              "executed-reviewed": 356,
+              "absent-operand": 349
+            },
+            "periphery": {
+              "execution-review-required": 10,
+              "upstream-na": 77,
+              "executed-reviewed": 135,
+              "absent-operand": 280,
+              "advisory": 36,
+              "definition-required": 1,
+              "declared-option-not-required": 1,
+              "other-backend": 61
+            }
+          },
+          "apb": {
+            "catalog": {
+              "unreviewed": 851,
+              "executed-reviewed": 356,
+              "absent-operand": 349
+            },
+            "periphery": {
+              "execution-review-required": 10,
+              "upstream-na": 77,
+              "executed-reviewed": 135,
+              "absent-operand": 280,
+              "advisory": 36,
+              "definition-required": 1,
+              "declared-option-not-required": 1,
+              "other-backend": 61
+            }
+          }
+        },
+        "elapsed_seconds": 44.75
+      },
+      "evidence": {
+        "record.json": {
+          "path": "docs/validation/sky130-local-hv-2026-10-15/win32/record.json",
+          "sha256": "ebbcb927b23cc354e4601126a3e0a158871ca1e1c7bd838018699fad0c59096b"
+        },
+        "tests.log": {
+          "path": "docs/validation/sky130-local-hv-2026-10-15/win32/tests.log",
+          "sha256": "691b61aa31b9553eef8c1b76f04baedbffeecc852ead9f626a5763dad6e3198d"
+        }
+      }
+    },
+    "linux": {
+      "result": {
+        "schema": 1,
+        "status": "PASS",
+        "platform": "linux",
+        "qualified": false,
+        "chunk_complete": false,
+        "driver_sha256": "42af03b4ac4680f35b042adacf054e7c688ecc56264040bf1d7ac1963ec8c58d",
+        "tests": 36,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "log_sha256": "e35b0a82c2d56e084aef50ef61f4133a290d2cf9bd58c7cee7ca3bc82d276af6",
+        "data_sha256": "8056cb07c88e58be1fff098881c444e204ae85b53dc21bc570a35558e0c5de9a",
+        "cases": {
+          "counter": {
+            "catalog": {
+              "unreviewed": 851,
+              "executed-reviewed": 356,
+              "absent-operand": 349
+            },
+            "periphery": {
+              "execution-review-required": 10,
+              "upstream-na": 77,
+              "executed-reviewed": 135,
+              "absent-operand": 280,
+              "advisory": 36,
+              "definition-required": 1,
+              "declared-option-not-required": 1,
+              "other-backend": 61
+            }
+          },
+          "uart": {
+            "catalog": {
+              "unreviewed": 851,
+              "executed-reviewed": 356,
+              "absent-operand": 349
+            },
+            "periphery": {
+              "execution-review-required": 10,
+              "upstream-na": 77,
+              "executed-reviewed": 135,
+              "absent-operand": 280,
+              "advisory": 36,
+              "definition-required": 1,
+              "declared-option-not-required": 1,
+              "other-backend": 61
+            }
+          },
+          "apb": {
+            "catalog": {
+              "unreviewed": 851,
+              "executed-reviewed": 356,
+              "absent-operand": 349
+            },
+            "periphery": {
+              "execution-review-required": 10,
+              "upstream-na": 77,
+              "executed-reviewed": 135,
+              "absent-operand": 280,
+              "advisory": 36,
+              "definition-required": 1,
+              "declared-option-not-required": 1,
+              "other-backend": 61
+            }
+          }
+        },
+        "elapsed_seconds": 25.9954358
+      },
+      "evidence": {
+        "record.json": {
+          "path": "docs/validation/sky130-local-hv-2026-10-15/linux/record.json",
+          "sha256": "2b956b160d3996ec59a7f9a9fe77f53ccf760bfb502b13327be6b901e2ad3e1d"
+        },
+        "tests.log": {
+          "path": "docs/validation/sky130-local-hv-2026-10-15/linux/tests.log",
+          "sha256": "e35b0a82c2d56e084aef50ef61f4133a290d2cf9bd58c7cee7ca3bc82d276af6"
+        }
+      }
+    }
+  },
+  "cases": [
+    {
+      "case": "counter",
+      "status": "application-checks-and-export-pass",
+      "gds_sha256": "4158b6503dc07e85f1e9e7b375a3d654cd9b64dc0498ed9fb680874e973c1ac2",
+      "checkpoint_sha256": "10de8332ad78bba19e93e78eb5247040d74b8a8cd0b186dde19484254577ca9d",
+      "pending_pad_rule": {
+        "id": "docs/rules/periphery/p045-pad_dotdash.csv#2",
+        "rule": "pad.3",
+        "source": "docs/rules/periphery/p045-pad_dotdash.csv",
+        "record": 2,
+        "source_sha256": "e01d6f79b2aaaee9f7422170c60f4cccdba989bfba67fefd06c7f6cf34c1a395",
+        "disposition": "execution-review-required",
+        "reason": "C3 defines hugePad as pad.mk with width > 100um. Absence of drawn pad:dg does not prove that mask-derived subject absent. Mask construction and the conflicting maximum/minimum area descriptions require review.",
+        "witnesses": {
+          "(76, 20)": 0
+        }
+      },
+      "application_periphery_counts": {
+        "execution-review-required": 28,
+        "upstream-na": 77,
+        "executed-reviewed": 133,
+        "absent-operand": 273,
+        "advisory": 28,
+        "definition-required": 1,
+        "other-backend": 61
+      },
+      "rejected_controls": {
+        "missing-review": "SKY130 hugePad mask review is missing or discharged; recheck this saved result.",
+        "restored-absence": "SKY130 hugePad mask review is missing or discharged; recheck this saved result."
+      },
+      "evidence": {
+        "path": "docs/validation/sky130-local-hv-2026-10-15/counter/application.json",
+        "sha256": "315954e31e648c97130ac197b378f644c144d1f00753ccc405c7d7d69b6b3979"
+      }
+    },
+    {
+      "case": "uart",
+      "status": "application-checks-and-export-pass",
+      "gds_sha256": "c9282fb9602ac9dbab5299032be1d4b68751bb611747d276d40435e93c37afea",
+      "checkpoint_sha256": "27ec03d13a0264feea11df78633ca56d7f068ed74b1f06478f3fe9db058d2d32",
+      "pending_pad_rule": {
+        "id": "docs/rules/periphery/p045-pad_dotdash.csv#2",
+        "rule": "pad.3",
+        "source": "docs/rules/periphery/p045-pad_dotdash.csv",
+        "record": 2,
+        "source_sha256": "e01d6f79b2aaaee9f7422170c60f4cccdba989bfba67fefd06c7f6cf34c1a395",
+        "disposition": "execution-review-required",
+        "reason": "C3 defines hugePad as pad.mk with width > 100um. Absence of drawn pad:dg does not prove that mask-derived subject absent. Mask construction and the conflicting maximum/minimum area descriptions require review.",
+        "witnesses": {
+          "(76, 20)": 0
+        }
+      },
+      "application_periphery_counts": {
+        "execution-review-required": 28,
+        "upstream-na": 77,
+        "executed-reviewed": 133,
+        "absent-operand": 273,
+        "advisory": 28,
+        "definition-required": 1,
+        "other-backend": 61
+      },
+      "rejected_controls": {
+        "missing-review": "SKY130 hugePad mask review is missing or discharged; recheck this saved result.",
+        "restored-absence": "SKY130 hugePad mask review is missing or discharged; recheck this saved result."
+      },
+      "evidence": {
+        "path": "docs/validation/sky130-local-hv-2026-10-15/uart/application.json",
+        "sha256": "e19b0d1459cfc30a643345105c270da137369e193781c509042ae290f844f67c"
+      }
+    },
+    {
+      "case": "apb",
+      "status": "application-checks-and-export-pass",
+      "gds_sha256": "5039221b72bfd052d3f82781f5403fb67df4261ea20add5c2047191321fe9d78",
+      "checkpoint_sha256": "cd1a997dac190164ab96bac0ae0eaee91865ff2ed0f983865daa644cae60bf7d",
+      "pending_pad_rule": {
+        "id": "docs/rules/periphery/p045-pad_dotdash.csv#2",
+        "rule": "pad.3",
+        "source": "docs/rules/periphery/p045-pad_dotdash.csv",
+        "record": 2,
+        "source_sha256": "e01d6f79b2aaaee9f7422170c60f4cccdba989bfba67fefd06c7f6cf34c1a395",
+        "disposition": "execution-review-required",
+        "reason": "C3 defines hugePad as pad.mk with width > 100um. Absence of drawn pad:dg does not prove that mask-derived subject absent. Mask construction and the conflicting maximum/minimum area descriptions require review.",
+        "witnesses": {
+          "(76, 20)": 0
+        }
+      },
+      "application_periphery_counts": {
+        "execution-review-required": 28,
+        "upstream-na": 77,
+        "executed-reviewed": 133,
+        "absent-operand": 273,
+        "advisory": 28,
+        "definition-required": 1,
+        "other-backend": 61
+      },
+      "rejected_controls": {
+        "missing-review": "SKY130 hugePad mask review is missing or discharged; recheck this saved result.",
+        "restored-absence": "SKY130 hugePad mask review is missing or discharged; recheck this saved result."
+      },
+      "evidence": {
+        "path": "docs/validation/sky130-local-hv-2026-10-15/apb/application.json",
+        "sha256": "065ddaa736e3bb029f6ec474c569a25f72cf3b1ae0d5597ac5d5bf1254964bbe"
+      }
+    }
+  ],
+  "archive": {
+    "schema": 1,
+    "status": "readback-verified",
+    "layout": "sha256-addressed-blobs-with-parent-v1",
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-local-hv-2026-10-15-v1\\evidence.tar.gz",
+    "sha256": "af80985dcd6f1a35d95797482fafa41b9e1a1e7bc60444bf6af7fb190d04ba21",
+    "bytes": 28772307,
+    "files": 895,
+    "unique_local_blobs": 80,
+    "reused_parent_files": 806,
+    "manifest_sha256": "f6e4c3ac7d25f3596c20eee369ec78b995a541b131a1bf010dd66cbce26e4006",
+    "parent": {
+      "schema": 1,
+      "status": "readback-verified",
+      "layout": "sha256-addressed-blobs-with-parent-v1",
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-application-isolation-2026-10-14-v1\\evidence.tar.gz",
+      "sha256": "521e6aa0401a22453e307143504788f6e6abb9322a03e0292b8ee16253c47818",
+      "bytes": 17483870,
+      "files": 895,
+      "unique_local_blobs": 163,
+      "reused_parent_files": 704,
+      "manifest_sha256": "0b40d7ed2e9a44d500bfc2927c03de3fadf13b72acec5221550de76cd68f6596",
+      "parent": {
+        "schema": 1,
+        "status": "readback-verified",
+        "layout": "sha256-addressed-blobs-with-parent-v1",
+        "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-filled-electrical-2026-10-14-v1\\evidence.tar.gz",
+        "sha256": "e473b4d289a92a2dd196512ce20cc2a23ac5a5607715bfcbdeaf83e15e49983d",
+        "bytes": 22598988,
+        "files": 4465,
+        "unique_local_blobs": 727,
+        "reused_parent_files": 3382,
+        "manifest_sha256": "13f0993a6a28af4b28ba242ed45f5cb64bb6a31173243f9291c3d1f9a35f3b11",
+        "parent": {
+          "schema": 1,
+          "status": "readback-verified",
+          "layout": "sha256-addressed-blobs-v1",
+          "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-scope-correction-2026-10-14-v1\\evidence.tar.gz",
+          "sha256": "c91887fe6ca5b3492baed7e461f300ac14cbb16945bf5aff11fd792fc930fedc",
+          "bytes": 44401516,
+          "files": 842,
+          "unique_blobs": 386,
+          "manifest_sha256": "1f62a0248c6486b6b9f8358477016ef8e15ec4b515d6023860294ec0a89c2465"
+        }
+      }
+    }
+  },
+  "limitations": [
+    "Catalog counts: 356 executed, 349 absent, 851 unreviewed. This is not a completion percentage.",
+    "The supplemental 601-row ledger has 135 executed, 280 absent, 77 upstream NA, 36 advisory, 61 other-backend, 10 execution reviews, one missing definition and one declared optional rule not required.",
+    "The application six-profile ledger retains its separate earlier scope: 133 executed and 28 execution reviews. Supplemental catalog decisions are not automatically promoted into that ledger.",
+    "The published hugePad definition uses pad.mk; the manual says maximum area while the catalog describes a minimum. No resolution or mask-generation algorithm is invented.",
+    "Previous nominal extracted timing/equivalence remains separate. No new placement, extraction, timing, installer or foundry acceptance is claimed."
+  ]
+}

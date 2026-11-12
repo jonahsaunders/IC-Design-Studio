@@ -1,0 +1,76 @@
+{
+  "schema": 1,
+  "scope": "Selected historical physical electrode mapping only; no fresh physical execution, supplemental metal-spacing coverage, installed or full-family acceptance.",
+  "archive": "physical-evidence.zip",
+  "archive_sha256": "5de4278a2b44047881d9b37482edf5b9e6ec0aabb47b30449e6a727b4b572f8e",
+  "archive_bytes": 75922,
+  "parent_archive_sha256": "495ee8b7771c8df0f00c8b4b994e48d4dbcf18a8734a1b25cb9c8b423136e6a7",
+  "parent_record": "docs/validation/ihp-cmim-catalog-reference-2026-11-02.json",
+  "provenance": "Twelve original members copied byte-for-byte from the independently audited parent. The public subset can replay its own selected evidence, but cannot independently verify the complete omitted parent archive.",
+  "selected_prefix": "default-7-0/",
+  "selected_members": {
+    "default-7-0/catalog.icproj": {
+      "sha256": "74606a2a6f4da4abac863d6cc265a29f2fa060afd450c28ee87e8e441c846f3e",
+      "bytes": 380564
+    },
+    "default-7-0/captured-reference.spice": {
+      "sha256": "b893b5f9b82b3220c17e5557d4d6c9edf5a718c3a5952805d1f102e72a29d25b",
+      "bytes": 340
+    },
+    "default-7-0/job/physical-flow/layout.gds": {
+      "sha256": "8bf0d9ec2a86961ed0f1a79cf791b51adead6213e50db089682a3d360c776b65",
+      "bytes": 4200
+    },
+    "default-7-0/job/physical-flow/report.json": {
+      "sha256": "473a512137ba7c938dbbd217e9411e37c099dcdc62dc551efd9e1d70b19b7019",
+      "bytes": 105580
+    },
+    "default-7-0/job/physical-flow/lvs/lvs.log": {
+      "sha256": "028cdedd6c5ed2409ef8cedcb603c9c28af1d764732f4c92921b0ae7257df984",
+      "bytes": 1154
+    },
+    "default-7-0/job/physical-flow/lvs-extraction/native.cir": {
+      "sha256": "c9175f6403abb6eb4fb8f066283f2b9ffb38a592646004f1b338234f27ec0ee9",
+      "bytes": 148
+    },
+    "default-7-0/job/physical-flow/lvs-extraction/console.log": {
+      "sha256": "37962932512f69e19fe34d027ee11ed5ecd2d69ebc897bc3a7cdf06531181147",
+      "bytes": 35893
+    },
+    "default-7-0/job/physical-flow/lvs-extraction/labels.gds": {
+      "sha256": "bbb7684674af6d2b62fc32fce0be47dcaf74a72a02d9905803a47ead23a47381",
+      "bytes": 4276
+    },
+    "default-7-0/job/physical-flow/lvs-extraction/command.json": {
+      "sha256": "2330cee13b1dd919764b198209301af2cdb50bb922847f799d7dd4fa36924906",
+      "bytes": 1075
+    },
+    "default-7-0/job/physical-flow/lvs-extraction/deck/rule_decks/cap_derivations.lvs": {
+      "sha256": "2122ca992df4983e32dda8e85fdffabab2bc90eed0cebc1372c4069c78ef1157",
+      "bytes": 5585
+    },
+    "default-7-0/job/physical-flow/lvs-extraction/deck/rule_decks/cap_extraction.lvs": {
+      "sha256": "ae5cd8746f7dd4772c7fa618ed09bf009bd394d801a19928ea3c9c0d6ab5b226",
+      "bytes": 4245
+    },
+    "default-7-0/job/physical-flow/lvs-extraction/deck/rule_decks/custom_mim_extractor.lvs": {
+      "sha256": "2e4a47be7bf2ec9ba87611e2ab32e97d5369f726ded328d2e291d94e845f40dd",
+      "bytes": 9197
+    }
+  },
+  "licenses": {
+    "LICENSE.IHP": {
+      "source": "icstudio/assets/physical/ihp_klayout_lvs/LICENSE",
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "license": "Apache-2.0"
+    },
+    "LICENSE.IC-Design-Studio": {
+      "source": "LICENSE",
+      "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+      "license": "GPL-3.0"
+    }
+  },
+  "attribution": "IHP PDK Authors, IHP-Open-PDK commit 5e6d592e4002946a4616f798c357f0f3c06cf3b6. Original copyright and license headers in the three LVS rule files are unchanged. The generated layout retains its pinned public Magic generator provenance in the application fixture SOURCE.json. IC Design Studio-generated test project and reports retain the project GPL-3.0 license.",
+  "rule_source_lock": "icstudio/assets/physical/ihp_klayout_lvs/SOURCE.json",
+  "generator_source_lock": "icstudio/assets/qualification/ihp-cmim-reference/SOURCE.json"
+}

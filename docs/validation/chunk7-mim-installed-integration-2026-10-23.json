@@ -1,0 +1,148 @@
+{
+  "schema": 1,
+  "date": "2026-10-23",
+  "status": "local_focused_integration_passed",
+  "source_baseline": "c61eeaa3a416800cbd83c03a0409c475d638573a",
+  "qualified": false,
+  "chunk_complete": false,
+  "release_acceptance": false,
+  "scope": "Frozen local Windows/Linux source, release-contract and GUI feedback for the MiM editor/native, public-geometry, full selected electrical and aggregate installed-acceptance implementation. Native Linux storage and ordinary Windows account; no hosted, installed or exhaustive acceptance claim.",
+  "source_snapshot": {
+    "files": 6467,
+    "manifest_sha256": "9d84b74be83a5bb32d3abb52db535eb18469e1ada7ec2e2ee188e4d7b0b81df4"
+  },
+  "platforms": {
+    "Windows": {
+      "status": "PASS",
+      "tests": 384,
+      "skipped": 16,
+      "elapsed_seconds": 102.0,
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 60.906
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 3.375
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 28.453
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 7.344
+        }
+      ],
+      "source_bindings": 1352,
+      "report_sha256": "0ac86782dfea1a9c8a18c0143e7685f6317efaac8dbb8d9f6250d455a5a643fa"
+    },
+    "Linux": {
+      "status": "PASS",
+      "tests": 384,
+      "skipped": 2,
+      "elapsed_seconds": 42.814,
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 15.339
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 1.319
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 22.101
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 2.621
+        }
+      ],
+      "source_bindings": 1352,
+      "report_sha256": "1030f23586cf91fe88f178d2f16dad167c3ff8d10d283c7d3311863e288899b9"
+    }
+  },
+  "archive": {
+    "path": "feedback.zip",
+    "sha256": "1079a2915761918ee241c18acb7cffb9c5c18ce34755970399af9181d2116f65",
+    "bytes": 5110149,
+    "members": 1424,
+    "verified": true,
+    "recovery_source_files": 6467,
+    "prior_archive_sha256": "03a75a194d165ed5fad0486f5a9a1fec0a5daa7c751c23f72beb9a17c031d430"
+  },
+  "gui_archive": {
+    "sha256": "38a43da52e65882cef8aab7551482cc25384ca4b59800ccc13d42fb2c6f8c6d0",
+    "files": 102,
+    "verified": true
+  },
+  "estimate": {
+    "chunk": 7,
+    "percent": 60,
+    "confidence": "low",
+    "range_percent": [
+      50,
+      70
+    ]
+  },
+  "failed_attempt": {
+    "schema": 1,
+    "status": "retained_failed_source_feedback",
+    "source_files": 6463,
+    "source_baseline": "c61eeaa3a416800cbd83c03a0409c475d638573a",
+    "tests_per_host": 384,
+    "failures_per_host": 6,
+    "errors_per_host": 1,
+    "scope": "Historical GF180 tested-source guard rejects the changed opt-in application entry point. No new native acceptance failure or installed acceptance is inferred.",
+    "source_snapshot_sha256": "63396c86b2118a0598b42d2d28e6ddbf225d0144d535fad8aba8db4c869a66c5",
+    "qualified": false,
+    "release_acceptance": false,
+    "archive_sha256": "8351a4b72e7c032e4d2cd7be96359b07d8e24bcf016d66434f089cee9d9f3f94",
+    "archive_bytes": 1116925,
+    "manifest_sha256": "8c184b24d5435653e734a1b7fa4180025a38a27a91bf355e8092f0b6b5f979e0",
+    "verified": true
+  },
+  "historical_snapshot": {
+    "path": "docs/validation/gf180-tested-source-2026-10-23-mim-installed/manifest.json",
+    "sha256": "223027afbc7487e96b44215423ec38462b47cd7998ffaac93e9566db52bd9097",
+    "scope": "Original accepted source bytes only; unchanged acceptance checker and no new native execution claim.",
+    "archive_sha256": "b9e09a0be371f1a4430090121a7947198a93a320917a4427f557e8f7ff4db5e2"
+  },
+  "independent_review": {
+    "archive_sha256": "cb9d322dad41fbd355df989c60b4abd29d45d203235edbe6fd9b710d2373c4f3",
+    "electrical_corruption_controls": 13,
+    "public_corruption_controls": 10,
+    "aggregate_tests": 10,
+    "scope": "Source/native readback and receipt-substitution controls; installed acceptance still pending."
+  },
+  "workflow_checks": {
+    "actionlint": "PASS",
+    "powershell_parse": "PASS",
+    "git_diff_check": "PASS",
+    "existing_release_gates_preserved": true,
+    "new_selected_mim_subgates_mandatory": true
+  },
+  "subgate_records": {
+    "sky130-mim-installed-probe-source-2026-10-23.json": "6b0eedd12c8866c42c1d73591e2dba5a61f4c4bafee345726fb2504aa1139025",
+    "sky130-mim-installed-public-drc-source-2026-10-23.json": "18342c3920d701490d70012b58fe821176dcff85cf26cc505abbaf676fdaf790",
+    "sky130-mim-installed-electrical-source-2026-10-23.json": "e072b7811a2174063492000427dd764a9d1bd01a2731157971356b5bb93c930a"
+  },
+  "cleanup": {
+    "public_temporary_cleanup_receipt_sha256": "49b69654576e43f1814e710368c9a8c1677c78b5606307cb58969d8ab5ef2cd9",
+    "cleanup_archive_sha256": "93592e61b27365e353b809766307d892a6c5dc2024cfe77444bc882252476ae8",
+    "windows_redundant_zip_bytes_removed": 68649906,
+    "linux_to_c_drive_reclamation_claimed": false,
+    "windows_administrator_used": false
+  }
+}

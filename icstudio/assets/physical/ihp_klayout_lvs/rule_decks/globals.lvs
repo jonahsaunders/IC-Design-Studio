@@ -1,0 +1,108 @@
+# frozen_string_literal: true
+
+#==========================================================================
+# Copyright 2024 IHP PDK Authors
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# SPDX-License-Identifier: Apache-2.0
+#==========================================================================
+
+#===========================================
+# --------------- Varaibles ----------------
+#===========================================
+
+# Prefix for each device
+PREFIX_MAP = {
+  'sg13_lv_nmos' => 'M',
+  'sg13_hv_nmos' => 'M',
+  'sg13_lv_pmos' => 'M',
+  'sg13_hv_pmos' => 'M',
+  'rfnmos' => 'M',
+  'rfnmoshv' => 'M',
+  'rfpmos' => 'M',
+  'rfpmoshv' => 'M',
+  'npn13G2' => 'Q',
+  'npn13G2L' => 'Q',
+  'npn13G2V' => 'Q',
+  'pnpMPA' => 'Q',
+  'dantenna' => 'D',
+  'dpantenna' => 'D',
+  'schottky_nbl1' => 'D',
+  'isolbox' => 'D',
+  'rsil' => 'R',
+  'rppd' => 'R',
+  'rhigh' => 'R',
+  'lvsres' => 'R',
+  'res_metal1' => 'R',
+  'res_metal2' => 'R',
+  'res_metal3' => 'R',
+  'res_metal4' => 'R',
+  'res_metal5' => 'R',
+  'res_topmetal1' => 'R',
+  'res_topmetal2' => 'R',
+  'sg13_hv_svaricap' => 'C',
+  'sg13_moscap_n' => 'C',
+  'sg13_moscap_p' => 'C',
+  'cap_cmim' => 'C',
+  'rfcmim' => 'C',
+  'cap_cmomi' => 'C',
+  'cap_cmomf' => 'C',
+  'diodevss_4kv' => 'D',
+  'diodevss_2kv' => 'D',
+  'diodevdd_4kv' => 'D',
+  'diodevdd_2kv' => 'D',
+  'idiodevss_4kv' => 'D',
+  'idiodevss_2kv' => 'D',
+  'idiodevdd_4kv' => 'D',
+  'idiodevdd_2kv' => 'D',
+  'nmoscl_2' => 'D',
+  'nmoscl_4' => 'D',
+  'ptap1' => 'R',
+  'ntap1' => 'R',
+  'inductor' => 'L',
+  'inductor2' => 'L',
+  'inductor3' => 'L'
+}.freeze
+
+# Prefix for devices will be customized
+CUSTOM_READER = %w[M C R Q L D].freeze
+
+# List of poly-resistors
+RES_DEV = ['rsil', 'rppd', 'rhigh']
+
+# RF MOS extraction models should be mapped to these base MOS model names.
+RF_TO_BASE_MOS_MODEL = {
+  'rfnmos' => 'sg13_lv_nmos',
+  'rfnmoshv' => 'sg13_hv_nmos',
+  'rfpmos' => 'sg13_lv_pmos',
+  'rfpmoshv' => 'sg13_hv_pmos'
+}.freeze
+
+# SPICE writer output map
+MOS_OUTPUT_MODEL_MAP = {
+  'sg13_lv_nmos' => ['sg13_lv_nmos', 0],
+  'rfnmos' => ['sg13_lv_nmos', 1],
+  'sg13_hv_nmos' => ['sg13_hv_nmos', 0],
+  'rfnmoshv' => ['sg13_hv_nmos', 1],
+  'sg13_lv_pmos' => ['sg13_lv_pmos', 0],
+  'rfpmos' => ['sg13_lv_pmos', 1],
+  'sg13_hv_pmos' => ['sg13_hv_pmos', 0],
+  'rfpmoshv' => ['sg13_hv_pmos', 1]
+}.freeze
+
+# Used by reader/writer/mapping to convert rfmode values to binary.
+RFMODE_TO_BINARY = lambda do |value|
+  next nil if value.nil?
+
+  value.to_s.strip.to_f >= 0.5 ? 1 : 0
+end.freeze

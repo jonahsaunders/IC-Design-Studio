@@ -1,0 +1,60 @@
+{
+  "schema": 1,
+  "status": "PASS_SOURCE_REPAIR",
+  "source_parent": "6450b8914aec65d14a0a2beebc6368b55263e62c",
+  "scope": "Hosted Linux storage setup repair, unchanged scientific gates, local regression checks and reviewed additional Windows cleanup. Fresh hosted and installed acceptance remain required.",
+  "failed_run_id": 41217134207,
+  "failed_job_id": 124588723516,
+  "failure": "ENOSPC during isolated historical RF/MiM preparation, before RF simulation; prior job did not measure available bytes or inodes.",
+  "source_files": {
+    "scripts/ci_hosted_storage.py": "80536506098348c381031f84b5d3ccf140986dc882900f4eda824e2c14af527c",
+    "tests/test_ci_hosted_storage.py": "5982077ee9347e072bcd27f99a14dc0eb46f211a3f2f87c826a508ea5e929d52",
+    ".github/workflows/build-desktop.yml": "7155b40c947e4bb35449af82d98f62857d23beea9131ab1510a1cad0293d6db5"
+  },
+  "hosts": {
+    "Windows": {
+      "status": "PASS",
+      "selected_tests": 310,
+      "skips": 13,
+      "seconds": 41.76499999999942,
+      "log_sha256": "453425abdd0fdd0ec4a0f454f9e89cb7811a5d782e45b0fa1cc03953dfa322f2",
+      "receipt_sha256": "2a97fa8728aabbe3910ea12b13d65d39df9e6cbfbde990dfae0e648043cc1e59",
+      "sources_unchanged": true
+    },
+    "Linux": {
+      "status": "PASS",
+      "selected_tests": 310,
+      "skips": 1,
+      "seconds": 8.226193539,
+      "log_sha256": "90a42a88310e59c63e1f1bc2325580991214a504ec1678ec5dc4056bc909efd5",
+      "receipt_sha256": "f7d273aba02779c2b9ceab4920b4241b943d3bdae3720a7bb269e7cc7f23fdf8",
+      "sources_unchanged": true
+    }
+  },
+  "source_manifest_sha256": "8b9862a336657516ef95dc4bdaed5c625c35bc0eda4944b40d5c0062df18906d",
+  "independent_review_sha256": "04a9857e0618e4b81b335806bea314781c1c2aa86a9f761fe744127372c9e817",
+  "source_files_count": 6883,
+  "cleanup_paths": [
+    "/usr/share/dotnet",
+    "/usr/local/lib/android",
+    "/opt/ghc"
+  ],
+  "reserves": {
+    "initial_gib": 12,
+    "rf_gib": 4,
+    "assembly_gib": 8,
+    "minimum_inodes": 100000,
+    "note": "Operational floors, not measured complete-job peak requirements."
+  },
+  "scientific_gates_unchanged": true,
+  "historical_source_isolation_preserved": true,
+  "local_sdk_cleanup_executed": false,
+  "local_linux_report_only": true,
+  "archive": "IC-Design-Studio-evidence/ci-hosted-storage-repair-2026-10-31-v1/source-repair-v1.zip",
+  "archive_bytes": 2585394,
+  "archive_sha256": "57cbb5dea658446c007cfd44004a45eb4acd6e335072bb83e61771058eb6f1cd",
+  "archive_members": 24,
+  "installed_acceptance": false,
+  "chunk_complete": false,
+  "qualified": false
+}

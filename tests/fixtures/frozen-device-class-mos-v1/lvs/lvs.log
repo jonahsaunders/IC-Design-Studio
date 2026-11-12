@@ -1,0 +1,41 @@
+
+Circuit 1 cell nfet_03v3 and Circuit 2 cell nfet_03v3 are black boxes.
+Warning: Equate pins:  cell nfet_03v3 is a placeholder, treated as a black box.
+Warning: Equate pins:  cell nfet_03v3 is a placeholder, treated as a black box.
+
+Subcircuit pins:
+Circuit 1: nfet_03v3                       |Circuit 2: nfet_03v3                       
+-------------------------------------------|-------------------------------------------
+1                                          |1                                          
+2                                          |2                                          
+3                                          |3                                          
+4                                          |4                                          
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes nfet_03v3 and nfet_03v3 are equivalent.
+
+Class parallel_coupon (1):  Merged 5 parallel devices.
+Subcircuit summary:
+Circuit 1: parallel_coupon                 |Circuit 2: parallel_coupon                 
+-------------------------------------------|-------------------------------------------
+nfet_03v3 (2->1)                           |nfet_03v3 (6->1)                           
+Number of devices: 1                       |Number of devices: 1                       
+Number of nets: 4                          |Number of nets: 4                          
+---------------------------------------------------------------------------------------
+Resolving symmetries by property value.
+Resolving symmetries by pin name.
+Netlists match uniquely.
+
+Subcircuit pins:
+Circuit 1: parallel_coupon                 |Circuit 2: parallel_coupon                 
+-------------------------------------------|-------------------------------------------
+G                                          |G                                          
+S                                          |S                                          
+D                                          |D                                          
+B                                          |B                                          
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes parallel_coupon and parallel_coupon are equivalent.
+
+Final result: Circuits match uniquely.
+.

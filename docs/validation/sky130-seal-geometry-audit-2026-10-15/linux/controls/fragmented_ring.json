@@ -1,0 +1,52 @@
+{
+  "schema": 1,
+  "recipe": "sky130-seal-geometry-v1",
+  "source": {
+    "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+    "files": {
+      "docs/rules/errors.csv": "d613c19c0f5de3938980ce98b0e50e0cfb9b537b2cfdb32a3b9b4b03236ef9ed",
+      "docs/rules/gds_layers.csv": "a424c152e2d300992f743f17abdb6fb72402c4c9a4bbdcdbab439757fd0c89b5",
+      "docs/rules/layers/table-c4b-layer-description.csv": "dcfeb27a76171a67ca6a905bdc6deab0ca4d801f5970a76b1ce90aebb97bb21f",
+      "docs/rules/periphery/p018-x_dotdash.csv": "0efaf5099bc464a782f0c05a2850673ae940272c16fa22ec519057171f2f1567"
+    }
+  },
+  "scope": "Drawn areaid.sl on 81:1 is merged across reachable hierarchy. For a single connected marker, its lower-left bounding-box corner must be (0,0); disconnected markers require origin review. All merged seal geometry must meet the catalog minimum width of 6 um, including ring walls. The manual x.28 N/A is not treated as a waiver of finite error record r392. Absence is recorded separately and does not establish a complete seal or chip. No advanced-seal cell selector or diffusion-overlap exemption is inferred. Only Manhattan geometry, exact orthogonal paths and unit orthogonal hierarchy on a 1 nm grid are supported.",
+  "qualified": false,
+  "chunk_complete": false,
+  "top": "control",
+  "gds_sha256": "ca4fc9bf237e9d4b2f062d8bbac3808351130c9a3aa8c45c25f4c6c4643fd37c",
+  "measurements": {
+    "raw_shapes": 4,
+    "components": 1,
+    "area_nm2": 2256000000,
+    "bounds_nm": [
+      0,
+      0,
+      100000,
+      100000
+    ],
+    "width_findings": 0
+  },
+  "rows": [
+    {
+      "id": "r379",
+      "rule": "x.19",
+      "operation": "lower-left-at-origin",
+      "components": 1,
+      "violations": 0,
+      "disposition": "executed-reviewed"
+    },
+    {
+      "id": "r392",
+      "rule": "x.28",
+      "operation": "minimum-width",
+      "minimum_nm": 6000,
+      "components": 1,
+      "violations": 0,
+      "disposition": "executed-reviewed"
+    }
+  ],
+  "violations": 0,
+  "unreviewed": 0,
+  "status": "selected-seal-geometry-reviewed"
+}

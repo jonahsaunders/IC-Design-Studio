@@ -45,9 +45,10 @@ def validate_symbol(symbol, ports):
 
 def import_symbol(path,preserve_case=False):
     from .xschem_io import records, properties
-    text = Path(path).read_text(encoding='utf-8')
+    from .ihp_taps import declarative_symbol
+    text, adapter_notes = declarative_symbol(Path(path).read_bytes())
     if len(text) > 2_000_000: raise ValueError('Symbol file is too large.')
-    symbol = {'pins': {}, 'primitives': [],'pin_meta':{},'pin_order':[]}; notes = []; metadata = {}; pin_numbers={}
+    symbol = {'pins': {}, 'primitives': [],'pin_meta':{},'pin_order':[]}; notes = list(adapter_notes); metadata = {}; pin_numbers={}
     for r in records(text):
         kind = r[0]
         if kind == 'K': metadata = properties(r[1])

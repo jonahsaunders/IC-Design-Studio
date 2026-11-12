@@ -128,6 +128,7 @@ def main():
     if args.model is None: parser.error('--model is required')
     data = json.loads(args.model.read_text(encoding='utf-8'))
     if data.get('schema') != 1: raise ValueError('Unsupported simulation model schema.')
+    if data.get('wave_basis') != 'full-incident-matrix-v1': raise ValueError('Unsupported measured-wave basis.')
     encoded = json.dumps({k: v for k, v in data.items() if k != 'run_hash'}, sort_keys=True, separators=(',', ':'), allow_nan=False).encode()
     if hashlib.sha256(encoded).hexdigest() != data.get('run_hash'):
         raise ValueError('The staged physical model or solver settings changed. Prepare a new run.')
@@ -150,11 +151,18 @@ def main():
     # incorrectly rejects high-frequency runs; check relative dynamic range.
     if not np.all(np.isfinite(incident)) or peak < np.finfo(float).tiny or np.min(magnitude) < 1e-6*peak:
         raise ValueError('Insufficient incident signal in the requested band.')
-    scattering = np.array([p.uf_ref/incident for p in ports]).T
-    if not np.all(np.isfinite(scattering)): raise ValueError('Non-finite S parameters.')
+    # Keep both incident and reflected waves. The unpowered lumped port can
+    # have a nonzero measured incident wave; only the paired process can solve
+    # S = B inv(A). Treating B's columns as S produced negative resistance.
+    incoming = np.array([p.uf_inc/incident for p in ports]).T
+    outgoing = np.array([p.uf_ref/incident for p in ports]).T
+    if not np.all(np.isfinite(incoming)) or not np.all(np.isfinite(outgoing)):
+        raise ValueError('Non-finite measured port waves.')
     output = dict(run_hash=data['run_hash'], scale=args.scale, port=args.port,
+                  wave_basis=data['wave_basis'],
                   versions=deps[-1], cells=cells, mesh_lines=counts,
-                  frequency_hz=frequency.tolist(), s_real=scattering.real.tolist(), s_imag=scattering.imag.tolist())
+                  frequency_hz=frequency.tolist(), a_real=incoming.real.tolist(), a_imag=incoming.imag.tolist(),
+                  b_real=outgoing.real.tolist(), b_imag=outgoing.imag.tolist())
     target = args.model.resolve().parent/(name+'.json')
     temporary = target.with_suffix('.tmp'); temporary.write_text(json.dumps(output, allow_nan=False), encoding='utf-8'); temporary.replace(target)
     emit(state='complete', port=args.port, scale=args.scale)

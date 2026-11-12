@@ -1,0 +1,47 @@
+{
+  "scope": "All140 nominal points. Original total terminal currents versus original manufacturer measurements; no gmin subtraction and no fitting. Relative residual magnitude = abs(simulated-measured)/abs(measured); undefined at measured zero and excluded from relative summary, counted separately.",
+  "measurement_residual_acceptance": null,
+  "qualified": false,
+  "terminals": {
+    "d": {
+      "points": 140,
+      "max_absolute_residual_a": 4.899911734683826e-07,
+      "median_absolute_residual_a": 1.3240951030474782e-07,
+      "nonzero_measured_count": 140,
+      "zero_measured_count": 0,
+      "max_absolute_relative_residual": 0.9252969678763548,
+      "median_absolute_relative_residual": 0.018464282981614462,
+      "zero_measured_max_absolute_residual_a": null
+    },
+    "g": {
+      "points": 140,
+      "max_absolute_residual_a": 5.978634474249604e-10,
+      "median_absolute_residual_a": 1.3515028463055081e-11,
+      "nonzero_measured_count": 140,
+      "zero_measured_count": 0,
+      "max_absolute_relative_residual": 0.2087187333827625,
+      "median_absolute_relative_residual": 0.019361774139279638,
+      "zero_measured_max_absolute_residual_a": null
+    },
+    "s": {
+      "points": 140,
+      "max_absolute_residual_a": 4.712423877334123e-07,
+      "median_absolute_residual_a": 1.323349698562096e-07,
+      "nonzero_measured_count": 140,
+      "zero_measured_count": 0,
+      "max_absolute_relative_residual": 11.5373859523465,
+      "median_absolute_relative_residual": 0.01927891433173732,
+      "zero_measured_max_absolute_residual_a": null
+    },
+    "b": {
+      "points": 140,
+      "max_absolute_residual_a": 8.825999959147076e-11,
+      "median_absolute_residual_a": 3.4026389439931428e-12,
+      "nonzero_measured_count": 139,
+      "zero_measured_count": 1,
+      "max_absolute_relative_residual": 2.287643975549734,
+      "median_absolute_relative_residual": 1.2656431705853428,
+      "zero_measured_max_absolute_residual_a": 2.437239296021211e-19
+    }
+  }
+}

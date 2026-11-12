@@ -1,0 +1,127 @@
+{
+  "schema": 1,
+  "chunk": 6,
+  "status": "partial-coverage-verified-on-both-platforms",
+  "qualified": false,
+  "chunk_complete": false,
+  "data": {
+    "path": "docs/validation/sky130-esd-fuse-2026-10-14.json",
+    "sha256": "c1a05882f3f48607a245ae3d0d3812503bc67663d2fc641e06fbbfaae248f880"
+  },
+  "systems": {
+    "win32": {
+      "schema": 1,
+      "status": "PASS",
+      "platform": "win32",
+      "tests": 13,
+      "qualified": false,
+      "chunk_complete": false,
+      "data_sha256": "c1a05882f3f48607a245ae3d0d3812503bc67663d2fc641e06fbbfaae248f880",
+      "tests_sha256": "d2f734cce33b8ea51a60c00ba7fa92b946f32d99f82ef6b3150c6733cc6df423",
+      "driver_sha256": "eeab4d295cd147f32f6d0cad35cdf8c9123416905e6e8c691f6e918bb1a74074",
+      "source_files": {
+        "scripts/sky130_esd_fuse_review.py": "0efa3ca2964d59342fbd857c4a06bbe513f0be42926c2acb40cc9ab60c10257a",
+        "tests/test_sky130_esd_fuse.py": "96477190b73b3806eb288e138004cc64a86cc87e50d0db1de68a14ef4ace9ed5"
+      }
+    },
+    "linux": {
+      "schema": 1,
+      "status": "PASS",
+      "platform": "linux",
+      "tests": 13,
+      "qualified": false,
+      "chunk_complete": false,
+      "data_sha256": "c1a05882f3f48607a245ae3d0d3812503bc67663d2fc641e06fbbfaae248f880",
+      "tests_sha256": "0d832410eab203d59ae4bb18f359db74ca1153a821ec14d88db5b4401b10eeb1",
+      "driver_sha256": "eeab4d295cd147f32f6d0cad35cdf8c9123416905e6e8c691f6e918bb1a74074",
+      "source_files": {
+        "scripts/sky130_esd_fuse_review.py": "0efa3ca2964d59342fbd857c4a06bbe513f0be42926c2acb40cc9ab60c10257a",
+        "tests/test_sky130_esd_fuse.py": "96477190b73b3806eb288e138004cc64a86cc87e50d0db1de68a14ef4ace9ed5"
+      }
+    }
+  },
+  "cases": [
+    {
+      "case": "counter",
+      "gds_sha256": "4158b6503dc07e85f1e9e7b375a3d654cd9b64dc0498ed9fb680874e973c1ac2",
+      "periphery_counts": {
+        "execution-review-required": 15,
+        "upstream-na": 77,
+        "executed-reviewed": 135,
+        "absent-operand": 276,
+        "advisory": 36,
+        "definition-required": 1,
+        "other-backend": 61
+      },
+      "error_counts": {
+        "unreviewed": 945,
+        "executed-reviewed": 356,
+        "absent-operand": 255
+      }
+    },
+    {
+      "case": "uart",
+      "gds_sha256": "c9282fb9602ac9dbab5299032be1d4b68751bb611747d276d40435e93c37afea",
+      "periphery_counts": {
+        "execution-review-required": 15,
+        "upstream-na": 77,
+        "executed-reviewed": 135,
+        "absent-operand": 276,
+        "advisory": 36,
+        "definition-required": 1,
+        "other-backend": 61
+      },
+      "error_counts": {
+        "unreviewed": 945,
+        "executed-reviewed": 356,
+        "absent-operand": 255
+      }
+    },
+    {
+      "case": "apb",
+      "gds_sha256": "5039221b72bfd052d3f82781f5403fb67df4261ea20add5c2047191321fe9d78",
+      "periphery_counts": {
+        "execution-review-required": 15,
+        "upstream-na": 77,
+        "executed-reviewed": 135,
+        "absent-operand": 276,
+        "advisory": 36,
+        "definition-required": 1,
+        "other-backend": 61
+      },
+      "error_counts": {
+        "unreviewed": 945,
+        "executed-reviewed": 356,
+        "absent-operand": 255
+      }
+    }
+  ],
+  "source_files": {
+    "scripts/sky130_esd_fuse_review.py": "0efa3ca2964d59342fbd857c4a06bbe513f0be42926c2acb40cc9ab60c10257a",
+    "tests/test_sky130_esd_fuse.py": "96477190b73b3806eb288e138004cc64a86cc87e50d0db1de68a14ef4ace9ed5"
+  },
+  "portable_files": {
+    "docs/validation/sky130-esd-fuse-2026-10-14/linux/record.json": "30713e8dfca5bbcf599746d84bf73fa7377b8be9f603beb0c8271b960c8cd789",
+    "docs/validation/sky130-esd-fuse-2026-10-14/linux/tests.log": "0d832410eab203d59ae4bb18f359db74ca1153a821ec14d88db5b4401b10eeb1",
+    "docs/validation/sky130-esd-fuse-2026-10-14/win32/record.json": "5de30e1d93b75ee127f9f8ea6bbb288b96f61619002b83c87341c69d8aea8c87",
+    "docs/validation/sky130-esd-fuse-2026-10-14/win32/tests.log": "d2f734cce33b8ea51a60c00ba7fa92b946f32d99f82ef6b3150c6733cc6df423"
+  },
+  "evidence_archive": {
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-esd-fuse-2026-10-14-v1\\evidence.tar.gz",
+    "sha256": "74a5ce212c9216b23d77371c83c2ed91ec150ef8c2014807fc7e1bfef0678ee8",
+    "bytes": 39848,
+    "files": 18,
+    "manifest_sha256": "4fbb90628a465ed6f9cb96e57da751e4bc51ea18ce766226bd6ff674d2f734f2",
+    "status": "readback-verified"
+  },
+  "replay_inputs": {
+    "path": "tests/fixtures/sky130-filled-references-v1.zip",
+    "sha256": "8db9401bc73e117db9d72dcccb03ac7700016b5a5c61e518c14cb5a0ec3542fa"
+  },
+  "scope": "Two explicit periphery targets and 32 fuse catalog records gain measured absence decisions on all three unchanged filled GDS files. Thirteen tests per OS pass with no skips and identical data. No numeric fuse execution, new native/application run or full chunk acceptance.",
+  "limitations": [
+    "The earlier 12-test checkpoint is retained as superseded development evidence; final acceptance includes the complete-ledger removal guard.",
+    "An initial sandboxed Windows attempt could not create its temporary directory and ran zero tests; both successful audits use explicit writable scratch directories.",
+    "Fifteen periphery reviews, the x.20 numeric definition and 945 catalog records remain open. Delivery/installers belong to original chunk 12, not a new chunk 6 gate."
+  ]
+}

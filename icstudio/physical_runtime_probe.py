@@ -21,6 +21,7 @@ def qualify(runtime, directory, progress):
 
 def run(job, directory, progress):
     from .engines import execute, tcl_word, netgen_lvs, require_lvs_match
+    from .magic_diagnostics import require_valid_technology
     from .runtime_setup import check_ngspice
     import klayout.db as db
     root=Path(directory)/'physical-flow';root.mkdir()
@@ -32,7 +33,9 @@ def run(job, directory, progress):
         script=f'load {name}\nbox values 0 0 {width} 20\npaint metal1\ndrc check\ndrc catchup\nputs "PROBE_DRC [drc list count total]"\nquit -noprompt\n'
         atomic_write(root/(name+'.tcl'),script)
         log=execute([tools['magic'],'-dnull','-noconsole','-rcfile',root/'startup.tcl'],root,input_text=script)
-        atomic_write(root/(name+'.log'),log);counts=re.findall(r'^PROBE_DRC (\d+)$',log,re.M)
+        atomic_write(root/(name+'.log'),log)
+        require_valid_technology(log,root/(name+'.log'))
+        counts=re.findall(r'^PROBE_DRC (\d+)$',log,re.M)
         if len(counts)!=1 or ((int(counts[0])==0)!=(name=='legal')):raise ValueError('Magic installation DRC control failed: '+name)
         checks.append({'name':'drc-'+name,'status':'passed','count':int(counts[0])})
     atomic_write(root/'setup.tcl','permute default\nproperty default\n')
@@ -46,6 +49,9 @@ def run(job, directory, progress):
             raise ValueError('Netgen installation negative control did not reject the changed resistor.')
         checks.append({'name':'lvs-'+name,'status':'passed'})
     checks.append({'name':'ngspice','status':check_ngspice(tools['ngspice'])['status']})
+    from .klayout_runtime_probe import qualify as qualify_klayout
+    progress(.8,'Checking KLayout rule execution and invalid geometry')
+    checks.extend(qualify_klayout(tools['klayout'],root/'klayout'))
     report={'status':'passed','design_hash':design_digest(job['project']),
             'qualification':'Runtime tool smoke tests only; no process or design qualification.',
             'stages':checks,'klayout':db.__version__}

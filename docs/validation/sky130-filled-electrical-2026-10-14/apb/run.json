@@ -1,0 +1,62 @@
+{
+  "schema": 1,
+  "case": "apb",
+  "status": "final-reference-application-and-nominal-electrical-pass",
+  "qualified": false,
+  "chunk_complete": false,
+  "driver_sha256": "a86900d95c2e2b350b257d72b05ca05909aa692c9d871a2f816321fb453b4b06",
+  "original_result_sha256": "efafba492dd8940e339b3102bbbf6335124735abd7798dbef04b9322c690cd0e",
+  "source_gds_sha256": "5039221b72bfd052d3f82781f5403fb67df4261ea20add5c2047191321fe9d78",
+  "source_checkpoint_sha256": "cd1a997dac190164ab96bac0ae0eaee91865ff2ed0f983865daa644cae60bf7d",
+  "scope": "Actual application partial geometry, staged antenna, OpenDB checks, export, nominal checkpoint RC extraction, extracted timing and RTL equivalence on final filled reference inputs. GDS-only fill is outside OpenRCX; independent nominal native invariance is separate. No full-rule, process-corner, supply-integrity or foundry qualification.",
+  "snapshots": {
+    "original": {
+      "checkpoint_sha256": "715ff81201a28b1f05f2346cd3488141615b69d2c35d4d29faa20caae41b897a",
+      "netlist_sha256": "29bb9253ce5c02977e587a90252199e2bfa1cad7b51b24664c67a5f6309dcaa2",
+      "spef_sha256": "d0ef966949e8d283083f07fb5f3cb6eab353210eb26e926f55be478f626461c1",
+      "metrics": {
+        "nets": 167,
+        "resistors": 651,
+        "capacitors": 2700,
+        "units": {
+          "R": "1 OHM",
+          "C": "1 PF"
+        },
+        "sum_resistance_values": 12236.284061999992,
+        "sum_capacitance_values": 0.8059895697639999,
+        "scope": "Raw SPEF element sums in reported units; not path delay or signoff acceptance."
+      }
+    },
+    "filled": {
+      "checkpoint_sha256": "cd1a997dac190164ab96bac0ae0eaee91865ff2ed0f983865daa644cae60bf7d",
+      "netlist_sha256": "f69f1b2579ea9095cca0436269a63903afca024b65a67ef8bacdea8d1a557d47",
+      "spef_sha256": "9b1b64716f87b71c79c5ccceac76f6489fff2f11f76b1e428b1f23e4ba7205c4",
+      "metrics": {
+        "nets": 167,
+        "resistors": 651,
+        "capacitors": 2700,
+        "units": {
+          "R": "1 OHM",
+          "C": "1 PF"
+        },
+        "sum_resistance_values": 12236.284061999992,
+        "sum_capacitance_values": 0.8059895697639999,
+        "scope": "Raw SPEF element sums in reported units; not path delay or signoff acceptance."
+      }
+    }
+  },
+  "logic_netlist_identical": false,
+  "routed_spef_identical_except_date": true,
+  "physical_status": "partial-checks-and-export-pass",
+  "electrical": {
+    "timing": {
+      "status": "PASS",
+      "result_sha256": "d17add7a49ad68f5a393f6fd964a790650c0d22648b9e7822fcfe8470e98422f"
+    },
+    "equivalence": {
+      "status": "PASS",
+      "result_sha256": "4015574eed53b066784abdfa4db2d618e4805b28b3a52972d3d44bf7aa07112b"
+    }
+  },
+  "elapsed_seconds": 61.23048082800001
+}

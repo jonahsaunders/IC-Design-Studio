@@ -1,0 +1,34 @@
+{
+  "schema": 1,
+  "modified_upstream_files": false,
+  "files": {
+    "LICENSE": {
+      "repository": "https://github.com/IHP-GmbH/IHP-Open-PDK",
+      "revision": "5e6d592e4002946a4616f798c357f0f3c06cf3b6",
+      "git_blob_sha1": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "bytes": 11357
+    },
+    "ihp-sg13g2/libs.tech/klayout/python/sg13g2_pycell_lib/ihp/nmosHV_code.py": {
+      "repository": "https://github.com/IHP-GmbH/IHP-Open-PDK",
+      "revision": "5e6d592e4002946a4616f798c357f0f3c06cf3b6",
+      "git_blob_sha1": "d8adedc1ea1e33313aadc22958f54b5d12b26344",
+      "sha256": "0d55bb75b867eaefee37f7a0b60e9a75548f381669ef7f1dfce4a3e9c948a8da",
+      "bytes": 9614
+    },
+    "ihp-sg13g2/libs.tech/klayout/python/sg13g2_pycell_lib/ihp/pmosHV_code.py": {
+      "repository": "https://github.com/IHP-GmbH/IHP-Open-PDK",
+      "revision": "5e6d592e4002946a4616f798c357f0f3c06cf3b6",
+      "git_blob_sha1": "be96c6429d7ea100a2350dbde3e1ade9878f024c",
+      "sha256": "c2f00c9bf87132c808f30b195ce6db4d46b5cc415cf9c81ca4e3c53965e86859",
+      "bytes": 10361
+    },
+    "ihp-sg13g2/libs.tech/klayout/python/sg13g2_pycell_lib/sg13g2_tech.json": {
+      "repository": "https://github.com/IHP-GmbH/IHP-Open-PDK",
+      "revision": "5e6d592e4002946a4616f798c357f0f3c06cf3b6",
+      "git_blob_sha1": "ccfecf77ccc42185cacc6efd59702cfd21ab3feb",
+      "sha256": "193f2af37d2d80ea28f88052298e91ed7650413dc6ca774cae6f8ed6a95e35ba",
+      "bytes": 26814
+    }
+  }
+}

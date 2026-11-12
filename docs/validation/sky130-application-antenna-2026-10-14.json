@@ -1,0 +1,213 @@
+{
+  "schema": 1,
+  "chunk": 6,
+  "status": "in_progress",
+  "qualified": false,
+  "chunk_complete": false,
+  "source_baseline": "7c348b647dfed52a3b695dce54fc1253fee027af",
+  "recipe": "sky130-hd-staged-antenna-v1",
+  "source_files": {
+    "icstudio/digital_sky130_antenna.py": "4222e6a560bf5c52fd1e8df1b9da0ff968de83d9f94f38055b98a1868a9d2fab",
+    "scripts/prepare_sky130_antenna.py": "ddeb221e6a485d75ef2f95b8fcb4b541658af044ef33249ae9408d22cca33afe",
+    "scripts/sky130_staged_antenna.drc": "92b0378b845c81f2e5ec46918f894988f8648fd0a8f4482441de325aa3cc18fc",
+    "icstudio/digital_platform.py": "1b1d27ee5720df21a9d8015cb5722e2a9cb0cab054bbc2c3ef37de86f2811de2",
+    "icstudio/digital_flow.py": "00890dc2b8c4e46d479be02c4d087038493738284b773e092050276e9a08fe33",
+    "icstudio/digital_physical.py": "d4194806456c1ebacc16c6d118f00e32cf11493c1a4c97e632bc07825655c728",
+    "icstudio/digital_macro.py": "6b94f5dbf0f11b428b34926586044f803203037631e7f241f162c3ddd89bd9f9",
+    "scripts/build_digital_runtime.py": "9484c50e9a653e4bdaed8d8fae467b941673c3c3ea63ba5ba2f52f0ee469e0a9",
+    "packaging/digital/bundle_platforms.py": "198092baf3a91bf2979cf1258eaab27fe85c9c326ca070240c1104ab24b9ce82",
+    "tests/test_sky130_application_antenna.py": "d2867e0fabffc94fb849edab90b36916d0d53331a0b8eb37c5c92ca4728e393c",
+    "tests/test_sky130_application_rules.py": "c99c1f016d8cb98a4fc2cf4cafb2257d65cf497074fd60f9cf9b29dc2fe60977",
+    "tests/test_digital_macro.py": "702e186259abb9d8b9c9abdb2d59fd66d6b792795578cebd0599c05137ef9b33",
+    "tests/test_digital_physical_checks.py": "5db530c51c56d467ba9275e81f6a959dedf7980ce4145f9ef8096da135b6daa5",
+    "tests/test_digital_platforms.py": "f317f36da45f81dfbed7864de07133db84aa8f72193e703447abcfb705cd5abd",
+    "tests/test_digital_runtime.py": "33aa1b7dd1d3a50114121a3f9792530e05421c7c962f54c130c6cd88ad869392",
+    "tests/test_sky130_pins.py": "d72ec483990f6d87c98e56b62ca30ecba2c8fd47c599e5679f775016fa47680b"
+  },
+  "audits": {
+    "win32": {
+      "record.json": {
+        "path": "docs/validation/sky130-application-antenna-2026-10-14/win32/record.json",
+        "sha256": "990ccfded78b63406d74cb527b31dfe20735daf646826259f23361026799c234"
+      },
+      "tests.log": {
+        "path": "docs/validation/sky130-application-antenna-2026-10-14/win32/tests.log",
+        "sha256": "35fa3102c1574f8f1388104042fff4952340cc2910f0c44f1a4ed9c774f4fa99"
+      },
+      "readback": {
+        "path": "docs/validation/sky130-application-antenna-2026-10-14/win32/readback.json",
+        "sha256": "0213d5fc55e53e2a87d48cbe4f2af9b5dc9f12bafd5827d78a6864e6486d72fe"
+      }
+    },
+    "linux": {
+      "record.json": {
+        "path": "docs/validation/sky130-application-antenna-2026-10-14/linux/record.json",
+        "sha256": "8aa4b9ac64d5cfea527bddf1d68cf43218977356ae3cdf483827cd46ccd889d0"
+      },
+      "tests.log": {
+        "path": "docs/validation/sky130-application-antenna-2026-10-14/linux/tests.log",
+        "sha256": "10d54268bdda6a7f8d3c3a5f4f58c89b169f7d638a8507269f858a7efdbc1709"
+      },
+      "readback": {
+        "path": "docs/validation/sky130-application-antenna-2026-10-14/linux/readback.json",
+        "sha256": "f97e85acd22c43d4e45d4a4c0c9fbede189036189ef869c09106bb5d8532a209"
+      }
+    }
+  },
+  "raw_reports": {
+    "counter": {
+      "application": {
+        "path": "docs/validation/sky130-application-antenna-2026-10-14/counter/application.json",
+        "sha256": "2c3d2d99e801c85d6be7afc1b81f9d6fb65039b181e012a584c6a85c230b1621"
+      },
+      "filled": {
+        "path": "docs/validation/sky130-application-antenna-2026-10-14/counter/filled.json",
+        "sha256": "8b92d42d8adf718db6f55622476c02de0814f80a19a4930d215148d6960e3892"
+      }
+    },
+    "uart": {
+      "application": {
+        "path": "docs/validation/sky130-application-antenna-2026-10-14/uart/application.json",
+        "sha256": "4e83fd41e1b813ed5e31b6467b1e619628310161f067e27349e89a6c5ea39ff5"
+      },
+      "filled": {
+        "path": "docs/validation/sky130-application-antenna-2026-10-14/uart/filled.json",
+        "sha256": "4652f57f659d4b43a42dcdee651cf23d074e403353ec8195e4584c7f61d36536"
+      }
+    },
+    "apb": {
+      "application": {
+        "path": "docs/validation/sky130-application-antenna-2026-10-14/apb/application.json",
+        "sha256": "b2c11299a4d13468c10a04e5b195efbfceb2f9472c65770379737eeb5609b624"
+      },
+      "filled": {
+        "path": "docs/validation/sky130-application-antenna-2026-10-14/apb/filled.json",
+        "sha256": "0bafc685d62a2b959e3313090b688a39fe7f6969c263dd65a468992e571f3561"
+      }
+    },
+    "controls": {
+      "path": "docs/validation/sky130-application-antenna-2026-10-14/controls/failed-as-expected.json",
+      "sha256": "bfe96f8d5d68be8eea862e1f0db428ed74ceba3a6146de4372388b85a8f0aecb"
+    }
+  },
+  "application_cases": [
+    {
+      "case": "counter",
+      "gds_sha256": "4832c2d52e14ec217bbf3dd14c34288d781a8b9edf252afa350136140daee872",
+      "checkpoint_sha256": "b1ecef2acc34c7810ac61e2775e1a35dc69e38fa46009b3271ab1ee0b3ed3625",
+      "status": "application-partial-rules-antenna-and-export-pass",
+      "seconds": 58.950400805000015,
+      "macro_sha256": "a1a660776d80c1166866ac388868689ec4beff84d1394cfcf032f6a1a74a9634"
+    },
+    {
+      "case": "uart",
+      "gds_sha256": "e4815341c418f4630eaed1fc52a29b6c9865e6dc2411c14b8bc5ec216f123e45",
+      "checkpoint_sha256": "bf0e9ab345710ee75c180cb07385c5484fa4b793092659e6df023d7fba52af7f",
+      "status": "application-partial-rules-antenna-and-export-pass",
+      "seconds": 72.38860281000001,
+      "macro_sha256": "01bb29e52ff9d5340445c460defdcb50564cdad003e3d36e4c1e89fd4f0ac9e0"
+    },
+    {
+      "case": "apb",
+      "gds_sha256": "ee514670858619ef2065d02b149a87a55ca836bab93b56ac05a6fc235dea3111",
+      "checkpoint_sha256": "715ff81201a28b1f05f2346cd3488141615b69d2c35d4d29faa20caae41b897a",
+      "status": "application-partial-rules-antenna-and-export-pass",
+      "seconds": 74.64745823899997,
+      "macro_sha256": "f4a74c65c79d54ce3a0ca37c9e86ad50ac4662cea220e2ec24fd011592160850"
+    }
+  ],
+  "filled_cases": [
+    {
+      "case": "counter",
+      "top": "counter",
+      "status": "PASS",
+      "gds_sha256": "4158b6503dc07e85f1e9e7b375a3d654cd9b64dc0498ed9fb680874e973c1ac2",
+      "checkpoint_sha256": "10de8332ad78bba19e93e78eb5247040d74b8a8cd0b186dde19484254577ca9d",
+      "violations": 0,
+      "seconds": 2.0620763390000008,
+      "report_sha256": "8b92d42d8adf718db6f55622476c02de0814f80a19a4930d215148d6960e3892"
+    },
+    {
+      "case": "uart",
+      "top": "uart_tx",
+      "status": "PASS",
+      "gds_sha256": "c9282fb9602ac9dbab5299032be1d4b68751bb611747d276d40435e93c37afea",
+      "checkpoint_sha256": "27ec03d13a0264feea11df78633ca56d7f068ed74b1f06478f3fe9db058d2d32",
+      "violations": 0,
+      "seconds": 6.058555046999999,
+      "report_sha256": "4652f57f659d4b43a42dcdee651cf23d074e403353ec8195e4584c7f61d36536"
+    },
+    {
+      "case": "apb",
+      "top": "apb_fifo",
+      "status": "PASS",
+      "gds_sha256": "5039221b72bfd052d3f82781f5403fb67df4261ea20add5c2047191321fe9d78",
+      "checkpoint_sha256": "cd1a997dac190164ab96bac0ae0eaee91865ff2ed0f983865daa644cae60bf7d",
+      "violations": 0,
+      "seconds": 5.729146700000001,
+      "report_sha256": "0bafc685d62a2b959e3313090b688a39fe7f6969c263dd65a468992e571f3561"
+    },
+    {
+      "case": "controls",
+      "top": "CONTROLS",
+      "status": "FAIL",
+      "gds_sha256": "1b1341edb1b9c8e8ae977ec5abc192805f3d5808cf805fae32241267f5f1f247",
+      "checkpoint_sha256": "f56e3c6de7be1d6b86948c2f9d51d266a01f964dc0abe5096b69a51916dcf3a2",
+      "violations": 90,
+      "seconds": 1.0673915759999915,
+      "report_sha256": "bfe96f8d5d68be8eea862e1f0db428ed74ceba3a6146de4372388b85a8f0aecb",
+      "controls": {
+        "status": "all-antenna-controls-match",
+        "qualified": false,
+        "coupons": 178,
+        "expected_faults": 90,
+        "observed_faults": 90,
+        "accepted_controls": 88,
+        "stages": 13,
+        "numeric_scope": "Twelve-significant-digit report values; exact rational pass/fail oracle"
+      }
+    }
+  ],
+  "tests": {
+    "win32": {
+      "run": 97,
+      "passed": 90,
+      "skipped": 7
+    },
+    "linux": {
+      "run": 97,
+      "passed": 95,
+      "skipped": 2
+    }
+  },
+  "archive": {
+    "schema": 1,
+    "status": "readback-verified",
+    "layout": "sha256-addressed-blobs-with-parent-v1",
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-application-antenna-2026-10-14-v1\\evidence.tar.gz",
+    "sha256": "9052933735e3dba0a4c2c0e6b7a27f9c6a9df0edfbedd26990b4e36a26af0264",
+    "bytes": 683046,
+    "files": 1472,
+    "unique_local_blobs": 99,
+    "reused_parent_files": 1292,
+    "manifest_sha256": "a8ee79d1cb5ae1089ac5374d8ec818646519ad2e67fdf03ab013d1df074bc39d",
+    "parent": {
+      "schema": 1,
+      "status": "readback-verified",
+      "layout": "sha256-addressed-blobs-v1",
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-scope-correction-2026-10-14-v1\\evidence.tar.gz",
+      "sha256": "c91887fe6ca5b3492baed7e461f300ac14cbb16945bf5aff11fd792fc930fedc",
+      "bytes": 44401516,
+      "files": 842,
+      "unique_blobs": 386,
+      "manifest_sha256": "1f62a0248c6486b6b9f8358477016ef8e15ec4b515d6023860294ec0a89c2465"
+    }
+  },
+  "scope": "Native 13-stage supplemental antenna checks integrated into prepared-platform Finish and macro export. Three retained routed references pass the actual Runner checks and export; three exact filled references pass the gate; all 178 controls agree with the independent oracle and the 90-fault fixture is refused. Both OS validate saved and relocated evidence. No new routing, required density, complete rule/LVS, final electrical, rebuilt installer or foundry qualification.",
+  "limitations": [
+    "Five-metal SKY130 HD MOS supplemental profile only; met5 source-description discrepancy retained.",
+    "Catalog remains 356 executed, 175 absent and 1025 unreviewed; 17 periphery execution reviews and x.20 missing definition remain.",
+    "Runtime build context and prepared platform validated; complete rebuilt runtime/installer not tested.",
+    "Early harness attempts retained: serializer error, sandbox restrictions and Windows temporary path length. Successful suite uses shorter Windows fixture path; no production checker change was needed."
+  ]
+}

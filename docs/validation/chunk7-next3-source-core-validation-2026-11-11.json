@@ -1,0 +1,55 @@
+{
+  "schema": 1,
+  "status": "LOCAL_SOURCE_AND_CORE_PASS",
+  "installed_acceptance": false,
+  "qualified": false,
+  "calibrated": false,
+  "lanes": {
+    "source": {
+      "status": "passed",
+      "returncode": 0,
+      "process_elapsed_seconds": 430.277,
+      "source_identity_count": 2492,
+      "copied_file_count": 2527,
+      "stage_count": 14,
+      "tests": 1814,
+      "skips": 18,
+      "syntax_files": 1611,
+      "feedback_elapsed_seconds": 428.92,
+      "guard_gui": {
+        "gui_layouts": 6,
+        "gui_controls": 18,
+        "legacy_projects": 2,
+        "installed_acceptance": false,
+        "native_execution": false
+      },
+      "launcher_report_sha256": "06f97d69f4db63e5736581f4b225c9d30f39bd9233bbffbc8e0a71da217978ea"
+    },
+    "core": {
+      "status": "passed",
+      "returncode": 0,
+      "process_elapsed_seconds": 1144.409,
+      "source_identity_count": 2492,
+      "copied_file_count": 2527,
+      "tests": 4912,
+      "test_seconds": 1138.044,
+      "skips": 81,
+      "launcher_report_sha256": "0c1e289f51dc0358b7a9712a06cf048ff541ac0e7b03131ef89c0b1247963cbc"
+    }
+  },
+  "archive": "artifacts/chunk7-next3-source-core-validation-2026-11-11.zip",
+  "archive_sha256": "46ece6c8fec096046da5d2a1f7042091599da6ad890820bdcc53afd46b0707dc",
+  "archive_bytes": 1491633,
+  "manifest_sha256": "05fdb5b2a5948d9ec9e2cd0cf1c0969b5485349e77df71e80d7ff674d9c29d7f",
+  "included_files": 48,
+  "omitted_files": 1539,
+  "scope": [
+    "Compact validation record, not standalone GUI/native replay. Omitted GUI/project/layout/engine staging payloads are explicitly hashed; report and inventories are retained.",
+    "Launcher implementation is retained with a postrun hash only; original launch reports did not bind its prelaunch hash.",
+    "Tested snapshot contains uncommitted integrated changes atop named base; base commit alone does not identify tested content. Use included source and copied-file manifests.",
+    "Tests/skips are local evidence only. No installed acceptance, family qualification or calibration promotion.",
+    "Historical focused failures are retained as originally observed; final source/core results are separate."
+  ],
+  "date": "2026-11-11",
+  "base_commit": "753f040c02d95eb1b4d50728699f83a5ba15dc10"
+}

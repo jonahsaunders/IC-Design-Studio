@@ -1,0 +1,352 @@
+{
+  "schema": 1,
+  "date": "2026-11-07",
+  "status": "PASS_HOSTED_SOURCE_FEEDBACK",
+  "candidate": "0e103b56b614b3ec7ef63f76cd964bbecbeddae1",
+  "candidate_tree": "cd42a3d3fc3d31f17523600bc05f252066523e37",
+  "merge_commit": "70bb4075669db95ee80c7d9f840879d839f3b7b3",
+  "merge_tree": "cd42a3d3fc3d31f17523600bc05f252066523e37",
+  "merge_tree_matches_candidate": true,
+  "merge_parents": [
+    "b8372151e8664ba66b52005731e906cc1eac6214",
+    "0e103b56b614b3ec7ef63f76cd964bbecbeddae1"
+  ],
+  "run_id": 42410356947,
+  "run_attempt": 1,
+  "run_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/42410356947",
+  "scope": "Required PR source checks for the nine-view legacy symbol declaration inventory, source diagnostics, authenticated input bindings and both unchanged thirteen-stage platform lanes. Expected source identities and stage definitions come exclusively from the complete Git-verified isolated candidate. The 148 retained inventory gaps, native whole-source replay and immutable installed desktop evidence remain separate; no source-completeness or device qualification is claimed.",
+  "qualified": false,
+  "chunk_complete": false,
+  "inventory_complete": false,
+  "installed_acceptance": false,
+  "lanes": {
+    "linux": {
+      "status": "passed",
+      "tests": 1443,
+      "skips": 17,
+      "seconds": 428.889,
+      "syntax_files": 1543,
+      "source_files_verified": 2354,
+      "source_inventory_sha256": "df34d778e9e83385f1c1b4771af1dcf6101a7e430ac135a8bf684fa24f8f0cf1",
+      "candidate_git_blob_identities_verified": true,
+      "report_sha256": "839726d2b7c0b32241fa1b693a9c89080cda35a2ce04dfe61f0f3172baddc0a9",
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 23.324,
+          "tests": 246,
+          "skips": 3,
+          "log_sha256": "c5ae6e0e5ea8270f0f714695fe161e2a022301923858902641c750d9d6ffbde8",
+          "deadline_seconds": 300
+        },
+        {
+          "name": "ihp-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 37.804,
+          "tests": 219,
+          "skips": 1,
+          "log_sha256": "2b225904869e7775b103796a8d5b2c63d7be005e0d3f60d8623dcd8196c8c9ba",
+          "deadline_seconds": 300
+        },
+        {
+          "name": "physical-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 36.759,
+          "tests": 300,
+          "skips": 10,
+          "log_sha256": "d3fbc3d3daa961ed872302032e617ffdc8c67a3eaece7bbfb92d0f657ee1e3d5",
+          "deadline_seconds": 300
+        },
+        {
+          "name": "device-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 39.262,
+          "tests": 578,
+          "skips": 2,
+          "log_sha256": "1344eb2eedfd0ec6b273a69343902cfacb7267828599ecf9199ffbe8519b0a75",
+          "deadline_seconds": 300
+        },
+        {
+          "name": "package-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 53.599,
+          "tests": 11,
+          "skips": 0,
+          "log_sha256": "232c34cce8d6f260691b2ede2000c08117a89b0c2dd4fd05efa177caf4960093",
+          "deadline_seconds": 300
+        },
+        {
+          "name": "runtime-release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 7.183,
+          "tests": 89,
+          "skips": 1,
+          "log_sha256": "ebcfd51446c528b99eb08fd6bdbcde5c6c6940974d0bd5d4d4041320a076619d",
+          "deadline_seconds": 300
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 3.272,
+          "tests": 0,
+          "skips": 0,
+          "log_sha256": "a33aa0c2c4a69cb9ecf48ddb906bb518194b314157fdd885fff1b83c3ef9a137",
+          "deadline_seconds": 300
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 27.934,
+          "tests": 0,
+          "skips": 0,
+          "log_sha256": "87ee6efb92085de695456f13803d954a44fae71aa9794a340e543a5a9214b164",
+          "deadline_seconds": 300
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 4.826,
+          "tests": 0,
+          "skips": 0,
+          "log_sha256": "b7cdc6f30315f05bd34a6b203c1b4054249ed37637d61c1a6c250247a226383d",
+          "deadline_seconds": 300
+        },
+        {
+          "name": "metal-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 9.238,
+          "tests": 0,
+          "skips": 0,
+          "log_sha256": "bc9cf3da7d841c047ffa2cb6c2ed517189d60cc70794d02cdec222197dbf8c1c",
+          "deadline_seconds": 300
+        },
+        {
+          "name": "metal-resistor-parallel-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 37.362,
+          "tests": 0,
+          "skips": 0,
+          "log_sha256": "94b4c991fcb35dcb9e308f2c1589d402032481af8d55323de5cb1c4157792e53",
+          "deadline_seconds": 300
+        },
+        {
+          "name": "ihp-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 141.386,
+          "tests": 0,
+          "skips": 0,
+          "log_sha256": "1f83f5ea8863e1b677b26baa74e9a3295222e66b5b870058b9c7d2a1a7b37fbc",
+          "deadline_seconds": 300
+        },
+        {
+          "name": "ihp-capacitor-corner-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 2.621,
+          "tests": 0,
+          "skips": 0,
+          "log_sha256": "caeb11f6473c6c7125dd27478e588b85ffd6b31784e9adb1371a60f1661eb00f",
+          "deadline_seconds": 300
+        }
+      ]
+    },
+    "windows": {
+      "status": "passed",
+      "tests": 1443,
+      "skips": 37,
+      "seconds": 652.532,
+      "syntax_files": 1543,
+      "source_files_verified": 2354,
+      "source_inventory_sha256": "df34d778e9e83385f1c1b4771af1dcf6101a7e430ac135a8bf684fa24f8f0cf1",
+      "candidate_git_blob_identities_verified": true,
+      "report_sha256": "6a70284e9474d345c6b3fae03312241f604ffb1ab91736983bc0a468a6df2ca8",
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 39.063,
+          "tests": 246,
+          "skips": 16,
+          "log_sha256": "ba0c2d18c6c2ed1082c29ce11f67b057e4d5a865763d7c8c4cdb5435bd037c53",
+          "deadline_seconds": 300
+        },
+        {
+          "name": "ihp-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 62.031,
+          "tests": 219,
+          "skips": 0,
+          "log_sha256": "d0a3950c25e19d3cd279cdace77bb4942c0c0e2892434108ddc17525d7fc9e9f",
+          "deadline_seconds": 300
+        },
+        {
+          "name": "physical-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 75.734,
+          "tests": 300,
+          "skips": 11,
+          "log_sha256": "3c9414ed73724ff01d18d2d68d816f6ec2d7a88c13831c06f6e817eb6f930abd",
+          "deadline_seconds": 300
+        },
+        {
+          "name": "device-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 111.578,
+          "tests": 578,
+          "skips": 8,
+          "log_sha256": "d5af38ad70930374d6180cb7c16d866f5e1b55ed618e4e06bde84f74cb77134e",
+          "deadline_seconds": 300
+        },
+        {
+          "name": "package-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 109.75,
+          "tests": 11,
+          "skips": 0,
+          "log_sha256": "56e4721d5c526c864685bab9febaaf2374adbc1e9ca1cfef415c79d3abd6e99e",
+          "deadline_seconds": 300
+        },
+        {
+          "name": "runtime-release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 11.438,
+          "tests": 89,
+          "skips": 2,
+          "log_sha256": "66719461dd80de2845699ff9877e5c0f50f0472dfa6c214cc572e4fa65183224",
+          "deadline_seconds": 300
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 4.156,
+          "tests": 0,
+          "skips": 0,
+          "log_sha256": "1ecf8803b0da3772f1137b04f2646461c83ae581516631906aace850af5afea7",
+          "deadline_seconds": 300
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 32.359,
+          "tests": 0,
+          "skips": 0,
+          "log_sha256": "b2e199d7fadcb9b0749ff03d0d985c2fa4d2fd5490170c7bad63ee1c33b459c5",
+          "deadline_seconds": 300
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 8.329,
+          "tests": 0,
+          "skips": 0,
+          "log_sha256": "11804f89cf6bb119906c6605b350e52bbef6a0eb493ab340bd11dbe9fafc4750",
+          "deadline_seconds": 300
+        },
+        {
+          "name": "metal-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 10.735,
+          "tests": 0,
+          "skips": 0,
+          "log_sha256": "71fb371342c18f13e7ab525794b9f2d5496914b33e8dc473f077aad46c30b91e",
+          "deadline_seconds": 300
+        },
+        {
+          "name": "metal-resistor-parallel-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 44.516,
+          "tests": 0,
+          "skips": 0,
+          "log_sha256": "e081a69a7ea782ef27b940c1b4b28ca3ecc4ef986cf242319d549c5e915c67d1",
+          "deadline_seconds": 300
+        },
+        {
+          "name": "ihp-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 135.063,
+          "tests": 0,
+          "skips": 0,
+          "log_sha256": "de6c68b3c833e191aa01a86542ff12be6d426ded11cee45d2821c2b5c6e9c67b",
+          "deadline_seconds": 300
+        },
+        {
+          "name": "ihp-capacitor-corner-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 3.015,
+          "tests": 0,
+          "skips": 0,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "deadline_seconds": 300
+        }
+      ]
+    }
+  },
+  "isolated_source": {
+    "manifest_sha256": "f50eb2803ac8cc84e4c9964d5aeec2f21a31cb4c0bad969f933eae49bbdccd07",
+    "full_tracked_files": 7104,
+    "snapshot_digest": "0b8782ee2cd9beac0470c4df53efad12f57517f9e23f4ea10a194bdbe944afe1",
+    "complete_git_tree_reconstructed": true,
+    "source_root": "C:\\Users\\jonah\\Documents\\Codex\\c7t1106\\hi0e_v1",
+    "helper_sha256": "d671fc5b18dba12829a5bd4391f7cee8bebddf059e9f938b82892b0072ce20ed",
+    "contract_sha256": "0d4c7a94ecfac2bc61cf5fc94e040ad7e5c908a7bf60d4d206243c9228c7c785",
+    "imported_modules": {
+      "scripts": {
+        "namespace_paths": [
+          "scripts"
+        ]
+      },
+      "scripts.ci_feedback": "scripts/ci_feedback.py",
+      "scripts.sky130_catalog_queue": "scripts/sky130_catalog_queue.py",
+      "scripts.sky130_retained_catalog": "scripts/sky130_retained_catalog.py",
+      "scripts.sky130_rule_errors": "scripts/sky130_rule_errors.py",
+      "scripts.sky130_rule_inventory": "scripts/sky130_rule_inventory.py"
+    },
+    "isolated_python": true,
+    "before_after_complete_snapshot_verified": true,
+    "mutable_working_tree_imports": false
+  },
+  "test_counts_source": "Observed from each actual stage log; no forecast substituted.",
+  "raw_artifacts": [
+    {
+      "id": 13589970367,
+      "name": "source-feedback-Windows-70bb4075669db95ee80c7d9f840879d839f3b7b3",
+      "bytes": 16963628,
+      "sha256": "7d70742462e62ee2f2d1b383b9dd24a3b3f6a74218dd2feddad8bc51e528ecfd",
+      "upstream_digest": "sha256:7d70742462e62ee2f2d1b383b9dd24a3b3f6a74218dd2feddad8bc51e528ecfd",
+      "upstream_digest_verified": true,
+      "reused_verified_download": false,
+      "zip_integrity_verified": true,
+      "extracted_member_files": 1244,
+      "complete_member_extraction_verified": true,
+      "member_bytes_sha256_verified": true
+    },
+    {
+      "id": 13589487344,
+      "name": "source-feedback-Linux-70bb4075669db95ee80c7d9f840879d839f3b7b3",
+      "bytes": 17420013,
+      "sha256": "e7ef9f810924dbdeea837204797971d0bf5aefcf58f510eab36d14cd3883e5b4",
+      "upstream_digest": "sha256:e7ef9f810924dbdeea837204797971d0bf5aefcf58f510eab36d14cd3883e5b4",
+      "upstream_digest_verified": true,
+      "reused_verified_download": false,
+      "zip_integrity_verified": true,
+      "extracted_member_files": 1293,
+      "complete_member_extraction_verified": true,
+      "member_bytes_sha256_verified": true
+    }
+  ],
+  "complete_extraction_root": "C:\\Users\\jonah\\Documents\\Codex\\c7t1106\\hl0e",
+  "extraction_scope": "Raw ZIP digest and archive integrity are checked separately from complete extraction and every member byte readback.",
+  "preparation_failures": [],
+  "retention": {
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\outputs\\chunk7-legacy-symbol-hosted-source-evidence.zip",
+    "sha256": "d667e0924b9b8fe0689236e54c822e693f59ce741ee31ed5763f38edc4442bf7",
+    "bytes": 63205752,
+    "members": 2547,
+    "all_members_verified": true
+  },
+  "full_desktop": {
+    "run_id": 42379707594,
+    "candidate": "fa01ffb566ba1fa1903dec58dabd9838a901712d",
+    "scope": "Separate immutable desktop candidate; no desktop result is inferred from this hosted source run."
+  }
+}

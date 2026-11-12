@@ -60,7 +60,8 @@ def environment(executable, base=None):
         if os.name != 'nt':
             env['LD_LIBRARY_PATH'] = str(native/'lib')+os.pathsep+str(root/'python/lib')
         env['PYTHONNOUSERSITE'] = '1'
-    env.update(PYTHONUNBUFFERED='1', MPLBACKEND='Agg')
+    # Imported solver modules must not rewrite the installed, release-bound tree.
+    env.update(PYTHONUNBUFFERED='1', PYTHONDONTWRITEBYTECODE='1', MPLBACKEND='Agg')
     return env
 
 

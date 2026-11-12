@@ -1,0 +1,567 @@
+{
+  "status": "PASS",
+  "paths": [
+    {
+      "check": "setup",
+      "startpoint": "_18_/Q",
+      "endpoint": "count[2]",
+      "slack_ns": 47.654427,
+      "pins": [
+        "_18_/Q",
+        "output4/A",
+        "output4/X",
+        "count[2]"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "_16_/Q",
+      "endpoint": "count[0]",
+      "slack_ns": 47.673794,
+      "pins": [
+        "_16_/Q",
+        "output2/A",
+        "output2/X",
+        "count[0]"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "_17_/Q",
+      "endpoint": "count[1]",
+      "slack_ns": 47.69767,
+      "pins": [
+        "_17_/Q",
+        "output3/A",
+        "output3/X",
+        "count[1]"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "_19_/Q",
+      "endpoint": "count[3]",
+      "slack_ns": 47.719307,
+      "pins": [
+        "_19_/Q",
+        "output5/A",
+        "output5/X",
+        "count[3]"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "reset",
+      "endpoint": "_17_/D",
+      "slack_ns": 48.293026,
+      "pins": [
+        "reset",
+        "input1/A",
+        "input1/X",
+        "_08_/B1_N",
+        "_08_/Y",
+        "_09_/B1",
+        "_09_/Y",
+        "_17_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "reset",
+      "endpoint": "_19_/D",
+      "slack_ns": 48.294632,
+      "pins": [
+        "reset",
+        "input1/A",
+        "input1/X",
+        "_14_/B1",
+        "_14_/Y",
+        "_15_/B1",
+        "_15_/X",
+        "_19_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "reset",
+      "endpoint": "_18_/D",
+      "slack_ns": 48.393787,
+      "pins": [
+        "reset",
+        "input1/A",
+        "input1/X",
+        "_13_/A",
+        "_13_/Y",
+        "_18_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "setup",
+      "startpoint": "reset",
+      "endpoint": "_16_/D",
+      "slack_ns": 48.421207,
+      "pins": [
+        "reset",
+        "input1/A",
+        "input1/X",
+        "_10_/A",
+        "_10_/Y",
+        "_16_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "reset",
+      "endpoint": "_16_/D",
+      "slack_ns": 0.29123,
+      "pins": [
+        "reset",
+        "input1/A",
+        "input1/X",
+        "_10_/A",
+        "_10_/Y",
+        "_16_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "reset",
+      "endpoint": "_18_/D",
+      "slack_ns": 0.325289,
+      "pins": [
+        "reset",
+        "input1/A",
+        "input1/X",
+        "_13_/A",
+        "_13_/Y",
+        "_18_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "_19_/Q",
+      "endpoint": "_19_/D",
+      "slack_ns": 0.398102,
+      "pins": [
+        "_19_/Q",
+        "_15_/A1",
+        "_15_/X",
+        "_19_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "_17_/Q",
+      "endpoint": "_17_/D",
+      "slack_ns": 0.422431,
+      "pins": [
+        "_17_/Q",
+        "_09_/A2",
+        "_09_/Y",
+        "_17_/D"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "_17_/Q",
+      "endpoint": "count[1]",
+      "slack_ns": 0.96827,
+      "pins": [
+        "_17_/Q",
+        "output3/A",
+        "output3/X",
+        "count[1]"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "_19_/Q",
+      "endpoint": "count[3]",
+      "slack_ns": 0.974198,
+      "pins": [
+        "_19_/Q",
+        "output5/A",
+        "output5/X",
+        "count[3]"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "_16_/Q",
+      "endpoint": "count[0]",
+      "slack_ns": 0.980372,
+      "pins": [
+        "_16_/Q",
+        "output2/A",
+        "output2/X",
+        "count[0]"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    },
+    {
+      "check": "hold",
+      "startpoint": "_18_/Q",
+      "endpoint": "count[2]",
+      "slack_ns": 0.998052,
+      "pins": [
+        "_18_/Q",
+        "output4/A",
+        "output4/X",
+        "count[2]"
+      ],
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical"
+    }
+  ],
+  "summary": {
+    "setup_worst_slack_ns": 47.654427,
+    "hold_worst_slack_ns": 0.29123,
+    "setup_reported_violations": 0,
+    "hold_reported_violations": 0,
+    "setup_total_negative_slack_ns": 0.0,
+    "hold_total_negative_slack_ns": 0.0
+  },
+  "unconstrained": false,
+  "incomplete_reasons": [],
+  "checks": "",
+  "units": " time 1ns\n capacitance 1pF\n resistance 1kohm\n voltage 1v\n current 1mA\n power 1nW\n distance 1um\n",
+  "electrical_checks": "",
+  "electrical_status": "No reported violations",
+  "scope": "Every selected library corner crossed with each captured interconnect extraction. Legacy single-SPEF and pre-layout results retain their narrower scope.",
+  "corner": "typical",
+  "parasitics": "extracted SPEF",
+  "corners": [
+    {
+      "status": "PASS",
+      "paths": [
+        {
+          "check": "setup",
+          "startpoint": "_18_/Q",
+          "endpoint": "count[2]",
+          "slack_ns": 47.654427,
+          "pins": [
+            "_18_/Q",
+            "output4/A",
+            "output4/X",
+            "count[2]"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "_16_/Q",
+          "endpoint": "count[0]",
+          "slack_ns": 47.673794,
+          "pins": [
+            "_16_/Q",
+            "output2/A",
+            "output2/X",
+            "count[0]"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "_17_/Q",
+          "endpoint": "count[1]",
+          "slack_ns": 47.69767,
+          "pins": [
+            "_17_/Q",
+            "output3/A",
+            "output3/X",
+            "count[1]"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "_19_/Q",
+          "endpoint": "count[3]",
+          "slack_ns": 47.719307,
+          "pins": [
+            "_19_/Q",
+            "output5/A",
+            "output5/X",
+            "count[3]"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "reset",
+          "endpoint": "_17_/D",
+          "slack_ns": 48.293026,
+          "pins": [
+            "reset",
+            "input1/A",
+            "input1/X",
+            "_08_/B1_N",
+            "_08_/Y",
+            "_09_/B1",
+            "_09_/Y",
+            "_17_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "reset",
+          "endpoint": "_19_/D",
+          "slack_ns": 48.294632,
+          "pins": [
+            "reset",
+            "input1/A",
+            "input1/X",
+            "_14_/B1",
+            "_14_/Y",
+            "_15_/B1",
+            "_15_/X",
+            "_19_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "reset",
+          "endpoint": "_18_/D",
+          "slack_ns": 48.393787,
+          "pins": [
+            "reset",
+            "input1/A",
+            "input1/X",
+            "_13_/A",
+            "_13_/Y",
+            "_18_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "setup",
+          "startpoint": "reset",
+          "endpoint": "_16_/D",
+          "slack_ns": 48.421207,
+          "pins": [
+            "reset",
+            "input1/A",
+            "input1/X",
+            "_10_/A",
+            "_10_/Y",
+            "_16_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "reset",
+          "endpoint": "_16_/D",
+          "slack_ns": 0.29123,
+          "pins": [
+            "reset",
+            "input1/A",
+            "input1/X",
+            "_10_/A",
+            "_10_/Y",
+            "_16_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "reset",
+          "endpoint": "_18_/D",
+          "slack_ns": 0.325289,
+          "pins": [
+            "reset",
+            "input1/A",
+            "input1/X",
+            "_13_/A",
+            "_13_/Y",
+            "_18_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "_19_/Q",
+          "endpoint": "_19_/D",
+          "slack_ns": 0.398102,
+          "pins": [
+            "_19_/Q",
+            "_15_/A1",
+            "_15_/X",
+            "_19_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "_17_/Q",
+          "endpoint": "_17_/D",
+          "slack_ns": 0.422431,
+          "pins": [
+            "_17_/Q",
+            "_09_/A2",
+            "_09_/Y",
+            "_17_/D"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "_17_/Q",
+          "endpoint": "count[1]",
+          "slack_ns": 0.96827,
+          "pins": [
+            "_17_/Q",
+            "output3/A",
+            "output3/X",
+            "count[1]"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "_19_/Q",
+          "endpoint": "count[3]",
+          "slack_ns": 0.974198,
+          "pins": [
+            "_19_/Q",
+            "output5/A",
+            "output5/X",
+            "count[3]"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "_16_/Q",
+          "endpoint": "count[0]",
+          "slack_ns": 0.980372,
+          "pins": [
+            "_16_/Q",
+            "output2/A",
+            "output2/X",
+            "count[0]"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        },
+        {
+          "check": "hold",
+          "startpoint": "_18_/Q",
+          "endpoint": "count[2]",
+          "slack_ns": 0.998052,
+          "pins": [
+            "_18_/Q",
+            "output4/A",
+            "output4/X",
+            "count[2]"
+          ],
+          "corner": "typical",
+          "rc_corner": null,
+          "scenario": "typical"
+        }
+      ],
+      "summary": {
+        "setup_worst_slack_ns": 47.654427,
+        "setup_reported_violations": 0,
+        "setup_total_negative_slack_ns": 0.0,
+        "hold_worst_slack_ns": 0.29123,
+        "hold_reported_violations": 0,
+        "hold_total_negative_slack_ns": 0.0
+      },
+      "unconstrained": false,
+      "parasitic_annotation": {
+        "unannotated_drivers": [],
+        "partially_unannotated_drivers": [],
+        "disconnected_outputs": [],
+        "connected_unannotated_drivers": []
+      },
+      "incomplete_reasons": [],
+      "checks": "",
+      "units": " time 1ns\n capacitance 1pF\n resistance 1kohm\n voltage 1v\n current 1mA\n power 1nW\n distance 1um\n",
+      "electrical_checks": "",
+      "electrical_status": "No reported violations",
+      "scope": "Reported paths for the selected library corner; inspect constraints and path coverage.",
+      "corner": "typical",
+      "rc_corner": null,
+      "scenario": "typical",
+      "parasitics": "extracted SPEF"
+    }
+  ],
+  "rc_corners": []
+}

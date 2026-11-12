@@ -37,6 +37,18 @@ class QualificationEvidenceTests(unittest.TestCase):
         findings.write_text('Metal1 width\t0,0,nan,1\n')
         with self.assertRaises(ValueError): parse_magic_drc(good.replace('COUNT 0', 'COUNT 1'), findings)
 
+    def test_zero_count_cannot_hide_invalid_rules_or_discarded_geometry(self):
+        good = 'QUAL_DRC_COUNT 0\nQUAL_DRC_STYLE drc(full)\nQUAL_MAGIC_COMPLETE\n'
+        findings = self.root / 'findings.tsv'
+        findings.write_text('')
+        for diagnostic in (
+            'rules.tech: line 58: section drc:\nUnrecognized layer: missing_layer\n',
+            'Error while reading cell top\nUnknown layer/datatype in boundary, layer=81 type=125\n',
+        ):
+            with self.subTest(diagnostic=diagnostic), self.assertRaises(ValueError):
+                parse_magic_drc(diagnostic + good, findings)
+        self.assertEqual(parse_magic_drc(good, findings)['status'], 'passed')
+
     def test_lvs_launch_errors_are_not_negative_control_success(self):
         for name in ('reference', 'extracted', 'setup'):
             (self.root / name).write_text('fixture')
@@ -58,6 +70,15 @@ class QualificationEvidenceTests(unittest.TestCase):
             self.assertEqual(json.loads((directory / 'engine.command.json').read_text()), ['engine', '--check'])
 
     def test_required_blocked_case_cannot_pass_and_optional_scope_remains_visible(self):
+        # This unit checks evidence statuses, not the surrounding checkout.
+        # Keep archive replays independent of live Git metadata.
+        real_check_output = subprocess.check_output
+        def checkout_metadata(command, *args, **kwargs):
+            if command[0] == 'git':
+                return '0'*40 if 'rev-parse' in command else ''
+            return real_check_output(command, *args, **kwargs)
+        self.enterContext(patch('scripts.qualification_evidence.subprocess.check_output',
+                                side_effect=checkout_metadata))
         report = Report(self.root / 'required', 'fixture')
         report.case('valid', lambda: {'violations': 0})
         report.blocked('missing-engine', 'Unavailable', required=True)

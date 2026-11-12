@@ -1,0 +1,949 @@
+{
+  "schema": 1,
+  "chunk": 6,
+  "status": "generic-native-finish-and-export-verified",
+  "qualified": false,
+  "chunk_complete": false,
+  "scope": "Generic SKY130A HD native geometry verification integrated into normal Finish and portable macro export. No Tiny Tapeout dimensions, naming, pins or reserved-layer restrictions. Three retained designs have fresh native checks; one counter has fresh synthesis through Finish, extraction, supplemental checks and export. All twelve controls match their expected native and independent implant outcomes. Missing evidence cannot overwrite an existing export. Density/context and complete profile applicability remain open; historical catalog counts are unchanged.",
+  "policy": {
+    "recipe": "sky130-generic-native-block-v1",
+    "deck_sha256": "aeba6ab5137923f2258714ab5d91ce99ca6a6f932bea55dedfe6f79aca697ba1",
+    "revision": "6c401ed5134a6466c7eed3e5524ebaacad4cea2a",
+    "flags": {
+      "feol": "true",
+      "beol": "true",
+      "offgrid": "true",
+      "seal": "false",
+      "floating_met": "false",
+      "sram_exclude": "false",
+      "info": "false"
+    }
+  },
+  "license": {
+    "application": "GPL-3.0-or-later",
+    "native_deck": "GPL-3.0-only",
+    "deck_sha256": "aeba6ab5137923f2258714ab5d91ce99ca6a6f932bea55dedfe6f79aca697ba1",
+    "license_sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+    "source": "https://github.com/chipfoundry/cf-precheck/blob/6c401ed5134a6466c7eed3e5524ebaacad4cea2a/src/cf_precheck/drc_scripts/sky130A_mr.drc"
+  },
+  "cases": [
+    {
+      "schema": 1,
+      "case": "counter",
+      "status": "PASS",
+      "qualified": false,
+      "chunk_complete": false,
+      "scope": "Fresh generic SKY130 native DRC through the production Runner and macro export. Other checks are authenticated retained evidence from the source run, not fresh executions. No shuttle dimensions, name, interface or metal restrictions apply. No full signoff claimed.",
+      "source_result_sha256": "e1904fd9c1af7564c5ce8dfdd329c3359d191f39abe57f0efe00fc0f60b2f117",
+      "source_input_sha256": "6426129f14721a143e389bd4d0a6e31c1eaf03784c8da920442444a983cf979b",
+      "driver_sha256": "cd78c103053cc6a33acb86395e47ede3a21db31cc783dd33f448583b4de8de4a",
+      "top": "counter",
+      "bounds_um": [
+        0.0,
+        0.0,
+        200.0,
+        200.0
+      ],
+      "native": {
+        "schema": 1,
+        "policy": {
+          "recipe": "sky130-generic-native-block-v1",
+          "deck_sha256": "aeba6ab5137923f2258714ab5d91ce99ca6a6f932bea55dedfe6f79aca697ba1",
+          "revision": "6c401ed5134a6466c7eed3e5524ebaacad4cea2a",
+          "flags": {
+            "feol": "true",
+            "beol": "true",
+            "offgrid": "true",
+            "seal": "false",
+            "floating_met": "false",
+            "sram_exclude": "false",
+            "info": "false"
+          }
+        },
+        "status": "PASS",
+        "scope": "Generic SKY130 AL-backend FEOL, BEOL and off-grid geometry on the exact final GDS. Block context: seal checking is deferred to complete-chip qualification. The deck floating-metal option is off; Studio device-root connectivity and LVS remain separate obligations. SRAM_EXCLUDE is false, but upstream built-in cell filters remain. Density, antenna, LVS, special-device coverage and full signoff are not established by this report.",
+        "qualified": false,
+        "top": "counter",
+        "markers": 0,
+        "categories": 255,
+        "violations": {},
+        "gds_sha256": "bb990fb995dcf7d05613c63d8f2e27a32d072db5024b60e840086039a5bed682",
+        "checkpoint_sha256": "10de8332ad78bba19e93e78eb5247040d74b8a8cd0b186dde19484254577ca9d",
+        "platform_fingerprint": "c7197f40cae3de0e02bf60913a83e99a62b9cf8d36eaed41230c7fcfb467fc92",
+        "evidence": {
+          "sky130A_mr.drc": "sky130_native_sky130A_mr_drc",
+          "GPL-3.0.txt": "sky130_native_GPL_3_0_txt",
+          "categories.json": "sky130_native_categories_json",
+          "request.json": "sky130_native_request_json",
+          "native.log": "sky130_native_native_log",
+          "report.lyrdb": "sky130_native_report_lyrdb"
+        },
+        "engine": {
+          "version": "KLayout 0.30.5",
+          "sha256": "17c0ac7fad216669ae38aa2ff4be332ca01ce4573002883195671f9405b0c0c9"
+        }
+      },
+      "result_sha256": "3a4b95f311d022c19c8f9b2152d0e9e694312917bbf8c5bb0675860e1b01e067",
+      "macro_sha256": "8c8657954f5029f48b334d29465a46d2489cbc3b9830d790e1f9f2cb42743e4d",
+      "gds_sha256": "bb990fb995dcf7d05613c63d8f2e27a32d072db5024b60e840086039a5bed682",
+      "relocated_export_readback": "PASS",
+      "elapsed_seconds": 65.001227722
+    },
+    {
+      "schema": 1,
+      "case": "uart",
+      "status": "PASS",
+      "qualified": false,
+      "chunk_complete": false,
+      "scope": "Fresh generic SKY130 native DRC through the production Runner and macro export. Other checks are authenticated retained evidence from the source run, not fresh executions. No shuttle dimensions, name, interface or metal restrictions apply. No full signoff claimed.",
+      "source_result_sha256": "e5d3b66786101f296f27a575a9daf8a41b7ce02dbcb3744b1f66f9809ef9cef3",
+      "source_input_sha256": "890ea66b071399873b787c296b14068b62fb7d2cd4d4cdca5bce782eacee61d0",
+      "driver_sha256": "cd78c103053cc6a33acb86395e47ede3a21db31cc783dd33f448583b4de8de4a",
+      "top": "uart_tx",
+      "bounds_um": [
+        0.0,
+        0.0,
+        400.0,
+        400.0
+      ],
+      "native": {
+        "schema": 1,
+        "policy": {
+          "recipe": "sky130-generic-native-block-v1",
+          "deck_sha256": "aeba6ab5137923f2258714ab5d91ce99ca6a6f932bea55dedfe6f79aca697ba1",
+          "revision": "6c401ed5134a6466c7eed3e5524ebaacad4cea2a",
+          "flags": {
+            "feol": "true",
+            "beol": "true",
+            "offgrid": "true",
+            "seal": "false",
+            "floating_met": "false",
+            "sram_exclude": "false",
+            "info": "false"
+          }
+        },
+        "status": "PASS",
+        "scope": "Generic SKY130 AL-backend FEOL, BEOL and off-grid geometry on the exact final GDS. Block context: seal checking is deferred to complete-chip qualification. The deck floating-metal option is off; Studio device-root connectivity and LVS remain separate obligations. SRAM_EXCLUDE is false, but upstream built-in cell filters remain. Density, antenna, LVS, special-device coverage and full signoff are not established by this report.",
+        "qualified": false,
+        "top": "uart_tx",
+        "markers": 0,
+        "categories": 255,
+        "violations": {},
+        "gds_sha256": "23ddc5daacd4b46dda12801a191f2f68a67b305da1988115845a076f976e19f2",
+        "checkpoint_sha256": "27ec03d13a0264feea11df78633ca56d7f068ed74b1f06478f3fe9db058d2d32",
+        "platform_fingerprint": "c7197f40cae3de0e02bf60913a83e99a62b9cf8d36eaed41230c7fcfb467fc92",
+        "evidence": {
+          "sky130A_mr.drc": "sky130_native_sky130A_mr_drc",
+          "GPL-3.0.txt": "sky130_native_GPL_3_0_txt",
+          "categories.json": "sky130_native_categories_json",
+          "request.json": "sky130_native_request_json",
+          "native.log": "sky130_native_native_log",
+          "report.lyrdb": "sky130_native_report_lyrdb"
+        },
+        "engine": {
+          "version": "KLayout 0.30.5",
+          "sha256": "17c0ac7fad216669ae38aa2ff4be332ca01ce4573002883195671f9405b0c0c9"
+        }
+      },
+      "result_sha256": "4cc5181c102a07d69b3f4409820f34bef85a12b63f78211ab0693214d2f66522",
+      "macro_sha256": "bddf498e2e325106a97faca36b3661bfab2a3bcad62df5242f405c745e3a7067",
+      "gds_sha256": "23ddc5daacd4b46dda12801a191f2f68a67b305da1988115845a076f976e19f2",
+      "relocated_export_readback": "PASS",
+      "elapsed_seconds": 195.65664175000003
+    },
+    {
+      "schema": 1,
+      "case": "apb",
+      "status": "PASS",
+      "qualified": false,
+      "chunk_complete": false,
+      "scope": "Fresh generic SKY130 native DRC through the production Runner and macro export. Other checks are authenticated retained evidence from the source run, not fresh executions. No shuttle dimensions, name, interface or metal restrictions apply. No full signoff claimed.",
+      "source_result_sha256": "1029b24eff15c9568142df8a288170e7b2b70e576c28c58f4557ededbcb0b6a1",
+      "source_input_sha256": "2953bbe117920035895be0139d4ca8e215c8a775ac609c6d601c582b54c0d2b2",
+      "driver_sha256": "cd78c103053cc6a33acb86395e47ede3a21db31cc783dd33f448583b4de8de4a",
+      "top": "apb_fifo",
+      "bounds_um": [
+        0.0,
+        0.0,
+        400.0,
+        400.0
+      ],
+      "native": {
+        "schema": 1,
+        "policy": {
+          "recipe": "sky130-generic-native-block-v1",
+          "deck_sha256": "aeba6ab5137923f2258714ab5d91ce99ca6a6f932bea55dedfe6f79aca697ba1",
+          "revision": "6c401ed5134a6466c7eed3e5524ebaacad4cea2a",
+          "flags": {
+            "feol": "true",
+            "beol": "true",
+            "offgrid": "true",
+            "seal": "false",
+            "floating_met": "false",
+            "sram_exclude": "false",
+            "info": "false"
+          }
+        },
+        "status": "PASS",
+        "scope": "Generic SKY130 AL-backend FEOL, BEOL and off-grid geometry on the exact final GDS. Block context: seal checking is deferred to complete-chip qualification. The deck floating-metal option is off; Studio device-root connectivity and LVS remain separate obligations. SRAM_EXCLUDE is false, but upstream built-in cell filters remain. Density, antenna, LVS, special-device coverage and full signoff are not established by this report.",
+        "qualified": false,
+        "top": "apb_fifo",
+        "markers": 0,
+        "categories": 255,
+        "violations": {},
+        "gds_sha256": "55eb17e58330b23b3d1f437232ab1cc942540c7916ec3ff31ec6dbc088c3f8b2",
+        "checkpoint_sha256": "cd1a997dac190164ab96bac0ae0eaee91865ff2ed0f983865daa644cae60bf7d",
+        "platform_fingerprint": "c7197f40cae3de0e02bf60913a83e99a62b9cf8d36eaed41230c7fcfb467fc92",
+        "evidence": {
+          "sky130A_mr.drc": "sky130_native_sky130A_mr_drc",
+          "GPL-3.0.txt": "sky130_native_GPL_3_0_txt",
+          "categories.json": "sky130_native_categories_json",
+          "request.json": "sky130_native_request_json",
+          "native.log": "sky130_native_native_log",
+          "report.lyrdb": "sky130_native_report_lyrdb"
+        },
+        "engine": {
+          "version": "KLayout 0.30.5",
+          "sha256": "17c0ac7fad216669ae38aa2ff4be332ca01ce4573002883195671f9405b0c0c9"
+        }
+      },
+      "result_sha256": "6acbbb36841096a223e2c7f7c09c4921a0ffeae3ce719087c71850e23aa6a1ad",
+      "macro_sha256": "76e72532a8f7c8e61a0603d1e8640c925e4b44ea605ebee937ec1d08f1d93064",
+      "gds_sha256": "55eb17e58330b23b3d1f437232ab1cc942540c7916ec3ff31ec6dbc088c3f8b2",
+      "relocated_export_readback": "PASS",
+      "elapsed_seconds": 189.447533012
+    }
+  ],
+  "fresh_finish": {
+    "schema": 1,
+    "status": "PASS",
+    "qualified": false,
+    "chunk_complete": false,
+    "driver_sha256": "177dcae0a108e928331ffbe2de479c06cbfa93690c0db064af4306999103617e",
+    "input_sha256": "bab7760a840dff3a08ea18670e7d04edb9337650489b51de339b01117d660340",
+    "scope": "Fresh production prepare/run Finish from counter RTL through ORFS, final stream correction, generic native DRC, extraction, retained Studio profiles, antenna, isolation and physical checks, then macro export. No independent timing/equivalence rerun, density acceptance, installer or complete foundry signoff claimed.",
+    "result_sha256": "cd35c1f037fe462aa6e03e0b34f75a3050f84fe5aea515d8b0b1850e3956edad",
+    "macro_sha256": "ef2c910b58103be88215b0d3cf451d7c56c6eba7bd3ea3a3cf9efcf115e276bb",
+    "top": "counter",
+    "bounds_um": [
+      0.0,
+      0.0,
+      200.0,
+      200.0
+    ],
+    "gds_sha256": "c16218c70db9358838d00082f878b3a8ad9612cbaefa894c104fef00f8c9eadd",
+    "qualification": {
+      "physical_stage": "finish",
+      "drc": "Not qualified by this export",
+      "lvs": "Not qualified by this export",
+      "physical_checks": {
+        "status": "PASS",
+        "scope": "Final OpenDB default-oxide LEF antenna rules and all declared POWER/GROUND net connectivity. Model/rule presence is checked; deck adequacy, streamed-GDS DRC/LVS, density, ERC, ESD/latch-up, IR drop and electromigration are not qualified by these checks. Logic inputs require positive gate area; declared CORE ANTENNACELL inputs require positive diffusion area, retained separately in the coverage report.",
+        "artifact": "physical_checks"
+      },
+      "abstract_timing_model": null,
+      "scope": "LEF/GDS geometry with the actual gate netlist and captured SPEF. No characterized macro Liberty model is implied.",
+      "sky130_native": {
+        "status": "PASS",
+        "scope": "Generic SKY130 AL-backend FEOL, BEOL and off-grid geometry on the exact final GDS. Block context: seal checking is deferred to complete-chip qualification. The deck floating-metal option is off; Studio device-root connectivity and LVS remain separate obligations. SRAM_EXCLUDE is false, but upstream built-in cell filters remain. Density, antenna, LVS, special-device coverage and full signoff are not established by this report.",
+        "artifact": "sky130_native",
+        "qualified": false,
+        "categories": 255,
+        "markers": 0,
+        "deck_sha256": "aeba6ab5137923f2258714ab5d91ce99ca6a6f932bea55dedfe6f79aca697ba1"
+      },
+      "sky130_rules": {
+        "status": "reviewed-profiles-pass",
+        "scope": "Six reviewed drawn-mask geometry/connectivity profiles and the 601-row periphery ledger. This is partial coverage: native decks, full antenna, density, error-catalog reconciliation, device/body LVS and electrical acceptance remain separate. SKY130 signoff is not qualified.",
+        "artifact": "sky130_rules",
+        "qualified": false,
+        "coverage": {
+          "rows": 601,
+          "counts": {
+            "execution-review-required": 28,
+            "upstream-na": 77,
+            "executed-reviewed": 133,
+            "absent-operand": 273,
+            "advisory": 28,
+            "definition-required": 1,
+            "other-backend": 61
+          },
+          "complete": false
+        }
+      },
+      "sky130_antenna": {
+        "status": "PASS",
+        "scope": "Thirteen staged antenna checks on the captured SKY130 five-metal HD MOS layout. The reviewed supplemental deck retains its published met5 description discrepancy. Other devices, process options, complete physical coverage and foundry signoff remain unqualified.",
+        "artifact": "sky130_antenna",
+        "qualified": false,
+        "stages": 13
+      },
+      "sky130_isolation": {
+        "status": "NOT_REQUESTED",
+        "scope": "SKY130 x.29: C3 NFET gate containment in drawn deep nwell when explicitly requested. Bulk mode retains measurements as NOT_REQUESTED. Other well rules, body connectivity, electrical checks and complete physical qualification remain separate.",
+        "artifact": "sky130_isolation",
+        "qualified": false,
+        "enforced": false,
+        "measurement": {
+          "top": "counter",
+          "nfet_gates": 156,
+          "pfet_gates": 156,
+          "dnwell_polygons": 0,
+          "raw_dnwell_shapes": 0,
+          "raw_dnwell_texts": 0,
+          "nfet_not_contained": 156,
+          "outside_examples_nm": [
+            [
+              20640,
+              97265,
+              20790,
+              97685
+            ],
+            [
+              20645,
+              92715,
+              20795,
+              93135
+            ],
+            [
+              21070,
+              97265,
+              21220,
+              97685
+            ],
+            [
+              21155,
+              92715,
+              21655,
+              93365
+            ],
+            [
+              21500,
+              97265,
+              21650,
+              97685
+            ],
+            [
+              21930,
+              97265,
+              22080,
+              97685
+            ],
+            [
+              22360,
+              97265,
+              22510,
+              97685
+            ],
+            [
+              22455,
+              92715,
+              22955,
+              93365
+            ],
+            [
+              22485,
+              98155,
+              22635,
+              98575
+            ],
+            [
+              22790,
+              97265,
+              22940,
+              97685
+            ],
+            [
+              22935,
+              91595,
+              23085,
+              92245
+            ],
+            [
+              22995,
+              98155,
+              23495,
+              98805
+            ],
+            [
+              23220,
+              97265,
+              23370,
+              97685
+            ],
+            [
+              23280,
+              92715,
+              23430,
+              93135
+            ],
+            [
+              23355,
+              91595,
+              23505,
+              92245
+            ],
+            [
+              23650,
+              97265,
+              23800,
+              97685
+            ],
+            [
+              24080,
+              97265,
+              24230,
+              97685
+            ],
+            [
+              24295,
+              98155,
+              24795,
+              98805
+            ],
+            [
+              24315,
+              91825,
+              24465,
+              92245
+            ],
+            [
+              24510,
+              97265,
+              24660,
+              97685
+            ]
+          ]
+        }
+      }
+    },
+    "elapsed_seconds": 149.90752366000004
+  },
+  "controls": {
+    "schema": 1,
+    "status": "PASS",
+    "qualified": false,
+    "chunk_complete": false,
+    "driver_sha256": "1843682232e89b26ec0d0bfe6e1ac6ee177a563832b9187291b427551a8cdcec",
+    "engine": {
+      "version": "KLayout 0.30.5",
+      "sha256": "17c0ac7fad216669ae38aa2ff4be332ca01ce4573002883195671f9405b0c0c9"
+    },
+    "controls": [
+      {
+        "name": "custom_m1_block",
+        "expected": "PASS",
+        "status": "PASS",
+        "rejected": false,
+        "categories": 255,
+        "markers": 0,
+        "violations": {},
+        "gds_sha256": "ab7f0ba879ab45c87083041fcf178b1e317c591d2c7429262d14ed2742f87083",
+        "report_sha256": "220281dd3518794a736871534227fecf3d464184e7d01f7f17defa6f22082fbd",
+        "elapsed_seconds": 1.738422231
+      },
+      {
+        "name": "custom_top_metal_block",
+        "expected": "PASS",
+        "status": "PASS",
+        "rejected": false,
+        "categories": 255,
+        "markers": 0,
+        "violations": {},
+        "gds_sha256": "22f42711c806c4b34b041a9fc0bebf3d565bfdc3978d58575111f4b7a6080e41",
+        "report_sha256": "5d754d66e03c31b68a3e08daa2d93c544666c744c6de68846d8f0c2d5e0c114f",
+        "elapsed_seconds": 1.4303862670000003
+      },
+      {
+        "name": "custom_offgrid_fault",
+        "expected": "FAIL",
+        "status": "FAIL",
+        "rejected": true,
+        "categories": 255,
+        "markers": 4,
+        "violations": {
+          "m1_OFFGRID": 4
+        },
+        "gds_sha256": "1a54d415f271775392d8ad30cd0fcbdba335fdc3d9cba8ee032a068c9e9e560c",
+        "report_sha256": "c7d52d4893f9b977309112138edcff8069f56f9de2ca46fa23c2b5726e54fb94",
+        "elapsed_seconds": 1.448404559
+      },
+      {
+        "name": "custom_width_fault",
+        "expected": "FAIL",
+        "status": "FAIL",
+        "rejected": true,
+        "categories": 255,
+        "markers": 1,
+        "violations": {
+          "MR_met1.WID.1": 1
+        },
+        "gds_sha256": "9f682b41432434a9d476866c703c17b4beb3bd63aa1042a821c4e05226b7031b",
+        "report_sha256": "50e5268a1886f1c53537a175e29f4e9742394a57f99d46b762e5e7fee5a05db1",
+        "elapsed_seconds": 1.411501425
+      },
+      {
+        "name": "contact_core_0_covered_0",
+        "expected": "FAIL",
+        "status": "FAIL",
+        "rejected": true,
+        "categories": 255,
+        "markers": 1,
+        "violations": {
+          "MR_mcon.CON.10": 1
+        },
+        "gds_sha256": "e0c45e4da48ab2c2461e107496d83ad776644a3034fdc4b8337bfa51252a3362",
+        "report_sha256": "7de28fe04ee07a2a957edfa66b14ec308f670df4ad7f01b0fa1398686b917f2a",
+        "elapsed_seconds": 1.4670054080000003
+      },
+      {
+        "name": "contact_core_0_covered_1",
+        "expected": "PASS",
+        "status": "PASS",
+        "rejected": false,
+        "categories": 255,
+        "markers": 0,
+        "violations": {},
+        "gds_sha256": "38a7d44b44548bb2498484bf9ce359e4737e098b7e3becbc5e3b61c0f7c213ab",
+        "report_sha256": "25a211036ca89ad3ef08787d4b0a4dd2defcf44636b961de96f9ddc3b61fe190",
+        "elapsed_seconds": 1.4324266760000004
+      },
+      {
+        "name": "contact_core_1_covered_0",
+        "expected": "FAIL",
+        "status": "FAIL",
+        "rejected": true,
+        "categories": 255,
+        "markers": 1,
+        "violations": {
+          "MR_mcon.CON.10": 1
+        },
+        "gds_sha256": "e0731fba904b0f1be8558dc7c3ff9bc7f8160d8df7cf632443505558f64a8ea9",
+        "report_sha256": "ed3ad0ca7873b7c93587fab055baed66a8763a21164a8b46c6b11482f26b8e2b",
+        "elapsed_seconds": 1.3861056860000005
+      },
+      {
+        "name": "contact_core_1_covered_1",
+        "expected": "PASS",
+        "status": "PASS",
+        "rejected": false,
+        "categories": 255,
+        "markers": 0,
+        "violations": {},
+        "gds_sha256": "8ff508f7a35c94dc4578e95eaeebf5289b52cfca6e7920e1c3fd41c4210cffac",
+        "report_sha256": "5c9194d9c7bfe6290418f7941a8cc8449c448a917793375891554fdc847c70cf",
+        "elapsed_seconds": 1.514539708000001
+      },
+      {
+        "name": "nmos_parallel_valid",
+        "expected": "PASS",
+        "status": "PASS",
+        "rejected": false,
+        "categories": 255,
+        "markers": 0,
+        "violations": {},
+        "gds_sha256": "41a497af317271adcc6222b3a01056dfcb387dd2bf9862b756f04e859e05bf10",
+        "report_sha256": "ce2b4659feccf0676bd361b0598c494bd60e9e134f04598c953715e7407e5203",
+        "elapsed_seconds": 1.4871587690000005,
+        "raw_implants": {
+          "status": "PASS",
+          "violations": 0,
+          "checker_sha256": "6a33521ce2ab76ca36a7eeda95d4b1018213e06eb9cd4ff2a895f05bf82d007c",
+          "gds_sha256": "41a497af317271adcc6222b3a01056dfcb387dd2bf9862b756f04e859e05bf10",
+          "failed_rules": {},
+          "report_sha256": "6161434d963d8d94de5a384752c7d2768332919c3afb0288084d0965aac4bf34"
+        },
+        "combined_status": "PASS"
+      },
+      {
+        "name": "nmos_parallel_missing_implant",
+        "expected": "PASS",
+        "status": "PASS",
+        "rejected": false,
+        "categories": 255,
+        "markers": 0,
+        "violations": {},
+        "gds_sha256": "6e076a7e5251f70811053d01895315f119911601b4f5bb596f52e9f9eef069e5",
+        "report_sha256": "bdfb9294cccf6172b2421a1a2d72364f9fc2418d2ac10887fbbf8fb993cfd4e9",
+        "elapsed_seconds": 1.4433186550000006,
+        "raw_implants": {
+          "status": "FAIL",
+          "violations": 1,
+          "checker_sha256": "6a33521ce2ab76ca36a7eeda95d4b1018213e06eb9cd4ff2a895f05bf82d007c",
+          "gds_sha256": "6e076a7e5251f70811053d01895315f119911601b4f5bb596f52e9f9eef069e5",
+          "failed_rules": {
+            "n/psd.9.n": 1
+          },
+          "report_sha256": "edb2e3e2c61da9972155bf7c20b165043d5314c41103c5d4f2ed6d7075a31481"
+        },
+        "combined_status": "FAIL",
+        "limitation": "Pinned native deck misses this removed-implant fault; the retained mandatory Studio raw-implant profile detects it."
+      },
+      {
+        "name": "pmos_parallel_valid",
+        "expected": "PASS",
+        "status": "PASS",
+        "rejected": false,
+        "categories": 255,
+        "markers": 0,
+        "violations": {},
+        "gds_sha256": "ce4aeb5fe2468dd49eb928a33080dd74b40e9f47c0e5cdb88101ccc36503c9fc",
+        "report_sha256": "db3f50b0c9dc10641390c55a528addd114ec549c7ffb2957fb307255781e9421",
+        "elapsed_seconds": 1.4854629730000006,
+        "raw_implants": {
+          "status": "PASS",
+          "violations": 0,
+          "checker_sha256": "6a33521ce2ab76ca36a7eeda95d4b1018213e06eb9cd4ff2a895f05bf82d007c",
+          "gds_sha256": "ce4aeb5fe2468dd49eb928a33080dd74b40e9f47c0e5cdb88101ccc36503c9fc",
+          "failed_rules": {},
+          "report_sha256": "81e41d8b630c3f9bcf8e33bfdb5a60ed8a24bebd6c7c4cceb863b80d2039288d"
+        },
+        "combined_status": "PASS"
+      },
+      {
+        "name": "pmos_parallel_missing_implant",
+        "expected": "PASS",
+        "status": "PASS",
+        "rejected": false,
+        "categories": 255,
+        "markers": 0,
+        "violations": {},
+        "gds_sha256": "a3ae84669f94345a65ffc9d873ea82418659c1971fd865828892448f2418e174",
+        "report_sha256": "d0bba996ab6be28d00baf3c2d946f652f30c917f5f0ee9d8fd3eededd9f3e71d",
+        "elapsed_seconds": 1.4226069569999993,
+        "raw_implants": {
+          "status": "FAIL",
+          "violations": 1,
+          "checker_sha256": "6a33521ce2ab76ca36a7eeda95d4b1018213e06eb9cd4ff2a895f05bf82d007c",
+          "gds_sha256": "a3ae84669f94345a65ffc9d873ea82418659c1971fd865828892448f2418e174",
+          "failed_rules": {
+            "n/psd.9.p": 1
+          },
+          "report_sha256": "20e124312d6a37ce6acfca9dccbf32e2510db2a55f47a94f4855580e97ce37b3"
+        },
+        "combined_status": "FAIL",
+        "limitation": "Pinned native deck misses this removed-implant fault; the retained mandatory Studio raw-implant profile detects it."
+      }
+    ],
+    "scope": "Actual native geometry execution through the production stage, with generic names and unrestricted process metal layers. Synthetic checkpoint tokens are test fixtures, not OpenDB extraction, LVS or full-design qualification."
+  },
+  "public_controls_windows_readback": "PASS",
+  "tests": {
+    "win32": {
+      "status": "PASS",
+      "platform": "win32",
+      "tests": 124,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 8,
+      "skip_reasons": [
+        {
+          "test": "test_builder_normalizes_docker_system_links_before_publication (tests.test_digital_runtime.DigitalRuntimeTests.test_builder_normalizes_docker_system_links_before_publication)",
+          "reason": "Native tar symlink extraction is tested on Linux"
+        },
+        {
+          "test": "test_legacy_cleanup_rejects_symlinked_directory_and_parent (tests.test_digital_runtime.DigitalRuntimeTests.test_legacy_cleanup_rejects_symlinked_directory_and_parent)",
+          "reason": "Symlink creation may require Windows administrator permission"
+        },
+        {
+          "test": "test_native_flow_restores_scripts_after_windows_transfer (tests.test_digital_runtime.DigitalRuntimeTests.test_native_flow_restores_scripts_after_windows_transfer)",
+          "reason": "Unix executable permissions are restored inside Linux"
+        },
+        {
+          "test": "test_native_setup_rejects_symlinked_target_and_parent_before_integrity_repair (tests.test_digital_runtime.DigitalRuntimeTests.test_native_setup_rejects_symlinked_target_and_parent_before_integrity_repair)",
+          "reason": "Symlink creation may require Windows administrator permission"
+        },
+        {
+          "test": "test_native_supervisor_cancels_descendants_in_separate_sessions (tests.test_digital_runtime.DigitalRuntimeTests.test_native_supervisor_cancels_descendants_in_separate_sessions)",
+          "reason": "Process-tree supervision requires Linux procfs"
+        },
+        {
+          "test": "test_partial_cleanup_rejects_symlinked_directory_and_parent (tests.test_digital_runtime.DigitalRuntimeTests.test_partial_cleanup_rejects_symlinked_directory_and_parent)",
+          "reason": "Symlink creation may require Windows administrator permission"
+        },
+        {
+          "test": "test_retry_reclaims_partial_unpacking_after_worker_is_killed (tests.test_digital_runtime.DigitalRuntimeTests.test_retry_reclaims_partial_unpacking_after_worker_is_killed)",
+          "reason": "Native Linux unpacking lifecycle"
+        },
+        {
+          "test": "test_linked_decks_are_materialized_before_sibling_platforms_are_pruned (tests.test_digital_bundle.DigitalBundleTests.test_linked_decks_are_materialized_before_sibling_platforms_are_pruned)",
+          "reason": "Real symlinks are verified by the native Linux build"
+        }
+      ],
+      "modules": [
+        "tests.test_sky130_native",
+        "tests.test_digital_macro",
+        "tests.test_digital_runtime",
+        "tests.test_windows_digital_paths",
+        "tests.test_digital_physical_checks",
+        "tests.test_sky130_digital_builder",
+        "tests.test_digital_bundle",
+        "tests.test_sky130_application_antenna",
+        "tests.test_sky130_application_rules",
+        "tests.test_sky130_boundaries",
+        "tests.test_sky130_pins"
+      ],
+      "driver_sha256": "d54c89c35872aa26371af266527a0a1c9f058b07c8d7dae86d352f2a710097dd",
+      "log_sha256": "a6b250cdb7c749d65d17062e1960739343ad893c9c8ebb0b69254083141ecd76",
+      "elapsed_seconds": 130.71800000000803
+    },
+    "linux": {
+      "status": "PASS",
+      "platform": "linux",
+      "tests": 124,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 5,
+      "skip_reasons": [
+        {
+          "test": "test_native_setup_rejects_junction_target_and_parent_before_integrity_repair (tests.test_digital_runtime.DigitalRuntimeTests.test_native_setup_rejects_junction_target_and_parent_before_integrity_repair)",
+          "reason": "Directory junctions are Windows-specific"
+        },
+        {
+          "test": "test_partial_and_legacy_cleanup_reject_in_state_directory_and_parent_junctions (tests.test_digital_runtime.DigitalRuntimeTests.test_partial_and_legacy_cleanup_reject_in_state_directory_and_parent_junctions)",
+          "reason": "Directory junctions are Windows-specific"
+        },
+        {
+          "test": "test_capture_reopen_and_tamper_detection_beyond_legacy_limit (tests.test_windows_digital_paths.WindowsDigitalPathTests.test_capture_reopen_and_tamper_detection_beyond_legacy_limit)",
+          "reason": "Windows extended-length filesystem paths"
+        },
+        {
+          "test": "test_path_conversion_preserves_unc_and_existing_extended_paths (tests.test_windows_digital_paths.WindowsDigitalPathTests.test_path_conversion_preserves_unc_and_existing_extended_paths)",
+          "reason": "Windows extended-length filesystem paths"
+        },
+        {
+          "test": "test_upstream_transfer_keeps_all_nested_artifacts (tests.test_windows_digital_paths.WindowsDigitalPathTests.test_upstream_transfer_keeps_all_nested_artifacts)",
+          "reason": "Windows extended-length filesystem paths"
+        }
+      ],
+      "modules": [
+        "tests.test_sky130_native",
+        "tests.test_digital_macro",
+        "tests.test_digital_runtime",
+        "tests.test_windows_digital_paths",
+        "tests.test_digital_physical_checks",
+        "tests.test_sky130_digital_builder",
+        "tests.test_digital_bundle",
+        "tests.test_sky130_application_antenna",
+        "tests.test_sky130_application_rules",
+        "tests.test_sky130_boundaries",
+        "tests.test_sky130_pins"
+      ],
+      "driver_sha256": "d54c89c35872aa26371af266527a0a1c9f058b07c8d7dae86d352f2a710097dd",
+      "log_sha256": "a699c41d51ca185ba3dac40de28da2d57f52092e8d20c1254af1f23c225ebb16",
+      "elapsed_seconds": 64.39373343500006
+    }
+  },
+  "windows": {
+    "schema": 1,
+    "status": "PASS",
+    "qualified": false,
+    "chunk_complete": false,
+    "driver_sha256": "b28c3fc232f726db0c7038ae98b0889364b8353edaeeab564c5394a5a22b61cd",
+    "scope": "Windows saved-result validation and macro exports of real Linux native runs. No native Ruby-engine execution on Windows or complete signoff claimed.",
+    "cases": [
+      {
+        "case": "counter",
+        "status": "PASS",
+        "result_sha256": "3a4b95f311d022c19c8f9b2152d0e9e694312917bbf8c5bb0675860e1b01e067",
+        "macro_sha256": "7f925bda1d446af5be336707f32742c3edbaa79f81dd761a5e86f9cd4e39c27b",
+        "top": "counter",
+        "gds_sha256": "bb990fb995dcf7d05613c63d8f2e27a32d072db5024b60e840086039a5bed682",
+        "missing_evidence_rejected": "SKY130 native geometry: missing retained artifact: sky130_native",
+        "relocated_evidence": "PASS"
+      },
+      {
+        "case": "uart",
+        "status": "PASS",
+        "result_sha256": "4cc5181c102a07d69b3f4409820f34bef85a12b63f78211ab0693214d2f66522",
+        "macro_sha256": "ba59d30e77f3dd19e37a6e685a5597600d67ffb9d071b76a8010a7f70ebdc108",
+        "top": "uart_tx",
+        "gds_sha256": "23ddc5daacd4b46dda12801a191f2f68a67b305da1988115845a076f976e19f2",
+        "missing_evidence_rejected": "SKY130 native geometry: missing retained artifact: sky130_native",
+        "relocated_evidence": "PASS"
+      },
+      {
+        "case": "apb",
+        "status": "PASS",
+        "result_sha256": "6acbbb36841096a223e2c7f7c09c4921a0ffeae3ce719087c71850e23aa6a1ad",
+        "macro_sha256": "7a676f7bc0567dd5e2d576c484c175722809c561db8258f19fb3157cfe0fd84c",
+        "top": "apb_fifo",
+        "gds_sha256": "55eb17e58330b23b3d1f437232ab1cc942540c7916ec3ff31ec6dbc088c3f8b2",
+        "missing_evidence_rejected": "SKY130 native geometry: missing retained artifact: sky130_native",
+        "relocated_evidence": "PASS"
+      }
+    ],
+    "controls": [
+      {
+        "name": "custom_m1_block",
+        "readback": "PASS",
+        "gds_sha256": "6ccf396118752f35baaf89afc23907a16ccbbd5c0b2af12a80ea3c62eca20334"
+      },
+      {
+        "name": "custom_top_metal_block",
+        "readback": "PASS",
+        "gds_sha256": "145218982545f5eeb284c44c3c5e8c82f64bfe19ec3488e017f2d32b32303cf0"
+      },
+      {
+        "name": "custom_offgrid_fault",
+        "readback": "PASS",
+        "gds_sha256": "fb0ebabd12e811ee20dba46845ccc02de0471d1e0ea2509d0ca2e342120a5fa8"
+      },
+      {
+        "name": "custom_width_fault",
+        "readback": "PASS",
+        "gds_sha256": "adf38499a3ad2ff3aff9229fffa46b29cd295efbb89f3c680d32ed4cd3c8a52a"
+      },
+      {
+        "name": "contact_core_0_covered_0",
+        "readback": "PASS",
+        "gds_sha256": "fcaf06fd34341531faeb4af8cdf69178020982e53a30b2a28cb0863ed63c3275"
+      },
+      {
+        "name": "contact_core_0_covered_1",
+        "readback": "PASS",
+        "gds_sha256": "538d2ef278978e55455196a6d5eb55b76d72ac478b69a40e9ca6bdb8bc398111"
+      },
+      {
+        "name": "contact_core_1_covered_0",
+        "readback": "PASS",
+        "gds_sha256": "ae900c8207e0cf9a7fb4e0df31e982a242936f470102b3d9e2e48238110ccb7e"
+      },
+      {
+        "name": "contact_core_1_covered_1",
+        "readback": "PASS",
+        "gds_sha256": "868e73e03c490155b3128a18a2b9a11c6d3b854ab3530dc06d1078a7ba65da76"
+      },
+      {
+        "name": "nmos_parallel_valid",
+        "readback": "PASS",
+        "gds_sha256": "65b255d1dff4519a41959d05eec7812dc9b8812ac30a7bed26292f5f0bba6b7d"
+      },
+      {
+        "name": "nmos_parallel_missing_implant",
+        "readback": "PASS",
+        "gds_sha256": "4f337987614a523cf8525aefe261fbf7c411d5b0c437a42afabda3b99d12f4de"
+      },
+      {
+        "name": "pmos_parallel_valid",
+        "readback": "PASS",
+        "gds_sha256": "cdeb7ec7155647d60cdf3decc8d5184d589dc490c589e63973d99b9252e7a875"
+      },
+      {
+        "name": "pmos_parallel_missing_implant",
+        "readback": "PASS",
+        "gds_sha256": "5d206541d8c5a478be4661856bee9d17c0f180b37ebff2f29e6ce0af20135839"
+      }
+    ],
+    "elapsed_seconds": 303.23399999999674
+  },
+  "desktop_export": {
+    "status": "passed",
+    "checks": [
+      "Actual export menu action",
+      "Valid export",
+      "Changed input rejection message",
+      "Existing export preserved",
+      "Export recovers after original input restored"
+    ],
+    "scope": "Offscreen desktop workflow with artifact fixtures; real captured-job checks are separate"
+  },
+  "source_files": {
+    "icstudio/digital_sky130_native.py": "34ada0df53dbc6b146e0b67ecfac6d680363c41fd4cf94b6f13ee8b5e793aa8a",
+    "icstudio/digital_backend.py": "3380031f4a5962d08648a9a1eaf90cc1a404c11c0fe3d80476467a6c7770afef",
+    "icstudio/digital_flow.py": "6d792e286de6cb7f9dfb16ecc07fc1f25acc16efc15a971e1094afb9dee3ff46",
+    "icstudio/digital_physical.py": "49ac99ad77f9e2f0738f9e7eac73cf86e49de318f1dd3bb1a991117969300d6b",
+    "icstudio/digital_macro.py": "5f245c90a8dbda2f132a2942d33a560ff5d1e34646887ca741caea09ec7a9dad",
+    "scripts/build_digital_runtime.py": "7daa7f07577b6c5f329b2eae1246507903aefa66d4b2f08a7b88e031dca5aa6c",
+    "scripts/package.py": "6006333115fa50230ee1c62fae18baab565cdd20973c4d2de47b8379c12403d6",
+    "scripts/qualify_sky130_native.py": "1843682232e89b26ec0d0bfe6e1ac6ee177a563832b9187291b427551a8cdcec",
+    "tests/test_sky130_native.py": "4da503fe113bd7fd53dd6844db42f22ab821994deb1fae0e94b2407dee4b757a",
+    "icstudio/assets/verification/sky130/sky130A_mr.drc": "aeba6ab5137923f2258714ab5d91ce99ca6a6f932bea55dedfe6f79aca697ba1",
+    "icstudio/assets/verification/sky130/GPL-3.0.txt": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+    "icstudio/assets/verification/sky130/categories.json": "68c8729ce82d1081df6b850e7b162180c78539b1f72b1424ed519fc5edceca13",
+    "icstudio/assets/verification/sky130/README.md": "8eb637fb2640e2fe98eb11b4be3507dfc9d4f0ec9af04be676d1c1da4ce036a5",
+    "scripts/sky130_raw_feol.py": "6a33521ce2ab76ca36a7eeda95d4b1018213e06eb9cd4ff2a895f05bf82d007c"
+  },
+  "historical_catalog": {
+    "executed": 441,
+    "absent": 715,
+    "wl_exemptions": 90,
+    "advisory": 8,
+    "unresolved": 302,
+    "changed_dispositions": 0
+  },
+  "remaining": [
+    "Full profile applicability, including unresolved applicable definitions.",
+    "Meaningful density context/final fill and agreed density acceptance.",
+    "Broader device/body LVS, special devices and complete-chip manufacturing checks.",
+    "Installer/release requalification; no new full-suite, timing or equivalence acceptance claimed."
+  ],
+  "archive": {
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-generic-native-2026-10-16\\evidence.zip",
+    "sha256": "a773ef9135c2710fadb8b278ec87f0d1e66edbd7ea98b52caeded6ca12aa0d63",
+    "bytes": 60254582,
+    "manifest_sha256": "b9e706e448952436d75970c07acf0200c59db5ba3d20c2ea955be3f4b1ae9bac",
+    "entries": 453,
+    "readback": "verified"
+  },
+  "release_consistency": {
+    "win32": {
+      "status": "PASS",
+      "platform": "win32",
+      "driver_sha256": "964b4be42ffb3e08a8e0a50642c9cdf80b36e1cfd787eefb7251a650343fd159",
+      "result": {
+        "version": "0.23.0",
+        "status": "passed",
+        "documents": 135,
+        "local_links": 1534,
+        "gallery_examples": 13,
+        "pdk_coverage": {
+          "status": "matrix_consistent",
+          "process_qualification": "unqualified",
+          "targets": 4,
+          "requirements": 125,
+          "device_entries": 255,
+          "requirement_statuses": {
+            "not_run": 79,
+            "partial": 20,
+            "needs_definition": 12,
+            "passed_reference": 14
+          }
+        }
+      },
+      "elapsed_seconds": 4.343000000008033,
+      "log_sha256": "d326ba03399e320a76783ff5eddf76a9a1a48992d3120f6507f11d15a96a4d48"
+    },
+    "linux": {
+      "status": "PASS",
+      "platform": "linux",
+      "driver_sha256": "964b4be42ffb3e08a8e0a50642c9cdf80b36e1cfd787eefb7251a650343fd159",
+      "result": {
+        "version": "0.23.0",
+        "status": "passed",
+        "documents": 135,
+        "local_links": 1534,
+        "gallery_examples": 13,
+        "pdk_coverage": {
+          "status": "matrix_consistent",
+          "process_qualification": "unqualified",
+          "targets": 4,
+          "requirements": 125,
+          "device_entries": 255,
+          "requirement_statuses": {
+            "not_run": 79,
+            "partial": 20,
+            "needs_definition": 12,
+            "passed_reference": 14
+          }
+        }
+      },
+      "elapsed_seconds": 61.383367901,
+      "log_sha256": "e00e9e8e42af85a0a6be6cc6fac98fb3735092dc1c05cf50ee2976416405e4d5"
+    }
+  },
+  "historical_gf180_source_snapshot": {
+    "path": "docs/validation/gf180-tested-source-2026-10-16/manifest.json",
+    "sha256": "abb10dca78614b524edcde65390c5b7b646efe4eef2580842c1615772c26eb58"
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "schema": 1,
+  "status": "native-diode-connectivity-controls-passed",
+  "qualified": false,
+  "chunk_complete": false,
+  "case": "uart",
+  "binding": {
+    "cell": "sky130_fd_sc_hd__diode_2",
+    "model": "sky130_fd_pr__diode_pw2nd_05v5",
+    "area_um2": "0.4347",
+    "perimeter_um": "2.64",
+    "source_spice_sha256": "67b980af74314791f0ea796118c740730958e5cb7083d58acab20c17781bee45",
+    "source_gds_sha256": "7198f35a0a4bde6ba7155242c567b21644b04696c39734b604490c09e6709c90",
+    "installed_gds_sha256": "15240e34c50e42419336c0f3f498aaeac1e1e403c62134c0eee088225b69dc13",
+    "polygon_layers_equal": true,
+    "reference_units_checked_against_source_layout": true
+  },
+  "original_record_sha256": "287d1ef7af7a74c04a287bdf40011acd6aceadf2d236dd2f96170b7469a1d189",
+  "source_gds_sha256": "c9282fb9602ac9dbab5299032be1d4b68751bb611747d276d40435e93c37afea",
+  "driver_sha256": "cb286d9760432f2af4c7f1d1f9ace04458b3c41b2a7a5bc8f47316324ceae403",
+  "adapter_sha256": "fcc94a5d7c3c82bba988323df74370bd6eca60bffdc91a455e1fb92daffcd0fb",
+  "engine_sha256": "17c0ac7fad216669ae38aa2ff4be332ca01ce4573002883195671f9405b0c0c9",
+  "rows": [
+    {
+      "control": "valid",
+      "matched": true,
+      "inventory": {
+        "layout": {
+          "devices": {
+            "pfet_01v8_hvt": 1289,
+            "nfet_01v8": 1295
+          },
+          "pins": [
+            "n0000000",
+            "n0000001",
+            "n0000207",
+            "n0000208",
+            "n0000214",
+            "n0000215",
+            "n0000216",
+            "n0000217",
+            "n0000218",
+            "n0000219",
+            "n0000220",
+            "n0000221",
+            "n0000246",
+            "n0000247",
+            "n0000280"
+          ]
+        },
+        "reference": {
+          "devices": {
+            "nfet_01v8": 1295,
+            "pfet_01v8_hvt": 1289
+          },
+          "pins": [
+            "n0000000",
+            "n0000001",
+            "n0000207",
+            "n0000208",
+            "n0000214",
+            "n0000215",
+            "n0000216",
+            "n0000217",
+            "n0000218",
+            "n0000219",
+            "n0000220",
+            "n0000221",
+            "n0000246",
+            "n0000247",
+            "n0000280"
+          ]
+        }
+      },
+      "expected_match": true,
+      "report_sha256": "6ffdb9469d8ecb775f9af204bc60de6ca38560594a4879499a3e338c10eff9ae"
+    }
+  ],
+  "seconds": 16.569100266999158,
+  "files": {
+    "valid/reference.cdl": "3bbfd242a74b62e3f1541bea14a27de4455ca7cebe81c26a4b929e04e29271ab",
+    "valid/engine.log": "8526b078bd09a5fafff8fe7b2ae3ed79966cd4624e9f44c8b9f1f6d19f9c0d94",
+    "valid/strict.lvs": "c2e80b394395c2abe69604d1b658850d4aef70d530709ca286e3b05e8c94a64f",
+    "valid/report.lvsdb": "6ffdb9469d8ecb775f9af204bc60de6ca38560594a4879499a3e338c10eff9ae",
+    "valid/extracted.cir": "3677ca5228cd398bd35f56a45e3cdeda203cbc6c678fc7446ee065b590c69383",
+    "valid/layout.gds": "52e19df03a00b107337e82dc52ae9d906592f9ac11545e2881cb96b5c926ab6a",
+    "valid/audit.json": "bf773cbd4c812026bcc620dc94f54f154e3a27341715bff1debc91ecddc457d8"
+  }
+}

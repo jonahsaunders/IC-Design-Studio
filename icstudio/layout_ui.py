@@ -41,7 +41,16 @@ class LayoutMixin:
         query=self.layer_search.text().lower()
         for i in range(self.layers.count()):self.layers.item(i).setHidden(query not in self.layers.item(i).text().lower())
     def show_layers(self,mode):
-        names={l['name'] for l in self.project['pdk']['layers']};self.layout.visible_layers=names if mode=='all' else set() if mode=='none' else {self.layer_combo.currentText()};self.refresh()
+        names={l['name'] for l in self.project['pdk']['layers']};self.layout.visible_layers=names if mode=='all' else set() if mode=='none' else {self.layer_combo.currentText()}
+        # Visibility is view state: do not rebuild or apply the inspector draft.
+        blocked=self.layers.blockSignals(True)
+        try:
+            for i in range(self.layers.count()):
+                item=self.layers.item(i);name=item.data(Qt.UserRole) or item.text()
+                item.setCheckState(Qt.Checked if name in self.layout.visible_layers else Qt.Unchecked)
+        finally:self.layers.blockSignals(blocked)
+        if getattr(self,'_editor_ready',False):self.refresh_editor_layers()
+        self.layout.update()
     def layer_context(self,pos):
         it=self.layers.itemAt(pos)
         if not it:return

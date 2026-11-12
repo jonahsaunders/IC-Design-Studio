@@ -1,0 +1,822 @@
+{
+  "schema": 1,
+  "date": "2026-10-21",
+  "chunk": 7,
+  "chunk_complete": false,
+  "qualified": false,
+  "status": "measured_coil_reproduced_and_release_input_controls_repaired",
+  "scope": "Two completed mesh sizes of one public measured IHP coil, independent complex raw-wave readback, portable layout exchange, complete runtime cache input identity and positive multiplicity enforcement. No full device-family, operating-envelope, final installed-release or tapeout qualification.",
+  "parent_commit": "fcbfcab51d6efd853e053325e40c1dfdd88efce2",
+  "regressions": {
+    "Windows": {
+      "discovered": 3248,
+      "seconds": 1396.055,
+      "skipped": 63,
+      "result": {
+        "returncode": 0,
+        "source_unchanged": true,
+        "seconds": 1402.3119999999763,
+        "source_manifest_sha256": "4e38a65eb49c0ef967ea15a9b19f93ec5de84ce3659e82dd7f40acb931f05c16"
+      },
+      "log": {
+        "path": "final-parameter-tests/full-Windows.log",
+        "sha256": "1b5bf07ba4513178a26ffa46edbd60d495a72ae2ea5fac61789b1c116c865a0b",
+        "bytes": 545416
+      }
+    },
+    "Linux": {
+      "discovered": 3248,
+      "seconds": 677.164,
+      "skipped": 56,
+      "result": {
+        "returncode": 0,
+        "source_unchanged": true,
+        "source_manifest_sha256": "4e38a65eb49c0ef967ea15a9b19f93ec5de84ce3659e82dd7f40acb931f05c16",
+        "root": "/var/tmp/icstudio-chunk7-measured-20261021-v2"
+      },
+      "log": {
+        "path": "final-parameter-tests/full-snapshot-Linux.log",
+        "sha256": "2ad6ef50feed41799f0561a0d1fc0f820e5702a05376594709c0451023e08844",
+        "bytes": 541727
+      }
+    }
+  },
+  "full_source_capture": {
+    "path": "final-parameter-tests/source-snapshot.json",
+    "sha256": "4e38a65eb49c0ef967ea15a9b19f93ec5de84ce3659e82dd7f40acb931f05c16",
+    "bytes": 877643
+  },
+  "source_base_capture": {
+    "path": "final-source-tests/source-snapshot.json",
+    "sha256": "b989d45eb3013eb5cd2d47bf257fcb77c7a646a11bf5e867225e630154af3cef",
+    "bytes": 877126
+  },
+  "source_delta": {
+    "path": "final-parameter-tests/source-delta.tar.gz",
+    "sha256": "4bad9b044e4dc6587dc1a25bc922c00e81de4cca5dc0c452552463c3c21026df",
+    "bytes": 6059
+  },
+  "native_study": {
+    "schema": 1,
+    "chunk": 7,
+    "chunk_complete": false,
+    "qualified": false,
+    "status": "completed_native_reference_reproduction",
+    "source_commit": "0f87e9d069de3e88bdfdc5bb30d4a0958f045d32",
+    "scope": "Four completed native excitations, two mesh sizes and independent raw-wave readback of one exact public measured coil. No general inductor or complete device operating-envelope qualification.",
+    "meshes": {
+      "1": {
+        "stages": {
+          "1": {
+            "energy_db": -60.27,
+            "returncode": 0
+          },
+          "2": {
+            "energy_db": -60.05,
+            "returncode": 0
+          }
+        },
+        "full_incident_matrix_metrics": {
+          "r_at_100mhz_ohm": 4.673857319354544,
+          "r_at_1ghz_ohm": 5.1314787451646,
+          "l_at_1ghz_nh": 4.812395463871039,
+          "peak_q": 14.533323249567204,
+          "peak_q_frequency_hz": 4725000000.0,
+          "first_srf_hz": 11083461417.511282
+        },
+        "maximum_scattering_gain": 0.9974554407704064,
+        "sampled_passivity": true,
+        "comparisons": {
+          "openems-1um.s2p": {
+            "original_workflow": {
+              "band_hz": [
+                100000000.0,
+                14000000000.0
+              ],
+              "samples": 398,
+              "interpolation": "Linear interpolation of real and imaginary reference components onto observed frequencies; no extrapolation.",
+              "maximum_absolute_s_error": 6.954106591342454e-08,
+              "rms_complex_s_error": 3.4884867154352854e-08,
+              "maximum_relative_z_error": 1.1396864289396742e-06,
+              "maximum_relative_r_error": 1.8143131942351176e-06,
+              "absolute_floor_ohm": 0.001,
+              "measurement_uncertainty_known": false,
+              "qualified": false
+            },
+            "full_incident_matrix": {
+              "band_hz": [
+                100000000.0,
+                14000000000.0
+              ],
+              "samples": 398,
+              "interpolation": "Linear interpolation of real and imaginary reference components onto observed frequencies; no extrapolation.",
+              "maximum_absolute_s_error": 4.693657493492792e-05,
+              "rms_complex_s_error": 2.3640687056047045e-05,
+              "maximum_relative_z_error": 0.0005819889378266878,
+              "maximum_relative_r_error": 0.001302102591273574,
+              "absolute_floor_ohm": 0.001,
+              "measurement_uncertainty_known": false,
+              "qualified": false
+            }
+          },
+          "measured.s2p": {
+            "original_workflow": {
+              "band_hz": [
+                100000000.0,
+                14000000000.0
+              ],
+              "samples": 398,
+              "interpolation": "Linear interpolation of real and imaginary reference components onto observed frequencies; no extrapolation.",
+              "maximum_absolute_s_error": 0.048274950054699436,
+              "rms_complex_s_error": 0.02868549044711213,
+              "maximum_relative_z_error": 0.3953783935408675,
+              "maximum_relative_r_error": 0.39581283355890057,
+              "absolute_floor_ohm": 0.001,
+              "measurement_uncertainty_known": false,
+              "qualified": false
+            },
+            "full_incident_matrix": {
+              "band_hz": [
+                100000000.0,
+                14000000000.0
+              ],
+              "samples": 398,
+              "interpolation": "Linear interpolation of real and imaginary reference components onto observed frequencies; no extrapolation.",
+              "maximum_absolute_s_error": 0.04830276450638796,
+              "rms_complex_s_error": 0.02869198084171664,
+              "maximum_relative_z_error": 0.39515235704801493,
+              "maximum_relative_r_error": 0.3956405315879312,
+              "absolute_floor_ohm": 0.001,
+              "measurement_uncertainty_known": false,
+              "qualified": false
+            }
+          },
+          "palace-2um.s2p": {
+            "original_workflow": {
+              "band_hz": [
+                100000000.0,
+                14000000000.0
+              ],
+              "samples": 398,
+              "interpolation": "Linear interpolation of real and imaginary reference components onto observed frequencies; no extrapolation.",
+              "maximum_absolute_s_error": 0.01849836751312024,
+              "rms_complex_s_error": 0.0073065438119730725,
+              "maximum_relative_z_error": 0.46092269308977596,
+              "maximum_relative_r_error": 0.5163635387783266,
+              "absolute_floor_ohm": 0.001,
+              "measurement_uncertainty_known": false,
+              "qualified": false
+            },
+            "full_incident_matrix": {
+              "band_hz": [
+                100000000.0,
+                14000000000.0
+              ],
+              "samples": 398,
+              "interpolation": "Linear interpolation of real and imaginary reference components onto observed frequencies; no extrapolation.",
+              "maximum_absolute_s_error": 0.018501087911420126,
+              "rms_complex_s_error": 0.007301458586635127,
+              "maximum_relative_z_error": 0.4614473995704471,
+              "maximum_relative_r_error": 0.517095918274349,
+              "absolute_floor_ohm": 0.001,
+              "measurement_uncertainty_known": false,
+              "qualified": false
+            }
+          }
+        },
+        "execution_bound_probe_outputs": {
+          "1": false,
+          "2": false
+        },
+        "runs": {
+          "1": {
+            "record": {
+              "path": "isolated/mesh1/port1/execution.json",
+              "sha256": "abb15eef609afac427a74b9f8a44ee6a393d4ecf0071189d832c539fff0a0e08",
+              "bytes": 1553
+            },
+            "elapsed_seconds": 7244.265000000014,
+            "log": {
+              "path": "isolated/mesh1/port1/native.log",
+              "sha256": "85c03cbe9200429ae657457ee3537552bf5e6ed07ceac4a56a91e48ec1fb1696",
+              "bytes": 11287
+            }
+          },
+          "2": {
+            "record": {
+              "path": "isolated/mesh1/port2/execution.json",
+              "sha256": "d71b8e31203589bc9f67597d18e0db3bd55b421d6ced3045a4bb6d8ca47ad205",
+              "bytes": 1554
+            },
+            "elapsed_seconds": 7127.2029999999795,
+            "log": {
+              "path": "isolated/mesh1/port2/native.log",
+              "sha256": "5b3bded114719a633dcfcff8130622d285961e1b8c5fd6c2569586a324c3178d",
+              "bytes": 11179
+            }
+          }
+        },
+        "independent_raw_vs_calcport_s_error": 7.850462293418876e-16,
+        "upstream_writer_quantization_error": 6.954106577609842e-08,
+        "readbacks": {
+          "Windows": {
+            "path": "repository-v4-audit-mesh1-Windows.json",
+            "sha256": "cbfaa45af53426f85a6a0d241bc8eae4d9864f66c8781f7971dde85817e27420",
+            "bytes": 171570
+          },
+          "Linux": {
+            "path": "repository-v4-audit-mesh1-Linux.json",
+            "sha256": "1a5d9bee1faf4a5a195f9c5e9600f63d0ce87153b4f0b2de8cff088527c48425",
+            "bytes": 162190
+          }
+        },
+        "fullprecision_audits": {
+          "Windows": {
+            "path": "native-audit-fullprecision-mesh1-Windows.json",
+            "sha256": "b3901dbdc73cfb86e34b46447f3813951e012f3d6f070682cfa49545f4cb9c7b",
+            "bytes": 35639
+          },
+          "Linux": {
+            "path": "native-audit-fullprecision-mesh1-Linux.json",
+            "sha256": "caac3fb0c102d2ae9de31419f7210e9ae8c2171047b77c968fa65340bf52519c",
+            "bytes": 34256
+          }
+        }
+      },
+      "2": {
+        "stages": {
+          "1": {
+            "energy_db": -60.28,
+            "returncode": 0
+          },
+          "2": {
+            "energy_db": -60.06,
+            "returncode": 0
+          }
+        },
+        "full_incident_matrix_metrics": {
+          "r_at_100mhz_ohm": 4.662366715347422,
+          "r_at_1ghz_ohm": 5.145668384081334,
+          "l_at_1ghz_nh": 4.805015348009375,
+          "peak_q": 14.291989213844634,
+          "peak_q_frequency_hz": 4830000000.0,
+          "first_srf_hz": 10799955813.55611
+        },
+        "maximum_scattering_gain": 0.9976862749316865,
+        "sampled_passivity": true,
+        "comparisons": {
+          "openems-2um.s2p": {
+            "original_workflow": {
+              "band_hz": [
+                100000000.0,
+                14000000000.0
+              ],
+              "samples": 398,
+              "interpolation": "Linear interpolation of real and imaginary reference components onto observed frequencies; no extrapolation.",
+              "maximum_absolute_s_error": 0.000533523652993389,
+              "rms_complex_s_error": 0.00010642331661566413,
+              "maximum_relative_z_error": 0.0038859602997138513,
+              "maximum_relative_r_error": 0.015054408919580563,
+              "absolute_floor_ohm": 0.001,
+              "measurement_uncertainty_known": false,
+              "qualified": false
+            },
+            "full_incident_matrix": {
+              "band_hz": [
+                100000000.0,
+                14000000000.0
+              ],
+              "samples": 398,
+              "interpolation": "Linear interpolation of real and imaginary reference components onto observed frequencies; no extrapolation.",
+              "maximum_absolute_s_error": 0.0005266778603057178,
+              "rms_complex_s_error": 0.00011183853744518114,
+              "maximum_relative_z_error": 0.003273994877814724,
+              "maximum_relative_r_error": 0.01473086436527093,
+              "absolute_floor_ohm": 0.001,
+              "measurement_uncertainty_known": false,
+              "qualified": false
+            }
+          },
+          "measured.s2p": {
+            "original_workflow": {
+              "band_hz": [
+                100000000.0,
+                14000000000.0
+              ],
+              "samples": 398,
+              "interpolation": "Linear interpolation of real and imaginary reference components onto observed frequencies; no extrapolation.",
+              "maximum_absolute_s_error": 0.06988484893958292,
+              "rms_complex_s_error": 0.029145125841030642,
+              "maximum_relative_z_error": 0.8974739195750501,
+              "maximum_relative_r_error": 1.19932272774147,
+              "absolute_floor_ohm": 0.001,
+              "measurement_uncertainty_known": false,
+              "qualified": false
+            },
+            "full_incident_matrix": {
+              "band_hz": [
+                100000000.0,
+                14000000000.0
+              ],
+              "samples": 398,
+              "interpolation": "Linear interpolation of real and imaginary reference components onto observed frequencies; no extrapolation.",
+              "maximum_absolute_s_error": 0.06991122039765854,
+              "rms_complex_s_error": 0.02915322934653971,
+              "maximum_relative_z_error": 0.8969598412165423,
+              "maximum_relative_r_error": 1.199882436077431,
+              "absolute_floor_ohm": 0.001,
+              "measurement_uncertainty_known": false,
+              "qualified": false
+            }
+          },
+          "palace-2um.s2p": {
+            "original_workflow": {
+              "band_hz": [
+                100000000.0,
+                14000000000.0
+              ],
+              "samples": 398,
+              "interpolation": "Linear interpolation of real and imaginary reference components onto observed frequencies; no extrapolation.",
+              "maximum_absolute_s_error": 0.04308824297343973,
+              "rms_complex_s_error": 0.017639041652398626,
+              "maximum_relative_z_error": 1.4529211326688614,
+              "maximum_relative_r_error": 2.617040942782997,
+              "absolute_floor_ohm": 0.001,
+              "measurement_uncertainty_known": false,
+              "qualified": false
+            },
+            "full_incident_matrix": {
+              "band_hz": [
+                100000000.0,
+                14000000000.0
+              ],
+              "samples": 398,
+              "interpolation": "Linear interpolation of real and imaginary reference components onto observed frequencies; no extrapolation.",
+              "maximum_absolute_s_error": 0.04308302726428676,
+              "rms_complex_s_error": 0.017638968660731887,
+              "maximum_relative_z_error": 1.4519729425921861,
+              "maximum_relative_r_error": 2.616035546478083,
+              "absolute_floor_ohm": 0.001,
+              "measurement_uncertainty_known": false,
+              "qualified": false
+            }
+          }
+        },
+        "execution_bound_probe_outputs": {
+          "1": false,
+          "2": false
+        },
+        "runs": {
+          "1": {
+            "record": {
+              "path": "isolated/mesh2/port1/execution.json",
+              "sha256": "3f232f39caa231204f4dce1390044f955bd714914e6961f4cb9069b9658d36ae",
+              "bytes": 1554
+            },
+            "elapsed_seconds": 2410.3429999999935,
+            "log": {
+              "path": "isolated/mesh2/port1/native.log",
+              "sha256": "6f31cb5be81f1cd79faacb41a4be6acb66ff1b98dc7966858296774eb74e0688",
+              "bytes": 11500
+            }
+          },
+          "2": {
+            "record": {
+              "path": "isolated/mesh2/port2/execution.json",
+              "sha256": "34c9b318c6db8583f7bf0c4448f4cdd311cd6ec910283781227b2ed97ec32bc9",
+              "bytes": 1554
+            },
+            "elapsed_seconds": 2435.9529999999795,
+            "log": {
+              "path": "isolated/mesh2/port2/native.log",
+              "sha256": "cdaf0a491f3225026e040e3298cff450bea7da265708758a3bb16c5a100656d8",
+              "bytes": 11392
+            }
+          }
+        },
+        "independent_raw_vs_calcport_s_error": 7.816041058999314e-16,
+        "upstream_writer_quantization_error": 6.991043566549788e-08,
+        "readbacks": {
+          "Windows": {
+            "path": "repository-v4-audit-mesh2-Windows.json",
+            "sha256": "e0b6f2a71c4f4bdb37d191d4f029ce9b1a2f7a97736daedd912716cc52b3e6bb",
+            "bytes": 171578
+          },
+          "Linux": {
+            "path": "repository-v4-audit-mesh2-Linux.json",
+            "sha256": "1a3acc8c7b58ba024773e7e85437caa6d8f7ff3a3569c8919814ec899caf5779",
+            "bytes": 162187
+          }
+        },
+        "fullprecision_audits": {
+          "Windows": {
+            "path": "native-audit-fullprecision-mesh2-Windows.json",
+            "sha256": "e43929b18d9828f0192a8c34bb0d92803604f5e86487aacf67606538fcdc86f3",
+            "bytes": 35722
+          },
+          "Linux": {
+            "path": "native-audit-fullprecision-mesh2-Linux.json",
+            "sha256": "e8788599833e1f8db5cc7172c462f4e040fe9ea50adb206bfe1d410db8e29184",
+            "bytes": 34331
+          }
+        }
+      }
+    },
+    "cross_host": {
+      "status": "PASS",
+      "meshes_um": [
+        1,
+        2
+      ],
+      "numeric_fields": 13748,
+      "relative_tolerance": 1e-10,
+      "absolute_tolerance": 1e-12,
+      "largest_absolute_differences": [
+        {
+          "path": "mesh1/repository/z_real_ohm/318",
+          "absolute_difference": 5.4569682106375694e-12
+        },
+        {
+          "path": "mesh1/repository/z_real_ohm/308",
+          "absolute_difference": 2.7284841053187847e-12
+        },
+        {
+          "path": "mesh2/repository/z_imag_ohm/310",
+          "absolute_difference": 2.5011104298755527e-12
+        },
+        {
+          "path": "mesh1/repository/z_imag_ohm/317",
+          "absolute_difference": 2.0463630789890885e-12
+        },
+        {
+          "path": "mesh1/repository/z_real_ohm/314",
+          "absolute_difference": 1.8189894035458565e-12
+        },
+        {
+          "path": "mesh1/repository/z_real_ohm/320",
+          "absolute_difference": 1.8189894035458565e-12
+        },
+        {
+          "path": "mesh1/repository/z_real_ohm/321",
+          "absolute_difference": 1.8189894035458565e-12
+        },
+        {
+          "path": "mesh1/repository/z_imag_ohm/310",
+          "absolute_difference": 1.8189894035458565e-12
+        }
+      ],
+      "counts": {
+        "1": {
+          "frequencies": 400,
+          "native_probe_files": 8
+        },
+        "2": {
+          "frequencies": 400,
+          "native_probe_files": 8
+        }
+      },
+      "sources": {
+        "repository-v4-audit-mesh1-Windows.json": "cbfaa45af53426f85a6a0d241bc8eae4d9864f66c8781f7971dde85817e27420",
+        "repository-v4-audit-mesh1-Linux.json": "1a5d9bee1faf4a5a195f9c5e9600f63d0ce87153b4f0b2de8cff088527c48425",
+        "native-audit-fullprecision-mesh1-Windows.json": "b3901dbdc73cfb86e34b46447f3813951e012f3d6f070682cfa49545f4cb9c7b",
+        "native-audit-fullprecision-mesh1-Linux.json": "caac3fb0c102d2ae9de31419f7210e9ae8c2171047b77c968fa65340bf52519c",
+        "repository-v4-audit-mesh2-Windows.json": "e0b6f2a71c4f4bdb37d191d4f029ce9b1a2f7a97736daedd912716cc52b3e6bb",
+        "repository-v4-audit-mesh2-Linux.json": "1a3acc8c7b58ba024773e7e85437caa6d8f7ff3a3569c8919814ec899caf5779",
+        "native-audit-fullprecision-mesh2-Windows.json": "e43929b18d9828f0192a8c34bb0d92803604f5e86487aacf67606538fcdc86f3",
+        "native-audit-fullprecision-mesh2-Linux.json": "e8788599833e1f8db5cc7172c462f4e040fe9ea50adb206bfe1d410db8e29184"
+      },
+      "scope": "Cross-host arithmetic and independent readback agreement, not a measured accuracy or device qualification gate."
+    },
+    "reference_cross_host": {
+      "status": "PASS",
+      "relative_tolerance": 1e-10,
+      "absolute_tolerance": 1e-12,
+      "numeric_fields": 59,
+      "largest_absolute_differences": [
+        {
+          "path": "references/palace-2um.s2p/metrics/l_at_1ghz_nh",
+          "absolute_difference": 7.283063041541027e-14
+        },
+        {
+          "path": "references/measured.s2p/metrics/r_at_100mhz_ohm",
+          "absolute_difference": 0.0
+        },
+        {
+          "path": "references/measured.s2p/metrics/r_at_1ghz_ohm",
+          "absolute_difference": 0.0
+        },
+        {
+          "path": "references/measured.s2p/metrics/l_at_1ghz_nh",
+          "absolute_difference": 0.0
+        },
+        {
+          "path": "references/measured.s2p/metrics/peak_q",
+          "absolute_difference": 0.0
+        }
+      ],
+      "sources": {
+        "Windows": "5937bef389e0e0ab916e6a1cd71138098462f4c363cbab1f041b238ae8fbe769",
+        "Linux": "717cff4c5aaff2ee85483b6792077cbfdbd545cbf7641ad2b3f4bc536d769f0d"
+      }
+    },
+    "runtime_binding": {
+      "path": "runtime-binding/final-verification.json",
+      "sha256": "3b3dd5c669055abd3b025dbcfd488ff52a237646e3b6b1c4cc3305b9ef93ff3f",
+      "bytes": 218
+    },
+    "fine_vs_coarse_full_band": {
+      "band_hz": [
+        100000000.0,
+        14000000000.0
+      ],
+      "samples": 398,
+      "interpolation": "Linear interpolation of real and imaginary reference components onto observed frequencies; no extrapolation.",
+      "maximum_absolute_s_error": 0.02510747616875791,
+      "rms_complex_s_error": 0.011940675649749601,
+      "maximum_relative_z_error": 1.0699090233786,
+      "maximum_relative_r_error": 1.8755692973558113,
+      "absolute_floor_ohm": 0.001,
+      "measurement_uncertainty_known": false,
+      "qualified": false
+    },
+    "legacy_probe_provenance": "Original research execution wrappers bind scripts, source inputs and logs but do not contain execution-time probe hashes. Later independent readbacks and this archive bind the retained probe bytes; they cannot retrospectively supply that missing timestamped provenance. New repository runner executions hash probes at completion."
+  },
+  "archive": {
+    "path": "IC-Design-Studio-evidence/ihp-measured-coil-2026-10-21-v1/evidence.zip",
+    "sha256": "90b2beee071c850e2038eeabe6ac5790d26e4231b925d291aa4a446a0f86475a",
+    "bytes": 127232682,
+    "paths": 848,
+    "unique_objects": 579,
+    "format": "sha256-deduplicated-zip-v1",
+    "every_object_reopened_and_verified": true
+  },
+  "restored_replay": {
+    "status": "PASS",
+    "archive_sha256": "90b2beee071c850e2038eeabe6ac5790d26e4231b925d291aa4a446a0f86475a",
+    "restored_files": 45,
+    "restored_bytes": 488026,
+    "results": [
+      {
+        "mesh_um": 1,
+        "host": "Windows",
+        "status": "PASS",
+        "original_sha256": "cbfaa45af53426f85a6a0d241bc8eae4d9864f66c8781f7971dde85817e27420",
+        "replay_sha256": "69f90278db2530f631fff51ec7df987df00ef81946e3800fb1c12cee2de9ef83",
+        "touchstone_sha256": "35df3a725cd633b4725741333a9a02a68bea6367735e2c495f1a0864b7b5223f",
+        "log_sha256": "c3280e36aa73990b4aadca3a19650e894f43a812294755a19515e77a2be23d90"
+      },
+      {
+        "mesh_um": 1,
+        "host": "Linux",
+        "status": "PASS",
+        "original_sha256": "1a5d9bee1faf4a5a195f9c5e9600f63d0ce87153b4f0b2de8cff088527c48425",
+        "replay_sha256": "e096b5b41635b6d25c1c4219f8cef08102f3439539b67dfcbef21088008c8691",
+        "touchstone_sha256": "598faac755eab881c1dc17ed3df6c0ad5ab0193e14e13d92d6cfaf4ca0dbfd66",
+        "log_sha256": "11211916482049d4041a35f6b8da7f1e9fc572380040c0a4c544625b77238987"
+      },
+      {
+        "mesh_um": 2,
+        "host": "Windows",
+        "status": "PASS",
+        "original_sha256": "e0b6f2a71c4f4bdb37d191d4f029ce9b1a2f7a97736daedd912716cc52b3e6bb",
+        "replay_sha256": "01c924d01069750d5a69e3f0c20b0d092f1787b16b2effc077dd48d6b0c71506",
+        "touchstone_sha256": "0e4b237bf43c2f3b8e9b8c435825e513eb005eb21d0ba541e7a43f9aaa74a521",
+        "log_sha256": "c3280e36aa73990b4aadca3a19650e894f43a812294755a19515e77a2be23d90"
+      },
+      {
+        "mesh_um": 2,
+        "host": "Linux",
+        "status": "PASS",
+        "original_sha256": "1a3acc8c7b58ba024773e7e85437caa6d8f7ff3a3569c8919814ec899caf5779",
+        "replay_sha256": "7d6c885ca2620a2f31e952ee7ecff43e24f30ed41cd51e56d6cf331b66b33efd",
+        "touchstone_sha256": "5b35640ad0e2cdbac6ade696b78caa3a44a0752514c4627b741a46a4b317e401",
+        "log_sha256": "11211916482049d4041a35f6b8da7f1e9fc572380040c0a4c544625b77238987"
+      }
+    ],
+    "completed_at": "2026-10-21T21:38:31.431728+00:00",
+    "scope": "Archive restore and raw-wave replay of both retained meshes, not a fresh solve or full device qualification."
+  },
+  "historical_ubuntu_release": {
+    "status": "PASS",
+    "source_commit": "ae5a7a1a98fc863094ba7c63b40f0ffe07bac40c",
+    "run_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39640899481",
+    "artifact_sha256": "8d09d428fae65e6df2121986600811716a83f535e3c4d40317e3f8541badcc82",
+    "executable_sha256": "1b1fc89fe1f53ba8ee6805af7de8a7c316c9c7dc78f1c9d0a3cf1a7bbc98b57d",
+    "digital_checks": 34,
+    "profiles": [
+      "sky130hd",
+      "gf180",
+      "gf180d",
+      "ihp-sg13g2"
+    ],
+    "physical_checks": [
+      "Real queued DRC, LVS, extraction and before/after simulation pass",
+      "Editing invalidates the previous passing physical result",
+      "A deliberate defect fails DRC and clicking its finding navigates to geometry",
+      "Undo repairs the layout and a fresh verification passes",
+      "A missing physical executable is shown as blocked, never passed"
+    ],
+    "all_artifact_crc_checked": true,
+    "scope": "Independent report consistency and artifact integrity audit of the hosted frozen Ubuntu package. No local re-execution, complete device qualification, or later-source acceptance inferred."
+  },
+  "remaining": [
+    "Required unavailable model bindings and supported operating envelopes.",
+    "Broader physical/extracted device coverage, including RF isolation and remaining geometry classes.",
+    "Semantic upstream device/process-option disposition and additional source archives.",
+    "General IHP EM model accuracy beyond one geometry; no measurement uncertainty bound was published for this fixture.",
+    "Hosted and exact installed release acceptance for the final changed source."
+  ],
+  "source_files": {
+    "scripts/audit_ihp_measured_reference.py": "0f189f21d66ef11f925c1393d47859e97e529eb8fcecca4ffd2cdbbb39f1300c",
+    "scripts/run_ihp_measured_coil.py": "f2463adfc76d68240a1993a6897972c6ef189b6e489b4e7bd36142767bd11c0e",
+    "tests/test_ihp_measured_reference.py": "805b8591ac61df7772f41cdd5d2998f5300f4913427dbbb6729444f7e57acf88",
+    "tests/test_ihp_measured_workflow.py": "29df77ecc3afc9e0f886f5f667205b3a08c49aaa2c50165ff7eba074720e8c2c",
+    ".github/workflows/ihp-inductor-qualification.yml": "f5e66c743548fce84b0ca4b990086db93e21c6f224c2052eab994082ae98ceac",
+    "tests/fixtures/ihp-measured-coil-v1/coil.gds": "4e0c7203a37c6a3c0eb36587f385c12d47967335233082c5c72e04b87b5b132e",
+    "tests/fixtures/ihp-measured-coil-v1/LICENSE": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+    "tests/fixtures/ihp-measured-coil-v1/measured.s2p": "cbfb4cfcd777ca9f958de4f1db7d43caeee2ab18dc9523f8b9350fa3ecc274cd",
+    "tests/fixtures/ihp-measured-coil-v1/openems-1um.s2p": "98f9fa6a5ad31518dd50752930e0ab85e138f7455999541791a7fc27fb94bdb6",
+    "tests/fixtures/ihp-measured-coil-v1/openems-2um.s2p": "1dc507cefc4fb6d759008fb2b5741343b82435b51a35df39ed0491ea1aeece64",
+    "tests/fixtures/ihp-measured-coil-v1/original-workflow.py": "b7c8fa115022baa8afcc5d2e76a1db9a0b306b7b35c06008a8baae80cf5c6cf4",
+    "tests/fixtures/ihp-measured-coil-v1/palace-2um.s2p": "766d03eb80dfb49042740e0001170640ab5798a716b5724a979bba0a6577c490",
+    "tests/fixtures/ihp-measured-coil-v1/passicut.xml": "a478fc82d184479ed87d890a025897901c47cce60c50d8ded4612b197f18ad80",
+    "tests/fixtures/ihp-measured-coil-v1/planar.xml": "34303d14d0efa02964f05891deca5500a6e7482909a96378425cbf7f47ba74a5",
+    "tests/fixtures/ihp-measured-coil-v1/SOURCE.json": "698fea216a6a4dd9c55f1e74321ffe08d0feb2a951c2c7041893edd6329a045f",
+    "tests/fixtures/ihp-measured-coil-v1/UPSTREAM.md": "7b820cc64b0b014fa42129789c582bd1b3a1e30755a21198656de12b92c8c520",
+    "tests/fixtures/ihp-measured-workflow-v1/LICENSE": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+    "tests/fixtures/ihp-measured-workflow-v1/SOURCE.json": "0506ea2973cb4c5485ba2864f452f46602a2d51150b0eebafb06a2d1ee9921a3",
+    "tests/fixtures/ihp-measured-workflow-v1/gds2openEMS/momentum_to_xml.py": "cfb014b7f85ee12e9538db7cbf7b811e3473845e8c69f2a07d18d3f8849f9246",
+    "tests/fixtures/ihp-measured-workflow-v1/gds2openEMS/util_gds_reader.py": "d651dd3cb20adef3b8764ae0456b8402ca1abada50a8620f7dff221509b385ba",
+    "tests/fixtures/ihp-measured-workflow-v1/gds2openEMS/util_meshlines.py": "4455af8eaf93466227e01b81d92316819a33a2812569a6119af292604fa6a6cd",
+    "tests/fixtures/ihp-measured-workflow-v1/gds2openEMS/util_resonance_estimation.py": "0698c13a9bf8d49ce4b68e3ce75fbc3ec21f6c6b099efba395662f5867efdff9",
+    "tests/fixtures/ihp-measured-workflow-v1/gds2openEMS/util_simulation_setup.py": "45c37060f20bb1e408d88ead639359411b0780f047e2db77e5d43e21e355c2af",
+    "tests/fixtures/ihp-measured-workflow-v1/gds2openEMS/util_stackup_reader.py": "1c886ec98403f51524e9c0f08a476a87fff5c17f45c43eb8aab69df50a21002c",
+    "tests/fixtures/ihp-measured-workflow-v1/gds2openEMS/util_utilities.py": "7680655ea238f4a3f525ce7aad32d6732d2551f7cb88f9dc9e7e8aa9f494b988",
+    "tests/fixtures/ihp-measured-workflow-v1/gds2openEMS/__init__.py": "e8c9f7e83cbf28835e9d7645c6286cd3b9da1aaa3d0c62d48d294941b12d46e8",
+    "scripts/build_digital_runtime.py": "df85bca66468475dba14cbfc19d35b58a973c5fc51eb364a17f488531bfb0597",
+    "tests/test_digital_build_cache.py": "fab492082b247a7ffc682c4a8a85b994dbe5eff73a30d766fd70079b9c2ee2e5",
+    ".github/workflows/digital-runtime.yml": "f4cba3ca0e69ddf751c186b4b99a68cd2340d552ead85676ae9dd24433f944ea",
+    "tests/test_gf180_runtime_bundle.py": "ee8ca50935b9293689027ac59c5b9d86e29aa7b46e43bd56e4497faaf2492c21",
+    "tests/test_digital_bundle.py": "0ab2c0b0316b7c89a9f567f05d481acd49509de4fb4b8380bc2b6deec73b5913",
+    "tests/test_digital_runtime.py": "33aa1b7dd1d3a50114121a3f9792530e05421c7c962f54c130c6cd88ad869392",
+    "icstudio/catalog.py": "4d960416d6ae9b0f79b07ebd0513f681e54a8c48213b1f3d637206839624b6ca",
+    "icstudio/model.py": "695ef2e7ffe90fb2a28fd468bcf73b6fba98ab0cf898f6d1fbfac43d639b6249",
+    "icstudio/interchange.py": "edcb9b6bae8d26e418c15d3eadb1c9420e41c65719776c877efb9464aa244ca3",
+    "icstudio/pdks.py": "b1e25d33a6c1d81847972a9f3507e840ad1b541232120ea82c48f98994e2b77e",
+    "tests/test_catalog_multiplicity.py": "baa6cc90a6c35d09d6611a5976b5b3821761fb9dd7074e616fc5647924b126e8"
+  },
+  "runtime_identity": {
+    "status": "PASS",
+    "checked_runtime_files": 5862,
+    "checked_dependency_files": 186,
+    "failures": [],
+    "original_verification_sha256": "b5ccd1a9b8b323a123472cc608e96556b023b22016d75b0c582ce1cda5cb66e7",
+    "initial_verification": {
+      "path": "runtime-binding/verification.json",
+      "sha256": "b5ccd1a9b8b323a123472cc608e96556b023b22016d75b0c582ce1cda5cb66e7",
+      "bytes": 23374
+    },
+    "final_verification": {
+      "path": "runtime-binding/final-verification.json",
+      "sha256": "3b3dd5c669055abd3b025dbcfd488ff52a237646e3b6b1c4cc3305b9ef93ff3f",
+      "bytes": 218
+    }
+  },
+  "portable_reference": {
+    "cross_host": {
+      "status": "PASS",
+      "relative_tolerance": 1e-10,
+      "absolute_tolerance": 1e-12,
+      "numeric_fields": 59,
+      "largest_absolute_differences": [
+        {
+          "path": "references/palace-2um.s2p/metrics/l_at_1ghz_nh",
+          "absolute_difference": 7.283063041541027e-14
+        },
+        {
+          "path": "references/measured.s2p/metrics/r_at_100mhz_ohm",
+          "absolute_difference": 0.0
+        },
+        {
+          "path": "references/measured.s2p/metrics/r_at_1ghz_ohm",
+          "absolute_difference": 0.0
+        },
+        {
+          "path": "references/measured.s2p/metrics/l_at_1ghz_nh",
+          "absolute_difference": 0.0
+        },
+        {
+          "path": "references/measured.s2p/metrics/peak_q",
+          "absolute_difference": 0.0
+        }
+      ],
+      "sources": {
+        "Windows": "5937bef389e0e0ab916e6a1cd71138098462f4c363cbab1f041b238ae8fbe769",
+        "Linux": "717cff4c5aaff2ee85483b6792077cbfdbd545cbf7641ad2b3f4bc536d769f0d"
+      }
+    },
+    "focused_tests_per_host": 16,
+    "linux_skips": 1,
+    "windows_skips": 0,
+    "hosts": {
+      "Windows": {
+        "path": "portable-v4-final-Windows.json",
+        "sha256": "341c6ebe93340f2bda70ea8cf2f65316f04c0a523591a1fc25a0c3eacb4e7edf",
+        "bytes": 4980
+      },
+      "Linux": {
+        "path": "portable-v4-final-Linux.json",
+        "sha256": "e04449a27496d54f3ee79a8a8953bfaad333627c3e7fd191fe23610ff49f95f9",
+        "bytes": 4876
+      }
+    }
+  },
+  "runtime_cache": {
+    "focused_tests_per_host": 48,
+    "windows_skips": 9,
+    "linux_skips": 2,
+    "staged_nongenerated_files": 537,
+    "staging_byte_mode_parity": true,
+    "hosts": {
+      "Windows": {
+        "tests": {
+          "path": "release-cache-evidence/final-v2-Windows.json",
+          "sha256": "b90111aabed1e93caf540262047e8aa10b679925238c5e1a4fce8021045c9143",
+          "bytes": 1574
+        },
+        "current_context": {
+          "path": "release-cache-evidence/context-parity-v3-Windows.json",
+          "sha256": "b6f399360c6438efcd3d28569561fb112ed4330694b7ede35181e7f424e83acb",
+          "bytes": 87483
+        }
+      },
+      "Linux": {
+        "tests": {
+          "path": "release-cache-evidence/final-v2-Linux.json",
+          "sha256": "476d3dfa2ce3f53ea885f1173dd9d4e996d3f5fd45a4425050a48bceaf79778e",
+          "bytes": 1527
+        },
+        "current_context": {
+          "path": "release-cache-evidence/context-parity-v3-Linux.json",
+          "sha256": "58bb59a2919eacf587197ce7b6a929ac08adca66c30f53f14252526ab6ebffd1",
+          "bytes": 85312
+        }
+      }
+    },
+    "scope": "Complete local recipe identity and unchanged staging; no new Docker build acceptance inferred."
+  },
+  "multiplicity": {
+    "reason": "SKY130 MIM mf could bypass positive SPICE m validation, exporting zero or negative multiplicity.",
+    "hosts": {
+      "Windows": {
+        "cases": 792,
+        "emitted": 788,
+        "unchanged_rejections": 4,
+        "source_unchanged": true,
+        "record": {
+          "path": "multiplicity-evidence/valid-export-parity-Windows.json",
+          "sha256": "ee6dccb8b60eaafd0b8562e841c2fa0dc42fa47512ed71e151be6b2456070359",
+          "bytes": 198457
+        }
+      },
+      "Linux": {
+        "cases": 792,
+        "emitted": 788,
+        "unchanged_rejections": 4,
+        "source_unchanged": true,
+        "record": {
+          "path": "multiplicity-evidence/valid-export-parity-Linux.json",
+          "sha256": "81b6d820c56cc20366129d96513024ba63ec24c4c4b1829d0ff78e851699f9cd",
+          "bytes": 192844
+        }
+      }
+    },
+    "scope": "All 286 available defaults still validate; 788 valid exports remain byte-identical and four old rejections remain unchanged on each host. Zero/negative aliases rejected. Fractional positive values retain existing behavior; no model physics changed."
+  },
+  "historical_failures": {
+    "native_process_reuse": "Original mesh2 attempt retained the first completed excitation and a heap-corruption exit on the reused native object. Isolated processes completed both excitations.",
+    "writer_precision": "Original seven-significant-digit Touchstone output failed the unchanged tight comparison. Independent raw waves agree with unrounded CalcPort; the original rounding is verified separately. No tolerance relaxed.",
+    "probe_provenance": "Original research execution wrappers bind scripts, source inputs and logs but do not contain execution-time probe hashes. Later independent readbacks and this archive bind the retained probe bytes; they cannot retrospectively supply that missing timestamped provenance. New repository runner executions hash probes at completion.",
+    "initial_helpers": "Original path-case, sandbox, harness and interrupted trials remain in the archive. Their statuses are not rewritten as passes."
+  },
+  "portable_results": {
+    "native-fine.s2p": {
+      "path": "docs/qualification/ihp-measured-coil-2026-10-21/native-fine.s2p",
+      "sha256": "35df3a725cd633b4725741333a9a02a68bea6367735e2c495f1a0864b7b5223f",
+      "mesh_um": 1,
+      "reference_ohm": 50,
+      "qualified": false
+    },
+    "native-coarse.s2p": {
+      "path": "docs/qualification/ihp-measured-coil-2026-10-21/native-coarse.s2p",
+      "sha256": "0e4b237bf43c2f3b8e9b8c435825e513eb005eb21d0ba541e7a43f9aaa74a521",
+      "mesh_um": 2,
+      "reference_ohm": 50,
+      "qualified": false
+    },
+    "plot": {
+      "path": "docs/qualification/ihp-measured-coil-2026-10-21/measured-comparison.svg",
+      "sha256": "aff80e1aa887bf5a58e632537b0e7fbee1f82c42d4640dc7eab3e1c47cc4d06f"
+    }
+  }
+}

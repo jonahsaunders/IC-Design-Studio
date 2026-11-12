@@ -7,6 +7,52 @@ capacitor top electrode. Raw exported and extracted geometry is unchanged.
 from .layout import kdb, polygon
 
 
+def conductive_shapes(shapes, technology):
+    """Split conductors at explicit resistor masks for the contact graph only.
+
+    Derive the split from actual polygons, never a generated-device tag. A
+    deleted, displaced or narrowed marker therefore exposes the real short.
+    Native export/extraction continues to receive the original shapes.
+    """
+    rules = technology.get('connectivity', {}).get('resistive_masks', [])
+    if not rules:
+        return shapes
+    from .layout import shape_from_polygon
+    from .model import clone
+    names = {layer['name'] for layer in technology['layers']}
+    conductors = set(technology.get('connectivity', {}).get('conductors', []))
+    masks = {}
+    for rule in rules:
+        if (not isinstance(rule, dict) or set(rule) != {'conductor', 'mask'}
+                or rule['conductor'] not in conductors or rule['mask'] not in names
+                or rule['mask'] == rule['conductor'] or rule['mask'] in conductors):
+            raise ValueError('A resistive mask needs distinct mapped conductor and nonconducting marker layers.')
+        region = masks.setdefault(rule['conductor'], kdb().Region())
+        for shape in shapes:
+            if shape['layer'] == rule['mask']:
+                region.insert(polygon(shape))
+    masks = {key: region.merged() for key, region in masks.items() if not region.is_empty()}
+    result = []
+    for shape in shapes:
+        mask = masks.get(shape['layer'])
+        original = kdb().Region(polygon(shape)) if mask is not None else None
+        if mask is None or (original & mask).is_empty():
+            result.append(shape)
+            continue
+        remaining = (original-mask).merged()
+        def order(poly):
+            box = poly.bbox()
+            return box.left, box.bottom, box.right, box.top, poly.to_s()
+        for index, poly in enumerate(sorted(remaining.each(), key=order)):
+            fragment = clone(shape)
+            fragment.update(shape_from_polygon(poly, shape['layer'], shape.get('net', ''), shape.get('device_id', '')))
+            fragment['id'] = shape['id']+':resistive:'+str(index)
+            fragment['source_id'] = shape.get('source_id', shape['id'])
+            fragment['_contact_source_key'] = (shape['id'], shape.get('source_id', ''), shape.get('instance_path', ''))
+            result.append(fragment)
+    return result
+
+
 def blocked_regions(shapes, technology):
     rules=technology.get('connectivity',{}).get('via_blockers',[])
     if not rules:return {}

@@ -1,0 +1,42 @@
+{
+  "status": "PASS",
+  "files": [
+    {
+      "file": "corrected.sym",
+      "git_blob": "e9961a5d7cb8f668ad26ebc7395e14c0c7de2cee",
+      "url": "https://github.com/StefanSchippers/xschem_sky130/blob/08367118f8ad7311b9264b856fb4d5f1f58b45f9/sky130_fd_pr/nfet_g5v0d10v5_nvt_esd.sym",
+      "sha256": "71b1095bfeae82ad432fd32e530835352db14dbfbd8cf56cc864da74f6c12694",
+      "bytes": 2102
+    },
+    {
+      "file": "test_nmos.sch",
+      "git_blob": "a2baebf1a02f0dde86109d18f52d46b4a663c512",
+      "url": "https://github.com/StefanSchippers/xschem_sky130/blob/08367118f8ad7311b9264b856fb4d5f1f58b45f9/sky130_tests/test_nmos.sch",
+      "sha256": "c8bca703130fb584afbcb77e5176ec3960435cdc9b05b1619533599658997c5d",
+      "bytes": 15912
+    },
+    {
+      "file": "LICENSE.xschem",
+      "git_blob": "81f82d4e9af433b9a167f9c1c298c442a89a99c5",
+      "url": "https://github.com/StefanSchippers/xschem_sky130/blob/08367118f8ad7311b9264b856fb4d5f1f58b45f9/LICENSE",
+      "sha256": "cce5dea3ff2bf1730e2dfb96c2170f7ec25ec15ef4b51ddfb691acf556072141",
+      "bytes": 11355
+    },
+    {
+      "file": "previous.sym",
+      "git_blob": "2d5168105e028c61fde5be3cc30dd41bbfb15fb5",
+      "url": "https://github.com/StefanSchippers/xschem_sky130/blob/7a60184f1ccb8d733dfbbb08793ae85a21804d3e/sky130_fd_pr/nfet_g5v0d10v5_nvt_esd.sym",
+      "sha256": "06f2e73c4dd7fdfb7cbaa4c53b21f55ea712a6805e1d6c67a25105371e0caed7",
+      "bytes": 2112
+    },
+    {
+      "file": "esd_nfet_05v0_nvt.pm3.spice",
+      "git_blob": "84d4eca66cd71f65df646a3a0c95eba00cb20c48",
+      "sha256": "e2d6f3d08fa664eb5e6f875ea0c02e207b31fbbc29e65c1a522a29eb32412b25",
+      "bytes": 23050,
+      "repository": "fossi-foundation/skywater-pdk-libs-sky130_fd_pr",
+      "commit": "16f93a795d87ea2b393fe5c74d32674e111e44a2",
+      "path": "cells/esd_nfet_05v0_nvt/sky130_fd_pr__esd_nfet_05v0_nvt.pm3.spice"
+    }
+  ]
+}

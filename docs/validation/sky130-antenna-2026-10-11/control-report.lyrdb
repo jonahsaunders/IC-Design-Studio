@@ -1,0 +1,1650 @@
+<?xml version="1.0" encoding="utf-8"?>
+<report-database>
+ <description>SKY130 staged antenna diagnostic</description>
+ <original-file/>
+ <generator>drc: script='/var/tmp/icstudio-sky130-all-antenna-v3/controls/check.drc'</generator>
+ <top-cell>CONTROLS</top-cell>
+ <tags>
+  <tag>
+   <name>etch_area</name>
+   <description/>
+  </tag>
+  <tag>
+   <name>gate_area</name>
+   <description/>
+  </tag>
+  <tag>
+   <name>diode_area</name>
+   <description/>
+  </tag>
+  <tag>
+   <name>EGAR</name>
+   <description/>
+  </tag>
+  <tag>
+   <name>limit</name>
+   <description/>
+  </tag>
+ </tags>
+ <categories>
+  <category>
+   <name>ar_q.poly.1</name>
+   <description>Staged etched area / gate area - diode credit &lt;= published limit</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ar_q.licon.1</name>
+   <description>Staged etched area / gate area - diode credit &lt;= published limit</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ar_q.li.1</name>
+   <description>Staged etched area / gate area - diode credit &lt;= published limit</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ar_q.mcon.1</name>
+   <description>Staged etched area / gate area - diode credit &lt;= published limit</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ar_q.met1.1</name>
+   <description>Staged etched area / gate area - diode credit &lt;= published limit</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ar_q.via.1</name>
+   <description>Staged etched area / gate area - diode credit &lt;= published limit</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ar_q.met2.1</name>
+   <description>Staged etched area / gate area - diode credit &lt;= published limit</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ar_q.via2.1</name>
+   <description>Staged etched area / gate area - diode credit &lt;= published limit</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ar_q.met3.1</name>
+   <description>Staged etched area / gate area - diode credit &lt;= published limit</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ar_q.via3.1</name>
+   <description>Staged etched area / gate area - diode credit &lt;= published limit</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ar_q.met4.1</name>
+   <description>Staged etched area / gate area - diode credit &lt;= published limit</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ar_q.via4.1</name>
+   <description>Staged etched area / gate area - diode credit &lt;= published limit</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ar_q.met5.1</name>
+   <description>Staged etched area / gate area - diode credit &lt;= published limit</description>
+   <categories>
+   </categories>
+  </category>
+ </categories>
+ <cells>
+  <cell>
+   <name>CONTROLS</name>
+   <variant/>
+   <layout-name/>
+   <references>
+   </references>
+  </cell>
+ </cells>
+ <items>
+  <item>
+   <tags/>
+   <category>'ar_q.poly.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (200.65,0;200.65,1.68;200.8,1.68;200.8,0)</value>
+    <value>[#etch_area] float: 12.6018</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 50.0071428571</value>
+    <value>[#limit] float: 50</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.poly.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (500.65,0;500.65,1.68;500.8,1.68;500.8,0)</value>
+    <value>[#etch_area] float: 12.6018</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 50.0071428571</value>
+    <value>[#limit] float: 50</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.poly.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (600.65,0;600.65,1.68;600.8,1.68;600.8,0)</value>
+    <value>[#etch_area] float: 12.6018</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 50.0071428571</value>
+    <value>[#limit] float: 50</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.poly.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (700.65,0;700.65,1.68;700.8,1.68;700.8,0)</value>
+    <value>[#etch_area] float: 12.6018</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 50.0071428571</value>
+    <value>[#limit] float: 50</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.poly.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (800.65,0;800.65,1.68;800.8,1.68;800.8,0)</value>
+    <value>[#etch_area] float: 12.6018</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 50.0071428571</value>
+    <value>[#limit] float: 50</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.licon.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (1100.65,0;1100.65,1.68;1100.8,1.68;1100.8,0)</value>
+    <value>[#etch_area] float: 0.759</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 3.0119047619</value>
+    <value>[#limit] float: 3</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.licon.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (1400.65,0;1400.65,1.68;1400.8,1.68;1400.8,0)</value>
+    <value>[#etch_area] float: 0.759</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0.25</value>
+    <value>[#EGAR] float: 3.0119047619</value>
+    <value>[#limit] float: 3</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.licon.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (1600.65,0;1600.65,1.68;1600.8,1.68;1600.8,0)</value>
+    <value>[#etch_area] float: 0.759</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0.25</value>
+    <value>[#EGAR] float: 3.0119047619</value>
+    <value>[#limit] float: 3</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.licon.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (1900.65,0;1900.65,1.68;1900.8,1.68;1900.8,0)</value>
+    <value>[#etch_area] float: 0.759</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 3.0119047619</value>
+    <value>[#limit] float: 3</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.licon.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (2000.65,0;2000.65,1.68;2000.8,1.68;2000.8,0)</value>
+    <value>[#etch_area] float: 0.759</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 3.0119047619</value>
+    <value>[#limit] float: 3</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.licon.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (2100.65,0;2100.65,1.68;2100.8,1.68;2100.8,0)</value>
+    <value>[#etch_area] float: 0.759</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 3.0119047619</value>
+    <value>[#limit] float: 3</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.licon.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (2200.65,0;2200.65,1.68;2200.8,1.68;2200.8,0)</value>
+    <value>[#etch_area] float: 0.759</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 3.0119047619</value>
+    <value>[#limit] float: 3</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.li.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (2800.65,0;2800.65,1.68;2800.8,1.68;2800.8,0)</value>
+    <value>[#etch_area] float: 47.251</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0.25</value>
+    <value>[#EGAR] float: 75.003968254</value>
+    <value>[#limit] float: 75</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.li.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (3300.65,0;3300.65,1.68;3300.8,1.68;3300.8,0)</value>
+    <value>[#etch_area] float: 18.901</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 75.003968254</value>
+    <value>[#limit] float: 75</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.li.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (3400.65,0;3400.65,1.68;3400.8,1.68;3400.8,0)</value>
+    <value>[#etch_area] float: 18.901</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 75.003968254</value>
+    <value>[#limit] float: 75</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.li.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (3500.65,0;3500.65,1.68;3500.8,1.68;3500.8,0)</value>
+    <value>[#etch_area] float: 18.901</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 75.003968254</value>
+    <value>[#limit] float: 75</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.li.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (3600.65,0;3600.65,1.68;3600.8,1.68;3600.8,0)</value>
+    <value>[#etch_area] float: 18.901</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 75.003968254</value>
+    <value>[#limit] float: 75</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.li.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (2500.65,0;2500.65,1.68;2500.8,1.68;2500.8,0)</value>
+    <value>[#etch_area] float: 18.901</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 75.003968254</value>
+    <value>[#limit] float: 75</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.li.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (3000.65,0;3000.65,1.68;3000.8,1.68;3000.8,0)</value>
+    <value>[#etch_area] float: 47.251</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0.25</value>
+    <value>[#EGAR] float: 75.003968254</value>
+    <value>[#limit] float: 75</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.mcon.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (3900.65,0;3900.65,1.68;3900.8,1.68;3900.8,0)</value>
+    <value>[#etch_area] float: 0.759</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 3.0119047619</value>
+    <value>[#limit] float: 3</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.mcon.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (4200.65,0;4200.65,1.68;4200.8,1.68;4200.8,0)</value>
+    <value>[#etch_area] float: 1.893</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0.25</value>
+    <value>[#EGAR] float: 3.0119047619</value>
+    <value>[#limit] float: 3</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.mcon.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (4400.65,0;4400.65,1.68;4400.8,1.68;4400.8,0)</value>
+    <value>[#etch_area] float: 1.893</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0.25</value>
+    <value>[#EGAR] float: 3.0119047619</value>
+    <value>[#limit] float: 3</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.mcon.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (4700.65,0;4700.65,1.68;4700.8,1.68;4700.8,0)</value>
+    <value>[#etch_area] float: 0.759</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 3.0119047619</value>
+    <value>[#limit] float: 3</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.mcon.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (4800.65,0;4800.65,1.68;4800.8,1.68;4800.8,0)</value>
+    <value>[#etch_area] float: 0.759</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 3.0119047619</value>
+    <value>[#limit] float: 3</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.mcon.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (4900.65,0;4900.65,1.68;4900.8,1.68;4900.8,0)</value>
+    <value>[#etch_area] float: 0.759</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 3.0119047619</value>
+    <value>[#limit] float: 3</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.mcon.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (5000.65,0;5000.65,1.68;5000.8,1.68;5000.8,0)</value>
+    <value>[#etch_area] float: 0.759</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 3.0119047619</value>
+    <value>[#limit] float: 3</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.met1.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (6200.65,0;6200.65,1.68;6200.8,1.68;6200.8,0)</value>
+    <value>[#etch_area] float: 100.8035</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 400.013888889</value>
+    <value>[#limit] float: 400</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.met1.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (5300.65,0;5300.65,1.68;5300.8,1.68;5300.8,0)</value>
+    <value>[#etch_area] float: 100.8035</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 400.013888889</value>
+    <value>[#limit] float: 400</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.met1.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (5600.65,0;5600.65,1.68;5600.8,1.68;5600.8,0)</value>
+    <value>[#etch_area] float: 680.4035</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0.25</value>
+    <value>[#EGAR] float: 400.013888889</value>
+    <value>[#limit] float: 400</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.met1.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (5800.65,0;5800.65,1.68;5800.8,1.68;5800.8,0)</value>
+    <value>[#etch_area] float: 680.4035</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0.25</value>
+    <value>[#EGAR] float: 400.013888889</value>
+    <value>[#limit] float: 400</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.met1.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (6100.65,0;6100.65,1.68;6100.8,1.68;6100.8,0)</value>
+    <value>[#etch_area] float: 100.8035</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 400.013888889</value>
+    <value>[#limit] float: 400</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.met1.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (6300.65,0;6300.65,1.68;6300.8,1.68;6300.8,0)</value>
+    <value>[#etch_area] float: 100.8035</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 400.013888889</value>
+    <value>[#limit] float: 400</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.met1.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (6400.65,0;6400.65,1.68;6400.8,1.68;6400.8,0)</value>
+    <value>[#etch_area] float: 100.8035</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 400.013888889</value>
+    <value>[#limit] float: 400</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.met1.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (6500.65,0;6500.65,1.68;6500.8,1.68;6500.8,0)</value>
+    <value>[#etch_area] float: 680.4035</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0.25</value>
+    <value>[#EGAR] float: 400.013888889</value>
+    <value>[#limit] float: 400</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.via.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (6800.65,0;6800.65,1.68;6800.8,1.68;6800.8,0)</value>
+    <value>[#etch_area] float: 1.515</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 6.0119047619</value>
+    <value>[#limit] float: 6</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.via.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (7300.65,0;7300.65,1.68;7300.8,1.68;7300.8,0)</value>
+    <value>[#etch_area] float: 3.783</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0.25</value>
+    <value>[#EGAR] float: 6.0119047619</value>
+    <value>[#limit] float: 6</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.via.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (7600.65,0;7600.65,1.68;7600.8,1.68;7600.8,0)</value>
+    <value>[#etch_area] float: 1.515</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 6.0119047619</value>
+    <value>[#limit] float: 6</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.via.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (7100.65,0;7100.65,1.68;7100.8,1.68;7100.8,0)</value>
+    <value>[#etch_area] float: 3.783</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0.25</value>
+    <value>[#EGAR] float: 6.0119047619</value>
+    <value>[#limit] float: 6</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.via.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (7700.65,0;7700.65,1.68;7700.8,1.68;7700.8,0)</value>
+    <value>[#etch_area] float: 1.515</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 6.0119047619</value>
+    <value>[#limit] float: 6</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.via.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (7800.65,0;7800.65,1.68;7800.8,1.68;7800.8,0)</value>
+    <value>[#etch_area] float: 1.515</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 6.0119047619</value>
+    <value>[#limit] float: 6</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.via.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (7900.65,0;7900.65,1.68;7900.8,1.68;7900.8,0)</value>
+    <value>[#etch_area] float: 1.515</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 6.0119047619</value>
+    <value>[#limit] float: 6</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.met2.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (8700.65,0;8700.65,1.68;8700.8,1.68;8700.8,0)</value>
+    <value>[#etch_area] float: 680.4035</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0.25</value>
+    <value>[#EGAR] float: 400.013888889</value>
+    <value>[#limit] float: 400</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.met2.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (9200.65,0;9200.65,1.68;9200.8,1.68;9200.8,0)</value>
+    <value>[#etch_area] float: 100.8035</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 400.013888889</value>
+    <value>[#limit] float: 400</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.met2.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (8200.65,0;8200.65,1.68;8200.8,1.68;8200.8,0)</value>
+    <value>[#etch_area] float: 100.8035</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 400.013888889</value>
+    <value>[#limit] float: 400</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.met2.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (8500.65,0;8500.65,1.68;8500.8,1.68;8500.8,0)</value>
+    <value>[#etch_area] float: 680.4035</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0.25</value>
+    <value>[#EGAR] float: 400.013888889</value>
+    <value>[#limit] float: 400</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.met2.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (9000.65,0;9000.65,1.68;9000.8,1.68;9000.8,0)</value>
+    <value>[#etch_area] float: 100.8035</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 400.013888889</value>
+    <value>[#limit] float: 400</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.met2.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (9100.65,0;9100.65,1.68;9100.8,1.68;9100.8,0)</value>
+    <value>[#etch_area] float: 100.8035</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 400.013888889</value>
+    <value>[#limit] float: 400</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.met2.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (9300.65,0;9300.65,1.68;9300.8,1.68;9300.8,0)</value>
+    <value>[#etch_area] float: 100.8035</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 400.013888889</value>
+    <value>[#limit] float: 400</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.met2.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (9400.65,0;9400.65,1.68;9400.8,1.68;9400.8,0)</value>
+    <value>[#etch_area] float: 680.4035</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0.25</value>
+    <value>[#EGAR] float: 400.013888889</value>
+    <value>[#limit] float: 400</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.via2.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (10000.65,0;10000.65,1.68;10000.8,1.68;10000.8,0)</value>
+    <value>[#etch_area] float: 3.783</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0.25</value>
+    <value>[#EGAR] float: 6.0119047619</value>
+    <value>[#limit] float: 6</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.via2.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (9700.65,0;9700.65,1.68;9700.8,1.68;9700.8,0)</value>
+    <value>[#etch_area] float: 1.515</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 6.0119047619</value>
+    <value>[#limit] float: 6</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.via2.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (10200.65,0;10200.65,1.68;10200.8,1.68;10200.8,0)</value>
+    <value>[#etch_area] float: 3.783</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0.25</value>
+    <value>[#EGAR] float: 6.0119047619</value>
+    <value>[#limit] float: 6</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.via2.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (10500.65,0;10500.65,1.68;10500.8,1.68;10500.8,0)</value>
+    <value>[#etch_area] float: 1.515</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 6.0119047619</value>
+    <value>[#limit] float: 6</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.via2.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (10600.65,0;10600.65,1.68;10600.8,1.68;10600.8,0)</value>
+    <value>[#etch_area] float: 1.515</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 6.0119047619</value>
+    <value>[#limit] float: 6</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.via2.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (10700.65,0;10700.65,1.68;10700.8,1.68;10700.8,0)</value>
+    <value>[#etch_area] float: 1.515</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 6.0119047619</value>
+    <value>[#limit] float: 6</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.via2.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (10800.65,0;10800.65,1.68;10800.8,1.68;10800.8,0)</value>
+    <value>[#etch_area] float: 1.515</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 6.0119047619</value>
+    <value>[#limit] float: 6</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.met3.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (11600.65,0;11600.65,1.68;11600.8,1.68;11600.8,0)</value>
+    <value>[#etch_area] float: 680.408</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0.25</value>
+    <value>[#EGAR] float: 400.031746032</value>
+    <value>[#limit] float: 400</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.met3.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (11100.65,0;11100.65,1.68;11100.8,1.68;11100.8,0)</value>
+    <value>[#etch_area] float: 100.808</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 400.031746032</value>
+    <value>[#limit] float: 400</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.met3.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (11400.65,0;11400.65,1.68;11400.8,1.68;11400.8,0)</value>
+    <value>[#etch_area] float: 680.408</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0.25</value>
+    <value>[#EGAR] float: 400.031746032</value>
+    <value>[#limit] float: 400</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.met3.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (11900.65,0;11900.65,1.68;11900.8,1.68;11900.8,0)</value>
+    <value>[#etch_area] float: 100.808</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 400.031746032</value>
+    <value>[#limit] float: 400</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.met3.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (12000.65,0;12000.65,1.68;12000.8,1.68;12000.8,0)</value>
+    <value>[#etch_area] float: 100.808</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 400.031746032</value>
+    <value>[#limit] float: 400</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.met3.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (12100.65,0;12100.65,1.68;12100.8,1.68;12100.8,0)</value>
+    <value>[#etch_area] float: 100.808</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 400.031746032</value>
+    <value>[#limit] float: 400</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.met3.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (12200.65,0;12200.65,1.68;12200.8,1.68;12200.8,0)</value>
+    <value>[#etch_area] float: 100.808</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 400.031746032</value>
+    <value>[#limit] float: 400</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.met3.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (12300.65,0;12300.65,1.68;12300.8,1.68;12300.8,0)</value>
+    <value>[#etch_area] float: 680.408</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0.25</value>
+    <value>[#EGAR] float: 400.031746032</value>
+    <value>[#limit] float: 400</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.via3.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (12600.65,0;12600.65,1.68;12600.8,1.68;12600.8,0)</value>
+    <value>[#etch_area] float: 1.515</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 6.0119047619</value>
+    <value>[#limit] float: 6</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.via3.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (12900.65,0;12900.65,1.68;12900.8,1.68;12900.8,0)</value>
+    <value>[#etch_area] float: 3.783</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0.25</value>
+    <value>[#EGAR] float: 6.0119047619</value>
+    <value>[#limit] float: 6</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.via3.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (13100.65,0;13100.65,1.68;13100.8,1.68;13100.8,0)</value>
+    <value>[#etch_area] float: 3.783</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0.25</value>
+    <value>[#EGAR] float: 6.0119047619</value>
+    <value>[#limit] float: 6</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.via3.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (13400.65,0;13400.65,1.68;13400.8,1.68;13400.8,0)</value>
+    <value>[#etch_area] float: 1.515</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 6.0119047619</value>
+    <value>[#limit] float: 6</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.via3.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (13500.65,0;13500.65,1.68;13500.8,1.68;13500.8,0)</value>
+    <value>[#etch_area] float: 1.515</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 6.0119047619</value>
+    <value>[#limit] float: 6</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.via3.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (13600.65,0;13600.65,1.68;13600.8,1.68;13600.8,0)</value>
+    <value>[#etch_area] float: 1.515</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 6.0119047619</value>
+    <value>[#limit] float: 6</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.via3.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (13700.65,0;13700.65,1.68;13700.8,1.68;13700.8,0)</value>
+    <value>[#etch_area] float: 1.515</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 6.0119047619</value>
+    <value>[#limit] float: 6</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.met4.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (14000.65,0;14000.65,1.68;14000.8,1.68;14000.8,0)</value>
+    <value>[#etch_area] float: 100.808</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 400.031746032</value>
+    <value>[#limit] float: 400</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.met4.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (14300.65,0;14300.65,1.68;14300.8,1.68;14300.8,0)</value>
+    <value>[#etch_area] float: 680.408</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0.25</value>
+    <value>[#EGAR] float: 400.031746032</value>
+    <value>[#limit] float: 400</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.met4.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (14500.65,0;14500.65,1.68;14500.8,1.68;14500.8,0)</value>
+    <value>[#etch_area] float: 680.408</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0.25</value>
+    <value>[#EGAR] float: 400.031746032</value>
+    <value>[#limit] float: 400</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.met4.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (14800.65,0;14800.65,1.68;14800.8,1.68;14800.8,0)</value>
+    <value>[#etch_area] float: 100.808</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 400.031746032</value>
+    <value>[#limit] float: 400</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.met4.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (14900.65,0;14900.65,1.68;14900.8,1.68;14900.8,0)</value>
+    <value>[#etch_area] float: 100.808</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 400.031746032</value>
+    <value>[#limit] float: 400</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.met4.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (15000.65,0;15000.65,1.68;15000.8,1.68;15000.8,0)</value>
+    <value>[#etch_area] float: 100.808</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 400.031746032</value>
+    <value>[#limit] float: 400</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.met4.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (15100.65,0;15100.65,1.68;15100.8,1.68;15100.8,0)</value>
+    <value>[#etch_area] float: 100.808</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 400.031746032</value>
+    <value>[#limit] float: 400</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.met4.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (15200.65,0;15200.65,1.68;15200.8,1.68;15200.8,0)</value>
+    <value>[#etch_area] float: 680.408</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0.25</value>
+    <value>[#EGAR] float: 400.031746032</value>
+    <value>[#limit] float: 400</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.via4.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (15500.65,0;15500.65,1.68;15500.8,1.68;15500.8,0)</value>
+    <value>[#etch_area] float: 1.515</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 6.0119047619</value>
+    <value>[#limit] float: 6</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.via4.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (15800.65,0;15800.65,1.68;15800.8,1.68;15800.8,0)</value>
+    <value>[#etch_area] float: 3.783</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0.25</value>
+    <value>[#EGAR] float: 6.0119047619</value>
+    <value>[#limit] float: 6</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.via4.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (16000.65,0;16000.65,1.68;16000.8,1.68;16000.8,0)</value>
+    <value>[#etch_area] float: 3.783</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0.25</value>
+    <value>[#EGAR] float: 6.0119047619</value>
+    <value>[#limit] float: 6</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.via4.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (16300.65,0;16300.65,1.68;16300.8,1.68;16300.8,0)</value>
+    <value>[#etch_area] float: 1.515</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 6.0119047619</value>
+    <value>[#limit] float: 6</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.via4.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (16400.65,0;16400.65,1.68;16400.8,1.68;16400.8,0)</value>
+    <value>[#etch_area] float: 1.515</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 6.0119047619</value>
+    <value>[#limit] float: 6</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.via4.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (16500.65,0;16500.65,1.68;16500.8,1.68;16500.8,0)</value>
+    <value>[#etch_area] float: 1.515</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 6.0119047619</value>
+    <value>[#limit] float: 6</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.via4.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (16600.65,0;16600.65,1.68;16600.8,1.68;16600.8,0)</value>
+    <value>[#etch_area] float: 1.515</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 6.0119047619</value>
+    <value>[#limit] float: 6</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.met5.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (16900.65,0;16900.65,1.68;16900.8,1.68;16900.8,0)</value>
+    <value>[#etch_area] float: 100.812</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0</value>
+    <value>[#EGAR] float: 400.047619048</value>
+    <value>[#limit] float: 400</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.met5.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (17200.65,0;17200.65,1.68;17200.8,1.68;17200.8,0)</value>
+    <value>[#etch_area] float: 680.412</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0.25</value>
+    <value>[#EGAR] float: 400.047619048</value>
+    <value>[#limit] float: 400</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.met5.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (17400.65,0;17400.65,1.68;17400.8,1.68;17400.8,0)</value>
+    <value>[#etch_area] float: 680.412</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0.25</value>
+    <value>[#EGAR] float: 400.047619048</value>
+    <value>[#limit] float: 400</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'ar_q.met5.1'</category>
+   <cell>CONTROLS</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (17700.65,0;17700.65,1.68;17700.8,1.68;17700.8,0)</value>
+    <value>[#etch_area] float: 680.412</value>
+    <value>[#gate_area] float: 0.252</value>
+    <value>[#diode_area] float: 0.25</value>
+    <value>[#EGAR] float: 400.047619048</value>
+    <value>[#limit] float: 400</value>
+   </values>
+  </item>
+ </items>
+</report-database>

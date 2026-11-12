@@ -1,0 +1,99 @@
+{
+  "schema": 1,
+  "date": "2026-10-23",
+  "status": "local_focused_integration_passed",
+  "source_baseline": "51917f7029b51eaba08239964bc1975639380c7e",
+  "qualified": false,
+  "chunk_complete": false,
+  "release_acceptance": false,
+  "scope": "Frozen local Windows/Linux source, release-contract and GUI feedback for the guarded toolchain rebuild and MiM electrode-shape fix. Native Linux storage and ordinary Windows account; no hosted, installed or exhaustive acceptance claim.",
+  "source_snapshot": {
+    "files": 6444,
+    "manifest_sha256": "f71df5ddbabbea25c376d945554719f6421a0756641c8974ac76cfc7670a1ec8"
+  },
+  "platforms": {
+    "Windows": {
+      "status": "PASS",
+      "tests": 320,
+      "skipped": 15,
+      "elapsed_seconds": 77.687,
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 34.203
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 3.422
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 29.469
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 8.515
+        }
+      ],
+      "source_bindings": 1340,
+      "report_sha256": "96c8b275fb023d1ebf773fc0d19d27de4f1bf1385647e3f543b36ae00a540b15"
+    },
+    "Linux": {
+      "status": "PASS",
+      "tests": 320,
+      "skipped": 2,
+      "elapsed_seconds": 37.222,
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 8.131
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 1.419
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 23.355
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 2.781
+        }
+      ],
+      "source_bindings": 1340,
+      "report_sha256": "aaaa48cdfd5ff76c9592daf3530ef5d5e5d049decadcf7e5176a61a5e63c79b7"
+    }
+  },
+  "archive": {
+    "path": "feedback.zip",
+    "sha256": "3805b65f7a5bf23ec8bc4fab6715e516ba8ea58d3a1ffaa3fe5d4a6aea2442c5",
+    "bytes": 4916224,
+    "members": 1386,
+    "verified": true,
+    "recovery_source_files": 6444,
+    "prior_archive_sha256": "03a75a194d165ed5fad0486f5a9a1fec0a5daa7c751c23f72beb9a17c031d430"
+  },
+  "gui_archive": {
+    "sha256": "18c8f2cfc462543245e82d8b78734b2553a957ef808e076e45550417efce687f",
+    "files": 102,
+    "verified": true
+  },
+  "estimate": {
+    "chunk": 7,
+    "percent": 60,
+    "confidence": "low",
+    "range_percent": [
+      50,
+      70
+    ]
+  }
+}

@@ -57,6 +57,66 @@ class WorkflowTests(unittest.TestCase):
         p=example();c=p['cells'][0];c['devices'][0]['source']['type']='dc';c['devices'][2]=device('R','R2',nets={'p':'vout','n':'0'});c['devices'][1]['params']['tc1']='0.01'
         cold=run(p,p['top'],{'type':'op','temperature':27});hot=run(p,p['top'],{'type':'op','temperature':127})
         self.assertAlmostEqual(cold['traces']['vout'][0],.9,places=7);self.assertAlmostEqual(hot['traces']['vout'][0],.6,places=7)
+    def test_selected_directory_manifest_does_not_replace_canonical_sibling(self):
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            canonical = example()
+            canonical_path = save_directory(canonical, root)
+            canonical_bytes = canonical_path.read_bytes()
+            selected = example()
+            selected['name'] = 'Selected custom manifest'
+            target = save_directory(selected, root, manifest_name='amplifier.icstudio')
+            self.assertEqual(target, root / 'amplifier.icstudio')
+            changed = clone(selected)
+            changed['name'] = 'Current selected edits'
+            changed['cells'][0]['devices'][1]['value'] = '22k'
+            save_directory(changed, root, manifest_name=target.name)
+            self.assertEqual(load_directory(target), changed)
+            self.assertEqual(canonical_path.read_bytes(), canonical_bytes)
+            self.assertEqual(load_directory(canonical_path), canonical)
+
+    def test_directory_manifest_name_rejected_before_any_write(self):
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td) / 'not-created'
+            for name in ('', '.', '..', '../outside.icstudio', 'nested/out.icstudio',
+                         'nested' + chr(92) + 'out.icstudio', '/absolute.icstudio', 'wrong.json',
+                         'a:stream.icstudio', 'C:drive.icstudio', 'nul'+chr(0)+'.icstudio',
+                         'line'+chr(10)+'.icstudio', 'del'+chr(127)+'.icstudio',
+                         'CON.icstudio', 'LPT1.icstudio', 'bad?.icstudio', 'bad*.icstudio',
+                         'bad<.icstudio', 'bad>.icstudio', 'bad|.icstudio', 'bad'+chr(34)+'.icstudio'):
+                with self.subTest(name=name), self.assertRaises(ValueError):
+                    save_directory(example(), root, manifest_name=name)
+                self.assertFalse(root.exists())
+
+    def test_directory_manifest_case_insensitive_load(self):
+        with tempfile.TemporaryDirectory() as td:
+            p = example()
+            path = save_directory(p, td, manifest_name='AMPLIFIER.ICSTUDIO')
+            self.assertEqual(load_project(path), p)
+
+    def test_selected_manifest_commit_failure_preserves_both_projects(self):
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            canonical = example()
+            canonical_path = save_directory(canonical, root)
+            original = example()
+            target = save_directory(original, root, manifest_name='selected.icstudio')
+            before = {path: path.read_bytes() for path in (canonical_path, target)}
+            changed = clone(original)
+            changed['name'] = 'Uncommitted edits'
+            import icstudio.project_store as store
+            write = store.atomic_write
+            def fail_selected(path, data):
+                if Path(path) == target:
+                    raise OSError('Injected selected manifest interruption')
+                return write(path, data)
+            with patch('icstudio.project_store.atomic_write', side_effect=fail_selected):
+                with self.assertRaisesRegex(OSError, 'selected manifest interruption'):
+                    save_directory(changed, root, manifest_name=target.name)
+            self.assertEqual({path: path.read_bytes() for path in before}, before)
+            self.assertEqual(load_directory(target), original)
+            self.assertEqual(load_directory(canonical_path), canonical)
+
     def test_directory_commit_failure_and_corruption(self):
         p=example()
         with tempfile.TemporaryDirectory() as td:

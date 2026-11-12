@@ -1,0 +1,264 @@
+{
+  "mask_preservation": true,
+  "renamed_labels": {
+    "VDD": 1,
+    "VSS": 1,
+    "busy": 1,
+    "clk": 1,
+    "data[0]": 1,
+    "data[1]": 1,
+    "data[2]": 1,
+    "data[3]": 1,
+    "data[4]": 1,
+    "data[5]": 1,
+    "data[6]": 1,
+    "data[7]": 1,
+    "reset": 1,
+    "send": 1,
+    "tx": 1
+  },
+  "placements": [
+    {
+      "port": "VDD",
+      "alias": "N0000000",
+      "layer": 72,
+      "old_point": [
+        200100,
+        48960
+      ],
+      "new_point": [
+        200100,
+        48960
+      ],
+      "pin_area_dbu2": 575552000,
+      "pin_metal_area_dbu2": 575552000,
+      "metal_islands": 1
+    },
+    {
+      "port": "VSS",
+      "alias": "N0000001",
+      "layer": 72,
+      "old_point": [
+        200100,
+        35360
+      ],
+      "new_point": [
+        200100,
+        35360
+      ],
+      "pin_area_dbu2": 575552000,
+      "pin_metal_area_dbu2": 575552000,
+      "metal_islands": 1
+    },
+    {
+      "port": "busy",
+      "alias": "N0000207",
+      "layer": 70,
+      "old_point": [
+        399600,
+        194820
+      ],
+      "new_point": [
+        399470,
+        194820
+      ],
+      "pin_area_dbu2": 240000,
+      "pin_metal_area_dbu2": 162000,
+      "metal_islands": 1
+    },
+    {
+      "port": "clk",
+      "alias": "N0000208",
+      "layer": 70,
+      "old_point": [
+        400,
+        231540
+      ],
+      "new_point": [
+        630,
+        231540
+      ],
+      "pin_area_dbu2": 240000,
+      "pin_metal_area_dbu2": 102000,
+      "metal_islands": 1
+    },
+    {
+      "port": "data[0]",
+      "alias": "N0000214",
+      "layer": 70,
+      "old_point": [
+        400,
+        227460
+      ],
+      "new_point": [
+        630,
+        227460
+      ],
+      "pin_area_dbu2": 240000,
+      "pin_metal_area_dbu2": 102000,
+      "metal_islands": 1
+    },
+    {
+      "port": "data[1]",
+      "alias": "N0000215",
+      "layer": 70,
+      "old_point": [
+        400,
+        232900
+      ],
+      "new_point": [
+        630,
+        232900
+      ],
+      "pin_area_dbu2": 240000,
+      "pin_metal_area_dbu2": 102000,
+      "metal_islands": 1
+    },
+    {
+      "port": "data[2]",
+      "alias": "N0000216",
+      "layer": 70,
+      "old_point": [
+        400,
+        236980
+      ],
+      "new_point": [
+        630,
+        236980
+      ],
+      "pin_area_dbu2": 240000,
+      "pin_metal_area_dbu2": 102000,
+      "metal_islands": 1
+    },
+    {
+      "port": "data[3]",
+      "alias": "N0000217",
+      "layer": 70,
+      "old_point": [
+        400,
+        235620
+      ],
+      "new_point": [
+        630,
+        235620
+      ],
+      "pin_area_dbu2": 240000,
+      "pin_metal_area_dbu2": 102000,
+      "metal_islands": 1
+    },
+    {
+      "port": "data[4]",
+      "alias": "N0000218",
+      "layer": 70,
+      "old_point": [
+        400,
+        220660
+      ],
+      "new_point": [
+        630,
+        220660
+      ],
+      "pin_area_dbu2": 240000,
+      "pin_metal_area_dbu2": 102000,
+      "metal_islands": 1
+    },
+    {
+      "port": "data[5]",
+      "alias": "N0000219",
+      "layer": 70,
+      "old_point": [
+        400,
+        216580
+      ],
+      "new_point": [
+        630,
+        216580
+      ],
+      "pin_area_dbu2": 240000,
+      "pin_metal_area_dbu2": 102000,
+      "metal_islands": 1
+    },
+    {
+      "port": "data[6]",
+      "alias": "N0000220",
+      "layer": 70,
+      "old_point": [
+        400,
+        217940
+      ],
+      "new_point": [
+        630,
+        217940
+      ],
+      "pin_area_dbu2": 240000,
+      "pin_metal_area_dbu2": 102000,
+      "metal_islands": 1
+    },
+    {
+      "port": "data[7]",
+      "alias": "N0000221",
+      "layer": 70,
+      "old_point": [
+        400,
+        238340
+      ],
+      "new_point": [
+        630,
+        238340
+      ],
+      "pin_area_dbu2": 240000,
+      "pin_metal_area_dbu2": 102000,
+      "metal_islands": 1
+    },
+    {
+      "port": "reset",
+      "alias": "N0000246",
+      "layer": 70,
+      "old_point": [
+        400,
+        234260
+      ],
+      "new_point": [
+        630,
+        234260
+      ],
+      "pin_area_dbu2": 240000,
+      "pin_metal_area_dbu2": 102000,
+      "metal_islands": 1
+    },
+    {
+      "port": "send",
+      "alias": "N0000247",
+      "layer": 70,
+      "old_point": [
+        400,
+        215220
+      ],
+      "new_point": [
+        630,
+        215220
+      ],
+      "pin_area_dbu2": 240000,
+      "pin_metal_area_dbu2": 102000,
+      "metal_islands": 1
+    },
+    {
+      "port": "tx",
+      "alias": "N0000280",
+      "layer": 70,
+      "old_point": [
+        399600,
+        205700
+      ],
+      "new_point": [
+        399470,
+        205700
+      ],
+      "pin_area_dbu2": 240000,
+      "pin_metal_area_dbu2": 162000,
+      "metal_islands": 1
+    }
+  ],
+  "pin_markers_are_conductors": false,
+  "dbu_um": 0.0009999999999999998
+}

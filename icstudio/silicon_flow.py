@@ -23,6 +23,13 @@ def testbench(p,cid):
 def magic_script(executable,technology,gds,cell,ports,directory,commands,setup=""):
     from .native_vectors import ports as scalar_ports
     ports=scalar_ports(ports)
+    from .sky130_mim2_extract import required as mim_required, MARKER as mim_marker
+    if (Path(technology).name=='sky130A.tech' and Path(gds).is_file()
+            and re.search(r'^extract all$',commands,re.M) and mim_required(gds,cell)):
+        if '# STUDIO_NORMALIZE_MAGIC_RC_V1' in commands:
+            raise ValueError('Rectangular MiM distributed RC extraction is not yet supported; use the reviewed flat LVS flow.')
+        if mim_marker not in commands:
+            commands=commands.replace('extract all\n','extract all\n'+mim_marker+'\n',1)
     directory=Path(directory);directory.mkdir(parents=True,exist_ok=True)
     rc=directory/'startup.tcl'
     atomic_write(rc,'tech load '+tcl_word(technology)+'\ndrc euclidean on\n')
@@ -51,9 +58,21 @@ def magic_script(executable,technology,gds,cell,ports,directory,commands,setup="
         try:log=execute([executable,'-dnull','-noconsole','-rcfile',str(rc)],directory,timeout=240,input_text=wrapped)
         except Exception as e:atomic_write(directory/log_name,str(e));raise
         atomic_write(directory/log_name,log)
+        from .magic_diagnostics import require_readable_stream
+        require_readable_stream(log,directory/log_name)
         if 'STUDIO_MAGIC_COMPLETE' not in log or re.search(r'STUDIO_MAGIC_ERROR|contained errors|Malformed line|Illegal keyword|Error:.*required by this techfile|invalid command name|exttospice:\s*(?:integer|numeric) value.*expected',log,re.I):
             raise ValueError('Magic could not complete the commands. See '+str(directory/log_name))
         return log
+    if mim_marker in commands:
+        if commands.count(mim_marker) != 1 or marker in commands:
+            raise ValueError('Ambiguous MiM normalization boundary.')
+        extraction,export = commands.split(mim_marker)
+        first = invoke(extraction+'\nputs "STUDIO_MIM_SCALE [cif scale out]"\n',
+                       'native-extraction.tcl','native-extraction.log')
+        from .sky130_mim2_extract import normalize
+        normalize(gds,cell,technology,directory,first)
+        second = invoke(export)
+        return first+'\n'+second
     if marker not in commands:return invoke(commands)
     if commands.count(marker)!=1:raise ValueError('Ambiguous Magic RC normalization boundary.')
     resistance,export=commands.split(marker)
@@ -84,7 +103,8 @@ def magic_script(executable,technology,gds,cell,ports,directory,commands,setup="
     normalized=finalize(directory,cell)
     from .rc_islands import prune
     prune(directory/'extracted.spice',directory/'electrical.spice',
-          physical_devices=[d['name'] for d in normalized.get('devices',[]) if d.get('name')])
+          physical_devices=[d['name'] for d in normalized.get('devices',[]) if d.get('name')],
+          normalization=normalized)
     return first+'\n'+second
 
 
@@ -189,7 +209,7 @@ def job(p,cid,settings,directory,progress):
     output=Path(directory)/'physical-flow'
     if settings.get('verification_mode')=='drc_lvs':
         from .layout_verification import run as verify_layout
-        report=verify_layout(p,cid,output,settings.get('tools',{}),settings['reference'],progress,blocked_reason=settings.get('physical_blocked_reason'))
+        report=verify_layout(p,cid,output,settings.get('tools',{}),settings['reference'],progress,blocked_reason=settings.get('physical_blocked_reason'),lvs_extractor=settings.get('lvs_extractor','magic'),drc_engine=settings.get('drc_engine','magic'))
     elif settings.get('testbench'):
         from .hierarchical_flow import run as hierarchical_run
         overrides={'physical_extraction':settings['physical_extraction']} if 'physical_extraction' in settings else {}

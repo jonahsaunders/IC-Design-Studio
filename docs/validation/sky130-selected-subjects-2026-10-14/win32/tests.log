@@ -1,0 +1,16 @@
+test_changed_catalog_and_missing_unrelated_ledger_record (tests.test_sky130_selected_subjects.SelectedSubjectsTests.test_changed_catalog_and_missing_unrelated_ledger_record) ... ok
+test_each_operand_reopens_all_dependent_records (tests.test_sky130_selected_subjects.SelectedSubjectsTests.test_each_operand_reopens_all_dependent_records) ... ok
+test_exact_reference_fixture_and_source_mutation (tests.test_sky130_selected_subjects.SelectedSubjectsTests.test_exact_reference_fixture_and_source_mutation) ... ok
+test_failed_parent_cannot_be_discharged (tests.test_sky130_selected_subjects.SelectedSubjectsTests.test_failed_parent_cannot_be_discharged) ... ok
+test_invalid_measurements_fail_closed (tests.test_sky130_selected_subjects.SelectedSubjectsTests.test_invalid_measurements_fail_closed) ... ok
+test_named_cell_selection_in_complete_hierarchy (tests.test_sky130_selected_subjects.SelectedSubjectsTests.test_named_cell_selection_in_complete_hierarchy) ... ok
+test_raw_text_and_zero_width_path_in_transformed_array (tests.test_sky130_selected_subjects.SelectedSubjectsTests.test_raw_text_and_zero_width_path_in_transformed_array) ... ok
+test_reviewed_inventory_and_explicit_exclusions (tests.test_sky130_selected_subjects.SelectedSubjectsTests.test_reviewed_inventory_and_explicit_exclusions) ... ok
+test_slotted_licon_requires_exact_merged_rectangle (tests.test_sky130_selected_subjects.SelectedSubjectsTests.test_slotted_licon_requires_exact_merged_rectangle) ... ok
+test_unsupported_transform_and_layer (tests.test_sky130_selected_subjects.SelectedSubjectsTests.test_unsupported_transform_and_layer) ... ok
+test_varactor_boolean_operand_survives_hierarchy (tests.test_sky130_selected_subjects.SelectedSubjectsTests.test_varactor_boolean_operand_survives_hierarchy) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 26.543s
+
+OK

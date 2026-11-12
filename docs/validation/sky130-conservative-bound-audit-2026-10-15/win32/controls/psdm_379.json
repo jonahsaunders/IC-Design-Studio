@@ -1,0 +1,211 @@
+{
+  "schema": 1,
+  "recipe": "sky130-conservative-catalog-bounds-v1",
+  "source": {
+    "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+    "files": {
+      "docs/rules/errors.csv": "d613c19c0f5de3938980ce98b0e50e0cfb9b537b2cfdb32a3b9b4b03236ef9ed",
+      "docs/rules/gds_layers.csv": "a424c152e2d300992f743f17abdb6fb72402c4c9a4bbdcdbab439757fd0c89b5",
+      "docs/rules/layers/table-c4b-layer-description.csv": "dcfeb27a76171a67ca6a905bdc6deab0ca4d801f5970a76b1ce90aebb97bb21f",
+      "docs/rules/periphery/p028-poly_dotdash.csv": "fb9fef64f61ae37352e06f35be256735f50550325f54707d331975294824bc24",
+      "docs/rules/periphery/p032-n_psd_dotdash.csv": "b3fdc0a63960d680f398d6fc43684f782b7518bd683a98f450a1d21c9c45bf58"
+    }
+  },
+  "scope": "Four catalog limits are satisfied only when broader drawn-geometry checks pass: all merged NSDM and PSDM widths at least 380 nm, and all merged poly spacing/notches at least 210 nm. No core-gap or opposite-parallel exception is used. A failed sufficient bound is unreviewed, not a claimed violation of the narrower foundry rule. Eighteen IP blockage obligations are absent only when their exact published block purposes contain no raw data. Present blockages remain unreviewed; generated routing operands and hierarchy semantics are not implemented. Generated masks, global grid/density and complete physical coverage remain separate.",
+  "qualified": false,
+  "chunk_complete": false,
+  "top": "psdm_379",
+  "gds_sha256": "39857f3348bab73576c3fdcbee235d95e1648c8d55e1a28b8d2b3305450a04ac",
+  "measurements": {
+    "layers": {
+      "nsdm": {
+        "raw_shapes": 0,
+        "texts": 0,
+        "components": 0
+      },
+      "psdm": {
+        "raw_shapes": 1,
+        "texts": 0,
+        "components": 1
+      },
+      "poly": {
+        "raw_shapes": 0,
+        "texts": 0,
+        "components": 0
+      }
+    },
+    "bound_findings": {
+      "nsdm": 0,
+      "psdm": 1,
+      "poly": 0
+    },
+    "blockages": {
+      "met1": 0,
+      "met2": 0,
+      "met3": 0,
+      "met4": 0,
+      "met5": 0,
+      "li1": 0
+    }
+  },
+  "rows": [
+    {
+      "id": "r471",
+      "rule": "nsd.c1a",
+      "layer": "nsdm",
+      "required_nm": 380,
+      "bound": {
+        "operation": "width",
+        "nm": 380
+      },
+      "bound_findings": 0,
+      "disposition": "absent-operand"
+    },
+    {
+      "id": "r487",
+      "rule": "psd.c1a",
+      "layer": "psdm",
+      "required_nm": 380,
+      "bound": {
+        "operation": "width",
+        "nm": 380
+      },
+      "bound_findings": 1,
+      "disposition": "unreviewed"
+    },
+    {
+      "id": "r520",
+      "rule": "poly.c3",
+      "layer": "poly",
+      "required_nm": 175,
+      "bound": {
+        "operation": "space",
+        "nm": 210
+      },
+      "bound_findings": 0,
+      "disposition": "absent-operand"
+    },
+    {
+      "id": "r521",
+      "rule": "poly.c2",
+      "layer": "poly",
+      "required_nm": 160,
+      "bound": {
+        "operation": "space",
+        "nm": 210
+      },
+      "bound_findings": 0,
+      "disposition": "absent-operand"
+    },
+    {
+      "id": "r1234",
+      "subject": "met1_block",
+      "raw_shapes": 0,
+      "disposition": "absent-operand"
+    },
+    {
+      "id": "r1235",
+      "subject": "met1_block",
+      "raw_shapes": 0,
+      "disposition": "absent-operand"
+    },
+    {
+      "id": "r1236",
+      "subject": "met1_block",
+      "raw_shapes": 0,
+      "disposition": "absent-operand"
+    },
+    {
+      "id": "r1237",
+      "subject": "met2_block",
+      "raw_shapes": 0,
+      "disposition": "absent-operand"
+    },
+    {
+      "id": "r1238",
+      "subject": "met2_block",
+      "raw_shapes": 0,
+      "disposition": "absent-operand"
+    },
+    {
+      "id": "r1239",
+      "subject": "met2_block",
+      "raw_shapes": 0,
+      "disposition": "absent-operand"
+    },
+    {
+      "id": "r1240",
+      "subject": "met3_block",
+      "raw_shapes": 0,
+      "disposition": "absent-operand"
+    },
+    {
+      "id": "r1241",
+      "subject": "met3_block",
+      "raw_shapes": 0,
+      "disposition": "absent-operand"
+    },
+    {
+      "id": "r1242",
+      "subject": "met3_block",
+      "raw_shapes": 0,
+      "disposition": "absent-operand"
+    },
+    {
+      "id": "r1243",
+      "subject": "met4_block",
+      "raw_shapes": 0,
+      "disposition": "absent-operand"
+    },
+    {
+      "id": "r1244",
+      "subject": "met4_block",
+      "raw_shapes": 0,
+      "disposition": "absent-operand"
+    },
+    {
+      "id": "r1245",
+      "subject": "met4_block",
+      "raw_shapes": 0,
+      "disposition": "absent-operand"
+    },
+    {
+      "id": "r1246",
+      "subject": "met5_block",
+      "raw_shapes": 0,
+      "disposition": "absent-operand"
+    },
+    {
+      "id": "r1247",
+      "subject": "met5_block",
+      "raw_shapes": 0,
+      "disposition": "absent-operand"
+    },
+    {
+      "id": "r1248",
+      "subject": "met5_block",
+      "raw_shapes": 0,
+      "disposition": "absent-operand"
+    },
+    {
+      "id": "r1249",
+      "subject": "li1_block",
+      "raw_shapes": 0,
+      "disposition": "absent-operand"
+    },
+    {
+      "id": "r1250",
+      "subject": "li1_block",
+      "raw_shapes": 0,
+      "disposition": "absent-operand"
+    },
+    {
+      "id": "r1251",
+      "subject": "li1_block",
+      "raw_shapes": 0,
+      "disposition": "absent-operand"
+    }
+  ],
+  "unreviewed": 1,
+  "status": "review-required"
+}

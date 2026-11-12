@@ -1,0 +1,26 @@
+{
+  "schema": 1,
+  "status": "partial-rule-execution-audited",
+  "qualified": false,
+  "chunk_complete": false,
+  "platform": "linux",
+  "tests": 91,
+  "skipped": 0,
+  "data_sha256": "efd79fd1adad8fbe668bdc4d907c649bddbf2ba848c4284f6c28b188fcb1d0ac",
+  "log_sha256": "9cb738e6e11dd48ea4addb48eaddec2e4fbb2633f4873e6da85f2f5e99b5ad2f",
+  "driver_sha256": "5f021279f9617790dc25e7ce3b90fa7f161a8822bd4ea80668cb172d712f9c51",
+  "source_files": {
+    "scripts/sky130_raw_feol.py": "6a33521ce2ab76ca36a7eeda95d4b1018213e06eb9cd4ff2a895f05bf82d007c",
+    "scripts/sky130_low_voltage_geometry.py": "7751ceb802aafcfbb2e18b1068c2c641d422992c78ce6fc522c0915c62de3690",
+    "scripts/sky130_interconnect_geometry.py": "95c6bb9a5d5dafd6e54248349595310e501ac1c5d5ab5f42164fab5bd0713b34",
+    "scripts/sky130_wide_metal.py": "e804ee01d9516e58575f9a97be2bb012fae3b09331ee5385d5d0481389a3749a",
+    "scripts/sky130_rule_execution.py": "f5b219e0c9e9ce0d074b5c29b2fea5029d5ac788bad0aa22da769f36efcaeb36",
+    "scripts/sky130_block_applicability.py": "44e96eb5d7dcf7b1712c908e5b193c3f794ff67567db92770177527dbc24f395",
+    "tests/test_sky130_raw_feol.py": "df2f3a922135004ffa3523fa59c9570a4d060a19a33ef853443df6f3f5ad917e",
+    "tests/test_sky130_block_applicability.py": "5c6746b0ea925e1f431d0783a2e4eb7a7c739a2925900768ddbb2382f7cb7289",
+    "tests/test_sky130_low_voltage_geometry.py": "ea46325424cb3c1f774ee0f688a74756231fbedae290fc4529214617c6b9ac58",
+    "tests/test_sky130_interconnect_geometry.py": "f20e78eb16afec8e79b8b760de4c8b65368337b74467881eef735a9df3934e6c",
+    "tests/test_sky130_wide_metal.py": "979093a310b9090a7cd7ef26236539832b9e18b84c4ff47202d8fcc16547bff9",
+    "tests/test_sky130_rule_execution.py": "739d0458a75d3d58209997b0b737a05856e40e6ba09d5d1ba8e02547fc03645f"
+  }
+}

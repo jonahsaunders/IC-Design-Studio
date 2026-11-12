@@ -1,0 +1,23 @@
+# SKY130 pw2dn two-terminal source candidate
+
+This record covers a proposed two-terminal simulation binding. It does not establish default promotion, foundry qualification, or installed-release acceptance. The catalog symbol's `d0` and `d1` correspond to the public wrapper's `c0` anode and `c1` cathode. The distinct three-terminal p-well/deep-n-well isolation geometry has no equivalent substrate electrical model in this binding.
+
+The candidate preserves the Apache-2.0 public wrapper and primitive, source lock and license. A separately identified wrapper derivative adds `PJ={perim}` to the perimeter branch; it is the same correction used in the [earlier optional RF candidate](SKY130_RF_DIODE_QUALIFICATION.md). It changes no fitted model coefficient. Positive rectangular W/L in micrometres determine area W×L and perimeter 2×(W+L); these are mathematical interface constraints, not a validated physical domain or rating. The existing runtime guard remains mandatory.
+
+Revision `47dbd4fe43bfa7e4`, manifest SHA-256 `0c19e0ea5718a841045b597022d13f2dcb57e35cf8be9757b254fb465f2a35c4`, derives from exact revision `5dda725c94efe3c2`, manifest SHA-256 `125cde7c313ee18a05a7ec5c280d514b99aea521d6b39476e44f486ae494153b`. All 426 predecessor assets are preserved; seven assets are added, one catalog entry changes, and one model library include is appended. The prior ESD binding and predecessor project locks remain unchanged.
+
+Independent source checks exercise saved GUI specimens at W/L (2,2), (4,2), and (10,10) µm, nominal/ss/ff corners and −40/27/125 °C. The declared DC sweep is 0–0.6 V in 0.025 V steps; AC spans 1 kHz–1 GHz at five points per decade. The reference comparison uses 1e-16 A absolute plus 1e-6 relative tolerance, and polarity, area and perimeter fault controls target each of the three specimens. These are finite samples, not a continuous operating envelope. The ngspice 47 frequency coordinate's imaginary storage is not a semantic frequency component; all complex device currents remain checked.
+
+The [source execution record](validation/sky130-pw2dn-source-candidate-2026-10-29.json) tracks both hosts' GUI and full source-native production and independent literal-reference readbacks. Each readback covers nine conditions, 45 application/fault runs, 18 reference runs and 81 detected faulted instances. Linux complete-copy audit controls include one accepted baseline and 20 rehashed corruptions rejected by the reader. These are source results; frozen execution remains separate. The earlier Windows producer's final console bytes disagreed with its recorded hashes; those results are retained as nonaccepted, not reinterpreted. The Windows log capture was corrected and a fresh source campaign was run.
+
+The Linux source run used the original ngspice 47 binary `bc3fdda03abcc0a97b256f889169024140df53d01835574feca4621b84c54b76`; this identity is separate from the corrected ngspice 47 build `67399d2db139e9a8e7bfd118cab8acfa290bb6db003c996333e55ed682a65d25` proposed for packaged general use. The retained, build-selected Linux ngspice 42 profile `820658317b0b54035208da41936fd6871ce924036e5ea4113a4168b821b7fc45` fails the required RF geometry guard. The successful package build and its mandatory exact stager indicate that profile was selected, but the actual f67 frozen bundle engine identity remains to be independently read.
+
+Before promotion, the reviewed compatibility migration must preserve the exact 5dda predecessor and all historical contracts, and fresh real frozen Windows and Linux runs must pass both GUI lifecycle and independently audited native electrical gates. A reviewed compatible runtime must be packaged and accepted without weakening the guard. Whole-family and physical isolation coverage, measured RF accuracy, statistical behavior, reliability and operating limits remain open.
+
+Remaining release checks:
+
+1. Review the source evidence, exact package derivation and versioned predecessor/contract selectors without changing historical records.
+2. Package and independently identify a compatible Linux simulator; confirm the unchanged runtime guard accepts it and rejects the incompatible engine.
+3. Exercise bundled default selection, saved old/new project locks, exports and staged dependencies in the actual frozen GUI on both hosts.
+4. Run the selected native conditions and fault controls from those frozen GUI specimens, and require independent literal-reference and raw-data readback on both hosts.
+5. Complete the broader installed, physical and device-family requirements separately; this sampled source record does not satisfy them.

@@ -1,0 +1,32 @@
+{
+  "status": "GP_POLICY_EXCLUSION_CONFIRMED_STANDALONE_CANDIDATES_ONLY",
+  "qualified": false,
+  "installed_acceptance": false,
+  "calibrated": false,
+  "new_native_runs_during_packaging": 0,
+  "layers": {
+    "actual_gp_observation": "One90s timed-out run. Directly bracketed DC99/100 GP status4, valid inputs, negativezero products2/3, nonzero exact targets. Prior MNA systems unchanged.",
+    "signed_zero_standalone": "Two-line zero-policy candidate, finalzero fallback retained.4388 native rows/19 regression tests/23 environment probes reviewed; not compiler-linked circuit acceptance.",
+    "solver_residual_standalone": "Residual-specific empty exact expansion accepts+0.504 standalone rows+22 captured residuals; one same-LU Python correction on retained systems gives nearest exact all11unknowns. Not engine integration.",
+    "offline_combination": "Counterfactual replacement of assembledGP RHS plus exact-residual-oracle refinement, not evidence of native stamp behavior or future convergence."
+  },
+  "limitations": [
+    "No integrated signed-zero compiler model or native-refinement engine is accepted by this package. Subsequent builds are outside its scope.",
+    "No PMOS convergence cure/full sweep completed.",
+    "Compact partial evidence, not standalone executable replay. Engine/compiler/toolchain/PDK/shared-library payloads omitted with immutable identities in contracts/receipts/manifests and omission list.",
+    "Original observations/build failures and all source evidence remain unchanged."
+  ],
+  "schema": 1,
+  "date": "2026-11-10",
+  "base_commit": "eb0018c9c024588358b3f4f12f0af6a0581da937",
+  "application_changed": false,
+  "previous_evidence": "ihp-pmos-mna-capture-2026-11-10.json",
+  "evidence": {
+    "path": "artifacts/ihp-pmos-gp-policy-standalone-2026-11-10.zip",
+    "sha256": "888b69c963994cdb6f1b0037ea1118aaca075ca9de7872c6627f29e4178cb42b",
+    "bytes": 684087,
+    "payload_files": 72,
+    "manifest_files": 1
+  },
+  "historical_scope": "This record preserves the GP observation and standalone state. Later compiler and circuit results have separate versioned evidence, not a retrospective promotion of this package."
+}

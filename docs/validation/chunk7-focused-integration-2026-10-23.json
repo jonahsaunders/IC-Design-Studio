@@ -1,0 +1,210 @@
+{
+  "schema": 1,
+  "date": "2026-10-23",
+  "status": "local_focused_integration_passed",
+  "source_baseline": "43a04bb00af3118fe97d3d177ec73599056027b6",
+  "scope": "Final uncommitted integration source identities, selected LI reuse and MiM corner/audit tests, release-document validation, two GUI probes per host. Linux uses a verified native-filesystem source copy. No hosted, packaged or exhaustive acceptance claim.",
+  "qualified": false,
+  "chunk_complete": false,
+  "release_acceptance": false,
+  "source_snapshot": {
+    "files": 6433,
+    "manifest_sha256": "bc710f17b53f79b2067c75eaefb6e81b248783510c65216b9ddd392e3080176e"
+  },
+  "hosts": {
+    "Windows": {
+      "status": "passed",
+      "tests_discovered": 260,
+      "skipped": 15,
+      "elapsed_seconds": 72.922,
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 28.343
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 3.469
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 29.719
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 9.422
+        }
+      ],
+      "identity_bindings": 1336,
+      "report_sha256": "bce678d7ec433021677fb4845bb7db0f6e3c40f0d041e7d8806314586f05c35f",
+      "log_sha256": {
+        "menu-smoke.log": "a3893e79dd6a7beab3a66145e1b77973067cba831e816450035cdd217d1a3724",
+        "project-hub-smoke.log": "11804f89cf6bb119906c6605b350e52bbef6a0eb493ab340bd11dbe9fafc4750",
+        "release-contracts.log": "6554e4020336a4a296fb102bd52d3456788cb6584dd2b172a7938b58bdc6efa5",
+        "unit-contracts.log": "e867dee6019b954a168f5b40244aa6c6697228f3e2657637ff88797b401a6e35"
+      }
+    },
+    "Linux": {
+      "status": "passed",
+      "tests_discovered": 260,
+      "skipped": 2,
+      "elapsed_seconds": 36.557,
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 7.276
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 1.466
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 23.507
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 2.819
+        }
+      ],
+      "identity_bindings": 1336,
+      "report_sha256": "b9f470f711d647d26848eb906e8b1f4d5fc8002515bbc209d9130a28794df830",
+      "log_sha256": {
+        "menu-smoke.log": "50bb15ccc83e78862bcc543e2dc31b920824db48197a4ae1ca84c752cd5470b2",
+        "project-hub-smoke.log": "b7cdc6f30315f05bd34a6b203c1b4054249ed37637d61c1a6c250247a226383d",
+        "release-contracts.log": "8dedc694e59fb47cbb25b9d942ad7c518cb375b479f008cc7e276ca89a25313b",
+        "unit-contracts.log": "3545ca4ac68c9b455fd65fbc4ad8aa249df9462371b6824f562c7ba9ae22833f"
+      }
+    }
+  },
+  "archive": {
+    "file": "feedback.zip",
+    "bytes": 4305852,
+    "sha256": "9940d74fa2d7489c6240e5914e4bd64790aa80e3b4be53ea1f4b41dce432c92a",
+    "files": 1347,
+    "verified": true
+  },
+  "estimate": {
+    "chunk": 7,
+    "percent": 60,
+    "confidence": "low",
+    "range_percent": [
+      50,
+      70
+    ]
+  },
+  "hosted_followup": {
+    "status": "PASS",
+    "run_id": 40028365094,
+    "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/40028365094",
+    "candidate": "d38615c77ecb7b09ff4128d591c6d6294ce4d57b",
+    "synthetic_merge_commit": "a0ea2451c4915434a8100bf099c937cbb1ab87eb",
+    "merge_parents": [
+      "49c79957b4d6f4978127da612e167e5c75cda6b3",
+      "d38615c77ecb7b09ff4128d591c6d6294ce4d57b"
+    ],
+    "synthetic_merge_tree": "8cf5e6ed86fcf55d5f48f140c22e5234a78f877b",
+    "candidate_tree": "8cf5e6ed86fcf55d5f48f140c22e5234a78f877b",
+    "merge_tree_equals_candidate_tree": true,
+    "source_hashes_identical_across_platforms_and_current_checkout": 1336,
+    "local_source_manifest_sha256": "0490d40910e83588d98042f0d01903af3ec75276ee82260904557f93d0e487d2",
+    "workflow_elapsed_seconds": 144.0,
+    "aggregate": {
+      "name": "PR feedback",
+      "conclusion": "success",
+      "queue_seconds": 2.0,
+      "job_seconds": 3.0
+    },
+    "release_acceptance": false,
+    "limits": "Focused source/contract/GUI feedback only, not full installed/native release acceptance or PDK/foundry qualification. Source equality covers the 1336 hashed Python/workflow/requirements files. No workflow dispatched or external branch protection changed by this verification.",
+    "full_receipt_sha256": "9a15089048a0090a724cadcfc0dd630837526d229754767bb8c02a84880212fe",
+    "platforms": [
+      {
+        "platform": "Linux",
+        "job_id": 120670143624,
+        "conclusion": "success",
+        "queue_seconds": 2.0,
+        "job_seconds": 94.0,
+        "pre_feedback_seconds": 37.0,
+        "syntax_files": 1321,
+        "source_hashes_verified": 1336,
+        "unit_tests_run": 260,
+        "unit_tests_passed": 258,
+        "unit_tests_skipped": 2,
+        "feedback_seconds": 53.355,
+        "stages": [
+          {
+            "name": "unit-contracts",
+            "returncode": 0,
+            "elapsed_seconds": 14.948
+          },
+          {
+            "name": "release-contracts",
+            "returncode": 0,
+            "elapsed_seconds": 3.172
+          },
+          {
+            "name": "menu-smoke",
+            "returncode": 0,
+            "elapsed_seconds": 27.678
+          },
+          {
+            "name": "project-hub-smoke",
+            "returncode": 0,
+            "elapsed_seconds": 4.574
+          }
+        ],
+        "artifact_id": 12533866851,
+        "artifact_sha256": "c001ff72030344d0d5923966bffd1d8135f5bca9c8576a472e86e81d29dd3238",
+        "artifact_files_verified": 55
+      },
+      {
+        "platform": "Windows",
+        "job_id": 120670144113,
+        "conclusion": "success",
+        "queue_seconds": 3.0,
+        "job_seconds": 136.0,
+        "pre_feedback_seconds": 44.0,
+        "syntax_files": 1321,
+        "source_hashes_verified": 1336,
+        "unit_tests_run": 260,
+        "unit_tests_passed": 246,
+        "unit_tests_skipped": 14,
+        "feedback_seconds": 86.812,
+        "stages": [
+          {
+            "name": "unit-contracts",
+            "returncode": 0,
+            "elapsed_seconds": 35.016
+          },
+          {
+            "name": "release-contracts",
+            "returncode": 0,
+            "elapsed_seconds": 5.031
+          },
+          {
+            "name": "menu-smoke",
+            "returncode": 0,
+            "elapsed_seconds": 34.297
+          },
+          {
+            "name": "project-hub-smoke",
+            "returncode": 0,
+            "elapsed_seconds": 9.281
+          }
+        ],
+        "artifact_id": 12533842191,
+        "artifact_sha256": "affa79783790c0bd77059bc19749a20e482bec31612dbe3e748de721012b6ee2",
+        "artifact_files_verified": 13
+      }
+    ]
+  }
+}

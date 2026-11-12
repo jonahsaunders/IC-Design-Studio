@@ -1,0 +1,205 @@
+{
+  "schema": 1,
+  "recipe": "sky130-metal-maximum-width-bounds-v1",
+  "source": {
+    "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+    "files": {
+      "docs/rules/errors.csv": "d613c19c0f5de3938980ce98b0e50e0cfb9b537b2cfdb32a3b9b4b03236ef9ed",
+      "docs/rules/gds_layers.csv": "a424c152e2d300992f743f17abdb6fb72402c4c9a4bbdcdbab439757fd0c89b5"
+    },
+    "layer_map": {
+      "path": "docs/qualification/sky130-layer-purposes.json",
+      "sha256": "3ccb42d63e7bbbe0c793c4541cc51c979c914588089793ab144c36fff3d673fb"
+    },
+    "native": {
+      "path": "tests/fixtures/sky130-metal-width-native.tech",
+      "sha256": "5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e"
+    }
+  },
+  "scope": "Three pad.19 records use a stronger global maximum-width bound. Each complete connected drawn-plus-native-fill metal component must fit in a strip no wider than 25 um for met1/met2 or 6 um for met3, measured as the shorter side of its axis-aligned bounding box. A subset selected beneath a pad cannot have greater local thickness than its containing strip. No pad selector, clipping boundary or local feature exemption is needed for a passing bound. Drawing and fill are unioned across the full reachable hierarchy before measuring; touching fragments cannot be checked separately. Explicit mask/edit and alternate metal-purpose data prevent promotion because their effect on the final conductor is not established here. At the exact maximum the bound passes. A larger box, including a thin L or ring, remains unreviewed rather than being called a pad-rule violation. Other under-pad spacing, minimum width, pad construction and generated-mask requirements remain separate.",
+  "qualified": false,
+  "chunk_complete": false,
+  "top": "control",
+  "gds_sha256": "0d706435fc4cfee470dc72dca27b1fd75899f14d5438bd27c456293a113e3d44",
+  "measurements": {
+    "met1": {
+      "inputs": {
+        "drawing": {
+          "raw_shapes": 0,
+          "texts": 0,
+          "area_nm2": 0
+        },
+        "fill": {
+          "raw_shapes": 0,
+          "texts": 0,
+          "area_nm2": 0
+        }
+      },
+      "guards": {
+        "36:0": 0,
+        "62:20": 0,
+        "62:21": 0,
+        "62:22": 0,
+        "62:24": 0,
+        "68:4": 0,
+        "68:10": 0,
+        "68:13": 0,
+        "68:14": 0,
+        "68:15": 0,
+        "68:23": 0,
+        "68:25": 0,
+        "68:32": 0,
+        "68:33": 0,
+        "68:34": 0,
+        "68:35": 0,
+        "68:36": 0,
+        "68:37": 0,
+        "68:38": 0,
+        "68:39": 0,
+        "68:88": 0,
+        "68:89": 0,
+        "68:90": 0,
+        "68:91": 0,
+        "68:92": 0,
+        "68:93": 0
+      },
+      "components": 0,
+      "area_nm2": 0,
+      "candidates": 0,
+      "max_short_span_nm": 0
+    },
+    "met2": {
+      "inputs": {
+        "drawing": {
+          "raw_shapes": 0,
+          "texts": 0,
+          "area_nm2": 0
+        },
+        "fill": {
+          "raw_shapes": 0,
+          "texts": 0,
+          "area_nm2": 0
+        }
+      },
+      "guards": {
+        "41:0": 0,
+        "69:4": 0,
+        "69:10": 0,
+        "69:13": 0,
+        "69:14": 0,
+        "69:15": 0,
+        "69:23": 0,
+        "69:25": 0,
+        "69:32": 0,
+        "69:33": 0,
+        "69:34": 0,
+        "69:35": 0,
+        "69:36": 0,
+        "69:37": 0,
+        "69:38": 0,
+        "69:39": 0,
+        "69:88": 0,
+        "69:89": 0,
+        "69:90": 0,
+        "69:91": 0,
+        "69:92": 0,
+        "69:93": 0,
+        "105:42": 0,
+        "105:43": 0,
+        "105:44": 0,
+        "105:52": 0
+      },
+      "components": 0,
+      "area_nm2": 0,
+      "candidates": 0,
+      "max_short_span_nm": 0
+    },
+    "met3": {
+      "inputs": {
+        "drawing": {
+          "raw_shapes": 1,
+          "texts": 0,
+          "area_nm2": 108000000
+        },
+        "fill": {
+          "raw_shapes": 1,
+          "texts": 0,
+          "area_nm2": 108000000
+        }
+      },
+      "guards": {
+        "34:0": 0,
+        "70:4": 0,
+        "70:10": 0,
+        "70:13": 0,
+        "70:14": 0,
+        "70:15": 0,
+        "70:17": 0,
+        "70:23": 0,
+        "70:25": 0,
+        "70:32": 0,
+        "70:33": 0,
+        "70:34": 0,
+        "70:35": 0,
+        "70:36": 0,
+        "70:37": 0,
+        "70:38": 0,
+        "70:39": 0,
+        "70:88": 0,
+        "70:89": 0,
+        "70:90": 0,
+        "70:91": 0,
+        "70:92": 0,
+        "70:93": 0,
+        "107:20": 0,
+        "107:21": 0,
+        "107:22": 0,
+        "107:24": 0
+      },
+      "components": 1,
+      "area_nm2": 108000000,
+      "candidates": 0,
+      "max_short_span_nm": 6000
+    }
+  },
+  "rows": [
+    {
+      "id": "r1340",
+      "rule": "pad.19",
+      "target": "met1",
+      "limit_nm": 25000,
+      "disposition": "absent-operand",
+      "reason": "empty-metal",
+      "unsupported_raw_shapes": 0,
+      "components": 0,
+      "candidates": 0,
+      "max_short_span_nm": 0
+    },
+    {
+      "id": "r1341",
+      "rule": "pad.19",
+      "target": "met2",
+      "limit_nm": 25000,
+      "disposition": "absent-operand",
+      "reason": "empty-metal",
+      "unsupported_raw_shapes": 0,
+      "components": 0,
+      "candidates": 0,
+      "max_short_span_nm": 0
+    },
+    {
+      "id": "r1342",
+      "rule": "pad.19",
+      "target": "met3",
+      "limit_nm": 6000,
+      "disposition": "executed-reviewed",
+      "reason": "global-maximum-width-proven",
+      "unsupported_raw_shapes": 0,
+      "components": 1,
+      "candidates": 0,
+      "max_short_span_nm": 6000
+    }
+  ],
+  "unreviewed": 0,
+  "status": "global-metal-maximum-width-reviewed"
+}

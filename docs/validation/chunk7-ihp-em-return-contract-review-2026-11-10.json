@@ -1,0 +1,131 @@
+{
+  "schema": 1,
+  "date": "2026-11-10",
+  "base_commit": "fb4919d8df5ed3ef7571853276617a48c5fc57f5",
+  "scope": "Read-only source-backed EM port/return-contract investigation; not an electrical model, solver run or catalog binding.",
+  "status": "SOURCE_RETURN_SEMANTICS_IDENTIFIED_CATALOG_MAPPING_UNESTABLISHED",
+  "qualified": false,
+  "chunk_complete": false,
+  "models_imported": false,
+  "upstream_code_executed": false,
+  "native_runs": 0,
+  "sources": [
+    {
+      "repository": "VolkerMuehlhaus/openems_ihp_sg13g2",
+      "revision": "e29417aa1e5fb97b4ebd27dd1e4fcf043f97ef63",
+      "path": "workflow/run_inductor_2port.py",
+      "git_blob_sha1": "effceed2c482b91e40b7e4380a164ec7cf828113",
+      "sha256": "f6a7ccc8216fed56fdf344d824774a31ccfe011a8ec39b2158800208631ebd5b",
+      "bytes": 8557,
+      "url": "https://github.com/VolkerMuehlhaus/openems_ihp_sg13g2/blob/e29417aa1e5fb97b4ebd27dd1e4fcf043f97ef63/workflow/run_inductor_2port.py",
+      "observations": {
+        "ports": "Lines73-74: port1/2 use source layers201/202, from SUBGND to TopMetal1, direction z,50ohm reference.",
+        "geometry": "Line28 selects fixed L_2n0_twoport.gds, not a parameterized catalog family.",
+        "boundaries": "Line64 sets all six boundaries PEC.",
+        "excitation": "Line98 independently excites ports1 and2."
+      }
+    },
+    {
+      "repository": "VolkerMuehlhaus/openems_ihp_sg13g2",
+      "revision": "e29417aa1e5fb97b4ebd27dd1e4fcf043f97ef63",
+      "path": "workflow/SG13G2.xml",
+      "git_blob_sha1": "b8e87f487055f32ea4b001caf9da85f5907c83e1",
+      "sha256": "c610fd87231debde837e8ab3c66842b407e4c274387d5fb594b32171bd695cd0",
+      "bytes": 5503,
+      "url": "https://github.com/VolkerMuehlhaus/openems_ihp_sg13g2/blob/e29417aa1e5fb97b4ebd27dd1e4fcf043f97ef63/workflow/SG13G2.xml",
+      "observations": {
+        "substrate": "Line21: Substrate semiconductor permittivity11.9, conductivity2.0; distinct EPI material conductivity5.0.",
+        "return": "Line53: SUBGND via layer210, Zmin=-3.75,Zmax=0,material LOWLOSS. This is not the lossy bulk substrate material itself."
+      }
+    },
+    {
+      "repository": "VolkerMuehlhaus/openems_ihp_sg13g2",
+      "revision": "e29417aa1e5fb97b4ebd27dd1e4fcf043f97ef63",
+      "path": "workflow/modules/util_simulation_setup.py",
+      "git_blob_sha1": "09bc30d440a1003ed9a82378f7a5ec1a72c03328",
+      "sha256": "84e07b077fe251826f040b55230f97536f0af74e4ecdc093fe72cd5730b5d102",
+      "bytes": 17164,
+      "url": "https://github.com/VolkerMuehlhaus/openems_ihp_sg13g2/blob/e29417aa1e5fb97b4ebd27dd1e4fcf043f97ef63/workflow/modules/util_simulation_setup.py",
+      "observations": {
+        "port_semantics": "Lines189-195 distinguish special GND bottom-of-box reference from named from_layername metal.",
+        "boundary_semantics": "Lines133-138 optionally add PEC_bottom below stackup; line257 enables it when air_around>0. Do not confuse this optional geometry with every example configuration."
+      }
+    },
+    {
+      "repository": "VolkerMuehlhaus/openems_ihp_sg13g2",
+      "revision": "e29417aa1e5fb97b4ebd27dd1e4fcf043f97ef63",
+      "path": "workflow/run_inductor_diffport.py",
+      "git_blob_sha1": "68d8517ebfd3ba742271f53895175e9dae38c2de",
+      "sha256": "fdda038adfdc7d8c9093c62879b8ab9bb232d1f928c5566ed303532240f23ea8",
+      "bytes": 6448,
+      "url": "https://github.com/VolkerMuehlhaus/openems_ihp_sg13g2/blob/e29417aa1e5fb97b4ebd27dd1e4fcf043f97ef63/workflow/run_inductor_diffport.py",
+      "observations": {
+        "ports": "Line72: one in-plane TopMetal1 x-direction port; not independent substrate excitation.",
+        "geometry": "Line28 selects a different fixed L_2n0_simplified.gds."
+      }
+    },
+    {
+      "repository": "VolkerMuehlhaus/gds2palace_ihp_sg13g2",
+      "revision": "df29aa608be858f53fbce46f81238b5534812d9b",
+      "path": "workflow/inductor_500pH_2port.py",
+      "git_blob_sha1": "2d0117f59302974a3a12df1166ff6671fb0844c0",
+      "sha256": "481905c729d30e68c8e713eb53382c1790320686cb68bb2582de5bc07dfd1954",
+      "bytes": 3965,
+      "url": "https://github.com/VolkerMuehlhaus/gds2palace_ihp_sg13g2/blob/df29aa608be858f53fbce46f81238b5534812d9b/workflow/inductor_500pH_2port.py",
+      "observations": {
+        "ports": "Lines40-41: port1/2 source layers201/202, from Metal1 to TopMetal2, direction Z,50ohm reference.",
+        "geometry": "Lines23-24 select fixed inductor_500pH_with_ports.gds and SG13G2_200um.xml.",
+        "boundaries": "Line34 selects six ABC boundaries, not the openEMS example PEC enclosure."
+      }
+    },
+    {
+      "repository": "VolkerMuehlhaus/gds2palace_ihp_sg13g2",
+      "revision": "df29aa608be858f53fbce46f81238b5534812d9b",
+      "path": "workflow/SG13G2_200um.xml",
+      "git_blob_sha1": "66683b970fbaecc6af2c1a8f4e126acf270a40cd",
+      "sha256": "7189bb8aa6d7594abe1ebaf247dd2d2f3d78f14c00ca683b65e5edc40006e897",
+      "bytes": 5729,
+      "url": "https://github.com/VolkerMuehlhaus/gds2palace_ihp_sg13g2/blob/df29aa608be858f53fbce46f81238b5534812d9b/workflow/SG13G2_200um.xml",
+      "observations": {
+        "substrate": "Line21: lossy Substrate permittivity11.9,conductivity2.0.",
+        "return": "Line53: SUBGND conductor layer250,Zmin=-3.75,Zmax=0,material LOWLOSS; layer identity differs from older openEMS stackup."
+      }
+    },
+    {
+      "repository": "VolkerMuehlhaus/gds2palace_ihp_sg13g2",
+      "revision": "df29aa608be858f53fbce46f81238b5534812d9b",
+      "path": "workflow/gds2palace/util_simulation_setup.py",
+      "git_blob_sha1": "02c7933139f03bb9a324b0fdcc2786e407461113",
+      "sha256": "e1b092ddc8648c400f7712d2c4a7029983c73ceb4f66b93db74f20bd1839a07e",
+      "bytes": 84012,
+      "url": "https://github.com/VolkerMuehlhaus/gds2palace_ihp_sg13g2/blob/df29aa608be858f53fbce46f81238b5534812d9b/workflow/gds2palace/util_simulation_setup.py",
+      "observations": {
+        "port_semantics": "Lines635-642 look up named from_layername metal; unknown names error.",
+        "boundary_semantics": "Lines1560-1612 construct separate PEC boundary attributes according to selected boundary settings.",
+        "license_header": "Copyright2025-2026 Volker Muehlhaus and IHP PDK Authors; GNU GPL Version3.0 header."
+      }
+    }
+  ],
+  "provenance": {
+    "cache": "Recovered authoritative pinned repository Git blobs; reviewed_plan authenticated original closure and historical report. Every listed file independently rechecked against its Git blob identity.",
+    "prior_absence_review": "docs/validation/chunk7-missing-model-review-2026-11-10.json",
+    "licensing": "No upstream source text/assets redistributed in this record. Specific observed file license noted above; repository/file-specific licensing and notices must be checked before any implementation import. Existing retained-reference licenses remain unchanged."
+  },
+  "conclusions": [
+    "The solver workflows express named return conductors, so an explicit physical return-contract pilot is possible without inventing a catalog model.",
+    "SUBGND conductor, lossy bulk substrate, Metal1 return and enclosure/backside boundary are distinct constructs. Neither source names nor common SPICE ground establish equivalence to catalog B.",
+    "These reviewed example scripts select fixed layouts. No source-backed parameterized catalog family or independently validated LA/LC/LB/B mapping is established.",
+    "A reduced multiport response could be mathematically expressed relative to a chosen common terminal, but algebraic rebasing does not prove that terminal is the physical catalog substrate contact."
+  ],
+  "next_defensible_work": [
+    "Select one authenticated geometry and retain exact generator/layout/stackup/port/boundary provenance, without connecting it to the unavailable catalog key.",
+    "Specify and validate physical identity of each winding/center-tap/substrate contact and external reference; reject implicit aliasing between Metal1,SUBGND,bulk substrate and global ground.",
+    "Only after that contract is resolved, assess solver availability, mesh/convergence checks, passivity/reciprocity, frequency validity and measurement comparison for a separately named experimental reference."
+  ],
+  "external_blockers": [
+    "Authoritative physical interpretation of catalog B, including contact geometry and substrate/backside/reference conditions.",
+    "Authenticated mapping from catalog w/s/d/nr_r/m and LA/LC/LB/B to actual geometry and terminal definitions; current examples do not supply a validated parameterized family.",
+    "Calibration and validity-envelope evidence before any catalog binding or qualification claim."
+  ],
+  "uncertainty": "Bounded inspection of seven pinned files; no claim of universal source absence or solver correctness. No geometry extraction, connectivity verification, convergence run or model accuracy assessment was performed."
+}

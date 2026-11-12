@@ -1,0 +1,2 @@
+.include "original/sky130_fd_pr__model__parasitic__diode_pw2dn_noresistor.model.spice"
+.include "sky130_fd_pr__model__parasitic__rf_diode_pw2dn.model.spice"

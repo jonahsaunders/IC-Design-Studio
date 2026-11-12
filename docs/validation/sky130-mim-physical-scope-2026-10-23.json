@@ -1,0 +1,494 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "chunk": 7,
+  "chunk_complete": false,
+  "qualified": false,
+  "release_ready": false,
+  "scope": "Shape dispatch repair regression only: two legal 2x2um squares and a separated first square/rotated second rectangle. No new size, physical-class, electrical-envelope or signoff qualification.",
+  "requirement": "MIM-PHYSICAL-CLASSES: closes the square-bounding-box nonrectangle dispatch bypass, not the full remaining physical-class requirement.",
+  "change": "Validate every capm/cap2m polygon as rectangular before native extraction dispatch; preserve existing genuine-square native paths and nonsquare correction limits. Clarify native-square proof scope.",
+  "source_sha256": {
+    "icstudio/sky130_mim2_extract.py": "37c82ac4496c13a0e59813bd232803b28614ee67edce363ebe843ab04e4bb8ab",
+    "tests/test_sky130_mim2_extract.py": "90b5fab3f811bf94d5c1ca36576b0e58bca3fd7bcfe3fc1d4bdbef1fab08612b",
+    "scripts/ci_feedback.py": "3a842d99f37fad8fdac03d3c79ccf45dd190559e264b993b3c6b7f002341ed5c"
+  },
+  "source_snapshot": {
+    "files": 6442,
+    "sha256": "cb96a939555fc41c986485b734b521100a9a08493460ba09b31dffc9cec43652"
+  },
+  "native": {
+    "record_sha256": "a12eae70eaed3e27541c15c2ede8f6f7653e48dbd1e7de61522f3f7be5f7c2b2",
+    "files_sha256": "96a70b22d7431343c9b011b2c89f6906c815b80aa3b66e7face85ae6a9958b1a",
+    "execution_root": "/var/tmp/icstudio-mim-physical-scope-20261023-v1",
+    "layouts": 3,
+    "malformed_gds_rejections_before_engine": 4,
+    "elapsed_seconds": 14.611789290996967,
+    "source_unchanged": true,
+    "package_unchanged": true,
+    "runtime_original_inputs_unchanged": true,
+    "package": {
+      "target": "sky130A",
+      "revision": "9a491f0ebd51a0aa",
+      "manifest_sha256": "531c0a4263b839b693d171ad223d01f1484130113f0fcb9010bf99b4c2da9417",
+      "scope": "Separate locked physical adapter; its model/deck revision is recorded independently from the bundled simulation PDK."
+    },
+    "cases": [
+      {
+        "name": "p1-square-2x2",
+        "status": "PASS",
+        "native": {
+          "model": "sky130_fd_pr__cap_mim_m3_1",
+          "terminals": [
+            "P",
+            "N"
+          ],
+          "dimensions_um": [
+            2,
+            2
+          ],
+          "units": 1.0,
+          "sha256": "51919ba38689de69adc105fe0de0cb59ba2fe9ef2211678a40052badb0152bd0"
+        },
+        "public_drc": {
+          "violations": 0,
+          "rules": {},
+          "categories": 255,
+          "source_commit": "6c401ed5134a6466c7eed3e5524ebaacad4cea2a",
+          "deck_sha256": "aeba6ab5137923f2258714ab5d91ce99ca6a6f932bea55dedfe6f79aca697ba1",
+          "settings": {
+            "input": "/var/tmp/icstudio-mim-physical-scope-20261023-v1/native/p1-square-2x2/layout.gds",
+            "top_cell": "device_coupon",
+            "report": "/var/tmp/icstudio-mim-physical-scope-20261023-v1/native/p1-square-2x2/public-drc/report.lyrdb",
+            "thr": "1",
+            "feol": "true",
+            "beol": "true",
+            "offgrid": "true",
+            "seal": "false",
+            "floating_met": "false",
+            "sram_exclude": "false",
+            "info": "false"
+          }
+        },
+        "report_sha256": "ff684fcfb7f0363a7c59c6700da2ae8f790a06ef0f77849283d2d190f2f9308b"
+      },
+      {
+        "name": "p2-square-2x2",
+        "status": "PASS",
+        "native": {
+          "model": "sky130_fd_pr__cap_mim_m3_2",
+          "terminals": [
+            "P",
+            "N"
+          ],
+          "dimensions_um": [
+            2,
+            2
+          ],
+          "units": 1.0,
+          "sha256": "835e1c6f46de30d774ffc353671175774b9c20b3f8f67c9e03b741164ab1ec9f"
+        },
+        "public_drc": {
+          "violations": 0,
+          "rules": {},
+          "categories": 255,
+          "source_commit": "6c401ed5134a6466c7eed3e5524ebaacad4cea2a",
+          "deck_sha256": "aeba6ab5137923f2258714ab5d91ce99ca6a6f932bea55dedfe6f79aca697ba1",
+          "settings": {
+            "input": "/var/tmp/icstudio-mim-physical-scope-20261023-v1/native/p2-square-2x2/layout.gds",
+            "top_cell": "device_coupon",
+            "report": "/var/tmp/icstudio-mim-physical-scope-20261023-v1/native/p2-square-2x2/public-drc/report.lyrdb",
+            "thr": "1",
+            "feol": "true",
+            "beol": "true",
+            "offgrid": "true",
+            "seal": "false",
+            "floating_met": "false",
+            "sram_exclude": "false",
+            "info": "false"
+          }
+        },
+        "report_sha256": "e7b44302fe90d3b20b6c31e0dca3ae5634fb951e86e6388352016493b746cba9"
+      },
+      {
+        "name": "mixed-square-rectangle",
+        "status": "PASS",
+        "native": {
+          "models": [
+            "sky130_fd_pr__cap_mim_m3_1",
+            "sky130_fd_pr__cap_mim_m3_2"
+          ],
+          "dimensions_um": [
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              10
+            ]
+          ],
+          "proof_sha256": "a059b41dcfadb25c2562d91ffac95d44989c06411d386bde8b493c560ceb2129"
+        },
+        "public_drc": {
+          "violations": 0,
+          "rules": {},
+          "categories": 255,
+          "source_commit": "6c401ed5134a6466c7eed3e5524ebaacad4cea2a",
+          "deck_sha256": "aeba6ab5137923f2258714ab5d91ce99ca6a6f932bea55dedfe6f79aca697ba1",
+          "settings": {
+            "input": "/var/tmp/icstudio-mim-physical-scope-20261023-v1/native/mixed-square-rectangle/layout.gds",
+            "top_cell": "mixed_mim",
+            "report": "/var/tmp/icstudio-mim-physical-scope-20261023-v1/native/mixed-square-rectangle/public-drc/report.lyrdb",
+            "thr": "1",
+            "feol": "true",
+            "beol": "true",
+            "offgrid": "true",
+            "seal": "false",
+            "floating_met": "false",
+            "sram_exclude": "false",
+            "info": "false"
+          }
+        },
+        "report_sha256": "909ff39b1320d56ad53a60b4a885d6fc2242a7ee4953fedb748ff38e8dd66dda"
+      }
+    ]
+  },
+  "tests": {
+    "windows": {
+      "passed": 19,
+      "log_sha256": "0dbf41c96e2ab37b3cd4fac429d0ffcb8400d55a38bd7f36405585ce0a5e09ba"
+    },
+    "linux": {
+      "modules": [
+        "tests.test_sky130_mim2_extract",
+        "tests.test_sky130_mim1_extract",
+        "tests.test_sky130_mim_contact_topology"
+      ],
+      "run": 19,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0,
+      "log": "Linux-focused.log",
+      "log_sha256": "f8e63a60beafde71e26b0c5942b371ac1513e7f2a8fbe60b14b7d529d4f9908e"
+    }
+  },
+  "independent_native_review": {
+    "status": "PASS",
+    "findings": [],
+    "execution_root": "/var/tmp/icstudio-mim-physical-scope-20261023-v1",
+    "evidence_manifest_sha256": "96a70b22d7431343c9b011b2c89f6906c815b80aa3b66e7face85ae6a9958b1a",
+    "all_files_verified": 6997,
+    "source_files_verified": 6442,
+    "runtime_original_entries_unchanged": 1875,
+    "cases": [
+      {
+        "case": "p1-square-2x2",
+        "geometry": [
+          {
+            "plate": 1,
+            "width_nm": 2000,
+            "height_nm": 2000,
+            "area_nm2": 4000000,
+            "rectangle": true,
+            "holes": 0
+          }
+        ],
+        "native_models_dimensions_ports": [
+          [
+            [
+              "P",
+              "N",
+              "sky130_fd_pr__cap_mim_m3_1"
+            ],
+            2.0,
+            2.0
+          ]
+        ],
+        "magic_drc": 0,
+        "public_drc": 0,
+        "public_categories": 255,
+        "lvs": "unique match",
+        "normalization": false
+      },
+      {
+        "case": "p2-square-2x2",
+        "geometry": [
+          {
+            "plate": 2,
+            "width_nm": 2000,
+            "height_nm": 2000,
+            "area_nm2": 4000000,
+            "rectangle": true,
+            "holes": 0
+          }
+        ],
+        "native_models_dimensions_ports": [
+          [
+            [
+              "P",
+              "N",
+              "sky130_fd_pr__cap_mim_m3_2"
+            ],
+            2.0,
+            2.0
+          ]
+        ],
+        "magic_drc": 0,
+        "public_drc": 0,
+        "public_categories": 255,
+        "lvs": "unique match",
+        "normalization": false
+      },
+      {
+        "case": "mixed-square-rectangle",
+        "geometry": [
+          {
+            "plate": 1,
+            "width_nm": 2000,
+            "height_nm": 2000,
+            "area_nm2": 4000000,
+            "rectangle": true,
+            "holes": 0
+          },
+          {
+            "plate": 2,
+            "width_nm": 10000,
+            "height_nm": 2000,
+            "area_nm2": 20000000,
+            "rectangle": true,
+            "holes": 0
+          }
+        ],
+        "native_models_dimensions_ports": [
+          [
+            [
+              "P1",
+              "N1",
+              "sky130_fd_pr__cap_mim_m3_1"
+            ],
+            2.0,
+            2.0
+          ],
+          [
+            [
+              "P2",
+              "N2",
+              "sky130_fd_pr__cap_mim_m3_2"
+            ],
+            2.0,
+            10.0
+          ]
+        ],
+        "magic_drc": 0,
+        "public_drc": 0,
+        "public_categories": 255,
+        "lvs": "unique match",
+        "normalization": true
+      }
+    ],
+    "controls": [
+      {
+        "plate": 1,
+        "shape": "l",
+        "geometry": {
+          "plate": 1,
+          "width_nm": 2000,
+          "height_nm": 2000,
+          "area_nm2": 3750000,
+          "rectangle": false,
+          "holes": 0
+        },
+        "independent_dispatch": "rejected"
+      },
+      {
+        "plate": 1,
+        "shape": "hole",
+        "geometry": {
+          "plate": 1,
+          "width_nm": 2000,
+          "height_nm": 2000,
+          "area_nm2": 3000000,
+          "rectangle": false,
+          "holes": 1
+        },
+        "independent_dispatch": "rejected"
+      },
+      {
+        "plate": 2,
+        "shape": "l",
+        "geometry": {
+          "plate": 2,
+          "width_nm": 2000,
+          "height_nm": 2000,
+          "area_nm2": 3750000,
+          "rectangle": false,
+          "holes": 0
+        },
+        "independent_dispatch": "rejected"
+      },
+      {
+        "plate": 2,
+        "shape": "hole",
+        "geometry": {
+          "plate": 2,
+          "width_nm": 2000,
+          "height_nm": 2000,
+          "area_nm2": 3000000,
+          "rectangle": false,
+          "holes": 1
+        },
+        "independent_dispatch": "rejected"
+      }
+    ],
+    "scope": "Independent retained-file readback and frozen dispatch checks only. No native engine rerun; no new physical/electrical envelope qualification. Netgen treats PDK primitive models as black boxes; extracted parameters and ports are additionally checked directly.",
+    "record_sha256": "a12eae70eaed3e27541c15c2ede8f6f7653e48dbd1e7de61522f3f7be5f7c2b2"
+  },
+  "before_after": {
+    "before_sha256": "9fa321f3ef120ef60d2b7138a49db9d7818f495b603750903a45a6dbb21a89fb",
+    "after_sha256": "df933b3e5b5dc17cd73f67757d7c2acfcedabffa875c675b47914555a96ebb04",
+    "malformed_square_bounding_boxes": "both models L/hole: engine calls1 before,0 after",
+    "true_squares": "unchanged native dispatch including31um and2.001um; no qualification implied"
+  },
+  "prior_failure": {
+    "kind": "Windows sandbox fixture ACL",
+    "record_sha256": "f69ef537aea1925f5285dd58f66992e9e9cf390c3f8ef744ed53f7431dcb4817",
+    "resolution": "Same tests pass ordinary Windows account; no administrator access."
+  },
+  "archive": {
+    "status": "PASS",
+    "path": "/mnt/c/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/sky130-mim-physical-scope-2026-10-23-v1/evidence.zip",
+    "sha256": "be7572a088b86092f110f42e0d80a37d7a73750b1a94d2f55c2480ad6df52ec6",
+    "manifest_sha256": "8490e5c2b728dc6c7de0035133cbdb4deb9e03438395417f73c0c69ca106392b",
+    "files": 7085,
+    "objects": 162,
+    "archive_bytes": 2204077,
+    "logical_bytes": 324744892,
+    "priors": {
+      "li": {
+        "path": "/mnt/c/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/sky130-li-linked-2026-10-23-v1/evidence.zip",
+        "sha256": "e704e889ab5a786fa2423c696fa23eeff9e6a4966dd8367470518d9c1d471d49"
+      },
+      "passive": {
+        "path": "/mnt/c/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/sky130-mim-passive-2026-10-23-v1/evidence.zip",
+        "sha256": "03a75a194d165ed5fad0486f5a9a1fec0a5daa7c751c23f72beb9a17c031d430"
+      }
+    },
+    "all_member_recovery_verified": true
+  },
+  "replay": {
+    "status": "PASS",
+    "scope": "Fresh selected archive-recovery regression; mixed first2x2 square and rotated second2x10 rectangle only.",
+    "qualified": false,
+    "chunk_complete": false,
+    "release_ready": false,
+    "execution_root": "/var/tmp/icstudio-mim-physical-scope-replay-20261023-v1",
+    "archive": {
+      "status": "PASS",
+      "path": "/mnt/c/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/sky130-mim-physical-scope-2026-10-23-v1/evidence.zip",
+      "sha256": "be7572a088b86092f110f42e0d80a37d7a73750b1a94d2f55c2480ad6df52ec6",
+      "manifest_sha256": "8490e5c2b728dc6c7de0035133cbdb4deb9e03438395417f73c0c69ca106392b",
+      "files": 7085,
+      "objects": 162,
+      "archive_bytes": 2204077,
+      "logical_bytes": 324744892,
+      "priors": {
+        "li": {
+          "path": "/mnt/c/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/sky130-li-linked-2026-10-23-v1/evidence.zip",
+          "sha256": "e704e889ab5a786fa2423c696fa23eeff9e6a4966dd8367470518d9c1d471d49"
+        },
+        "passive": {
+          "path": "/mnt/c/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/sky130-mim-passive-2026-10-23-v1/evidence.zip",
+          "sha256": "03a75a194d165ed5fad0486f5a9a1fec0a5daa7c751c23f72beb9a17c031d430"
+        }
+      },
+      "all_member_recovery_verified": true
+    },
+    "restored_files": 6886,
+    "restored_unchanged": true,
+    "cases": 1,
+    "devices": 2,
+    "package": {
+      "target": "sky130A",
+      "revision": "9a491f0ebd51a0aa",
+      "manifest_sha256": "531c0a4263b839b693d171ad223d01f1484130113f0fcb9010bf99b4c2da9417",
+      "scope": "Separate locked physical adapter; its model/deck revision is recorded independently from the bundled simulation PDK."
+    },
+    "elapsed_seconds": 6.962962295976467,
+    "report_sha256": "5db73197e4197492cc2e46fb31f99ae934965b7f6cb6526cd9889f9643ce4b6d",
+    "proof_sha256": "eb9fd461ab4e8d171a7bba6af48ea6c6773c5d8474cbe56530414fa5e2d7c7c2",
+    "public_drc": {
+      "violations": 0,
+      "rules": {},
+      "categories": 255,
+      "source_commit": "6c401ed5134a6466c7eed3e5524ebaacad4cea2a",
+      "deck_sha256": "aeba6ab5137923f2258714ab5d91ce99ca6a6f932bea55dedfe6f79aca697ba1",
+      "settings": {
+        "input": "/var/tmp/icstudio-mim-physical-scope-replay-20261023-v1/native/layout.gds",
+        "top_cell": "mixed_mim",
+        "report": "/var/tmp/icstudio-mim-physical-scope-replay-20261023-v1/native/public-drc/report.lyrdb",
+        "thr": "1",
+        "feol": "true",
+        "beol": "true",
+        "offgrid": "true",
+        "seal": "false",
+        "floating_met": "false",
+        "sram_exclude": "false",
+        "info": "false"
+      }
+    },
+    "replay_archive": {
+      "path": "/mnt/c/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/sky130-mim-physical-scope-2026-10-23-v1/replay.zip",
+      "sha256": "1cf1ecd773ce23ce5ee00db0f56936c286e1b6f9972213f7fa1110a3cbc82319",
+      "bytes": 746532,
+      "files": 36,
+      "all_member_recovery_verified": true
+    },
+    "cleanup": {
+      "path": "/var/tmp/icstudio-mim-physical-scope-replay-20261023-v1",
+      "removed": true,
+      "linux_logical_bytes": 313775378,
+      "linux_unique_inode_bytes": 313775378
+    }
+  },
+  "cleanup": {
+    "status": "PASS",
+    "linux": {
+      "path": "/var/tmp/icstudio-mim-physical-scope-20261023-v1",
+      "files": 6998,
+      "logical_bytes": 323750585,
+      "unique_inode_bytes": 323750585,
+      "archive_sha256": "be7572a088b86092f110f42e0d80a37d7a73750b1a94d2f55c2480ad6df52ec6",
+      "removed": true
+    },
+    "windows_source_container": {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\chunk7-mim-physical-scope-20261023-v1\\pilot-source.zip",
+      "sha256": "aa94f3cd60b43d679d9f7a5c439504750be0f34cfd1a980eaad3d9d865799307",
+      "bytes": 84861493,
+      "all_members_recoverable": true,
+      "removed": true
+    },
+    "claim": "Linux deletion frees filesystem space; no Windows virtual-disk compaction or C: recovery claim.",
+    "totals": {
+      "windows_file_bytes": 84861493,
+      "linux_logical_bytes": 637525963,
+      "linux_unique_inode_bytes": 637525963
+    }
+  },
+  "runtime_sha256": {
+    "runtime-before.json": "117cfec2873eece26932e0ad20b37b5c96341a0726b94e1058aef3d0cfb87930",
+    "runtime-after.json": "f65c697d7dba264dca6a2bf67fcaca78e7534dc6496aac56277c543b343f33e0"
+  },
+  "date": "2026-10-23",
+  "source_baseline": "51917f7029b51eaba08239964bc1975639380c7e",
+  "integrator_summary_sha256": "6fbf885ff6789295f8a7afb2908a9aa68d5ba7396533c8d0d671ea865030bf5a",
+  "estimate": {
+    "chunk": 7,
+    "percent": 60,
+    "confidence": "low",
+    "range_percent": [
+      50,
+      70
+    ]
+  }
+}

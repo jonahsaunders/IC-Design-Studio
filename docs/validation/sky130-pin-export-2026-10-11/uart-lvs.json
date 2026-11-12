@@ -1,0 +1,114 @@
+{
+  "schema": 1,
+  "case": "uart",
+  "status": "native-lvs-diagnostic-complete",
+  "qualified": false,
+  "driver_sha256": "8c9baf4855bdd72e39d2f1b25a23fe5bdc79d21aa8848d588611a3e8730791ac",
+  "source_job_sha256": "7e62adcf692431a099055706ffea5812873765749c9cf116dacec9f15f33dfa7",
+  "source_gds_sha256": "e4815341c418f4630eaed1fc52a29b6c9865e6dc2411c14b8bc5ec216f123e45",
+  "master_line_endings": {
+    "transform": "CRLF to LF only; original retained",
+    "upstream_sha256": "5c10d8a6aa5165817bd8bf53fce902506c4ae131660965915c8e2b6e3878485b",
+    "normalized_sha256": "ae02cdc40c81943bbc3f4a16a6760e01afd12764a94e7836b7e168edf40ae29c"
+  },
+  "scope": "Strict connectivity diagnostic; no acceptance before native report/terminal and fault-control audits.",
+  "openroad_sha256": "cc6e1144bbe55764009bc9297b980aef511826101c1d019935b737f738e86501",
+  "application_sources": {
+    "scripts/sky130_lvs_reference.py": "505be1aedd0ac00623cd58618101744228395a247a45ece0fe46c1024753791d",
+    "scripts/sky130_cdl_reader.rb": "9a137e976c29c03726a2f53d2da959f99b33050aa351b7579c53ec238147c0b8",
+    "scripts/check_sky130_lvs.py": "199744d6db2caeac6e4678934dc2b7a3958abacd48eb8811547414fd746cd80e",
+    "scripts/check_ihp_lvs.py": "bc812c69e938c190d55e86efb2bff6f436040c1e4deac90d2b5687cb8a1919ed",
+    "scripts/ihp_lvs_reference.py": "166b05618b44706b8541ac0088f3bead5583dde8e6bffabdccfa72e068d0ff54",
+    "icstudio/digital_lvs_engine.py": "306b50b2b70c0b0e4800273418f30f349f6d6ac7cacff00b5e8f2164c3198332"
+  },
+  "klayout_sha256": "17c0ac7fad216669ae38aa2ff4be332ca01ce4573002883195671f9405b0c0c9",
+  "command": [
+    "/opt/icstudio/bin/klayout",
+    "-b",
+    "-r",
+    "/var/tmp/icstudio-sky130-pin-lvs-v1/uart/strict.lvs",
+    "-rd",
+    "in_gds=/var/tmp/icstudio-sky130-pin-lvs-v1/uart/layout.gds",
+    "-rd",
+    "report_file=/var/tmp/icstudio-sky130-pin-lvs-v1/uart/report.lvsdb",
+    "-rd",
+    "cdl_file=/var/tmp/icstudio-sky130-pin-lvs-v1/uart/reference.cdl",
+    "-rd",
+    "target_netlist=/var/tmp/icstudio-sky130-pin-lvs-v1/uart/extracted.cir"
+  ],
+  "deck_sha256": "0da968ac552727922357583efb50df8983cb942101696010bf44118f3d5ea5d2",
+  "matched": true,
+  "port_labels_match": true,
+  "inventory": {
+    "layout": {
+      "devices": {
+        "pfet_01v8_hvt": 1287,
+        "nfet_01v8": 1293
+      },
+      "pins": [
+        "n0000000",
+        "n0000001",
+        "n0000207",
+        "n0000208",
+        "n0000214",
+        "n0000215",
+        "n0000216",
+        "n0000217",
+        "n0000218",
+        "n0000219",
+        "n0000220",
+        "n0000221",
+        "n0000246",
+        "n0000247",
+        "n0000280"
+      ]
+    },
+    "reference": {
+      "devices": {
+        "nfet_01v8": 1293,
+        "pfet_01v8_hvt": 1287
+      },
+      "pins": [
+        "n0000000",
+        "n0000001",
+        "n0000207",
+        "n0000208",
+        "n0000214",
+        "n0000215",
+        "n0000216",
+        "n0000217",
+        "n0000218",
+        "n0000219",
+        "n0000220",
+        "n0000221",
+        "n0000246",
+        "n0000247",
+        "n0000280"
+      ]
+    }
+  },
+  "seconds": 12.767511985002784,
+  "files": {
+    "reference-database.json": "dc11f87327533878b1117065c6b478ae282e5f24ffbd6853fe9c26c3a4fdcbbb",
+    "raw-reference.cdl": "d115ddca5520850727a94102871e14419eae8c2a5b4bc3b9fa6460cb3b46ec58",
+    "conversion.json": "33e2772549ae8a2badb6f6f0cbb3a2fe1d44373f978003fb7d47b86866c156e7",
+    "reference.cdl": "d491dfd0e42540ce3318fddda97dfbd22c24be78496cc5e82fafbc743e2f3179",
+    "upstream-masters.cdl": "5c10d8a6aa5165817bd8bf53fce902506c4ae131660965915c8e2b6e3878485b",
+    "masters.cdl": "ae02cdc40c81943bbc3f4a16a6760e01afd12764a94e7836b7e168edf40ae29c",
+    "request.json": "21262ca09f593c361effb0cf6d3657c97f6bc9a5ba843531c6201d857d62d7b4",
+    "engine.log": "a31720e18e8c5a6b79a15c527781e4c3e853eb718f9a3accc9efa1032c92178b",
+    "reference.log": "06491733c98c0c9ca4ee3e8b42270be7825bbe51fe0b49ac3a05136dd1503b3b",
+    "label-audit.json": "23977b2b9a2bb6c9554abd2bd8adcfc0f5d3b48fb91e2ab7028893b6601caf52",
+    "upstream.lylvs": "c83cd4b9cb02ac08fc6a554b5a2de464c14459557d891358d531fcc2aff269c2",
+    "strict.lvs": "0da968ac552727922357583efb50df8983cb942101696010bf44118f3d5ea5d2",
+    "report.lvsdb": "45dd961169f50b3f8f13dae41883c34c1d62bb3788328d8b5123f8aa0a468718",
+    "extracted.cir": "1608a5d8cec0534c8a303063e59e5b1b87be7be0526da96963504c76742d3201",
+    "worker.py": "306b50b2b70c0b0e4800273418f30f349f6d6ac7cacff00b5e8f2164c3198332",
+    "original.gds": "e4815341c418f4630eaed1fc52a29b6c9865e6dc2411c14b8bc5ec216f123e45",
+    "layout.gds": "1af1cfd5a44e4613cced3c3b1384a1e7a5978ada02cde092f5da463fad25e8f9",
+    "driver.py": "00efb07827a71217f1e32fe94ea1c5a3b47604331e33cc50e1779fb062e77b6e",
+    "audit.json": "2ec16e6c120dd1b977b8f00b19bbea6d6bd15f3e88ee899a062c75074f487872",
+    "original.odb": "bf0e9ab345710ee75c180cb07385c5484fa4b793092659e6df023d7fba52af7f",
+    "aliases.json": "a02f9514ae99033e76660d4e939abda2527806b98e748e103f626bc2c2902e55"
+  }
+}

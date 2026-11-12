@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "profile": "sky130-hd-nominal-bulk",
+  "qualified": false,
+  "scope": "New explicit rule choice for the existing standard bulk HD references. NFET bodies connect to VSS; no isolated NMOS well domain is requested. Optional x.29 containment is still measured and the enabled-switch control must fail on these unchanged layouts. This is not an isolation pass or a default for arbitrary designs.",
+  "cases": [
+    {
+      "case": "counter",
+      "top": "counter",
+      "gds_sha256": "4158b6503dc07e85f1e9e7b375a3d654cd9b64dc0498ed9fb680874e973c1ac2",
+      "checkpoint_sha256": "10de8332ad78bba19e93e78eb5247040d74b8a8cd0b186dde19484254577ca9d",
+      "options": {
+        "nfet_in_dnwell": false
+      }
+    },
+    {
+      "case": "uart",
+      "top": "uart_tx",
+      "gds_sha256": "c9282fb9602ac9dbab5299032be1d4b68751bb611747d276d40435e93c37afea",
+      "checkpoint_sha256": "27ec03d13a0264feea11df78633ca56d7f068ed74b1f06478f3fe9db058d2d32",
+      "options": {
+        "nfet_in_dnwell": false
+      }
+    },
+    {
+      "case": "apb",
+      "top": "apb_fifo",
+      "gds_sha256": "5039221b72bfd052d3f82781f5403fb67df4261ea20add5c2047191321fe9d78",
+      "checkpoint_sha256": "cd1a997dac190164ab96bac0ae0eaee91865ff2ed0f983865daa644cae60bf7d",
+      "options": {
+        "nfet_in_dnwell": false
+      }
+    }
+  ]
+}

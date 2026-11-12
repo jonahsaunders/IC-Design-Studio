@@ -9,6 +9,21 @@ from icstudio.stream_contract import canonicalize, compare
 
 
 class StreamCompatibilityTests(unittest.TestCase):
+    def test_oasis_cannot_silently_substitute_layout_text_or_touch_existing_output(self):
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td); p=example('empty'); c=p['cells'][0]
+            path=root/'out.oas';path.write_bytes(b'previous export')
+            for text in ('first\nsecond','net\tname','supply\u00b5','name\x7f'):
+                c['layout_texts']=[dict(layer=p['pdk']['layers'][0]['name'],text=text,x=1200,y=3400)]
+                with self.subTest(text=text),self.assertRaisesRegex(ValueError,'cannot preserve'):
+                    export_layout(p,path)
+                self.assertEqual(path.read_bytes(),b'previous export')
+                self.assertFalse(Path(str(path)+'.icstudio.json').exists())
+            c['layout_texts'][0]['text']='first\nsecond'
+            export_layout(p,root/'out.gds');ly=db.Layout();ly.read(str(root/'out.gds'))
+            texts=[s.text.string for i in ly.layer_indexes() for s in ly.top_cell().shapes(i).each() if s.is_text()]
+            self.assertIn('first\nsecond',texts)
+
     def test_singleton_array_vector_may_normalize_but_used_pitch_must_match(self):
         import struct
         with tempfile.TemporaryDirectory() as td:

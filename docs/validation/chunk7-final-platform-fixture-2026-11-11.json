@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "date": "2026-11-11",
+  "base_commit": "eb20e898b9a85cfb5431409b3bdff854a04c2bfd",
+  "status": "REVIEWED_TEST_ONLY_PLATFORM_FIX_PENDING_HOSTED_ACCEPTANCE",
+  "qualified": false,
+  "installed_acceptance": false,
+  "native_execution": false,
+  "original_source_run": 43034664976,
+  "windows_gui": "success",
+  "linux_groups": "failed on Ubuntu DNS/package acquisition",
+  "windows_contracts": "failed oversized stat fixture discarded Windows metadata; production reparse guard unchanged",
+  "repair": {
+    "path": "tests/test_ihp_wsl_research_delivery.py",
+    "sha256": "20b871533af7a4a10690787504dc9666d66f0cd65a22c63041c0a849214826fb",
+    "scope": "Override only fixture st_size; delegate every real stat attribute; explicit Windows reparse metadata regression"
+  },
+  "local_validation": {
+    "module_tests": 14,
+    "runtime_tests": 199,
+    "runtime_skips": 1,
+    "runtime_test_seconds": 13.179,
+    "source_identities": 2540,
+    "unchanged": true,
+    "syntax_files": 1635,
+    "request_tests": "pass after request ID refresh"
+  },
+  "policy_sha256_unchanged": "d4d0fad7f497857a69a2d2436cc6c887836c413dbd54ddfde3fcc38aa9f2d291",
+  "request_id": "final-platform-stat-fixture-v1",
+  "request_change": "ID only; same reviewed build-only policy, no native authorization",
+  "evidence": {
+    "path": "artifacts/chunk7-final-platform-fixture-2026-11-11.zip",
+    "bytes": 273344,
+    "sha256": "29266939a1bed657d91b5cc6899ce928487a660323e2d35b150d974fd9865111"
+  },
+  "pending": [
+    "Hosted source matrix",
+    "Exact-candidate installed desktop acceptance",
+    "Build-only external DNS recovery and complete independent host proof",
+    "Unchanged scientific exclusions"
+  ]
+}

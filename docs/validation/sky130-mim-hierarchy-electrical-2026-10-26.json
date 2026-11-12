@@ -1,0 +1,364 @@
+{
+  "schema": 1,
+  "id": "sky130-mim-hierarchy-electrical-2026-10-26",
+  "date": "2026-10-26",
+  "chunk": 7,
+  "status": "selected_conditioned_hierarchy_electrical_source_integration_passed",
+  "qualified": false,
+  "full_family": false,
+  "installed": false,
+  "release_ready": false,
+  "signoff": false,
+  "chunk_complete": false,
+  "scope": "Selected whole-network electrical integration of the four already-accepted imported two-occurrence MiM layouts. Current application schematic counterpart, archived explicit hierarchical verification reference, unchanged complete native extraction and independent source-defined lumped RC. No fresh physical execution, full envelope, distributed RC, measured accuracy or installed acceptance. This version qualifies only the explicitly conditioned common-mode offset delta=2^-16V; the original larger-offset profile remains an observed numerical limitation and is not claimed repaired.",
+  "source_baseline": "53c17aa78eb510715eaa28ed34e4f576a7fe7b40",
+  "source_snapshot": {
+    "files": 833,
+    "exact_names_and_bytes_equal_on_both_hosts": true,
+    "reviewed_checkout_bytes_equal": true,
+    "baseline": "53c17aa78eb510715eaa28ed34e4f576a7fe7b40",
+    "delta": {
+      "icstudio/catalog.py": {
+        "baseline": "33aa52277f5961ec54c32e2319904094ac8ed0807f29b8768119bbf419366fc6",
+        "current": "ce8f4cd47a3048ad64a6893983b790e85663ca46a344bd71732cb669a0100e1c"
+      }
+    },
+    "linux_fixture_manifest_sha256": "125d34223f5da50ed17c12940d656f3add7a1f2933a9ad0ca071067de2f9e984",
+    "linux_fixture_files": 6566,
+    "git_metadata_is_not_source_identity": true
+  },
+  "source_hashes": {
+    "scripts/qualify_sky130_mim_hierarchy_electrical.py": "8fa3c808804b5cf211bd22bdaba8e79876d4a5c2c8f016009882a1125e9a0ce0",
+    "docs/qualification/sky130-mim-hierarchy-electrical-v2.json": "ebe2c9265f2093d688b5a3673ef557561cdb71a63ed0c4310fecb05780d93b71",
+    "docs/qualification/sky130-mim-hierarchy-electrical-v1.json": "090453b72eff9e0d8f9fca40246d8292f8d16e11cfb9a08e5239609ef9b95feb",
+    "tests/test_sky130_mim_hierarchy_electrical.py": "63763862a616438b23e2e601ce437f8f8642819b719d56c2424c7ff703ae8b8e",
+    "scripts/audit_sky130_mim_hierarchy_electrical.py": "19eaa5dd4930e5653421e34a44f86b96d3a6d6d581c187f7ee5517cbbc9f7e28",
+    "tests/test_sky130_mim_hierarchy_electrical_audit.py": "2aa8dbe48659256619bfa1c1d38d24bd77dfd4d1f60a5c78c042124e5e052c05"
+  },
+  "contract": {
+    "path": "docs/qualification/sky130-mim-hierarchy-electrical-v2.json",
+    "sha256": "ebe2c9265f2093d688b5a3673ef557561cdb71a63ed0c4310fecb05780d93b71"
+  },
+  "preserved_failed_profile_contract": {
+    "path": "docs/qualification/sky130-mim-hierarchy-electrical-v1.json",
+    "sha256": "090453b72eff9e0d8f9fca40246d8292f8d16e11cfb9a08e5239609ef9b95feb"
+  },
+  "simulation_package": {
+    "revision": "b26f7f28e659ddc1",
+    "manifest_sha256": "840f7af802b07346650c50a5967e532a4cb1716623cf0c9d6fd6c58eaf35fcbe"
+  },
+  "inherited_physical": {
+    "evidence": "sky130-mim-hierarchy-2026-10-26",
+    "clean_layouts": 4,
+    "native_capacitors": 8,
+    "new_physical_executions": 0,
+    "source_and_stream_hierarchy_preserved": true,
+    "native_verification": "Private flattened stream under original physical acceptance.",
+    "archive": {
+      "archive": "/mnt/c/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/sky130-mim-hierarchy-2026-10-26-v1/evidence.zip",
+      "archive_sha256": "0626cb1d07050768911a6056009e99ac9ce3bcf13d0313b6786195879c434caa",
+      "manifest_sha256": "7a5caf43e2a2c1c41c8e19e1b2c6858498c50eccf1b9b0238a4d63d926291693",
+      "prefix": "native/full-v1/",
+      "scope": "Unchanged original four physical layouts and original source/raw proof. Not duplicated in this archive."
+    }
+  },
+  "application_reference": {
+    "method": "New current-package application schematic counterpart: one saved/reopened shared leaf and two genuine child instances; complete network exported once.",
+    "archived_reference": "The original geometry-only imported project used an explicit hierarchical verification reference; it is not relabeled an application export.",
+    "historical_binding_preserved": true,
+    "historical_revision": "9a491f0ebd51a0aa",
+    "historical_second_plate_emit": "vm",
+    "current_emit": "mf"
+  },
+  "selection": {
+    "models": 2,
+    "orientations": [
+      0,
+      90
+    ],
+    "passive_sections": [
+      "tt",
+      "ll",
+      "hh",
+      "hl",
+      "lh"
+    ],
+    "temperature_C": 27,
+    "tnom_C": 27,
+    "width_um": 2,
+    "length_um": 10,
+    "multiplicity": 1,
+    "occurrences": 2,
+    "ordered_terminals": [
+      "P1",
+      "N1",
+      "P2",
+      "N2"
+    ],
+    "frequencies_Hz": [
+      1000,
+      10000,
+      100000,
+      1000000,
+      10000000,
+      100000000,
+      1000000000,
+      10000000000
+    ],
+    "paths": [
+      "application counterpart",
+      "archived hierarchical reference",
+      "unchanged complete native extraction"
+    ],
+    "profile": {
+      "delta_V": 1.52587890625e-05,
+      "e1": [
+        1.0000152587890625,
+        1.52587890625e-05,
+        -1.52587890625e-05,
+        -1.52587890625e-05
+      ],
+      "e2": [
+        1.52587890625e-05,
+        1.52587890625e-05,
+        0.9999847412109375,
+        -1.52587890625e-05
+      ],
+      "solver": "Original Sparse",
+      "current_Y_R_C_limits_unchanged": true,
+      "amplitude_serialization": "17 significant digits"
+    },
+    "relative_Y_R_C_tolerance": 1e-06,
+    "current_limit": "Absolute error in every measured terminal current is at most |Y_base|*1e-6; same bound for declared KCL/isolation checks.",
+    "negative_networks": [
+      "second positive terminal cross-connected",
+      "second occurrence removed",
+      "second width changed from 2 to 3 um"
+    ]
+  },
+  "native": {
+    "windows": {
+      "status": "PASS",
+      "counts": {
+        "contexts": 20,
+        "native_ac_runs": 40,
+        "frequency_points": 320,
+        "positive_active_pair_samples": 960,
+        "positive_inactive_pair_samples": 960,
+        "detected_network_controls": 60,
+        "historical_clean_layouts": 4,
+        "historical_native_capacitors": 8,
+        "source_files": 833,
+        "candidate_files": 6
+      },
+      "producer_seconds": 215.125,
+      "qualification_sha256": "55619c8d9d0ec050592981854748987e55753e378698d01d09d5f227f8cf442c",
+      "manifest_sha256": "cbc7f850fcf695fe561537caafcbc3ef716fb4422e58ea25af4a0cdde4dfd186",
+      "source_files_sha256": "1a79cea450edb1f5307c67b47a6fa98c1b9bc3d87420961d27a57b480d05db02",
+      "candidate_files_sha256": "0f118ea2e52f4a644998f6008a1da9783808d03ff3cbd3edf6b466f82b57b106",
+      "nonce": "c6e8815accd64658af3356568941d88f",
+      "original_execution_root": "C:/Users/jonah/Documents/Codex/2026-10-06/go/work/chunk7-mim-hierarchy-electrical-20261026-v1/full-windows-v3",
+      "runtime": {
+        "engine": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\IC-Design-Studio\\icstudio\\assets\\runtime\\ngspice\\ngspice.exe",
+        "sha256": "86c9ea5f645ca919e305639fa7bdb522355364c424d14e197f1ade617feb3453",
+        "platform": "win32",
+        "machine": "AMD64",
+        "before_sha256": "a625fcddd0a81dc3dc4c1cfe6a888a7c885e13ae3b8bea563fdd3744b224e3ca",
+        "after_sha256": "a625fcddd0a81dc3dc4c1cfe6a888a7c885e13ae3b8bea563fdd3744b224e3ca",
+        "assets_sha256": "7536fa228e55f199d8e74ce26bd6d85c34e87c2a56d532a447f37cb748333785"
+      },
+      "maximum_normalized_current_error": 0.0015707537512261185,
+      "guards": {
+        "source": true,
+        "candidate": true,
+        "package": true,
+        "models": true,
+        "runtime": true,
+        "physical": true,
+        "networks": true
+      },
+      "recovered_audit_sha256": "a0ff1f426efa98c1ef395ce8415d5422af908f361da081b39076b48e28a2872d",
+      "invocation_seconds": 217.15700000000652
+    },
+    "linux": {
+      "status": "PASS",
+      "counts": {
+        "contexts": 20,
+        "native_ac_runs": 40,
+        "frequency_points": 320,
+        "positive_active_pair_samples": 960,
+        "positive_inactive_pair_samples": 960,
+        "detected_network_controls": 60,
+        "historical_clean_layouts": 4,
+        "historical_native_capacitors": 8,
+        "source_files": 833,
+        "candidate_files": 6
+      },
+      "producer_seconds": 125.026237391,
+      "qualification_sha256": "619d9fef0a8a2df0d04e6a1c3eabb1a13a7c9965a8bc584066cd21f968fb4e3e",
+      "manifest_sha256": "aa8adc5af12dc698946fac86d19741c6684eea27519d25a8c3f292d3921f631d",
+      "source_files_sha256": "1a79cea450edb1f5307c67b47a6fa98c1b9bc3d87420961d27a57b480d05db02",
+      "candidate_files_sha256": "6798625e902426d8242b48b6e0cf2179f68437e706500a1f836dd1c5c8a2684a",
+      "nonce": "3ec4f1e729e14cb59b1201e0f72e9680",
+      "original_execution_root": "/var/tmp/icstudio-mim-hierarchy-electrical-20261026-v1/full-linux-v2",
+      "runtime": {
+        "engine": "/usr/bin/ngspice",
+        "sha256": "820658317b0b54035208da41936fd6871ce924036e5ea4113a4168b821b7fc45",
+        "platform": "linux",
+        "machine": "x86_64",
+        "before_sha256": "15c2cf693adaf7b29c7a833fbcaf05ef723d79fd5aa87c7d5a0c28c4dae8c9ed",
+        "after_sha256": "15c2cf693adaf7b29c7a833fbcaf05ef723d79fd5aa87c7d5a0c28c4dae8c9ed",
+        "assets_sha256": "1cdeb0ce646ae34a7735776d65e8379d0cd8ab36663d58b4cbb7bcbffe42d7ac"
+      },
+      "maximum_normalized_current_error": 0.0015707537512261185,
+      "guards": {
+        "source": true,
+        "candidate": true,
+        "package": true,
+        "models": true,
+        "runtime": true,
+        "physical": true,
+        "networks": true
+      },
+      "recovered_audit_sha256": "3e5b1da72ec57757addbd7b47b611cf5d388aff29d3480ec97de1aa9d1f99e92",
+      "invocation_seconds": 125.70910801599985
+    }
+  },
+  "independent_review": {
+    "status": "PASS",
+    "receipt_sha256": "e5ebe349b0238cb08136478fae2f7803a889c01e10d8be0ed55098a6cc1da5d2",
+    "exact_source_names_and_bytes": 833,
+    "candidate_files": 6,
+    "original_inventories_unchanged": true,
+    "final_rehashed_corruptions_rejected": 12,
+    "earlier_pilot_rehashed_corruptions_rejected": 12,
+    "corruptions_receipt_sha256": "c92bd22b7b99f6e595f81b825eb21a3e68eb9c0f05a94d5b3322e2d15411d187"
+  },
+  "focused_tests": {
+    "windows_producer": 9,
+    "windows_independent_reader": 9,
+    "linux": {
+      "status": "PASS",
+      "tests": 18,
+      "skips": 0,
+      "failures": 0,
+      "errors": 0,
+      "seconds": 0.6161628039999414,
+      "full_fixture_unchanged": true,
+      "log_sha256": "31b972d0b02f7a36283712ed9bd930d992fafc3c98865e22f4f842ac0cac286b"
+    }
+  },
+  "earlier_attempts": [
+    {
+      "path": "work/pilot-v1",
+      "status": "PASS",
+      "scope": "Original larger-offset nominal pilot only; not full selected acceptance."
+    },
+    {
+      "path": "work/full-windows-v1",
+      "status": "FAIL",
+      "completed_contexts": 14,
+      "failed_contexts": 6,
+      "cause": "Original larger-common-mode returning-source current numerical cancellation exceeded the fixed bound; remains unqualified."
+    },
+    {
+      "path": "work/klu-diagnosis-v1",
+      "status": "FAIL",
+      "passed": 1,
+      "failed": 2,
+      "adopted": false
+    },
+    {
+      "path": "work/sense-diagnosis-v1",
+      "status": "FAIL",
+      "passed": 1,
+      "failed": 2,
+      "adopted": false
+    },
+    {
+      "path": "work/conditioned-diagnosis-v2",
+      "status": "PASS",
+      "cases": 3,
+      "scope": "Predeclared selected smaller common modes only."
+    },
+    {
+      "path": "work/full-windows-v2",
+      "status": "SUPERSEDED_PROTOCOL_VERSION",
+      "cause": "Wrong title version; stopped after actual native execution began. Original source/raw preserved."
+    }
+  ],
+  "archive": {
+    "schema": 1,
+    "status": "PASS",
+    "archive": "/mnt/c/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/sky130-mim-hierarchy-electrical-2026-10-26-v2/evidence.zip",
+    "archive_sha256": "f0297a1f3405248dd41a467f5ed45d87a19033ada4b9978745fe28dbe1f0ed9b",
+    "archive_bytes": 27762146,
+    "manifest_sha256": "4205b83b9ee6977a64cd7332a5d8ea593568e21daac18f782f92f2a418015246",
+    "logical_files": 8555,
+    "unique_objects": 2816,
+    "logical_bytes": 522283614,
+    "all_objects_verified": true,
+    "all_source_files_unchanged": true,
+    "physical_dependency": {
+      "archive": "/mnt/c/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/sky130-mim-hierarchy-2026-10-26-v1/evidence.zip",
+      "archive_sha256": "0626cb1d07050768911a6056009e99ac9ce3bcf13d0313b6786195879c434caa",
+      "manifest_sha256": "7a5caf43e2a2c1c41c8e19e1b2c6858498c50eccf1b9b0238a4d63d926291693",
+      "prefix": "native/full-v1/",
+      "scope": "Unchanged original four physical layouts and original source/raw proof. Not duplicated in this archive."
+    }
+  },
+  "restored_readback": {
+    "status": "PASS",
+    "hosts": {
+      "windows": {
+        "files": 1699,
+        "status": "PASS",
+        "seconds": 28.959597656999904,
+        "qualification_sha256": "55619c8d9d0ec050592981854748987e55753e378698d01d09d5f227f8cf442c",
+        "manifest_sha256": "cbc7f850fcf695fe561537caafcbc3ef716fb4422e58ea25af4a0cdde4dfd186"
+      },
+      "linux": {
+        "files": 1747,
+        "status": "PASS",
+        "seconds": 25.173101559000315,
+        "qualification_sha256": "619d9fef0a8a2df0d04e6a1c3eabb1a13a7c9965a8bc584066cd21f968fb4e3e",
+        "manifest_sha256": "aa8adc5af12dc698946fac86d19741c6684eea27519d25a8c3f292d3921f631d"
+      }
+    },
+    "no_native_execution": true,
+    "retained_original_execution_identities": true
+  },
+  "second_archive_inspection": {
+    "schema": 1,
+    "status": "PASS",
+    "archive_sha256": "f0297a1f3405248dd41a467f5ed45d87a19033ada4b9978745fe28dbe1f0ed9b",
+    "manifest_sha256": "4205b83b9ee6977a64cd7332a5d8ea593568e21daac18f782f92f2a418015246",
+    "logical_files": 8555,
+    "unique_objects": 2816,
+    "all_crc_and_object_hashes_verified": true,
+    "exact_accepted_file_sets": {
+      "windows": {
+        "files": 1699,
+        "qualification_sha256": "55619c8d9d0ec050592981854748987e55753e378698d01d09d5f227f8cf442c",
+        "manifest_sha256": "cbc7f850fcf695fe561537caafcbc3ef716fb4422e58ea25af4a0cdde4dfd186",
+        "complete_raw_runs": 40
+      },
+      "linux": {
+        "files": 1747,
+        "qualification_sha256": "619d9fef0a8a2df0d04e6a1c3eabb1a13a7c9965a8bc584066cd21f968fb4e3e",
+        "manifest_sha256": "aa8adc5af12dc698946fac86d19741c6684eea27519d25a8c3f292d3921f631d",
+        "complete_raw_runs": 40
+      }
+    },
+    "physical_dependency_members": 1264,
+    "failed_attempts_and_diagnostics_retained": true,
+    "no_duplicate_control_or_physical_trees": true,
+    "method_sha256": "4b1f221e8685c923da2c7b9cd20dfb9409d22685232df42a0d113348274e7cbd"
+  },
+  "limitations": [
+    "Original larger common-mode selection is still unqualified; no full common-mode envelope established.",
+    "Arbitrary geometry/operating envelopes, distributed parasitics, measured model accuracy, calibrated statistics/reliability and complete family qualification remain outside this selection.",
+    "This is source integration, not an installed desktop acceptance result; physical input proof is reused under its original identity."
+  ],
+  "interpretation": "Independent circuit/graph/raw/formula integration against shared public compact models, not independent measured-model accuracy. Earlier larger common-mode selection remains failed and unqualified."
+}

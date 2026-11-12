@@ -1,0 +1,33 @@
+{
+  "schema": 1,
+  "date": "2026-11-10",
+  "base_commit": "eb0018c9c024588358b3f4f12f0af6a0581da937",
+  "status": "SUBSEQUENT_PINNED_CLANG_GUARD_LIMITATION_NOT_APPLICATION_REGRESSION",
+  "qualified": false,
+  "application_changed": false,
+  "installed_acceptance": false,
+  "independent_correction": {
+    "status": "GENERAL_UNMASKED_PENDING_EXCEPTION_FALLBACK_NOT_ESTABLISHED",
+    "finding": "Clang15 strictfp emits FWAIT after inline FNSTCW before checking x87 exception masks. A pending unmasked x87 exception can trap before guard returns rejection.",
+    "evidence": [
+      {
+        "path": "/workspace/shared/ihp-psp-compensated-clang-review-expanded/disassembly.txt",
+        "address": "0x1f4b",
+        "instruction": "wait",
+        "sha256": "e393051d67de118ae6fc02aa1bec69992dc71c387846415591ce1b4f7f4581a2"
+      },
+      {
+        "path": "/workspace/shared/ihp-psp-compensated-build/gate/inspection/on.disassembly.txt",
+        "address": "0x3d7b",
+        "instruction": "fwait; other copies0x1a0b,0x27bb,0x35eb",
+        "sha256": "7e032a21918ee79cf26227a787980d0a462e3d8e3c7e869fc46735342de4f669"
+      }
+    ],
+    "prior_review_correction": "Previous independent statement that mask checking preceded potentially trapping operations was too broad. Mask-only tests did not create a pending x87 exception. Standalone finite masked arithmetic/oracle results remain valid; no general safe environment rejection proven.",
+    "allowed_narrow_scope": "Only explicitly snapshotted fully masked x87/MXCSR nearest-mode toy. FTZ forced rejection control may be authored separately; original intermediates proven normal-or-zero, exact CSR restoration required.",
+    "future_remedy": "Separate reviewed non-waiting integer/register-only environment guard is a candidate, not implemented or authorized by this record. Must inspect generated machine code and add safe isolated pending-exception regression. Do not relax EFT arithmetic strictness.",
+    "native_runs_by_reviewer": 0
+  },
+  "source_receipt_sha256": "0e7a1e8c54b8a83bf548f0b0c2d36bd6b2c72a8da8703d2b228b0d8a1ebaa14c",
+  "scope": "Corrects overly broad interpretation of pending-unmasked x87 fallback in strict-Clang research build. Earlier finite fully-masked arithmetic results remain valid, and original records are preserved. General use blocked pending guard correction; no shipped app/runtime change."
+}

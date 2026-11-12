@@ -1,0 +1,11 @@
+{
+  "path": "/workspace/shared/ihp-pmos-v3-complete-evidence.zip",
+  "bytes": 44389077,
+  "sha256": "49570be0c8718f44d98866ce7242280d85fa84abf81ac0e4a113fa73a484feb8",
+  "payload_files": 588,
+  "zip_entries": 589,
+  "omitted_generated_bytecode": 11,
+  "manifest_sha256": "8f583f2a0002a17fdb268502e53d269cee73d633fe3aff1a9311f2ead0125a87",
+  "testzip": true,
+  "all_payloads_verified": true
+}

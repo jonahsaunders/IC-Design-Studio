@@ -1,0 +1,245 @@
+{
+  "schema": 1,
+  "date": "2026-11-06",
+  "status": "PASS_LOCAL_SOURCE_FEEDBACK",
+  "source_baseline": "b8372151e8664ba66b52005731e906cc1eac6214",
+  "scope": "Historical catalog authentication and fast-feedback repair. No application backend or PDK model bytes changed. Local source results do not establish packaged or installed acceptance.",
+  "qualified": false,
+  "family_complete": false,
+  "chunk_complete": false,
+  "matrix_status_promoted": false,
+  "installed_acceptance": false,
+  "source_hashes": {
+    "scripts/ci_feedback.py": "b33af1e3703ce473a151d5cd8c1ec8ad0a19d0c0847c1f73c40591bb6f68784e",
+    "scripts/sky130_retained_catalog.py": "7dce7f3df782924f56535d70fe46f56956b0d4a40f22786a295b9e3da54d5f81",
+    "tests/test_ci_feedback.py": "2dbfcd8c86ade7e4b71531fe028dae1e8f916d155f95a2142db73a017e842def",
+    "tests/test_sky130_retained_catalog.py": "78f81b73828edfd441777712ade6be4e5b934c8c185e90d35c4a55a83a227318",
+    "docs/validation/sky130-retained-platform-source-2026-11-06/digital_platform.py.txt": "116dca61a91e498b91588991bfa211b407ca0023067fb8994b767f0a030866a4",
+    "docs/validation/sky130-retained-platform-source-2026-11-06/README.md": "1c6a96813cee7298576220a6263f53adb8a2ef607eb413f6a4f66d50490baff1",
+    "tests/test_frozen_ihp_resistor_gate.py": "509d1aacae7e81192abe689f6a48bc3644c07fe9b22ebacb596e95ffb260c491"
+  },
+  "original_hosted_failure": {
+    "run_id": 41863947398,
+    "candidate": "b8372151e8664ba66b52005731e906cc1eac6214",
+    "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41863947398",
+    "windows": {
+      "job_id": 126705685567,
+      "tests": 4254,
+      "errors": 1,
+      "skipped": 62,
+      "log_sha256": "ddbfec47b4eac02507d57933a989158440694b8924db86adedd7ff5fbf1f402d"
+    },
+    "linux": {
+      "job_id": 126705685584,
+      "tests": 4254,
+      "errors": 1,
+      "skipped": 49,
+      "log_sha256": "baab96cae722bbb6d82b08b40f99c1b39b9605edf1b42c5b9564a55c112a2579"
+    },
+    "cause": "Both exhaustive core suites reject changed icstudio/digital_platform.py in historical SKY130 catalog evidence. Installed acceptance was skipped."
+  },
+  "repair": {
+    "snapshot_revision": "39d0b61a35f628372b04ae1cac49cd1e1e097f30",
+    "snapshot_source": "icstudio/digital_platform.py",
+    "snapshot_sha256": "116dca61a91e498b91588991bfa211b407ca0023067fb8994b767f0a030866a4",
+    "baseline_and_audit_unchanged": true,
+    "authenticated_source_count": 85,
+    "historical_snapshot_count": 8,
+    "feedback_historical_dependency_files": 121,
+    "controls": [
+      "Missing or changed historical source fails despite a valid old-code decoy at the live path.",
+      "Changed live platform source cannot relabel retained decisions as new execution.",
+      "All historical input bytes are included in feedback before/after identities.",
+      "The standalone runner works without ambient PYTHONPATH.",
+      "All expanded tests retain their order and execute exactly once across four contract stages.",
+      "The first two synthetic scheduler jobs rendezvous so startup timing cannot erase required two-worker overlap; a serialized executor fails the negative control. All 225 receipts and ordering assertions remain."
+    ],
+    "timeout_seconds": 300,
+    "timeout_changed": false
+  },
+  "windows": {
+    "status": "passed",
+    "stages": [
+      {
+        "name": "unit-contracts",
+        "returncode": 0,
+        "elapsed_seconds": 88.953
+      },
+      {
+        "name": "ihp-contracts",
+        "returncode": 0,
+        "elapsed_seconds": 8003.531
+      },
+      {
+        "name": "physical-contracts",
+        "returncode": 0,
+        "elapsed_seconds": 88.844
+      },
+      {
+        "name": "device-contracts",
+        "returncode": 0,
+        "elapsed_seconds": 149.078
+      },
+      {
+        "name": "package-contracts",
+        "returncode": 0,
+        "elapsed_seconds": 128.859
+      },
+      {
+        "name": "runtime-release-contracts",
+        "returncode": 0,
+        "elapsed_seconds": 14.016
+      },
+      {
+        "name": "release-contracts",
+        "returncode": 0,
+        "elapsed_seconds": 3.656
+      },
+      {
+        "name": "menu-smoke",
+        "returncode": 0,
+        "elapsed_seconds": 30.75
+      },
+      {
+        "name": "project-hub-smoke",
+        "returncode": 0,
+        "elapsed_seconds": 8.641
+      },
+      {
+        "name": "metal-resistor-editor-smoke",
+        "returncode": 0,
+        "elapsed_seconds": 8.062
+      },
+      {
+        "name": "metal-resistor-parallel-smoke",
+        "returncode": 0,
+        "elapsed_seconds": 34.734
+      },
+      {
+        "name": "ihp-resistor-editor-smoke",
+        "returncode": 0,
+        "elapsed_seconds": 109.516
+      },
+      {
+        "name": "ihp-capacitor-corner-smoke",
+        "returncode": 0,
+        "elapsed_seconds": 2.203
+      }
+    ],
+    "tests": 1165,
+    "skips": 38,
+    "seconds": 8678.266,
+    "syntax_files": 1516,
+    "bound_source_files": 2295,
+    "complete_snapshot_files": 6996,
+    "sources_unchanged": true,
+    "report_sha256": "3a3cb634d5b8ba160c2ebed507d423632ba960b6e39199f0d6f85ba4b4074ec7",
+    "verification_sha256": "f46a1d762e07403906b4157cc9cad0448772da5579963143c5afecbf9bb87072"
+  },
+  "linux": {
+    "status": "passed",
+    "stages": [
+      {
+        "name": "unit-contracts",
+        "returncode": 0,
+        "elapsed_seconds": 25.867
+      },
+      {
+        "name": "ihp-contracts",
+        "returncode": 0,
+        "elapsed_seconds": 45.146
+      },
+      {
+        "name": "physical-contracts",
+        "returncode": 0,
+        "elapsed_seconds": 40.071
+      },
+      {
+        "name": "device-contracts",
+        "returncode": 0,
+        "elapsed_seconds": 40.254
+      },
+      {
+        "name": "package-contracts",
+        "returncode": 0,
+        "elapsed_seconds": 38.479
+      },
+      {
+        "name": "runtime-release-contracts",
+        "returncode": 0,
+        "elapsed_seconds": 5.476
+      },
+      {
+        "name": "release-contracts",
+        "returncode": 0,
+        "elapsed_seconds": 1.718
+      },
+      {
+        "name": "menu-smoke",
+        "returncode": 0,
+        "elapsed_seconds": 23.757
+      },
+      {
+        "name": "project-hub-smoke",
+        "returncode": 0,
+        "elapsed_seconds": 3.171
+      },
+      {
+        "name": "metal-resistor-editor-smoke",
+        "returncode": 0,
+        "elapsed_seconds": 5.044
+      },
+      {
+        "name": "metal-resistor-parallel-smoke",
+        "returncode": 0,
+        "elapsed_seconds": 20.856
+      },
+      {
+        "name": "ihp-resistor-editor-smoke",
+        "returncode": 0,
+        "elapsed_seconds": 80.542
+      },
+      {
+        "name": "ihp-capacitor-corner-smoke",
+        "returncode": 0,
+        "elapsed_seconds": 1.417
+      }
+    ],
+    "tests": 1165,
+    "skips": 16,
+    "seconds": 337.198,
+    "syntax_files": 1516,
+    "bound_source_files": 2295,
+    "complete_snapshot_files": 6996,
+    "sources_unchanged": true,
+    "report_sha256": "815cdb4574d54ccdc078edb975162cf7dfbba313808c2ffd22a95addabefaf3f",
+    "verification_sha256": "e22b69adc0464e566c438468c9e92c2e48789d31dd52df0c15ee835a24469fd8"
+  },
+  "timing_limitation": "Windows recorded 8678.266 seconds overall and an anomalous approximately 8002-second IHP unittest duration despite the unchanged configured 300-second process wait. Host suspension/clock behavior was not diagnosed. Observed assertions/process exits pass, but this local timing does not establish the hosted 15-minute runtime budget; fresh hosted timing is required.",
+  "preserved_attempts": [
+    "Original hosted failures on both hosts and local unchanged-source reproduction.",
+    "Restricted-runner junction prerequisite failure; the unchanged ordinary-user prerequisite passes.",
+    "Initial focused invocation lacked the feedback PYTHONPATH; corrected invocation passes 53 tests with one Windows skip.",
+    "Initial standalone candidate failed its own new import on both hosts; final bootstrap and isolated-launch regression repair it.",
+    "Second Windows candidate exceeded the unchanged 300-second unit deadline; its Linux counterpart passed 11 stages. A third Windows candidate also exceeded the physical-stage deadline. Final selection is split into 13 stages with all original tests and timeouts preserved.",
+    "Fourth Windows candidate exposed a short-workload overlap assumption in the scheduler test; its Linux counterpart passed. The final deterministic rendezvous plus serialized-executor negative control passes all eight focused scheduler tests."
+  ],
+  "retention": {
+    "archive": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\outputs\\chunk7-recovery-evidence.zip",
+    "sha256": "87df957729f349079207456f779689de45bb7316863cec9e47d96044f76b7fda",
+    "bytes": 89606904,
+    "members": 6280,
+    "all_members_reopened_and_sha256_verified": true
+  },
+  "fresh_hosted_acceptance": "pending",
+  "engineering_estimate": {
+    "percent": 74,
+    "range": [
+      55,
+      82
+    ],
+    "confidence": "low",
+    "verified_completion": false
+  },
+  "post_validation_documentation": "Tracker, source-review guides and this receipt were added after the verified local source runs. The snapshot README commit citation was corrected to the actual 40-character Git identity; executable code and retained snapshot bytes are unchanged. Fresh hosted results must bind the final candidate."
+}

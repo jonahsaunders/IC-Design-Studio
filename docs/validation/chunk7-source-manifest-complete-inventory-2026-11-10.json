@@ -1,0 +1,94 @@
+{
+  "base_commit": "fb4919d8df5ed3ef7571853276617a48c5fc57f5",
+  "chunk_complete": false,
+  "date": "2026-11-10",
+  "exact_delta": {
+    "added_items": 40,
+    "all_prior_items_identical": true,
+    "chunk_complete": false,
+    "current_implementation_hashes_verified": true,
+    "file_identities_unchanged": true,
+    "inventory_complete": false,
+    "new_gaps": 95,
+    "new_items": 777045,
+    "new_sha256": "426b8e9b69c270dab32e5aba29e6302c99ee44d4e8c6df26714bd6cb34189448",
+    "old_gaps": 98,
+    "old_items": 777005,
+    "old_sha256": "9d0a7241d984fa3b5ad309957e06339c995f88307302dd219e2f236d04c50a56",
+    "other_metadata_unchanged": true,
+    "qualified": false,
+    "remaining_gap_records_identical": true,
+    "removed_gaps": [
+      "gf180-open-pdks:scripts/tools.txt",
+      "sky130A/libs.tech/klayout/lvs/sky130.lylvs",
+      "sky130B/libs.tech/klayout/lvs/sky130.lylvs"
+    ],
+    "seconds": 13.897333142998832,
+    "status": "PASS_EXACT_COMPLETE_REPORT_DELTA"
+  },
+  "full_audit_execution": {
+    "chunk_complete": false,
+    "command": [
+      "python",
+      "scripts/audit_source_dispositions.py",
+      "--cache",
+      "/workspace/shared/ic-design-studio/build/source-disposition-cache/git-blobs",
+      "--sky-cache",
+      "/workspace/shared/ic-design-studio/build/source-disposition-cache/sky",
+      "--output",
+      "build/source-disposition-next/source-dispositions-2026-11-10-v3.json.gz"
+    ],
+    "deadline_seconds": 900,
+    "log_sha256": "ccae2fd577b15cb6f718ad0c9c64c7616641d102d329a4392d37fb22b3c8189d",
+    "qualified": false,
+    "returncode": 1,
+    "seconds": 457.8900173759994,
+    "status": "EXITED"
+  },
+  "implementation_and_fixture_sha256": {
+    "docs/qualification/source-manifest-wrappers-v1/Apache-2.0.txt": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "docs/qualification/source-manifest-wrappers-v1/README.md": "eb59e54d1f9532810f808198db64c0fbb00286a119aa7abdd5b5c6ea5849061e",
+    "docs/qualification/source-manifest-wrappers-v1/sky130.lylvs": "a233295ff25f15f064580e1d722f624eb77ea70ded5d164c3b6fb7a8900bfaf4",
+    "docs/qualification/source-manifest-wrappers-v1/source-lock.json": "ad1a466ca31f6bd5c4717ef143acc5cf8b8ee83c097cb80d9ca5080d3c96af65",
+    "docs/qualification/source-manifest-wrappers-v1/tools.txt": "78dea839533083d87f9ed6d0cc383d00516fcd80c6ee5ab87874e108fae62722",
+    "scripts/audit_source_dispositions.py": "20c9d84bf0f0604b3376cf820fe83ba8b2ab8ff391a2f6c72d2235ad6103a15b",
+    "scripts/inventory_source_manifests.py": "7a155e609af8382d88d1b5d4e162e0eaf626dfdbc23129fb6db05bfdc468ba0b",
+    "scripts/reconstruct_source_dispositions_v3.py": "0851e4103393442d02c2a1b40867ae0a15544f14f7c1a4339cbed2bfc5a06dbc",
+    "tests/test_source_disposition_reconstruction_v3.py": "06f5030112800a4dbe78dca8673094364bd99ac138b2c5ad012d2f05e7a27f04",
+    "tests/test_source_manifests.py": "c198bbc2fbb5c6c05dde086143102035a598d72689b6cb4f2560c8948d5c87cf"
+  },
+  "independent_review": {
+    "scope": "All 777005 prior items unchanged; exact forty facts independently regenerated from authenticated fixtures; exactly three gap removals; all95 remaining gap records identical. Separate Git and SKY accounting changes, counts, metadata and current source hashes independently verified.",
+    "status": "PASS"
+  },
+  "inventory_complete": false,
+  "prior_reports_unchanged": true,
+  "qualified": false,
+  "remaining": "95 inventory gaps in candidate; binary gmon, ambiguous gate lists, geometry chains and dynamic configuration sources remain unclaimed.",
+  "schema": 1,
+  "scope": "Eight setup target names plus sixteen metadata/include/role facts per exact SKY130A/B macro. No upstream code execution, installed tool capability, dependency resolution or device qualification.",
+  "status": "PASS_COMPLETE_AUDIT_EXACT_DELTA_AND_LOSSLESS_STORAGE",
+  "storage": {
+    "actual_cli_and_cmp_passed": true,
+    "base_sha256": "ff2a08f3698dcf09d01c38f77bb9f76866e981401ae380e02efac9bc8084a442",
+    "command": "python scripts/reconstruct_source_dispositions_v3.py --output build/source-dispositions-2026-11-10-v3.json.gz",
+    "cumulative_changed_git_files": 10,
+    "cumulative_changed_sky_accounting_records": 2,
+    "cumulative_transport_added_facts": 234,
+    "cumulative_transport_removed_gaps": 12,
+    "delta": "docs/qualification/source-dispositions-2026-11-10-v3.delta.json.gz",
+    "delta_bytes": 19123,
+    "delta_sha256": "e64538d28e8d6ded351f19889415f7c516a80eb32b446fdaab997c5cdeb1f772",
+    "exact_reconstruction_verified": true,
+    "target_bytes": 23563039,
+    "target_sha256": "426b8e9b69c270dab32e5aba29e6302c99ee44d4e8c6df26714bd6cb34189448"
+  },
+  "validation": {
+    "affected_tests": 87,
+    "seconds": 0.061,
+    "source_cache_skips": 0,
+    "transport_seconds": 0.007,
+    "transport_tests": 15
+  },
+  "validation_scope_correction": "The initial Git-only comparison helper was extended to inspect the separate SKY source accounting array and canonical archive path source IDs. Only validator assumptions changed; source, audit and report were unchanged."
+}

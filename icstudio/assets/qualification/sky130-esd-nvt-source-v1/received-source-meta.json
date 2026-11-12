@@ -1,0 +1,22 @@
+[
+  {
+    "file": "corrected.sym",
+    "git_blob": "e9961a5d7cb8f668ad26ebc7395e14c0c7de2cee",
+    "url": "https://github.com/StefanSchippers/xschem_sky130/blob/08367118f8ad7311b9264b856fb4d5f1f58b45f9/sky130_fd_pr/nfet_g5v0d10v5_nvt_esd.sym"
+  },
+  {
+    "file": "test_nmos.sch",
+    "git_blob": "a2baebf1a02f0dde86109d18f52d46b4a663c512",
+    "url": "https://github.com/StefanSchippers/xschem_sky130/blob/08367118f8ad7311b9264b856fb4d5f1f58b45f9/sky130_tests/test_nmos.sch"
+  },
+  {
+    "file": "LICENSE.xschem",
+    "git_blob": "81f82d4e9af433b9a167f9c1c298c442a89a99c5",
+    "url": "https://github.com/StefanSchippers/xschem_sky130/blob/08367118f8ad7311b9264b856fb4d5f1f58b45f9/LICENSE"
+  },
+  {
+    "file": "previous.sym",
+    "git_blob": "2d5168105e028c61fde5be3cc30dd41bbfb15fb5",
+    "url": "https://github.com/StefanSchippers/xschem_sky130/blob/7a60184f1ccb8d733dfbbb08793ae85a21804d3e/sky130_fd_pr/nfet_g5v0d10v5_nvt_esd.sym"
+  }
+]

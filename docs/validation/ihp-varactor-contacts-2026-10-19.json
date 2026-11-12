@@ -1,0 +1,1111 @@
+{
+  "schema": 1,
+  "date": "2026-10-19",
+  "chunk": 7,
+  "chunk_complete": false,
+  "qualified": false,
+  "default_promoted": false,
+  "status": "contacted_small_varactor_physical_scope_verified",
+  "baseline": "e81d12d5924d9101f0dcb34af35cdcd620fd9b90",
+  "scope": "Full local DRC/LVS for forty explicitly contacted small IHP varactor coupons and twenty-eight faults. Original larger/tie-deficient layouts remain failed; no complete family, operating-envelope, foundry or installed-release qualification.",
+  "coupon": {
+    "w_um": 3.74,
+    "l_um": 0.3,
+    "nx": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "rotations": [
+      0,
+      90,
+      180,
+      270
+    ],
+    "additions": "300 nm right extension of active/NWell/nBuLay/oxide, ten right well contacts, and two contacted substrate-tab extensions beyond the well/oxide clearance. All original drawn areas and gate/pin/recognition geometry are retained.",
+    "passes": 40,
+    "detected_faults": 28,
+    "workers": 4,
+    "native_report_sha256": "082b88ab86c663e8df7e7df867259b7120900e241f7616b45888fa3b4bdb16c9",
+    "implementation_unchanged": true
+  },
+  "contact_correction": {
+    "schema": 1,
+    "rule": "Cnt.a",
+    "minimum_nm": 160,
+    "source_sha256": "bec75c6c8aeb9720edcdfdcf1e2c132d9be4af42801dd61b45715d6c6ec68402",
+    "corrected_sha256": "a0eb3c22f8e67945bfc00d9138e3d8b85611b9f02a4016ccf66dade734554581",
+    "original_operand": "pc/m1",
+    "corrected_operand": "(pc,varc)/m1",
+    "scope": "Full native DRC with one explicit contact-operand correction; no geometry changes or filtered findings."
+  },
+  "independent_audit": {
+    "status": "PASS",
+    "positives": 40,
+    "detected_faults": 28,
+    "native_and_comparison_netlists": 80,
+    "exchange_layer_pairs": 400,
+    "every_original_mask_preserved": true,
+    "gates_and_pin_masks_unchanged": true,
+    "private_rule_closure_verified": true,
+    "original_native_contact_fragment_cause_proved": true,
+    "chunk_complete": false,
+    "scope": "Small explicitly contacted geometries only. Original wider layouts, large geometries and other chunk-7 requirements are not qualified."
+  },
+  "windows_backend": {
+    "status": "PASS",
+    "cases": [
+      {
+        "name": "small-10-270-None",
+        "status": "PASS",
+        "native_status": "passed",
+        "received_files": 120,
+        "result_sha256": "4f67e7c12ce494ac7d4d79667d5323f3bb68411807c44b77b9261c7554e8ac79"
+      },
+      {
+        "name": "small-4-90-None",
+        "status": "PASS",
+        "native_status": "passed",
+        "received_files": 120,
+        "result_sha256": "987f6b6977a29c8e28b761b699798c12c3c16aabc46579772ba974a141d731eb"
+      },
+      {
+        "name": "small-4-90-mixed-contact-width",
+        "status": "PASS",
+        "native_status": "failed",
+        "received_files": 120,
+        "result_sha256": "35c0974311acafa50fb025a629b02aa14540bfe4b0d143b3e3aa5afcf54547c8"
+      },
+      {
+        "name": "small-10-270-missing-well-ties",
+        "status": "PASS",
+        "native_status": "failed",
+        "received_files": 120,
+        "result_sha256": "4da4b6c8a5dc165cd3bcf81ea2c076b60c66c217ddec5e3971591f397a21f2cd"
+      },
+      {
+        "name": "small-10-180-missing-substrate-ties",
+        "status": "PASS",
+        "native_status": "failed",
+        "received_files": 120,
+        "result_sha256": "f5f68ac19e6b312f96aa3f4f940380ccbc767a0ecafdeb37a8c7f42663b5aef3"
+      },
+      {
+        "name": "small-1-0-reference-fingers",
+        "status": "PASS",
+        "native_status": "failed",
+        "received_files": 120,
+        "result_sha256": "de59fd99e58015e9eb653bc94fba40747dd6fc58d2c2663ec464c27c31fde038"
+      }
+    ],
+    "implementation_unchanged": true,
+    "scope": "Windows source staging and actual ordinary-user Linux backend; not installed desktop qualification."
+  },
+  "native_regressions": {
+    "status": "PASS",
+    "process": {
+      "target": "ihp-sg13g2",
+      "revision": "cfb96b74cf33877e",
+      "manifest_sha256": "da58ba2de122d67d232ab20ca4fb353b70bdc68c00ef4279f9be7da640a68ae0"
+    },
+    "cases": [
+      {
+        "name": "pnp",
+        "status": "passed",
+        "expected": "passed",
+        "error": null,
+        "drc_count": 0,
+        "report_sha256": "4f0cafa08167af7e62c66712c39fa559ce0129b00d660a0b52347dbce2c3fc4b"
+      },
+      {
+        "name": "npn13G2l",
+        "status": "passed",
+        "expected": "passed",
+        "error": null,
+        "drc_count": 0,
+        "report_sha256": "4b291f6a13cded12040a26f30bc7435890a96a5f1b1b01a6d48a51765a0fe037"
+      },
+      {
+        "name": "npn13G2v",
+        "status": "passed",
+        "expected": "passed",
+        "error": null,
+        "drc_count": 0,
+        "report_sha256": "6b1fad23afb6f197bd2b599a5c77dd98c38b617d14ae8b2501bf9566c7da517b"
+      },
+      {
+        "name": "npn13G2",
+        "status": "passed",
+        "expected": "passed",
+        "error": null,
+        "drc_count": 0,
+        "report_sha256": "508bf7615f95a40caf98e227fbb6f967a667915d1314af6f0565729f10c8a7f9"
+      },
+      {
+        "name": "ntap1",
+        "status": "passed",
+        "expected": "passed",
+        "error": null,
+        "drc_count": 0,
+        "report_sha256": "008c30a46c73936697258f27405ef8d6949258d24011b8e7cdb29d55ab9ffaff"
+      },
+      {
+        "name": "ptap1",
+        "status": "passed",
+        "expected": "passed",
+        "error": null,
+        "drc_count": 0,
+        "report_sha256": "79455eb87db4ad7866ab7f5febe0607f880ac94a0e063343fab14c88945a76b3"
+      },
+      {
+        "name": "inductor",
+        "status": "passed",
+        "expected": "passed",
+        "error": null,
+        "drc_count": 0,
+        "report_sha256": "4244516e94ca244b007ef21931e499cbcee5dc335a1b5d0c91d68f570238092b"
+      },
+      {
+        "name": "inductor3",
+        "status": "passed",
+        "expected": "passed",
+        "error": null,
+        "drc_count": 0,
+        "report_sha256": "1abb342d4f11d601ad3b66c67e8e77e6d44464f1af9a5c7410681376a4d69db0"
+      },
+      {
+        "name": "original-small-4",
+        "status": "passed",
+        "expected": "passed",
+        "error": null,
+        "drc_count": 0,
+        "report_sha256": "969bd9fb7ecf2932fba6d6e6fe37819a5c4b245a9a48abf67814d2f5ad14332b"
+      },
+      {
+        "name": "original-small-10",
+        "status": "failed",
+        "expected": "failed",
+        "error": "23 DRC violations; see retained native and supplemental findings.",
+        "drc_count": 23,
+        "report_sha256": "01fc0aa1e917ddbdedde3284a8b67fc5c6e46358b95a6a5ca61318befe5e4884"
+      },
+      {
+        "name": "original-large-1",
+        "status": "failed",
+        "expected": "failed",
+        "error": "17 DRC violations; see retained native and supplemental findings.",
+        "drc_count": 17,
+        "report_sha256": "69cef45ec97bd04c3afc1265d4cd10f235a5ff16b46d5a819f95ac2a68f48b52"
+      }
+    ],
+    "scope": "Prior bipolar/tap/coil native routes, repaired original small Nx4, and retained original small Nx10/large Nx1 DRC failures."
+  },
+  "tests": {
+    "Windows": {
+      "discovered": 3167,
+      "seconds": 972.267,
+      "skipped": 63,
+      "status": "PASS",
+      "log_sha256": "5f6b74d0d565c0620bbcc041ac7d756dd3e7874868a6796db55d72746f9802ed"
+    },
+    "Linux": {
+      "status": "PASS",
+      "test": "tests.test_qualification_evidence.QualificationEvidenceTests.test_required_blocked_case_cannot_pass_and_optional_scope_remains_visible",
+      "reason": "The source snapshot intentionally contains no .git metadata; this test constructs a report that requires the real repository commit.",
+      "original_suite_status": "FAILED (errors=1, skipped=55)",
+      "original_discovered": 3168,
+      "original_errors": 1,
+      "original_skipped": 55,
+      "rerun_exit_code": 0,
+      "identical_test_and_implementation_verified": true,
+      "full_log_sha256": "9147962938a06ea8bb340531aecca57f01d083e8576a6e801754b7d7d2cbed7d",
+      "rerun_log_sha256": "1335bb84187bc3b8b3a1d0f0b537d681598dc217f71fdf70e314c1ad0ed07911",
+      "conclusion": "All executed Linux tests pass across the native-filesystem suite and the single repository-dependent rerun; not a single clean full-suite invocation."
+    }
+  },
+  "final_focused_windows": {
+    "tests": 37,
+    "log_sha256": "1389165e0e03b11e4ac87b820fc8c3677f2317452275f8e64c87b277b0e618f4",
+    "status": "PASS",
+    "scope": "Final path and checksum hardening plus affected verifier/backend tests after the full Windows suite started."
+  },
+  "source_files": {
+    "icstudio/ihp_varactor_rules.py": "a60060ef9b74026bd4c21a655052eac284a7704f10304f1848f3b767481c8967",
+    "icstudio/layout_verification.py": "13e100f6943c6565cb8e2b9dbfe800db9311efb8a7f19eff8f45b643b2d329a8",
+    "scripts/qualify_ihp_varactor_layouts.py": "f6f89f664f0e46d333f9a3514d1e801d0031cec7f46cfb55615032f569636990",
+    "tests/test_ihp_varactor_rules.py": "48b3bf31943cefc206e0ec0371fb9df1c99819ca4eb1d5a3530eb8f153dadff4",
+    ".github/workflows/ihp-inductor-qualification.yml": "d557f6573a567f3414cb8d6a6b46ab3d77cfd31a3bd0c75a53be8851bfb58880"
+  },
+  "public_klayout_investigation": {
+    "qualified": false,
+    "integrated": false,
+    "source": {
+      "repository": "https://github.com/IHP-GmbH/IHP-Open-PDK",
+      "commit": "5e6d592e4002946a4616f798c357f0f3c06cf3b6",
+      "license": "Apache-2.0",
+      "verified_tree": "beb3a89679354eb0753f8f825c31265d924fc388",
+      "files": {
+        "README.md": {
+          "git_blob_sha1": "58693efa104df5866fbe33015c415cd8fd719895",
+          "sha256": "ba78ff1dadf627d569e2062d7ded6af6d0f5667db6ab54bac1e02f9e509ee3b3",
+          "bytes": 8978,
+          "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/README.md"
+        },
+        "docs/extra_rules.md": {
+          "git_blob_sha1": "b78700370a80327fc4e2cbeb2850d7be7aa8a733",
+          "sha256": "7ef1fe66afe918d6e98636495b65331fe9d04aaf194d74298350657e35fd6f02",
+          "bytes": 40066,
+          "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/docs/extra_rules.md"
+        },
+        "docs/main_rules.md": {
+          "git_blob_sha1": "77dd8ce9436c90ceda7f882d9a6640c00590a4f2",
+          "sha256": "40b975ffa45bc7f86ecdc27909ff359f1aee2be1d390e6f6bc58f935aa77f202",
+          "bytes": 39321,
+          "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/docs/main_rules.md"
+        },
+        "docs/precheck_rules.md": {
+          "git_blob_sha1": "b50a0fe263967b17a9e445ecc36d8fbb0ac87f54",
+          "sha256": "b8dd7fc763a490e831b837405726e7c38a03f19d48446f59560b01c8a2ef6394",
+          "bytes": 14051,
+          "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/docs/precheck_rules.md"
+        },
+        "ihp-sg13g2.drc": {
+          "git_blob_sha1": "a915b1bb4c61fbe335886c4b2e504adbfd53c575",
+          "sha256": "22a570bfb43d564b7ce3de9d7df0795197be79f86c8a484b4959932c8dd75961",
+          "bytes": 18267,
+          "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/ihp-sg13g2.drc"
+        },
+        "rule_decks/antenna.drc": {
+          "git_blob_sha1": "324ec2d28669d4d6d3da52c76d84ca796194cb84",
+          "sha256": "e3e925d918d2d4e2067751326122fd1a9be9bc3cb4fa10a8aca2fc9349975362",
+          "bytes": 19754,
+          "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/antenna.drc"
+        },
+        "rule_decks/beol/5_16_metal1.drc": {
+          "git_blob_sha1": "466d14ed0d91dc4986a0705424755f70addb09de",
+          "sha256": "82a0ffa3d6412e88de6caf103c3b1eb1a4cf09b6cfa1857da8c67740f56c5ed0",
+          "bytes": 4280,
+          "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/beol/5_16_metal1.drc"
+        },
+        "rule_decks/beol/5_17_metaln.drc": {
+          "git_blob_sha1": "a8ecedecd341e16fdb2327ef5df043f98c44bf56",
+          "sha256": "0023b4dfc61eb71e14d2d4b3b003078d3f8121c732445ad80a9bca187279fb6e",
+          "bytes": 4862,
+          "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/beol/5_17_metaln.drc"
+        },
+        "rule_decks/beol/5_18_metalnfiller.drc": {
+          "git_blob_sha1": "738c51ef25670e0a3f809a7fe659c7301e8fe7df",
+          "sha256": "75db77192540e65fa5065a614b6872a90d967447b5a3dade0e0d2cc1630ee83d",
+          "bytes": 2697,
+          "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/beol/5_18_metalnfiller.drc"
+        },
+        "rule_decks/beol/5_19_via1.drc": {
+          "git_blob_sha1": "c2bc6e01339ddbe5c60c5a540648147937dab47c",
+          "sha256": "d86d04e1f8cda3c045dc8caafe85cec64bde15413d0ab521765021153a59ec0e",
+          "bytes": 2215,
+          "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/beol/5_19_via1.drc"
+        },
+        "rule_decks/beol/5_20_vian.drc": {
+          "git_blob_sha1": "67a7773d6ad2de84c58c181739e86d2a2c7e97db",
+          "sha256": "769a1169bf187d88c14e989dd7be8e3e3204cd72edb2a3d70eb45c943a56e2bd",
+          "bytes": 2524,
+          "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/beol/5_20_vian.drc"
+        },
+        "rule_decks/beol/5_21_topvia1.drc": {
+          "git_blob_sha1": "677ecb34deb0317e124a116c358c1d3ca22b13c6",
+          "sha256": "2a749744b68134b5fd9686dcdf6180a0d3acbed5ecdb1e4d5ac8499f8071e813",
+          "bytes": 2537,
+          "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/beol/5_21_topvia1.drc"
+        },
+        "rule_decks/beol/5_22_topmetal1.drc": {
+          "git_blob_sha1": "2435faff21936b397e97ab162ccd6e894b5992e0",
+          "sha256": "907319b08f719536f8487c326ca54d55a2fa0ffea0156c3277ab8b073e4a3c60",
+          "bytes": 1720,
+          "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/beol/5_22_topmetal1.drc"
+        },
+        "rule_decks/beol/5_23_topmetal1filler.drc": {
+          "git_blob_sha1": "4c870a8489bda2e8cbceaa1661aff5882e7c8f3f",
+          "sha256": "0a3bf97c0a34cd5be5cefb3259994f53800a16ba86f69d54aa80e7aa366375fa",
+          "bytes": 2188,
+          "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/beol/5_23_topmetal1filler.drc"
+        },
+        "rule_decks/beol/5_24_topvia2.drc": {
+          "git_blob_sha1": "a7478b3645edb5b40c566fb962848a5182c8c428",
+          "sha256": "0d5124c2fd6ddefe7161bb55c82cd738db6236feaa7bb39901f08c77145021d1",
+          "bytes": 2547,
+          "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/beol/5_24_topvia2.drc"
+        },
+        "rule_decks/beol/5_25_topmetal2.drc": {
+          "git_blob_sha1": "08d61e56ca1a199dcfbe3fd6e241d8e448fc6c9b",
+          "sha256": "356c09fdb4963e8157b9ee60efabf0d521474cd8c70a8ae17b4a2cd61eaff42e",
+          "bytes": 2685,
+          "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/beol/5_25_topmetal2.drc"
+        },
+        "rule_decks/beol/5_26_topmetal2filler.drc": {
+          "git_blob_sha1": "58b2b18670ca450ee9ec659bc3f5bf8934c1937b",
+          "sha256": "da26c6b473924538a0d9fc3e98b1fb77d5496c494de7d3738520d5daed39793e",
+          "bytes": 2175,
+          "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/beol/5_26_topmetal2filler.drc"
+        },
+        "rule_decks/beol/5_27_passiv.drc": {
+          "git_blob_sha1": "7eeab92b0fe0a501ad03d8ab325cdf8e37cb75a5",
+          "sha256": "eb6565030fddb0789be4f4fadb4c4fa3ed690f0d52f83c4b8bfe6780298a3574",
+          "bytes": 2273,
+          "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/beol/5_27_passiv.drc"
+        },
+        "rule_decks/beol/6_10_sealring.drc": {
+          "git_blob_sha1": "ec19aa35ca0f70d4c4b7cba17e864c55f073a04c",
+          "sha256": "15802b4d6e32ceb262c1a0c042660f667cf93f804491d73151c4a24de05aa5d4",
+          "bytes": 4536,
+          "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/beol/6_10_sealring.drc"
+        },
+        "rule_decks/beol/6_11_mim.drc": {
+          "git_blob_sha1": "9d7b978a58fc3a8fb501c9c7650dda691112311d",
+          "sha256": "0b41a9e4ff1342940920ff6763093aff39f986a8b2f7bfcf2b5dad47fa9da40d",
+          "bytes": 2309,
+          "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/beol/6_11_mim.drc"
+        },
+        "rule_decks/beol/6_9_copperpillar.drc": {
+          "git_blob_sha1": "652118300bd9b2dceb7e1fa8bd2cf092e688b703",
+          "sha256": "4ff342d047743695f3ce5c2a9daddd011752489097b7337c24401de2b56e4bbb",
+          "bytes": 2679,
+          "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/beol/6_9_copperpillar.drc"
+        },
+        "rule_decks/beol/6_9_pad.drc": {
+          "git_blob_sha1": "1acbb32482c37b8c38f5234455119bf64e84375a",
+          "sha256": "a9a8f450ea73bff364a2c6312575038ef023577d28d1196563d5a834a2790047",
+          "bytes": 2641,
+          "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/beol/6_9_pad.drc"
+        },
+        "rule_decks/beol/6_9_solderbump.drc": {
+          "git_blob_sha1": "50944d4331d46dc8ebeb5bc7522e4edc3e3c06c4",
+          "sha256": "57931abfc4d186fd6ae9b54a6c1683679de6f34b21ab225abdb098d7f3aeb9cb",
+          "bytes": 3100,
+          "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/beol/6_9_solderbump.drc"
+        },
+        "rule_decks/beol/7_3_metalslits.drc": {
+          "git_blob_sha1": "993ae7e1ea310bf827a29e443a8635e7f6315f47",
+          "sha256": "51457f1a8c6e312e9dbb39a65adf8fe716f57978a4a213f038b2473ae4bb8e4c",
+          "bytes": 1653,
+          "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/beol/7_3_metalslits.drc"
+        },
+        "rule_decks/beol/9_1_lbe.drc": {
+          "git_blob_sha1": "91759790c4600a5abddb9be7a9da5c78a89f96e5",
+          "sha256": "c501e565e2bc172143e048c19bc8c36813972e8604c307977112b1e1791cf2af",
+          "bytes": 2782,
+          "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/beol/9_1_lbe.drc"
+        },
+        "rule_decks/density.drc": {
+          "git_blob_sha1": "a59a361b33e9c7b5e98af7e23a6832428f199491",
+          "sha256": "ef143b293fbbb1722f590d59cd3d942fec5bde6ae216e8a8224d46b87010f8dd",
+          "bytes": 44126,
+          "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/density.drc"
+        },
+        "rule_decks/feol/5_10_psd.drc": {
+          "git_blob_sha1": "26a8116ab84dc97a839ee0a3e11f83c53f33d34e",
+          "sha256": "66ef753d801e82ab43e930d46f90fe9b4c84085ce62f71e7ea502acac5ab3d62",
+          "bytes": 1533,
+          "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/feol/5_10_psd.drc"
+        },
+        "rule_decks/feol/5_14_cont.drc": {
+          "git_blob_sha1": "43933e2f240a01a2ad98bd397b169ad4d66abe64",
+          "sha256": "1f541374c9b12f74bf806d2013e87aacc368535edec07e0c55661f6b4a7b821f",
+          "bytes": 4857,
+          "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/feol/5_14_cont.drc"
+        },
+        "rule_decks/feol/5_15_contbar.drc": {
+          "git_blob_sha1": "f223275eddc299c06dd904c4ef6705854730890c",
+          "sha256": "83dee69ea9f0949d0bacf78fedaa9073d312d20ead432ba6ce628ded6d1553b3",
+          "bytes": 2892,
+          "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/feol/5_15_contbar.drc"
+        },
+        "rule_decks/feol/5_1_nwell.drc": {
+          "git_blob_sha1": "c8d00a63a6ee189b4d310de8a8683ca68a3712f8",
+          "sha256": "7f0d27bd5507fbc530d55f5b7b2e1adeb65b39294b76b1c85530bc3e9338035d",
+          "bytes": 3657,
+          "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/feol/5_1_nwell.drc"
+        },
+        "rule_decks/feol/5_2_pwellblock.drc": {
+          "git_blob_sha1": "4c9cc44f44c4b239fa4084063daa09fbf813af7a",
+          "sha256": "3dfb01b5b353013f6b322ab0ff20d52d3325f925504e7cd6e85a0615792d60d7",
+          "bytes": 3081,
+          "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/feol/5_2_pwellblock.drc"
+        },
+        "rule_decks/feol/5_3_nbulay.drc": {
+          "git_blob_sha1": "c8d0b427ba66521852af125d9d40ff0668cb9bcc",
+          "sha256": "31a92ec448a6948d7400850f2bc37bb5a7590c0f7cce787ce46c731022edb5cb",
+          "bytes": 3518,
+          "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/feol/5_3_nbulay.drc"
+        },
+        "rule_decks/feol/5_5_activ.drc": {
+          "git_blob_sha1": "288ebf3c6113b5b3ec9efc897d0fcf9794107f04",
+          "sha256": "ab899d25d0a1dbef1a6a6b327353c80ae84331273e0ed0f239497727cf7fec6c",
+          "bytes": 1684,
+          "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/feol/5_5_activ.drc"
+        },
+        "rule_decks/feol/5_6_activfiller.drc": {
+          "git_blob_sha1": "5d0510e73d14101afd7d9340588d1103bfbb03c6",
+          "sha256": "c48ec245d0bf36dac15e55db4865b05e6cee96c258607d75e386bc8e3fcf783d",
+          "bytes": 3930,
+          "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/feol/5_6_activfiller.drc"
+        },
+        "rule_decks/feol/5_7_thickgateox.drc": {
+          "git_blob_sha1": "0d5f9c22ae1c0bb1536c30265948ce613d3ebb87",
+          "sha256": "aa42686a8d1468f549afcbaea2311cb38c893c0cc1d11b5a09a488af76d64ae0",
+          "bytes": 1367,
+          "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/feol/5_7_thickgateox.drc"
+        },
+        "rule_decks/feol/5_8_gatpoly.drc": {
+          "git_blob_sha1": "3124b71c1b0471203c73c29850659123881d55f9",
+          "sha256": "19154ca2432427086fa8fbee0941d8875126d3345487018d833b02025de65529",
+          "bytes": 3532,
+          "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/feol/5_8_gatpoly.drc"
+        },
+        "rule_decks/feol/5_9_gatpolyfiller.drc": {
+          "git_blob_sha1": "f38e84233f1306ec0c78894e1c4a54ce1e2fe309",
+          "sha256": "288a02299408399ccd94573200948cf01bfb3500915c021d2bedaa355bd2016f",
+          "bytes": 2737,
+          "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/feol/5_9_gatpolyfiller.drc"
+        },
+        "rule_decks/feol/6_1_npnsubstratetie.drc": {
+          "git_blob_sha1": "05f091e2aa609b1130935f226a08fde2f94f7d47",
+          "sha256": "4826fe274df4f16f8310bee5f3933375fa8a675de691283ae28675fb512e6bfc",
+          "bytes": 2858,
+          "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/feol/6_1_npnsubstratetie.drc"
+        },
+        "rule_decks/feol/6_7_schottkydiode.drc": {
+          "git_blob_sha1": "286b658737c045d60fee59310db64e8953c75ab3",
+          "sha256": "7e48869e6d92679f5a877f02a7c48f9ca77826fc1121cfc290eb962fd71e8052",
+          "bytes": 3817,
+          "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/feol/6_7_schottkydiode.drc"
+        },
+        "rule_decks/feol/7_2_latchup.drc": {
+          "git_blob_sha1": "45f6f1b34b569e234664932b562d496d0cb89600",
+          "sha256": "e1bf94abb6be10d243c84b0f2c71dcce29020e0941087e32113e5f4a8606b931",
+          "bytes": 1672,
+          "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/feol/7_2_latchup.drc"
+        },
+        "rule_decks/forbidden/3_2_forbidden.drc": {
+          "git_blob_sha1": "1b6dabee163f0d0fc25b15da8fc530708cbed175",
+          "sha256": "1e4aba916a0ebbddc58533cf641401f12da8da4959387f693d4e278786cd0486",
+          "bytes": 1695,
+          "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/forbidden/3_2_forbidden.drc"
+        },
+        "rule_decks/geometry/3_1_offgrid.drc": {
+          "git_blob_sha1": "5e9e2f609bf4e8d29f93306e03e64f4e524d0221",
+          "sha256": "dc5eb236c1229efb48df98b256a1b3fd3b08cb793db021e4fee889756f292f1d",
+          "bytes": 10083,
+          "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/geometry/3_1_offgrid.drc"
+        },
+        "rule_decks/geometry/3_2_angle.drc": {
+          "git_blob_sha1": "5be09fd892595c614bff7202c912def77bd4c4d2",
+          "sha256": "f1a4d08eb5c2b617d04cf73013700a450a3668dae9b5293c0d4c7d988d73efb4",
+          "bytes": 14153,
+          "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/geometry/3_2_angle.drc"
+        },
+        "rule_decks/layers_def.drc": {
+          "git_blob_sha1": "ac8ec405e53d94142995d4a3567a7136d7a24ade",
+          "sha256": "a71a4f6250b0220a5608c6d6cc6ef7a9b0a4a8f3f2820208216630528e163147",
+          "bytes": 42605,
+          "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/layers_def.drc"
+        },
+        "rule_decks/pin/7_4_pin.drc": {
+          "git_blob_sha1": "15b413be95e7a4dcc2cd9322e780724c1f13c487",
+          "sha256": "508ee712c468f14bd5458b276af3449fcfd167707fc0efb72e27e13189fe5742",
+          "bytes": 1888,
+          "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/pin/7_4_pin.drc"
+        },
+        "rule_decks/sg13g2_maximal.drc": {
+          "git_blob_sha1": "c1d8bd6756764fbf06dafacdadc6e07ecba1b9a1",
+          "sha256": "d12e1947f570ce16f04dfd94769f2c38fdbda3920c5f7479272ef517864eae4b",
+          "bytes": 151401,
+          "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/sg13g2_maximal.drc"
+        },
+        "rule_decks/sg13g2_tech_default.json": {
+          "git_blob_sha1": "ddd7070b7bfaf204b1577cefe7069ea390ab0954",
+          "sha256": "07930b016cdffe14c2cb82b47fbec193643347607db6d44aa1abfdece056cd2f",
+          "bytes": 9078,
+          "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/sg13g2_tech_default.json"
+        },
+        "run_drc.py": {
+          "git_blob_sha1": "72f0e28832e657498326167cc7753ef1a82d947f",
+          "sha256": "6d7246f125d1eb1e77a0340e3b1ffaa7233e0b3a2d4368f39207d6bac3dcdcef",
+          "bytes": 31689,
+          "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/run_drc.py"
+        }
+      }
+    },
+    "tech_source": {
+      "path": "ihp-sg13g2/libs.tech/klayout/python/sg13g2_pycell_lib/sg13g2_tech_mod.json",
+      "commit": "5e6d592e4002946a4616f798c357f0f3c06cf3b6",
+      "git_blob": "7a513d1dd732b7cd5f086c3a3bb074a5292c0e66",
+      "sha256": "229029e23785f3ae58c9645d47acfe326c56f0ec41d940bf9383c7063380f9ff",
+      "bytes": 27346
+    },
+    "first_probe": [
+      {
+        "name": "original-large-1",
+        "variant": "main",
+        "exit": 0,
+        "command": [
+          "/opt/icstudio/bin/klayout",
+          "-b",
+          "-r",
+          "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/chunk7-varactor-drc-20261019-v1/public-drc/ihp-sg13g2.drc",
+          "-rd",
+          "input=/var/tmp/icstudio-varactor-drc-regressions-20261019-v1/original-large-1/layout.gds",
+          "-rd",
+          "topcell=varactor_coupon",
+          "-rd",
+          "report=/var/tmp/icstudio-varactor-klayout-drc-20261019-v1/original-large-1-main/findings.lyrdb",
+          "-rd",
+          "log=/var/tmp/icstudio-varactor-klayout-drc-20261019-v1/original-large-1-main/native.log",
+          "-rd",
+          "run_mode=flat",
+          "-rd",
+          "threads=1",
+          "-rd",
+          "drc_json=/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/chunk7-varactor-drc-20261019-v1/sg13g2_tech_mod.json",
+          "-rd",
+          "drc_json_default=/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/chunk7-varactor-drc-20261019-v1/public-drc/rule_decks/sg13g2_tech_default.json"
+        ],
+        "findings": 0,
+        "categories": []
+      },
+      {
+        "name": "original-large-1",
+        "variant": "maximal",
+        "exit": 0,
+        "command": [
+          "/opt/icstudio/bin/klayout",
+          "-b",
+          "-r",
+          "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/chunk7-varactor-drc-20261019-v1/public-drc/rule_decks/sg13g2_maximal.drc",
+          "-rd",
+          "input=/var/tmp/icstudio-varactor-drc-regressions-20261019-v1/original-large-1/layout.gds",
+          "-rd",
+          "topcell=varactor_coupon",
+          "-rd",
+          "report=/var/tmp/icstudio-varactor-klayout-drc-20261019-v1/original-large-1-maximal/findings.lyrdb",
+          "-rd",
+          "log=/var/tmp/icstudio-varactor-klayout-drc-20261019-v1/original-large-1-maximal/native.log",
+          "-rd",
+          "run_mode=flat",
+          "-rd",
+          "threads=1",
+          "-rd",
+          "drc_json=/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/chunk7-varactor-drc-20261019-v1/sg13g2_tech_mod.json",
+          "-rd",
+          "drc_json_default=/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/chunk7-varactor-drc-20261019-v1/public-drc/rule_decks/sg13g2_tech_default.json"
+        ],
+        "findings": 0,
+        "categories": []
+      },
+      {
+        "name": "contacted-small-10",
+        "variant": "main",
+        "exit": 0,
+        "command": [
+          "/opt/icstudio/bin/klayout",
+          "-b",
+          "-r",
+          "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/chunk7-varactor-drc-20261019-v1/public-drc/ihp-sg13g2.drc",
+          "-rd",
+          "input=/var/tmp/icstudio-varactor-contacted-20261019-v2/small-10-0-None/verification/layout.gds",
+          "-rd",
+          "topcell=varactor_coupon",
+          "-rd",
+          "report=/var/tmp/icstudio-varactor-klayout-drc-20261019-v1/contacted-small-10-main/findings.lyrdb",
+          "-rd",
+          "log=/var/tmp/icstudio-varactor-klayout-drc-20261019-v1/contacted-small-10-main/native.log",
+          "-rd",
+          "run_mode=flat",
+          "-rd",
+          "threads=1",
+          "-rd",
+          "drc_json=/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/chunk7-varactor-drc-20261019-v1/sg13g2_tech_mod.json",
+          "-rd",
+          "drc_json_default=/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/chunk7-varactor-drc-20261019-v1/public-drc/rule_decks/sg13g2_tech_default.json"
+        ],
+        "findings": 0,
+        "categories": []
+      },
+      {
+        "name": "contacted-small-10",
+        "variant": "maximal",
+        "exit": 0,
+        "command": [
+          "/opt/icstudio/bin/klayout",
+          "-b",
+          "-r",
+          "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/chunk7-varactor-drc-20261019-v1/public-drc/rule_decks/sg13g2_maximal.drc",
+          "-rd",
+          "input=/var/tmp/icstudio-varactor-contacted-20261019-v2/small-10-0-None/verification/layout.gds",
+          "-rd",
+          "topcell=varactor_coupon",
+          "-rd",
+          "report=/var/tmp/icstudio-varactor-klayout-drc-20261019-v1/contacted-small-10-maximal/findings.lyrdb",
+          "-rd",
+          "log=/var/tmp/icstudio-varactor-klayout-drc-20261019-v1/contacted-small-10-maximal/native.log",
+          "-rd",
+          "run_mode=flat",
+          "-rd",
+          "threads=1",
+          "-rd",
+          "drc_json=/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/chunk7-varactor-drc-20261019-v1/sg13g2_tech_mod.json",
+          "-rd",
+          "drc_json_default=/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/chunk7-varactor-drc-20261019-v1/public-drc/rule_decks/sg13g2_tech_default.json"
+        ],
+        "findings": 0,
+        "categories": []
+      }
+    ],
+    "fault_probe": [
+      {
+        "name": "original-small-10",
+        "variant": "main",
+        "exit": 0,
+        "command": [
+          "/opt/icstudio/bin/klayout",
+          "-b",
+          "-r",
+          "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/chunk7-varactor-drc-20261019-v1/public-drc/ihp-sg13g2.drc",
+          "-rd",
+          "input=/var/tmp/icstudio-varactor-drc-regressions-20261019-v1/original-small-10/layout.gds",
+          "-rd",
+          "topcell=varactor_coupon",
+          "-rd",
+          "report=/var/tmp/icstudio-varactor-klayout-drc-20261019-v2/original-small-10-main/findings.lyrdb",
+          "-rd",
+          "log=/var/tmp/icstudio-varactor-klayout-drc-20261019-v2/original-small-10-main/native.log",
+          "-rd",
+          "run_mode=flat",
+          "-rd",
+          "threads=1",
+          "-rd",
+          "drc_json=/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/chunk7-varactor-drc-20261019-v1/sg13g2_tech_mod.json",
+          "-rd",
+          "drc_json_default=/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/chunk7-varactor-drc-20261019-v1/public-drc/rule_decks/sg13g2_tech_default.json"
+        ],
+        "findings": 0,
+        "categories": []
+      },
+      {
+        "name": "original-small-10",
+        "variant": "maximal",
+        "exit": 0,
+        "command": [
+          "/opt/icstudio/bin/klayout",
+          "-b",
+          "-r",
+          "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/chunk7-varactor-drc-20261019-v1/public-drc/rule_decks/sg13g2_maximal.drc",
+          "-rd",
+          "input=/var/tmp/icstudio-varactor-drc-regressions-20261019-v1/original-small-10/layout.gds",
+          "-rd",
+          "topcell=varactor_coupon",
+          "-rd",
+          "report=/var/tmp/icstudio-varactor-klayout-drc-20261019-v2/original-small-10-maximal/findings.lyrdb",
+          "-rd",
+          "log=/var/tmp/icstudio-varactor-klayout-drc-20261019-v2/original-small-10-maximal/native.log",
+          "-rd",
+          "run_mode=flat",
+          "-rd",
+          "threads=1",
+          "-rd",
+          "drc_json=/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/chunk7-varactor-drc-20261019-v1/sg13g2_tech_mod.json",
+          "-rd",
+          "drc_json_default=/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/chunk7-varactor-drc-20261019-v1/public-drc/rule_decks/sg13g2_tech_default.json"
+        ],
+        "findings": 0,
+        "categories": []
+      },
+      {
+        "name": "missing-oxide",
+        "variant": "main",
+        "exit": 0,
+        "command": [
+          "/opt/icstudio/bin/klayout",
+          "-b",
+          "-r",
+          "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/chunk7-varactor-drc-20261019-v1/public-drc/ihp-sg13g2.drc",
+          "-rd",
+          "input=/var/tmp/icstudio-varactor-contacted-20261019-v2/small-1-0-missing-oxide/verification/layout.gds",
+          "-rd",
+          "topcell=varactor_coupon",
+          "-rd",
+          "report=/var/tmp/icstudio-varactor-klayout-drc-20261019-v2/missing-oxide-main/findings.lyrdb",
+          "-rd",
+          "log=/var/tmp/icstudio-varactor-klayout-drc-20261019-v2/missing-oxide-main/native.log",
+          "-rd",
+          "run_mode=flat",
+          "-rd",
+          "threads=1",
+          "-rd",
+          "drc_json=/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/chunk7-varactor-drc-20261019-v1/sg13g2_tech_mod.json",
+          "-rd",
+          "drc_json_default=/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/chunk7-varactor-drc-20261019-v1/public-drc/rule_decks/sg13g2_tech_default.json"
+        ],
+        "findings": 0,
+        "categories": []
+      },
+      {
+        "name": "missing-oxide",
+        "variant": "maximal",
+        "exit": 0,
+        "command": [
+          "/opt/icstudio/bin/klayout",
+          "-b",
+          "-r",
+          "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/chunk7-varactor-drc-20261019-v1/public-drc/rule_decks/sg13g2_maximal.drc",
+          "-rd",
+          "input=/var/tmp/icstudio-varactor-contacted-20261019-v2/small-1-0-missing-oxide/verification/layout.gds",
+          "-rd",
+          "topcell=varactor_coupon",
+          "-rd",
+          "report=/var/tmp/icstudio-varactor-klayout-drc-20261019-v2/missing-oxide-maximal/findings.lyrdb",
+          "-rd",
+          "log=/var/tmp/icstudio-varactor-klayout-drc-20261019-v2/missing-oxide-maximal/native.log",
+          "-rd",
+          "run_mode=flat",
+          "-rd",
+          "threads=1",
+          "-rd",
+          "drc_json=/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/chunk7-varactor-drc-20261019-v1/sg13g2_tech_mod.json",
+          "-rd",
+          "drc_json_default=/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/chunk7-varactor-drc-20261019-v1/public-drc/rule_decks/sg13g2_tech_default.json"
+        ],
+        "findings": 2,
+        "categories": [
+          "'NW.e'"
+        ]
+      },
+      {
+        "name": "narrow-contact",
+        "variant": "main",
+        "exit": 0,
+        "command": [
+          "/opt/icstudio/bin/klayout",
+          "-b",
+          "-r",
+          "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/chunk7-varactor-drc-20261019-v1/public-drc/ihp-sg13g2.drc",
+          "-rd",
+          "input=/var/tmp/icstudio-varactor-contacted-20261019-v2/small-4-0-mixed-contact-width/verification/layout.gds",
+          "-rd",
+          "topcell=varactor_coupon",
+          "-rd",
+          "report=/var/tmp/icstudio-varactor-klayout-drc-20261019-v2/narrow-contact-main/findings.lyrdb",
+          "-rd",
+          "log=/var/tmp/icstudio-varactor-klayout-drc-20261019-v2/narrow-contact-main/native.log",
+          "-rd",
+          "run_mode=flat",
+          "-rd",
+          "threads=1",
+          "-rd",
+          "drc_json=/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/chunk7-varactor-drc-20261019-v1/sg13g2_tech_mod.json",
+          "-rd",
+          "drc_json_default=/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/chunk7-varactor-drc-20261019-v1/public-drc/rule_decks/sg13g2_tech_default.json"
+        ],
+        "findings": 2,
+        "categories": [
+          "'CntB.a'",
+          "'CntB.a1'"
+        ]
+      },
+      {
+        "name": "narrow-contact",
+        "variant": "maximal",
+        "exit": 0,
+        "command": [
+          "/opt/icstudio/bin/klayout",
+          "-b",
+          "-r",
+          "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/chunk7-varactor-drc-20261019-v1/public-drc/rule_decks/sg13g2_maximal.drc",
+          "-rd",
+          "input=/var/tmp/icstudio-varactor-contacted-20261019-v2/small-4-0-mixed-contact-width/verification/layout.gds",
+          "-rd",
+          "topcell=varactor_coupon",
+          "-rd",
+          "report=/var/tmp/icstudio-varactor-klayout-drc-20261019-v2/narrow-contact-maximal/findings.lyrdb",
+          "-rd",
+          "log=/var/tmp/icstudio-varactor-klayout-drc-20261019-v2/narrow-contact-maximal/native.log",
+          "-rd",
+          "run_mode=flat",
+          "-rd",
+          "threads=1",
+          "-rd",
+          "drc_json=/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/chunk7-varactor-drc-20261019-v1/sg13g2_tech_mod.json",
+          "-rd",
+          "drc_json_default=/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/chunk7-varactor-drc-20261019-v1/public-drc/rule_decks/sg13g2_tech_default.json"
+        ],
+        "findings": 9,
+        "categories": [
+          "'CntB.a'",
+          "'CntB.a1'",
+          "'CntB.b2'",
+          "'CntB.c'",
+          "'CntB.e'",
+          "'CntB.g2'",
+          "'CntB.j'"
+        ]
+      }
+    ],
+    "scope": "Unmodified main/maximal public geometry decks only. Passing original larger layouts and two defect probes identify a candidate route; they do not replace the application gate or establish full qualification."
+  },
+  "remaining": [
+    "Resolve larger IHP varactor geometries and qualify the complete supported geometry/operating envelope.",
+    "Complete remaining device interfaces, unavailable public electrical models, upstream tool-view inventory and other chunk-7 contracts.",
+    "Require hosted acceptance of this revision and actual installed Windows/Linux release acceptance."
+  ],
+  "archive": {
+    "path": "IC-Design-Studio-evidence/ihp-varactor-contacts-2026-10-19-v1/evidence.zip",
+    "sha256": "f942674d3058db8b14561a38002ba3105f1033c9bbebba7904a4278c5a4bc334",
+    "bytes": 23623149,
+    "files": 24805,
+    "unique_contents": 5817,
+    "all_objects_verified": true
+  },
+  "restore_replay": {
+    "status": "PASS",
+    "archive_sha256": "f942674d3058db8b14561a38002ba3105f1033c9bbebba7904a4278c5a4bc334",
+    "checks": [
+      {
+        "name": "restore",
+        "exit_code": 0,
+        "log_sha256": "2bc949dbe6a2650126d8f12843fdfaa5649cb1f7260ec04202775aef66a9e5e9"
+      },
+      {
+        "name": "units",
+        "exit_code": 0,
+        "log_sha256": "a095137d37bc08586b65124e3accb738bf1e87d18ce83825f05ce1aac089b582"
+      }
+    ],
+    "cases": [
+      {
+        "name": "contacted-10",
+        "status": "PASS",
+        "native_status": "passed",
+        "drc_count": 0,
+        "report_sha256": "092a498e2613c7e561c2dcb561af6b773501d059110f5cea61f2f779a3121062"
+      },
+      {
+        "name": "mixed-contact",
+        "status": "PASS",
+        "native_status": "failed",
+        "drc_count": 2,
+        "report_sha256": "9db99f3a7d132a55bf30146106622d874434e62e6dd127b1643865726b3d1c05"
+      },
+      {
+        "name": "missing-substrate-ties",
+        "status": "PASS",
+        "native_status": "failed",
+        "drc_count": 2,
+        "report_sha256": "bf441522b910c27781994b3e0bff00b7fcb04e58f596ed0bc9fbd52db8c33b47"
+      },
+      {
+        "name": "original-4",
+        "status": "PASS",
+        "native_status": "passed",
+        "drc_count": 0,
+        "report_sha256": "2e9033fe8225304097947517017e42fdca22f8de806bb0fe3bf13da3f1031ef9"
+      },
+      {
+        "name": "original-large",
+        "status": "PASS",
+        "native_status": "failed",
+        "drc_count": 17,
+        "report_sha256": "03328ef83707b5c7c743597ab85088ec65b1c8540c09584468de7da13c12e9b7"
+      },
+      {
+        "name": "coil-turn-short",
+        "status": "PASS",
+        "native_status": "failed",
+        "drc_count": 0,
+        "report_sha256": "1629947053dbc46242c7096d6612285e74fb20c811dabf91f06d218f0c2edb03"
+      }
+    ],
+    "replay_archive": {
+      "path": "IC-Design-Studio-evidence/ihp-varactor-contacts-2026-10-19-v1/restore-replay.zip",
+      "sha256": "ed5151bd1de7be725dd2c62fd09245c9c0dd900ab2a50eeb3183db02257d4171",
+      "bytes": 764691,
+      "files": 660,
+      "all_objects_verified": true
+    }
+  },
+  "hosted_status": {
+    "checked_at": "2026-10-19T17:11:51.837360+00:00",
+    "scope": "Earlier e81d12d revision, not hosted acceptance of the new contact/tie changes.",
+    "runs": [
+      {
+        "run_id": 39284862603,
+        "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39284862603",
+        "head": "e81d12d5924d9101f0dcb34af35cdcd620fd9b90",
+        "status": "queued",
+        "conclusion": "",
+        "jobs": [
+          {
+            "name": "qualify (analog-rc)",
+            "databaseId": 118167833032,
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-19T16:22:47Z",
+            "completedAt": "2026-10-19T16:30:55Z"
+          },
+          {
+            "name": "qualify (detector)",
+            "databaseId": 118167833388,
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-19T16:50:14Z",
+            "completedAt": "2026-10-19T17:10:25Z",
+            "log_sha256": "cce47eba564de4660eb7ae7eef08fd42819a0c756f9475ff2dbb494924f19ff0",
+            "steps": [
+              {
+                "name": "Fetch the pinned public overvoltage source",
+                "status": "completed",
+                "conclusion": "success",
+                "startedAt": "2026-10-19T16:55:09Z",
+                "completedAt": "2026-10-19T16:55:10Z"
+              },
+              {
+                "name": "Post Fetch the pinned public overvoltage source",
+                "status": "completed",
+                "conclusion": "success",
+                "startedAt": "2026-10-19T17:10:22Z",
+                "completedAt": "2026-10-19T17:10:23Z"
+              }
+            ]
+          },
+          {
+            "name": "qualify (two-stage-opamp)",
+            "databaseId": 118167833523,
+            "status": "in_progress",
+            "conclusion": "",
+            "startedAt": "2026-10-19T16:44:42Z",
+            "completedAt": "0001-01-01T00:00:00Z"
+          },
+          {
+            "name": "qualify (devices)",
+            "databaseId": 118167833548,
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-19T17:03:24Z",
+            "completedAt": "2026-10-19T17:08:10Z"
+          },
+          {
+            "name": "qualify (inverter)",
+            "databaseId": 118167833569,
+            "status": "in_progress",
+            "conclusion": "",
+            "startedAt": "2026-10-19T17:08:14Z",
+            "completedAt": "0001-01-01T00:00:00Z"
+          },
+          {
+            "name": "qualify (hierarchy-rc)",
+            "databaseId": 118167833589,
+            "status": "queued",
+            "conclusion": "",
+            "startedAt": "2026-10-19T16:22:02Z",
+            "completedAt": "0001-01-01T00:00:00Z"
+          },
+          {
+            "name": "qualify (analog)",
+            "databaseId": 118167833672,
+            "status": "queued",
+            "conclusion": "",
+            "startedAt": "2026-10-19T16:22:02Z",
+            "completedAt": "0001-01-01T00:00:00Z"
+          },
+          {
+            "name": "qualify (public-layouts)",
+            "databaseId": 118167833808,
+            "status": "queued",
+            "conclusion": "",
+            "startedAt": "2026-10-19T16:22:02Z",
+            "completedAt": "0001-01-01T00:00:00Z"
+          },
+          {
+            "name": "qualify (bipolar)",
+            "databaseId": 118167833871,
+            "status": "queued",
+            "conclusion": "",
+            "startedAt": "2026-10-19T16:22:02Z",
+            "completedAt": "0001-01-01T00:00:00Z"
+          }
+        ]
+      },
+      {
+        "run_id": 39284862674,
+        "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39284862674",
+        "head": "e81d12d5924d9101f0dcb34af35cdcd620fd9b90",
+        "status": "completed",
+        "conclusion": "success",
+        "jobs": [
+          {
+            "name": "physical-coils",
+            "databaseId": 118167833086,
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-19T16:45:15Z",
+            "completedAt": "2026-10-19T16:48:52Z"
+          }
+        ]
+      },
+      {
+        "run_id": 39284862578,
+        "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39284862578",
+        "head": "e81d12d5924d9101f0dcb34af35cdcd620fd9b90",
+        "status": "queued",
+        "conclusion": "",
+        "jobs": [
+          {
+            "name": "release-tools (ubuntu-24.04)",
+            "databaseId": 118167837531,
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-19T16:25:22Z",
+            "completedAt": "2026-10-19T16:25:29Z"
+          },
+          {
+            "name": "release-tools (windows-2022)",
+            "databaseId": 118167838200,
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-19T16:29:26Z",
+            "completedAt": "2026-10-19T16:29:43Z"
+          },
+          {
+            "name": "digital-runtime / runtime",
+            "databaseId": 118167839111,
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-19T16:29:06Z",
+            "completedAt": "2026-10-19T16:51:33Z"
+          },
+          {
+            "name": "package (ubuntu-24.04)",
+            "databaseId": 118184727907,
+            "status": "queued",
+            "conclusion": "",
+            "startedAt": "2026-10-19T16:51:33Z",
+            "completedAt": "0001-01-01T00:00:00Z"
+          },
+          {
+            "name": "package (windows-2022)",
+            "databaseId": 118184727978,
+            "status": "in_progress",
+            "conclusion": "",
+            "startedAt": "2026-10-19T17:06:40Z",
+            "completedAt": "0001-01-01T00:00:00Z"
+          }
+        ]
+      }
+    ]
+  }
+}

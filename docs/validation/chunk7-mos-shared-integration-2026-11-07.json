@@ -1,0 +1,250 @@
+{
+  "schema": 1,
+  "date": "2026-11-07",
+  "status": "PASS_BOUNDED_COMBINED_SOURCE",
+  "base_commit": "5b20e6c667112964fc7857b65bde2a68ec5e35bf",
+  "qualified": false,
+  "installed_acceptance": false,
+  "chunk_complete": false,
+  "scope": "Standard MOS grouping and shared-bottom MiM application fixes, affected source suites and finite native proof. No full-family, calibrated electrical or installed acceptance.",
+  "source_manifest_sha256": "92272e41610f2e32eadab6c324f0aef35641136e86528490fc425dc8ffe82ce3",
+  "source_files": 7065,
+  "changed_executable_and_fixture_files": {
+    "icstudio/hierarchical_flow.py": "519a6ea1c44f2491fb8030fd9f21fa08897f9492a12b3fb3455241f9ea663b07",
+    "icstudio/layout_verification.py": "11d0baa65b23becbd6c8253ce27fc38ebb68fb810cf77d7b24f46b74cef64b7e",
+    "icstudio/mos_grouping.py": "7b57b4609eb160032ef95a6bcf29410f101d00419c010dcfc3466a18d11dcfa6",
+    "icstudio/sky130_mim2_extract.py": "593adee6f23d4f450a2097175e70937967b718d3e90f74b9ad92443dde1f1548",
+    "scripts/audit_sky130_mim_shared.py": "ce021979a712c4e426014865d74fd24c352759206b156f30016eb3b0c14510f9",
+    "scripts/ci_feedback.py": "bbe71728861d4222b6d17a72372e31a2708046abb3f4c3288bc5784954ea5157",
+    "scripts/qualify_ihp_hv_mos_layouts.py": "0e90d28084ae39698806443db7728217172b2abd9fce6709588d65ac5c5dc838",
+    "scripts/qualify_mos_finger_layouts.py": "742198b3df98f546162bfba498a5dc61444f9265e97e97cbb173d593039e8021",
+    "scripts/qualify_sky130_mim_shared.py": "eb0828403f6128197a9048bc3ec4e7d45ff380cf298807e22ac8dca0814821fa",
+    "tests/fixtures/sky130-mim-shared-v1/SOURCE.json": "12aa3aa6e26b8fd46df6680aea1677ed43f8e02b0141c4c19ee3e2f7e126f21f",
+    "tests/fixtures/sky130-mim-shared-v1/job/layout.gds": "41cd1b38256c68d7a69b52e6b3398dc4a50f67cecb3741aae65395a91003fef7",
+    "tests/fixtures/sky130-mim-shared-v1/job/lvs-extraction/device_coupon.ext": "9cfdd0da849efcfafbf2cc94dada204f12d9eb2a3cae45e3cbfb2d44168d3533",
+    "tests/fixtures/sky130-mim-shared-v1/job/lvs-extraction/extracted.spice": "cf208d253287a7e5e98fa1de21d731f7f34dc5ae3870dabde88ee083f4068430",
+    "tests/fixtures/sky130-mim-shared-v1/job/lvs-extraction/mim-orientation.json": "059077d892afaf2cafcb94e5d2419cd3134b209dbb4fdc966fa885d696b44cc3",
+    "tests/fixtures/sky130-mim-shared-v1/job/lvs-extraction/native-original.ext": "58565e177ceb77dc1d045e50b8640e27e8bb0afa52422f00cd2ee31f0c50d052",
+    "tests/fixtures/sky130-mim-shared-v1/job/lvs/lvs.log": "a764a94510aeeb6dd4f0754cae68cbd9cfbe2dca08a628e90a007e9152b60f1b",
+    "tests/test_mos_grouping.py": "ab2177a0a61e2530ca9544c1751d9f605eff16fbab9fb05306a8602671a6ef9c",
+    "tests/test_sky130_mim_shared.py": "dd46cfa5dd5c0328479ab9c9a1da11915c0dca7a8bbc99590c209084a0c19ad1"
+  },
+  "hosts": [
+    {
+      "platform": "Windows",
+      "base": "5b20e6c667112964fc7857b65bde2a68ec5e35bf",
+      "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+      "source": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\IC-Design-Studio",
+      "files_verified": 7065,
+      "source_unchanged": true,
+      "source_manifest_sha256": "92272e41610f2e32eadab6c324f0aef35641136e86528490fc425dc8ffe82ce3",
+      "stages_sha256": "53c2fa0d143185e59c5a91a4e47ad6e62586c91f1d472be91e581490cfb12771",
+      "stages": [
+        {
+          "stage": "ihp",
+          "tests": 219,
+          "tests_seconds": 75.37,
+          "returncode": 0,
+          "seconds": 75.90599999998813,
+          "deadline_seconds": 300,
+          "skips": [],
+          "log_sha256": "8390c88922b461a68e53375912af0900a09a6db2169ade41deec27f93c79299d"
+        },
+        {
+          "stage": "physical",
+          "tests": 300,
+          "tests_seconds": 81.005,
+          "returncode": 0,
+          "seconds": 81.56200000000536,
+          "deadline_seconds": 300,
+          "skips": [
+            "'Windows symlink creation requires privileges on some hosts.'",
+            "'external retained qualification evidence required'",
+            "'external retained qualification evidence required'",
+            "'external retained qualification evidence required'",
+            "'external retained qualification evidence required'",
+            "'external retained qualification evidence required'",
+            "'external retained qualification evidence required'",
+            "'external retained qualification evidence required'",
+            "'external retained qualification evidence required'",
+            "'external retained qualification evidence required'",
+            "'external retained qualification evidence required'"
+          ],
+          "log_sha256": "d2fb906d3462b5e7ed0f3ad50ad4069ce7ae10e12b9851a861ba3341d183a2ca"
+        },
+        {
+          "stage": "integration",
+          "tests": 56,
+          "tests_seconds": 13.057,
+          "returncode": 0,
+          "seconds": 13.375,
+          "deadline_seconds": 300,
+          "skips": [
+            "'Directory symlink creation is not assumed on Windows.'"
+          ],
+          "log_sha256": "54ad2d725e8121dfd14e98c61714f06eeb658ea9fcb0346ceaffb3e4a641a913"
+        }
+      ],
+      "tests": 575,
+      "returncode": 0
+    },
+    {
+      "platform": "Linux",
+      "base": "5b20e6c667112964fc7857b65bde2a68ec5e35bf",
+      "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+      "source": "/var/tmp/icstudio-grouping-shared-integration-20261107-v2/source",
+      "files_verified": 7065,
+      "source_unchanged": true,
+      "source_manifest_sha256": "92272e41610f2e32eadab6c324f0aef35641136e86528490fc425dc8ffe82ce3",
+      "stages_sha256": "53c2fa0d143185e59c5a91a4e47ad6e62586c91f1d472be91e581490cfb12771",
+      "stages": [
+        {
+          "stage": "ihp",
+          "tests": 219,
+          "tests_seconds": 25.901,
+          "returncode": 0,
+          "seconds": 26.41890650600544,
+          "deadline_seconds": 300,
+          "skips": [
+            "'Windows PowerShell required'"
+          ],
+          "log_sha256": "555f00343bad04eb7865c58f07353e5c7cc0805dddba51633ad2bbeca61aa493"
+        },
+        {
+          "stage": "physical",
+          "tests": 300,
+          "tests_seconds": 22.08,
+          "returncode": 0,
+          "seconds": 22.60837899299804,
+          "deadline_seconds": 300,
+          "skips": [
+            "'external retained qualification evidence required'",
+            "'external retained qualification evidence required'",
+            "'external retained qualification evidence required'",
+            "'external retained qualification evidence required'",
+            "'external retained qualification evidence required'",
+            "'external retained qualification evidence required'",
+            "'external retained qualification evidence required'",
+            "'external retained qualification evidence required'",
+            "'external retained qualification evidence required'",
+            "'external retained qualification evidence required'"
+          ],
+          "log_sha256": "75d87e55ae371341be890b9513266861441634c7180eb46d362817ae0fa9604f"
+        },
+        {
+          "stage": "integration",
+          "tests": 56,
+          "tests_seconds": 4.368,
+          "returncode": 0,
+          "seconds": 4.574761677999049,
+          "deadline_seconds": 300,
+          "skips": [],
+          "log_sha256": "95b54afa09131d31277906f1642396f6c57ab447b88e3af41b44ed5c840f6cc3"
+        }
+      ],
+      "tests": 575,
+      "returncode": 0
+    }
+  ],
+  "native_records": [
+    {
+      "path": "docs/validation/mos-grouping-2026-11-07.json",
+      "sha256": "da778724cda01a03f4d79ab25f8b614aab37d0ba89e26230351402101289cb42"
+    },
+    {
+      "path": "docs/validation/sky130-mim-shared-2026-11-07.json",
+      "sha256": "c0ab7269b78def69a116509e9c45e714321e3841860e8cedad7d082097659104"
+    }
+  ],
+  "independent_reviews": [
+    {
+      "path": "work/mos-grouping-independent-review/review-7b57b4609eb1.json",
+      "sha256": "94c2bbe03fb0208c2944fbc8bed10abf2f02b3bbf7639149370be41a8c411f91",
+      "controls": 5,
+      "scope": "Independent synthetic group/net controls; no native-engine acceptance claim."
+    },
+    {
+      "path": "work/mos-grouping-independent-review/correspondence-7b57b4609eb1.json",
+      "sha256": "26abf5c3e5ac8abdc8e374db9ea0b569d5a2f4c8aac4a50846148bd2d60617d3",
+      "controls": 8,
+      "scope": "Independent parser fault controls using synthetic tool output, not native LVS proof."
+    },
+    {
+      "path": "work/mim-shared-bottom-independent-review/shared-bottom-final-independent-review.json",
+      "sha256": "c2d27273668c82a4281abcb3aca06ad6b3c44e5050d0ee26535e8a19f99a2446",
+      "classifier_controls": 73,
+      "reader_controls": 10,
+      "historical_source_guard_substitution_is_semantic_review_only": true
+    }
+  ],
+  "mos_native": {
+    "cases": 14,
+    "positive": 7,
+    "wrong_finger_rejections": 7,
+    "native_lvs_passes": 14,
+    "files_verified": 818,
+    "receipt_sha256": "e7fec1e8637d5513506a1da579d1108199360bea07b4b76a25800a336ab2709b"
+  },
+  "pmos_supplement": {
+    "cases": 8,
+    "positive": 4,
+    "wrong_finger_rejections": 4,
+    "native_lvs_passes": 8,
+    "files_verified": 268,
+    "receipt_sha256": "b732c50df63a86f95a8dae8676d5ee678f53482c79c8f0c40aeb44d0758d51ac",
+    "closure_sha256": "f71f32f4e95be02563d1f654ae19bdbbedcf068a44b87f2cba0de75f4fada16d"
+  },
+  "shared_native": {
+    "results": {
+      "status": "PASS",
+      "qualified": false,
+      "installed_acceptance": false,
+      "files_verified": 319,
+      "positive_cases": 4,
+      "missing_contact_controls": 2,
+      "native_reference_faults": 4,
+      "cases": [
+        {
+          "plate": 1,
+          "angle": 0,
+          "intrinsic_units": 2,
+          "written_shared_bottom_components": 1,
+          "normalization_changes": 0,
+          "native_sha256": "1ea6b28debcb9ca6a505e38913bfd4eaab00ef3b1fc80013f9cdfb13190dd779",
+          "corrected_sha256": "1ea6b28debcb9ca6a505e38913bfd4eaab00ef3b1fc80013f9cdfb13190dd779"
+        },
+        {
+          "plate": 1,
+          "angle": 90,
+          "intrinsic_units": 2,
+          "written_shared_bottom_components": 1,
+          "normalization_changes": 2,
+          "native_sha256": "e99f22825dd2fc6eb19cf12a64cca0f5c48c96cd19e50d7034fcd8d9a70e2713",
+          "corrected_sha256": "967df9db99383242267fb22187c109373ab89a0e8d41678cf68204d372f493c7"
+        },
+        {
+          "plate": 2,
+          "angle": 0,
+          "intrinsic_units": 2,
+          "written_shared_bottom_components": 1,
+          "normalization_changes": 0,
+          "native_sha256": "6ad4c35284d49e9087be1f7a6a5f0a9dc7644d0e8a7522698ca42aaf456b91c1",
+          "corrected_sha256": "6ad4c35284d49e9087be1f7a6a5f0a9dc7644d0e8a7522698ca42aaf456b91c1"
+        },
+        {
+          "plate": 2,
+          "angle": 90,
+          "intrinsic_units": 2,
+          "written_shared_bottom_components": 1,
+          "normalization_changes": 2,
+          "native_sha256": "90da1d0d42c4afd256f8d11b4cd1199db0d58a421f6e61d8ae55602fa2cd7209",
+          "corrected_sha256": "83776b5cef4c7ff3f7cdeead78d67096e8706fc4412a566a330d78cba374cbaa"
+        }
+      ]
+    },
+    "closure_sha256": "d51304237960a2dc842476a90dd8eb18be54444ccc30428b086a5f967770c121"
+  },
+  "prior_attempts": "Restricted Windows junction preflight failed, ordinary-user retry passed. MiM pilot1 preparation failure, pilot2 historical reader execution and MOS dev1/dev3 fixture failures remain separately retained. Combined v1 native runs passed, but its Linux unit suite exposed an authentic fixture log omitted by the global log ignore; v2 includes the explicitly staged file and is final acceptance.",
+  "evidence_archive": "chunk7-mos-shared-evidence.zip",
+  "documentation_scope": "Final native/review receipts, tracker/matrix links and this record are authored after execution and are not relabelled as tested snapshot inputs."
+}

@@ -1,0 +1,556 @@
+{
+  "base_commit": "d119d88f8ea5a31abd8804cf8a4c8dbf5545d918",
+  "chunk_complete": false,
+  "date": "2026-11-10",
+  "disk_reserve_bytes": 2147483648,
+  "executed_acquisition_and_readback_test_sha256": "8e8b1295f1cd8415b2022412cfa8160abe58ec379f815658de92ba744716178d",
+  "final_sources_sha256": {
+    "scripts/recover_source_disposition_cache.py": "9e5f7521010fe8a14d3c2ba2427837bcac2dc9e9b16a0f46d11a84ad2d86c6e3",
+    "tests/test_source_disposition_cache.py": "69d84b7c2572fddb9aa4c75f1131d75dd24c94d54cf896bdfa44956bf88a3b5e"
+  },
+  "full_inventory_audit": "Separate execution required; this cache record alone neither changes the historical 107-gap count nor establishes a new inventory result.",
+  "git_blobs": 19752,
+  "git_bytes": 3363601941,
+  "initial_failure": "Strict expected-root check rejected a renamed public upstream repository archive. One exact repository+revision root-name mapping was added; source paths, revision, lengths and Git/SHA256 identities were unchanged. Original failure retained below.",
+  "inventory_complete": false,
+  "network_attempts_per_item": 2,
+  "post_acquisition_changes": "Local storage/gzip integrity failures are not classified as retryable network errors; temp cleanup closes files before deletion for Windows. Final helper replayed and authenticated the entire existing cache with no fetch events.",
+  "post_acquisition_test_portability": "Only the dedicated symbolic-link fixture explicitly skips on Windows if link creation is unavailable; unchanged Linux rejection and all other integrity tests remain required. Helper acquisition/readback bytes unchanged.",
+  "qualified": false,
+  "receipts": [
+    {
+      "events": [
+        {
+          "event": "start",
+          "git_blobs": 19752,
+          "repositories": 16,
+          "required_bytes": 3696142449,
+          "time_utc": "2026-11-10T12:40:12Z",
+          "upstream_code_executed": false
+        },
+        {
+          "event": "fetch-git",
+          "missing": 1141,
+          "repository": "IHP-GmbH/IHP-Open-PDK@5e6d592e4002946a4616f798c357f0f3c06cf3b6",
+          "time_utc": "2026-11-10T12:40:12Z"
+        },
+        {
+          "blobs": 1141,
+          "event": "verified-git",
+          "repository": "IHP-GmbH/IHP-Open-PDK@5e6d592e4002946a4616f798c357f0f3c06cf3b6",
+          "time_utc": "2026-11-10T12:40:52Z"
+        },
+        {
+          "event": "fetch-git",
+          "missing": 35,
+          "repository": "IHP-GmbH/pycell4klayout-api@21c055516645d2f8f00335d81e92084e88b3c7b0",
+          "time_utc": "2026-11-10T12:40:52Z"
+        },
+        {
+          "blobs": 35,
+          "event": "verified-git",
+          "repository": "IHP-GmbH/pycell4klayout-api@21c055516645d2f8f00335d81e92084e88b3c7b0",
+          "time_utc": "2026-11-10T12:40:56Z"
+        },
+        {
+          "event": "fetch-git",
+          "missing": 4,
+          "repository": "IHP-GmbH/pypreprocessor@cf1ff9bad0fb5338cf1c5b990b2b816b1ea01a64",
+          "time_utc": "2026-11-10T12:40:56Z"
+        },
+        {
+          "blobs": 4,
+          "event": "verified-git",
+          "repository": "IHP-GmbH/pypreprocessor@cf1ff9bad0fb5338cf1c5b990b2b816b1ea01a64",
+          "time_utc": "2026-11-10T12:40:58Z"
+        },
+        {
+          "event": "fetch-git",
+          "missing": 2,
+          "repository": "SymbiFlow/make-env@33b80bd32c30fb8affd0fd5cda544d1bca075593",
+          "time_utc": "2026-11-10T12:40:58Z"
+        },
+        {
+          "blobs": 2,
+          "event": "verified-git",
+          "repository": "SymbiFlow/make-env@33b80bd32c30fb8affd0fd5cda544d1bca075593",
+          "time_utc": "2026-11-10T12:41:00Z"
+        },
+        {
+          "event": "fetch-git",
+          "missing": 40,
+          "repository": "VolkerMuehlhaus/gds2palace_ihp_sg13g2@df29aa608be858f53fbce46f81238b5534812d9b",
+          "time_utc": "2026-11-10T12:41:00Z"
+        },
+        {
+          "blobs": 40,
+          "event": "verified-git",
+          "repository": "VolkerMuehlhaus/gds2palace_ihp_sg13g2@df29aa608be858f53fbce46f81238b5534812d9b",
+          "time_utc": "2026-11-10T12:41:05Z"
+        },
+        {
+          "event": "fetch-git",
+          "missing": 25,
+          "repository": "VolkerMuehlhaus/openems_ihp_sg13g2@e29417aa1e5fb97b4ebd27dd1e4fcf043f97ef63",
+          "time_utc": "2026-11-10T12:41:05Z"
+        },
+        {
+          "error": "ValueError: Source cache recovery: unexpected archive root",
+          "event": "FAILED",
+          "time_utc": "2026-11-10T12:41:07Z"
+        }
+      ],
+      "name": "recovery-20261110-01.jsonl",
+      "sha256": "785079e57e7aa236187fa472640722966dcf2eb0b5637c9307a0116806fc6324"
+    },
+    {
+      "events": [
+        {
+          "event": "start",
+          "git_blobs": 19752,
+          "repositories": 16,
+          "required_bytes": 3696142449,
+          "time_utc": "2026-11-10T12:43:01Z",
+          "upstream_code_executed": false
+        },
+        {
+          "blobs": 1141,
+          "event": "verified-git",
+          "repository": "IHP-GmbH/IHP-Open-PDK@5e6d592e4002946a4616f798c357f0f3c06cf3b6",
+          "time_utc": "2026-11-10T12:43:02Z"
+        },
+        {
+          "blobs": 35,
+          "event": "verified-git",
+          "repository": "IHP-GmbH/pycell4klayout-api@21c055516645d2f8f00335d81e92084e88b3c7b0",
+          "time_utc": "2026-11-10T12:43:02Z"
+        },
+        {
+          "blobs": 4,
+          "event": "verified-git",
+          "repository": "IHP-GmbH/pypreprocessor@cf1ff9bad0fb5338cf1c5b990b2b816b1ea01a64",
+          "time_utc": "2026-11-10T12:43:02Z"
+        },
+        {
+          "blobs": 2,
+          "event": "verified-git",
+          "repository": "SymbiFlow/make-env@33b80bd32c30fb8affd0fd5cda544d1bca075593",
+          "time_utc": "2026-11-10T12:43:02Z"
+        },
+        {
+          "blobs": 40,
+          "event": "verified-git",
+          "repository": "VolkerMuehlhaus/gds2palace_ihp_sg13g2@df29aa608be858f53fbce46f81238b5534812d9b",
+          "time_utc": "2026-11-10T12:43:02Z"
+        },
+        {
+          "event": "fetch-git",
+          "missing": 25,
+          "repository": "VolkerMuehlhaus/openems_ihp_sg13g2@e29417aa1e5fb97b4ebd27dd1e4fcf043f97ef63",
+          "time_utc": "2026-11-10T12:43:02Z"
+        },
+        {
+          "blobs": 25,
+          "event": "verified-git",
+          "repository": "VolkerMuehlhaus/openems_ihp_sg13g2@e29417aa1e5fb97b4ebd27dd1e4fcf043f97ef63",
+          "time_utc": "2026-11-10T12:43:05Z"
+        },
+        {
+          "event": "fetch-git",
+          "missing": 90,
+          "repository": "efabless/globalfoundries-pdk-libs-gf180mcu_fd_pv@05e7b6adf19edf942969c1c9625f02fd87874f06",
+          "time_utc": "2026-11-10T12:43:05Z"
+        },
+        {
+          "blobs": 90,
+          "event": "verified-git",
+          "repository": "efabless/globalfoundries-pdk-libs-gf180mcu_fd_pv@05e7b6adf19edf942969c1c9625f02fd87874f06",
+          "time_utc": "2026-11-10T12:43:30Z"
+        },
+        {
+          "event": "fetch-git",
+          "missing": 3,
+          "repository": "fossi-foundation/gf180mcu-pdk@25ed9c64b64b8e1b93cc4d2d5cade4cd82383a9a",
+          "time_utc": "2026-11-10T12:43:30Z"
+        },
+        {
+          "blobs": 3,
+          "event": "verified-git",
+          "repository": "fossi-foundation/gf180mcu-pdk@25ed9c64b64b8e1b93cc4d2d5cade4cd82383a9a",
+          "time_utc": "2026-11-10T12:43:35Z"
+        },
+        {
+          "event": "fetch-git",
+          "missing": 158,
+          "repository": "fossi-foundation/globalfoundries-pdk-libs-gf180mcu_fd_pr@4d0b4cef59c7686fac5fd3f4c6fb41d251d1f90c",
+          "time_utc": "2026-11-10T12:43:35Z"
+        },
+        {
+          "blobs": 158,
+          "event": "verified-git",
+          "repository": "fossi-foundation/globalfoundries-pdk-libs-gf180mcu_fd_pr@4d0b4cef59c7686fac5fd3f4c6fb41d251d1f90c",
+          "time_utc": "2026-11-10T12:43:44Z"
+        },
+        {
+          "event": "fetch-git",
+          "missing": 164,
+          "repository": "fossi-foundation/open-pdks@aa3fc215a80d32437b8cca1cb3fdee819d18c4c9",
+          "time_utc": "2026-11-10T12:43:44Z"
+        },
+        {
+          "blobs": 164,
+          "event": "verified-git",
+          "repository": "fossi-foundation/open-pdks@aa3fc215a80d32437b8cca1cb3fdee819d18c4c9",
+          "time_utc": "2026-11-10T12:43:48Z"
+        },
+        {
+          "event": "fetch-git",
+          "missing": 112,
+          "repository": "google/globalfoundries-pdk-ip-gf180mcu_fd_ip_sram@9c411928870ce15226228fa52ddb6ecc0ea4ffbe",
+          "time_utc": "2026-11-10T12:43:48Z"
+        },
+        {
+          "blobs": 112,
+          "event": "verified-git",
+          "repository": "google/globalfoundries-pdk-ip-gf180mcu_fd_ip_sram@9c411928870ce15226228fa52ddb6ecc0ea4ffbe",
+          "time_utc": "2026-11-10T12:43:51Z"
+        },
+        {
+          "event": "fetch-git",
+          "missing": 240,
+          "repository": "google/globalfoundries-pdk-libs-gf180mcu_fd_io@2aeec51ea2824b6cc0b396acfc39f4535f40b23a",
+          "time_utc": "2026-11-10T12:43:51Z"
+        },
+        {
+          "blobs": 240,
+          "event": "verified-git",
+          "repository": "google/globalfoundries-pdk-libs-gf180mcu_fd_io@2aeec51ea2824b6cc0b396acfc39f4535f40b23a",
+          "time_utc": "2026-11-10T12:43:56Z"
+        },
+        {
+          "event": "fetch-git",
+          "missing": 106,
+          "repository": "google/globalfoundries-pdk-libs-gf180mcu_fd_pr@9f992d5a9186d1f7820c58f039c484ad35b2edea",
+          "time_utc": "2026-11-10T12:43:56Z"
+        },
+        {
+          "blobs": 106,
+          "event": "verified-git",
+          "repository": "google/globalfoundries-pdk-libs-gf180mcu_fd_pr@9f992d5a9186d1f7820c58f039c484ad35b2edea",
+          "time_utc": "2026-11-10T12:45:22Z"
+        },
+        {
+          "event": "fetch-git",
+          "missing": 8802,
+          "repository": "google/globalfoundries-pdk-libs-gf180mcu_fd_sc_mcu7t5v0@43beb45e4d323a76239de436db2df6732e9a689b",
+          "time_utc": "2026-11-10T12:45:22Z"
+        },
+        {
+          "blobs": 8802,
+          "event": "verified-git",
+          "repository": "google/globalfoundries-pdk-libs-gf180mcu_fd_sc_mcu7t5v0@43beb45e4d323a76239de436db2df6732e9a689b",
+          "time_utc": "2026-11-10T12:45:52Z"
+        },
+        {
+          "event": "fetch-git",
+          "missing": 8802,
+          "repository": "google/globalfoundries-pdk-libs-gf180mcu_fd_sc_mcu9t5v0@3781fd2951da6e3dc4600e52d997398a9463caeb",
+          "time_utc": "2026-11-10T12:45:52Z"
+        },
+        {
+          "blobs": 8802,
+          "event": "verified-git",
+          "repository": "google/globalfoundries-pdk-libs-gf180mcu_fd_sc_mcu9t5v0@3781fd2951da6e3dc4600e52d997398a9463caeb",
+          "time_utc": "2026-11-10T12:46:21Z"
+        },
+        {
+          "event": "fetch-git",
+          "missing": 28,
+          "repository": "hneemann/IHP130@9a6e7c9d404f9f4334513a24788aa8454918d400",
+          "time_utc": "2026-11-10T12:46:21Z"
+        },
+        {
+          "blobs": 28,
+          "event": "verified-git",
+          "repository": "hneemann/IHP130@9a6e7c9d404f9f4334513a24788aa8454918d400",
+          "time_utc": "2026-11-10T12:46:24Z"
+        },
+        {
+          "bytes": 16569606,
+          "event": "fetch-sky",
+          "name": "common.tar.zst",
+          "time_utc": "2026-11-10T12:46:24Z"
+        },
+        {
+          "event": "verified-sky",
+          "name": "common.tar.zst",
+          "sha256": "c7c155596a1fd1fcf6d5414dfcffcbbcf4e35b2b33160af97f4340e763c97406",
+          "time_utc": "2026-11-10T12:46:31Z"
+        },
+        {
+          "bytes": 50685688,
+          "event": "fetch-sky",
+          "name": "sky130_fd_io.tar.zst",
+          "time_utc": "2026-11-10T12:46:31Z"
+        },
+        {
+          "event": "verified-sky",
+          "name": "sky130_fd_io.tar.zst",
+          "sha256": "feaa2d40837ff272e6f3b9512b11b8c61c4356ccb939e2fd75443a50af66cb47",
+          "time_utc": "2026-11-10T12:46:37Z"
+        },
+        {
+          "bytes": 14015443,
+          "event": "fetch-sky",
+          "name": "sky130_fd_pr.tar.zst",
+          "time_utc": "2026-11-10T12:46:37Z"
+        },
+        {
+          "attempt": 1,
+          "error": "HTTP Error 503: Service Unavailable",
+          "event": "network-error",
+          "identity": "sky130_fd_pr.tar.zst",
+          "time_utc": "2026-11-10T12:46:39Z"
+        },
+        {
+          "event": "verified-sky",
+          "name": "sky130_fd_pr.tar.zst",
+          "sha256": "41dc9098541ed3329eba4ec7f5dfd1422eb09e94b623ea1f6dc3895f9ccebf63",
+          "time_utc": "2026-11-10T12:46:46Z"
+        },
+        {
+          "bytes": 166744319,
+          "event": "fetch-sky",
+          "name": "sky130_fd_sc_hd.tar.zst",
+          "time_utc": "2026-11-10T12:46:46Z"
+        },
+        {
+          "event": "verified-sky",
+          "name": "sky130_fd_sc_hd.tar.zst",
+          "sha256": "d4081b3c0fbfa2afe31dba789c03157ad137ea08b11910e2c8b3ec81b2a61bf6",
+          "time_utc": "2026-11-10T12:46:54Z"
+        },
+        {
+          "bytes": 54171210,
+          "event": "fetch-sky",
+          "name": "sky130_fd_sc_hvl.tar.zst",
+          "time_utc": "2026-11-10T12:46:54Z"
+        },
+        {
+          "event": "verified-sky",
+          "name": "sky130_fd_sc_hvl.tar.zst",
+          "sha256": "2df7826900912a7986017604c16c0ab1caa1996a3c5e267bc0c6be695c0dcc11",
+          "time_utc": "2026-11-10T12:47:01Z"
+        },
+        {
+          "bytes": 9225,
+          "event": "fetch-sky",
+          "name": "sky130_ml_xx_hd.tar.zst",
+          "time_utc": "2026-11-10T12:47:01Z"
+        },
+        {
+          "event": "verified-sky",
+          "name": "sky130_ml_xx_hd.tar.zst",
+          "sha256": "3b27c44c9de9f3e4ba8477b5f42c2bb9bc5bb21aa387b564091b744b2b0b07c7",
+          "time_utc": "2026-11-10T12:47:07Z"
+        },
+        {
+          "bytes": 30345017,
+          "event": "fetch-sky",
+          "name": "sky130_sram_macros.tar.zst",
+          "time_utc": "2026-11-10T12:47:07Z"
+        },
+        {
+          "event": "verified-sky",
+          "name": "sky130_sram_macros.tar.zst",
+          "sha256": "465c05a0626de37f0e87f7b0ed0fc36bbf69746327641fcf240902d940f29298",
+          "time_utc": "2026-11-10T12:47:13Z"
+        },
+        {
+          "event": "PASS_CACHE_READBACK",
+          "inventory_complete": false,
+          "qualified": false,
+          "time_utc": "2026-11-10T12:47:18Z"
+        }
+      ],
+      "name": "recovery-20261110-02.jsonl",
+      "sha256": "138e2fe7b4eeb3ce860c3910bfdd5fbaf85d508a0c45d92e340a9332dabc2a8e"
+    },
+    {
+      "events": [
+        {
+          "event": "start",
+          "git_blobs": 19752,
+          "repositories": 16,
+          "required_bytes": 3696142449,
+          "time_utc": "2026-11-10T12:48:35Z",
+          "upstream_code_executed": false
+        },
+        {
+          "blobs": 1141,
+          "event": "verified-git",
+          "repository": "IHP-GmbH/IHP-Open-PDK@5e6d592e4002946a4616f798c357f0f3c06cf3b6",
+          "time_utc": "2026-11-10T12:48:36Z"
+        },
+        {
+          "blobs": 35,
+          "event": "verified-git",
+          "repository": "IHP-GmbH/pycell4klayout-api@21c055516645d2f8f00335d81e92084e88b3c7b0",
+          "time_utc": "2026-11-10T12:48:36Z"
+        },
+        {
+          "blobs": 4,
+          "event": "verified-git",
+          "repository": "IHP-GmbH/pypreprocessor@cf1ff9bad0fb5338cf1c5b990b2b816b1ea01a64",
+          "time_utc": "2026-11-10T12:48:36Z"
+        },
+        {
+          "blobs": 2,
+          "event": "verified-git",
+          "repository": "SymbiFlow/make-env@33b80bd32c30fb8affd0fd5cda544d1bca075593",
+          "time_utc": "2026-11-10T12:48:36Z"
+        },
+        {
+          "blobs": 40,
+          "event": "verified-git",
+          "repository": "VolkerMuehlhaus/gds2palace_ihp_sg13g2@df29aa608be858f53fbce46f81238b5534812d9b",
+          "time_utc": "2026-11-10T12:48:36Z"
+        },
+        {
+          "blobs": 25,
+          "event": "verified-git",
+          "repository": "VolkerMuehlhaus/openems_ihp_sg13g2@e29417aa1e5fb97b4ebd27dd1e4fcf043f97ef63",
+          "time_utc": "2026-11-10T12:48:36Z"
+        },
+        {
+          "blobs": 90,
+          "event": "verified-git",
+          "repository": "efabless/globalfoundries-pdk-libs-gf180mcu_fd_pv@05e7b6adf19edf942969c1c9625f02fd87874f06",
+          "time_utc": "2026-11-10T12:48:36Z"
+        },
+        {
+          "blobs": 3,
+          "event": "verified-git",
+          "repository": "fossi-foundation/gf180mcu-pdk@25ed9c64b64b8e1b93cc4d2d5cade4cd82383a9a",
+          "time_utc": "2026-11-10T12:48:36Z"
+        },
+        {
+          "blobs": 158,
+          "event": "verified-git",
+          "repository": "fossi-foundation/globalfoundries-pdk-libs-gf180mcu_fd_pr@4d0b4cef59c7686fac5fd3f4c6fb41d251d1f90c",
+          "time_utc": "2026-11-10T12:48:36Z"
+        },
+        {
+          "blobs": 164,
+          "event": "verified-git",
+          "repository": "fossi-foundation/open-pdks@aa3fc215a80d32437b8cca1cb3fdee819d18c4c9",
+          "time_utc": "2026-11-10T12:48:36Z"
+        },
+        {
+          "blobs": 112,
+          "event": "verified-git",
+          "repository": "google/globalfoundries-pdk-ip-gf180mcu_fd_ip_sram@9c411928870ce15226228fa52ddb6ecc0ea4ffbe",
+          "time_utc": "2026-11-10T12:48:36Z"
+        },
+        {
+          "blobs": 240,
+          "event": "verified-git",
+          "repository": "google/globalfoundries-pdk-libs-gf180mcu_fd_io@2aeec51ea2824b6cc0b396acfc39f4535f40b23a",
+          "time_utc": "2026-11-10T12:48:36Z"
+        },
+        {
+          "blobs": 106,
+          "event": "verified-git",
+          "repository": "google/globalfoundries-pdk-libs-gf180mcu_fd_pr@9f992d5a9186d1f7820c58f039c484ad35b2edea",
+          "time_utc": "2026-11-10T12:48:36Z"
+        },
+        {
+          "blobs": 8802,
+          "event": "verified-git",
+          "repository": "google/globalfoundries-pdk-libs-gf180mcu_fd_sc_mcu7t5v0@43beb45e4d323a76239de436db2df6732e9a689b",
+          "time_utc": "2026-11-10T12:48:39Z"
+        },
+        {
+          "blobs": 8802,
+          "event": "verified-git",
+          "repository": "google/globalfoundries-pdk-libs-gf180mcu_fd_sc_mcu9t5v0@3781fd2951da6e3dc4600e52d997398a9463caeb",
+          "time_utc": "2026-11-10T12:48:41Z"
+        },
+        {
+          "blobs": 28,
+          "event": "verified-git",
+          "repository": "hneemann/IHP130@9a6e7c9d404f9f4334513a24788aa8454918d400",
+          "time_utc": "2026-11-10T12:48:41Z"
+        },
+        {
+          "event": "verified-sky",
+          "name": "common.tar.zst",
+          "sha256": "c7c155596a1fd1fcf6d5414dfcffcbbcf4e35b2b33160af97f4340e763c97406",
+          "time_utc": "2026-11-10T12:48:41Z"
+        },
+        {
+          "event": "verified-sky",
+          "name": "sky130_fd_io.tar.zst",
+          "sha256": "feaa2d40837ff272e6f3b9512b11b8c61c4356ccb939e2fd75443a50af66cb47",
+          "time_utc": "2026-11-10T12:48:41Z"
+        },
+        {
+          "event": "verified-sky",
+          "name": "sky130_fd_pr.tar.zst",
+          "sha256": "41dc9098541ed3329eba4ec7f5dfd1422eb09e94b623ea1f6dc3895f9ccebf63",
+          "time_utc": "2026-11-10T12:48:41Z"
+        },
+        {
+          "event": "verified-sky",
+          "name": "sky130_fd_sc_hd.tar.zst",
+          "sha256": "d4081b3c0fbfa2afe31dba789c03157ad137ea08b11910e2c8b3ec81b2a61bf6",
+          "time_utc": "2026-11-10T12:48:41Z"
+        },
+        {
+          "event": "verified-sky",
+          "name": "sky130_fd_sc_hvl.tar.zst",
+          "sha256": "2df7826900912a7986017604c16c0ab1caa1996a3c5e267bc0c6be695c0dcc11",
+          "time_utc": "2026-11-10T12:48:41Z"
+        },
+        {
+          "event": "verified-sky",
+          "name": "sky130_ml_xx_hd.tar.zst",
+          "sha256": "3b27c44c9de9f3e4ba8477b5f42c2bb9bc5bb21aa387b564091b744b2b0b07c7",
+          "time_utc": "2026-11-10T12:48:41Z"
+        },
+        {
+          "event": "verified-sky",
+          "name": "sky130_sram_macros.tar.zst",
+          "sha256": "465c05a0626de37f0e87f7b0ed0fc36bbf69746327641fcf240902d940f29298",
+          "time_utc": "2026-11-10T12:48:41Z"
+        },
+        {
+          "event": "PASS_CACHE_READBACK",
+          "inventory_complete": false,
+          "qualified": false,
+          "time_utc": "2026-11-10T12:48:46Z"
+        }
+      ],
+      "name": "recovery-20261110-03.jsonl",
+      "sha256": "a5a7c263ba7d809ffccf730a735ce38f954acf9e9202700a3ad24b54826f3d1b"
+    }
+  ],
+  "schema": 1,
+  "scope": "Recover only historically hash-bearing Git source blobs and seven exact SKY130 release assets for a separate full audit. No upstream source execution, directory extraction, model binding or device qualification.",
+  "sky_archive_bytes": 332540508,
+  "sky_archives": 7,
+  "socket_timeout_seconds": 120,
+  "status": "PASS_AUTHENTICATED_CACHE_RECOVERY_AND_FINAL_OFFLINE_READBACK",
+  "stream_deadline_seconds": 600,
+  "successful_acquisition_implementation_sha256": "286903385e0b85cacf32bfa98b132d164763063adf3f76e0e6a238d3e2c31ab3",
+  "transient_network_failure": "One SKY primitive asset HTTP 503 recovered on the second bounded attempt; final bytes matched every pin.",
+  "upstream_code_executed": false,
+  "validation": {
+    "command": "python -m unittest discover -s tests -p test_source_disposition_cache.py -v",
+    "log_sha256": "961e389d9b6ee3136f914216ae0e7a9214ab07770cfc423d5ede6415ccf6e37f",
+    "platform": "Linux",
+    "python": "3.12.14",
+    "seconds": 0.021,
+    "tests": 16
+  }
+}

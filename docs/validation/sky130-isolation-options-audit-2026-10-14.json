@@ -1,0 +1,273 @@
+{
+  "schema": 1,
+  "chunk": 6,
+  "status": "explicit-isolation-options-reviewed-on-both-platforms",
+  "qualified": false,
+  "chunk_complete": false,
+  "data": {
+    "path": "docs/validation/sky130-isolation-options-2026-10-14.json",
+    "sha256": "5c284df0743c4207282d2c37f561a3e701d0d8ddfb3a6dfc2425b0364a11d33c"
+  },
+  "systems": {
+    "win32": {
+      "schema": 1,
+      "status": "PASS",
+      "platform": "win32",
+      "tests": 18,
+      "qualified": false,
+      "chunk_complete": false,
+      "cli": [
+        {
+          "case": "counter-bulk",
+          "exit_code": 0,
+          "status": "NOT_REQUESTED",
+          "measured_noncontained_gates": 1120,
+          "report_sha256": "3e408744ab0f17d43f762c277ab1e0f15ea2b1c8d9fe9b5c11df6705ec9e3c37",
+          "log_sha256": "b7e6b94ce5f139c0ce341e3f5b241e25652929bca6100e92f85718b3df5653d6"
+        },
+        {
+          "case": "counter-isolated",
+          "exit_code": 2,
+          "status": "FAIL",
+          "measured_noncontained_gates": 1120,
+          "report_sha256": "5100e46c9b1c4dbaa7820c3476fa06e7dd7e5adb72cadd635977bb5f19be3723",
+          "log_sha256": "02456efe56986ea9b45b7520af4532d7d8ac1744b099f28cc6f3d5afe6924e5c"
+        },
+        {
+          "case": "isolated-control",
+          "exit_code": 0,
+          "status": "PASS",
+          "measured_noncontained_gates": 0,
+          "report_sha256": "1c9587570183e5adc4e56be8869983b15ac1914a12664a07fd9ef201b1e79901",
+          "log_sha256": "79fef7f6ae567b437c4bb2830b2c9f0694d1bab0386b4f99722c098343b24688"
+        }
+      ],
+      "missing_mode": {
+        "exit_code": 2,
+        "report_created": false,
+        "log_sha256": "a26ae20172b4e6bec0b94b278d320075f7e132f2b07feeebb3d1c56dedb5ef18"
+      },
+      "data_sha256": "5c284df0743c4207282d2c37f561a3e701d0d8ddfb3a6dfc2425b0364a11d33c",
+      "tests_sha256": "0362149667957ae1f9c48cd3c045d4a161f0854108707db445ab95b9d3229f09",
+      "driver_sha256": "382f6428eeca8cf2435760b648f9a896ae59f2174867baf073a3e6c3c60e6d48",
+      "source_files": {
+        "scripts/sky130_isolation_review.py": "c1b29c7a430ba6107fe7e0e93806a985dbe88e71631591ff4ad19ce251a533f1",
+        "scripts/sky130_isolation_policy.py": "c52c00e24763fbdac22c61f335bcad5262a1e14848e2a0979fc6158e4bd35b86",
+        "tests/test_sky130_isolation_policy.py": "7dce1316229f459e27e2b776d92529edc22c51d8a962a5f57b25c419144df77f",
+        "tests/test_sky130_isolation_review.py": "01910d488eaef2e9a1942bb2ec9876b0fa8011212c29d3cf6270a7b9a1163aed",
+        "scripts/sky130_grid_geometry.py": "0e24c568f582725ad034cf5fd4346a04756e69e0d34c00d47c959d1d5dcff28a"
+      }
+    },
+    "linux": {
+      "schema": 1,
+      "status": "PASS",
+      "platform": "linux",
+      "tests": 18,
+      "qualified": false,
+      "chunk_complete": false,
+      "cli": [
+        {
+          "case": "counter-bulk",
+          "exit_code": 0,
+          "status": "NOT_REQUESTED",
+          "measured_noncontained_gates": 1120,
+          "report_sha256": "3e408744ab0f17d43f762c277ab1e0f15ea2b1c8d9fe9b5c11df6705ec9e3c37",
+          "log_sha256": "4374b034e831ea7b859bfba51cda2796a34fa4ce3ae2f3f303c784a6176efea5"
+        },
+        {
+          "case": "counter-isolated",
+          "exit_code": 2,
+          "status": "FAIL",
+          "measured_noncontained_gates": 1120,
+          "report_sha256": "5100e46c9b1c4dbaa7820c3476fa06e7dd7e5adb72cadd635977bb5f19be3723",
+          "log_sha256": "c8752904ca15d51419536f070855756fde49bfd74d653bc61e937297b9525ae3"
+        },
+        {
+          "case": "isolated-control",
+          "exit_code": 0,
+          "status": "PASS",
+          "measured_noncontained_gates": 0,
+          "report_sha256": "b8accaddffc5ecb125478240ca3bd568492bb6d0cdb0bbd5ce2068e168e894f9",
+          "log_sha256": "c1c418424e9c8fb45439608951f38de7c386340f9397db387b1f7d882a542ce6"
+        }
+      ],
+      "missing_mode": {
+        "exit_code": 2,
+        "report_created": false,
+        "log_sha256": "a10eea57d4a5ac8e6907be3249ea43a12add0b9cf26d111524309bf5aa85face"
+      },
+      "data_sha256": "5c284df0743c4207282d2c37f561a3e701d0d8ddfb3a6dfc2425b0364a11d33c",
+      "tests_sha256": "dd326a6a6046a2208b8e7e3fdb53e74204641e19b36a9b1558c7d66bbf46a94c",
+      "driver_sha256": "382f6428eeca8cf2435760b648f9a896ae59f2174867baf073a3e6c3c60e6d48",
+      "source_files": {
+        "scripts/sky130_isolation_review.py": "c1b29c7a430ba6107fe7e0e93806a985dbe88e71631591ff4ad19ce251a533f1",
+        "scripts/sky130_isolation_policy.py": "c52c00e24763fbdac22c61f335bcad5262a1e14848e2a0979fc6158e4bd35b86",
+        "tests/test_sky130_isolation_policy.py": "7dce1316229f459e27e2b776d92529edc22c51d8a962a5f57b25c419144df77f",
+        "tests/test_sky130_isolation_review.py": "01910d488eaef2e9a1942bb2ec9876b0fa8011212c29d3cf6270a7b9a1163aed",
+        "scripts/sky130_grid_geometry.py": "0e24c568f582725ad034cf5fd4346a04756e69e0d34c00d47c959d1d5dcff28a"
+      }
+    }
+  },
+  "source_files": {
+    "scripts/sky130_isolation_review.py": "c1b29c7a430ba6107fe7e0e93806a985dbe88e71631591ff4ad19ce251a533f1",
+    "scripts/sky130_isolation_policy.py": "c52c00e24763fbdac22c61f335bcad5262a1e14848e2a0979fc6158e4bd35b86",
+    "tests/test_sky130_isolation_policy.py": "7dce1316229f459e27e2b776d92529edc22c51d8a962a5f57b25c419144df77f",
+    "tests/test_sky130_isolation_review.py": "01910d488eaef2e9a1942bb2ec9876b0fa8011212c29d3cf6270a7b9a1163aed",
+    "scripts/sky130_grid_geometry.py": "0e24c568f582725ad034cf5fd4346a04756e69e0d34c00d47c959d1d5dcff28a"
+  },
+  "cases": [
+    {
+      "case": "counter",
+      "gds_sha256": "4158b6503dc07e85f1e9e7b375a3d654cd9b64dc0498ed9fb680874e973c1ac2",
+      "periphery_counts": {
+        "execution-review-required": 9,
+        "upstream-na": 77,
+        "executed-reviewed": 135,
+        "absent-operand": 281,
+        "advisory": 36,
+        "definition-required": 1,
+        "declared-option-not-required": 1,
+        "other-backend": 61
+      },
+      "error_counts": {
+        "unreviewed": 880,
+        "executed-reviewed": 356,
+        "absent-operand": 320
+      },
+      "declared_status": "NOT_REQUESTED",
+      "enabled_status": "FAIL",
+      "measured_noncontained_gates": 1120,
+      "remaining_rules": [
+        "x.1a",
+        "x.1b",
+        "x.20",
+        "dnwell.6",
+        "lvtn.4b",
+        "ncm.3",
+        "difftap.13",
+        "poly.16",
+        "nsm.3a",
+        "nsm.3b"
+      ]
+    },
+    {
+      "case": "uart",
+      "gds_sha256": "c9282fb9602ac9dbab5299032be1d4b68751bb611747d276d40435e93c37afea",
+      "periphery_counts": {
+        "execution-review-required": 9,
+        "upstream-na": 77,
+        "executed-reviewed": 135,
+        "absent-operand": 281,
+        "advisory": 36,
+        "definition-required": 1,
+        "declared-option-not-required": 1,
+        "other-backend": 61
+      },
+      "error_counts": {
+        "unreviewed": 880,
+        "executed-reviewed": 356,
+        "absent-operand": 320
+      },
+      "declared_status": "NOT_REQUESTED",
+      "enabled_status": "FAIL",
+      "measured_noncontained_gates": 8500,
+      "remaining_rules": [
+        "x.1a",
+        "x.1b",
+        "x.20",
+        "dnwell.6",
+        "lvtn.4b",
+        "ncm.3",
+        "difftap.13",
+        "poly.16",
+        "nsm.3a",
+        "nsm.3b"
+      ]
+    },
+    {
+      "case": "apb",
+      "gds_sha256": "5039221b72bfd052d3f82781f5403fb67df4261ea20add5c2047191321fe9d78",
+      "periphery_counts": {
+        "execution-review-required": 9,
+        "upstream-na": 77,
+        "executed-reviewed": 135,
+        "absent-operand": 281,
+        "advisory": 36,
+        "definition-required": 1,
+        "declared-option-not-required": 1,
+        "other-backend": 61
+      },
+      "error_counts": {
+        "unreviewed": 880,
+        "executed-reviewed": 356,
+        "absent-operand": 320
+      },
+      "declared_status": "NOT_REQUESTED",
+      "enabled_status": "FAIL",
+      "measured_noncontained_gates": 8571,
+      "remaining_rules": [
+        "x.1a",
+        "x.1b",
+        "x.20",
+        "dnwell.6",
+        "lvtn.4b",
+        "ncm.3",
+        "difftap.13",
+        "poly.16",
+        "nsm.3a",
+        "nsm.3b"
+      ]
+    }
+  ],
+  "evidence_archive": {
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-isolation-options-2026-10-14-v1\\evidence.tar.gz",
+    "sha256": "65d51d59d2a69438b04375736695c9a1432b2328773df73316c4f26e8692c320",
+    "bytes": 65194,
+    "files": 46,
+    "manifest_sha256": "341e4495b0194344fa84cd3a78a8d2968b7e39c12bd35913d7ef2ee8fd68fdc3",
+    "status": "readback-verified"
+  },
+  "portable_files": {
+    "docs/validation/sky130-isolation-options-2026-10-14/linux/counter-bulk.json": "3e408744ab0f17d43f762c277ab1e0f15ea2b1c8d9fe9b5c11df6705ec9e3c37",
+    "docs/validation/sky130-isolation-options-2026-10-14/linux/counter-bulk.log": "4374b034e831ea7b859bfba51cda2796a34fa4ce3ae2f3f303c784a6176efea5",
+    "docs/validation/sky130-isolation-options-2026-10-14/linux/counter-isolated.json": "5100e46c9b1c4dbaa7820c3476fa06e7dd7e5adb72cadd635977bb5f19be3723",
+    "docs/validation/sky130-isolation-options-2026-10-14/linux/counter-isolated.log": "c8752904ca15d51419536f070855756fde49bfd74d653bc61e937297b9525ae3",
+    "docs/validation/sky130-isolation-options-2026-10-14/linux/isolated-control.gds": "569bec3366ba5ca0a304b7b6c73c86a40afbcd4cfbbecefe51d55bfd17523c1d",
+    "docs/validation/sky130-isolation-options-2026-10-14/linux/isolated-control.json": "b8accaddffc5ecb125478240ca3bd568492bb6d0cdb0bbd5ce2068e168e894f9",
+    "docs/validation/sky130-isolation-options-2026-10-14/linux/isolated-control.log": "c1c418424e9c8fb45439608951f38de7c386340f9397db387b1f7d882a542ce6",
+    "docs/validation/sky130-isolation-options-2026-10-14/linux/missing-mode.log": "a10eea57d4a5ac8e6907be3249ea43a12add0b9cf26d111524309bf5aa85face",
+    "docs/validation/sky130-isolation-options-2026-10-14/linux/record.json": "fe2919beacb9921a51baf4bcff509d5725a262626d6df57996c5df5bb077a68d",
+    "docs/validation/sky130-isolation-options-2026-10-14/linux/tests.log": "dd326a6a6046a2208b8e7e3fdb53e74204641e19b36a9b1558c7d66bbf46a94c",
+    "docs/validation/sky130-isolation-options-2026-10-14/win32/counter-bulk.json": "3e408744ab0f17d43f762c277ab1e0f15ea2b1c8d9fe9b5c11df6705ec9e3c37",
+    "docs/validation/sky130-isolation-options-2026-10-14/win32/counter-bulk.log": "b7e6b94ce5f139c0ce341e3f5b241e25652929bca6100e92f85718b3df5653d6",
+    "docs/validation/sky130-isolation-options-2026-10-14/win32/counter-isolated.json": "5100e46c9b1c4dbaa7820c3476fa06e7dd7e5adb72cadd635977bb5f19be3723",
+    "docs/validation/sky130-isolation-options-2026-10-14/win32/counter-isolated.log": "02456efe56986ea9b45b7520af4532d7d8ac1744b099f28cc6f3d5afe6924e5c",
+    "docs/validation/sky130-isolation-options-2026-10-14/win32/isolated-control.gds": "4234ecfea57d582195e9eb027fbc348b02092655562537dcbced1e8891c3500c",
+    "docs/validation/sky130-isolation-options-2026-10-14/win32/isolated-control.json": "1c9587570183e5adc4e56be8869983b15ac1914a12664a07fd9ef201b1e79901",
+    "docs/validation/sky130-isolation-options-2026-10-14/win32/isolated-control.log": "79fef7f6ae567b437c4bb2830b2c9f0694d1bab0386b4f99722c098343b24688",
+    "docs/validation/sky130-isolation-options-2026-10-14/win32/missing-mode.log": "a26ae20172b4e6bec0b94b278d320075f7e132f2b07feeebb3d1c56dedb5ef18",
+    "docs/validation/sky130-isolation-options-2026-10-14/win32/record.json": "173357b73d3bad967220b370ba2e5eb94e6fb4749934c4ebbc94922c4a3f21f0",
+    "docs/validation/sky130-isolation-options-2026-10-14/win32/tests.log": "0362149667957ae1f9c48cd3c045d4a161f0854108707db445ab95b9d3229f09"
+  },
+  "scope": "Explicit ordinary-bulk reference choice for optional x.29; NOT_REQUESTED is retained separately from passing rule execution and absent operands. Every noncontained NFET is measured, and requesting isolation on these same layouts fails. Other physical requirements remain open.",
+  "limitations": [
+    "The reference options are newly explicit intent. Ordinary bulk is NOT_REQUESTED, never an isolation pass or an absent-target claim.",
+    "No numeric enclosure margin is invented. Other well spacing, RF selection and body-connection requirements are separate.",
+    "This standalone qualification checker does not change the six-profile application policy or establish full chunk 6 qualification.",
+    "Nine periphery execution reviews, the missing x.20 value and all 880 unreviewed catalog records remain open."
+  ],
+  "earlier_attempts": [
+    {
+      "attempt": 1,
+      "outcome": "Twelve containment tests passed; ledger reconstruction rejected missing prose fields in the compact retained ledger. Final code validates its source identity and any supplied prose copies."
+    },
+    {
+      "attempt": 2,
+      "outcome": "Both systems passed 18 tests and full reference audits; command execution was not yet exercised."
+    },
+    {
+      "attempt": 3,
+      "outcome": "Windows passed all commands. Linux passed tests and reference audit but command subprocess omitted the runtime KLayout search path. Final driver preserves the complete parent dependency path."
+    }
+  ]
+}

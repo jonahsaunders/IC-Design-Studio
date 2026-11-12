@@ -1,0 +1,73 @@
+{
+  "base_commit": "fb4919d8df5ed3ef7571853276617a48c5fc57f5",
+  "chunk_complete": false,
+  "date": "2026-11-10",
+  "implicit_include_closure": {
+    "both_full_literal_bodies_found_once_in_exact_compiler_binary": true,
+    "constants_literal_sha256": "bb2ca3cb8aae09a74a01caf44b8a61e97a9455b9d76aaf55ba594add8090adc1",
+    "disciplines_literal_sha256": "f672c4823b38fa197511ae8ac16a71b9dbbc184f5b768421d559deab78a236c8",
+    "names": [
+      "discipline.h",
+      "disciplines.vams",
+      "constants.vams"
+    ],
+    "remaining_literal_model_includes_resolve_within_retained_hashed_directories": true,
+    "source": "openvaf/vfs/src/va_std.rs",
+    "source_sha256": "daefb0dc5ca74ef1038f256579d404cd9787cb228176b942f2f7641e32e2c9be"
+  },
+  "installed_acceptance": false,
+  "limitations": [
+    "No DT_NEEDED is not a self-contained statically linked runtime: PSP contains eleven unresolved host libc/libm symbols. Symbol export availability is verified statically, not runtime relocation or execution.",
+    "Per-model build.json dependencies are directory inventories, not complete compiler-standard include lists. Standard include definitions are separately bound to compiler source and exact literal bodies in compiler binary.",
+    "Compiler binary was not rebuilt from source; distribution naming plus matching embedded standard library bodies do not establish reproducible binary-source equivalence.",
+    "Environment and PATH-selected linker identity were sampled after compilation; no complete build-time environment or linker-execution trace was retained.",
+    "No measured simulation, installed acceptance, model fidelity, safety/voltage applicability or family qualification is claimed."
+  ],
+  "profile_sha256": "f188ddd23f3ee33b53baa98c15c522093fca2ed27b575389e92de980ee2b44a9",
+  "qualified": false,
+  "schema": 1,
+  "scope": "Read-only compiler, source, module, linker and engine identity review; no measured simulation, compilation rerun or device qualification.",
+  "status": "PASS_RUNTIME_IDENTITY_REVIEW_WITH_EXPLICIT_SCOPE_LIMITS",
+  "verified": {
+    "all_compiler_source_and_license_hashes_verified": true,
+    "all_undefined_symbols_exported_by_retained_engine_dependency_scope": true,
+    "archive_member_matches_binary": true,
+    "build_report_and_all_six_output_hashes_verified": true,
+    "compile_script_unchanged_and_hash_verified": true,
+    "compiled_modules": {
+      "cap_cmomf.osdi": "fdbd14050be21abcfc771757ba55cb3fbc5e23437d5ed2b4e45366a9bb3a05d3",
+      "cap_cmomi.osdi": "8179caebc4f384cd1d00dd12b9e8893716d5ee9e8f517b5ca72c4cec85172567",
+      "mosvar.osdi": "c3ea91ef33db66959cbd81b370d37aa1c70b9b36fbd6cef83c768c505e9b88a5",
+      "psp103.osdi": "24c016572d59fb079fda4f3a1c0aa4c8999d931e8ee335f180066f13ddd70ff4",
+      "psp103_nqs.osdi": "33dc9a8caa13977cdd77eb76b00c76200d8897f873d2497894dabfd327318fd6",
+      "r3_cmc.osdi": "3ecc382b6804bd50c178ca5a8e4fbe6c0158c4454f2003a544a19326d26a695d"
+    },
+    "compiler_archive_sha256": "9bc343d52e00529ddba452b90358cdd14da14ec7437d75dec2dbd621eda54bc8",
+    "compiler_binary_sha256": "b53d76763c04e4af9f392c5503979cd526deb30c2dbd82fedbd54af54cd99074",
+    "compiler_engine_linker_current_dynamic_resolution_and_dependency_hashes_match": true,
+    "compiler_source_commit": "f47d5579bd2f5c465f6e7db62c12745daad8b54f",
+    "compiler_source_files": 731,
+    "compiler_source_git_clean": true,
+    "engine_binary_sha256": "67399d2db139e9a8e7bfd118cab8acfa290bb6db003c996333e55ed682a65d25",
+    "engine_matches_pinned_archive_member": true,
+    "model_directory_source_files": 29,
+    "model_files_match_retained_copy_and_unchanged_repository": true,
+    "pin_matches_unchanged_packaging_dockerfile": true,
+    "psp103_module_sha256": "24c016572d59fb079fda4f3a1c0aa4c8999d931e8ee335f180066f13ddd70ff4",
+    "psp_no_dt_needed": true,
+    "psp_readelf_outputs_match_retained_logs": true,
+    "psp_undefined_symbols": [
+      "exp",
+      "exp2",
+      "floor",
+      "log",
+      "malloc",
+      "memcpy",
+      "pow",
+      "realloc",
+      "snprintf",
+      "strcmp",
+      "strlen"
+    ]
+  }
+}

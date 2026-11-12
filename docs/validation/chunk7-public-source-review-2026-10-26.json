@@ -1,0 +1,101 @@
+{
+  "schema": 1,
+  "date": "2026-10-26",
+  "chunk": 7,
+  "status": "bounded_review_complete_required_inputs_still_unresolved",
+  "qualified": false,
+  "chunk_complete": false,
+  "native_runs": 0,
+  "source_baseline": "f081d172cb7132ca579c0bd3ff3e187ddbd1e35e",
+  "sky130": {
+    "upstream_repository": "fossi-foundation/skywater-pdk-libs-sky130_fd_pr",
+    "upstream_revision": "16f93a795d87ea2b393fe5c74d32674e111e44a2",
+    "inspected_files": [
+      {
+        "file": "rf_diode_pw2dn.model.spice",
+        "upstream_path": "models/parasitics/sky130_fd_pr__model__parasitic__rf_diode_pw2dn.model.spice",
+        "bytes": 1305,
+        "sha256": "e50e34a0a7fc44b30095258717e2ed394e7dc614af2d18402c0765d196ef3906",
+        "git_blob": "f195f53a72a82d4880e8f0d15d60e0638c57e275"
+      },
+      {
+        "file": "esd_nfet_05v0_nvt.pm3.spice",
+        "upstream_path": "cells/esd_nfet_05v0_nvt/sky130_fd_pr__esd_nfet_05v0_nvt.pm3.spice",
+        "bytes": 23050,
+        "sha256": "e2d6f3d08fa664eb5e6f875ea0c02e207b31fbbc29e65c1a522a29eb32412b25",
+        "git_blob": "84d4eca66cd71f65df646a3a0c95eba00cb20c48"
+      },
+      {
+        "file": "cap_vpp_11p3x11p8_nhv.model.spice",
+        "upstream_path": "cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5/sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5_nhv.model.spice",
+        "bytes": 2299,
+        "sha256": "2bb6db3a27902e6e3f95c4184f28347650bfdca806fe0a3e5b4f3d658243c060",
+        "git_blob": "a22a2156c5dc4bd06b2ad9f2b434d28a35ae0a9d"
+      },
+      {
+        "file": "LICENSE",
+        "upstream_path": "LICENSE",
+        "bytes": 11358,
+        "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+        "git_blob": "d645695673349e3947e8e5ae42332d0ac3164cd7"
+      }
+    ],
+    "finding": "Current Google main is unchanged f62031a; current FOSSI main is16f93a. The exact RF name exists as the same two-terminal wrapper retained locally. Inspected ESD cell directory defines only esd_nfet_05v0_nvt, and inspected VPP directory has nhv/nhvtop views; current nhv executable remains four-terminal and suffixed. No authoritative alias, missing terminal network or new replacement established.",
+    "limits": "Exact scoped directories and source files only, not a full-repository text search. Connector exact-name code search returned empty results even for the known RF file, so those search results are not absence evidence. No broad PDK download, simulations or repository edits."
+  },
+  "gf180": {
+    "upstream_repository": "fossi-foundation/globalfoundries-pdk-libs-gf180mcu_fd_pr",
+    "upstream_revision": "4d0b4cef59c7686fac5fd3f4c6fb41d251d1f90c",
+    "review_sha256": "24026831ff305272f466fc5e4ec242c73485eafe3c3da7cbb83d04fff323fc35",
+    "inspected_files": [
+      {
+        "path": "official/models/ngspice/testing/README.md",
+        "git_blob": "30c9621f8f0d8f35bfa38d37e99cb123b2a68042",
+        "sha256": "89b614f26735c70e31d7be8c56ab07251c08f5ccba74a473ef88e5930475f007",
+        "bytes": 2908
+      },
+      {
+        "path": "official/models/ngspice/testing/regression/mos_id/device_netlists_id/nfet.spice",
+        "git_blob": "8ff1c751c086974cbafb1a441119049474ce4b45",
+        "sha256": "85291d70f6cdbc6e97ed84300aed01996bd2f38b84b881e83947fa7979ab516f",
+        "bytes": 1191
+      },
+      {
+        "path": "official/models/ngspice/testing/regression/mos_id/device_netlists_id/pfet.spice",
+        "git_blob": "5d7d5d09b4cf6e59932ff21a87c5d2e71b6e0d41",
+        "sha256": "86c0a1b7c91a1f50882293797e0e7dc360e4b5a8c6afd11fa681ff0ae2773906",
+        "bytes": 1191
+      },
+      {
+        "path": "official/models/ngspice/testing/regression/mos_id/models_regression.py",
+        "git_blob": "1352291a7a92b1df56a3891e53ac55051a9467df",
+        "sha256": "54eb4c25651bf93f6e72c3599680a5a3310b035da9571b981339d5cce23c3625",
+        "bytes": 17420
+      }
+    ],
+    "findings": [
+      "Current SI geometry, signed current-density conversion, temperature and nominal/ff/ss/sf/fs section selection agree with the pinned public conventions.",
+      "The upstream Rev9 reference itself exceeds the literal fast-corner Idsat and selected Vth0 endpoints; a local unit/corner correction is not supported by the retained evidence.",
+      "The official MOS regression templates compare current-versus-bias data. Their derivative examples measure drain resistance, not the EP Vth0 observable.",
+      "The official generic five-percent quantile model-correlation threshold is not an EP-limit allowance and does not supply a Vth0 extraction definition.",
+      "No complete authoritative public Vth0 equation/fixture was found in the bounded reviewed sources. The existing signed VDS/2 diagnostic is numerically supported by the reference outputs, but not uniquely specified."
+    ],
+    "missing_definition": [
+      "The original public spec_all_fets.nl or equivalent generating fixture and derivative macro for the Rev9 Vth0 columns: instance/parasitic defaults, sweep/derivative/interpolation/peak convention and signed drain correction.",
+      "An authoritative model-versus-EP acceptance policy or corrected public release reconciling published reference outputs with the literal printed endpoints."
+    ],
+    "next_check": "Look specifically for the public generating spec_all_fets.nl plus its derivative/measurement macro or an upstream corrected-model/EP reconciliation release. Compare those definitions to the already-retained raw data before considering any new sweep; a BSIM operating-point threshold, constant-current alternative, or wider numerical allowance cannot close the same Vth0 requirement.",
+    "current_status": "MISMATCH_UNCHANGED",
+    "threshold_accepted": false,
+    "limits": "Bounded official-source and pinned-evidence inspection; absence of a definition is not asserted for every historical or external document."
+  },
+  "archive": {
+    "status": "PASS",
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\chunk7-public-source-review-2026-10-26-v1\\evidence.zip",
+    "sha256": "b9853d8a9d7117c8d8b4f6eb06f80650a9e17ca0303bc5f740b682348c23f172",
+    "bytes": 90598,
+    "manifest_sha256": "c1030eb3c089cd498cc250413b1960f7e0a898809907b36b2d32b7613f0cead8",
+    "verified_members": 40
+  },
+  "conclusion": "Six required real bindings remain unavailable. The bounded source review does not authorize approximate aliases, missing terminal substitutions, wider specification limits, or a threshold acceptance claim."
+}

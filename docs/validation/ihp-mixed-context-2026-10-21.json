@@ -1,0 +1,631 @@
+{
+  "schema": 1,
+  "date": "2026-10-21",
+  "chunk": 7,
+  "chunk_complete": false,
+  "qualified": false,
+  "status": "mixed_context_and_diagnostic_controls_completed",
+  "scope": "Specific IHP mixed layouts, native diagnostic rejection, preserved historical evidence and completed EM mesh studies. No complete device-family, operating-envelope, installed-release or tapeout qualification.",
+  "parent_commit": "ae5a7a1a98fc863094ba7c63b40f0ffe07bac40c",
+  "source_files": {
+    "icstudio/engines.py": "ab0e2a1a1dd8f4f22b9495ae3481273965212a48bf5e3896dae69ea6d5b13049",
+    "icstudio/external_tools.py": "587611fc88467da95a97e952328f4778860362cdf2be28c6d3f100913413abc6",
+    "icstudio/ihp_npn_drc.py": "2a57cf109d60b2b8ed54db9eb507e6909f335675c153cfeb9985e35e938b6450",
+    "icstudio/ihp_varactor_context.py": "ecca03365cbd2b7db74edf20d13791a2766bec8438c37302f9d7b7eb3df7895c",
+    "icstudio/layout_verification.py": "74e87faa4eca2422c98f1654e2874ccec1eb23ddf9cff3e21ab80509ff0608f9",
+    "icstudio/magic_diagnostics.py": "075e1df41724a932b23bbd8722a78275e74f387d8c21bdf037d4c673ca6aa72b",
+    "icstudio/physical_runtime_probe.py": "f0b27a884e2ab16e36b59c54d364fd83d9ab88998563688b849d5b0b26278bfc",
+    "scripts/qualification_evidence.py": "b11b5727a7d0d4ee21fb83c185a61780317e2b40f2e97b652e8c792b2926b38e",
+    "scripts/qualify_ihp_mixed_layouts.py": "c40ac9a3e950942dfad7d17cc4cd06c27abba097c2650bc5bc1a1510bc32c204",
+    "tests/test_ihp_varactor_context.py": "eaf047c0b544a99d0eba7f7dc8e4d9c7e8e0db0eff4ac91c826f155ae8e16c8a",
+    "tests/test_magic_diagnostics.py": "98ea9037fb2eb37e123ae6eda1ac524f93f48547334e3bcf30869c13ebe45439",
+    "tests/test_qualification_evidence.py": "d72c0e1560de294fec44fa80266ed04d8bdf16c246b4362931c60204cc29b5e9",
+    ".github/workflows/ihp-inductor-qualification.yml": "47de97fe861da2e4f1c08171b4a40591cfbf253705f3b57259a167debf2e6c96"
+  },
+  "full_source_capture": {
+    "path": "final-guard-tests/source-snapshot.json",
+    "sha256": "e0b15ef76165775688ac87987ceef8a11a46780e8a98587d2c5d530cac05a2e2",
+    "bytes": 873304
+  },
+  "regressions": {
+    "Windows": {
+      "discovered": 3224,
+      "skipped": 63,
+      "seconds": 1723.946,
+      "result": {
+        "returncode": 0,
+        "source_unchanged": true,
+        "seconds": 1748.25,
+        "source_manifest_sha256": "e0b15ef76165775688ac87987ceef8a11a46780e8a98587d2c5d530cac05a2e2"
+      },
+      "log": {
+        "path": "final-guard-tests/full-Windows.log",
+        "sha256": "b4e5fc56592fa87ebd653e25d6c8adaf88fd0e7a060fa2f57936e3f26caab16c",
+        "bytes": 540799
+      }
+    },
+    "Linux": {
+      "discovered": 3224,
+      "skipped": 55,
+      "seconds": 779.299,
+      "result": {
+        "returncode": 0,
+        "source_unchanged": true,
+        "source_manifest_sha256": "e0b15ef76165775688ac87987ceef8a11a46780e8a98587d2c5d530cac05a2e2",
+        "root": "/var/tmp/icstudio-chunk7-context-20261021-v2"
+      },
+      "log": {
+        "path": "final-guard-tests/full-snapshot-Linux.log",
+        "sha256": "ab4eb2feb35b5a8e2c8f504c4aa838765c85697d15c5076b9d17654dcf136e69",
+        "bytes": 537071
+      }
+    }
+  },
+  "historical_evidence_repair": {
+    "binding": {
+      "path": "docs/validation/gf180-tested-source-2026-10-21-diagnostics.json",
+      "sha256": "fe0026c7fdf5c663770da04501f170003ea9fcc915ba35f01fe34cad562c3aad"
+    },
+    "added": {
+      "external_tools.py": {
+        "path": "docs/validation/gf180-tested-source-2026-10-21-diagnostics/external_tools.py.txt",
+        "sha256": "8e4131b26d09b0f56381ca1439fe854f2585141d3f402a14c0c5f3fd9cb04fff"
+      },
+      "physical_runtime_probe.py": {
+        "path": "docs/validation/gf180-tested-source-2026-10-21-diagnostics/physical_runtime_probe.py.txt",
+        "sha256": "7cc634223f4967efcedc66db193e55c4db9e98462716b12cb16047969fabf13d"
+      }
+    },
+    "source_commit": "2fe3c277c666089b21b4ebf39aecd62a76a3ae8d",
+    "original_crlf_serialization_sha256": "a18b73eab149e62218697224b5185915a66a3fa9f11852f79ebad8a79ef15d6e",
+    "reason": "Earlier complete suites each exposed seven assertion failures and two errors because two historical GF180 source blobs had not been retained after the diagnostic change. Exact original Git blobs were restored; historical acceptance hashes and outcomes were not reassigned.",
+    "failed_runs": [
+      {
+        "path": "full-Windows.log",
+        "sha256": "647642142800b6620b87a44508b092a3f8f5d6996fe877c3ee167f4a0da53c81",
+        "bytes": 549532
+      },
+      {
+        "path": "full-snapshot-Linux.log",
+        "sha256": "0554dcded0b54a594dfa5527ac3fa6c3e9edfaa5a2f741a347e886b21c2d33e2",
+        "bytes": 544921
+      }
+    ],
+    "intermediate_full_suites": {
+      "discovered_per_host": 3223,
+      "Windows": {
+        "path": "final-tests/full-Windows-result.json",
+        "sha256": "c5842e1179e26ce5fe84cdd5316b3d5e6f13b89638c9ab9a0d1bd71197c65a35",
+        "bytes": 178
+      },
+      "Linux": {
+        "path": "final-tests/full-snapshot-Linux-result.json",
+        "sha256": "55f598566daf238ca4b32f71fe743c5561ca4295f3b96a5419beb83257b0e7ca",
+        "bytes": 204
+      }
+    }
+  },
+  "diagnostics": {
+    "native": {
+      "path": "magic-native-diagnostics.json",
+      "sha256": "07a6f05974fa7698b64880c9978ea5218d0f73b58d843f3cd3855d1c078ab08b",
+      "bytes": 2645
+    },
+    "standalone_before": {
+      "path": "qualification-diagnostics-before/result.json",
+      "sha256": "609bcb05120462d1c75be52cfd42f74ef21fcb28ef0bc1a2e1eb6b66486ac4fb",
+      "bytes": 5046
+    },
+    "standalone_after": {
+      "path": "qualification-diagnostics-after/result.json",
+      "sha256": "dcb09a58c507c5185c220e8749e60c266eeaa5421fb8336648078dc85ad46c7e",
+      "bytes": 2531
+    },
+    "scope": "Real native rules with invalid layer, section and include. All print zero count and completion; all are rejected by the corrected entry points. Ordinary resource warnings remain accepted."
+  },
+  "mixed_layouts": {
+    "positive_layouts": 24,
+    "specific_faults_detected": 27,
+    "native_controls": 72,
+    "native_valid": 24,
+    "native_faults_detected": 48,
+    "pairs": [
+      "npn13G2L + small Nx1",
+      "npn13G2V Nx2 + small Nx4",
+      "npn13G2 Nx4 + large Nx10"
+    ],
+    "orientations": "Four rotations, with and without mirroring. The 27 full-flow faults are three sets of nine; 72 native controls independently cover both mirror states.",
+    "results": [
+      {
+        "path": "production-mixed/qualification.json",
+        "sha256": "af220d6e0ebcc2825d1d741fc95819070baf8b28e8e2b53b1c31976183d6083e",
+        "bytes": 24198
+      },
+      {
+        "path": "production-mixed-mirrors/result.json",
+        "sha256": "856f0df6e05a498c09a50c087db1786c41afd194b54dbb2f440d85ea0eaaeb09",
+        "bytes": 15372
+      },
+      {
+        "path": "production-npn-controls/result.json",
+        "sha256": "2d04020cc835cc36d0ae91a84e219af18a82812abe8352b1a30fb1b049df5fc6",
+        "bytes": 15833
+      }
+    ],
+    "readbacks": {
+      "Windows": {
+        "artifact_bindings": 4200,
+        "private_streams": 117,
+        "reports": [
+          {
+            "path": "mixed-readback-Windows.json",
+            "sha256": "cf22435e3ece421e3810af77c8c72a59d352fdfb34cd84b8a1cba0436b86d9d6",
+            "bytes": 21432
+          },
+          {
+            "path": "production-stream-Windows/result.json",
+            "sha256": "b90784d2a80a520ebadd411a2e5dcbc1c940aeaad588f276964d7225e7600ecf",
+            "bytes": 56570
+          },
+          {
+            "path": "production-mixed-stream-Windows/result.json",
+            "sha256": "94ccc32051e48f303d877aa7469680cbd4beed897f504e7916557174eb59c99d",
+            "bytes": 35480
+          }
+        ]
+      },
+      "Linux": {
+        "artifact_bindings": 4200,
+        "private_streams": 117,
+        "reports": [
+          {
+            "path": "mixed-readback-Linux.json",
+            "sha256": "84609b8159141a1d86a03a4d0c65f2d7f077e750eb94138af87cf921a27785fc",
+            "bytes": 20708
+          },
+          {
+            "path": "production-stream-Linux/result.json",
+            "sha256": "a5cc0b094c6578226615c2454bb30fb893e5004f36bb769cdcf02ca6a0488e03",
+            "bytes": 55197
+          },
+          {
+            "path": "production-mixed-stream-Linux/result.json",
+            "sha256": "c188d060fd02ff1e6690aadfdb66639fed343ad471e717113cedcf30ec54d4d4",
+            "bytes": 34620
+          }
+        ]
+      }
+    },
+    "windows_native_handoff": {
+      "record": {
+        "path": "Windows-mixed-backend-v2/record.json",
+        "sha256": "0479819e8c9de6f8c89fb1e2405798baf14bc8e1d632e68ae4930afa528d6b20",
+        "bytes": 44162
+      },
+      "cases": [
+        {
+          "name": "large-90",
+          "status": "PASS",
+          "native_status": "passed",
+          "received_files": 223,
+          "result_sha256": "22de13a1d51d3be5beaa2c0fb7967c6cf65205e8eb025f7fa76c437cb4c188e5",
+          "input_sha256": "f3c43c067dcc127127499d0aefbff1fd38ab871f11a9280aa7bee44a69937619"
+        },
+        {
+          "name": "large-mirror-270",
+          "status": "PASS",
+          "native_status": "passed",
+          "received_files": 223,
+          "result_sha256": "6d30926208190308c4d415fbe353ecc19880fdc065a20c0efead8ded4ce67a3f",
+          "input_sha256": "2230668061e34d78e963fc6735296ecfd9d60d630a0b36ca2c713cfd684bf73d"
+        },
+        {
+          "name": "npn-unrelated-diffusion",
+          "status": "PASS",
+          "native_status": "failed",
+          "received_files": 223,
+          "result_sha256": "8140f532846e10b6b85baa54d3685a534713eeaad81e4b55cf1ea9f266a107a6",
+          "input_sha256": "41dd0d475b841c02bd01ab9fb1dcef1d8c49e369d94a78964c55908d7fb8af67"
+        },
+        {
+          "name": "npn-unrelated-well",
+          "status": "PASS",
+          "native_status": "failed",
+          "received_files": 223,
+          "result_sha256": "6f1c13bb72ae4558ca83b48c166f0dbe09655642838245f12159080e3b46415e",
+          "input_sha256": "3c24d1f8a194d81ae9f71a383fc767a6886dfa5f7bac7ded80e901c35f07fb2c"
+        },
+        {
+          "name": "var-oxide-gap",
+          "status": "PASS",
+          "native_status": "failed",
+          "received_files": 182,
+          "result_sha256": "dffe0a107647682ddc22dabf4806cab3a12e77ca4ec1045af987ed78d22dc503",
+          "input_sha256": "0261dc134f7586350d987069b37d7532b638ef84b9d9c9b4be5588a19d809888"
+        }
+      ],
+      "scope": "Actual source Windows staging and ordinary-user Linux backend receipt; not installed desktop qualification."
+    }
+  },
+  "em_studies": {
+    "280": {
+      "source_run_hash": "72562527147a07a6c5863879233394bb8d8576f32823299c421c39e9ad200357",
+      "mesh_um": 0.8,
+      "band_ghz": [
+        100,
+        300
+      ],
+      "numerical_gate": "passes_recorded_mesh_and_nonnegative_resistance",
+      "accepted": true,
+      "mesh_comparison": {
+        "max_relative_z_change": 0.00979192468694404,
+        "max_relative_r_change": 0.019102748067752334,
+        "tolerance": 0.05,
+        "absolute_floor_ohm": 0.001
+      },
+      "stages": {
+        "base-1": {
+          "energy_db": -42.03,
+          "cells": 965250,
+          "mesh_lines": [
+            78,
+            75,
+            165
+          ],
+          "versions": {
+            "python": "3.11.16",
+            "numpy": "1.23.5",
+            "openEMS": "0.0.36",
+            "CSXCAD": "0.6.3"
+          }
+        },
+        "base-2": {
+          "energy_db": -42.25,
+          "cells": 965250,
+          "mesh_lines": [
+            78,
+            75,
+            165
+          ],
+          "versions": {
+            "python": "3.11.16",
+            "numpy": "1.23.5",
+            "openEMS": "0.0.36",
+            "CSXCAD": "0.6.3"
+          }
+        },
+        "fine-1": {
+          "energy_db": -40.48,
+          "cells": 2499306,
+          "mesh_lines": [
+            107,
+            102,
+            229
+          ],
+          "versions": {
+            "python": "3.11.16",
+            "numpy": "1.23.5",
+            "openEMS": "0.0.36",
+            "CSXCAD": "0.6.3"
+          }
+        },
+        "fine-2": {
+          "energy_db": -40.64,
+          "cells": 2499306,
+          "mesh_lines": [
+            107,
+            102,
+            229
+          ],
+          "versions": {
+            "python": "3.11.16",
+            "numpy": "1.23.5",
+            "openEMS": "0.0.36",
+            "CSXCAD": "0.6.3"
+          }
+        }
+      },
+      "meshes": {
+        "base": {
+          "maximum_singular_value": 0.9770729152811721,
+          "sampled_passivity": true,
+          "minimum_impedance_hermitian_eigenvalue": 5.31570061934924,
+          "maximum_reciprocity_error": 0.0006247127183652586
+        },
+        "fine": {
+          "maximum_singular_value": 0.9774421207184879,
+          "sampled_passivity": true,
+          "minimum_impedance_hermitian_eigenvalue": 5.221753656443205,
+          "maximum_reciprocity_error": 0.0005961289369607948
+        }
+      },
+      "independent_readback_agrees_on_both_hosts": true,
+      "acceptance_error": null,
+      "reopened_status": "Current characterization.",
+      "reports": {
+        "Windows": [
+          {
+            "path": "ihp-280-readback-Windows/native-audit.json",
+            "sha256": "6d695fbff4868d56071340198f0dce0b7601702ac7b8b8d44614fe24d556977b",
+            "bytes": 23151
+          },
+          {
+            "path": "ihp-280-readback-Windows/summary.json",
+            "sha256": "0849bfbf648e2d4fb667fcf9cea723b734ec0e2794a9cdda44d2752d62216de1",
+            "bytes": 3597
+          }
+        ],
+        "Linux": [
+          {
+            "path": "ihp-280-readback-Linux/native-audit.json",
+            "sha256": "6c81c447a2c22b0f6f2efb1973370a06a29491e56afcba60c944ad2b1b2f54d6",
+            "bytes": 22312
+          },
+          {
+            "path": "ihp-280-readback-Linux/summary.json",
+            "sha256": "3795e89a7f7f12d16aa89f6d58d941a8822afd2ff1092ead7c5335b11939cb17",
+            "bytes": 3487
+          }
+        ]
+      },
+      "scope": "Numerical convergence of this public-material coil fixture only; no measured silicon or compact-device-model accuracy."
+    },
+    "180": {
+      "source_run_hash": "490f8337aeefa2c3d8a10224b3786498da027d406662376566ca90afd6c95863",
+      "mesh_um": 0.8,
+      "band_ghz": [
+        100,
+        300
+      ],
+      "numerical_gate": "passes_recorded_mesh_and_nonnegative_resistance",
+      "accepted": true,
+      "mesh_comparison": {
+        "max_relative_z_change": 0.009735728705999114,
+        "max_relative_r_change": 0.019306053101303206,
+        "tolerance": 0.05,
+        "absolute_floor_ohm": 0.001
+      },
+      "stages": {
+        "base-1": {
+          "energy_db": -41.45,
+          "cells": 895050,
+          "mesh_lines": [
+            78,
+            75,
+            153
+          ],
+          "versions": {
+            "python": "3.11.16",
+            "numpy": "1.23.5",
+            "openEMS": "0.0.36",
+            "CSXCAD": "0.6.3"
+          }
+        },
+        "base-2": {
+          "energy_db": -41.78,
+          "cells": 895050,
+          "mesh_lines": [
+            78,
+            75,
+            153
+          ],
+          "versions": {
+            "python": "3.11.16",
+            "numpy": "1.23.5",
+            "openEMS": "0.0.36",
+            "CSXCAD": "0.6.3"
+          }
+        },
+        "fine-1": {
+          "energy_db": -43.54,
+          "cells": 2302854,
+          "mesh_lines": [
+            107,
+            102,
+            211
+          ],
+          "versions": {
+            "python": "3.11.16",
+            "numpy": "1.23.5",
+            "openEMS": "0.0.36",
+            "CSXCAD": "0.6.3"
+          }
+        },
+        "fine-2": {
+          "energy_db": -40.22,
+          "cells": 2302854,
+          "mesh_lines": [
+            107,
+            102,
+            211
+          ],
+          "versions": {
+            "python": "3.11.16",
+            "numpy": "1.23.5",
+            "openEMS": "0.0.36",
+            "CSXCAD": "0.6.3"
+          }
+        }
+      },
+      "meshes": {
+        "base": {
+          "maximum_singular_value": 0.9770695786856619,
+          "sampled_passivity": true,
+          "minimum_impedance_hermitian_eigenvalue": 5.313091365892827,
+          "maximum_reciprocity_error": 0.0006227050329131386
+        },
+        "fine": {
+          "maximum_singular_value": 0.9774136415550954,
+          "sampled_passivity": true,
+          "minimum_impedance_hermitian_eigenvalue": 5.216558097277492,
+          "maximum_reciprocity_error": 0.000700805201582459
+        }
+      },
+      "independent_readback_agrees_on_both_hosts": true,
+      "acceptance_error": null,
+      "reopened_status": "Current characterization.",
+      "reports": {
+        "Windows": [
+          {
+            "path": "ihp-180-readback-Windows/native-audit.json",
+            "sha256": "3656ff08b8eae012f3081b0c6c7b25b4be5c2b714ce7ecd6c3281ef55762b9c4",
+            "bytes": 23156
+          },
+          {
+            "path": "ihp-180-readback-Windows/summary.json",
+            "sha256": "1279695e3db753f609afccc207e98cbb230a8aa34c239fa26f95b73f66ac78ac",
+            "bytes": 3598
+          }
+        ],
+        "Linux": [
+          {
+            "path": "ihp-180-readback-Linux/native-audit.json",
+            "sha256": "8c9cfbdf14f3bf79db7436a320f3c516b15c8b8116ba2ddebf4d62276afdd89b",
+            "bytes": 22309
+          },
+          {
+            "path": "ihp-180-readback-Linux/summary.json",
+            "sha256": "a545487d059460fa6161c2fce715326175b0f125496606987bb13650ff9ff234",
+            "bytes": 3488
+          }
+        ]
+      },
+      "scope": "Numerical convergence of this public-material coil fixture only; no measured silicon or compact-device-model accuracy."
+    }
+  },
+  "unpromoted_experiments": {
+    "first_context": "Large mixed 90-degree layout retained native findings with the initial asymmetric interval. Symmetric one-grid-step closure was then checked in all eight orientations.",
+    "invalid_pvar_contact": "The original pvar-contact-v1 experiment used an unknown native layer. Its apparent count is invalid evidence; the subsequent valid pvar attempt still failed.",
+    "rf_pw2dn": {
+      "record": {
+        "path": "rf-pw2dn-pilot/result.json",
+        "sha256": "16da43753ceaba25efd8976bc0bf9fd31044aec80d80fa0a097a89e24ffb0d41",
+        "bytes": 1255
+      },
+      "scope": "Three-terminal public-rule pilot has zero public geometry findings, but native Magic drops RF 81/125 and yields an empty circuit. Rejected; no default promotion or complete physical extraction."
+    },
+    "public_model_candidates": {
+      "record": {
+        "path": "public-model-candidates/record.json",
+        "sha256": "7c66d220577973c331cc9280934a52c233033caeac00400dedb47c72834b74e8",
+        "bytes": 2703
+      },
+      "scope": "Exact public blobs include a differently named native ESD model and an NHV VPP model. Neither is assumed equivalent to the unavailable source-symbol model; native ESD geometry bins differ from the symbol default."
+    },
+    "first_windows_handoff": "First positive passed, then the audit helper used an incorrect mirror fixture path. The corrected five-case helper completed; the failed original log is retained."
+  },
+  "public_native_esd_pilot": {
+    "cases_per_host": 9,
+    "points_per_case": 13,
+    "maximum_relative_cross_host_current_difference": 0.0009842740711363388,
+    "reports": {
+      "Windows": {
+        "path": "public-native-esd-Windows/record.json",
+        "sha256": "7bcedd8a66338a06ea2dccd6c522071b0a7df49e216f4cf963d97ecfa0be096f",
+        "bytes": 7867
+      },
+      "Linux": {
+        "path": "public-native-esd-Linux/record.json",
+        "sha256": "82efbbc2d03c97ab046f4ef8886574c9df2d8ab1dda65daea5db270413212e1a",
+        "bytes": 7618
+      }
+    },
+    "scope": "A differently named native ESD model executes at its own valid geometry bins. Cross-host execution is not an independent electrical oracle, model alias, physical qualification or default promotion."
+  },
+  "public_ihp_measured_reference": {
+    "source_lock": {
+      "path": "ihp-measured-reference/source-lock.json",
+      "sha256": "3bcf164f4457e9aa36bc4af55d9b36fdbe86734a2be837cebdb947362e3923c8",
+      "bytes": 3342
+    },
+    "reports": {
+      "Windows": {
+        "path": "measured-reference-audit-Windows.json",
+        "sha256": "2cd0b99f5d11291331dcf0e23bc6dfb0131891d1b16f61440312e44a77c5bc38",
+        "bytes": 3162
+      },
+      "Linux": {
+        "path": "measured-reference-audit-Linux.json",
+        "sha256": "2b41d05947d347bb7451fc3540b30163313f8e41df755e5a07239ccb66e5f2e5",
+        "bytes": 3083
+      }
+    },
+    "scope": "Pinned GPL-3.0 measured L6n2 coil, exact GDS, stackup and published openEMS/Palace data. Independent complex-matrix readback matches the application parser on both hosts. These are reference inputs, not fresh solver execution or application model accuracy."
+  },
+  "licenses": {
+    "project": "GPL-3.0",
+    "native_derived_rules": "Original Apache-2.0 notices retained, with modification notices.",
+    "sources": "Pinned public inputs with original GPL-3.0 and Apache-2.0 notices; no private foundry package or externally submitted design."
+  },
+  "remaining": [
+    "Required unavailable compact models and complete supported device operating envelopes.",
+    "SKY130 RF deep-well complete extraction including substrate junctions; broader physical and extracted connectivity.",
+    "Fresh IHP simulation against the retained public measured coil, broader geometry and statistical/RF/thermal coverage.",
+    "Semantic upstream device/process-option completeness and exact installed-release acceptance."
+  ],
+  "evidence_archive": {
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\chunk7-device-context-2026-10-21-v1\\evidence.zip",
+    "sha256": "42b7f2dc438dbf0f9c300885b1c23a3d210d1ab82a12f74645e726caa7305d92",
+    "bytes": 308059874,
+    "paths": 34943,
+    "unique_objects": 6031,
+    "format": "sha256-deduplicated-zip-v1",
+    "every_object_reopened_and_verified": true
+  },
+  "archive_restore_replay": {
+    "Windows": {
+      "status": "PASS",
+      "host": "Windows",
+      "restored_files": 26,
+      "rows": [
+        {
+          "name": "valid",
+          "rejected": false,
+          "error": null
+        },
+        {
+          "name": "unknown-layer",
+          "rejected": true,
+          "error": "Magic could not load the complete technology rules. Inspect the retained native diagnostic in C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\chunk7-archive-restore-20261021-v1\\qualification-diagnostics-after\\unknown-layer\\engine.log"
+        },
+        {
+          "name": "unknown-section",
+          "rejected": true,
+          "error": "Magic could not load the complete technology rules. Inspect the retained native diagnostic in C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\chunk7-archive-restore-20261021-v1\\qualification-diagnostics-after\\unknown-section\\engine.log"
+        },
+        {
+          "name": "missing-include",
+          "rejected": true,
+          "error": "Magic could not load the complete technology rules. Inspect the retained native diagnostic in C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\chunk7-archive-restore-20261021-v1\\qualification-diagnostics-after\\missing-include\\engine.log"
+        }
+      ]
+    },
+    "Linux": {
+      "status": "PASS",
+      "host": "Linux",
+      "restored_files": 26,
+      "rows": [
+        {
+          "name": "valid",
+          "rejected": false,
+          "error": null
+        },
+        {
+          "name": "unknown-layer",
+          "rejected": true,
+          "error": "Magic could not load the complete technology rules. Inspect the retained native diagnostic in /mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/chunk7-archive-restore-20261021-v1/qualification-diagnostics-after/unknown-layer/engine.log"
+        },
+        {
+          "name": "unknown-section",
+          "rejected": true,
+          "error": "Magic could not load the complete technology rules. Inspect the retained native diagnostic in /mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/chunk7-archive-restore-20261021-v1/qualification-diagnostics-after/unknown-section/engine.log"
+        },
+        {
+          "name": "missing-include",
+          "rejected": true,
+          "error": "Magic could not load the complete technology rules. Inspect the retained native diagnostic in /mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/chunk7-archive-restore-20261021-v1/qualification-diagnostics-after/missing-include/engine.log"
+        }
+      ]
+    }
+  }
+}

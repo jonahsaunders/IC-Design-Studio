@@ -1,0 +1,307 @@
+{
+  "schema": 1,
+  "as_of": "2026-11-10",
+  "status": "PASS_FINITE_NATIVE_DYNAMIC_LINKAGE",
+  "qualified": false,
+  "chunk_complete": false,
+  "full_family": false,
+  "installed_acceptance": false,
+  "fresh_physical_acceptance": false,
+  "scope": "Finite fresh ngspice47 transient/thermal-noise-density linkage using explicitly historical actual installed GUI/native-extracted arrays. No new extraction or current installed acceptance, operating/reliability envelope, calibrated noise/matching, full-family or signoff qualification.",
+  "historical_input_provenance": {
+    "artifact_id": 12689257141,
+    "run_id": 40387247059,
+    "archive_path": "/workspace/shared/li-dynamic/diagnostics-12689257141.zip",
+    "archive_sha256": "1d0ec0f2afa8739754dc85e34ec5c2fcfe82a640dae043b11960418e225771fa",
+    "historical_candidate": "53c17aa78eb510715eaa28ed34e4f576a7fe7b40",
+    "historical_nonce": "e3a8baf63ba14151aca6d2f4d6aa15fd",
+    "verified_manifest_members": 4476,
+    "selected_cases": {
+      "l1-m3-r0": {
+        "multiplicity": 3,
+        "rotation": 0,
+        "native_job_id": "2026-10-26T20-52-21+00-00_60324ddfb90e4f0a",
+        "native_design_hash": "8044aacdc4f3ccb0bfeae2d173c3ea77258ab7fa55c44a779761673bd1a230dc",
+        "files": {
+          "reference": {
+            "member": "frozen-metal-parallel-evidence/probe/l1-m3-r0/reference.spice",
+            "sha256": "cfa76f1976ff58ba47e53c898f84e3c86fdc56f6fcdda0477a2950f320bdc4d2"
+          },
+          "native": {
+            "member": "frozen-metal-parallel-evidence/probe/runs with spaces/6f8c3aba905f44f9/2026-10-26T20-52-21+00-00_60324ddfb90e4f0a/physical-flow/lvs-extraction/extracted.spice",
+            "sha256": "06d4a26c1e2fbaa5596f8c9f5ee8662fb5de9d7e5af65d75ca4d0e5e46a30d56"
+          },
+          "gds": {
+            "member": "frozen-metal-parallel-evidence/probe/l1-m3-r0/layout.gds",
+            "sha256": "2ccfad942635e56fc4d5ab21147811e4d65df6302c91452a72576e94b1b0c7c4"
+          },
+          "oas": {
+            "member": "frozen-metal-parallel-evidence/probe/l1-m3-r0/layout.oas",
+            "sha256": "64e0281dc3e4871bf136a81c4e28827483292d8c497a5e52d3a464567f4bf1e9"
+          },
+          "project": {
+            "member": "frozen-metal-parallel-evidence/probe/l1-m3-r0/project.icproj",
+            "sha256": "f8be537b60337fae87b833220911fafdd7e48a532f8c76103b76da70c1e74e83"
+          },
+          "application_normalized": {
+            "member": "frozen-metal-parallel-electrical-evidence/normalized-inputs/l1-m3-r0/application.spice",
+            "sha256": "57ff9f6a1be8834712a8488b395304ef59b19fcafbfefac8579796f0f6e51b3f"
+          },
+          "native_normalized": {
+            "member": "frozen-metal-parallel-electrical-evidence/normalized-inputs/l1-m3-r0/native.spice",
+            "sha256": "549b2ba617cf99327c47ac6b09bc80769713d0b3d362ddc9f86d940f4d7e980b"
+          }
+        }
+      },
+      "l1-m3-r90": {
+        "multiplicity": 3,
+        "rotation": 90,
+        "native_job_id": "2026-10-26T20-52-36+00-00_ff229384e3b04850",
+        "native_design_hash": "cd3357ed4e19f8b0f99a847e1f28d4580060213ed78b91e2029b97c61524f029",
+        "files": {
+          "reference": {
+            "member": "frozen-metal-parallel-evidence/probe/l1-m3-r90/reference.spice",
+            "sha256": "38c6c0f78c7313c7d09f8e682d715332f61719f93c1f34cdb55eddb6c6d9bcf5"
+          },
+          "native": {
+            "member": "frozen-metal-parallel-evidence/probe/runs with spaces/3e8685d4039d4206/2026-10-26T20-52-36+00-00_ff229384e3b04850/physical-flow/lvs-extraction/extracted.spice",
+            "sha256": "8be0cdead04b22ba921f9a9639d6f1481b00d5a26f20443816e1f44ca87df0a0"
+          },
+          "gds": {
+            "member": "frozen-metal-parallel-evidence/probe/l1-m3-r90/layout.gds",
+            "sha256": "af64dea73d161804a0bfe89628c0a90bc3260e571666ea224d79aa3161800585"
+          },
+          "oas": {
+            "member": "frozen-metal-parallel-evidence/probe/l1-m3-r90/layout.oas",
+            "sha256": "8aac048360059d7dedf529693f1b595e30ee15dcc08b4a22e48ea53a99ee2c50"
+          },
+          "project": {
+            "member": "frozen-metal-parallel-evidence/probe/l1-m3-r90/project.icproj",
+            "sha256": "c96d3876acc9c0941e5bae4c04b9874d0e41f9c61ec1f1e404d825be66b803be"
+          },
+          "application_normalized": {
+            "member": "frozen-metal-parallel-electrical-evidence/normalized-inputs/l1-m3-r90/application.spice",
+            "sha256": "4892bf939592625985039d18af6a255e43e2b8a1052f7f8042058e33fbfd3a50"
+          },
+          "native_normalized": {
+            "member": "frozen-metal-parallel-electrical-evidence/normalized-inputs/l1-m3-r90/native.spice",
+            "sha256": "97fabcc9660d2ec720fad40626275cb66033096e9b074c84a74110bdf93765dd"
+          }
+        }
+      },
+      "l1-m16-r0": {
+        "multiplicity": 16,
+        "rotation": 0,
+        "native_job_id": "2026-10-26T20-52-41+00-00_261ab78cfb7c4f99",
+        "native_design_hash": "57c7a8006cf21428b9b77a0cf4ff19c88ba5cd004883b9dc0180588b3c929505",
+        "files": {
+          "reference": {
+            "member": "frozen-metal-parallel-evidence/probe/l1-m16-r0/reference.spice",
+            "sha256": "7bbac6da432dc7948175af4635c5e9790c65e5918ecd99db481a4053ecfc9641"
+          },
+          "native": {
+            "member": "frozen-metal-parallel-evidence/probe/runs with spaces/8f2013f8c13b46d0/2026-10-26T20-52-41+00-00_261ab78cfb7c4f99/physical-flow/lvs-extraction/extracted.spice",
+            "sha256": "dcababc5523e8dcf4fe180b50609ac06efdd5e6eb43f2334754d620edb3a26a9"
+          },
+          "gds": {
+            "member": "frozen-metal-parallel-evidence/probe/l1-m16-r0/layout.gds",
+            "sha256": "19738bf8462fab881caf93d2154fa8cf3abcf3ccffa8520cf2e8309097fcf67f"
+          },
+          "oas": {
+            "member": "frozen-metal-parallel-evidence/probe/l1-m16-r0/layout.oas",
+            "sha256": "8706ecefb85bf050e0c8ec922054826c286659741b1db7697fe1c12d7134e8cf"
+          },
+          "project": {
+            "member": "frozen-metal-parallel-evidence/probe/l1-m16-r0/project.icproj",
+            "sha256": "87e6407008fba2d1ef34d1016c93b14f2e870e750cbb125402e778d00b2e68e9"
+          },
+          "application_normalized": {
+            "member": "frozen-metal-parallel-electrical-evidence/normalized-inputs/l1-m16-r0/application.spice",
+            "sha256": "dc45245eb5a66a98e6abdbd5a98643a05c68f50f64997f64bfb18339c509d377"
+          },
+          "native_normalized": {
+            "member": "frozen-metal-parallel-electrical-evidence/normalized-inputs/l1-m16-r0/native.spice",
+            "sha256": "0d273735aa557c96b9f7162408a4ceccf4cc8f67d9f254e621e0adb02e1d6c3c"
+          }
+        }
+      },
+      "l1-m16-r90": {
+        "multiplicity": 16,
+        "rotation": 90,
+        "native_job_id": "2026-10-26T20-52-46+00-00_10b28e1d7c974fe3",
+        "native_design_hash": "25ec61b340eb4618b4d4eff1582512ff847c2572b0e95fee8651b84101d9f7ca",
+        "files": {
+          "reference": {
+            "member": "frozen-metal-parallel-evidence/probe/l1-m16-r90/reference.spice",
+            "sha256": "27b3694c4091341a90927d03d006561b6771fc7039fdb6f974e1a300733806cb"
+          },
+          "native": {
+            "member": "frozen-metal-parallel-evidence/probe/runs with spaces/f7e6169498624a24/2026-10-26T20-52-46+00-00_10b28e1d7c974fe3/physical-flow/lvs-extraction/extracted.spice",
+            "sha256": "117aadd14ed3404cc127e2527fac1784c15aae2f2e5d3a018868fb98462f1510"
+          },
+          "gds": {
+            "member": "frozen-metal-parallel-evidence/probe/l1-m16-r90/layout.gds",
+            "sha256": "e8dd357280f47ed032c07427c9aea19ae0236be85b2451ddab9c1ff64e34a25f"
+          },
+          "oas": {
+            "member": "frozen-metal-parallel-evidence/probe/l1-m16-r90/layout.oas",
+            "sha256": "67a7651e8a5226ae9cbcf441064c56ec786f0143c3a73b15715bcd589cb092dc"
+          },
+          "project": {
+            "member": "frozen-metal-parallel-evidence/probe/l1-m16-r90/project.icproj",
+            "sha256": "ab2e5e2f148f17ebbc559b84c51b8c6b4f4676144731157bf322d30f2245ccc5"
+          },
+          "application_normalized": {
+            "member": "frozen-metal-parallel-electrical-evidence/normalized-inputs/l1-m16-r90/application.spice",
+            "sha256": "94beb3e146b9fef7afe2506a82a8d535c218110e770b05d93b55982cdab651ae"
+          },
+          "native_normalized": {
+            "member": "frozen-metal-parallel-electrical-evidence/normalized-inputs/l1-m16-r90/native.spice",
+            "sha256": "06b6bad57999394472f8a1e51a6708cd45d3549d58259266a4c9b8355c28f9b4"
+          }
+        }
+      }
+    },
+    "reuse_statement": "These original app-exported/native-extracted units and associated layout/DRC/LVS receipts are historical. No new GUI session, physical extraction or installed acceptance occurred."
+  },
+  "fresh_native_execution": {
+    "root": "/workspace/shared/li-dynamic/array-attempt-2",
+    "nonce": "d1e1053b704d43b28cfee2f6c40c9b2c",
+    "engine": "corrected-ngspice47-scalar-debian13-native-v1",
+    "run_and_file_manifest": "/workspace/shared/li-dynamic/array-attempt-2/run.json",
+    "run_sha256": "bedec6b6bd154c17de61c45944b1e09ee2c858a3ffd173fdc5ce4d988abde5d0",
+    "evidence_files": 956,
+    "audit_path": "/workspace/shared/li-dynamic/array-attempt-2/audit.json",
+    "audit_sha256": "5c959c557e25ae80883211ce661e0b80cd9bbde36bf5255829830d0e885a1a58",
+    "positive_processes": 24,
+    "fault_processes": 6,
+    "positive_raw_samples": 27282,
+    "maximum_positive_normalized_error": 0.1055679532187674,
+    "minimum_fault_normalized_error": 571.5864420150891,
+    "maximum_allowed_normalized_error": 1,
+    "all_process_exit_codes_zero": true,
+    "fault_results": [
+      {
+        "name": "l1-m3-r0-tran-native-remove-one-unit",
+        "observation": {
+          "samples": 2076,
+          "maximum_normalized_error": 1240.7398000183807,
+          "kcl_absolute_error": 3.2086824481335246e-05,
+          "passed": false
+        },
+        "scope": "Deliberate netlist/testbench perturbation; not fresh physical fault extraction."
+      },
+      {
+        "name": "l1-m3-r0-noise-native-remove-one-unit",
+        "observation": {
+          "samples": 121,
+          "maximum_normalized_error": 94774.43628320782,
+          "kcl_absolute_error": null,
+          "passed": false
+        },
+        "scope": "Deliberate netlist/testbench perturbation; not fresh physical fault extraction."
+      },
+      {
+        "name": "l1-m3-r0-tran-native-one-unit-width-3um",
+        "observation": {
+          "samples": 2097,
+          "maximum_normalized_error": 571.5864420150891,
+          "kcl_absolute_error": 1.553724921697175e-05,
+          "passed": false
+        },
+        "scope": "Deliberate netlist/testbench perturbation; not fresh physical fault extraction."
+      },
+      {
+        "name": "l1-m3-r0-noise-native-one-unit-width-3um",
+        "observation": {
+          "samples": 121,
+          "maximum_normalized_error": 38670.78386824625,
+          "kcl_absolute_error": null,
+          "passed": false
+        },
+        "scope": "Deliberate netlist/testbench perturbation; not fresh physical fault extraction."
+      },
+      {
+        "name": "l1-m3-r0-tran-native-load-capacitance-2nF",
+        "observation": {
+          "samples": 2067,
+          "maximum_normalized_error": 1742.0348018973225,
+          "kcl_absolute_error": 2.710505431213761e-20,
+          "passed": false
+        },
+        "scope": "Deliberate netlist/testbench perturbation; not fresh physical fault extraction."
+      },
+      {
+        "name": "l1-m3-r0-noise-native-load-capacitance-2nF",
+        "observation": {
+          "samples": 121,
+          "maximum_normalized_error": 484608.65473162127,
+          "kcl_absolute_error": null,
+          "passed": false
+        },
+        "scope": "Deliberate netlist/testbench perturbation; not fresh physical fault extraction."
+      }
+    ]
+  },
+  "source_files": {
+    "docs/qualification/sky130-li-array-dynamic-v1.json": "d010749d9278e3dcd99763af17d6f0850b1d5fb82c299c76875c3cf58193c055",
+    "scripts/qualify_sky130_li_array_dynamic.py": "15e546ed15d9f2245700e0ab9efda035c28f997c82f38a2c27b342007b32d4e5",
+    "scripts/audit_sky130_li_array_dynamic.py": "6caff231aaff5ca567dcd925200eeba9cdfe8b6db68f3038d6f7f3cf1d1cc1d3",
+    "scripts/stage_linux_ngspice.py": "69cb887aff79a239e7670a50d517d9ec460df8d06eedf134f6c42e5a4ae5ce8f",
+    "scripts/audit_sky130_li_linked.py": "9a44a27caad1744acbe852689d81c13abbfe9360fab20f87e0143d35035cc273",
+    "tests/test_sky130_li_array_dynamic.py": "3f94857542c7019b6c41cca1ea4b5643d09f5339a61f3459a0d301196d6bfff5"
+  },
+  "focused_tests": {
+    "command": ".venv/bin/python -m unittest tests.test_sky130_li_array_dynamic -q",
+    "tests": 10,
+    "failures": 0,
+    "skips_on_executing_linux_host": 0,
+    "scope": "Includes exact Cartesian selection, duplicate/missing route, output alias/path rejection, inventory hash/missing/extra/link tamper, native graph/count/dimension rejection, fault construction, independent decimal source resistance, ramp limits and malformed/nonfinite raw output. Link-specific test explicitly skips on Windows if symlink creation unavailable."
+  },
+  "retained_preflight_and_prior_attempts": {
+    "preflight_root": "/workspace/shared/li-dynamic/preflight",
+    "first_noise_attempt": "Failed: transient .save directives excluded noise outputs. Original deck/log/raw retained; separately named noise-v2 deck removes incompatible save list and passed independent primitive noise oracle. Not counted as a fault detection or array pass.",
+    "attempt_1_root": "/workspace/shared/li-dynamic/array-attempt-1",
+    "attempt_1_status": "30 processes and audit passed under original source snapshot. Preserved rather than rebound.",
+    "why_attempt_2": "Full fresh rerun after non-numerical direct-CLI import and Windows-capability test changes; final source bytes retained and rechecked before/after."
+  },
+  "retained_archive": {
+    "path": "/workspace/shared/li-dynamic/li-array-dynamic-2026-11-10.zip",
+    "bytes": 28626344,
+    "sha256": "acbf6656cb2ea261f585031a66f74e3b4b67de4452370b1a766866a933376bce",
+    "contents": "Complete final attempt2 files plus primitive preflight including failed noise attempt, earlier attempt1 source/receipts, version and process logs. Full attempt1 raw directory and original202MB downloaded GitHub artifact remain separately retained locally.",
+    "replay_limit": "Auditor currently binds original absolute execution location and this exact Linux dependency profile, and reauthenticates the original202MB historical ZIP. This archive does not claim relocation-independent or Windows replay."
+  },
+  "limitations": [
+    "RC load capacitance is an explicit testbench element, not extracted device/interconnect capacitance. Native historical array netlists contain actual geometry-bound resistor units and connectivity, not a newly qualified parasitic extraction envelope.",
+    "Noise comparison is model-source thermal spectral density; integrated noise trailer is finite/positive checked but not independently numerically qualified. No silicon noise or matching calibration.",
+    "Old ngspice42 contracts and previous accepted evidence remain unchanged; this distinct corrected47 execution profile satisfies neither old engine identity nor fresh installed acceptance.",
+    "Actual Debian shared-library bytes were hashed before/after and match the frozen profile. Host package-manager metadata was unavailable; no Ubuntu package/version equivalence is claimed and host libraries are not redistributed in the evidence ZIP.",
+    "LI2/contact segmentation, full geometry/temperature/bias/current/power/reliability limits and source sheet-resistance conditions remain unresolved."
+  ],
+  "independent_review": "PASS: independent final offline audit verifies all 30 outcomes, exact selection, historical inputs, frozen sources, engine/dependencies and raw/deck/manifest binding; no native rerun. Coordinator separately verifies compact ZIP exact bytes and all 30 numerical results.",
+  "independent_final_raw_audit": {
+    "status": "PASS",
+    "outcomes": 30,
+    "positive": 24,
+    "intended_rejections": 6,
+    "maximum_positive_normalized_error": 0.105568,
+    "minimum_fault_normalized_error": 571.586,
+    "native_rerun": false
+  },
+  "compact_retained_evidence": {
+    "status": "PASS_COMPACT_BUNDLE_EXACT_BYTES_AND_ALL_RAW_NUMERICAL_READBACK",
+    "bundle_sha256": "6530fef82d5a8493ca02e30958d3f1addf1bdad228d1512fd46301c6afd96696",
+    "bytes": 3073704,
+    "included_members": 242,
+    "omitted_members": 746,
+    "rows": 30,
+    "positive": 24,
+    "intended_rejections": 6,
+    "complete_bundle": false,
+    "relocation_independent_replay": false,
+    "qualified": false,
+    "path": "docs/validation/artifacts/sky130-li-array-dynamic-2026-11-10-compact.zip",
+    "all_standalone_licenses_and_notices_from_full_bundle_included": true
+  }
+}

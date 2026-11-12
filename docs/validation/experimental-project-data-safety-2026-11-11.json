@@ -1,0 +1,126 @@
+{
+  "schema": 1,
+  "snapshot_date": "2026-11-11",
+  "base_commit": "f323bf8c8e1d436911a0da17621630a515a4ec04",
+  "scope": "Experimental source-level document data-safety repair; not installed-release or scientific qualification.",
+  "changes": [
+    "Validate open targets before prompting, then reload after successful Save/Discard guard in four entry points.",
+    "Do not close project selection when document replacement is refused.",
+    "Folder snapshots apply pending digital edits and flush inspector/analysis fields, without marking the original project saved."
+  ],
+  "production_sha256": {
+    "icstudio/feature_ui.py": "9c22ebe4705494b7e899483e13200c3f261f851ec43268aee5f27ea587fe56a6",
+    "icstudio/gui.py": "c822b2e8616d0d0d34cc39070fb9915a2f97c1a20627a996042803188c78553c",
+    "icstudio/project_hub_ui.py": "3ba68375644a73b9e04ec0fa31fe2e1f9ab3cbd4b4a6037f532f169af0273c11",
+    "icstudio/project_ui.py": "d614a6078f3624dcb94e80030a9475a55269311313b2cae2144314e50a50de44",
+    "icstudio/xschem_workflow.py": "a4dd00acf0665490ad8bd5b0b5ea5c04fc8d031289854d2ece2fda44e468858d"
+  },
+  "real_qt": {
+    "tests": 16,
+    "status": "passed",
+    "seconds": 5.508,
+    "wrapper_seconds": 6.313,
+    "original_control": {
+      "source": "f323bf8c8e1d436911a0da17621630a515a4ec04",
+      "selected_methods": 2,
+      "expected_failed_assertions": 5,
+      "scope": "Four stale-reopen route subtests and one stale folder value; not a full old-suite run."
+    }
+  },
+  "focused": {
+    "tests": 48,
+    "status": "passed",
+    "seconds": 16.65
+  },
+  "source": {
+    "status": "passed",
+    "stages": 14,
+    "syntax_files": 1637,
+    "source_identities": 2548,
+    "source_unchanged_after_run": true,
+    "seconds": 430.085,
+    "counts": [
+      {
+        "stage": "unit-contracts",
+        "tests": 289,
+        "skips": 3
+      },
+      {
+        "stage": "ihp-contracts",
+        "tests": 359,
+        "skips": 1
+      },
+      {
+        "stage": "physical-contracts",
+        "tests": 310,
+        "skips": 10
+      },
+      {
+        "stage": "device-contracts",
+        "tests": 751,
+        "skips": 3
+      },
+      {
+        "stage": "package-contracts",
+        "tests": 11,
+        "skips": 0
+      },
+      {
+        "stage": "runtime-release-contracts",
+        "tests": 199,
+        "skips": 1
+      }
+    ],
+    "tests": 1919,
+    "skips": 18,
+    "report_sha256": "4a80715f47ced8061a25b852dc2552837ffb97c7c1d0af8a7f667ea7cd0e3fe1"
+  },
+  "retained_failures": [
+    "Initial source run rejected the newly changed application under historical GF180 acceptance; exact old accepted source was then preserved through the existing authenticated historical snapshot mechanism.",
+    "First focused invocation omitted the documented tests PYTHONPATH; final invocation corrects only its environment."
+  ],
+  "historical_acceptance": {
+    "manifest": "docs/validation/experimental-data-safety-retained-source-2026-11-11/chunk4-manifest.json",
+    "sha256": "f4524c14b6641ad038c6ca572ffda5413762284de760188be599d7d141788565",
+    "scope": "Historical-tested-source-only; no native execution or acceptance of repaired current code."
+  },
+  "archive": {
+    "path": "docs/validation/experimental-data-safety-source-2026-11-11.zip",
+    "sha256": "8f106473d075761237a492690e8d9a6de78b42f13d02e26b12b88639c18dcfd2",
+    "bytes": 449145
+  },
+  "pending": [
+    "Hosted Windows/Linux source matrix for this follow-on",
+    "Exact follow-on installed acceptance"
+  ],
+  "prior_candidate": {
+    "commit": "f323bf8c8e1d436911a0da17621630a515a4ec04",
+    "experimental_merged_at": "2026-11-11T20:10:20Z",
+    "pr": 70,
+    "source_run": 43036665140,
+    "source_status": "success",
+    "desktop_run": 43078377334,
+    "desktop_status_at_snapshot": "in_progress; both package jobs passed and both installed acceptance jobs running",
+    "does_not_cover_follow_on": true
+  },
+  "scientific_qualification": {
+    "chunk7_estimate_percent": 74,
+    "range": [
+      55,
+      82
+    ],
+    "confidence": "low",
+    "missing_bindings": 4,
+    "inventory_gaps": 95,
+    "full_qualification": false
+  },
+  "main_integration": false,
+  "core": {
+    "status": "passed",
+    "tests": 5017,
+    "skips": 81,
+    "seconds": 1152.906,
+    "log_sha256": "99e4b9c67d7b4498770b91e3f2f8d20b37428540e21c6741800804d6515a4b25",
+    "source_identity_matches_passed_source_run_after_core": true
+  }
+}

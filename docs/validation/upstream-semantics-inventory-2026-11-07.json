@@ -1,0 +1,209 @@
+{
+  "schema": 1,
+  "date": "2026-11-07",
+  "chunk": 7,
+  "status": "authenticated_semantic_interfaces_with_explicit_source_gaps",
+  "chunk_complete": false,
+  "qualified": false,
+  "baseline": "c04c993af82de0a97769b34a61355daa948dc7c0",
+  "scope": "Complete file accounting and authenticated selected interface declarations for the named GF180/IHP graphs; no full device, parameter-domain, extracted-connectivity, operating-envelope or installed-release qualification.",
+  "source_files": {
+    "icstudio/digital_platform.py": "7a2271e4a4fa1c5f88f7cc1952b71423d6e1a937d9c7df0e1c5cc5926047b42e",
+    "scripts/inventory_device_models.py": "f216edec477cd1f646d13762584ab61a0a739780734c843897113f7ebcc92a76",
+    "scripts/inventory_sky130_release.py": "ba09da230ff0e71cbcd295505e67b9eb01c02c8e5576463d8923ab751d8c5b46",
+    "scripts/inventory_upstream_semantics.py": "9e5d48341cd99d3c94169df28ca508e0675607025e5e53baa62ec10a72673cf3",
+    "scripts/inventory_upstream_views.py": "28e7535ce81920330c886c5790efe92b9040e0ff154cbdd39a47d61925f70013",
+    "scripts/inventory_veriloga_models.py": "079b24be111454ed4b7d8247396c987def54e1de912726dc4bc2ffe2b3c6f96d",
+    "scripts/reconcile_primitive_inventory.py": "dbed6d25b2836f4914186caf91911d6cdc8621fc5a9998e932e3e5958198e661",
+    "tests/test_upstream_semantics.py": "493f348f703d851f307fd9ae6e8033d08f939554efa1ed885002646aa6623259"
+  },
+  "retained_inputs": [
+    {
+      "path": "docs/qualification/upstream-view-inputs-2026-10-20.json.gz",
+      "sha256": "239cac490df3738164dc3e84e00f14e327d15a1747e9feebc2f34d6bc034ac23",
+      "bytes": 305467
+    },
+    {
+      "path": "docs/qualification/upstream-semantics-gf-inputs-2026-11-07.json.gz",
+      "sha256": "f39b1a4e8da2910c1282c0cfcb2fd3ede15aceab70fc35499e2b8e852a7c34fa",
+      "bytes": 859660
+    }
+  ],
+  "retained_report": {
+    "path": "docs/qualification/upstream-semantics-inventory-2026-11-07.json.gz",
+    "sha256": "89d39f48f7a8ee2b7115a8c400347764cabaa87e9f3a0d20b8be2dc47c238738",
+    "bytes": 4681636
+  },
+  "file_counts": {
+    "gf180-ecosystem": 22282,
+    "gf180mcu": 1028,
+    "ihp-sg13g2": 6210
+  },
+  "parsed_source_counts": {
+    "gf180-ecosystem": 10747,
+    "gf180mcu": 143,
+    "ihp-sg13g2": 817
+  },
+  "counts": {
+    "blocking_source_diagnostics": 1,
+    "by_kind": {
+      "bus": 1032,
+      "cell": 7846,
+      "cell-definition": 138,
+      "dynamic-registration": 1,
+      "extracted-device": 161,
+      "extraction-include": 1,
+      "extraction-literal": 29,
+      "gds-structure": 13898,
+      "lef-macro": 662,
+      "library": 205,
+      "model": 1210,
+      "model-include": 506,
+      "model-section": 320,
+      "operating_conditions": 205,
+      "pcell-parameters": 135,
+      "pcell-registration": 128,
+      "pg_pin": 14718,
+      "physical-declaration": 380,
+      "pin": 34564,
+      "process-metadata": 4,
+      "process-variant": 4,
+      "source-diagnostic": 1,
+      "subckt": 6153,
+      "symbol": 381,
+      "verilog-module": 1995,
+      "verilog-primitive": 25,
+      "veriloga-module": 54
+    },
+    "files": 29520,
+    "interfaces": 84756,
+    "libraries": 9824,
+    "parse_gaps": 0,
+    "parsed_sources": 11707
+  },
+  "gds": {
+    "files": 641,
+    "structures": 13898,
+    "padded_sources": 27,
+    "connectivity_qualified": false
+  },
+  "source_diagnostics": [
+    {
+      "blocks_semantic_completion": true,
+      "declared_section": "dio",
+      "ending_name": "diode",
+      "family": "gf180-ecosystem",
+      "interface": "gf180-ecosystem:libraries/gf180mcu_fd_pr/latest/models/ngspice/sm141064.ngspice:348",
+      "kind": "source-diagnostic",
+      "library_scope": "gf180mcu_fd_pr",
+      "line": 38234,
+      "name": "endl-name-mismatch",
+      "source": "gf180-ecosystem:libraries/gf180mcu_fd_pr/latest/models/ngspice/sm141064.ngspice"
+    }
+  ],
+  "unparsed_physical_formats": [
+    {
+      "disposition": "unimplemented",
+      "format": ".oas",
+      "reason": "OASIS fixture is retained in the source ledger; this runner does not interpret OASIS structures.",
+      "source": "ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/tech/lvs/testing/testcases/manual_tests/sram_support/SP01.oas"
+    }
+  ],
+  "source_dependency_dispositions": {
+    "supported": 506,
+    "unimplemented": 1
+  },
+  "process_option_counts": {
+    "library-pvt": 410,
+    "physical-process-variant": 4
+  },
+  "hosts": {
+    "Windows": {
+      "status": "PASS_WITH_RETAINED_SOURCE_GAP",
+      "audit_status": "GAPS",
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "report_sha256": "89d39f48f7a8ee2b7115a8c400347764cabaa87e9f3a0d20b8be2dc47c238738",
+      "python": "3.12.14",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "focused_tests": 21,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0
+    },
+    "Linux": {
+      "status": "PASS_WITH_RETAINED_SOURCE_GAP",
+      "audit_status": "GAPS",
+      "exit_code": 1,
+      "report_sha256": "89d39f48f7a8ee2b7115a8c400347764cabaa87e9f3a0d20b8be2dc47c238738",
+      "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+      "combined_affected_tests": 88,
+      "integration_record": "docs/validation/chunk7-source-inventory-integration-2026-11-07.json"
+    }
+  },
+  "independent_controls": {
+    "status": "PASS",
+    "parser_and_native_lef_controls": 16,
+    "native_lef_macros": 23,
+    "padded_gds_actual_native_structures": 2,
+    "padded_gds_corruption_controls": 7,
+    "serialized_provenance": {
+      "status": "PASS",
+      "path": "docs/validation/chunk7-source-inventory-provenance-2026-11-07.json",
+      "sha256": "5da5033afbaf862d8423e6ce1db33bda11d21e521015cd0a00cf6d80a74c5bb9"
+    }
+  },
+  "integrity_controls": [
+    "Complete Git tree reconstruction and fixed root/gitlink pins",
+    "Every selected source blob and bundled file checked before and after interpretation",
+    "Before/after hashes for both input graphs and recorded parser/profile implementations",
+    "Wrong prefix, terminal order, source family and basename decoys never establish support",
+    "Quoted language decoys and malformed syntax remain rejected or explicit gaps",
+    "Only exact all-zero padding to the next 2048-byte GDS block boundary accepted",
+    "No upstream Python/Ruby/Tcl/model execution"
+  ],
+  "earlier_environment_attempts": [
+    {
+      "status": "not_accepted",
+      "detail": "Initial focused test used the default protected temporary directory and failed its file-write fixture; rerun under the documented short writable TEMP/TMP passed."
+    },
+    {
+      "status": "retrieval_only_not_acceptance",
+      "detail": "Large raw and compressed-API source transfers were interrupted. Final IHP IO source was retrieved in validated HTTP byte ranges and its complete 71,424,000-byte Git blob matched 6cbc6d5fd5a90932e8a96ea6493085767e844b55 before parsing."
+    }
+  ],
+  "licensing": {
+    "notice_source_count": 16,
+    "report_content": "Generated identifiers, terminals, options, counts and fingerprints; no model bodies or generator implementations copied. Descriptive literal strings, expression bodies and conditional expressions are fingerprinted.",
+    "metadata_bundle": "Public Git API metadata and verified .gitmodules configuration retained separately.",
+    "original_notices": "All selected notice/license source bytes remain unmodified in the authenticated local cache; identities retained in the report. No blanket relicensing claim."
+  },
+  "replay": {
+    "command": "python scripts/inventory_upstream_semantics.py --cache /path/to/original-blob-cache --output /path/to/new-report.json.gz",
+    "acquisition": "Add --fetch-missing to stream exact-commit public source archives into a missing cache.",
+    "expected_exit_code": 1,
+    "expected_status": "GAPS",
+    "reason": "The retained parent-linked GF180 source declares .lib dio and ends it with .endl diode; the original source is not altered."
+  },
+  "remaining": [
+    "Full tool/model parameter-domain and operating-envelope equivalence",
+    "Required unavailable IHP bondpad/inductor compact models",
+    "Unimplemented generator/extracted-device/library interfaces and selected timing artifact equivalence",
+    "Full graphs for separately pinned open-pdks and GF180 physical-verification companions",
+    "OASIS manual-test fixture interpretation",
+    "Broader extracted connectivity and exact installed-release acceptance"
+  ],
+  "native_linux_replay": {
+    "status": "PASS_IDENTICAL_REPORT",
+    "report_status": "GAPS",
+    "report_sha256": "89d39f48f7a8ee2b7115a8c400347764cabaa87e9f3a0d20b8be2dc47c238738",
+    "report_bytes_identical": true,
+    "tests": 88,
+    "tests_result": 0,
+    "source_unchanged": true,
+    "snapshot_source_files": 7038,
+    "source_manifest_sha256": "33b18280910852bf26382f00275d01600d4da9a19bc4a2458c011de7d73b07b7",
+    "integration_record": "docs/validation/chunk7-source-inventory-integration-2026-11-07.json",
+    "scope": "Cross-host replay equality and affected tests only. Existing report gaps and qualification limits are unchanged."
+  }
+}

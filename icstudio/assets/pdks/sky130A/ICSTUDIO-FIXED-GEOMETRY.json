@@ -1,0 +1,3162 @@
+{
+  "schema": 1,
+  "parent": {
+    "revision": "8c3913de70b7e4b1",
+    "manifest_sha256": "7f07476f0bdd530ec3060e3f7e74103e8d3f7b70ff61298af7295cb21a096ae5",
+    "original_manifest_sha256": "177e57626c06cb5d103aab04c4bc82983bc4ba96f2e08e4bc04006ade6cd8e2d",
+    "model_sha256": "7710a12e99c750841df77b352eb240e818a995e20474ebad70021e4a739adab2"
+  },
+  "original_bindings": {
+    "sky130_fd_pr/nfet3_20v0.sym": {
+      "category": "NMOS",
+      "emit_parameters": {
+        "l": "l",
+        "m": "mult",
+        "w": "w"
+      },
+      "kind": "NMOS",
+      "label": "nfet3_20v0",
+      "model": "sky130_fd_pr__nfet_20v0",
+      "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_20v0__subcircuit.pm3.spice",
+      "notes": [
+        "Hidden body net exposed as terminal b; connect it explicitly."
+      ],
+      "parameter_scale": {
+        "l": 1000000.0,
+        "w": 1000000.0
+      },
+      "parameters": {
+        "l": {
+          "default": "2.95",
+          "derived": false,
+          "integer": false,
+          "positive": true
+        },
+        "mult": {
+          "default": "1",
+          "derived": false,
+          "integer": false,
+          "positive": true
+        },
+        "w": {
+          "default": "29.41",
+          "derived": false,
+          "integer": false,
+          "positive": true
+        }
+      },
+      "pin_order": [
+        "d",
+        "g",
+        "s",
+        "b"
+      ],
+      "prefix": "X",
+      "source": "libs.tech/xschem/sky130_fd_pr/nfet3_20v0.sym",
+      "symbol": {
+        "attributes": {
+          "format": "@spiceprefix@name @pinlist @body sky130_fd_pr__@model L=@L W=@W m=@mult",
+          "template": "name=M1\nL=2.95\nW=29.41\nbody=GND\nmult=1\nmodel=nfet_20v0\nspiceprefix=X\n",
+          "type": "nmos"
+        },
+        "pin_meta": {
+          "d": {
+            "bus": "",
+            "direction": "inout",
+            "label_visible": true,
+            "required": true,
+            "role": "signal"
+          },
+          "g": {
+            "bus": "",
+            "direction": "in",
+            "label_visible": true,
+            "required": true,
+            "role": "signal"
+          },
+          "s": {
+            "bus": "",
+            "direction": "inout",
+            "label_visible": true,
+            "required": true,
+            "role": "signal"
+          }
+        },
+        "pin_order": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "pins": {
+          "b": [
+            60,
+            0
+          ],
+          "d": [
+            20.0,
+            -30.0
+          ],
+          "g": [
+            -20.0,
+            0.0
+          ],
+          "s": [
+            20.0,
+            30.0
+          ]
+        },
+        "primitives": [
+          {
+            "kind": "line",
+            "points": [
+              [
+                20.0,
+                -30.0
+              ],
+              [
+                20.0,
+                -17.5
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                20.0,
+                17.5
+              ],
+              [
+                20.0,
+                30.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                8.75,
+                -17.5
+              ],
+              [
+                20.0,
+                -17.5
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                8.75,
+                17.5
+              ],
+              [
+                15.0,
+                17.5
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                8.75,
+                -22.5
+              ],
+              [
+                8.75,
+                22.5
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                2.5,
+                -15.0
+              ],
+              [
+                8.75,
+                -15.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                2.5,
+                -5.0
+              ],
+              [
+                8.75,
+                -5.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                2.5,
+                -8.75
+              ],
+              [
+                8.75,
+                -8.75
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                -20.0,
+                0.0
+              ],
+              [
+                -2.5,
+                0.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                2.5,
+                -10.0
+              ],
+              [
+                3.75,
+                -8.75
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                7.5,
+                -8.75
+              ],
+              [
+                8.75,
+                -10.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                7.5,
+                -15.0
+              ],
+              [
+                8.75,
+                -13.75
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                2.5,
+                -13.75
+              ],
+              [
+                3.75,
+                -15.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                7.5,
+                -13.75
+              ],
+              [
+                7.8125,
+                -14.0625
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                3.4375,
+                -9.6875
+              ],
+              [
+                3.75,
+                -10.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                3.4375,
+                -14.0625
+              ],
+              [
+                3.75,
+                -13.75
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                7.5,
+                -10.0
+              ],
+              [
+                7.8125,
+                -9.6875
+              ]
+            ]
+          },
+          {
+            "kind": "rect",
+            "points": [
+              [
+                4.375,
+                -13.125
+              ],
+              [
+                6.875,
+                -10.625
+              ]
+            ]
+          },
+          {
+            "kind": "polygon",
+            "points": [
+              [
+                15.0,
+                15.0
+              ],
+              [
+                20.0,
+                17.5
+              ],
+              [
+                15.0,
+                20.0
+              ]
+            ]
+          },
+          {
+            "kind": "polygon",
+            "points": [
+              [
+                -2.5,
+                15.0
+              ],
+              [
+                -2.5,
+                -15.0
+              ],
+              [
+                2.5,
+                -15.0
+              ],
+              [
+                2.5,
+                15.0
+              ]
+            ]
+          },
+          {
+            "font_size": 8.0,
+            "kind": "text",
+            "points": [
+              [
+                5.0,
+                -30.0
+              ],
+              [
+                25.0,
+                -20.0
+              ]
+            ],
+            "rotation": 0,
+            "text": "@name"
+          },
+          {
+            "font_size": 8.0,
+            "kind": "text",
+            "points": [
+              [
+                30.0,
+                -8.75
+              ],
+              [
+                50.0,
+                1.25
+              ]
+            ],
+            "rotation": 180,
+            "text": "@model"
+          },
+          {
+            "font_size": 8.0,
+            "kind": "text",
+            "points": [
+              [
+                31.25,
+                11.25
+              ],
+              [
+                51.25,
+                21.25
+              ]
+            ],
+            "rotation": 0,
+            "text": "@mult x @W / @L"
+          }
+        ]
+      },
+      "unavailable": ""
+    },
+    "sky130_fd_pr/nfet_20v0.sym": {
+      "category": "NMOS",
+      "emit_parameters": {
+        "l": "l",
+        "m": "mult",
+        "w": "w"
+      },
+      "kind": "NMOS",
+      "label": "nfet_20v0",
+      "model": "sky130_fd_pr__nfet_20v0",
+      "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_20v0__subcircuit.pm3.spice",
+      "notes": [],
+      "parameter_scale": {
+        "l": 1000000.0,
+        "w": 1000000.0
+      },
+      "parameters": {
+        "l": {
+          "default": "2.95",
+          "derived": false,
+          "integer": false,
+          "positive": true
+        },
+        "mult": {
+          "default": "1",
+          "derived": false,
+          "integer": false,
+          "positive": true
+        },
+        "w": {
+          "default": "29.41",
+          "derived": false,
+          "integer": false,
+          "positive": true
+        }
+      },
+      "pin_order": [
+        "d",
+        "g",
+        "s",
+        "b"
+      ],
+      "prefix": "X",
+      "source": "libs.tech/xschem/sky130_fd_pr/nfet_20v0.sym",
+      "symbol": {
+        "attributes": {
+          "format": "@spiceprefix@name @pinlist sky130_fd_pr__@model L=@L W=@W m=@mult",
+          "template": "name=M1\nL=2.95\nW=29.41\nmult=1\nmodel=nfet_20v0\nspiceprefix=X\n",
+          "type": "nmos"
+        },
+        "pin_meta": {
+          "b": {
+            "bus": "",
+            "direction": "in",
+            "label_visible": true,
+            "required": true,
+            "role": "signal"
+          },
+          "d": {
+            "bus": "",
+            "direction": "inout",
+            "label_visible": true,
+            "required": true,
+            "role": "signal"
+          },
+          "g": {
+            "bus": "",
+            "direction": "in",
+            "label_visible": true,
+            "required": true,
+            "role": "signal"
+          },
+          "s": {
+            "bus": "",
+            "direction": "inout",
+            "label_visible": true,
+            "required": true,
+            "role": "signal"
+          }
+        },
+        "pin_order": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "pins": {
+          "b": [
+            20.0,
+            0.0
+          ],
+          "d": [
+            20.0,
+            -30.0
+          ],
+          "g": [
+            -20.0,
+            0.0
+          ],
+          "s": [
+            20.0,
+            30.0
+          ]
+        },
+        "primitives": [
+          {
+            "kind": "line",
+            "points": [
+              [
+                20.0,
+                -30.0
+              ],
+              [
+                20.0,
+                -17.5
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                20.0,
+                17.5
+              ],
+              [
+                20.0,
+                30.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                8.75,
+                -17.5
+              ],
+              [
+                20.0,
+                -17.5
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                8.75,
+                17.5
+              ],
+              [
+                15.0,
+                17.5
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                8.75,
+                -22.5
+              ],
+              [
+                8.75,
+                22.5
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                2.5,
+                -15.0
+              ],
+              [
+                8.75,
+                -15.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                2.5,
+                -5.0
+              ],
+              [
+                8.75,
+                -5.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                2.5,
+                -8.75
+              ],
+              [
+                8.75,
+                -8.75
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                -20.0,
+                0.0
+              ],
+              [
+                -2.5,
+                0.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                2.5,
+                -10.0
+              ],
+              [
+                3.75,
+                -8.75
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                7.5,
+                -8.75
+              ],
+              [
+                8.75,
+                -10.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                7.5,
+                -15.0
+              ],
+              [
+                8.75,
+                -13.75
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                2.5,
+                -13.75
+              ],
+              [
+                3.75,
+                -15.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                7.5,
+                -13.75
+              ],
+              [
+                7.8125,
+                -14.0625
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                3.4375,
+                -9.6875
+              ],
+              [
+                3.75,
+                -10.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                3.4375,
+                -14.0625
+              ],
+              [
+                3.75,
+                -13.75
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                7.5,
+                -10.0
+              ],
+              [
+                7.8125,
+                -9.6875
+              ]
+            ]
+          },
+          {
+            "kind": "rect",
+            "points": [
+              [
+                4.375,
+                -13.125
+              ],
+              [
+                6.875,
+                -10.625
+              ]
+            ]
+          },
+          {
+            "kind": "polygon",
+            "points": [
+              [
+                15.0,
+                15.0
+              ],
+              [
+                20.0,
+                17.5
+              ],
+              [
+                15.0,
+                20.0
+              ]
+            ]
+          },
+          {
+            "kind": "polygon",
+            "points": [
+              [
+                -2.5,
+                15.0
+              ],
+              [
+                -2.5,
+                -15.0
+              ],
+              [
+                2.5,
+                -15.0
+              ],
+              [
+                2.5,
+                15.0
+              ]
+            ]
+          },
+          {
+            "kind": "polygon",
+            "points": [
+              [
+                20.0,
+                -2.5
+              ],
+              [
+                15.0,
+                0.0
+              ],
+              [
+                20.0,
+                2.5
+              ]
+            ]
+          },
+          {
+            "font_size": 8.0,
+            "kind": "text",
+            "points": [
+              [
+                5.0,
+                -30.0
+              ],
+              [
+                25.0,
+                -20.0
+              ]
+            ],
+            "rotation": 0,
+            "text": "@name"
+          },
+          {
+            "font_size": 8.0,
+            "kind": "text",
+            "points": [
+              [
+                30.0,
+                -8.75
+              ],
+              [
+                50.0,
+                1.25
+              ]
+            ],
+            "rotation": 180,
+            "text": "@model"
+          },
+          {
+            "font_size": 8.0,
+            "kind": "text",
+            "points": [
+              [
+                31.25,
+                11.25
+              ],
+              [
+                51.25,
+                21.25
+              ]
+            ],
+            "rotation": 0,
+            "text": "@mult x @W / @L"
+          }
+        ]
+      },
+      "unavailable": ""
+    },
+    "sky130_fd_pr/nfet_20v0_iso.sym": {
+      "category": "Other",
+      "emit_parameters": {
+        "l": "l",
+        "m": "mult",
+        "w": "w"
+      },
+      "kind": "PDK",
+      "label": "nfet_20v0_iso",
+      "model": "sky130_fd_pr__nfet_20v0_iso",
+      "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_20v0_iso__subcircuit.pm3.spice",
+      "notes": [],
+      "parameter_scale": {
+        "l": 1000000.0,
+        "w": 1000000.0
+      },
+      "parameters": {
+        "l": {
+          "default": "1.5",
+          "derived": false,
+          "integer": false,
+          "positive": true
+        },
+        "mult": {
+          "default": "1",
+          "derived": false,
+          "integer": false,
+          "positive": true
+        },
+        "w": {
+          "default": "30",
+          "derived": false,
+          "integer": false,
+          "positive": true
+        }
+      },
+      "pin_order": [
+        "d",
+        "g",
+        "s",
+        "b",
+        "sub"
+      ],
+      "prefix": "X",
+      "source": "libs.tech/xschem/sky130_fd_pr/nfet_20v0_iso.sym",
+      "symbol": {
+        "attributes": {
+          "format": "@spiceprefix@name @pinlist sky130_fd_pr__@model W=@W L=@L m=@mult",
+          "template": "name=M1\nL=1.5\nW=30\nmult=1\nmodel=nfet_20v0_iso\nspiceprefix=X\n",
+          "type": "nmos"
+        },
+        "pin_meta": {
+          "b": {
+            "bus": "",
+            "direction": "in",
+            "label_visible": true,
+            "required": true,
+            "role": "signal"
+          },
+          "d": {
+            "bus": "",
+            "direction": "inout",
+            "label_visible": true,
+            "required": true,
+            "role": "signal"
+          },
+          "g": {
+            "bus": "",
+            "direction": "in",
+            "label_visible": true,
+            "required": true,
+            "role": "signal"
+          },
+          "s": {
+            "bus": "",
+            "direction": "inout",
+            "label_visible": true,
+            "required": true,
+            "role": "signal"
+          },
+          "sub": {
+            "bus": "",
+            "direction": "in",
+            "label_visible": true,
+            "required": true,
+            "role": "signal"
+          }
+        },
+        "pin_order": [
+          "d",
+          "g",
+          "s",
+          "b",
+          "sub"
+        ],
+        "pins": {
+          "b": [
+            20.0,
+            0.0
+          ],
+          "d": [
+            20.0,
+            -30.0
+          ],
+          "g": [
+            -20.0,
+            0.0
+          ],
+          "s": [
+            20.0,
+            30.0
+          ],
+          "sub": [
+            -10.0,
+            20.0
+          ]
+        },
+        "primitives": [
+          {
+            "kind": "line",
+            "points": [
+              [
+                20.0,
+                -30.0
+              ],
+              [
+                20.0,
+                -17.5
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                20.0,
+                17.5
+              ],
+              [
+                20.0,
+                30.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                8.75,
+                -17.5
+              ],
+              [
+                20.0,
+                -17.5
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                8.75,
+                17.5
+              ],
+              [
+                15.0,
+                17.5
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                8.75,
+                -22.5
+              ],
+              [
+                8.75,
+                22.5
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                2.5,
+                -15.0
+              ],
+              [
+                8.75,
+                -15.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                2.5,
+                -5.0
+              ],
+              [
+                8.75,
+                -5.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                2.5,
+                -8.75
+              ],
+              [
+                8.75,
+                -8.75
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                -20.0,
+                0.0
+              ],
+              [
+                -2.5,
+                0.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                2.5,
+                -10.0
+              ],
+              [
+                3.75,
+                -8.75
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                7.5,
+                -8.75
+              ],
+              [
+                8.75,
+                -10.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                7.5,
+                -15.0
+              ],
+              [
+                8.75,
+                -13.75
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                2.5,
+                -13.75
+              ],
+              [
+                3.75,
+                -15.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                7.5,
+                -13.75
+              ],
+              [
+                7.8125,
+                -14.0625
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                3.4375,
+                -9.6875
+              ],
+              [
+                3.75,
+                -10.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                3.4375,
+                -14.0625
+              ],
+              [
+                3.75,
+                -13.75
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                7.5,
+                -10.0
+              ],
+              [
+                7.8125,
+                -9.6875
+              ]
+            ]
+          },
+          {
+            "kind": "rect",
+            "points": [
+              [
+                4.375,
+                -13.125
+              ],
+              [
+                6.875,
+                -10.625
+              ]
+            ]
+          },
+          {
+            "kind": "polygon",
+            "points": [
+              [
+                15.0,
+                15.0
+              ],
+              [
+                20.0,
+                17.5
+              ],
+              [
+                15.0,
+                20.0
+              ]
+            ]
+          },
+          {
+            "kind": "polygon",
+            "points": [
+              [
+                -2.5,
+                15.0
+              ],
+              [
+                -2.5,
+                -15.0
+              ],
+              [
+                2.5,
+                -15.0
+              ],
+              [
+                2.5,
+                15.0
+              ]
+            ]
+          },
+          {
+            "kind": "polygon",
+            "points": [
+              [
+                20.0,
+                -2.5
+              ],
+              [
+                15.0,
+                0.0
+              ],
+              [
+                20.0,
+                2.5
+              ]
+            ]
+          },
+          {
+            "font_size": 8.0,
+            "kind": "text",
+            "points": [
+              [
+                5.0,
+                -30.0
+              ],
+              [
+                25.0,
+                -20.0
+              ]
+            ],
+            "rotation": 0,
+            "text": "@name"
+          },
+          {
+            "font_size": 8.0,
+            "kind": "text",
+            "points": [
+              [
+                30.0,
+                -8.75
+              ],
+              [
+                50.0,
+                1.25
+              ]
+            ],
+            "rotation": 180,
+            "text": "@model"
+          },
+          {
+            "font_size": 8.0,
+            "kind": "text",
+            "points": [
+              [
+                31.25,
+                11.25
+              ],
+              [
+                51.25,
+                21.25
+              ]
+            ],
+            "rotation": 0,
+            "text": "@mult x @W / @L"
+          }
+        ]
+      },
+      "unavailable": ""
+    },
+    "sky130_fd_pr/nfet_20v0_nvt.sym": {
+      "category": "NMOS",
+      "emit_parameters": {
+        "l": "l",
+        "m": "mult",
+        "w": "w"
+      },
+      "kind": "NMOS",
+      "label": "nfet_20v0_nvt",
+      "model": "sky130_fd_pr__nfet_20v0_nvt",
+      "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_20v0_nvt__subcircuit.pm3.spice",
+      "notes": [],
+      "parameter_scale": {
+        "l": 1000000.0,
+        "w": 1000000.0
+      },
+      "parameters": {
+        "l": {
+          "default": "1.5",
+          "derived": false,
+          "integer": false,
+          "positive": true
+        },
+        "mult": {
+          "default": "1",
+          "derived": false,
+          "integer": false,
+          "positive": true
+        },
+        "w": {
+          "default": "30",
+          "derived": false,
+          "integer": false,
+          "positive": true
+        }
+      },
+      "pin_order": [
+        "d",
+        "g",
+        "s",
+        "b"
+      ],
+      "prefix": "X",
+      "source": "libs.tech/xschem/sky130_fd_pr/nfet_20v0_nvt.sym",
+      "symbol": {
+        "attributes": {
+          "format": "@spiceprefix@name @pinlist sky130_fd_pr__@model W=@W L=@L m=@mult",
+          "template": "name=M1\nL=1.5\nW=30\nmult=1\nmodel=nfet_20v0_nvt\nspiceprefix=X\n",
+          "type": "nmos"
+        },
+        "pin_meta": {
+          "b": {
+            "bus": "",
+            "direction": "in",
+            "label_visible": true,
+            "required": true,
+            "role": "signal"
+          },
+          "d": {
+            "bus": "",
+            "direction": "inout",
+            "label_visible": true,
+            "required": true,
+            "role": "signal"
+          },
+          "g": {
+            "bus": "",
+            "direction": "in",
+            "label_visible": true,
+            "required": true,
+            "role": "signal"
+          },
+          "s": {
+            "bus": "",
+            "direction": "inout",
+            "label_visible": true,
+            "required": true,
+            "role": "signal"
+          }
+        },
+        "pin_order": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "pins": {
+          "b": [
+            20.0,
+            0.0
+          ],
+          "d": [
+            20.0,
+            -30.0
+          ],
+          "g": [
+            -20.0,
+            0.0
+          ],
+          "s": [
+            20.0,
+            30.0
+          ]
+        },
+        "primitives": [
+          {
+            "kind": "line",
+            "points": [
+              [
+                20.0,
+                -30.0
+              ],
+              [
+                20.0,
+                -17.5
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                20.0,
+                17.5
+              ],
+              [
+                20.0,
+                30.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                8.75,
+                -17.5
+              ],
+              [
+                20.0,
+                -17.5
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                8.75,
+                17.5
+              ],
+              [
+                15.0,
+                17.5
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                8.75,
+                -22.5
+              ],
+              [
+                8.75,
+                22.5
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                2.5,
+                -15.0
+              ],
+              [
+                8.75,
+                -15.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                2.5,
+                -5.0
+              ],
+              [
+                8.75,
+                -5.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                2.5,
+                -8.75
+              ],
+              [
+                8.75,
+                -8.75
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                -20.0,
+                0.0
+              ],
+              [
+                -2.5,
+                0.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                2.5,
+                -10.0
+              ],
+              [
+                3.75,
+                -8.75
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                7.5,
+                -8.75
+              ],
+              [
+                8.75,
+                -10.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                7.5,
+                -15.0
+              ],
+              [
+                8.75,
+                -13.75
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                2.5,
+                -13.75
+              ],
+              [
+                3.75,
+                -15.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                7.5,
+                -13.75
+              ],
+              [
+                7.8125,
+                -14.0625
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                3.4375,
+                -9.6875
+              ],
+              [
+                3.75,
+                -10.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                3.4375,
+                -14.0625
+              ],
+              [
+                3.75,
+                -13.75
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                7.5,
+                -10.0
+              ],
+              [
+                7.8125,
+                -9.6875
+              ]
+            ]
+          },
+          {
+            "kind": "rect",
+            "points": [
+              [
+                4.375,
+                -13.125
+              ],
+              [
+                6.875,
+                -10.625
+              ]
+            ]
+          },
+          {
+            "kind": "polygon",
+            "points": [
+              [
+                15.0,
+                15.0
+              ],
+              [
+                20.0,
+                17.5
+              ],
+              [
+                15.0,
+                20.0
+              ]
+            ]
+          },
+          {
+            "kind": "polygon",
+            "points": [
+              [
+                -2.5,
+                15.0
+              ],
+              [
+                -2.5,
+                -15.0
+              ],
+              [
+                2.5,
+                -15.0
+              ],
+              [
+                2.5,
+                15.0
+              ]
+            ]
+          },
+          {
+            "kind": "polygon",
+            "points": [
+              [
+                20.0,
+                -2.5
+              ],
+              [
+                15.0,
+                0.0
+              ],
+              [
+                20.0,
+                2.5
+              ]
+            ]
+          },
+          {
+            "font_size": 8.0,
+            "kind": "text",
+            "points": [
+              [
+                5.0,
+                -30.0
+              ],
+              [
+                25.0,
+                -20.0
+              ]
+            ],
+            "rotation": 0,
+            "text": "@name"
+          },
+          {
+            "font_size": 8.0,
+            "kind": "text",
+            "points": [
+              [
+                30.0,
+                -8.75
+              ],
+              [
+                50.0,
+                1.25
+              ]
+            ],
+            "rotation": 180,
+            "text": "@model"
+          },
+          {
+            "font_size": 8.0,
+            "kind": "text",
+            "points": [
+              [
+                31.25,
+                11.25
+              ],
+              [
+                51.25,
+                21.25
+              ]
+            ],
+            "rotation": 0,
+            "text": "@mult x @W / @L"
+          }
+        ]
+      },
+      "unavailable": ""
+    },
+    "sky130_fd_pr/nfet_20v0_zvt.sym": {
+      "category": "NMOS",
+      "emit_parameters": {
+        "l": "l",
+        "m": "mult",
+        "w": "w"
+      },
+      "kind": "NMOS",
+      "label": "nfet_20v0_zvt",
+      "model": "sky130_fd_pr__nfet_20v0_zvt",
+      "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_20v0_zvt__subcircuit.pm3.spice",
+      "notes": [],
+      "parameter_scale": {
+        "l": 1000000.0,
+        "w": 1000000.0
+      },
+      "parameters": {
+        "l": {
+          "default": "5",
+          "derived": false,
+          "integer": false,
+          "positive": true
+        },
+        "mult": {
+          "default": "1",
+          "derived": false,
+          "integer": false,
+          "positive": true
+        },
+        "w": {
+          "default": "30",
+          "derived": false,
+          "integer": false,
+          "positive": true
+        }
+      },
+      "pin_order": [
+        "d",
+        "g",
+        "s",
+        "b"
+      ],
+      "prefix": "X",
+      "source": "libs.tech/xschem/sky130_fd_pr/nfet_20v0_zvt.sym",
+      "symbol": {
+        "attributes": {
+          "format": "@spiceprefix@name @pinlist sky130_fd_pr__@model W=@W L=@L m=@mult",
+          "template": "name=M1\nL=5\nW=30\nmult=1\nmodel=nfet_20v0_zvt\nspiceprefix=X\n",
+          "type": "nmos"
+        },
+        "pin_meta": {
+          "b": {
+            "bus": "",
+            "direction": "in",
+            "label_visible": true,
+            "required": true,
+            "role": "signal"
+          },
+          "d": {
+            "bus": "",
+            "direction": "inout",
+            "label_visible": true,
+            "required": true,
+            "role": "signal"
+          },
+          "g": {
+            "bus": "",
+            "direction": "in",
+            "label_visible": true,
+            "required": true,
+            "role": "signal"
+          },
+          "s": {
+            "bus": "",
+            "direction": "inout",
+            "label_visible": true,
+            "required": true,
+            "role": "signal"
+          }
+        },
+        "pin_order": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "pins": {
+          "b": [
+            20.0,
+            0.0
+          ],
+          "d": [
+            20.0,
+            -30.0
+          ],
+          "g": [
+            -20.0,
+            0.0
+          ],
+          "s": [
+            20.0,
+            30.0
+          ]
+        },
+        "primitives": [
+          {
+            "kind": "line",
+            "points": [
+              [
+                20.0,
+                -30.0
+              ],
+              [
+                20.0,
+                -17.5
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                20.0,
+                17.5
+              ],
+              [
+                20.0,
+                30.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                8.75,
+                -17.5
+              ],
+              [
+                20.0,
+                -17.5
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                8.75,
+                17.5
+              ],
+              [
+                15.0,
+                17.5
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                8.75,
+                -22.5
+              ],
+              [
+                8.75,
+                22.5
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                2.5,
+                -15.0
+              ],
+              [
+                8.75,
+                -15.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                2.5,
+                -5.0
+              ],
+              [
+                8.75,
+                -5.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                2.5,
+                -8.75
+              ],
+              [
+                8.75,
+                -8.75
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                -20.0,
+                0.0
+              ],
+              [
+                -2.5,
+                0.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                2.5,
+                -10.0
+              ],
+              [
+                3.75,
+                -8.75
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                7.5,
+                -8.75
+              ],
+              [
+                8.75,
+                -10.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                7.5,
+                -15.0
+              ],
+              [
+                8.75,
+                -13.75
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                2.5,
+                -13.75
+              ],
+              [
+                3.75,
+                -15.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                7.5,
+                -13.75
+              ],
+              [
+                7.8125,
+                -14.0625
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                3.4375,
+                -9.6875
+              ],
+              [
+                3.75,
+                -10.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                3.4375,
+                -14.0625
+              ],
+              [
+                3.75,
+                -13.75
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                7.5,
+                -10.0
+              ],
+              [
+                7.8125,
+                -9.6875
+              ]
+            ]
+          },
+          {
+            "kind": "rect",
+            "points": [
+              [
+                4.375,
+                -13.125
+              ],
+              [
+                6.875,
+                -10.625
+              ]
+            ]
+          },
+          {
+            "kind": "polygon",
+            "points": [
+              [
+                15.0,
+                15.0
+              ],
+              [
+                20.0,
+                17.5
+              ],
+              [
+                15.0,
+                20.0
+              ]
+            ]
+          },
+          {
+            "kind": "polygon",
+            "points": [
+              [
+                -2.5,
+                15.0
+              ],
+              [
+                -2.5,
+                -15.0
+              ],
+              [
+                2.5,
+                -15.0
+              ],
+              [
+                2.5,
+                15.0
+              ]
+            ]
+          },
+          {
+            "kind": "polygon",
+            "points": [
+              [
+                20.0,
+                -2.5
+              ],
+              [
+                15.0,
+                0.0
+              ],
+              [
+                20.0,
+                2.5
+              ]
+            ]
+          },
+          {
+            "font_size": 8.0,
+            "kind": "text",
+            "points": [
+              [
+                5.0,
+                -30.0
+              ],
+              [
+                25.0,
+                -20.0
+              ]
+            ],
+            "rotation": 0,
+            "text": "@name"
+          },
+          {
+            "font_size": 8.0,
+            "kind": "text",
+            "points": [
+              [
+                30.0,
+                -8.75
+              ],
+              [
+                50.0,
+                1.25
+              ]
+            ],
+            "rotation": 180,
+            "text": "@model"
+          },
+          {
+            "font_size": 8.0,
+            "kind": "text",
+            "points": [
+              [
+                31.25,
+                11.25
+              ],
+              [
+                51.25,
+                21.25
+              ]
+            ],
+            "rotation": 0,
+            "text": "@mult x @W / @L"
+          }
+        ]
+      },
+      "unavailable": ""
+    },
+    "sky130_fd_pr/pfet3_20v0.sym": {
+      "category": "PMOS",
+      "emit_parameters": {
+        "l": "l",
+        "m": "mult",
+        "w": "w"
+      },
+      "kind": "PMOS",
+      "label": "pfet3_20v0",
+      "model": "sky130_fd_pr__pfet_20v0",
+      "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_20v0__subcircuit.pm3.spice",
+      "notes": [
+        "Hidden body net exposed as terminal b; connect it explicitly."
+      ],
+      "parameter_scale": {
+        "l": 1000000.0,
+        "w": 1000000.0
+      },
+      "parameters": {
+        "l": {
+          "default": "0.5",
+          "derived": false,
+          "integer": false,
+          "positive": true
+        },
+        "mult": {
+          "default": "1",
+          "derived": false,
+          "integer": false,
+          "positive": true
+        },
+        "w": {
+          "default": "30",
+          "derived": false,
+          "integer": false,
+          "positive": true
+        }
+      },
+      "pin_order": [
+        "d",
+        "g",
+        "s",
+        "b"
+      ],
+      "prefix": "X",
+      "source": "libs.tech/xschem/sky130_fd_pr/pfet3_20v0.sym",
+      "symbol": {
+        "attributes": {
+          "format": "@spiceprefix@name @pinlist @body sky130_fd_pr__@model L=@L W=@W m=@mult",
+          "template": "name=M1\nL=0.5\nW=30\nbody=VDD\nmult=1\nmodel=pfet_20v0\nspiceprefix=X\n",
+          "type": "pmos"
+        },
+        "pin_meta": {
+          "d": {
+            "bus": "",
+            "direction": "inout",
+            "label_visible": true,
+            "required": true,
+            "role": "signal"
+          },
+          "g": {
+            "bus": "",
+            "direction": "in",
+            "label_visible": true,
+            "required": true,
+            "role": "signal"
+          },
+          "s": {
+            "bus": "",
+            "direction": "inout",
+            "label_visible": true,
+            "required": true,
+            "role": "signal"
+          }
+        },
+        "pin_order": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "pins": {
+          "b": [
+            60,
+            0
+          ],
+          "d": [
+            20.0,
+            30.0
+          ],
+          "g": [
+            -20.0,
+            0.0
+          ],
+          "s": [
+            20.0,
+            -30.0
+          ]
+        },
+        "primitives": [
+          {
+            "kind": "line",
+            "points": [
+              [
+                20.0,
+                -30.0
+              ],
+              [
+                20.0,
+                -17.5
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                20.0,
+                17.5
+              ],
+              [
+                20.0,
+                30.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                8.75,
+                17.5
+              ],
+              [
+                20.0,
+                17.5
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                13.75,
+                -17.5
+              ],
+              [
+                20.0,
+                -17.5
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                8.75,
+                -22.5
+              ],
+              [
+                8.75,
+                22.5
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                -20.0,
+                0.0
+              ],
+              [
+                -12.5,
+                0.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                2.5,
+                8.75
+              ],
+              [
+                8.75,
+                8.75
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                2.5,
+                15.0
+              ],
+              [
+                8.75,
+                15.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                2.5,
+                13.75
+              ],
+              [
+                3.75,
+                15.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                7.5,
+                15.0
+              ],
+              [
+                8.75,
+                13.75
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                7.5,
+                8.75
+              ],
+              [
+                8.75,
+                10.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                2.5,
+                10.0
+              ],
+              [
+                3.75,
+                8.75
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                7.5,
+                10.0
+              ],
+              [
+                7.8125,
+                9.6875
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                3.4375,
+                14.0625
+              ],
+              [
+                3.75,
+                13.75
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                3.4375,
+                9.6875
+              ],
+              [
+                3.75,
+                10.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                7.5,
+                13.75
+              ],
+              [
+                7.8125,
+                14.0625
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                2.5,
+                5.0
+              ],
+              [
+                8.75,
+                5.0
+              ]
+            ]
+          },
+          {
+            "kind": "rect",
+            "points": [
+              [
+                4.375,
+                10.625
+              ],
+              [
+                6.875,
+                13.125
+              ]
+            ]
+          },
+          {
+            "kind": "arc",
+            "points": [
+              [
+                -12.5,
+                -5.0
+              ],
+              [
+                -2.5,
+                5.0
+              ]
+            ],
+            "start": -180.0,
+            "sweep": -360.0
+          },
+          {
+            "kind": "polygon",
+            "points": [
+              [
+                13.75,
+                -20.0
+              ],
+              [
+                8.75,
+                -17.5
+              ],
+              [
+                13.75,
+                -15.0
+              ]
+            ]
+          },
+          {
+            "kind": "polygon",
+            "points": [
+              [
+                -2.5,
+                15.0
+              ],
+              [
+                -2.5,
+                -15.0
+              ],
+              [
+                2.5,
+                -15.0
+              ],
+              [
+                2.5,
+                15.0
+              ]
+            ]
+          },
+          {
+            "font_size": 8.0,
+            "kind": "text",
+            "points": [
+              [
+                5.0,
+                -30.0
+              ],
+              [
+                25.0,
+                -20.0
+              ]
+            ],
+            "rotation": 0,
+            "text": "@name"
+          },
+          {
+            "font_size": 8.0,
+            "kind": "text",
+            "points": [
+              [
+                30.0,
+                -8.75
+              ],
+              [
+                50.0,
+                1.25
+              ]
+            ],
+            "rotation": 180,
+            "text": "@model"
+          },
+          {
+            "font_size": 8.0,
+            "kind": "text",
+            "points": [
+              [
+                31.25,
+                11.25
+              ],
+              [
+                51.25,
+                21.25
+              ]
+            ],
+            "rotation": 0,
+            "text": "@mult x @W / @L"
+          }
+        ]
+      },
+      "unavailable": ""
+    },
+    "sky130_fd_pr/pfet_20v0.sym": {
+      "category": "PMOS",
+      "emit_parameters": {
+        "l": "l",
+        "m": "mult",
+        "w": "w"
+      },
+      "kind": "PMOS",
+      "label": "pfet_20v0",
+      "model": "sky130_fd_pr__pfet_20v0",
+      "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_20v0__subcircuit.pm3.spice",
+      "notes": [],
+      "parameter_scale": {
+        "l": 1000000.0,
+        "w": 1000000.0
+      },
+      "parameters": {
+        "l": {
+          "default": "0.5",
+          "derived": false,
+          "integer": false,
+          "positive": true
+        },
+        "mult": {
+          "default": "1",
+          "derived": false,
+          "integer": false,
+          "positive": true
+        },
+        "w": {
+          "default": "30",
+          "derived": false,
+          "integer": false,
+          "positive": true
+        }
+      },
+      "pin_order": [
+        "d",
+        "g",
+        "s",
+        "b"
+      ],
+      "prefix": "X",
+      "source": "libs.tech/xschem/sky130_fd_pr/pfet_20v0.sym",
+      "symbol": {
+        "attributes": {
+          "format": "@spiceprefix@name @pinlist sky130_fd_pr__@model L=@L W=@W m=@mult",
+          "template": "name=M1\nL=0.5\nW=30\nmult=1\nmodel=pfet_20v0\nspiceprefix=X\n",
+          "type": "pmos"
+        },
+        "pin_meta": {
+          "b": {
+            "bus": "",
+            "direction": "in",
+            "label_visible": true,
+            "required": true,
+            "role": "signal"
+          },
+          "d": {
+            "bus": "",
+            "direction": "inout",
+            "label_visible": true,
+            "required": true,
+            "role": "signal"
+          },
+          "g": {
+            "bus": "",
+            "direction": "in",
+            "label_visible": true,
+            "required": true,
+            "role": "signal"
+          },
+          "s": {
+            "bus": "",
+            "direction": "inout",
+            "label_visible": true,
+            "required": true,
+            "role": "signal"
+          }
+        },
+        "pin_order": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "pins": {
+          "b": [
+            20.0,
+            0.0
+          ],
+          "d": [
+            20.0,
+            30.0
+          ],
+          "g": [
+            -20.0,
+            0.0
+          ],
+          "s": [
+            20.0,
+            -30.0
+          ]
+        },
+        "primitives": [
+          {
+            "kind": "line",
+            "points": [
+              [
+                20.0,
+                -30.0
+              ],
+              [
+                20.0,
+                -17.5
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                20.0,
+                17.5
+              ],
+              [
+                20.0,
+                30.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                8.75,
+                17.5
+              ],
+              [
+                20.0,
+                17.5
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                13.75,
+                -17.5
+              ],
+              [
+                20.0,
+                -17.5
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                8.75,
+                -22.5
+              ],
+              [
+                8.75,
+                22.5
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                -20.0,
+                0.0
+              ],
+              [
+                -12.5,
+                0.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                2.5,
+                8.75
+              ],
+              [
+                8.75,
+                8.75
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                2.5,
+                15.0
+              ],
+              [
+                8.75,
+                15.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                2.5,
+                13.75
+              ],
+              [
+                3.75,
+                15.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                7.5,
+                15.0
+              ],
+              [
+                8.75,
+                13.75
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                7.5,
+                8.75
+              ],
+              [
+                8.75,
+                10.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                2.5,
+                10.0
+              ],
+              [
+                3.75,
+                8.75
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                7.5,
+                10.0
+              ],
+              [
+                7.8125,
+                9.6875
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                3.4375,
+                14.0625
+              ],
+              [
+                3.75,
+                13.75
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                3.4375,
+                9.6875
+              ],
+              [
+                3.75,
+                10.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                7.5,
+                13.75
+              ],
+              [
+                7.8125,
+                14.0625
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                2.5,
+                5.0
+              ],
+              [
+                8.75,
+                5.0
+              ]
+            ]
+          },
+          {
+            "kind": "rect",
+            "points": [
+              [
+                4.375,
+                10.625
+              ],
+              [
+                6.875,
+                13.125
+              ]
+            ]
+          },
+          {
+            "kind": "arc",
+            "points": [
+              [
+                -12.5,
+                -5.0
+              ],
+              [
+                -2.5,
+                5.0
+              ]
+            ],
+            "start": -180.0,
+            "sweep": -360.0
+          },
+          {
+            "kind": "polygon",
+            "points": [
+              [
+                13.75,
+                -20.0
+              ],
+              [
+                8.75,
+                -17.5
+              ],
+              [
+                13.75,
+                -15.0
+              ]
+            ]
+          },
+          {
+            "kind": "polygon",
+            "points": [
+              [
+                -2.5,
+                15.0
+              ],
+              [
+                -2.5,
+                -15.0
+              ],
+              [
+                2.5,
+                -15.0
+              ],
+              [
+                2.5,
+                15.0
+              ]
+            ]
+          },
+          {
+            "kind": "polygon",
+            "points": [
+              [
+                15.0,
+                -2.5
+              ],
+              [
+                20.0,
+                0.0
+              ],
+              [
+                15.0,
+                2.5
+              ]
+            ]
+          },
+          {
+            "font_size": 8.0,
+            "kind": "text",
+            "points": [
+              [
+                5.0,
+                -30.0
+              ],
+              [
+                25.0,
+                -20.0
+              ]
+            ],
+            "rotation": 0,
+            "text": "@name"
+          },
+          {
+            "font_size": 8.0,
+            "kind": "text",
+            "points": [
+              [
+                30.0,
+                -8.75
+              ],
+              [
+                50.0,
+                1.25
+              ]
+            ],
+            "rotation": 180,
+            "text": "@model"
+          },
+          {
+            "font_size": 8.0,
+            "kind": "text",
+            "points": [
+              [
+                31.25,
+                11.25
+              ],
+              [
+                51.25,
+                21.25
+              ]
+            ],
+            "rotation": 0,
+            "text": "@mult x @W / @L"
+          }
+        ]
+      },
+      "unavailable": ""
+    }
+  },
+  "contracts": {
+    "sky130_fd_pr__nfet_20v0": [
+      "64b63a8bd76ca1a5f7f14849d80399e99dd85ed39534c452ae65c4a3fa19e270",
+      "29.41",
+      "2.95"
+    ],
+    "sky130_fd_pr__nfet_20v0_iso": [
+      "0ba6101d75c9ca9271c9e0254901804a33f2981d6a7b60e35d3a71e311e9fc56",
+      "30",
+      "1.5"
+    ],
+    "sky130_fd_pr__nfet_20v0_nvt": [
+      "1b3c68a09794e92515d24ff596f92e087b527f68eb696df63dfadb3a78cb9c04",
+      "30",
+      "1.5"
+    ],
+    "sky130_fd_pr__nfet_20v0_zvt": [
+      "a2173e3b3d601fc070e8c2babad25c01f6d0c61df8b3432d25245c800d51389d",
+      "30",
+      "5"
+    ],
+    "sky130_fd_pr__pfet_20v0": [
+      "5ac0449e927e098e43b89b7ad84c506e59aca864fd8d1dae8e1f15b1dece9660",
+      "30",
+      "0.5"
+    ]
+  },
+  "scope": "Fixed internal model geometry: W/L inputs do not scale the public 20 V subcircuit and out-of-bin values can fail model selection. Only the recorded W/L values are accepted; use mult for parallel copies. These values do not establish drawn-mask dimensions or reliability limits.",
+  "upstream_assets_changed": false,
+  "complete_device_qualification": false
+}

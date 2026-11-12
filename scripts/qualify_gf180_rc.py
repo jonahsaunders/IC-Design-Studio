@@ -71,7 +71,7 @@ def qualify(args):
         contracted=collapsed((out/'extracted.spice').read_text(),norm);atomic_write(out/'collapsed.spice',contracted)
         report['terminal_equivalence']=check_extracted(reference,contracted)
         report['resistors']=norm['resistor_count'];report['conservation']=norm['conservation']
-        report['islands']=prune(out/'extracted.spice',out/'electrical.spice')
+        report['islands']=prune(out/'extracted.spice',out/'electrical.spice',normalization=norm)
         from scripts.qualify_gf180_fill_coupling import qualify as fill_check
         report['fill_coupling']=fill_check(gds,ROOT/'examples/gf180-banba/layout/density/banba-density.gds',tech,args.magic,out/'fill-coupling')
         report['electrical_sha256']=file_digest(out/'electrical.spice')

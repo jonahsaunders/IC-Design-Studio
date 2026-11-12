@@ -1,0 +1,114 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "platform": "win32",
+  "driver_sha256": "0a8e5612c6c5e3c03ade4f4361b5083f1fee183e07a21c142825d7d418598fc9",
+  "qualified": false,
+  "chunk_complete": false,
+  "data_sha256": "7dc92a2f624aa7a04aae74735a46649398144308510d88fc2ff6e850582e8eaa",
+  "cases": {
+    "counter": {
+      "original_counts": {
+        "executed-reviewed": 376,
+        "absent-operand": 517,
+        "unreviewed": 573,
+        "standard-cell-wl-exempt": 90
+      },
+      "corrected_checks": [
+        {
+          "id": "r1145",
+          "rule": "vpp.1",
+          "violations": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1151",
+          "rule": "vpp.4",
+          "violations": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1152",
+          "rule": "vpp.4",
+          "violations": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1153",
+          "rule": "vpp.8",
+          "violations": 0,
+          "disposition": "absent-operand"
+        }
+      ]
+    },
+    "uart": {
+      "original_counts": {
+        "executed-reviewed": 376,
+        "absent-operand": 517,
+        "unreviewed": 573,
+        "standard-cell-wl-exempt": 90
+      },
+      "corrected_checks": [
+        {
+          "id": "r1145",
+          "rule": "vpp.1",
+          "violations": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1151",
+          "rule": "vpp.4",
+          "violations": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1152",
+          "rule": "vpp.4",
+          "violations": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1153",
+          "rule": "vpp.8",
+          "violations": 0,
+          "disposition": "absent-operand"
+        }
+      ]
+    },
+    "apb": {
+      "original_counts": {
+        "executed-reviewed": 376,
+        "absent-operand": 517,
+        "unreviewed": 573,
+        "standard-cell-wl-exempt": 90
+      },
+      "corrected_checks": [
+        {
+          "id": "r1145",
+          "rule": "vpp.1",
+          "violations": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1151",
+          "rule": "vpp.4",
+          "violations": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1152",
+          "rule": "vpp.4",
+          "violations": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1153",
+          "rule": "vpp.8",
+          "violations": 0,
+          "disposition": "absent-operand"
+        }
+      ]
+    }
+  },
+  "elapsed_seconds": 4.514999999999418
+}

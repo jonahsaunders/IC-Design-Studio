@@ -1,0 +1,216 @@
+{
+  "schema": 1,
+  "source_manifest_sha256": "42cafd2b1407783d361cfbb276abe3ba9e97b2c06a716af6c9069c8426852413",
+  "source_revision": "1901822ae8f81ae1",
+  "original_binding": {
+    "category": "Capacitors",
+    "emit_parameters": {
+      "l": "l",
+      "m": "mf",
+      "vm": "mf",
+      "w": "w"
+    },
+    "kind": "PDK",
+    "label": "cap_mim_m3_2",
+    "model": "sky130_fd_pr__cap_mim_m3_2",
+    "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__cap_mim_m3_2.model.spice",
+    "notes": [
+      "Executable text retained as metadata only."
+    ],
+    "parameter_scale": {
+      "l": 1000000.0,
+      "w": 1000000.0
+    },
+    "parameters": {
+      "l": {
+        "default": "1",
+        "derived": false,
+        "integer": false,
+        "positive": true
+      },
+      "mf": {
+        "default": "1",
+        "derived": false,
+        "integer": false,
+        "positive": false
+      },
+      "w": {
+        "default": "1",
+        "derived": false,
+        "integer": false,
+        "positive": true
+      }
+    },
+    "pin_order": [
+      "c0",
+      "c1"
+    ],
+    "prefix": "X",
+    "source": "libs.tech/xschem/sky130_fd_pr/cap_mim_m3_2.sym",
+    "symbol": {
+      "attributes": {
+        "format": "@spiceprefix@name @pinlist sky130_fd_pr__@model W=@W L=@L VM=@MF m=@MF",
+        "template": "name=C1 model=cap_mim_m3_2 W=1 L=1 MF=1 spiceprefix=X",
+        "type": "capacitor"
+      },
+      "pin_meta": {
+        "c0": {
+          "bus": "",
+          "direction": "inout",
+          "label_visible": true,
+          "required": true,
+          "role": "signal"
+        },
+        "c1": {
+          "bus": "",
+          "direction": "inout",
+          "label_visible": true,
+          "required": true,
+          "role": "signal"
+        }
+      },
+      "pin_order": [
+        "c0",
+        "c1"
+      ],
+      "pins": {
+        "c0": [
+          0.0,
+          -30.0
+        ],
+        "c1": [
+          0.0,
+          30.0
+        ]
+      },
+      "primitives": [
+        {
+          "kind": "line",
+          "points": [
+            [
+              0.0,
+              2.5
+            ],
+            [
+              0.0,
+              30.0
+            ]
+          ]
+        },
+        {
+          "kind": "line",
+          "points": [
+            [
+              0.0,
+              -30.0
+            ],
+            [
+              0.0,
+              -5.0
+            ]
+          ]
+        },
+        {
+          "kind": "line",
+          "points": [
+            [
+              -10.0,
+              -5.0
+            ],
+            [
+              10.0,
+              -5.0
+            ]
+          ]
+        },
+        {
+          "kind": "arc",
+          "points": [
+            [
+              -21.25,
+              2.5
+            ],
+            [
+              21.25,
+              45.0
+            ]
+          ],
+          "start": -61.92751306414704,
+          "sweep": -56.14497387170592
+        },
+        {
+          "font_size": 8.0,
+          "kind": "text",
+          "points": [
+            [
+              17.5,
+              18.75
+            ],
+            [
+              37.5,
+              28.75
+            ]
+          ],
+          "rotation": 0,
+          "text": "m=@MF"
+        },
+        {
+          "font_size": 8.0,
+          "kind": "text",
+          "points": [
+            [
+              15.0,
+              -28.75
+            ],
+            [
+              35.0,
+              -18.75
+            ]
+          ],
+          "rotation": 0,
+          "text": "@name"
+        },
+        {
+          "font_size": 8.0,
+          "kind": "text",
+          "points": [
+            [
+              15.0,
+              6.25
+            ],
+            [
+              35.0,
+              16.25
+            ]
+          ],
+          "rotation": 0,
+          "text": "@W / @L"
+        },
+        {
+          "font_size": 8.0,
+          "kind": "text",
+          "points": [
+            [
+              15.0,
+              -11.25
+            ],
+            [
+              35.0,
+              -1.25
+            ]
+          ],
+          "rotation": 0,
+          "text": "@model"
+        }
+      ]
+    },
+    "unavailable": ""
+  },
+  "sources": {
+    "libs.tech/xschem/sky130_fd_pr/cap_mim_m3_2.sym": "b20c6884dcacecd897b81276a7dc220beb0c760815f0fde2da241456557fec2e",
+    "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__cap_mim_m3_2.model.spice": "a2e9ed5568b23debce5ac002f15df8c675010bac34d05b0c4e8a8dcca916260f"
+  },
+  "change": "Emit mf=MF and m=MF for the second MiM. The public subcircuit declares mf and uses it in its mismatch-area denominator; it has no vm parameter.",
+  "scope": "Model-interface correction only. Full statistical, operating, physical and silicon accuracy qualification remain separate.",
+  "license": "Original Apache-2.0 models, symbols and notices remain byte-identical. This metadata correction is GPL-3.0-or-later."
+}

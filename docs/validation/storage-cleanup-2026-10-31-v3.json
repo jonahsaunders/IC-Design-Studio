@@ -1,0 +1,32 @@
+{
+  "schema": 1,
+  "status": "PASS_STORAGE_HOUSEKEEPING",
+  "date": "2026-10-31",
+  "code_commit": "51201ee9f3964f0a1c73df22402d342bab9a35ca",
+  "scope": "Storage cleanup only; current source/runtime roots excluded, historical scientific identities and acceptance statuses unchanged.",
+  "files_removed": 247588,
+  "verified_file_allocation_removed_bytes": 26290593832,
+  "initial_c_free_bytes": 850942984192,
+  "final_c_free_bytes": 877155155968,
+  "observed_overall_c_free_change_bytes": 26212171776,
+  "measurement_note": "File allocation, serialized deletion-window gains, and total-volume change are separate measurements. Concurrent system activity and retained audit files can change volume deltas.",
+  "cleanup_summary": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\storage-cleanup-2026-10-31-v3\\cleanup-summary.json",
+  "cleanup_summary_sha256": "673f55fcc59bce962266f921f006fa301043b6c8513473ce3432ca85c22fdaa9",
+  "audit_archive": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\storage-cleanup-2026-10-31-v3\\cleanup-audit.zip",
+  "audit_archive_sha256": "aa37e07a9273221d9df31f1d17251d85834ee5752bbeaf1232fffb6f4a21be5c",
+  "audit_archive_bytes": 25209422,
+  "preserved": [
+    "Current IC Design Studio repository and source edits",
+    "Current runtimes and source snapshots",
+    "Canonical scientific evidence archives and original execution identities",
+    "Finished CAD outputs and source beside deleted environments",
+    "Five unmatched preliminary ESD workspace records"
+  ],
+  "rebuild_note": "Deleted caches may redownload. The four old CAD Python dependency environments must be recreated from retained package/config metadata before their old workflows can run; their exact binaries were not archived.",
+  "windows_administrator_used": false,
+  "chunk7_estimate_percent": 70,
+  "chunk7_estimate_confidence": "Low; range 55\u201380%",
+  "scientific_tests_rerun": false,
+  "qualification_status_changed": false,
+  "publication": "Local tracker update for the next appropriate project push"
+}

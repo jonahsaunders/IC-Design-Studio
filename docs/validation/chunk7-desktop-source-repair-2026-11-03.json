@@ -1,0 +1,118 @@
+{
+  "schema": 1,
+  "date": "2026-11-03",
+  "status": "PASS_REVIEWED_SOURCE_REPAIRS",
+  "base_candidate": "c76377da7812c3deae5feb98b5ea2db6d87fd310",
+  "source_hashes": {
+    "tests/test_layout_verification.py": "48f2f620984709997bb9e85ed379d9edb22eda2157e0378d552c565bc5b7280d",
+    "scripts/ci_feedback.py": "c32a640f58047a92c326dcf4dbf3d9c9c87d244327ffcc9ff3b876d5746783fd",
+    "icstudio/digital_flow.py": "2994a4d1cd11e2a16d58a5b3e859938c9bf3950a5ab5e8dc9ef28a24caf190d9",
+    "icstudio/digital_implementation.py": "d4440190aeb1ccde366959b32baba40a6a59f88c1f24ee094d9dee57cb4bbf2f",
+    "tests/test_digital.py": "0c12fd3e78176f3236e8682393624840228dd6257f342a61f7ba6ee6420b6937"
+  },
+  "qt": {
+    "failed_desktop_run": 41567538709,
+    "diagnosis": "A recovery test retains QCoreApplication, which cannot construct the widgets in the new display fixture.",
+    "repair": "Unchanged real widget assertions run in a bounded offscreen child. Fast feedback includes the actual preceding recovery tests.",
+    "review_sha256": "da8e6041eb5afb90483de8f0034f5451a97fc3443d2ae26ad73f302069a79201",
+    "actual_order_tests": 12,
+    "skips": 0,
+    "parent_application_preserved": true,
+    "real_child_failure_rejected": true
+  },
+  "yosys": {
+    "diagnosis": "Linux persistent ABC readline scrolls the echoed long source command. Yosys sees the completion marker but never the literal source echo required to finish reading.",
+    "actual_version": "0.69+24 d0e71cfb7-dirty",
+    "tools": {
+      "/opt/icstudio/bin/yosys": {
+        "real_path": "/opt/icstudio/bin/yosys",
+        "sha256": "40812f17cba04f98c906e2a815bef1a461362012d40712d11d86da48249ef203"
+      },
+      "/opt/icstudio/bin/yosys-abc": {
+        "real_path": "/opt/icstudio/bin/yosys-abc",
+        "sha256": "854ab25b684479138174755e412fd607cae48b151f36d44105c540920f7d67b8"
+      },
+      "/opt/icstudio/oss-cad-suite/libexec/yosys": {
+        "real_path": "/opt/icstudio/oss-cad-suite/libexec/yosys",
+        "sha256": "7aeb3e26f069fedfbc07d152ba912aa49218d7ca7a978e78ecc3db9af01d2a16"
+      },
+      "/opt/icstudio/oss-cad-suite/libexec/yosys-abc": {
+        "real_path": "/opt/icstudio/oss-cad-suite/libexec/yosys-abc",
+        "sha256": "329b779f710f4a5f595f7efd99c82d98e869b4dd145bb7763a0b43880041e239"
+      }
+    },
+    "upstream_reference": {
+      "url": "https://github.com/YosysHQ/yosys/blob/d0e71cfb7/passes/techmap/abc.cc#L1176-L1225",
+      "git_blob": "6e2df87007addf5dc6aa9c619c3872e7e01bf3fa"
+    },
+    "source_reference_scope": "Published protocol implementation corroborates observed raw behavior; the dirty runtime version string is not a claim of exact unmodified source-build equivalence.",
+    "repair": "Only Linux digital child environments with Yosys receive COLUMNS=100000. Basic and advanced runners share the policy; parent environment, ABC algorithm, job-local temp paths, identity checks and 60-second deadline stay intact.",
+    "width_only_control_seconds": 0.306,
+    "review_sha256": "95dd4832457611d05d34c5338aabb61ca8aa440a35d5ffbe48ef846a9b4ef866",
+    "raw_review_sha256": "63fd80d43abf3c9b6aa02cc972b6340147ac50b3e902d1fc2f26781a1118558c",
+    "diagnostic_receipt_sha256": "51094f36d09babd0eeea4c8331561375f07cdf1598b751f4cc5f0cc12e52ff6e",
+    "raw_metadata_correction": "Independent review confirms the original raw completion marker includes trailing whitespace; its initial metadata parser missed that marker. Raw bytes remain unchanged."
+  },
+  "historical_evidence": {
+    "scope": "historical-tested-source-only",
+    "review_sha256": "deced0a22762d02c73b063d309969f7637ad2c2a29cbaa00a8573bf9e92c5fdc",
+    "retained_implementation_sha256": "98b2fe7441c770f7cf7fa9e062eed31ae4fcab37332d5f90f3128ba2e6f2de8e",
+    "original_acceptance_and_checkers_unchanged": true,
+    "rehashed_current_source_rejected": true,
+    "current_application_physical_qualification": false
+  },
+  "windows": {
+    "scope": "Local complete fast source feedback; not installed or Windows compiled-core acceptance.",
+    "stages": 11,
+    "tests": 1062,
+    "skipped": 38,
+    "seconds": 758.578,
+    "code_files": 3143,
+    "named_source_files": 6931,
+    "sources_unchanged": true,
+    "receipt_sha256": "1dbe18be1d89fdfaadfc33bc02be880aa1eb90425ea2f726d87f478c0c024094"
+  },
+  "linux": {
+    "scope": "Full local Linux source test discovery with a compiled native core; no installed acceptance. Hosted configured-runtime and Windows-only prerequisites remain explicit skips.",
+    "tests": 4200,
+    "skipped": 57,
+    "seconds": 839.75,
+    "compiled_core_sha256": "e6f3319c241230f5fce8ded582edee980a078669d1d39630b2e86366cd9a28d9",
+    "source_files": 6931,
+    "sources_unchanged": true,
+    "receipt_sha256": "0481d57c89c95f0e41827b6c0e673957cd8420ad6f9fc1a0ceeb0eabde62641a"
+  },
+  "retention": {
+    "status": "PASS_ARCHIVE_READBACK",
+    "directory": "chunk7-desktop-source-repair-2026-11-03-v1",
+    "archive": "repair-evidence.zip",
+    "bytes": 38537987,
+    "sha256": "571096a9557aebdd11d48e84a3fe92beeb6ac18d2bd228102f672c25339c7cd2",
+    "members": 2649,
+    "all_originals_unchanged": true,
+    "source_archive": {
+      "name": "source-snapshot.zip",
+      "bytes": 109975661,
+      "sha256": "11b644b0fb01704cbce62f0a74f137bbbf2fd9362b93b8eb384380becce5ac99",
+      "storage": "Second NTFS hard link to the sealed original; no second payload allocation, and neither link may be modified."
+    },
+    "source_replay": {
+      "base_manifest_sha256": "dabbb3204a653cf8a92eca7571012394b8f90fe0bb78d799eeb49f96225ebc70",
+      "delta_v3_sha256": "2b65ba7e3c7eb9d00305cbbacd00fe526a8d1fc0bbc52b1dc1b637712e9033d1",
+      "delta_v4_sha256": "b03aae7c153264dbfdcbf45e85cf599f8d505cb31b13091de851fc027601d2bd",
+      "final_manifest_sha256": "d9027e8ea190ea330dcabb3283445f076803b838167fd5e91d42c6145ccd3f5b",
+      "scope": "Base archive plus both independently read-back deltas reconstruct all 6931 final tested source files."
+    }
+  },
+  "preserved_failures": [
+    "Original hosted Qt failures on Windows and Linux.",
+    "Original Linux preparation denied access to a Windows-mounted historical document; exact archived bytes supplied a fresh native snapshot.",
+    "4199-test full run and separate 60-second Yosys deadlocks.",
+    "Subsequent historical-source guard failures before exact original source snapshots were added.",
+    "First restricted-shell Windows junction prerequisite failure, before the ordinary-user run."
+  ],
+  "fresh_desktop_acceptance": "pending",
+  "installed_acceptance": false,
+  "qualified": false,
+  "chunk_complete": false
+}

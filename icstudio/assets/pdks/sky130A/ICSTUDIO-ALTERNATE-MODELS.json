@@ -1,0 +1,539 @@
+{
+  "base_manifest_sha256": "ac79988e7ccf06ef550966de9ffc7ab394d934c5ddda861d1fb01e0813337f4b",
+  "base_revision": "293106f92f3e1dc5",
+  "choices": [
+    {
+      "absent_in_corners": [],
+      "definitions": [
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__diode_pd2nw_05v5.model.spice:16:model:sky130_fd_pr__diode_pd2nw_05v5"
+      ],
+      "device": "sky130_fd_pr/diode__sky130_fd_pr__diode_pd2nw_05v5.sym",
+      "model": "sky130_fd_pr__diode_pd2nw_05v5",
+      "namespace_normalized": true,
+      "parent": "sky130_fd_pr/diode.sym",
+      "source_model": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__diode_pd2nw_05v5.model.spice",
+      "source_model_sha256": "96eb213bbdd589ab8c999d68bc5995c7652a12e1078a2f64a686b4c7a22a5e11",
+      "source_symbol": "libs.tech/xschem/sky130_fd_pr/diode.sym",
+      "source_symbol_sha256": "700b3d49fe57f4b92ba990764b7e984444011170717d7c73fc68e401dfab0c2e",
+      "status": "AVAILABLE",
+      "terminal_contract": [
+        "anode",
+        "cathode"
+      ]
+    },
+    {
+      "absent_in_corners": [],
+      "definitions": [
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__diode_pd2nw_05v5_hvt.model.spice:16:model:sky130_fd_pr__diode_pd2nw_05v5_hvt"
+      ],
+      "device": "sky130_fd_pr/diode__sky130_fd_pr__diode_pd2nw_05v5_hvt.sym",
+      "model": "sky130_fd_pr__diode_pd2nw_05v5_hvt",
+      "namespace_normalized": true,
+      "parent": "sky130_fd_pr/diode.sym",
+      "source_model": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__diode_pd2nw_05v5_hvt.model.spice",
+      "source_model_sha256": "5fe041b387749f190147300880d9dcaf8b0341955f0f7787849297f52b2c2b46",
+      "source_symbol": "libs.tech/xschem/sky130_fd_pr/diode.sym",
+      "source_symbol_sha256": "700b3d49fe57f4b92ba990764b7e984444011170717d7c73fc68e401dfab0c2e",
+      "status": "AVAILABLE",
+      "terminal_contract": [
+        "anode",
+        "cathode"
+      ]
+    },
+    {
+      "absent_in_corners": [],
+      "definitions": [
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__diode_pd2nw_05v5_lvt.model.spice:16:model:sky130_fd_pr__diode_pd2nw_05v5_lvt"
+      ],
+      "device": "sky130_fd_pr/diode__sky130_fd_pr__diode_pd2nw_05v5_lvt.sym",
+      "model": "sky130_fd_pr__diode_pd2nw_05v5_lvt",
+      "namespace_normalized": true,
+      "parent": "sky130_fd_pr/diode.sym",
+      "source_model": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__diode_pd2nw_05v5_lvt.model.spice",
+      "source_model_sha256": "1cf2a1684a8ca01efb693e81de65c6d3b29178033b3e8d4b6f10fc299e117c14",
+      "source_symbol": "libs.tech/xschem/sky130_fd_pr/diode.sym",
+      "source_symbol_sha256": "700b3d49fe57f4b92ba990764b7e984444011170717d7c73fc68e401dfab0c2e",
+      "status": "AVAILABLE",
+      "terminal_contract": [
+        "anode",
+        "cathode"
+      ]
+    },
+    {
+      "absent_in_corners": [],
+      "definitions": [
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__diode_pd2nw_11v0.model.spice:16:model:sky130_fd_pr__diode_pd2nw_11v0"
+      ],
+      "device": "sky130_fd_pr/diode__sky130_fd_pr__diode_pd2nw_11v0.sym",
+      "model": "sky130_fd_pr__diode_pd2nw_11v0",
+      "namespace_normalized": true,
+      "parent": "sky130_fd_pr/diode.sym",
+      "source_model": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__diode_pd2nw_11v0.model.spice",
+      "source_model_sha256": "d4b2fcb507fcb90e2e8eb528fe93a1a119dc88a162c5982fde8d2bfe5efce31e",
+      "source_symbol": "libs.tech/xschem/sky130_fd_pr/diode.sym",
+      "source_symbol_sha256": "700b3d49fe57f4b92ba990764b7e984444011170717d7c73fc68e401dfab0c2e",
+      "status": "AVAILABLE",
+      "terminal_contract": [
+        "anode",
+        "cathode"
+      ]
+    },
+    {
+      "absent_in_corners": [],
+      "definitions": [
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__diode_pw2nd_05v5_lvt.model.spice:16:model:sky130_fd_pr__diode_pw2nd_05v5_lvt"
+      ],
+      "device": "sky130_fd_pr/diode__sky130_fd_pr__diode_pw2nd_05v5_lvt.sym",
+      "model": "sky130_fd_pr__diode_pw2nd_05v5_lvt",
+      "namespace_normalized": true,
+      "parent": "sky130_fd_pr/diode.sym",
+      "source_model": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__diode_pw2nd_05v5_lvt.model.spice",
+      "source_model_sha256": "0261106b2209576947af3ca5411e4ce3d3cbde832d434affaebfe77a9781aff6",
+      "source_symbol": "libs.tech/xschem/sky130_fd_pr/diode.sym",
+      "source_symbol_sha256": "700b3d49fe57f4b92ba990764b7e984444011170717d7c73fc68e401dfab0c2e",
+      "status": "AVAILABLE",
+      "terminal_contract": [
+        "anode",
+        "cathode"
+      ]
+    },
+    {
+      "absent_in_corners": [],
+      "definitions": [
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__diode_pw2nd_05v5_nvt.model.spice:16:model:sky130_fd_pr__diode_pw2nd_05v5_nvt"
+      ],
+      "device": "sky130_fd_pr/diode__sky130_fd_pr__diode_pw2nd_05v5_nvt.sym",
+      "model": "sky130_fd_pr__diode_pw2nd_05v5_nvt",
+      "namespace_normalized": true,
+      "parent": "sky130_fd_pr/diode.sym",
+      "source_model": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__diode_pw2nd_05v5_nvt.model.spice",
+      "source_model_sha256": "7344f249b0d9be19e06abd12549815f3610f4d1b758077ddae3f66f79dfdde15",
+      "source_symbol": "libs.tech/xschem/sky130_fd_pr/diode.sym",
+      "source_symbol_sha256": "700b3d49fe57f4b92ba990764b7e984444011170717d7c73fc68e401dfab0c2e",
+      "status": "AVAILABLE",
+      "terminal_contract": [
+        "anode",
+        "cathode"
+      ]
+    },
+    {
+      "absent_in_corners": [],
+      "definitions": [
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__diode_pw2nd_11v0.model.spice:16:model:sky130_fd_pr__diode_pw2nd_11v0"
+      ],
+      "device": "sky130_fd_pr/diode__sky130_fd_pr__diode_pw2nd_11v0.sym",
+      "model": "sky130_fd_pr__diode_pw2nd_11v0",
+      "namespace_normalized": true,
+      "parent": "sky130_fd_pr/diode.sym",
+      "source_model": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__diode_pw2nd_11v0.model.spice",
+      "source_model_sha256": "ea86ffcfd4bcf7d99e61741850ec1387c4f2af7a90e789d909ba9ec7df3540a1",
+      "source_symbol": "libs.tech/xschem/sky130_fd_pr/diode.sym",
+      "source_symbol_sha256": "700b3d49fe57f4b92ba990764b7e984444011170717d7c73fc68e401dfab0c2e",
+      "status": "AVAILABLE",
+      "terminal_contract": [
+        "anode",
+        "cathode"
+      ]
+    },
+    {
+      "absent_in_corners": [],
+      "definitions": [
+        "libs.tech/ngspice/parasitics/sky130_fd_pr__model__parasitic__diode_ps2dn.model.spice:16:model:sky130_fd_pr__model__parasitic__diode_ps2dn"
+      ],
+      "device": "sky130_fd_pr/diode__sky130_fd_pr__model__parasitic__diode_ps2dn.sym",
+      "model": "sky130_fd_pr__model__parasitic__diode_ps2dn",
+      "namespace_normalized": true,
+      "parent": "sky130_fd_pr/diode.sym",
+      "source_model": "libs.tech/ngspice/parasitics/sky130_fd_pr__model__parasitic__diode_ps2dn.model.spice",
+      "source_model_sha256": "1f48152931c00fd65801224eb2592356ac642cc70210c57e51e4667938f7eed0",
+      "source_symbol": "libs.tech/xschem/sky130_fd_pr/diode.sym",
+      "source_symbol_sha256": "700b3d49fe57f4b92ba990764b7e984444011170717d7c73fc68e401dfab0c2e",
+      "status": "AVAILABLE",
+      "terminal_contract": [
+        "anode",
+        "cathode"
+      ]
+    },
+    {
+      "absent_in_corners": [],
+      "definitions": [
+        "libs.tech/ngspice/parasitics/sky130_fd_pr__model__parasitic__diode_ps2nw.model.spice:16:model:sky130_fd_pr__model__parasitic__diode_ps2nw"
+      ],
+      "device": "sky130_fd_pr/diode__sky130_fd_pr__model__parasitic__diode_ps2nw.sym",
+      "model": "sky130_fd_pr__model__parasitic__diode_ps2nw",
+      "namespace_normalized": true,
+      "parent": "sky130_fd_pr/diode.sym",
+      "source_model": "libs.tech/ngspice/parasitics/sky130_fd_pr__model__parasitic__diode_ps2nw.model.spice",
+      "source_model_sha256": "c024f7cfb07888f299e5942e2763d3d7548c47dc78bdd33f34cac68c4d2b9d4c",
+      "source_symbol": "libs.tech/xschem/sky130_fd_pr/diode.sym",
+      "source_symbol_sha256": "700b3d49fe57f4b92ba990764b7e984444011170717d7c73fc68e401dfab0c2e",
+      "status": "AVAILABLE",
+      "terminal_contract": [
+        "anode",
+        "cathode"
+      ]
+    },
+    {
+      "absent_in_corners": [],
+      "definitions": [
+        "libs.tech/ngspice/parasitics/sky130_fd_pr__model__parasitic__diode_pw2dn.model.spice:16:model:sky130_fd_pr__model__parasitic__diode_pw2dn"
+      ],
+      "device": "sky130_fd_pr/diode__sky130_fd_pr__model__parasitic__diode_pw2dn.sym",
+      "model": "sky130_fd_pr__model__parasitic__diode_pw2dn",
+      "namespace_normalized": true,
+      "parent": "sky130_fd_pr/diode.sym",
+      "source_model": "libs.tech/ngspice/parasitics/sky130_fd_pr__model__parasitic__diode_pw2dn.model.spice",
+      "source_model_sha256": "ca4fc71b0096e54de47a5633f5f561ddffd8ba6043f3165f4f6d94ff0c79d64b",
+      "source_symbol": "libs.tech/xschem/sky130_fd_pr/diode.sym",
+      "source_symbol_sha256": "700b3d49fe57f4b92ba990764b7e984444011170717d7c73fc68e401dfab0c2e",
+      "status": "AVAILABLE",
+      "terminal_contract": [
+        "anode",
+        "cathode"
+      ]
+    },
+    {
+      "absent_in_corners": [
+        "ff",
+        "ff_mm",
+        "fs",
+        "fs_mm",
+        "hh",
+        "hh_mm",
+        "hl",
+        "hl_mm",
+        "lh",
+        "lh_mm",
+        "ll",
+        "ll_mm",
+        "mc",
+        "nominal",
+        "sf",
+        "sf_mm",
+        "ss",
+        "ss_mm",
+        "tt",
+        "tt_mm"
+      ],
+      "definitions": [],
+      "device": "sky130_fd_pr/diode__sky130_fd_pr__model__parasitic__rf_diode_ps2nw.sym",
+      "model": "sky130_fd_pr__model__parasitic__rf_diode_ps2nw",
+      "namespace_normalized": true,
+      "parent": "sky130_fd_pr/diode.sym",
+      "source_symbol": "libs.tech/xschem/sky130_fd_pr/diode.sym",
+      "source_symbol_sha256": "700b3d49fe57f4b92ba990764b7e984444011170717d7c73fc68e401dfab0c2e",
+      "status": "UNAVAILABLE"
+    },
+    {
+      "absent_in_corners": [
+        "ff",
+        "ff_mm",
+        "fs",
+        "fs_mm",
+        "hh",
+        "hh_mm",
+        "hl",
+        "hl_mm",
+        "lh",
+        "lh_mm",
+        "ll",
+        "ll_mm",
+        "mc",
+        "nominal",
+        "sf",
+        "sf_mm",
+        "ss",
+        "ss_mm",
+        "tt",
+        "tt_mm"
+      ],
+      "definitions": [],
+      "device": "sky130_fd_pr/diode__sky130_fd_pr__model__parasitic__rf_diode_pw2dn.sym",
+      "model": "sky130_fd_pr__model__parasitic__rf_diode_pw2dn",
+      "namespace_normalized": true,
+      "parent": "sky130_fd_pr/diode.sym",
+      "source_symbol": "libs.tech/xschem/sky130_fd_pr/diode.sym",
+      "source_symbol_sha256": "700b3d49fe57f4b92ba990764b7e984444011170717d7c73fc68e401dfab0c2e",
+      "status": "UNAVAILABLE"
+    },
+    {
+      "absent_in_corners": [],
+      "definitions": [
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__diode_pd2nw_05v5.model.spice:16:model:sky130_fd_pr__diode_pd2nw_05v5"
+      ],
+      "device": "sky130_fd_pr/lvsdiode__sky130_fd_pr__diode_pd2nw_05v5.sym",
+      "model": "sky130_fd_pr__diode_pd2nw_05v5",
+      "namespace_normalized": true,
+      "parent": "sky130_fd_pr/lvsdiode.sym",
+      "source_model": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__diode_pd2nw_05v5.model.spice",
+      "source_model_sha256": "96eb213bbdd589ab8c999d68bc5995c7652a12e1078a2f64a686b4c7a22a5e11",
+      "source_symbol": "libs.tech/xschem/sky130_fd_pr/lvsdiode.sym",
+      "source_symbol_sha256": "87f6c533c1c63849ee93e8d58d468ba7612770ba18374a38d19c6d4b28fa6755",
+      "status": "AVAILABLE",
+      "terminal_contract": [
+        "anode",
+        "cathode"
+      ]
+    },
+    {
+      "absent_in_corners": [],
+      "definitions": [
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__diode_pd2nw_11v0.model.spice:16:model:sky130_fd_pr__diode_pd2nw_11v0"
+      ],
+      "device": "sky130_fd_pr/lvsdiode__sky130_fd_pr__diode_pd2nw_11v0.sym",
+      "model": "sky130_fd_pr__diode_pd2nw_11v0",
+      "namespace_normalized": true,
+      "parent": "sky130_fd_pr/lvsdiode.sym",
+      "source_model": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__diode_pd2nw_11v0.model.spice",
+      "source_model_sha256": "d4b2fcb507fcb90e2e8eb528fe93a1a119dc88a162c5982fde8d2bfe5efce31e",
+      "source_symbol": "libs.tech/xschem/sky130_fd_pr/lvsdiode.sym",
+      "source_symbol_sha256": "87f6c533c1c63849ee93e8d58d468ba7612770ba18374a38d19c6d4b28fa6755",
+      "status": "AVAILABLE",
+      "terminal_contract": [
+        "anode",
+        "cathode"
+      ]
+    },
+    {
+      "absent_in_corners": [],
+      "definitions": [
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__diode_pw2nd_11v0.model.spice:16:model:sky130_fd_pr__diode_pw2nd_11v0"
+      ],
+      "device": "sky130_fd_pr/lvsdiode__sky130_fd_pr__diode_pw2nd_11v0.sym",
+      "model": "sky130_fd_pr__diode_pw2nd_11v0",
+      "namespace_normalized": true,
+      "parent": "sky130_fd_pr/lvsdiode.sym",
+      "source_model": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__diode_pw2nd_11v0.model.spice",
+      "source_model_sha256": "ea86ffcfd4bcf7d99e61741850ec1387c4f2af7a90e789d909ba9ec7df3540a1",
+      "source_symbol": "libs.tech/xschem/sky130_fd_pr/lvsdiode.sym",
+      "source_symbol_sha256": "87f6c533c1c63849ee93e8d58d468ba7612770ba18374a38d19c6d4b28fa6755",
+      "status": "AVAILABLE",
+      "terminal_contract": [
+        "anode",
+        "cathode"
+      ]
+    },
+    {
+      "absent_in_corners": [],
+      "definitions": [
+        "libs.tech/ngspice/parasitics/sky130_fd_pr__model__parasitic__diode_ps2dn.model.spice:16:model:sky130_fd_pr__model__parasitic__diode_ps2dn"
+      ],
+      "device": "sky130_fd_pr/lvsdiode__sky130_fd_pr__model__parasitic__diode_ps2dn.sym",
+      "model": "sky130_fd_pr__model__parasitic__diode_ps2dn",
+      "namespace_normalized": true,
+      "parent": "sky130_fd_pr/lvsdiode.sym",
+      "source_model": "libs.tech/ngspice/parasitics/sky130_fd_pr__model__parasitic__diode_ps2dn.model.spice",
+      "source_model_sha256": "1f48152931c00fd65801224eb2592356ac642cc70210c57e51e4667938f7eed0",
+      "source_symbol": "libs.tech/xschem/sky130_fd_pr/lvsdiode.sym",
+      "source_symbol_sha256": "87f6c533c1c63849ee93e8d58d468ba7612770ba18374a38d19c6d4b28fa6755",
+      "status": "AVAILABLE",
+      "terminal_contract": [
+        "anode",
+        "cathode"
+      ]
+    },
+    {
+      "absent_in_corners": [],
+      "definitions": [
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__cap_vpp_04p4x04p6_m1m2m3_shieldl1m5_floatm4.model.spice:24:subckt:sky130_fd_pr__cap_vpp_04p4x04p6_m1m2m3_shieldl1m5_floatm4"
+      ],
+      "device": "sky130_fd_pr/vpp_cap__sky130_fd_pr__cap_vpp_04p4x04p6_m1m2m3_shieldl1m5_floatm4.sym",
+      "model": "sky130_fd_pr__cap_vpp_04p4x04p6_m1m2m3_shieldl1m5_floatm4",
+      "namespace_normalized": false,
+      "parent": "sky130_fd_pr/vpp_cap.sym",
+      "source_model": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__cap_vpp_04p4x04p6_m1m2m3_shieldl1m5_floatm4.model.spice",
+      "source_model_sha256": "9cd50eec5de2cbcb01ec1b6c1505d406a82d1acc4be011a979ade0e0cbcabe4f",
+      "source_symbol": "libs.tech/xschem/sky130_fd_pr/vpp_cap.sym",
+      "source_symbol_sha256": "48aa348373dc6dd1549023c2b974d868452a5e6cdf248a13e287c418a861a69e",
+      "status": "AVAILABLE",
+      "terminal_contract": [
+        "c0",
+        "c1",
+        "b",
+        "m5"
+      ]
+    },
+    {
+      "absent_in_corners": [],
+      "definitions": [
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__cap_vpp_06p8x06p1_l1m1m2m3_shieldpom4.model.spice:20:subckt:sky130_fd_pr__cap_vpp_06p8x06p1_l1m1m2m3_shieldpom4"
+      ],
+      "device": "sky130_fd_pr/vpp_cap__sky130_fd_pr__cap_vpp_06p8x06p1_l1m1m2m3_shieldpom4.sym",
+      "model": "sky130_fd_pr__cap_vpp_06p8x06p1_l1m1m2m3_shieldpom4",
+      "namespace_normalized": false,
+      "parent": "sky130_fd_pr/vpp_cap.sym",
+      "source_model": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__cap_vpp_06p8x06p1_l1m1m2m3_shieldpom4.model.spice",
+      "source_model_sha256": "98c8daf1285647e2f17af847cfcc143a580c2851d117da687faa75ee1874de65",
+      "source_symbol": "libs.tech/xschem/sky130_fd_pr/vpp_cap.sym",
+      "source_symbol_sha256": "48aa348373dc6dd1549023c2b974d868452a5e6cdf248a13e287c418a861a69e",
+      "status": "AVAILABLE",
+      "terminal_contract": [
+        "c0",
+        "c1",
+        "b",
+        "m4"
+      ]
+    },
+    {
+      "absent_in_corners": [],
+      "definitions": [
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__cap_vpp_06p8x06p1_m1m2m3_shieldl1m4.model.spice:20:subckt:sky130_fd_pr__cap_vpp_06p8x06p1_m1m2m3_shieldl1m4"
+      ],
+      "device": "sky130_fd_pr/vpp_cap__sky130_fd_pr__cap_vpp_06p8x06p1_m1m2m3_shieldl1m4.sym",
+      "model": "sky130_fd_pr__cap_vpp_06p8x06p1_m1m2m3_shieldl1m4",
+      "namespace_normalized": false,
+      "parent": "sky130_fd_pr/vpp_cap.sym",
+      "source_model": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__cap_vpp_06p8x06p1_m1m2m3_shieldl1m4.model.spice",
+      "source_model_sha256": "d2e90cfd8356e33b52d0ad761a0aa1d0f0712082244d10fb4139664837889779",
+      "source_symbol": "libs.tech/xschem/sky130_fd_pr/vpp_cap.sym",
+      "source_symbol_sha256": "48aa348373dc6dd1549023c2b974d868452a5e6cdf248a13e287c418a861a69e",
+      "status": "AVAILABLE",
+      "terminal_contract": [
+        "c0",
+        "c1",
+        "b",
+        "m4"
+      ]
+    },
+    {
+      "absent_in_corners": [],
+      "definitions": [
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__cap_vpp_08p6x07p8_m1m2m3_shieldl1m5_floatm4.model.spice:24:subckt:sky130_fd_pr__cap_vpp_08p6x07p8_m1m2m3_shieldl1m5_floatm4"
+      ],
+      "device": "sky130_fd_pr/vpp_cap__sky130_fd_pr__cap_vpp_08p6x07p8_m1m2m3_shieldl1m5_floatm4.sym",
+      "model": "sky130_fd_pr__cap_vpp_08p6x07p8_m1m2m3_shieldl1m5_floatm4",
+      "namespace_normalized": false,
+      "parent": "sky130_fd_pr/vpp_cap.sym",
+      "source_model": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__cap_vpp_08p6x07p8_m1m2m3_shieldl1m5_floatm4.model.spice",
+      "source_model_sha256": "be4d8281ed86aaf1b1be60084f02dbf7b121d59ba0a24acb72d66c3a3abf61c8",
+      "source_symbol": "libs.tech/xschem/sky130_fd_pr/vpp_cap.sym",
+      "source_symbol_sha256": "48aa348373dc6dd1549023c2b974d868452a5e6cdf248a13e287c418a861a69e",
+      "status": "AVAILABLE",
+      "terminal_contract": [
+        "c0",
+        "c1",
+        "b",
+        "m5"
+      ]
+    },
+    {
+      "absent_in_corners": [
+        "ff",
+        "ff_mm",
+        "fs",
+        "fs_mm",
+        "hh",
+        "hh_mm",
+        "hl",
+        "hl_mm",
+        "lh",
+        "lh_mm",
+        "ll",
+        "ll_mm",
+        "mc",
+        "nominal",
+        "sf",
+        "sf_mm",
+        "ss",
+        "ss_mm",
+        "tt",
+        "tt_mm"
+      ],
+      "definitions": [],
+      "device": "sky130_fd_pr/vpp_cap__sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5.sym",
+      "model": "sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5",
+      "namespace_normalized": false,
+      "parent": "sky130_fd_pr/vpp_cap.sym",
+      "source_symbol": "libs.tech/xschem/sky130_fd_pr/vpp_cap.sym",
+      "source_symbol_sha256": "48aa348373dc6dd1549023c2b974d868452a5e6cdf248a13e287c418a861a69e",
+      "status": "UNAVAILABLE"
+    },
+    {
+      "absent_in_corners": [],
+      "definitions": [
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__cap_vpp_11p5x11p7_l1m1m2m3_shieldm4.model.spice:20:subckt:sky130_fd_pr__cap_vpp_11p5x11p7_l1m1m2m3_shieldm4"
+      ],
+      "device": "sky130_fd_pr/vpp_cap__sky130_fd_pr__cap_vpp_11p5x11p7_l1m1m2m3_shieldm4.sym",
+      "model": "sky130_fd_pr__cap_vpp_11p5x11p7_l1m1m2m3_shieldm4",
+      "namespace_normalized": false,
+      "parent": "sky130_fd_pr/vpp_cap.sym",
+      "source_model": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__cap_vpp_11p5x11p7_l1m1m2m3_shieldm4.model.spice",
+      "source_model_sha256": "b1666dbeb1ae6f4937900524d3b620815fc0cdeb19782536b4ff0e2c06e3df0d",
+      "source_symbol": "libs.tech/xschem/sky130_fd_pr/vpp_cap.sym",
+      "source_symbol_sha256": "48aa348373dc6dd1549023c2b974d868452a5e6cdf248a13e287c418a861a69e",
+      "status": "AVAILABLE",
+      "terminal_contract": [
+        "c0",
+        "c1",
+        "b",
+        "m4"
+      ]
+    },
+    {
+      "absent_in_corners": [],
+      "definitions": [
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__cap_vpp_11p5x11p7_l1m1m2m3m4_shieldpom5.model.spice:23:subckt:sky130_fd_pr__cap_vpp_11p5x11p7_l1m1m2m3m4_shieldpom5"
+      ],
+      "device": "sky130_fd_pr/vpp_cap__sky130_fd_pr__cap_vpp_11p5x11p7_l1m1m2m3m4_shieldpom5.sym",
+      "model": "sky130_fd_pr__cap_vpp_11p5x11p7_l1m1m2m3m4_shieldpom5",
+      "namespace_normalized": false,
+      "parent": "sky130_fd_pr/vpp_cap.sym",
+      "source_model": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__cap_vpp_11p5x11p7_l1m1m2m3m4_shieldpom5.model.spice",
+      "source_model_sha256": "80722d5749c3c2644342f7fee626f60cfcdd15c1867e6d4bb42dd788f7be9070",
+      "source_symbol": "libs.tech/xschem/sky130_fd_pr/vpp_cap.sym",
+      "source_symbol_sha256": "48aa348373dc6dd1549023c2b974d868452a5e6cdf248a13e287c418a861a69e",
+      "status": "AVAILABLE",
+      "terminal_contract": [
+        "c0",
+        "c1",
+        "b",
+        "m5"
+      ]
+    },
+    {
+      "absent_in_corners": [],
+      "definitions": [
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__cap_vpp_11p5x11p7_m1m2m3_shieldl1m5_floatm4.model.spice:24:subckt:sky130_fd_pr__cap_vpp_11p5x11p7_m1m2m3_shieldl1m5_floatm4"
+      ],
+      "device": "sky130_fd_pr/vpp_cap__sky130_fd_pr__cap_vpp_11p5x11p7_m1m2m3_shieldl1m5_floatm4.sym",
+      "model": "sky130_fd_pr__cap_vpp_11p5x11p7_m1m2m3_shieldl1m5_floatm4",
+      "namespace_normalized": false,
+      "parent": "sky130_fd_pr/vpp_cap.sym",
+      "source_model": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__cap_vpp_11p5x11p7_m1m2m3_shieldl1m5_floatm4.model.spice",
+      "source_model_sha256": "b4f0e48b187334a1d043a79ef4e08a4bfb35870748521e54906a63ed5730eebc",
+      "source_symbol": "libs.tech/xschem/sky130_fd_pr/vpp_cap.sym",
+      "source_symbol_sha256": "48aa348373dc6dd1549023c2b974d868452a5e6cdf248a13e287c418a861a69e",
+      "status": "AVAILABLE",
+      "terminal_contract": [
+        "c0",
+        "c1",
+        "b",
+        "m5"
+      ]
+    },
+    {
+      "absent_in_corners": [],
+      "definitions": [
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__cap_vpp_11p5x11p7_m1m2m3m4_shieldl1m5.model.spice:23:subckt:sky130_fd_pr__cap_vpp_11p5x11p7_m1m2m3m4_shieldl1m5"
+      ],
+      "device": "sky130_fd_pr/vpp_cap__sky130_fd_pr__cap_vpp_11p5x11p7_m1m2m3m4_shieldl1m5.sym",
+      "model": "sky130_fd_pr__cap_vpp_11p5x11p7_m1m2m3m4_shieldl1m5",
+      "namespace_normalized": false,
+      "parent": "sky130_fd_pr/vpp_cap.sym",
+      "source_model": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__cap_vpp_11p5x11p7_m1m2m3m4_shieldl1m5.model.spice",
+      "source_model_sha256": "6b59f00cb7050984f65dd5bd4d4df8b656c0e790804c5196eaeae64d18c88e8b",
+      "source_symbol": "libs.tech/xschem/sky130_fd_pr/vpp_cap.sym",
+      "source_symbol_sha256": "48aa348373dc6dd1549023c2b974d868452a5e6cdf248a13e287c418a861a69e",
+      "status": "AVAILABLE",
+      "terminal_contract": [
+        "c0",
+        "c1",
+        "b",
+        "m5"
+      ]
+    }
+  ],
+  "qualified": false,
+  "schema": 1,
+  "scope": "Expose reviewed, source-listed model choices as immutable catalog identities.\n\nThese are electrical model views. Availability of a model does not establish\nlayout support or compatibility with a selected fabrication metal option.\nOriginal symbols, models, notices and existing catalog bindings are preserved.\n"
+}

@@ -1,0 +1,38 @@
+{
+  "schema": 1,
+  "source_manifest_sha256": "6bbaae721ea855822a993017174bafbf272a22d696c58fe393bee81b2ff19d5c",
+  "source_revision": "b1f441fabee1ed85",
+  "change": "Declare and explicitly forward the parallel M factor to immediate resistor and nested parasitic/model calls. Model equations and statistical MULT expressions are unchanged.",
+  "files": {
+    "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__res_high_po.model.spice": {
+      "original_sha256": "5d5f46fc322ff3aa83222a588c712b758a3863b8aed3eea6ca637b120ddf411f",
+      "corrected_sha256": "077551de3c8fa6aea08dc50125f849ea8f8d152a13836474a485a0b98b716bd0"
+    },
+    "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__res_xhigh_po.model.spice": {
+      "original_sha256": "de3ce358904404dc3aa11f8dc84500638557dd5fe4b5988e07c9e280fc9d6e78",
+      "corrected_sha256": "9aaa1f6ee03b85289cbc8d51867eac3b003e773300fb2df8fdf2a852d2986b92"
+    },
+    "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__res_xhigh_po_0p35.model.spice": {
+      "original_sha256": "940ed59e4935e9f8bda6fe493bf0e5a33f7d7a6961f73fdb15e666637fa50f83",
+      "corrected_sha256": "12d2bd69b91b7285692ce0efbb6184c411bc82041b61a401f6f3d69708f17a36"
+    },
+    "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__res_xhigh_po_0p69.model.spice": {
+      "original_sha256": "d35a4b6371a9bd678f7fa1dabfbcfdbd3f29059ab5073516b4e55b6f92cb6b32",
+      "corrected_sha256": "b80082076b5189e3f0412d34fa57258075208e08a8134912b06e5e5958933a04"
+    },
+    "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__res_xhigh_po_1p41.model.spice": {
+      "original_sha256": "c5993a674226d7878ac8a7400db00a26bfd25db3bd35c7b9a9da29db8ca11c14",
+      "corrected_sha256": "d5ea8e32435144ae3200eb17ae62ca027c7ef505f0006c9dcdd2b9b78a77dede"
+    },
+    "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__res_xhigh_po_2p85.model.spice": {
+      "original_sha256": "ecce036dde19fe4f0404652375a0ef549df115f393696f4c55639fde33cd9a47",
+      "corrected_sha256": "93ff3fba95818b505277a953376b2be8456e454b86b81733638e480bf5a4fbc6"
+    },
+    "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__res_xhigh_po_5p73.model.spice": {
+      "original_sha256": "d4e13ad468f778656baf3438a3a2e7c5a6f64644678995f6ab6ec7e2e1636e3b",
+      "corrected_sha256": "081ce2d9c8d4112eaeab146ca3995652bddd4bdd9bd05e381e856369b613a71c"
+    }
+  },
+  "scope": "Selected local electrical integration only. Complete operating envelopes, noise, statistical behavior and physical qualification remain separate requirements.",
+  "license": "Apache-2.0 upstream notices and LICENSE retained; modified files identify IC Design Studio changes."
+}

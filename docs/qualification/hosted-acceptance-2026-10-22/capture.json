@@ -1,0 +1,31 @@
+{
+  "checked_at": "2026-10-22T13:31:33.412491+00:00",
+  "commit": "e29cfd657cd607528da530eccce466361d6dee59",
+  "release_id": 420396486,
+  "tag": "experimental-v0.23.0-e29cfd657cd607528da530eccce466361d6dee59-39706558991-1",
+  "draft": true,
+  "assets": 24,
+  "records": {
+    "IC-Design-Studio-0.23.0-Statistical-Validation.json": {
+      "sha256": "396994971c0e6c4eded75af39e833a7b854bbe52f30068689a1d853667a1526c",
+      "bytes": 744,
+      "asset_id": 664977410
+    },
+    "IC-Design-Studio-0.23.0-Validation-Linux.json": {
+      "sha256": "81e5d3af74ad3ccfc78579452b4ffae0e13fd800aeb306121420351aa458f919",
+      "bytes": 10929,
+      "asset_id": 664977418
+    },
+    "IC-Design-Studio-0.23.0-Validation-Windows.json": {
+      "sha256": "3f10e577fcafc4a2986c845ceb31a00514adbcb69c1722678c6eb69a81d02df6",
+      "bytes": 37530,
+      "asset_id": 664977444
+    },
+    "SHA256SUMS-0.23.0.txt": {
+      "sha256": "86f6743745e4ec0c421e024a8a5202c5bb34460928aeb3645c5671a2a09ea7cd",
+      "bytes": 2583,
+      "asset_id": 664981686
+    }
+  },
+  "scope": "Downloaded validation and checksum bytes; all remote asset digests agree. Payload binaries have not been downloaded or independently executed in this review."
+}

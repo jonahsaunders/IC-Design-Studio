@@ -1,0 +1,43 @@
+{
+  "schema": 1,
+  "status": "PUBLISHED_ACCEPTANCE_RUNNING",
+  "date": "2026-11-02",
+  "commit": "cbf97057b9bda6121c9a00f501226f0ee81e5e06",
+  "parent": "51201ee9f3964f0a1c73df22402d342bab9a35ca",
+  "branch": "experimental",
+  "github_head_verified": true,
+  "published_files": {
+    "docs/QUALIFICATION_PROGRESS.md": "7bd7c02090ac8683cafb20b9566f0f5cd0cbc674eb4847c44442f41a8d5f6c02",
+    "docs/validation/chunk7-installed-repair-2026-11-02.json": "9794c2413e34cf99ed5e0460b85001d2adecf451096dbffce8fa3b6bfb46f709",
+    "docs/validation/esd-retained-numerics-2026-10-31.json": "8c50ede0a33ccefb03741c8f8c46065bbf4e9f953e094a4200b765c019c66124",
+    "docs/validation/storage-cleanup-2026-10-31-v3.json": "270d82b2bcbd9cf36aacfc970ce686975db20fb1eb0702c44b9095f1a47d50f3",
+    "docs/validation/storage-cleanup-2026-10-31-v4.json": "5ac3685954252394724fb763a75d03d1b3d1a327b0bc2dbe71f7c0efe3c948ef",
+    "docs/validation/storage-cleanup-2026-10-31-v5.json": "f198bb57591cd5348631193ba621c3e478ef996300c970905ad7fb73a3eeb374",
+    "docs/validation/storage-cleanup-2026-11-02-v1.json": "6d66401d9d6115fc74000700219b15daed92e4fc3fdfe2aeee8025c62b1a458a",
+    "docs/validation/storage-cleanup-2026-11-02-v2.json": "4fbf223ef788bbde3181f13c9ef8d43d54a543caa6098980c89d4857a2866a0d",
+    "scripts/audit_installed_sky130_pw2dn_native.py": "729c658406428afe7b4a39262f4110b3e5db1de753c34f195493c978fc971336",
+    "scripts/qualify_installed_metal_parallel.py": "4c03232fc7f703ba93dd4bde910d98f5d2631793ef8f39e1fe2e94f8db71ae8e",
+    "tests/test_installed_metal_parallel_audit.py": "17eceec3680d6bb31dd8ccd72c9b061b048633caae5eb7bea7f932e8d821dd68",
+    "tests/test_sky130_pw2dn_native_probe.py": "d60f0f5cc4c1b453b005904bafba2c32dea2f4e841ada7705875adfce0333632"
+  },
+  "desktop_run_id": 41526912766,
+  "desktop_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41526912766",
+  "source_feedback_run_id": 41526882833,
+  "source_feedback_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41526882833",
+  "desktop_state": "Candidate, both release-tool gates and runtime pass. Linux packaging is running core tests; Windows packaging is verifying its installed digital runtime. Installed app acceptance remains pending.",
+  "source_feedback_state": "PASS on both hosts and required aggregate; 992 selected tests per host, exact merge parents and all 2209 source hashes verified.",
+  "retained_snapshot_sha256": {
+    "published-desktop-jobs.json": "54441e71fb355db1fcaa41eb66124722cba99c13254ed8b66e46667a5dc4622c",
+    "published-feedback-jobs.json": "37390840612601062b9fabd17996119eac44c2cd39abd81e6e6bb38c72600b06"
+  },
+  "installed_acceptance": false,
+  "chunk_complete": false,
+  "chunk7_estimate_percent": 70,
+  "chunk7_estimate_confidence": "Low; range 55\u201380%",
+  "publication_note": "Historical cbf9705 publication and current acceptance state; later source-boundary changes have separate identities and do not inherit this run.",
+  "latest_desktop_snapshot_sha256": "20b49ac1894a30177865c8b86f8f6cc4e45bd6e5a10ef3d3f7aa3fee50be30f9",
+  "initial_publication_states": {
+    "desktop_state": "Immutable candidate and both release-tool jobs passed; runtime verification running. Packaging and installed gates pending.",
+    "source_feedback_state": "Windows and Linux jobs running; no final verdict."
+  }
+}

@@ -1,0 +1,236 @@
+{
+  "schema": 1,
+  "chunk": 7,
+  "date": "2026-11-07",
+  "snapshot_base_commit": "c04c993af82de0a97769b34a61355daa948dc7c0",
+  "source_state": "Working-tree inventory addition; exact reviewed sources identified by hashes below.",
+  "status": "PASS_WINDOWS_RELEASE_INVENTORY",
+  "qualified": false,
+  "chunk_complete": false,
+  "acceptance_scope": "All seven pinned archive assets, every file, supported declaration grammars and explicit application/options reconciliation. This is not device or installed-release acceptance.",
+  "captured_at_utc": "2026-11-07T15:59:43.134363+00:00",
+  "inputs": {
+    "path": "docs/qualification/sky130-release-inputs-2026-11-07.json",
+    "sha256": "09d5652894f9b48f15b3529798f32ebad8700225bd2725b304f77a10c31b183b",
+    "archives": 7,
+    "compressed_bytes": 332540508,
+    "authentication": "Release/asset metadata and retrieved SHA-256 pins; no signature or independent upstream digest."
+  },
+  "windows_audit": {
+    "status": "PASS",
+    "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+    "dependency": "zstandard==0.23.0",
+    "report": "docs/qualification/sky130-release-inventory-2026-11-07.json.gz",
+    "report_sha256": "49f83a308acda1ccdc5c2320ab34ef896b02bcf78c7823190057c822c9fb3848",
+    "report_bytes": 2221774,
+    "runner_sha256": "ba09da230ff0e71cbcd295505e67b9eb01c02c8e5576463d8923ab751d8c5b46",
+    "inventory_helper_sha256": "28e7535ce81920330c886c5790efe92b9040e0ff154cbdd39a47d61925f70013",
+    "model_parser_sha256": "f216edec477cd1f646d13762584ab61a0a739780734c843897113f7ebcc92a76",
+    "application": {
+      "bundled_platforms": [
+        "sky130hd",
+        "gf180",
+        "gf180d",
+        "ihp-sg13g2"
+      ],
+      "digital_platform_sha256": "7a2271e4a4fa1c5f88f7cc1952b71423d6e1a937d9c7df0e1c5cc5926047b42e",
+      "package": {
+        "files": 433,
+        "manifest_sha256": "0c19e0ea5718a841045b597022d13f2dcb57e35cf8be9757b254fb465f2a35c4",
+        "revision": "47dbd4fe43bfa7e4"
+      },
+      "selected_sky130_profile": {
+        "corners": {
+          "typical": [
+            "lib/sky130_fd_sc_hd__tt_025C_1v80.lib"
+          ]
+        },
+        "tie_cells": {
+          "high": [
+            "sky130_fd_sc_hd__conb_1",
+            "HI"
+          ],
+          "low": [
+            "sky130_fd_sc_hd__conb_1",
+            "LO"
+          ]
+        }
+      }
+    },
+    "file_counts": {
+      "sky130A": 6410,
+      "sky130B": 6413
+    },
+    "archive_file_counts": {
+      "common.tar.zst": 3521,
+      "sky130_fd_io.tar.zst": 3082,
+      "sky130_fd_pr.tar.zst": 2444,
+      "sky130_fd_sc_hd.tar.zst": 1832,
+      "sky130_fd_sc_hvl.tar.zst": 420,
+      "sky130_ml_xx_hd.tar.zst": 198,
+      "sky130_sram_macros.tar.zst": 1326
+    },
+    "declaration_counts": {
+      "cdl_subcircuit": 1954,
+      "gds_structure": 5038,
+      "lef_macro": 1830,
+      "liberty_cell": 18946,
+      "spice_model": 12396,
+      "spice_subcircuit": 3278,
+      "verilog_module": 4178,
+      "verilog_primitive": 78
+    },
+    "retained_content": "Generated declaration/option facts and content identities. Source prose, Verilog headers, Boolean-function expressions and conditional-source expressions are represented by hashes. This report does not grant reuse rights to underlying archives. The notice-file list identifies named files in the release, not a complete license determination for all source content.",
+    "source_notice_files": [
+      {
+        "archive": "common.tar.zst",
+        "bytes": 11355,
+        "path": "sky130A/libs.tech/xschem/LICENSE",
+        "sha256": "cce5dea3ff2bf1730e2dfb96c2170f7ec25ec15ef4b51ddfb691acf556072141"
+      },
+      {
+        "archive": "common.tar.zst",
+        "bytes": 11357,
+        "path": "sky130A/libs.tech/xschem/decred_hash_macro/LICENSE",
+        "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+      },
+      {
+        "archive": "common.tar.zst",
+        "bytes": 11355,
+        "path": "sky130B/libs.tech/xschem/LICENSE",
+        "sha256": "cce5dea3ff2bf1730e2dfb96c2170f7ec25ec15ef4b51ddfb691acf556072141"
+      },
+      {
+        "archive": "common.tar.zst",
+        "bytes": 11357,
+        "path": "sky130B/libs.tech/xschem/decred_hash_macro/LICENSE",
+        "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+      }
+    ]
+  },
+  "focused_tests": {
+    "status": "PASS",
+    "tests": 25,
+    "failures": 0,
+    "errors": 0,
+    "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+    "platform": "win32",
+    "timestamp_utc": "2026-11-07T15:54:49.014441+00:00",
+    "runner_sha256": "ba09da230ff0e71cbcd295505e67b9eb01c02c8e5576463d8923ab751d8c5b46",
+    "tests_sha256": "d43e6df9be774c8f3f6e526654d054182d68f4520e9aa0a7f680842c75b62a04"
+  },
+  "independent_review": {
+    "path": "docs/validation/sky130-release-independent-controls-2026-11-07.json",
+    "sha256": "2bfc4bffce0c89cc6cc51ff35abd72fcbbaf436d5d7df3347579decdfde9ebd4",
+    "checks": 25,
+    "status": "PASS",
+    "limitation": "Independent bounded adversarial declaration/comparison controls and native Windows KLayout raw readback. This does not claim whole-corpus, electrical, extracted, operating-envelope or installed acceptance."
+  },
+  "metadata_retention": {
+    "schema": 1,
+    "status": "PASS",
+    "qualified": false,
+    "chunk_complete": false,
+    "report_sha256": "49f83a308acda1ccdc5c2320ab34ef896b02bcf78c7823190057c822c9fb3848",
+    "superseded_report_sha256": "4b5ecb19dfa21d1f169186282ce740ab180db068eb0936e972c8dddbd60c3dc7",
+    "runner_sha256": "ba09da230ff0e71cbcd295505e67b9eb01c02c8e5576463d8923ab751d8c5b46",
+    "forbidden_raw_excerpt_fields": [],
+    "retained_fragment_identity_fields": {
+      "interface_identity": 4256,
+      "description_identity": 4,
+      "function_identity": 21068
+    },
+    "full_file_identity_ledger_unchanged": true,
+    "declaration_counts_unchanged": true,
+    "selected_hd_comparisons_unchanged": true,
+    "analog_dispositions_unchanged": true,
+    "notice_file_identities_verified": 4,
+    "scope": "Serialized-report content retention check, not a legal opinion or permission to reuse underlying upstream sources."
+  },
+  "reconciliation": {
+    "identifiers": 9036,
+    "selected_hd_cells": 428,
+    "selected_hd_comparisons": {
+      "lef_macro:pin_sets_agree": 428,
+      "spice_subcircuit:pin_sets_agree": 428,
+      "cdl_subcircuit:pin_sets_agree": 428,
+      "gds_structure:identifier_present": 428,
+      "verilog_module:identifier_present": 858
+    },
+    "selected_hd_cells_with_internal_pins": [
+      "sky130_fd_sc_hd__dlclkp_1",
+      "sky130_fd_sc_hd__dlclkp_2",
+      "sky130_fd_sc_hd__dlclkp_4",
+      "sky130_fd_sc_hd__sdlclkp_1",
+      "sky130_fd_sc_hd__sdlclkp_2",
+      "sky130_fd_sc_hd__sdlclkp_4"
+    ],
+    "catalog_dispositions": {
+      "catalog_bound_source_declared_not_qualified": 95,
+      "catalog_bound_no_exact_release_declaration_review_required": 2,
+      "non_electrical_pdk_control_metadata": 1,
+      "catalog_unavailable_still_blocks": 1
+    },
+    "unavailable_required_catalog_models": [
+      {
+        "catalog_key": "sky130_fd_pr/vpp_cap__sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5.sym",
+        "model": "sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5",
+        "reason": "The source symbol lists this model, but its definition is absent from the locked simulation libraries. No substitute is selected."
+      }
+    ]
+  },
+  "preliminary_observations": [
+    {
+      "stage": "download-in-progress scratch probe",
+      "accepted": false,
+      "observation": "One exploratory tar scan encountered unexpected end of data while an archive was still being written. The download itself then completed successfully; only completed size/hash-verified archives enter accepted evidence."
+    },
+    {
+      "schema": 1,
+      "date": "2026-11-07",
+      "execution_session": 30610,
+      "exit_code": 1,
+      "status": "EXPECTED_SOURCE_CHANGE_REJECTION",
+      "accepted_inventory": false,
+      "observation": "This development scan started before the final review fixes and continued while the script was edited. It completed archive reading but rejected its result before writing the requested output.",
+      "exception": "ValueError: Audit implementation changed during inventory; rerun the frozen source.",
+      "replacement": "Final source-frozen scan, execution session 38251, runner SHA256 9263c0ef26905211b8c4897634e76b63276e33493796a84c391d109742f7e9ad."
+    },
+    {
+      "artifact": "sky130-release-attempt1.json.gz",
+      "sha256": "af9b1cc6ec1fd6f77c320fd9602b11c11115e4175f25e1519e9fe7eee1f48c6d",
+      "accepted": false,
+      "reason": "Exploratory report from an earlier parser while review fixes were in progress; superseded by the frozen final audit."
+    },
+    {
+      "artifact": "sky130-release-attempt2.json.gz",
+      "sha256": "300641147b3849731c842e59b209cab4baf919ba6c9a8d6e1b95cf18a5348bc8",
+      "accepted": false,
+      "reason": "Exploratory report from an earlier parser while review fixes were in progress; superseded by the frozen final audit."
+    },
+    {
+      "artifact": "sky130-release-before-metadata-only.json.gz",
+      "sha256": "4b5ecb19dfa21d1f169186282ce740ab180db068eb0936e972c8dddbd60c3dc7",
+      "accepted": false,
+      "reason": "Superseded after redistribution review: source headers/prose/expressions replaced by identities and structural metadata."
+    }
+  ],
+  "native_linux_replay": {
+    "status": "PASS_IDENTICAL_REPORT",
+    "report_status": "PASS",
+    "report_sha256": "49f83a308acda1ccdc5c2320ab34ef896b02bcf78c7823190057c822c9fb3848",
+    "report_bytes_identical": true,
+    "tests": 88,
+    "tests_result": 0,
+    "source_unchanged": true,
+    "snapshot_source_files": 7038,
+    "source_manifest_sha256": "33b18280910852bf26382f00275d01600d4da9a19bc4a2458c011de7d73b07b7",
+    "integration_record": "docs/validation/chunk7-source-inventory-integration-2026-11-07.json",
+    "scope": "Cross-host replay equality and affected tests only. Existing report gaps and qualification limits are unchanged."
+  },
+  "unchanged_gates": [
+    "Every supported device: terminal/parameter/model behavior, operating envelope, layout and extracted connectivity.",
+    "Unsupported required devices remain blocking.",
+    "Exact installed-release acceptance remains separate."
+  ]
+}

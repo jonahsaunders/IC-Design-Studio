@@ -1,0 +1,16 @@
+* IHP-PMOS-measured-reference-v1 70f3782082ff4c5fbac89c30cd788bc1 nominal -0.446
+.control
+pre_osdi runtime/psp103.osdi
+pre_osdi runtime/psp103_nqs.osdi
+.endc
+.lib "pdk/libs.tech/ngspice/models/cornerMOSlv.lib" mos_tt
+.option reltol=1e-8 abstol=1e-16 vntol=1e-13
+.temp 27
+VD d 0 0
+VG g 0 -0.446
+VS s 0 0
+VB b 0 0
+XDUT d g s b sg13_lv_pmos w=10u l=10u ng=1 m=1 as=3.4p ad=3.4p ps=20.68u pd=20.68u rfmode=0 mm_ok=0
+.save i(vd) i(vg) i(vs) i(vb)
+.dc VD 0 -1.35 -0.05
+.end

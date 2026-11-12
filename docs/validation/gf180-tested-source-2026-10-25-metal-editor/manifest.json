@@ -1,0 +1,254 @@
+{
+  "schema": 1,
+  "source_commit": "2fe3c277c666089b21b4ebf39aecd62a76a3ae8d",
+  "backend_sha256": "eb22e7c53b3380f0765e2e6629ed8c6ca2ddb19dee5c49b6a0bb187a596736c0",
+  "scope": "historical-tested-source-only",
+  "files": {
+    "digital_flow.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-09/digital_flow.py.txt",
+      "sha256": "8bf30f22ff9185c7036c5611d30345ad8834b208a590b52f12b932e536e40cbe"
+    },
+    "digital_identity.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-09/digital_identity.py.txt",
+      "sha256": "76412de592149cdb08291ee9e3e1b31374c77c87101e1e775d06fe4971e246ec"
+    },
+    "digital_macro.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-09/digital_macro.py.txt",
+      "sha256": "b885b0177014792a87052092c640b32e0adfa2ec84df117342238a47e2abf5ac"
+    },
+    "digital_physical.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-09/digital_physical.py.txt",
+      "sha256": "660ef87bb312ec019a5dacea8a3315d3dfac4ab6dedd643decff939650959b3b"
+    },
+    "digital_physical_ui.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-09/digital_physical_ui.py.txt",
+      "sha256": "42fa1791436bd3c98875a5ba66dc33165048d06989ae55c23738346fddfeb06e"
+    },
+    "digital_platform.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-09/digital_platform.py.txt",
+      "sha256": "a9b9db78cd93a165197b7fda644065b30f540784ca0fbcfd8a716dec04b2e61b"
+    },
+    "digital_rc.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-09/digital_rc.py.txt",
+      "sha256": "cdab3d0d91982e95701ee2a8a6cf2b487317c26b27901b0a57d3226844a1f719"
+    },
+    "digital_runtime.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-09/digital_runtime.py.txt",
+      "sha256": "8a11b3be62af512ebcb4d4f4ea9f17396678b42058ca2cfe2443f95acfd0bd6c"
+    },
+    "digital_backend.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-16/digital_backend.py.txt",
+      "sha256": "93af7cd1eecc6baadcf75e2b58bffa8176b13188e84c066270d366c318b7dbf6"
+    },
+    "pdk_import.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-16-mim/pdk_import.py.txt",
+      "sha256": "b6a6723ef2f2c3a30ef013cd1afe58996c1b64a3381320f69bc935e5ce75bad0"
+    },
+    "interchange.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-16-runtime/interchange.py.txt",
+      "sha256": "29993ee82c62651d08334f94aebffac2b6c162681f5b6ef429c8c556dde34616"
+    },
+    "native_spice.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-16-runtime/native_spice.py.txt",
+      "sha256": "5f841b2b1fbc9151770e011929bb54253e48a1fe2277f474f7e35c7962bbebaf"
+    },
+    "ngspice_compat.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-16-runtime/ngspice_compat.py.txt",
+      "sha256": "8ea16d8e5ff6a6aa947f0ae635097e9895131738491b4d5674ae7aca0ed5a50b"
+    },
+    "catalog.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-16-runtime/catalog.py.txt",
+      "sha256": "9ec02006afb2835c3be9ddb3db5ad03540b382f0d6ad53559295229505a0fc81"
+    },
+    "analog_optimizer.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-17-fixed/analog_optimizer.py.txt",
+      "sha256": "e81ec268c0cc79300d5f82c4f205edd9e9479e91a13563a834e2fc3af4ea4155"
+    },
+    "project_ui.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-17-fixed/project_ui.py.txt",
+      "sha256": "063eab0b10d459bbcacea1b7a0c647bb5e3193dbf6242f45ab2bb0ec0e29ec43"
+    },
+    "studies.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-17-fixed/studies.py.txt",
+      "sha256": "52f37c4e1a220f60fe11de1fc3f771b719de7f4cd21869106a83cf837ef0e000"
+    },
+    "gf180_layout.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-17-mos-boundaries/gf180_layout.py.txt",
+      "sha256": "744555609e25e0e70aa5f58f950d327eb224682f23ed4c19cc8b3c834876032a"
+    },
+    "ihp_layout.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-17-mos-boundaries/ihp_layout.py.txt",
+      "sha256": "c9cf94b535a57aac4d677be853b1156c01c58f25e8322132b7cfed56b82cf284"
+    },
+    "layout_verification.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-17-diode-layouts/layout_verification.py.txt",
+      "sha256": "8754f0a9a0da11033f8d1241bb126a7b9403831e79b5090dc4bd4e4f88c8f717"
+    },
+    "menu_map.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-17-bipolar-layouts/menu_map.py.txt",
+      "sha256": "4765514d333af8534057932d74e0665ae92de5e9f886e4ffc83d3faed2412072"
+    },
+    "physical_backend.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-17-bipolar-layouts/physical_backend.py.txt",
+      "sha256": "4013dd9a3af04e1d0bea76427e362b0e5ab948c5b212cbd3fd157ddac9a63cda"
+    },
+    "silicon_flow.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-17-bipolar-layouts/silicon_flow.py.txt",
+      "sha256": "cd823f62851480290af67a2011415dfe8cde7e0e81790b55238e3d6b94ae20db"
+    },
+    "silicon_ui.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-17-bipolar-layouts/silicon_ui.py.txt",
+      "sha256": "baba7d04f3793b2bc253d50ad58cda2921de2d84878d737386975825e01e62cd"
+    },
+    "catalog_migration.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-17-thermal-ui/catalog_migration.py.txt",
+      "sha256": "f95a1b5ee94f15b9052604067d37580a15cde7bc3ef8258c4db1e13bf28ccd8a"
+    },
+    "workspace.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-17-thermal-ui/workspace.py.txt",
+      "sha256": "e67b603dc6ed9a70e7637ce948f561477d1e860c3d71e2be06e1ae50dd4b5b5e"
+    },
+    "symbol_io.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-18-taps/symbol_io.py.txt",
+      "sha256": "74efe59765639d3da5e0dbec79564a87ee6b17c5a361dc1d92f9c29083550fe6"
+    },
+    "canvas.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-18-hv/canvas.py.txt",
+      "sha256": "7eca313a5132facbbf33fef64371559064132fb696334b261943af0c959cc0ed"
+    },
+    "verification_navigation.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-18-tap-layout/verification_navigation.py.txt",
+      "sha256": "e711dde5b8cac3bd985495514a1500855c73f58babb4e1e03de0081c732dc400"
+    },
+    "engines.py": {
+      "path": "docs/validation/retained-engine-source-2026-10-18/engines.py.txt",
+      "sha256": "50565d2f2077a119fe77b25c79ef79729e3d0e4b3ee5dd4b37eae2c92caceafe"
+    },
+    "sky130_flow.py": {
+      "path": "docs/validation/retained-engine-source-2026-10-18/sky130_flow.py.txt",
+      "sha256": "c06e2755cd3fc7a5a30d0ec1d58346d9a7b4cb2e835db7661176089aa32696cd"
+    },
+    "pdks.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-18-paths/pdks.py.txt",
+      "sha256": "275334010a5156b7e11f4f763746b35996e564af2a8b59576d71035965590623"
+    },
+    "em_profile_ui.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-21-em/em_profile_ui.py.txt",
+      "sha256": "74f5e0ba4f92b8e4b9dc85174d56b41def56bc613701e483693b0a5ca6cc71c8"
+    },
+    "layout_edit.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-21-em/layout_edit.py.txt",
+      "sha256": "c94420b4aafcc90fc18dc225f227e4a27fbbd456218a0ba4c82ec24ac0e4d136"
+    },
+    "openems_backend.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-21-em/openems_backend.py.txt",
+      "sha256": "2242af22ce30b60952f27b520c969b809109e9c695fb7a1993c6a0ad4fba042c"
+    },
+    "openems_ui.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-21-em/openems_ui.py.txt",
+      "sha256": "d110fd3a4416fe1b2bf989bfe0f98f67868a09dda5068e7dbf66a6b60193ba05"
+    },
+    "inductor_em.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-21-waves/inductor_em.py.txt",
+      "sha256": "5f07f47c809a78f4477bfc5faf6b15b245633f8e773feb7c7003a652a676ec7f"
+    },
+    "external_tools.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-21-diagnostics/external_tools.py.txt",
+      "sha256": "8e4131b26d09b0f56381ca1439fe854f2585141d3f402a14c0c5f3fd9cb04fff"
+    },
+    "physical_runtime_probe.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-21-diagnostics/physical_runtime_probe.py.txt",
+      "sha256": "7cc634223f4967efcedc66db193e55c4db9e98462716b12cb16047969fabf13d"
+    },
+    "process_mos.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-21-threshold/process_mos.py.txt",
+      "sha256": "ead3ad5ef09812c9f7d08ec5bb7c1431a068e69812244d82c976105306278da7"
+    },
+    "sky130_layout.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-21-threshold/sky130_layout.py.txt",
+      "sha256": "cd8835d93fa322b0761ecb27ad2c563c11f3c3855782b6c5633256ef146e1d3b"
+    },
+    "sky130_devices.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-22-mim2/sky130_devices.py.txt",
+      "sha256": "2206128e0bbc159e33de810ebe0d2467bb6c3132067a294a48b0e14753d72441"
+    },
+    "verification_campaigns.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-23-campaign/verification_campaigns.py.txt",
+      "sha256": "a5836f6d7e50a1f9e1cb4f4571b6271571c88598b28caee34e620c5aaa89267d"
+    },
+    "__main__.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-23-mim-installed/__main__.py.txt",
+      "sha256": "6970616749b653499dfac1c2c24756d1103af650f947bef8f19fa2b2c39f92b6"
+    },
+    "contact_rules.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-25-metal-editor/contact_rules.py.txt",
+      "sha256": "05d3ea7ce39fee05418f65f0224a7785a6f0a299a2f9ad6ef52a1a89e0846df9"
+    },
+    "layout_graph.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-25-metal-editor/layout_graph.py.txt",
+      "sha256": "1e2b82c8e37a049f303dfa76740175826d302258a8e1127ba42f7e6c28b488e4"
+    },
+    "layout_topology.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-25-metal-editor/layout_topology.py.txt",
+      "sha256": "5fa01fa557a8fe5505f07f51cfc9e06331b13b734a8c58e009b873d3397f0c1b"
+    },
+    "layout_transaction.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-25-metal-editor/layout_transaction.py.txt",
+      "sha256": "ef7b26392650ec0b2a401fc2b2c9de6e7a56ff2c6767fa13915293ae845b8efb"
+    },
+    "process_adapters.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-25-metal-editor/process_adapters.py.txt",
+      "sha256": "dbad8dadd6d610dfe1fe1d41ece85f031b8636de390f01f96f2a81955ebe9dee"
+    }
+  },
+  "explanation": "Preserve the exact original GF180-tested contact graph and topology sources while adding straight SKY130 metal-resistor marker support. This is historical acceptance only; it does not qualify the new application against the original GF180 references. All original checks and identities remain required.",
+  "checker_files": {
+    "scripts/check_gf180_fill_closure.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-09/check_gf180_fill_closure.py.txt",
+      "sha256": "917a334ea3e9863c30a9a9ccff184cdac74ebe0756641566ee7c057ec65c92b1"
+    },
+    "scripts/check_pdk_qualification.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-09/check_pdk_qualification.py.txt",
+      "sha256": "746e1de81d9feee5d365122f394232b6b273dabb788670fe5bd6b934567e358c"
+    }
+  },
+  "previous_snapshot": {
+    "path": "docs/validation/gf180-tested-source-2026-10-23-mim-installed/manifest.json",
+    "sha256": "223027afbc7487e96b44215423ec38462b47cd7998ffaac93e9566db52bd9097"
+  },
+  "captured_source": {
+    "source_commit": "2fe3c277c666089b21b4ebf39aecd62a76a3ae8d",
+    "files": [
+      {
+        "path": "icstudio/contact_rules.py",
+        "sha256": "05d3ea7ce39fee05418f65f0224a7785a6f0a299a2f9ad6ef52a1a89e0846df9",
+        "git_blob": "29d41e3f04e78540966df4f303613a411ff4cb67"
+      },
+      {
+        "path": "icstudio/layout_graph.py",
+        "sha256": "1e2b82c8e37a049f303dfa76740175826d302258a8e1127ba42f7e6c28b488e4",
+        "git_blob": "9cc23401becfd51a68f5030f9aa1825ed43ad38a"
+      },
+      {
+        "path": "icstudio/layout_topology.py",
+        "sha256": "5fa01fa557a8fe5505f07f51cfc9e06331b13b734a8c58e009b873d3397f0c1b",
+        "git_blob": "cae5a97ef087d126da7d9fca0e08425c9055a011"
+      },
+      {
+        "path": "icstudio/layout_transaction.py",
+        "sha256": "ef7b26392650ec0b2a401fc2b2c9de6e7a56ff2c6767fa13915293ae845b8efb",
+        "git_blob": "e6bc5399f8915824c3cf1742068e0237d8709751"
+      },
+      {
+        "path": "icstudio/process_adapters.py",
+        "sha256": "dbad8dadd6d610dfe1fe1d41ece85f031b8636de390f01f96f2a81955ebe9dee",
+        "git_blob": "58e1dbf21780586ba87fbfd6cba4de7b211a525d"
+      }
+    ],
+    "acceptance_record": {
+      "path": "docs/validation/gf180-density-2026-10-09.json",
+      "sha256": "03d4af142c0fa83012d0f319ae1a9ae2a4eebe6b23fa877f92f56e35000d184c"
+    },
+    "method": "Exact git cat-file blob bytes, verified against the original accepted source_files digest."
+  }
+}

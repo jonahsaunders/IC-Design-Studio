@@ -62,8 +62,10 @@ class DigitalWorkspaceModelTests(unittest.TestCase):
 
     def test_unconstrained_timing_never_passes(self):
         with tempfile.TemporaryDirectory() as td:
-            root=Path(td);(root/'timing_paths.tsv').write_text('setup\ta\tb\t3.5\ta|b\n')
+            root=Path(td);(root/'timing_paths.tsv').write_text('setup\ta\tb\t3.5\ta|b\nhold\ta\tb\t0.1\ta|b\n')
             (root/'timing_units.txt').write_text('time 1ns')
+            for name in ('timing_totals.txt','timing_hold_totals.txt'):(root/name).write_text('tns 0.0\n')
+            (root/'electrical_checks.txt').write_text('')
             for text,status in [('Warning: missing input_delay','INCOMPLETE'),('','PASS')]:
                 (root/'timing_checks.txt').write_text(text);self.assertEqual(reports.timing_report(root)['status'],status)
             (root/'timing_paths.tsv').write_text('setup\ta\tb\t-0.125\ta|b\n');self.assertEqual(reports.timing_report(root)['status'],'FAIL')
@@ -158,6 +160,7 @@ class DigitalImplementationTests(unittest.TestCase):
     def test_timing_real_paths_clock_failure_and_unconstrained(self):
         passing=self.run_stage(self.project,'timing',self.root/'timing',self.mapped)['digital_result']
         self.assertEqual(passing['verdict'],'PASS');self.assertGreater(passing['timing']['summary']['setup_worst_slack_ns'],1)
+        self.assertEqual(passing['timing']['summary']['hold_total_negative_slack_ns'],0)
         self.assertGreater(passing['power']['total_w'],0)
         p=clone(self.project);sdc=next(f for f in p['digital']['files'] if f['role']=='constraint')
         sdc['text']=sdc['text'].replace('-period 10','-period 0.01')
@@ -165,6 +168,12 @@ class DigitalImplementationTests(unittest.TestCase):
         self.assertEqual(failing['verdict'],'FAIL')
         sdc['text']='\n';incomplete=self.run_stage(p,'timing',self.root/'timing-unconstrained',self.mapped)['digital_result']
         self.assertEqual(incomplete['verdict'],'INCOMPLETE')
+        self.assertTrue(incomplete['timing']['incomplete_reasons'])
+        p=clone(self.project);sdc=next(f for f in p['digital']['files'] if f['role']=='constraint')
+        sdc['text']+='\nset_cmd_units -time ps\n'
+        normalized=self.run_stage(p,'timing',self.root/'timing-sdc-units',self.mapped)['digital_result']
+        self.assertEqual(normalized['verdict'],'PASS')
+        self.assertEqual(normalized['timing']['summary'],passing['timing']['summary'])
 
     @unittest.skipUnless(tool('eqy'),'Install EQY with its Yosys plugins')
     def test_equivalence_actual_mapped_netlist_and_fault(self):

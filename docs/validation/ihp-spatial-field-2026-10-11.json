@@ -1,0 +1,487 @@
+{
+  "schema": 1,
+  "status": "native-spatial-field-progress",
+  "qualified": false,
+  "chunk_complete": false,
+  "pdk_revision": "5e6d592e4002946a4616f798c357f0f3c06cf3b6",
+  "signed_primitives": {
+    "counter": {
+      "original": {
+        "evidence": {
+          "path": "outputs/ihp-shield-patch-capture-v2/counter/original/patch-audit-v1.json",
+          "sha256": "57a9e850024663dd287ccaa816dcab136d55a4179bfe29c37d9e73277717b946"
+        },
+        "native_capture": {
+          "path": "outputs/ihp-shield-patch-capture-v2/counter/original/trace-record.json",
+          "sha256": "1e5a7214c9a56105dde6b564c8da4c72ecdd36fac52453b5da4efcd65245be22"
+        },
+        "primitives": 567159,
+        "maximum_arithmetic_difference_af": 2.2737367544323206e-13
+      },
+      "filled": {
+        "evidence": {
+          "path": "outputs/ihp-shield-patch-capture-v2/counter/filled/patch-audit-v1.json",
+          "sha256": "a2519ba3e04e411415beff5498b564afc8711eddcc11b0aa218a3a7e33b4d1fd"
+        },
+        "native_capture": {
+          "path": "outputs/ihp-shield-patch-capture-v2/counter/filled/trace-record.json",
+          "sha256": "9b430a1c744caea16cc134659e770aaae556c55308e972c192d67497292a66a5"
+        },
+        "primitives": 546101,
+        "maximum_arithmetic_difference_af": 9.094947017729282e-13
+      }
+    },
+    "uart": {
+      "original": {
+        "evidence": {
+          "path": "outputs/ihp-shield-patch-capture-v2/uart/original/patch-audit-v1.json",
+          "sha256": "682d9e07c3bdcbe1eedd9a19434a32f025e25087b2c02ba93df2ab41a9ab708c"
+        },
+        "native_capture": {
+          "path": "outputs/ihp-shield-patch-capture-v2/uart/original/trace-record.json",
+          "sha256": "62edffe3433f5c8a3f503b315c05c17cf1d4fd2d7d3a860133aa705868362e1e"
+        },
+        "primitives": 7567809,
+        "maximum_arithmetic_difference_af": 1.6370904631912708e-11
+      },
+      "filled": {
+        "evidence": {
+          "path": "outputs/ihp-shield-patch-capture-v2/uart/filled/patch-audit-v1.json",
+          "sha256": "a047ed08522b34950ef61e7abdea3a1c2b38ec73fe58dc0530f9798ce1087adb"
+        },
+        "native_capture": {
+          "path": "outputs/ihp-shield-patch-capture-v2/uart/filled/trace-record.json",
+          "sha256": "d3748fc966ee6460fbcb6d01b1aa0ada39f906a1aab8d6a1ce0cf51e0a1d6d8b"
+        },
+        "primitives": 7551371,
+        "maximum_arithmetic_difference_af": 8.185452315956354e-12
+      }
+    },
+    "apb": {
+      "original": {
+        "evidence": {
+          "path": "outputs/ihp-shield-patch-capture-v2/apb/original/patch-audit-v1.json",
+          "sha256": "2ab4e26f5bb3e520b13c3675c0a1e541a5759f46ce3000071f5d08a75b69a7f4"
+        },
+        "native_capture": {
+          "path": "outputs/ihp-shield-patch-capture-v2/apb/original/trace-record.json",
+          "sha256": "fb29469d4acff0eec8e07de745888692633f02e6d03c23dc6fa1122983f676c3"
+        },
+        "primitives": 7498373,
+        "maximum_arithmetic_difference_af": 6.366462912410498e-12
+      },
+      "filled": {
+        "evidence": {
+          "path": "outputs/ihp-shield-patch-capture-v2/apb/filled/patch-audit-v1.json",
+          "sha256": "0c854771989a7f827214f814130cd9c35d6c50620810aa94fbeda5f40610765e"
+        },
+        "native_capture": {
+          "path": "outputs/ihp-shield-patch-capture-v2/apb/filled/trace-record.json",
+          "sha256": "86e8e296ed38a037890af0337146822fb3782a47378f692f7eefa7b53dea331f"
+        },
+        "primitives": 7513724,
+        "maximum_arithmetic_difference_af": 1.0459189070388675e-11
+      }
+    }
+  },
+  "tests": {
+    "win32": {
+      "evidence": {
+        "path": "outputs/ihp-fill-coverage-tests-win32-v28/record.json",
+        "sha256": "ea022fc2bc9664bb0873dbb09a24d1a219a8cd1cfde018a96253d67fb984c544"
+      },
+      "tests": 190,
+      "skips": 0,
+      "log_sha256": "39c7cd31956d12497fda920e5eb835d4ea79a94bd57a21ebd0a7fab664ef4c69"
+    },
+    "linux": {
+      "evidence": {
+        "path": "outputs/ihp-fill-coverage-tests-linux-v28/record.json",
+        "sha256": "d9ef72678fd43bf369dc1410ef1de35c5a3d65e11360a5d8e7d98608f15fe29e"
+      },
+      "tests": 190,
+      "skips": 0,
+      "log_sha256": "90eff0adb301c7a6cac106a2b54d2c271a9621c3c6532cbf34cff74964920e7f"
+    }
+  },
+  "archive": {
+    "path": "/mnt/c/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/ihp-spatial-field-2026-10-11-v1/evidence.tar.gz",
+    "sha256": "e0da6d1f42538e1a4cabb8badf174c5312b713655816c3594de8b2f5d64f0811",
+    "bytes": 1006049741,
+    "logical_files": 2042,
+    "unique_blobs": 1539,
+    "manifest_sha256": "aa783cb861f97f8f71c4bce0e0f864c10422504cd8f7617505cc787ca8593cb7",
+    "verified": true
+  },
+  "production_binaries_unchanged": true,
+  "diagnostic_build": {
+    "path": "outputs/ihp-shield-patch-build-v2/record.json",
+    "sha256": "598f5cd001e93e220cea4adc0f28617253f9e3d7f760091ff4e6731447dc6c66"
+  },
+  "counter": {
+    "projections": {
+      "original": {
+        "path": "outputs/ihp-counter-field-projection-v2/original/record.json",
+        "sha256": "cb848e9ee5907ef4fb74c90a9a0c3aca019a872696461bf3539349445d837784"
+      },
+      "filled": {
+        "path": "outputs/ihp-counter-field-projection-v2/filled/record.json",
+        "sha256": "35aeba078102cab3d601bf1ea1dac41499bd69ea555eac6c4e3b1f0172ddd4fa"
+      }
+    },
+    "projection_windows_replay": {
+      "path": "outputs/ihp-counter-field-projection-win32-v1/replay.json",
+      "sha256": "906ac14a9f8f1bca37a24e84bed2f55f2542004e115e309f10ee8bc546ce6251"
+    },
+    "models": {
+      "original": {
+        "path": "outputs/ihp-counter-field-model-v1/original/record.json",
+        "sha256": "3dd670164014346bcb93ce70c7777b44186167d61e5558ed2b8f3aae391bbbcb"
+      },
+      "filled": {
+        "path": "outputs/ihp-counter-field-model-v1/filled/record.json",
+        "sha256": "8808a6e88c4d0aa8d31aa1f7b9d2102abd670f5d4a43a470acc273d0cea50cb4"
+      }
+    },
+    "complete_waveforms": {
+      "path": "outputs/ihp-counter-field-matched-v1.json",
+      "sha256": "9c0cb70f58ab0c4d4175e849f0868853e60b808b47265a3e1b563f0c46a767c6"
+    },
+    "waveform_metrics": {
+      "typ-original-convergence": {
+        "schema": 1,
+        "status": "convergence-pass",
+        "qualified": false,
+        "convergence_limit_ps": 1.0,
+        "transition_start_ns": 10.0,
+        "duration_ns": 900,
+        "matched_input_sha256": {
+          "circuit.spice": "f2c4ae93d887690b7739fc2aac238f13b67d5647b05289568b5987578e3fe6bb",
+          "capacitance.spice": "bb6f80cd213ac9493a62f00706862b23e64de14d1e87b82cbe8a246aafca3bd4",
+          ".spiceinit": "4f989b2ccc180f50d329b9eae44b2269f2241303c57fa94cc008dc7e3cd4e6e5",
+          "expectations.json": "886cf99ec83e3977c64fab2ada6222232b95c652346177a2eabb58fcecb9e84d"
+        },
+        "settings": [
+          {
+            "reltol": 1e-05,
+            "abstol": 1e-12,
+            "vntol": 1e-08,
+            "output_step": 2e-11,
+            "maximum_step": 5e-11
+          },
+          {
+            "reltol": 5e-06,
+            "abstol": 5e-13,
+            "vntol": 5e-09,
+            "output_step": 1e-11,
+            "maximum_step": 2.5e-11
+          }
+        ],
+        "captured_file_sha256": [
+          {
+            "circuit.spice": "f2c4ae93d887690b7739fc2aac238f13b67d5647b05289568b5987578e3fe6bb",
+            "capacitance.spice": "bb6f80cd213ac9493a62f00706862b23e64de14d1e87b82cbe8a246aafca3bd4",
+            ".spiceinit": "4f989b2ccc180f50d329b9eae44b2269f2241303c57fa94cc008dc7e3cd4e6e5",
+            "expectations.json": "886cf99ec83e3977c64fab2ada6222232b95c652346177a2eabb58fcecb9e84d",
+            "bench.spice": "307ca08f7c30a0ed0f7e39f59cee54a7db07dee2650981d234bbb8726afccb28",
+            "waveform.txt": "103329fd9a8cf85c973ac2ddac196ab63f81d337f34121fc46978fd456ce1fb3",
+            "engine.log": "867427c9316f6085226cdb0c74ac6904ed25548fb1d681d74faabe45ff03a135"
+          },
+          {
+            "circuit.spice": "f2c4ae93d887690b7739fc2aac238f13b67d5647b05289568b5987578e3fe6bb",
+            "capacitance.spice": "bb6f80cd213ac9493a62f00706862b23e64de14d1e87b82cbe8a246aafca3bd4",
+            ".spiceinit": "4f989b2ccc180f50d329b9eae44b2269f2241303c57fa94cc008dc7e3cd4e6e5",
+            "expectations.json": "886cf99ec83e3977c64fab2ada6222232b95c652346177a2eabb58fcecb9e84d",
+            "bench.spice": "038716bf708ef6791545c979db8513ec5814d1f4188d72aa9aeff2fd8030f5dc",
+            "waveform.txt": "39bff2f7a5ca0024f9e2b7f2115f6b1d85939c8e1ef8e267f604f4e7fe221142",
+            "engine.log": "5742328f8f62da8ea6e25a2650d294f8eb921e2e496817624513cc0687867b0a"
+          }
+        ],
+        "bench_sha256": [
+          "307ca08f7c30a0ed0f7e39f59cee54a7db07dee2650981d234bbb8726afccb28",
+          "038716bf708ef6791545c979db8513ec5814d1f4188d72aa9aeff2fd8030f5dc"
+        ],
+        "waveform_audits": [
+          {
+            "schema": 1,
+            "status": "pass",
+            "qualified": false,
+            "complete_waveform": true,
+            "tested_bits": 72,
+            "failed_bits": 0,
+            "failures": [],
+            "duration_ns": 900,
+            "waveform_sha256": "103329fd9a8cf85c973ac2ddac196ab63f81d337f34121fc46978fd456ce1fb3",
+            "expectations_sha256": "886cf99ec83e3977c64fab2ada6222232b95c652346177a2eabb58fcecb9e84d",
+            "engine_log_sha256": "867427c9316f6085226cdb0c74ac6904ed25548fb1d681d74faabe45ff03a135",
+            "scope": "Complete digital output samples at the declared voltage; timing and model coverage require separate checks."
+          },
+          {
+            "schema": 1,
+            "status": "pass",
+            "qualified": false,
+            "complete_waveform": true,
+            "tested_bits": 72,
+            "failed_bits": 0,
+            "failures": [],
+            "duration_ns": 900,
+            "waveform_sha256": "39bff2f7a5ca0024f9e2b7f2115f6b1d85939c8e1ef8e267f604f4e7fe221142",
+            "expectations_sha256": "886cf99ec83e3977c64fab2ada6222232b95c652346177a2eabb58fcecb9e84d",
+            "engine_log_sha256": "5742328f8f62da8ea6e25a2650d294f8eb921e2e496817624513cc0687867b0a",
+            "scope": "Complete digital output samples at the declared voltage; timing and model coverage require separate checks."
+          }
+        ],
+        "channels": [
+          {
+            "channel": {
+              "node": "NET000015"
+            },
+            "baseline_edges": 17,
+            "tighter_edges": 17,
+            "same_direction_sequence": true,
+            "maximum_edge_change_ps": 0.4231700096760919
+          },
+          {
+            "channel": {
+              "node": "NET000016"
+            },
+            "baseline_edges": 8,
+            "tighter_edges": 8,
+            "same_direction_sequence": true,
+            "maximum_edge_change_ps": 0.41917681599482964
+          },
+          {
+            "channel": {
+              "node": "NET000017"
+            },
+            "baseline_edges": 4,
+            "tighter_edges": 4,
+            "same_direction_sequence": true,
+            "maximum_edge_change_ps": 0.42318966343450665
+          },
+          {
+            "channel": {
+              "node": "NET000018"
+            },
+            "baseline_edges": 2,
+            "tighter_edges": 2,
+            "same_direction_sequence": true,
+            "maximum_edge_change_ps": 0.3530901115041704
+          }
+        ],
+        "matched_edges": 31,
+        "maximum_edge_change_ps": 0.42318966343450665,
+        "scope": "Complete source-matched output-function and 50%-supply edge convergence after 10 ns. External models, engines, startup, field accuracy and static timing require separate evidence."
+      },
+      "typ-filled-convergence": {
+        "schema": 1,
+        "status": "convergence-pass",
+        "qualified": false,
+        "convergence_limit_ps": 1.0,
+        "transition_start_ns": 10.0,
+        "duration_ns": 900,
+        "matched_input_sha256": {
+          "circuit.spice": "f2c4ae93d887690b7739fc2aac238f13b67d5647b05289568b5987578e3fe6bb",
+          "capacitance.spice": "f4435c8dab948c1507de4284176666124dbed1e17d3b86eab53da9e9f806ad4a",
+          ".spiceinit": "4f989b2ccc180f50d329b9eae44b2269f2241303c57fa94cc008dc7e3cd4e6e5",
+          "expectations.json": "886cf99ec83e3977c64fab2ada6222232b95c652346177a2eabb58fcecb9e84d"
+        },
+        "settings": [
+          {
+            "reltol": 1e-05,
+            "abstol": 1e-12,
+            "vntol": 1e-08,
+            "output_step": 2e-11,
+            "maximum_step": 5e-11
+          },
+          {
+            "reltol": 5e-06,
+            "abstol": 5e-13,
+            "vntol": 5e-09,
+            "output_step": 1e-11,
+            "maximum_step": 2.5e-11
+          }
+        ],
+        "captured_file_sha256": [
+          {
+            "circuit.spice": "f2c4ae93d887690b7739fc2aac238f13b67d5647b05289568b5987578e3fe6bb",
+            "capacitance.spice": "f4435c8dab948c1507de4284176666124dbed1e17d3b86eab53da9e9f806ad4a",
+            ".spiceinit": "4f989b2ccc180f50d329b9eae44b2269f2241303c57fa94cc008dc7e3cd4e6e5",
+            "expectations.json": "886cf99ec83e3977c64fab2ada6222232b95c652346177a2eabb58fcecb9e84d",
+            "bench.spice": "307ca08f7c30a0ed0f7e39f59cee54a7db07dee2650981d234bbb8726afccb28",
+            "waveform.txt": "78ff50e7967da665c5b73d55f6652fb22381d6e753230899b996f254ef7d5553",
+            "engine.log": "e5f3c9324ded3cd84e1d705042648f2ff646c6cd8931c606d5c2df4740744ee4"
+          },
+          {
+            "circuit.spice": "f2c4ae93d887690b7739fc2aac238f13b67d5647b05289568b5987578e3fe6bb",
+            "capacitance.spice": "f4435c8dab948c1507de4284176666124dbed1e17d3b86eab53da9e9f806ad4a",
+            ".spiceinit": "4f989b2ccc180f50d329b9eae44b2269f2241303c57fa94cc008dc7e3cd4e6e5",
+            "expectations.json": "886cf99ec83e3977c64fab2ada6222232b95c652346177a2eabb58fcecb9e84d",
+            "bench.spice": "038716bf708ef6791545c979db8513ec5814d1f4188d72aa9aeff2fd8030f5dc",
+            "waveform.txt": "6f3858ee8d7c0f8faf512dda73c2ea0a7af2f97a8cf69fcd32ee25752bed79ef",
+            "engine.log": "04e758f6efa40f213e9ee32ec016773790c6fe4594cd87e9e40b1adb3313819d"
+          }
+        ],
+        "bench_sha256": [
+          "307ca08f7c30a0ed0f7e39f59cee54a7db07dee2650981d234bbb8726afccb28",
+          "038716bf708ef6791545c979db8513ec5814d1f4188d72aa9aeff2fd8030f5dc"
+        ],
+        "waveform_audits": [
+          {
+            "schema": 1,
+            "status": "pass",
+            "qualified": false,
+            "complete_waveform": true,
+            "tested_bits": 72,
+            "failed_bits": 0,
+            "failures": [],
+            "duration_ns": 900,
+            "waveform_sha256": "78ff50e7967da665c5b73d55f6652fb22381d6e753230899b996f254ef7d5553",
+            "expectations_sha256": "886cf99ec83e3977c64fab2ada6222232b95c652346177a2eabb58fcecb9e84d",
+            "engine_log_sha256": "e5f3c9324ded3cd84e1d705042648f2ff646c6cd8931c606d5c2df4740744ee4",
+            "scope": "Complete digital output samples at the declared voltage; timing and model coverage require separate checks."
+          },
+          {
+            "schema": 1,
+            "status": "pass",
+            "qualified": false,
+            "complete_waveform": true,
+            "tested_bits": 72,
+            "failed_bits": 0,
+            "failures": [],
+            "duration_ns": 900,
+            "waveform_sha256": "6f3858ee8d7c0f8faf512dda73c2ea0a7af2f97a8cf69fcd32ee25752bed79ef",
+            "expectations_sha256": "886cf99ec83e3977c64fab2ada6222232b95c652346177a2eabb58fcecb9e84d",
+            "engine_log_sha256": "04e758f6efa40f213e9ee32ec016773790c6fe4594cd87e9e40b1adb3313819d",
+            "scope": "Complete digital output samples at the declared voltage; timing and model coverage require separate checks."
+          }
+        ],
+        "channels": [
+          {
+            "channel": {
+              "node": "NET000015"
+            },
+            "baseline_edges": 17,
+            "tighter_edges": 17,
+            "same_direction_sequence": true,
+            "maximum_edge_change_ps": 0.4047014451192383
+          },
+          {
+            "channel": {
+              "node": "NET000016"
+            },
+            "baseline_edges": 8,
+            "tighter_edges": 8,
+            "same_direction_sequence": true,
+            "maximum_edge_change_ps": 0.4015822999187478
+          },
+          {
+            "channel": {
+              "node": "NET000017"
+            },
+            "baseline_edges": 4,
+            "tighter_edges": 4,
+            "same_direction_sequence": true,
+            "maximum_edge_change_ps": 0.4153163276536279
+          },
+          {
+            "channel": {
+              "node": "NET000018"
+            },
+            "baseline_edges": 2,
+            "tighter_edges": 2,
+            "same_direction_sequence": true,
+            "maximum_edge_change_ps": 0.388229167759534
+          }
+        ],
+        "matched_edges": 31,
+        "maximum_edge_change_ps": 0.4153163276536279,
+        "scope": "Complete source-matched output-function and 50%-supply edge convergence after 10 ns. External models, engines, startup, field accuracy and static timing require separate evidence."
+      },
+      "typ-matched": {
+        "status": "matched-output-transitions",
+        "matched_edges": 31,
+        "maximum_edge_change_ps": 11.67562224776657,
+        "original_waveform_sha256": "103329fd9a8cf85c973ac2ddac196ab63f81d337f34121fc46978fd456ce1fb3",
+        "filled_waveform_sha256": "78ff50e7967da665c5b73d55f6652fb22381d6e753230899b996f254ef7d5553",
+        "scope": "Descriptive before/after fill shift; setup and hold timing are separate gates."
+      }
+    },
+    "cross_platform_waveforms": {
+      "win32": {
+        "path": "outputs/ihp-counter-field-replay-win32-v1.json",
+        "sha256": "d07c652c4d9413819926c887ccbcae42721abd753ecd261e23627efc56633352"
+      },
+      "linux": {
+        "path": "outputs/ihp-counter-field-replay-linux-v1.json",
+        "sha256": "dc6a10107529cafbf7e568fb3849aa7a17b6f6ab152d87f12e479834f25ecb6f"
+      }
+    },
+    "component_solver_control": {
+      "path": "outputs/ihp-component-counter-controls-v1/record.json",
+      "sha256": "17f52135323fff256ce6a1b8b33823978f58c31fd51cc3185c24e23c71326471"
+    }
+  },
+  "filled_apb": {
+    "convergence": {
+      "path": "outputs/ihp-keepout-apb-completion-v2/apb-convergence.json",
+      "sha256": "f061cc04155005f79ef36fd9d387ff0fe1681fef4ca67ba3eb6908d76c1b997a"
+    },
+    "windows_replay": {
+      "path": "outputs/ihp-keepout-apb-win32-v1.json",
+      "sha256": "bc570f9521e57d9df8850694c1bc37c18667cd04b567136bbf3874063b5c5d26"
+    },
+    "matched_edges": 90,
+    "maximum_edge_change_ps": 0.4425723155077906,
+    "tested_bits_per_capture": 869,
+    "duration_ns": 1610,
+    "scope": "Complete waveform convergence on the existing area-weighted model, not acceptance of a new spatial APB model."
+  },
+  "rejected_uart": {
+    "projection": {
+      "path": "outputs/ihp-block-field-projection-v1/uart/original/record.json",
+      "sha256": "77b96715bd42818ef90bec0bbcb9c3ed48ab93e23ec1f45f4307397970bab726"
+    },
+    "failure": {
+      "path": "outputs/ihp-block-field-model-v1/uart/original/failure.json",
+      "sha256": "61c3155785e493aef879c35416f40b81af157f59fb53021b4b5856c1da80a41d"
+    },
+    "non_roundoff_negative_ground_af": [
+      [
+        "NET000001",
+        "NET000216.n13",
+        -2.1071231745855603
+      ],
+      [
+        "NET000001",
+        "NET000105.n1",
+        -0.6722179853189245
+      ],
+      [
+        "NET000001",
+        "NET000211.n3",
+        -0.5430027389621244
+      ],
+      [
+        "NET000001",
+        "NET000059.n1",
+        -0.33699067581823755
+      ]
+    ],
+    "unmapped_primitives": 0,
+    "scope": "All primitive supports resolve, but four local ground values violate passivity. No valid new UART capacitor model was written; these values are not clamped or waived."
+  },
+  "source_sha256": {
+    "scripts/ihp_spatial_field.py": "5710d8bd3648f195500699ff8c4adbdee96abb3a7c7c2c09eee43f43d642aadf",
+    "scripts/ihp_component_capacitance.py": "775e959e2e6b8d4af4ff588b35a6c0dd806c831e8086825822cee9dfe75917a7",
+    "tests/test_ihp_spatial_field.py": "7cb484c86654727d3a65a347cd462cb9fddc6e7183e56579ef76f3207f848520",
+    "tests/test_ihp_component_capacitance.py": "0d5d6609812bc23147a14855df671c38e2de960d4e03e46bbfe28b0ee535264d"
+  },
+  "scope": "Exact native signed shield patches and nonuniform fringe weighting, with a passive locally lumped counter pilot and bounded component reduction. This is not a consistent finite-element model or full spatial/timing qualification.",
+  "remaining": [
+    "Resolve the four UART negative local ground values and audit both larger-block projections before any new model is accepted.",
+    "Finish existing full UART waveform comparisons at the unchanged 1 ps limit.",
+    "Qualify spatial refinement and nominal timing, including the separately bound larger R meshes; the earlier R differences are not waived.",
+    "Integrate the accepted recipe into the production flow and repeat final export/package checks."
+  ]
+}

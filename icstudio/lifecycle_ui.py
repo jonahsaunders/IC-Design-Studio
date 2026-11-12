@@ -37,6 +37,9 @@ class LifecycleMixin:
         if not self.idle_edit():return
         path,_=QFileDialog.getSaveFileName(self,'Create independent project copy',self.project['name']+' copy.icproj','Studio project (*.icproj)')
         if not path:return
+        window=getattr(self,'_digital_window',None)
+        if window and window.dirty and not window.attempt(window.apply):return False
+        if not self.flush_inspector() or not self.flush_analysis():return False
         p=duplicate_project(self.project,path)
         self.project_index.remember(p,path)
         self.statusBar().showMessage('Created '+str(path)+' · open it from Projects',8000)

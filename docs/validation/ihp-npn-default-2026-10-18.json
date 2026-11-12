@@ -1,0 +1,730 @@
+{
+  "schema": 1,
+  "chunk": 7,
+  "chunk_complete": false,
+  "qualified": false,
+  "date": "2026-10-18",
+  "status": "default_npn_physical_integration_passed",
+  "process": {
+    "id": "ihp-sg13g2",
+    "revision": "cfb96b74cf33877e",
+    "manifest_sha256": "da58ba2de122d67d232ab20ca4fb353b70bdc68c00ef4279f9be7da640a68ae0",
+    "assets": 163
+  },
+  "scope": "Default integration of the reviewed public IHP NPN connected-region correction: nine public geometries in four rotations, strict native terminal/model/dimension/count checks, 99 faults, prior-device regressions and source Windows/backend/editor acceptance. No continuous device-envelope, full PDK, installed-executable or foundry qualification.",
+  "qualification_sha256": "6c489dff082421bf07ca4f3d7b5a82d5d1747b40db7ab5e1f7bb7a97edfe2961",
+  "proof": {
+    "schema": 1,
+    "source_manifest_sha256": "f1bd520184204ce71add7b7b9bf640b7daae9987bd52230473d91141bc53859b",
+    "source_revision": "c0a32344f73be40d",
+    "original_entry": {
+      "path": "libs.tech/magic/ihp-sg13g2.tech",
+      "sha256": "0a0e1666da3fa38d7faefe340576102ddc558727a3f6f7f666e92f50a1dc568d"
+    },
+    "original_rule": {
+      "path": "libs.tech/magic/ihp-sg13g2-cifout.tech",
+      "sha256": "b972c6d07557e0147462ad533aaf2f3aea14404437f800a1f8fc96ba13086dc8"
+    },
+    "corrected_entry": {
+      "path": "libs.tech/magic/icstudio-ihp-sg13g2.tech",
+      "sha256": "394b38e5d05bf999c1cdcd15df2672463902f51762edaa90052f455866bc5e3e"
+    },
+    "corrected_rule": {
+      "path": "libs.tech/magic/icstudio-ihp-sg13g2-cifout.tech",
+      "sha256": "74b6df465b9d547c72deb2e423dbeccf63b68d271e304ffadb65a9b81daa74f2"
+    },
+    "change": "Select the previously reviewed NPN connected-region traversal through a separate technology entry point. Every previous asset and all simulation settings remain byte-identical.",
+    "scope": "Default integration of a local public DRC correction. Each design still needs full DRC/LVS; no complete PDK, device-envelope or foundry qualification.",
+    "license": "Original Apache-2.0 source notices and license retained. Local changes explicitly identified in both derived files."
+  },
+  "independent_audits": {
+    "npn": {
+      "status": "PASS",
+      "qualification_sha256": "6c489dff082421bf07ca4f3d7b5a82d5d1747b40db7ab5e1f7bb7a97edfe2961",
+      "counts": {
+        "layouts": 36,
+        "faults": 99,
+        "native_netlists": 135,
+        "comparison_netlists": 90,
+        "layer_comparisons": 2160,
+        "rule_entry_checks": 135,
+        "private_noninterface_labels_removed": 345
+      },
+      "scope": "Independent raw geometry, all original/exported text anchors, private-engine removal of only noninterface labels with recorded count, native terminal/model/geometry readback, strict comparison, fault localization and exact default rule provenance. Sampled layouts only."
+    },
+    "taps": {
+      "status": "PASS",
+      "qualification_sha256": "31ce392daf05e796baf7348ef4231656c20d48a0cdc38468e1487143b981d532",
+      "counts": {
+        "layouts": 20,
+        "public_references": 2,
+        "physical_faults": 40,
+        "reference_faults": 8,
+        "native_netlists": 70,
+        "comparison_netlists": 50,
+        "exact_export_masks": 540
+      },
+      "scope": "Independent raw masks, text anchors, native versus converted terminal order and A/P, and physical/reference fault separation. No complete process or installed qualification."
+    },
+    "regressions": {
+      "status": "PASS",
+      "pnp_layouts": 10,
+      "pnp_faults": 35,
+      "representative_other_layouts": 10,
+      "pnp_qualification_sha256": "51acbd4208a854599223b0fafecc96a7bec1e6f2557667a1ba931cbf82f4e7ce",
+      "other_report_sha256": "bcdf678faf4115c63869699a43a7b85b52abeec9196621f8d24f24373425fd56",
+      "scope": "Independent PNP native model/terminal/A/P/multiplicity and comparison readback, all fault-stage checks, ten representative regressions and exact default rule entry provenance."
+    }
+  },
+  "full_regressions": {
+    "Windows": {
+      "discovered": 3090,
+      "seconds": 1203.631,
+      "skipped": 38,
+      "log_sha256": "c6b6362880356253210acdc19d0f34f8643f81b4089c0174be991bfd26733f01",
+      "execution": {
+        "exit": 0,
+        "implementation_unchanged": true,
+        "source_files_sha256": "025ce9dbcffe29fa245b9862d5dd9f00febfb3b4a6a5317d4720179ebbd76767",
+        "command": [
+          "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\IC-Design-Studio\\.venv\\Scripts\\python.exe",
+          "-X",
+          "utf8=0",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-v"
+        ]
+      }
+    },
+    "Linux": {
+      "discovered": 3090,
+      "seconds": 519.606,
+      "skipped": 31,
+      "log_sha256": "724a8931c1bea4a9168a18b99832eb68bed9488dccce60e4b1c84c0c1bbc8af3",
+      "execution": {
+        "command": [
+          "/var/tmp/icstudio-fulltest-env-20261017-v1/bin/python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-v"
+        ],
+        "exit": 0,
+        "environment": {
+          "OMP_THREAD_LIMIT": "1",
+          "QT_QPA_PLATFORM": "offscreen",
+          "GIT_OPTIONAL_LOCKS": "0",
+          "ICSTUDIO_TEST_NGSPICE": "/var/tmp/icstudio-ngspice-capacitor-build-20261017-v2/installed/bin/ngspice",
+          "SPICE_LIB_DIR": "/var/tmp/icstudio-ngspice-capacitor-build-20261017-v2/installed/share/ngspice",
+          "SPICE_SCRIPTS": "/var/tmp/icstudio-ngspice-capacitor-build-20261017-v2/installed/share/ngspice/scripts",
+          "ICSTUDIO_SPICE_MODELS": "/var/tmp/icstudio-ngspice-capacitor-build-20261017-v2/installed/lib/ngspice"
+        },
+        "implementation_unchanged": true,
+        "source_snapshot_sha256": "96ee64f809ce8a2429e14df71b081b435e2fc4c3cd225edf1cd9dad6b1a029e1"
+      }
+    }
+  },
+  "editors": {
+    "Windows": {
+      "status": "PASS",
+      "scope": "Source desktop action and captured job settings; not an installed-release acceptance run.",
+      "checks": [
+        "IHP action selects public KLayout extraction",
+        "Self-contained reference captured before queueing",
+        "Default action retains Magic extraction",
+        "Other PDKs rejected"
+      ],
+      "job": {
+        "type": "silicon",
+        "verification_mode": "drc_lvs",
+        "reference": {
+          "text": ".subckt coupon C B E S\nX1 C B E S npn13G2l we=0.07u le=1u Nx=1\n.ends coupon\n",
+          "top": "coupon",
+          "ports": [
+            "C",
+            "B",
+            "E",
+            "S"
+          ],
+          "sha256": "cd86484d797262fc5184300a695e5db2975e0d0520d3d3184303387f9613e3d7"
+        },
+        "lvs_extractor": "ihp-klayout"
+      },
+      "report_sha256": "904824357b623aea135ab7cc260358fee3e05e4aea9de28a14165c15d0daee7d"
+    },
+    "Linux": {
+      "status": "PASS",
+      "scope": "Source desktop action and captured job settings; not an installed-release acceptance run.",
+      "checks": [
+        "IHP action selects public KLayout extraction",
+        "Self-contained reference captured before queueing",
+        "Default action retains Magic extraction",
+        "Other PDKs rejected"
+      ],
+      "job": {
+        "type": "silicon",
+        "verification_mode": "drc_lvs",
+        "reference": {
+          "text": ".subckt coupon C B E S\nX1 C B E S npn13G2l we=0.07u le=1u Nx=1\n.ends coupon\n",
+          "top": "coupon",
+          "ports": [
+            "C",
+            "B",
+            "E",
+            "S"
+          ],
+          "sha256": "cd86484d797262fc5184300a695e5db2975e0d0520d3d3184303387f9613e3d7"
+        },
+        "lvs_extractor": "ihp-klayout"
+      },
+      "report_sha256": "83b4c25f866135c83d0323bccf6c57268e70391f32dd83e170dbde8043c40bc2"
+    }
+  },
+  "source_files": {
+    "icstudio/ihp_layout.py": "8962111037186d9c563db8be9e516e95d59204faa52003ad1911a23f54e2b615",
+    "scripts/ihp_npn_source.py": "7daf74ed7c1a96a7142131d93c18e3e4aef6b9052b385410876904d330cd134b",
+    "scripts/prepare_ihp_npn_default.py": "f05962ff9bd043ff0837fee69373afebe74dfbc9774e2c896baea23e47c7e773",
+    "scripts/qualify_ihp_npn_layouts.py": "4b982f8c38384cca3de6e3b88874ec483d06e56c90579afe1b015bf6a93ed988",
+    "scripts/prepare_default_device_packages.py": "88cb5f50440c668cdbfc4c0cb803a1af6a881fd8885dd3fbeb628692972266cc",
+    "scripts/device_qualification_source.py": "8694b86b3d4859ce20843cc67e45f8ebcb50908c6152a6ddb44524b9fe327a4c",
+    "scripts/ihp_tap_source.py": "e76e3de3024ab7039b7ff3ccd6865b18e60f81fbe64507d2064768c8cea305c4",
+    "tests/test_ihp_npn_default.py": "c0b56c1316f285873985b58102446421f0812889cbcfcabaa5bbaa1e927b4ebf",
+    "tests/test_ihp_mim_qualification.py": "7b04f5782905ea2fad61b25c68ab44c6129e2a323ddddf0aae48fc468e09fdfe",
+    "tests/test_student_physical.py": "e8446be72c7356eeb745c3311d70e136c40d11eb48f38eeea39dbac4286a19ad"
+  },
+  "archive": {
+    "path": "IC-Design-Studio-evidence/ihp-npn-default-2026-10-18/evidence.zip",
+    "sha256": "33c82f1fe86a3927f8198bb51514ffa5f6d9735d407ded2c2db462f30b45b478",
+    "bytes": 106974246,
+    "files": 47759,
+    "unique_contents": 9904,
+    "all_objects_verified": true,
+    "restore_check": {
+      "status": "PASS",
+      "archive_sha256": "33c82f1fe86a3927f8198bb51514ffa5f6d9735d407ded2c2db462f30b45b478",
+      "root": "/var/tmp/icstudio-npn-default-restore-20261018-v1",
+      "prefixes": {
+        "icstudio-npn-default-fulltests-Linux-20261018-v2": "source",
+        "icstudio-ihp-npn-default-npn-20261018-v1/npn13G2L": "case"
+      },
+      "files_verified": 7215,
+      "restored_checker_tests": 10,
+      "restored_checker_exit": 0,
+      "restored_native_case_exit": 0,
+      "scope": "Byte-exact restored model package, sources and complete case; 10 restored checks and one actual native DRC/strict-LVS run from restored sources pass."
+    }
+  },
+  "windows_backend": {
+    "status": "PASS",
+    "process": {
+      "target": "ihp-sg13g2",
+      "revision": "cfb96b74cf33877e",
+      "manifest_sha256": "da58ba2de122d67d232ab20ca4fb353b70bdc68c00ef4279f9be7da640a68ae0"
+    },
+    "cases": [
+      {
+        "name": "npn13G2L-physical-0",
+        "status": "PASS",
+        "native_status": "passed",
+        "received_files": 81,
+        "result_sha256": "cbd7750fd451dc9424076f1ef9410a73e6ec658734d062bafcdd1101f0abbc92",
+        "input_sha256": "b9e86db9ba16dc38fc345c465623fd02e73c720dda3147aa0fcd4af253274c2a"
+      },
+      {
+        "name": "npn13G2L-C-open",
+        "status": "PASS",
+        "native_status": "failed",
+        "received_files": 76,
+        "result_sha256": "50fbc110b22672d3f8eead33408d7b683b212993084b2a64a7adcb88c9e7ab43",
+        "input_sha256": "354d71fdd5b01287c1c4d6b747ab5c37b01cc0175ed8c8fc1c1146a254e4d68a"
+      },
+      {
+        "name": "npn13G2L-reference-width",
+        "status": "PASS",
+        "native_status": "failed",
+        "received_files": 81,
+        "result_sha256": "665d68b559b2975360c4a7daa11752506cc758b4f043b2a2f1780a7fbc14a280",
+        "input_sha256": "bb286665a556bb80f5eb1e0375f448162c7fc760c18c24af210489584baa763f"
+      },
+      {
+        "name": "npn13G2V_1-physical-0",
+        "status": "PASS",
+        "native_status": "passed",
+        "received_files": 81,
+        "result_sha256": "964d7291f0ccd1735004c937b96d2d7ffe21cbc746f809e1e077310db1959f2a",
+        "input_sha256": "7df7f6e4a2ccc83fc223079f7b3a77408c5d44dc196db74df404d2136b882bbf"
+      },
+      {
+        "name": "npn13G2V_1-C-open",
+        "status": "PASS",
+        "native_status": "failed",
+        "received_files": 76,
+        "result_sha256": "4b27bf430ff88527d5d658b7f1eb6592025ee9fffe5a53507b4e9fa332913f3c",
+        "input_sha256": "b6365c7b39b5fc0171da08438606ee80cfb4216509b3f288ee4654ec967e2877"
+      },
+      {
+        "name": "npn13G2V_1-reference-width",
+        "status": "PASS",
+        "native_status": "failed",
+        "received_files": 81,
+        "result_sha256": "d967ba71045ec902e5ec6967085e177b6f40692540b275ddc7788065de6ebc26",
+        "input_sha256": "3e2d4992cc7d129fe902123bc4daaad67fa0c8556ec922effb54c2fcdbcb407c"
+      },
+      {
+        "name": "npn13G2_2-physical-0",
+        "status": "PASS",
+        "native_status": "passed",
+        "received_files": 81,
+        "result_sha256": "3266679c0ecfad2af7f55ae85f0883cdc71af03eb7184cee6a9f23afeacc478a",
+        "input_sha256": "9cbda4f547b63a7efc5c9aacc9bda5e5ae9e42ffd426044221258aafdad52b39"
+      },
+      {
+        "name": "npn13G2_2-C-open",
+        "status": "PASS",
+        "native_status": "failed",
+        "received_files": 76,
+        "result_sha256": "bfaf1c4733205c0508733057e4794625b25f3990516095cc3f1ed9795d089bff",
+        "input_sha256": "c471107a79bda42e23ec394ecd4f6881c470e6e12de6bff797e96c494c34d8c4"
+      },
+      {
+        "name": "npn13G2_2-reference-width",
+        "status": "PASS",
+        "native_status": "failed",
+        "received_files": 81,
+        "result_sha256": "93d19379c5956fcee3e78efd0af4e66e2d52a0486ea8ae667895e76be542bfea",
+        "input_sha256": "9b5d139b9abe17adb584e984c9a3f3614a1d2994ace9def252867b7dfcb60fd2"
+      }
+    ],
+    "scope": "Windows staging, actual local source backend, and verified artifact receipt. No installed-executable claim.",
+    "implementation_unchanged": true,
+    "report_sha256": "5d171c158cbced84ea0011f46f1aabfcf17f086a7e3a0f00dc64e2976b906879"
+  },
+  "other_native_regressions": {
+    "status": "PASS",
+    "process": {
+      "target": "ihp-sg13g2",
+      "revision": "cfb96b74cf33877e",
+      "manifest_sha256": "da58ba2de122d67d232ab20ca4fb353b70bdc68c00ef4279f9be7da640a68ae0"
+    },
+    "cases": [
+      {
+        "name": "mos-n",
+        "status": "passed",
+        "drc_count": 0,
+        "contact_width": {
+          "schema": 1,
+          "status": "PASS",
+          "rule": "Cnt.a",
+          "minimum_width_nm": 160,
+          "layer": [
+            6,
+            0
+          ],
+          "violations": 0,
+          "boxes_nm": [],
+          "layout_sha256": "5e8a502456c19fa491f029304554fc76db1ea3531f9111884bd4e36b6953f187",
+          "rule_source": {
+            "path": "libs.tech/magic/ihp-sg13g2-drc.tech",
+            "sha256": "bec75c6c8aeb9720edcdfdcf1e2c132d9be4af42801dd61b45715d6c6ec68402"
+          },
+          "scope": "Minimum contact-mask width only; full native DRC and LVS remain separate requirements."
+        },
+        "error": null,
+        "report_sha256": "c29e62e24e59dafbd6bf324c0a0c05a114cfcd14d9ef5852c40287f24e4bd39d"
+      },
+      {
+        "name": "mos-p",
+        "status": "passed",
+        "drc_count": 0,
+        "contact_width": {
+          "schema": 1,
+          "status": "PASS",
+          "rule": "Cnt.a",
+          "minimum_width_nm": 160,
+          "layer": [
+            6,
+            0
+          ],
+          "violations": 0,
+          "boxes_nm": [],
+          "layout_sha256": "297bd487e8e004b0e1fbf73d86a3b0e4c3d79b0949cdba04a360390571ca53f8",
+          "rule_source": {
+            "path": "libs.tech/magic/ihp-sg13g2-drc.tech",
+            "sha256": "bec75c6c8aeb9720edcdfdcf1e2c132d9be4af42801dd61b45715d6c6ec68402"
+          },
+          "scope": "Minimum contact-mask width only; full native DRC and LVS remain separate requirements."
+        },
+        "error": null,
+        "report_sha256": "881b30457d6cf22f0a2313fd8707cb5b9ed8e913591cd10ef4c1db25d1e98f21"
+      },
+      {
+        "name": "rsil",
+        "status": "passed",
+        "drc_count": 0,
+        "contact_width": {
+          "schema": 1,
+          "status": "PASS",
+          "rule": "Cnt.a",
+          "minimum_width_nm": 160,
+          "layer": [
+            6,
+            0
+          ],
+          "violations": 0,
+          "boxes_nm": [],
+          "layout_sha256": "da26a39bc6379b2dcabc8349d451fd9045aa81a97e2ea34f2c9cb6c6e8bfa6cd",
+          "rule_source": {
+            "path": "libs.tech/magic/ihp-sg13g2-drc.tech",
+            "sha256": "bec75c6c8aeb9720edcdfdcf1e2c132d9be4af42801dd61b45715d6c6ec68402"
+          },
+          "scope": "Minimum contact-mask width only; full native DRC and LVS remain separate requirements."
+        },
+        "error": null,
+        "report_sha256": "e082e0ae9aef4170ea5e57875fa4a22e431e4a3b342ae14ff5ccf71b64ed8eac"
+      },
+      {
+        "name": "rppd",
+        "status": "passed",
+        "drc_count": 0,
+        "contact_width": {
+          "schema": 1,
+          "status": "PASS",
+          "rule": "Cnt.a",
+          "minimum_width_nm": 160,
+          "layer": [
+            6,
+            0
+          ],
+          "violations": 0,
+          "boxes_nm": [],
+          "layout_sha256": "beee8a6be75bc7898cb250e82dba03780016d16461f1425f04eb1e2cae714a9b",
+          "rule_source": {
+            "path": "libs.tech/magic/ihp-sg13g2-drc.tech",
+            "sha256": "bec75c6c8aeb9720edcdfdcf1e2c132d9be4af42801dd61b45715d6c6ec68402"
+          },
+          "scope": "Minimum contact-mask width only; full native DRC and LVS remain separate requirements."
+        },
+        "error": null,
+        "report_sha256": "8978fd50c01a7be548200b442b3bf52c12ae78679f4564ba4d71cf4285005e2e"
+      },
+      {
+        "name": "rhigh",
+        "status": "passed",
+        "drc_count": 0,
+        "contact_width": {
+          "schema": 1,
+          "status": "PASS",
+          "rule": "Cnt.a",
+          "minimum_width_nm": 160,
+          "layer": [
+            6,
+            0
+          ],
+          "violations": 0,
+          "boxes_nm": [],
+          "layout_sha256": "7af81b92a705e237c4f2df933ea9b10390c87ee73af66d322d506854826dbbe2",
+          "rule_source": {
+            "path": "libs.tech/magic/ihp-sg13g2-drc.tech",
+            "sha256": "bec75c6c8aeb9720edcdfdcf1e2c132d9be4af42801dd61b45715d6c6ec68402"
+          },
+          "scope": "Minimum contact-mask width only; full native DRC and LVS remain separate requirements."
+        },
+        "error": null,
+        "report_sha256": "dc22bd1cd4af1cbe668a25cc8891f8719c865ce9c976c8b4632f30154cd19ae3"
+      },
+      {
+        "name": "mim",
+        "status": "passed",
+        "drc_count": 0,
+        "contact_width": {
+          "schema": 1,
+          "status": "PASS",
+          "rule": "Cnt.a",
+          "minimum_width_nm": 160,
+          "layer": [
+            6,
+            0
+          ],
+          "violations": 0,
+          "boxes_nm": [],
+          "layout_sha256": "3354da2f7c0fc9b55168c6a558d95aeebef473f116d41258696481c5c4d67e1b",
+          "rule_source": {
+            "path": "libs.tech/magic/ihp-sg13g2-drc.tech",
+            "sha256": "bec75c6c8aeb9720edcdfdcf1e2c132d9be4af42801dd61b45715d6c6ec68402"
+          },
+          "scope": "Minimum contact-mask width only; full native DRC and LVS remain separate requirements."
+        },
+        "error": null,
+        "report_sha256": "110403c203f51b6d2de83aa65edcb978cb696e7aecbf3554132fd145bc247f69"
+      },
+      {
+        "name": "pnp",
+        "status": "passed",
+        "drc_count": 0,
+        "contact_width": {
+          "schema": 1,
+          "status": "PASS",
+          "rule": "Cnt.a",
+          "minimum_width_nm": 160,
+          "layer": [
+            6,
+            0
+          ],
+          "violations": 0,
+          "boxes_nm": [],
+          "layout_sha256": "d247b412a5ce32f593a76be328b401f2a2dbb57e4ec3d56aed0a92cd94cdd6fc",
+          "rule_source": {
+            "path": "libs.tech/magic/ihp-sg13g2-drc.tech",
+            "sha256": "bec75c6c8aeb9720edcdfdcf1e2c132d9be4af42801dd61b45715d6c6ec68402"
+          },
+          "scope": "Minimum contact-mask width only; full native DRC and LVS remain separate requirements."
+        },
+        "error": null,
+        "report_sha256": "ac119b12492b9703e5a107c9bda93c1f500957ed2d34c96e2fa9daa60c5a0a28"
+      },
+      {
+        "name": "npn13G2l",
+        "status": "passed",
+        "drc_count": 0,
+        "contact_width": {
+          "schema": 1,
+          "status": "PASS",
+          "rule": "Cnt.a",
+          "minimum_width_nm": 160,
+          "layer": [
+            6,
+            0
+          ],
+          "violations": 0,
+          "boxes_nm": [],
+          "layout_sha256": "7397f8eab4e65a20d8d2aa95d58e7e270d0a22a763ef35b3524f38bb38daa330",
+          "rule_source": {
+            "path": "libs.tech/magic/ihp-sg13g2-drc.tech",
+            "sha256": "bec75c6c8aeb9720edcdfdcf1e2c132d9be4af42801dd61b45715d6c6ec68402"
+          },
+          "scope": "Minimum contact-mask width only; full native DRC and LVS remain separate requirements."
+        },
+        "error": null,
+        "report_sha256": "d3eae73c1b3430a22c3e7d7bcfdefac43d56bc10710c85500623f863e2351e66"
+      },
+      {
+        "name": "npn13G2v",
+        "status": "passed",
+        "drc_count": 0,
+        "contact_width": {
+          "schema": 1,
+          "status": "PASS",
+          "rule": "Cnt.a",
+          "minimum_width_nm": 160,
+          "layer": [
+            6,
+            0
+          ],
+          "violations": 0,
+          "boxes_nm": [],
+          "layout_sha256": "95063979103aa39255bd2c1d128f7291a75b227108854894f798cfc719eb1161",
+          "rule_source": {
+            "path": "libs.tech/magic/ihp-sg13g2-drc.tech",
+            "sha256": "bec75c6c8aeb9720edcdfdcf1e2c132d9be4af42801dd61b45715d6c6ec68402"
+          },
+          "scope": "Minimum contact-mask width only; full native DRC and LVS remain separate requirements."
+        },
+        "error": null,
+        "report_sha256": "302f34909e84b25e8ce55d93bf6f383fc08731e3a30892d7479518cd99fa7963"
+      },
+      {
+        "name": "npn13G2",
+        "status": "passed",
+        "drc_count": 0,
+        "contact_width": {
+          "schema": 1,
+          "status": "PASS",
+          "rule": "Cnt.a",
+          "minimum_width_nm": 160,
+          "layer": [
+            6,
+            0
+          ],
+          "violations": 0,
+          "boxes_nm": [],
+          "layout_sha256": "36333d93eb0f83aaa278da9baa45aebdcab087740a1daf64ddb3459bc8282e32",
+          "rule_source": {
+            "path": "libs.tech/magic/ihp-sg13g2-drc.tech",
+            "sha256": "bec75c6c8aeb9720edcdfdcf1e2c132d9be4af42801dd61b45715d6c6ec68402"
+          },
+          "scope": "Minimum contact-mask width only; full native DRC and LVS remain separate requirements."
+        },
+        "error": null,
+        "report_sha256": "1373df7ccd5089eaae909ab99888e6d2a5380df953f861186fbd8ec6a883a9a3"
+      }
+    ],
+    "scope": "Ten representative actual IHP MOS, resistor, MIM and bipolar layouts after raw-contact checking and tap comparison changes. No whole prior campaign or installed-release claim."
+  },
+  "unqualified_rf_followup": {
+    "status": "diagnostic_reproduced_not_qualified",
+    "chunk": 7,
+    "chunk_complete": false,
+    "qualified": false,
+    "scope": "Unchanged public RF-diode source at one DC bias and one area/perimeter, on two local simulator versions. No app binding, operating-envelope or RF-accuracy acceptance.",
+    "source": {
+      "tree_sha": "f62031a1be9aefe902d6d54cddd6f59b57627436",
+      "files": [
+        {
+          "path": "models/parasitics/sky130_fd_pr__model__parasitic__diode_ps2nw_noresistor.model.spice",
+          "git_blob": "9066b2ca05b37bf870b1ed8d57e53b5ad3d1fe4c",
+          "sha256": "b869dcc80134e66cc044f24304eece2ca0b797a217f5d669b06e61219f6cd4a5"
+        },
+        {
+          "path": "models/parasitics/sky130_fd_pr__model__parasitic__diode_pw2dn_noresistor.model.spice",
+          "git_blob": "1296a73d228176a082d092ab39c531e7fb2a9f63",
+          "sha256": "dde8dc3c9d8a8e38734d0fd9c8305f9f8e4be3af3a0373f23012d76202b1b303"
+        },
+        {
+          "path": "models/parasitics/sky130_fd_pr__model__parasitic__rf_diode_ps2nw.model.spice",
+          "git_blob": "1aaadf50c97a3ceae699fb552abb8df6a39cbd8e",
+          "sha256": "9162840af01b56ca3b36556ee7a5d996cf41f0ec63e65430337f624d7dfa358c"
+        },
+        {
+          "path": "models/parasitics/sky130_fd_pr__model__parasitic__rf_diode_pw2dn.model.spice",
+          "git_blob": "f195f53a72a82d4880e8f0d15d60e0638c57e275",
+          "sha256": "e50e34a0a7fc44b30095258717e2ed394e7dc614af2d18402c0765d196ef3906"
+        }
+      ]
+    },
+    "cases": [
+      {
+        "model": "ps2nw",
+        "requested_global_scale": "1u",
+        "results": [
+          {
+            "version": "42",
+            "area_branch_capacitance": 6.0198e-28,
+            "perimeter_branch_capacitance": 1.50495e-46,
+            "drive_current": -7.999998233310102e-13,
+            "log_sha256": "424a53bb3616e82661b606b8f3dc643909a01b36b004d87f6cc4c5ef671a95e4"
+          },
+          {
+            "version": "47",
+            "area_branch_capacitance": 6.01977e-16,
+            "perimeter_branch_capacitance": 1.50495e-34,
+            "drive_current": -1.855586008198823e-11,
+            "log_sha256": "31f142693007ed5f4f2c6b757bd59d610e2676c2ef2930e7f2e86056e5f9e626"
+          }
+        ],
+        "old_to_new_capacitance_ratio": 1.0000049835791068e-12
+      },
+      {
+        "model": "ps2nw",
+        "requested_global_scale": "1",
+        "results": [
+          {
+            "version": "42",
+            "area_branch_capacitance": 6.0198e-28,
+            "perimeter_branch_capacitance": 1.50495e-46,
+            "drive_current": -7.999998233310102e-13,
+            "log_sha256": "ecb9f0308b80a56984c2c1de2bc479f7af66c19a15049baf264697180b1731d8"
+          },
+          {
+            "version": "47",
+            "area_branch_capacitance": 6.01977e-16,
+            "perimeter_branch_capacitance": 1.50495e-34,
+            "drive_current": -1.855586008198823e-11,
+            "log_sha256": "fc2456115888c0182484126f52f552ec18079baa1a746845fdd0fe88e3e7337c"
+          }
+        ],
+        "old_to_new_capacitance_ratio": 1.0000049835791068e-12
+      },
+      {
+        "model": "pw2dn",
+        "requested_global_scale": "1u",
+        "results": [
+          {
+            "version": "42",
+            "area_branch_capacitance": 2.17391e-27,
+            "perimeter_branch_capacitance": 5.43477e-46,
+            "drive_current": -8.000000401714447e-13,
+            "log_sha256": "49c6493a36b5f45e2844a3172cadeffe41952174728ca54147835b702c3cbfe6"
+          },
+          {
+            "version": "47",
+            "area_branch_capacitance": 2.17391e-15,
+            "perimeter_branch_capacitance": 5.43477e-34,
+            "drive_current": -6.404364305588953e-11,
+            "log_sha256": "7f3957bd18a80f69e872b43a287b052a4c67ca178032b4754828393543595bfc"
+          }
+        ],
+        "old_to_new_capacitance_ratio": 1e-12
+      },
+      {
+        "model": "pw2dn",
+        "requested_global_scale": "1",
+        "results": [
+          {
+            "version": "42",
+            "area_branch_capacitance": 2.17391e-27,
+            "perimeter_branch_capacitance": 5.43477e-46,
+            "drive_current": -8.000000401714447e-13,
+            "log_sha256": "80666fee5534b58acd88153e7defa23562a670e7ea630cdeef301d83b9f2a8bc"
+          },
+          {
+            "version": "47",
+            "area_branch_capacitance": 2.17391e-15,
+            "perimeter_branch_capacitance": 5.43477e-34,
+            "drive_current": -6.404364305588953e-11,
+            "log_sha256": "10a75776e2667a0c28cb89e5f1fdb83c935cd20b7b7e04899ecf9b3d09c8808e"
+          }
+        ],
+        "old_to_new_capacitance_ratio": 1e-12
+      }
+    ],
+    "observations": [
+      "All eight processes returned zero, but the older runtime area-branch capacitance is approximately 1e-12 of the newer runtime. A zero process exit is not acceptance.",
+      "The original perimeter branch omits an instance perimeter parameter; native model readback reports pj=0. Its intended physical perimeter behavior is still unresolved.",
+      "The models remain unavailable in the application. Newer-runtime compatibility, parameter/unit binding, model warnings, geometry and operating ranges, plus independent device validation remain required."
+    ],
+    "archive_prefix": "icstudio-rf-runtime-comparison-20261018-v1"
+  },
+  "full_regression_scope": "Final production source on both hosts. Windows explicitly runs with Python UTF-8 mode disabled and the exact restored SKY130 physical fixture, exercising the actual saved-bias checks under the legacy encoding. Tests skipped for unavailable host facilities remain skips.",
+  "source_sequence": {
+    "native_batches": "Run before the subsequent generated-layout provenance repair; all verification, extraction, comparison, geometry-generation runner and package files remain unchanged.",
+    "subsequent_production_change": {
+      "path": "icstudio/ihp_layout.py",
+      "before_sha256": "d55287be25455a381f2ca847120de204f6a04a07748924bd4a0ef53f9dd52fe1",
+      "after_sha256": "8962111037186d9c563db8be9e516e95d59204faa52003ad1911a23f54e2b615",
+      "change": "Record the selected technology asset path beside its hash, rather than the legacy fallback path."
+    },
+    "final_checks": "Ten representative native layouts rerun after that repair, with path/hash assertions. Both complete test suites use final sources. A restored final-source NPN case also passes native verification."
+  },
+  "focused_tests": {
+    "focused-Windows-final-v2.log": {
+      "count": 5,
+      "status": "PASS",
+      "sha256": "673c4a0f200474b3a42302b438085200616c63762440cc5619978729dde969e4"
+    },
+    "current-default-focused-Windows.log": {
+      "count": 2,
+      "status": "PASS",
+      "sha256": "b83b43fb1885bbb6cf9383c004359a0926fa97356a93ae0ca04e2a15995db2c5"
+    }
+  },
+  "retained_attempts": [
+    "First completed Linux full suite: 3090 discovered, three failure reports from two old default-package expectations. The corresponding incomplete Windows suite was intentionally stopped to start the corrected run; neither is acceptance.",
+    "The first final-source Linux test body passed all 3090 tests, but its post-run snapshot audit found omitted historical documentation logs. The copy helper had recursively excluded the names tests.log and execution.json. Exact original hashes were restored, all 5996 source files were verified, and the complete suite was repeated with its exit code recorded before the post-run audit.",
+    "Restricted Windows temporary-directory run: permission errors. Repeated under ordinary-user permissions, without administrator access.",
+    "SKY130 fixture reconstruction attempts used an incompatible input shape; recovered and hash-verified the exact 442-file fixture from its existing evidence archive.",
+    "First Windows backend helper used dollar signs in temporary job paths; WSL argument handling changed them. The repeated helper uses safe job names while retaining original cell/model identities.",
+    "Audit development initially compared decorative labels with private checker input and used iterator-backed regions after their Layout lifetime. The final audit owns flat polygons, preserves original/export labels, and checks only the recorded private noninterface-label removals.",
+    "The first tap audit ran before its batch finished; the completed batch is independently audited and passes."
+  ],
+  "limits": [
+    "The sample geometry, model and terminal coverage is unchanged; this integrates that correction into the default package.",
+    "Saved projects keep their original revisions. Historical recipes reconstruct their original bytes and do not inherit this pass.",
+    "PNP and tap regressions use the optional public KLayout extractor with strict Netgen comparison; no default Magic extraction acceptance is added.",
+    "Continuous bias/geometry, unsupported catalog models, thermal/statistical/noise/RF accuracy and installed-release acceptance remain open. Chunk 7 remains in progress."
+  ]
+}

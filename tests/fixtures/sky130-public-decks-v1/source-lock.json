@@ -1,0 +1,34 @@
+{
+  "schema": 1,
+  "scope": "Unmodified public-deck comparison fixtures, not application signoff coverage.",
+  "files": [
+    {
+      "path": "tinytapeout/sky130A_mr.drc",
+      "repository": "https://github.com/TinyTapeout/tt-support-tools",
+      "revision": "01d5d2814fa9dd61e9d211e0b235a4a592a9316a",
+      "upstream_path": "precheck/tech-files/sky130A_mr.drc",
+      "git_blob": "6f1aeb8b514d202bb8a9404c3c8cefa6a93a8a23",
+      "sha256": "8bf71103d5f65eaf6283fe39a342c4163f59ca42aeb9b92d1e4f8ff4ebae3d09",
+      "bytes": 60256,
+      "license": "GPL-3.0",
+      "license_basis": "Explicit GNU GPLv3 file header; no later-version grant inferred.",
+      "modified": false
+    },
+    {
+      "path": "chipfoundry/sky130A_mr.drc",
+      "repository": "https://github.com/chipfoundry/cf-precheck",
+      "revision": "6c401ed5134a6466c7eed3e5524ebaacad4cea2a",
+      "upstream_path": "src/cf_precheck/drc_scripts/sky130A_mr.drc",
+      "git_blob": "3f9420347b04ab1c1e9929af2167d03c7ebcf76c",
+      "sha256": "aeba6ab5137923f2258714ab5d91ce99ca6a6f932bea55dedfe6f79aca697ba1",
+      "bytes": 62208,
+      "license": "GPL-3.0",
+      "license_basis": "Explicit GNU GPLv3 file header; no later-version grant inferred.",
+      "modified": false
+    }
+  ],
+  "license_file": {
+    "path": "GPL-3.0.txt",
+    "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+  }
+}

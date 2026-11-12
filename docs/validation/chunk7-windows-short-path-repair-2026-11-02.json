@@ -1,0 +1,189 @@
+{
+  "schema": 1,
+  "status": "PASS_SOURCE_FIXTURE_REPAIR_PENDING_HOSTED_FEEDBACK",
+  "installed_acceptance": false,
+  "qualified": false,
+  "candidate": "6521f4b9602d8410de89e7f08af955891d43ecc7",
+  "tested_merge": "c46e367ed665688c7e889eeab7e18bab99b43391",
+  "failed_run": 41559650579,
+  "failed_job": 125666900779,
+  "hosted": {
+    "tests": 617,
+    "errors": 1,
+    "skipped": 26,
+    "source_identities": 2224,
+    "failed_test": "test_inventory_prunes_forbidden_directory",
+    "archive_sha256": "4228348a45ce6794a4ce6c1d909e0f58eccc21c7ac793b505dc1232599600460",
+    "archive_bytes": 118271,
+    "crc_verified": true,
+    "exact_failed_test_and_checker_hashes_bound": true
+  },
+  "diagnosis": "The test mock yielded an unresolved NTFS short path even though the production inventory passes a resolved root to os.walk. The mock caused relative_to to compare two spellings of the same path.",
+  "fix": "Check real filesystem inventory through the caller path, then emulate a walk of the resolved root and preserve the forbidden-directory pruning assertion. Production unchanged.",
+  "local": {
+    "alias": "C:\\Users\\jonah\\DOCUME~1\\Codex\\c7t1102",
+    "canonical": "C:\\Users\\jonah\\Documents\\Codex\\c7t1102",
+    "before_error_reproduced": true,
+    "before_log_sha256": "0ad879b642a1a6b2eb881d5526d3f89588a4f8d53ccd48f25e267f2030c35b20",
+    "after_tests": 35,
+    "passed": 35,
+    "skipped": 0,
+    "unittest_seconds": 8.448,
+    "after_log_sha256": "1f33382eb9915e294841f2002f6cf849db5d73569b4b0e5907afe404a0250f36"
+  },
+  "before": {
+    "tests/test_frozen_ihp_cmim.py": "b41d1a7ae4003e069e94b67e06a04a53b634350ca1f59f1d5b40f5746703faf8",
+    "scripts/verify_frozen_ihp_cmim.py": "0621aca2e0f1be5fd4d1a7ef2a1630449dbe641b82debfffbc8ca7f730b6dcfd",
+    "scripts/release_ihp_cmim_evidence.py": "65b45ccbca4496249a6e4e65d7e65593f2ab77b0d68add6dbbe346aa02a19700",
+    "scripts/ci_feedback.py": "f900197d0e5cbf7d17207616bfd281e686b34f3676bebc2fe968099f494bda3b",
+    ".github/workflows/build-desktop.yml": "e13032acca5550860bfba43dd2e6067312233ae63bb9347b485e1044f7f7d587"
+  },
+  "after": {
+    "tests/test_frozen_ihp_cmim.py": "73a328a616937543bf2422f9b9892e8361ac1b4eab1aca64696824067677d674",
+    "scripts/verify_frozen_ihp_cmim.py": "0621aca2e0f1be5fd4d1a7ef2a1630449dbe641b82debfffbc8ca7f730b6dcfd",
+    "scripts/release_ihp_cmim_evidence.py": "65b45ccbca4496249a6e4e65d7e65593f2ab77b0d68add6dbbe346aa02a19700",
+    "scripts/ci_feedback.py": "f900197d0e5cbf7d17207616bfd281e686b34f3676bebc2fe968099f494bda3b",
+    ".github/workflows/build-desktop.yml": "e13032acca5550860bfba43dd2e6067312233ae63bb9347b485e1044f7f7d587"
+  },
+  "changed_source_files": [
+    "tests/test_frozen_ihp_cmim.py"
+  ],
+  "hosted_connector_receipt_sha256": "9de6089f98f6ec77c97499c8982fa958c99da554b8c406809d1fd768b0e9dad6",
+  "hosted_decoded_log_sha256": "b96fffb14cf50c4784f8a50eb8651689f284b904678a0057ec7386d442eb9e15",
+  "next_step": "Fresh hosted source feedback on the corrected candidate.",
+  "date": "2026-11-02",
+  "chunk_complete": false,
+  "independent_review": {
+    "sha256": "a57152ba3df55342324990a9ed887d142a54d08e1e9243559633496e21aad50c",
+    "actual_short_path_reproduction": true,
+    "forbidden_names_pruned_before_metadata": true
+  },
+  "hosted_archive_readback": {
+    "schema": 1,
+    "status": "VERIFIED_MIXED_HOSTED_SOURCE_OUTCOME",
+    "candidate": "6521f4b9602d8410de89e7f08af955891d43ecc7",
+    "merge_commit": "c46e367ed665688c7e889eeab7e18bab99b43391",
+    "merge_parents": [
+      "49c79957b4d6f4978127da612e167e5c75cda6b3",
+      "6521f4b9602d8410de89e7f08af955891d43ecc7"
+    ],
+    "run_id": 41559650579,
+    "source_files_verified": 2224,
+    "source_hashes_match_between_hosts": true,
+    "hosts": {
+      "Windows": {
+        "status": "failed",
+        "artifact_id": 13196117747,
+        "archive_sha256": "4228348a45ce6794a4ce6c1d909e0f58eccc21c7ac793b505dc1232599600460",
+        "archive_bytes": 118271,
+        "archive_members": 2,
+        "archive_crc_verified": true,
+        "stages": [
+          {
+            "name": "unit-contracts",
+            "returncode": 1,
+            "elapsed_seconds": 129.187
+          }
+        ],
+        "selected_tests": 617,
+        "skips": 26,
+        "report_sha256": "1d60367a9d57bf458a6e2901a9212c273946c0f9b44856f006b972dc6b78f089"
+      },
+      "Linux": {
+        "status": "passed",
+        "artifact_id": 13195708127,
+        "archive_sha256": "70ba8ea985b2a1565ccc2b2f134a3cc58f628cfcdf7debb625febd455a6394e7",
+        "archive_bytes": 17210353,
+        "archive_members": 1281,
+        "archive_crc_verified": true,
+        "stages": [
+          {
+            "name": "unit-contracts",
+            "returncode": 0,
+            "elapsed_seconds": 49.107
+          },
+          {
+            "name": "device-contracts",
+            "returncode": 0,
+            "elapsed_seconds": 22.412
+          },
+          {
+            "name": "package-contracts",
+            "returncode": 0,
+            "elapsed_seconds": 29.821
+          },
+          {
+            "name": "runtime-release-contracts",
+            "returncode": 0,
+            "elapsed_seconds": 4.673
+          },
+          {
+            "name": "release-contracts",
+            "returncode": 0,
+            "elapsed_seconds": 1.817
+          },
+          {
+            "name": "menu-smoke",
+            "returncode": 0,
+            "elapsed_seconds": 22.807
+          },
+          {
+            "name": "project-hub-smoke",
+            "returncode": 0,
+            "elapsed_seconds": 3.071
+          },
+          {
+            "name": "metal-resistor-editor-smoke",
+            "returncode": 0,
+            "elapsed_seconds": 4.773
+          },
+          {
+            "name": "metal-resistor-parallel-smoke",
+            "returncode": 0,
+            "elapsed_seconds": 19.551
+          },
+          {
+            "name": "ihp-resistor-editor-smoke",
+            "returncode": 0,
+            "elapsed_seconds": 70.597
+          },
+          {
+            "name": "ihp-capacitor-corner-smoke",
+            "returncode": 0,
+            "elapsed_seconds": 1.416
+          }
+        ],
+        "selected_tests": 1058,
+        "skips": 16,
+        "report_sha256": "17dd394e2c0ebc52ed97e897df2ccd97dd24d7aaf2cf48b8deaceaa4fa9fe5f4"
+      }
+    },
+    "scope": "Complete archive and candidate identity readback; Windows remains failed, Linux source-only feedback passes.",
+    "installed_acceptance": false,
+    "chunk_complete": false
+  },
+  "retention": {
+    "directory": "chunk7-feedback-repair-2026-11-02-v1",
+    "schema": 1,
+    "status": "PASS_COMPLETE_ARCHIVE_READBACK",
+    "archive": "review-evidence-v1.zip",
+    "archive_sha256": "6aa2df99f8ff453c6b81bbc4f2f89c681c862cedb5b0a20c3fa5f7133e480b2f",
+    "archive_bytes": 70686,
+    "files": 12,
+    "uncompressed_bytes": 347194,
+    "all_members_read_and_hashed": true,
+    "all_originals_rechecked": true,
+    "originals_deleted": false,
+    "filesystem_restore_performed": false,
+    "installed_acceptance": false
+  },
+  "progress": {
+    "estimated_chunk7_percent": 72,
+    "confidence": "low",
+    "range_percent": [
+      55,
+      80
+    ],
+    "basis": "No estimate increase for fixture repair or additional test counts."
+  }
+}

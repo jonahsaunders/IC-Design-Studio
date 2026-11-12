@@ -1,0 +1,238 @@
+{
+  "schema": 1,
+  "date": "2026-11-10",
+  "base_commit": "fb4919d8df5ed3ef7571853276617a48c5fc57f5",
+  "scope": "Isolated app-integrated source candidate, authenticated by exact snapshot rather than a published candidate commit. No frozen installed acceptance.",
+  "status": "PASS_LOCAL_SOURCE_REGRESSIONS",
+  "qualified": false,
+  "full_family": false,
+  "installed_acceptance": false,
+  "chunk_complete": false,
+  "source_feedback": {
+    "status": "passed",
+    "elapsed_seconds": 434.543,
+    "stage_count": 14,
+    "stages": [
+      {
+        "name": "unit-contracts",
+        "returncode": 0,
+        "elapsed_seconds": 16.99
+      },
+      {
+        "name": "ihp-contracts",
+        "returncode": 0,
+        "elapsed_seconds": 47.158
+      },
+      {
+        "name": "physical-contracts",
+        "returncode": 0,
+        "elapsed_seconds": 29.613
+      },
+      {
+        "name": "device-contracts",
+        "returncode": 0,
+        "elapsed_seconds": 40.846
+      },
+      {
+        "name": "package-contracts",
+        "returncode": 0,
+        "elapsed_seconds": 41.107
+      },
+      {
+        "name": "runtime-release-contracts",
+        "returncode": 0,
+        "elapsed_seconds": 6.333
+      },
+      {
+        "name": "release-contracts",
+        "returncode": 0,
+        "elapsed_seconds": 2.22
+      },
+      {
+        "name": "menu-smoke",
+        "returncode": 0,
+        "elapsed_seconds": 28.06
+      },
+      {
+        "name": "project-hub-smoke",
+        "returncode": 0,
+        "elapsed_seconds": 4.778
+      },
+      {
+        "name": "metal-resistor-editor-smoke",
+        "returncode": 0,
+        "elapsed_seconds": 7.384
+      },
+      {
+        "name": "metal-resistor-parallel-smoke",
+        "returncode": 0,
+        "elapsed_seconds": 31.378
+      },
+      {
+        "name": "ihp-resistor-editor-smoke",
+        "returncode": 0,
+        "elapsed_seconds": 120.435
+      },
+      {
+        "name": "ihp-guard-corner-smoke",
+        "returncode": 0,
+        "elapsed_seconds": 51.293
+      },
+      {
+        "name": "ihp-capacitor-corner-smoke",
+        "returncode": 0,
+        "elapsed_seconds": 2.623
+      }
+    ],
+    "tests": 1725,
+    "skips": 18,
+    "counts_by_stage": [
+      {
+        "stage": "device-contracts",
+        "tests": 751,
+        "skips": 3
+      },
+      {
+        "stage": "ihp-contracts",
+        "tests": 306,
+        "skips": 1
+      },
+      {
+        "stage": "package-contracts",
+        "tests": 11,
+        "skips": 0
+      },
+      {
+        "stage": "physical-contracts",
+        "tests": 306,
+        "skips": 10
+      },
+      {
+        "stage": "runtime-release-contracts",
+        "tests": 89,
+        "skips": 1
+      },
+      {
+        "stage": "unit-contracts",
+        "tests": 262,
+        "skips": 3
+      }
+    ],
+    "syntax_files": 1596,
+    "source_identity_count": 2464,
+    "source_unchanged": true,
+    "report_sha256": "34d2c77a9fdbb9497effb05ca62c315ed42318e2bfd056a006e84eb00b97f945",
+    "snapshot_manifest_sha256": "9d97e4c082799a822ff4e763e5d1e4da9bfe1dac4472cb3ccab59fbbdc651c42",
+    "logs": {
+      "device-contracts.log": "c1c2c95611091c9c80c3e1b62e454e6d6eebb6cf89c8c88405f48998802417cb",
+      "ihp-capacitor-corner-smoke.log": "f6db6b124caf4d23f43cf1c4b049ccdd22146c66e56593f18fcfb53925968d04",
+      "ihp-contracts.log": "b926f958b1417fc442b7eaec1e1906c8842d5c051818770688708b2eb37cf290",
+      "ihp-guard-corner-smoke.log": "3921913f590ea63b3cadf3cbee8906ef5af51dc98d9eabfa23afe3b8c53db413",
+      "ihp-resistor-editor-smoke.log": "c7ef6443538164a47f5a7c4b67aaa56b31f1d24ef090a16542fcbd1abd3010ea",
+      "menu-smoke.log": "57990457ebac8487e9b769de742a313414a8d8dcd1e9c3e069eb37b824979969",
+      "metal-resistor-editor-smoke.log": "3a4d2c3100c47cb1ed0f89e4a537ec930e3e2296359841909e4d02041277c62b",
+      "metal-resistor-parallel-smoke.log": "360660bc8c1acfce319237258fcd05586fc3f61dedf39caa9dd49e49bb5fe5bd",
+      "package-contracts.log": "9167e4cda14d60c4477322b97c5ee44199087fb58a9d102d7e8c973c3d87b50d",
+      "physical-contracts.log": "3ab6c42a3d056cad74556649f1be136a8719af9b99f29823701de9219a463d85",
+      "project-hub-smoke.log": "66af7ee4a9c6fa1f6c1f2d6f8a220486f6467316e0f72df511d0ad0ad2505b65",
+      "release-contracts.log": "0912882c0d0fe8d6816d018baad151a9e8d35f29bff54fcb091507fd2c4cca9f",
+      "runtime-release-contracts.log": "1fa0740346683541793c26ff3c87aa6dd811028be2b98783fb0f1c2b0ef2ee18",
+      "unit-contracts.log": "58289c1d7199ac4c812ba1a608600ddbceb08acfb02f7b297b1112e2aae62cd1"
+    }
+  },
+  "guard_gui_readback": {
+    "status": "PASS",
+    "gate": "ihp-guard-corner-source-gui-readback",
+    "qualified": false,
+    "release_ready": false,
+    "full_family": false,
+    "installed_acceptance": false,
+    "native_execution": false,
+    "gui_layouts": 6,
+    "gui_controls": 18,
+    "legacy_projects": 2,
+    "frozen": false,
+    "source_unchanged": true,
+    "report_sha256": "b7507efa2a5d8f9be392d497df720b3d68320ff479db80f7d3148bcb57a9fe39",
+    "files_sha256": "503b87c0ecc0bc26420933cd4db7314edd7f96f217d5cfc4964bf877c6fbc2a9"
+  },
+  "full_core": {
+    "schema": 1,
+    "scope": "Local exhaustive source unit discovery, not installed acceptance",
+    "base_commit": "fb4919d8df5ed3ef7571853276617a48c5fc57f5",
+    "status": "passed",
+    "returncode": 0,
+    "timeout": false,
+    "elapsed_seconds": 1224.949,
+    "tests": 4823,
+    "skips": 81,
+    "source_identity_count": 2464,
+    "source_unchanged": true,
+    "console_sha256": "40b990e7c9a94fb67025624de6f83f680c9730235a1b6b6aed1b1dfa3f6ad9ae",
+    "source_before_sha256": "d1158e8896b7d60baf506656df92b80f12f1a716c41533cbc879fb3e815b812a",
+    "source_after_sha256": "d1158e8896b7d60baf506656df92b80f12f1a716c41533cbc879fb3e815b812a",
+    "report_sha256": "e6c5fd4dc3d224aeea88158c8204316802d17664e632e68494c193f4e5eed811"
+  },
+  "focused_regressions": {
+    "tests": 61,
+    "skips": 0,
+    "status": "PASS",
+    "seconds": 23.748,
+    "log_sha256": "c84e59dced600c2ddad98efe8215e84f8fe3fd40f4f29765fb33ee0b7fd0b10c"
+  },
+  "reviews": {
+    "app_and_installed_contract": "PASS independent review; 24 tests, source readback, source hashes, old gate byte identity.",
+    "final_cross_platform_integration": "PASS read-only packaging/paths/inventory and test-stage registration review; 27 feedback tests.",
+    "retained_artifacts": "PASS independent archive CRC/member SHA/size/omission and split-map review. Historical source snapshots remain separate from this integration."
+  },
+  "unchanged_legacy_gate": {
+    "positive_cases": 60,
+    "fault_cases": 165,
+    "source_bytes_unchanged_from_base": true
+  },
+  "new_installed_contract": {
+    "implemented": true,
+    "executed": false,
+    "positive_cases": 6,
+    "fault_cases": 15,
+    "platforms": [
+      "Linux",
+      "Windows-WSL"
+    ],
+    "fresh_native_jobs_required": 21
+  },
+  "current_documentation_sha256": "b878820c447bd701376829d8aa49c5efb0be576f99466027adf17da4c73bd549",
+  "historical_records": [
+    "chunk7-ihp-guard-app-source-2026-11-10.json",
+    "chunk7-ihp-guard-installed-plumbing-2026-11-10.json",
+    "chunk7-isolated-follow-on-validation-2026-11-10.json"
+  ],
+  "artifact": {
+    "path": "docs/validation/artifacts/ihp-guard-integrated-source-2026-11-10.zip",
+    "sha256": "3a350d19abc97de430419eda06ce0d414ae4915b81691f5bca6eb04955dc4504",
+    "bytes": 2925874,
+    "payload_files": 344,
+    "zip_entries": 345,
+    "scope": "Local source regression evidence only; not frozen, hosted or installed acceptance",
+    "omissions": [
+      "Other thirteen-stage GUI raw layouts/screenshots are retained locally, not inside this compact transport. Their console logs and source-feedback identity report are included.",
+      "Unchanged repository/runtime/tool binaries are not duplicated. This archive is not a self-contained installation or native replay."
+    ]
+  },
+  "remaining": [
+    "Publish only after frozen-candidate coordination; fresh exact-candidate hosted Linux/Windows source and installed acceptance remain pending.",
+    "Four exact required model bindings are unavailable; full applicable operating/reliability limits and independent calibration uncertainty/holdout provenance are still absent.",
+    "The PMOS 140-point comparison is blocked after 84 nominal points; bounded official-fix diagnostic did not resolve convergence.",
+    "Ninety-five source-inventory gaps remain in this isolated v3 result, versus ninety-eight on the frozen published base; complete physical/process/family scope is not qualified."
+  ],
+  "chunk7_estimate": {
+    "percent": 74,
+    "range_percent": [
+      55,
+      82
+    ],
+    "confidence": "low",
+    "subjective_engineering_estimate_not_test_fraction": true
+  },
+  "no_deadline_or_gate_relaxation": true
+}

@@ -1,0 +1,167 @@
+{
+  "schema": 1,
+  "recipe": "sky130-nfet-isolation-v1",
+  "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+  "rule": "docs/rules/periphery/p018-x_dotdash.csv#49",
+  "status": "NOT_REQUESTED",
+  "qualified": false,
+  "scope": "SKY130 x.29: C3 NFET gate containment in drawn deep nwell when explicitly requested. Bulk mode retains measurements as NOT_REQUESTED. Other well rules, body connectivity, electrical checks and complete physical qualification remain separate.",
+  "policy": {
+    "recipe": "sky130-nfet-isolation-v1",
+    "directory": "sky130hd/isolation",
+    "nfet_in_dnwell": false,
+    "preparation_sha256": "c8f9024e46807b9a5dab2650fafe5d62d7ab12a034e52741fd4f7b1cb9bbef6b"
+  },
+  "gds_sha256": "4158b6503dc07e85f1e9e7b375a3d654cd9b64dc0498ed9fb680874e973c1ac2",
+  "checkpoint_sha256": "10de8332ad78bba19e93e78eb5247040d74b8a8cd0b186dde19484254577ca9d",
+  "top": "counter",
+  "platform_fingerprint": "c7197f40cae3de0e02bf60913a83e99a62b9cf8d36eaed41230c7fcfb467fc92",
+  "enforced": false,
+  "measurement": {
+    "top": "counter",
+    "nfet_gates": 1120,
+    "pfet_gates": 1120,
+    "dnwell_polygons": 0,
+    "raw_dnwell_shapes": 0,
+    "raw_dnwell_texts": 0,
+    "nfet_not_contained": 1120,
+    "outside_examples_nm": [
+      [
+        20635,
+        21995,
+        23525,
+        22545
+      ],
+      [
+        20635,
+        26415,
+        23525,
+        26965
+      ],
+      [
+        20635,
+        27435,
+        23525,
+        27985
+      ],
+      [
+        20635,
+        31855,
+        23525,
+        32405
+      ],
+      [
+        20635,
+        32875,
+        23525,
+        33425
+      ],
+      [
+        20635,
+        37295,
+        23525,
+        37845
+      ],
+      [
+        20635,
+        38315,
+        23525,
+        38865
+      ],
+      [
+        20635,
+        42735,
+        23525,
+        43285
+      ],
+      [
+        20635,
+        43755,
+        23525,
+        44305
+      ],
+      [
+        20635,
+        48175,
+        23525,
+        48725
+      ],
+      [
+        20635,
+        49195,
+        23525,
+        49745
+      ],
+      [
+        20635,
+        53615,
+        23525,
+        54165
+      ],
+      [
+        20635,
+        54635,
+        23525,
+        55185
+      ],
+      [
+        20635,
+        59055,
+        23525,
+        59605
+      ],
+      [
+        20635,
+        60075,
+        23525,
+        60625
+      ],
+      [
+        20635,
+        64495,
+        23525,
+        65045
+      ],
+      [
+        20635,
+        65515,
+        23525,
+        66065
+      ],
+      [
+        20635,
+        69935,
+        23525,
+        70485
+      ],
+      [
+        20635,
+        70955,
+        23525,
+        71505
+      ],
+      [
+        20635,
+        75375,
+        23525,
+        75925
+      ]
+    ]
+  },
+  "resources": {
+    "helpers/docs/qualification/sky130-grid-density-sources.json": "sky130_isolation_resource_0",
+    "helpers/docs/qualification/sky130-layer-purposes.json": "sky130_isolation_resource_1",
+    "helpers/docs/qualification/sky130-rule-inventory.json": "sky130_isolation_resource_2",
+    "helpers/scripts/__init__.py": "sky130_isolation_resource_3",
+    "helpers/scripts/sky130_global_geometry.py": "sky130_isolation_resource_4",
+    "helpers/scripts/sky130_grid_geometry.py": "sky130_isolation_resource_5",
+    "helpers/scripts/sky130_isolation_geometry.py": "sky130_isolation_resource_6",
+    "helpers/scripts/sky130_rule_inventory.py": "sky130_isolation_resource_7",
+    "preparation.json": "sky130_isolation_resource_8",
+    "sources/LICENSE": "sky130_isolation_resource_9",
+    "sources/docs/rules/layers/table-c3-device-lvs-other.csv": "sky130_isolation_resource_10",
+    "sources/docs/rules/periphery/p018-x_dotdash.csv": "sky130_isolation_resource_11"
+  },
+  "request_artifact": "sky130_isolation_file_0",
+  "raw_artifact": "sky130_isolation_file_2"
+}

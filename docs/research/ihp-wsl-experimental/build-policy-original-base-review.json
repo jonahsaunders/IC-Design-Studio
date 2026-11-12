@@ -1,0 +1,26 @@
+{
+  "schema": 1,
+  "date": "2026-11-11",
+  "base_commit": "f9817a2f6e845c8f01d252d4bbb7f2df70f0003f",
+  "scope": "BUILD_PREPARATION_ONLY_NO_PMOS",
+  "review_state": "FRESH_TECHNICAL_REVIEW_COMPLETED",
+  "policy_sha256": "d4d0fad7f497857a69a2d2436cc6c887836c413dbd54ddfde3fcc38aa9f2d291",
+  "source_change": {
+    "path": "scripts/package_ihp_wsl_research_preparation.py",
+    "before": "6ce96230346275f34da24e083740f613f02bb43da7edfb836339f4e2a5584394",
+    "after": "b3efd68e86a11fd9200f40dd490125e5e295879335eb5efd95fb6a5d0c2841fe"
+  },
+  "independent_source_tests": 18,
+  "change": "Original base-runtime.tar.gz is losslessly retained in existing complete proof parts; only context and raw filesystem export remain omitted build scratch.",
+  "unchanged_caps": {
+    "aggregate_proof_bytes": 3221225472,
+    "part_bytes": 251658240,
+    "parts": 16
+  },
+  "limitations": [
+    "No claim that current f9817a2 run delivers original base",
+    "New hosted preparation and independent archive readback still required",
+    "Exceeding unchanged limits fails delivery explicitly; original base must not be omitted to force success",
+    "No workflow permission change, native simulation, WSL import or default promotion"
+  ]
+}

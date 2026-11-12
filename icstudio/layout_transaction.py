@@ -60,13 +60,12 @@ def propose(p,cid,ids,dx,dy,locked=(),graph=None):
         raise ValueError('This edit would join or separate existing conductors or terminals. Adjust the route or selection.')
     rules={l['name']:l['space'] for l in p['pdk']['layers']}
     for shape in changed.values():
-        ident=key(shape)
-        if ident not in after.records:continue
-        record=after.records[ident];space=rules[shape['layer']];box=record['box'];obstacles=db.Region()
-        for other in after.query((box[0]-space,box[1]-space,box[2]+space,box[3]+space)):
-            row=after.records[other]
-            if row['shape']['layer']==shape['layer'] and after.groups[other]!=after.groups[ident]:obstacles.insert(row['poly'])
-        if not obstacles.is_empty() and not (record['region'] & obstacles.merged().sized(space)).is_empty():raise ValueError('The connected edit violates declared spacing. Reserve room for the adjusted leads.')
+        for ident in after.source_keys.get(key(shape),()):
+            record=after.records[ident];space=rules[shape['layer']];box=record['box'];obstacles=db.Region()
+            for other in after.query((box[0]-space,box[1]-space,box[2]+space,box[3]+space)):
+                row=after.records[other]
+                if row['shape']['layer']==shape['layer'] and after.groups[other]!=after.groups[ident]:obstacles.insert(row['poly'])
+            if not obstacles.is_empty() and not (record['region'] & obstacles.merged().sized(space)).is_empty():raise ValueError('The connected edit violates declared spacing. Reserve room for the adjusted leads.')
     from .route_constraints import enforce
     enforce(p,nxt,cid)
     return nxt,after,changed

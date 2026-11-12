@@ -1,0 +1,511 @@
+{
+  "schema": 1,
+  "run_id": 40039513837,
+  "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/40039513837",
+  "candidate": "c61eeaa3a416800cbd83c03a0409c475d638573a",
+  "run_attempt": 1,
+  "dispatches": 1,
+  "retries": 0,
+  "cancellations": 0,
+  "toolchain_source_sha256": {
+    ".github/workflows/reference-compatibility.yml": "6f269f3b0af59373eab8753b42ad0726f29e4551836aee3300f2e16bea02f529",
+    "examples/gf180-rc-engine-lock.json": "8a6c895d28352dc1aa8eecd3a2e375b8a43baed0ed0cdf01a19d0668e903bbb2",
+    "examples/modern-schematic-engine-lock.json": "baf670ddeae85da0cd7563538b5fdc0d71a6188425f3b72b475202e052b1552b",
+    "packaging/physical/magic-gf180-rc.patch": "29f8e0e7b206e208aca33f85e90a9aeff027531a930e39d99dbc4d5b8b76bbc6",
+    "requirements.txt": "6ca8d64e4388a6934e215115131e1c1b4b9985da3a5a0ddbf71202ed1dd73623",
+    "scripts/build_physical_engines.py": "4b6bb2d6c26da0800c46f79c09186e1c1d6fd513861eae68721bfb78683d3305",
+    "scripts/reference_toolchain.py": "2f3fc8b7961643e549334fa8498ebc062a2cd7f85aa8e75937f9dc9b2e8ec131"
+  },
+  "producer": {
+    "status": "passed",
+    "run_id": 40039513837,
+    "candidate": "c61eeaa3a416800cbd83c03a0409c475d638573a",
+    "job_id": 120707061607,
+    "artifact_id": 12538399402,
+    "artifact_name": "reference-rc-toolchain-1",
+    "artifact_zip_sha256": "16c877f1f7027e630ceb00e41b9e69a30f11fa25a6613a4618f6aa953c0fde2d",
+    "artifact_zip_bytes": 8246363,
+    "toolchain_archive_sha256": "4fd396b85fa0e311dccfddbb62b4d88ae0b0207c4b8a41c2d149b6813852b59b",
+    "manifest_sha256": "30be4ecd623b8234c6e6cc0333b12c9d548db34a227ecd677d8aa9823a11ebd4",
+    "package_inventory_sha256": "1d9dd2a701f715972c90ee317e583be3ecf04d7c1463c7db47f2c167774665b0",
+    "workspace": "/home/runner/work/IC-Design-Studio/IC-Design-Studio",
+    "environment": {
+      "image_os": "ubuntu24",
+      "image_version": "20261023.334.3",
+      "machine": "x86_64",
+      "system": "Linux"
+    },
+    "inputs_verified_against_candidate_git_blobs": 7,
+    "files_bytes_modes_links_verified": 449,
+    "versions": {
+      "build/gf180-engines/magic-version.log": "8.3.684\n",
+      "build/modern-engines/ngspice-version.log": "******\n** ngspice-46 : Circuit level simulation program\n** Compiled with KLU Direct Linear Solver\n** The U. C. Berkeley CAD Group\n** Copyright 1985-1994, Regents of the University of California.\n** Copyright 2001-2025, The ngspice team.\n** Please get your ngspice manual from https://ngspice.sourceforge.io/docs.html\n** Please file your bug-reports at http://ngspice.sourceforge.net/bugrep.html\n** Creation Date: Fri Oct 23 23:26:28 UTC 2026\n******\n"
+    },
+    "limits": "Full archive byte/inventory/source audit; consumer native engine probes and qualification are separately verified."
+  },
+  "corners": [
+    {
+      "corner": "sf",
+      "status": "passed",
+      "signoff": false,
+      "artifact_id": 12538813974,
+      "report_sha256": "c901278b8bc1f125930395044868d18b1d98c19994991f26c6eebb90f58f1413",
+      "restored_receipt_sha256": "838b76277d3b15e6200a7d5452c01852c57588ed3f3ad5fa55d6961f3281eb45",
+      "producer_manifest_sha256": "30be4ecd623b8234c6e6cc0333b12c9d548db34a227ecd677d8aa9823a11ebd4",
+      "active_manifest_sha256": "30be4ecd623b8234c6e6cc0333b12c9d548db34a227ecd677d8aa9823a11ebd4",
+      "active_archive_sha256": "4fd396b85fa0e311dccfddbb62b4d88ae0b0207c4b8a41c2d149b6813852b59b",
+      "resolution": "reused",
+      "consumer_environment": {
+        "image_os": "ubuntu24",
+        "image_version": "20261023.334.3",
+        "machine": "x86_64",
+        "system": "Linux"
+      },
+      "resolution_receipt_sha256": "e06436623e0078658fdf34bc6a7fb3bec73738ed072e49c91d0c02ad5bd86826",
+      "runtime_package_inventory_sha256": "a0a19b45bdb8e490c47cc19e02a4e68ec7db9b81d8e2f847ffb17ef371e48b85",
+      "active_engine_sha256": {
+        "magic": "d884ff69a9b4e0140bbed72883ee0a81df8d55c22ad33faa73439ce6411ea8be",
+        "ngspice": "fa9965e35c8de7f8c61f19559d8906d8e3acf550ebab01d8fe56b4aa695f71e9",
+        "magic_library": "a6ea8abbbdfbdd45aed62beef386b39e8616b9acb5681683754660f34059a6fe"
+      },
+      "mismatch_receipt_sha256": null,
+      "native_implementation_sha256": "acb91c5b2b026f5376fa43f8c89fe28a5cd2a3695e2df6edc9d9eab944d08a73",
+      "native_layout_sha256": "5a9c8bb450768f8d09b1c9d0043a10e25f0de1ea64fc43f5932c251e1813b6dd",
+      "candidate": "c61eeaa3a416800cbd83c03a0409c475d638573a",
+      "nets": 106,
+      "resistors": 3261,
+      "devices": 103,
+      "pvt_cases": 4,
+      "startup_ramps": 12,
+      "identity_and_report_controls_passed": true,
+      "bytes_downloaded_for_selected_members": 74867,
+      "zip_digest_scope": "GitHub API reported; selected member bytes and CRCs verified locally."
+    },
+    {
+      "corner": "ff",
+      "status": "passed",
+      "signoff": false,
+      "artifact_id": 12538954355,
+      "report_sha256": "46bc82b1de2dedf96414e1460d8ed83be9058e57e72784040888b418430a495a",
+      "restored_receipt_sha256": "0a846d69c441670a8e380448efbc329203fc5c0c6890fa160cc3e6831746de87",
+      "producer_manifest_sha256": "30be4ecd623b8234c6e6cc0333b12c9d548db34a227ecd677d8aa9823a11ebd4",
+      "active_manifest_sha256": "a2eeb986f92f7e5f2e7e3bbdf4d766457ac7a594156816ee0126e5f1436e1f27",
+      "active_archive_sha256": "72e3f2e6da51d72ae531259675bed03eb4119377111cb471ba9593ef25fb8e23",
+      "resolution": "rebuilt_for_image_version",
+      "consumer_environment": {
+        "image_os": "ubuntu24",
+        "image_version": "20261012.334.1",
+        "machine": "x86_64",
+        "system": "Linux"
+      },
+      "resolution_receipt_sha256": "5c89f37bf3f99f9d278cfb1003ba83689d6866010c7eeae2192c464a29964e2b",
+      "runtime_package_inventory_sha256": "2cd607b030ca527115f158934d79a9d8e3619945fa15767c6c909e7032a4cff1",
+      "active_engine_sha256": {
+        "magic": "d884ff69a9b4e0140bbed72883ee0a81df8d55c22ad33faa73439ce6411ea8be",
+        "ngspice": "905d378f2c1d65881c2cda3c533f436d32dd1cc7cd1a51e73c7d066f64399441",
+        "magic_library": "e1a16b080408b07f2350677d7f24db01a25a39d0902e4f9726a6c4c0f6242ac4"
+      },
+      "mismatch_receipt_sha256": "e46a61b812039aac4f458df5f828f7f6eee9f4aac51c1b2448df76ff6126ea13",
+      "native_implementation_sha256": "acb91c5b2b026f5376fa43f8c89fe28a5cd2a3695e2df6edc9d9eab944d08a73",
+      "native_layout_sha256": "5a9c8bb450768f8d09b1c9d0043a10e25f0de1ea64fc43f5932c251e1813b6dd",
+      "candidate": "c61eeaa3a416800cbd83c03a0409c475d638573a",
+      "nets": 106,
+      "resistors": 3261,
+      "devices": 103,
+      "pvt_cases": 4,
+      "startup_ramps": 12,
+      "identity_and_report_controls_passed": true,
+      "bytes_downloaded_for_selected_members": 8162896,
+      "zip_digest_scope": "GitHub API reported; selected member bytes and CRCs verified locally."
+    },
+    {
+      "corner": "ss",
+      "status": "passed",
+      "signoff": false,
+      "artifact_id": 12539217200,
+      "report_sha256": "ab7ba91b1ffc4fb650e799ba7e16419c6fdadb05c8cd88b267e27347079d2f4b",
+      "restored_receipt_sha256": "838b76277d3b15e6200a7d5452c01852c57588ed3f3ad5fa55d6961f3281eb45",
+      "producer_manifest_sha256": "30be4ecd623b8234c6e6cc0333b12c9d548db34a227ecd677d8aa9823a11ebd4",
+      "active_manifest_sha256": "30be4ecd623b8234c6e6cc0333b12c9d548db34a227ecd677d8aa9823a11ebd4",
+      "active_archive_sha256": "4fd396b85fa0e311dccfddbb62b4d88ae0b0207c4b8a41c2d149b6813852b59b",
+      "resolution": "reused",
+      "consumer_environment": {
+        "image_os": "ubuntu24",
+        "image_version": "20261023.334.3",
+        "machine": "x86_64",
+        "system": "Linux"
+      },
+      "resolution_receipt_sha256": "e06436623e0078658fdf34bc6a7fb3bec73738ed072e49c91d0c02ad5bd86826",
+      "runtime_package_inventory_sha256": "a0a19b45bdb8e490c47cc19e02a4e68ec7db9b81d8e2f847ffb17ef371e48b85",
+      "active_engine_sha256": {
+        "magic": "d884ff69a9b4e0140bbed72883ee0a81df8d55c22ad33faa73439ce6411ea8be",
+        "ngspice": "fa9965e35c8de7f8c61f19559d8906d8e3acf550ebab01d8fe56b4aa695f71e9",
+        "magic_library": "a6ea8abbbdfbdd45aed62beef386b39e8616b9acb5681683754660f34059a6fe"
+      },
+      "mismatch_receipt_sha256": null,
+      "native_implementation_sha256": "acb91c5b2b026f5376fa43f8c89fe28a5cd2a3695e2df6edc9d9eab944d08a73",
+      "native_layout_sha256": "5a9c8bb450768f8d09b1c9d0043a10e25f0de1ea64fc43f5932c251e1813b6dd",
+      "candidate": "c61eeaa3a416800cbd83c03a0409c475d638573a",
+      "nets": 106,
+      "resistors": 3261,
+      "devices": 103,
+      "pvt_cases": 4,
+      "startup_ramps": 12,
+      "identity_and_report_controls_passed": true,
+      "bytes_downloaded_for_selected_members": 74904,
+      "zip_digest_scope": "GitHub API reported; selected member bytes and CRCs verified locally."
+    },
+    {
+      "corner": "fs",
+      "status": "passed",
+      "signoff": false,
+      "artifact_id": 12539383311,
+      "report_sha256": "28799660d66e27d9a601e005298c2b7ccae63bb7f0dbe2e73ee31c5a7d27fac3",
+      "restored_receipt_sha256": "495d27abb53ae26c41225348645cf84deaac9d8500ca1c6fd7357763e2f53bb6",
+      "producer_manifest_sha256": "30be4ecd623b8234c6e6cc0333b12c9d548db34a227ecd677d8aa9823a11ebd4",
+      "active_manifest_sha256": "37c15bda6f8e6c3e66f453fb663d86a16146638147c11ad0b1dc0567ff2ebffb",
+      "active_archive_sha256": "59b26f5fc88620f5b7aabe832974d5000119ca240535420a2711e8ddce073144",
+      "resolution": "rebuilt_for_image_version",
+      "consumer_environment": {
+        "image_os": "ubuntu24",
+        "image_version": "20261012.334.1",
+        "machine": "x86_64",
+        "system": "Linux"
+      },
+      "resolution_receipt_sha256": "76e0c23a44c4b00613752165cb8e89b43f081e4c43304cbc1b30b16e60cf4684",
+      "runtime_package_inventory_sha256": "2cd607b030ca527115f158934d79a9d8e3619945fa15767c6c909e7032a4cff1",
+      "active_engine_sha256": {
+        "magic": "d884ff69a9b4e0140bbed72883ee0a81df8d55c22ad33faa73439ce6411ea8be",
+        "ngspice": "2b290a4f56a5a5edfc5d5dd112b030222b6416fbdc55c6c7fd6c8de976035bbc",
+        "magic_library": "3576bc4acbe9313eb5756a0d57d808349235b6a0459bda3844d8386d9482bfae"
+      },
+      "mismatch_receipt_sha256": "e46a61b812039aac4f458df5f828f7f6eee9f4aac51c1b2448df76ff6126ea13",
+      "native_implementation_sha256": "acb91c5b2b026f5376fa43f8c89fe28a5cd2a3695e2df6edc9d9eab944d08a73",
+      "native_layout_sha256": "5a9c8bb450768f8d09b1c9d0043a10e25f0de1ea64fc43f5932c251e1813b6dd",
+      "candidate": "c61eeaa3a416800cbd83c03a0409c475d638573a",
+      "nets": 106,
+      "resistors": 3261,
+      "devices": 103,
+      "pvt_cases": 4,
+      "startup_ramps": 12,
+      "identity_and_report_controls_passed": true,
+      "bytes_downloaded_for_selected_members": 8161349,
+      "zip_digest_scope": "GitHub API reported; selected member bytes and CRCs verified locally."
+    },
+    {
+      "corner": "nominal",
+      "status": "passed",
+      "signoff": false,
+      "artifact_id": 12539695598,
+      "report_sha256": "abb8fb13927f9da16a6af9f0e48ae0ca27647137d1f4227ea901665e4112f5e9",
+      "restored_receipt_sha256": "b605d31ecd693cdf48f63a9976e8cdc45493dcc908fe2a1029bcdf02e31f5f15",
+      "producer_manifest_sha256": "30be4ecd623b8234c6e6cc0333b12c9d548db34a227ecd677d8aa9823a11ebd4",
+      "active_manifest_sha256": "c86fafa593502731436338dce8bbc7f8dbcd01bd675f4537257eb200f1271a5e",
+      "active_archive_sha256": "5d09775cc69885028e76e568576a86fa124209b6dcecda554970316be9bbed3d",
+      "resolution": "rebuilt_for_image_version",
+      "consumer_environment": {
+        "image_os": "ubuntu24",
+        "image_version": "20261012.334.1",
+        "machine": "x86_64",
+        "system": "Linux"
+      },
+      "resolution_receipt_sha256": "18033b3193aeda6ae78d9215b4e851403b15d57f072afd213ec625fa68420152",
+      "runtime_package_inventory_sha256": "2cd607b030ca527115f158934d79a9d8e3619945fa15767c6c909e7032a4cff1",
+      "active_engine_sha256": {
+        "magic": "d884ff69a9b4e0140bbed72883ee0a81df8d55c22ad33faa73439ce6411ea8be",
+        "ngspice": "1f1096ce04558acc6df5c652bf98d303e5d6ac1d72855c50c58a304f3b717b39",
+        "magic_library": "fd20d4c69cdbb73d9e28be4dd5c2d3e43351cf386e03a146dcb4adf297051f75"
+      },
+      "mismatch_receipt_sha256": "e46a61b812039aac4f458df5f828f7f6eee9f4aac51c1b2448df76ff6126ea13",
+      "native_implementation_sha256": "acb91c5b2b026f5376fa43f8c89fe28a5cd2a3695e2df6edc9d9eab944d08a73",
+      "native_layout_sha256": "5a9c8bb450768f8d09b1c9d0043a10e25f0de1ea64fc43f5932c251e1813b6dd",
+      "candidate": "c61eeaa3a416800cbd83c03a0409c475d638573a",
+      "nets": 106,
+      "resistors": 3261,
+      "devices": 103,
+      "pvt_cases": 4,
+      "startup_ramps": 12,
+      "identity_and_report_controls_passed": true,
+      "bytes_downloaded_for_selected_members": 8159023,
+      "zip_digest_scope": "GitHub API reported; selected member bytes and CRCs verified locally."
+    }
+  ],
+  "independent_reports": {
+    "status": "passed",
+    "candidate": "c61eeaa3a416800cbd83c03a0409c475d638573a",
+    "records": [
+      {
+        "status": "passed",
+        "candidate": "c61eeaa3a416800cbd83c03a0409c475d638573a",
+        "artifact_id": 12538403427,
+        "application_code_modified": false,
+        "compatibility_sources_verified": {
+          "icstudio/catalog_migration.py": "f379181929f3d4c7b14762c276037eb881e2e74af618a83be98708c849540a7f",
+          "icstudio/native_exchange.py": "99efea89e7edcb957eb5de44574b522ebb853b5c0a35856388726d5bfb32570f"
+        },
+        "analyses_per_run": 6,
+        "desktop_checks": [
+          "Native catalog migration UI",
+          "Save and reopen",
+          "Real GUI simulation worker",
+          "Six completed cases",
+          "Five startup measurements",
+          "Transient/DC/AC waveform switching"
+        ],
+        "scope": "Xschem/Studio GF180 schematic and simulation compatibility. No Magic/KLayout physical geometry, full PVT, noise, Monte Carlo, or sign-off claim.",
+        "report_members": {
+          "bandgap-compatibility/report.json": {
+            "sha256": "8b30c47c11918898476aba83c2fc999caf5ef87c21bf3cdde8d45a9e02e617a4",
+            "bytes": 33709,
+            "zip_crc_verified": true
+          },
+          "bandgap-desktop/report.json": {
+            "sha256": "4d1f7bc4b60625aec961d576dbf01cf1ee5228a99b3412fbd2c44ed534234b9b",
+            "bytes": 393,
+            "zip_crc_verified": true
+          }
+        },
+        "full_zip_verified": false
+      },
+      {
+        "artifact_id": 12538584942,
+        "name": "reference-bandgap-physical",
+        "status": "passed",
+        "reports": [
+          {
+            "path": "qualification.json",
+            "status": "passed",
+            "suite": "gf180-bandgap-exchange",
+            "counts": {
+              "passed": 12,
+              "blocked": 2
+            },
+            "signoff": false,
+            "complete_scope": false,
+            "source_hashes_verified": 1345,
+            "lock_hashes_verified": 4,
+            "blocked_cases": [
+              "bandgap-distributed-rc-and-fill-coupling",
+              "virtuoso-bandgap"
+            ]
+          }
+        ],
+        "report_members": {
+          "qualification.json": {
+            "sha256": "1e98d4125732d0f512fa16a36dc3af7e444d27288141ba5801ecbbdbb9a3a253",
+            "bytes": 626768,
+            "zip_crc_verified": true
+          }
+        },
+        "full_zip_verified": false
+      },
+      {
+        "artifact_id": 12539098528,
+        "name": "reference-modern-schematic",
+        "status": "passed",
+        "reports": [
+          {
+            "path": "modern-bandgap/report.json",
+            "status": "passed",
+            "analyses": 6,
+            "source_hashes_verified": 2
+          },
+          {
+            "path": "modern-detector/qualification.json",
+            "status": "passed",
+            "import_regression": "passed",
+            "check_count": 9,
+            "checks": [
+              "schematic_reference",
+              "schematic_roundtrip",
+              "layout_geometry",
+              "simulation",
+              "desktop_testbench",
+              "layout_schematic_lvs",
+              "fault_enable_open",
+              "fault_child_pin",
+              "fault_resistor_length"
+            ]
+          },
+          {
+            "path": "modern-exchange/qualification.json",
+            "status": "passed",
+            "suite": "reference-exchange",
+            "counts": {
+              "passed": 24,
+              "failed": 1,
+              "blocked": 2
+            },
+            "signoff": false,
+            "complete_scope": false,
+            "source_hashes_verified": 1345,
+            "lock_hashes_verified": 4,
+            "blocked_cases": [
+              "virtuoso-exchange",
+              "installed-windows-physical-tools"
+            ],
+            "failed_optional_diagnostics": [
+              {
+                "id": "detector-raw-magic-hierarchical-stream",
+                "required": false,
+                "status": "failed",
+                "drc_findings": 288,
+                "scope": "Known raw hierarchical Magic stream diagnostic; separately required canonical-stream DRC/LVS passes. This attempt stops at DRC, so it supplies no new raw-stream LVS result."
+              }
+            ]
+          }
+        ],
+        "report_members": {
+          "modern-bandgap/report.json": {
+            "sha256": "190be41f4597667e4bf230a581b8b0916a4862c0e2ea020aac1eb2d7b40c32af",
+            "bytes": 33796,
+            "zip_crc_verified": true
+          },
+          "modern-detector/qualification.json": {
+            "sha256": "8eedd3e14f1fa274c645e1ab2f01d4d9cb43b27b533cdcc8df5297f1d9aa0816",
+            "bytes": 57127,
+            "zip_crc_verified": true
+          },
+          "modern-exchange/qualification.json": {
+            "sha256": "1e348eb810f2547373fc2a95d5c8a6a1527d75547cd435167b18a41d9dd8708d",
+            "bytes": 306975,
+            "zip_crc_verified": true
+          }
+        },
+        "full_zip_verified": false
+      }
+    ],
+    "distinct_git_source_blobs_verified": 1349
+  },
+  "reused_corners": [
+    "sf",
+    "ss"
+  ],
+  "real_native_rebuilt_corners": [
+    "ff",
+    "fs",
+    "nominal"
+  ],
+  "acceptance_scope": "Same immutable candidate passed the complete reference workflow. Naturally observed image-version-only misses rebuilt the same locked engines locally, passed unchanged readiness and full native RC suites. Other reference acceptance jobs also passed. No controlled marker injection or synthetic build is represented as hosted native evidence.",
+  "limits": [
+    "Public reference qualification, not foundry signoff or all-device-family qualification.",
+    "Runtime ImageVersion differences establish a marker mismatch, not an independently measured change in complete host image contents.",
+    "Producer ZIP and fresh local tar payloads verified fully; large consumer ZIP digests remain API-reported, with selected member bytes and CRC verified locally.",
+    "No hermetic APT or general cross-run cache-reuse claim. Historical failed/cancelled candidates remain separate."
+  ],
+  "job_span_seconds": 1461.0,
+  "independent_peer_review": {
+    "status": "PASS",
+    "receipt_sha256": "543d975ec44a5df5887c0b5193189f63c3d49c3aa544f8783b606bb8d2262ac2",
+    "receipt": "peer-review/final-review.json"
+  },
+  "date": "2026-10-23",
+  "status": "complete_reference_recovery_passed",
+  "qualified": false,
+  "chunk_complete": false,
+  "foundry_signoff": false,
+  "summary_sha256": "d228abb2b67b0ab1fafebd6ced6ca0f69de7ac2bfd2bf3f68058ccb68ec0d643",
+  "jobs": [
+    {
+      "id": 120707016734,
+      "name": "candidate",
+      "conclusion": "success",
+      "started_at": "2026-10-23T23:24:43Z",
+      "completed_at": "2026-10-23T23:24:50Z",
+      "seconds": 7.0
+    },
+    {
+      "id": 120707061434,
+      "name": "bandgap-schematic",
+      "conclusion": "success",
+      "started_at": "2026-10-23T23:24:52Z",
+      "completed_at": "2026-10-23T23:26:22Z",
+      "seconds": 90.0
+    },
+    {
+      "id": 120707061455,
+      "name": "bandgap-physical",
+      "conclusion": "success",
+      "started_at": "2026-10-23T23:24:52Z",
+      "completed_at": "2026-10-23T23:39:51Z",
+      "seconds": 899.0
+    },
+    {
+      "id": 120707061579,
+      "name": "modern-schematic",
+      "conclusion": "success",
+      "started_at": "2026-10-23T23:24:52Z",
+      "completed_at": "2026-10-23T23:47:00Z",
+      "seconds": 1328.0
+    },
+    {
+      "id": 120707061607,
+      "name": "rc-toolchain",
+      "conclusion": "success",
+      "started_at": "2026-10-23T23:24:53Z",
+      "completed_at": "2026-10-23T23:29:23Z",
+      "seconds": 270.0
+    },
+    {
+      "id": 120708454755,
+      "name": "bandgap-rc (nominal)",
+      "conclusion": "success",
+      "started_at": "2026-10-23T23:29:24Z",
+      "completed_at": "2026-10-23T23:41:37Z",
+      "seconds": 733.0
+    },
+    {
+      "id": 120708454760,
+      "name": "bandgap-rc (sf)",
+      "conclusion": "success",
+      "started_at": "2026-10-23T23:29:25Z",
+      "completed_at": "2026-10-23T23:42:13Z",
+      "seconds": 768.0
+    },
+    {
+      "id": 120708454778,
+      "name": "bandgap-rc (ff)",
+      "conclusion": "success",
+      "started_at": "2026-10-23T23:29:25Z",
+      "completed_at": "2026-10-23T23:48:34Z",
+      "seconds": 1149.0
+    },
+    {
+      "id": 120708454803,
+      "name": "bandgap-rc (ss)",
+      "conclusion": "success",
+      "started_at": "2026-10-23T23:29:25Z",
+      "completed_at": "2026-10-23T23:44:13Z",
+      "seconds": 888.0
+    },
+    {
+      "id": 120708454895,
+      "name": "bandgap-rc (fs)",
+      "conclusion": "success",
+      "started_at": "2026-10-23T23:29:25Z",
+      "completed_at": "2026-10-23T23:49:04Z",
+      "seconds": 1179.0
+    }
+  ],
+  "totals": {
+    "complete_native_corners": 5,
+    "pvt_cases": 20,
+    "startup_ramps": 60
+  },
+  "evidence_archive": {
+    "bytes": 33268622,
+    "sha256": "3e5ca86c24bb90f7bbb11d4a1cdfd82d9030adeab70e8100a7989225998b84c2",
+    "payload_files": 156,
+    "all_members_verified": true,
+    "manifest_sha256": "a3cae7389897eb81362a33203027885ba2e80314ea947317c0c76b0a8f34ac9f"
+  },
+  "estimate": {
+    "chunk": 7,
+    "percent": 60,
+    "confidence": "low",
+    "range_percent": [
+      50,
+      70
+    ]
+  }
+}
