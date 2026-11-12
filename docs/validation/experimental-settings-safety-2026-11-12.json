@@ -1,0 +1,83 @@
+{
+  "schema": 1,
+  "validation_started_utc": "2026-11-12T02:45:45.516611+00:00",
+  "work_day_eastern": "2026-11-11",
+  "base_commit": "ca7a3986deaea1f1cd7dd46a71b442bed68d2307",
+  "scope": "Project Settings apply-time inspector validation guard; nonmodal settings dialog",
+  "repair": "At Project Settings apply time, raise ValueError if inspector flush fails, preserving the nonmodal dialog and pending name/property/layer-view state when a late invalid draft refuses commit. Active-process guard remains first; opening and Cancel behavior are unchanged. Five focused settings methods and all prior 52 Qt cases are retained. One-line guard; no scientific qualification change.",
+  "validation": {
+    "focused_settings_cases": {
+      "tests": 5,
+      "seconds": 1.875,
+      "status": "PASS"
+    },
+    "qt_wrapper": {
+      "tests": 1,
+      "actual_cases": 57,
+      "seconds": 13.308,
+      "status": "PASS"
+    },
+    "original_control": {
+      "base": "ca7a3986deaea1f1cd7dd46a71b442bed68d2307",
+      "methods": 5,
+      "expected_failures": 2,
+      "seconds": 1.658
+    },
+    "complete_affected_unit_stage": {
+      "tests": 293,
+      "skips": 3,
+      "seconds": 38.551,
+      "receiver_seconds": 39.23,
+      "returncode": 0,
+      "syntax_files": 1637,
+      "bound_source_identities": 2567,
+      "source_unchanged": true,
+      "launcher_sha256": "64fa51dd849afa75d261003132d9973bd2f9ff2c6f404931d31cc6002feb8231"
+    }
+  },
+  "identity_storage": {
+    "stored_map": "evidence/source-map.json",
+    "original_before_sha256": "0ebd0a82c6fe51a6602ed2e8505c0f8dddca8a58efaa8b6a7e9eaa8fb0e43ccc",
+    "original_after_sha256": "0ebd0a82c6fe51a6602ed2e8505c0f8dddca8a58efaa8b6a7e9eaa8fb0e43ccc",
+    "byte_identical": true,
+    "entry_count": 2567,
+    "duplicate_map_omitted_losslessly": true
+  },
+  "prior_base_hosted_run": {
+    "id": 43140939163,
+    "latest_parent_status": "PASS",
+    "covers_this_follow_on": false,
+    "status_not_rechecked_for_this_record": true
+  },
+  "not_run_for_this_follow_on": [
+    "full exhaustive core",
+    "all 14 local source stages",
+    "fresh hosted matrix",
+    "exact-candidate installed acceptance"
+  ],
+  "historical_source_scope": "Existing exact historical project_ui.py snapshot remains valid; no additional retention was necessary and repaired code does not inherit native acceptance.",
+  "publication_scope": "Local follow-on only; no publication/integration/main changes claimed by this record.",
+  "qualified": false,
+  "engineering_estimate": {
+    "chunk": 7,
+    "percent": 74,
+    "low_confidence_range": [
+      55,
+      82
+    ],
+    "acceptance_fraction": false
+  },
+  "documentation_created_after_validation": true,
+  "privacy_review": {
+    "credential_private_memory_access_link_patterns": 0,
+    "redactions": 0,
+    "ordinary_test_workspace_paths_retained": true
+  },
+  "archive": {
+    "path": "docs/validation/experimental-settings-safety-2026-11-12.zip",
+    "bytes": 172212,
+    "sha256": "244313c2967ed8c676d787d3b69e90c161c8d005f8b54b9d1b3fc7c6367aefa3",
+    "members": 15,
+    "readback": "PASS"
+  }
+}

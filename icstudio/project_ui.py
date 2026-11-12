@@ -227,6 +227,7 @@ class ProjectMixin:
         def apply():
             try:
                 if self.process:raise ValueError('Stop the active job before changing project technology.')
+                if not self.flush_inspector():raise ValueError('Resolve pending property edits before saving project settings.')
                 key=pdk.currentData();tech=self.project['pdk'] if key=='current' else self.pdk_registry.technology(key) if key else example('empty')['pdk']
                 def edit(p):
                     p.update(name=name.text().strip(),top=root.currentData())

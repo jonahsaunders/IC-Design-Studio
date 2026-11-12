@@ -1,5 +1,20 @@
 # Chunks 1–12: progress and forecast
 
+**November 12 Project Settings apply guard:** the local follow-on to
+`ca7a398` rejects Apply when a late invalid inspector draft cannot be flushed,
+preserving the nonmodal settings dialog and pending name/property/layer-view
+state. The active-process check remains first; opening and Cancel behavior
+are unchanged. The [focused evidence](validation/experimental-settings-safety-2026-11-12.json)
+retains five focused settings cases, all 57 Qt cases through the wrapper,
+and two expected failures among five exact original-code controls. All 293
+affected unit tests pass with three skips; syntax checks cover 1,637 files
+and 2,567 source identities remain unchanged. The one-line guard requires no
+new historical snapshot. No full core, all 14 local source stages, new hosted
+or installed acceptance is claimed. The green base source run does not cover
+this guard; publication approval remains pending at this local snapshot.
+Chunk 7 remains **74%**, low confidence **55–82%**, not an acceptance fraction.
+
+
 **November 12 instance-symbol editor Save guard:** the local follow-on to
 `6fae7a1` rejects Save when pending inspector validation fails, keeping the
 editor artwork and draft rather than falsely reporting a successful Save.

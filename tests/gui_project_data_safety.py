@@ -14,7 +14,7 @@ from unittest.mock import patch
 from PySide6.QtCore import QPoint, QSettings, Qt
 from PySide6.QtGui import QAction
 from PySide6.QtTest import QTest
-from PySide6.QtWidgets import QApplication, QDialog, QDialogButtonBox, QFileDialog, QInputDialog, QLabel, QListWidget, QMessageBox, QPushButton
+from PySide6.QtWidgets import QApplication, QDialog, QDialogButtonBox, QFileDialog, QInputDialog, QLabel, QLineEdit, QListWidget, QMessageBox, QPushButton
 
 from icstudio.gui import Studio, StudioCore
 from icstudio.model import clone, digest, example, file_digest, load_project, save_project, uid
@@ -1558,6 +1558,205 @@ class ProjectDataSafetyTests(unittest.TestCase):
         finally:
             dialog.reject()
             dialog.deleteLater()
+
+
+    def project_settings_action(self):
+        actions = [a for a in self.window.findChildren(QAction)
+                   if a.text().replace('&', '') == 'Project settings…']
+        self.assertEqual(len(actions), 1)
+        self.assertTrue(actions[0].isEnabled())
+        return actions[0]
+
+    def prepare_settings_cell(self):
+        path, _ = self.prepare(dirty=False)
+        w = self.window
+        self.addCleanup(w.setVisible, w.isVisible())
+        w.show()
+        w.inspector.show()
+        w.mode_combo.setCurrentIndex(0)
+        rid = next(d['id'] for d in w.cell['devices'] if d['kind'] == 'R')
+        w.select([rid])
+        w.layer_combo.setCurrentText('metal1')
+        w.show_layers('solo')
+        self.app.processEvents()
+        return path, rid
+
+    def settings_document_snapshot(self, path):
+        w = self.window
+        return (digest(w.project), len(w.history.undo_stack), len(w.history.redo_stack),
+                w.path, w.saved_hash, w._disk_hash, path.read_bytes(), clone(w.project['pdk']),
+                w.cid, list(w.selection), w.current_mode, set(w.layout.visible_layers))
+
+    def open_real_project_settings(self):
+        self.project_settings_action().trigger()
+        dialog = self.window._settings_dialog
+        self.app.processEvents()
+        self.assertTrue(dialog.isVisible())
+        self.assertFalse(dialog.isModal())
+        return dialog
+
+    def type_visible_settings_field(self, field, value):
+        self.assertTrue(field.isVisible())
+        self.assertTrue(field.isEnabled())
+        QTest.mouseClick(field, Qt.LeftButton)
+        QTest.keyClick(field, Qt.Key_A, Qt.ControlModifier)
+        QTest.keyClicks(field, value)
+        self.assertEqual(field.text(), value)
+
+    def test_settings_repeated_refused_save_preserves_modeless_drafts_and_view(self):
+        path, rid = self.prepare_settings_cell()
+        w = self.window
+        w.analysis_fields['stop'].setText('250u')
+        before = self.settings_document_snapshot(path)
+        dialog = self.open_real_project_settings()
+        try:
+            name = dialog.findChild(QLineEdit)
+            self.type_visible_settings_field(name, 'Requested project name')
+            field = w.form_fields['Value']
+            self.type_visible_settings_field(field, 'invalid resistance')
+            for _ in range(2):
+                dialog.findChild(QDialogButtonBox).button(QDialogButtonBox.Save).click()
+                self.assertNotEqual(dialog.result(), QDialog.Accepted)
+                self.assertTrue(dialog.isVisible())
+                self.assertIn('Resolve pending property edits before saving project settings.',
+                              [label.text() for label in dialog.findChildren(QLabel)])
+                self.assertEqual(name.text(), 'Requested project name')
+                self.assertIs(w.form_fields['Value'], field)
+                self.assertEqual(field.text(), 'invalid resistance')
+                self.assertTrue(w._inspector_dirty)
+                self.assertTrue(w.property_error.text())
+                self.assertEqual(w.selection, [rid])
+                self.assertEqual(self.settings_document_snapshot(path), before)
+                self.assertTrue(w.analysis_dirty)
+                self.assertEqual(w.analysis_fields['stop'].text(), '250u')
+            self.assertEqual(self.errors, [])
+        finally:
+            dialog.reject()
+            dialog.deleteLater()
+
+    def test_settings_corrected_draft_can_retry_same_dialog_and_save_both_edits(self):
+        path, rid = self.prepare_settings_cell()
+        w = self.window
+        original_bytes, saved_hash = path.read_bytes(), w.saved_hash
+        history_count = len(w.history.undo_stack)
+        original_pdk = clone(w.project['pdk'])
+        dialog = self.open_real_project_settings()
+        try:
+            name = dialog.findChild(QLineEdit)
+            self.type_visible_settings_field(name, 'Requested project name')
+            field = w.form_fields['Value']
+            self.type_visible_settings_field(field, 'invalid resistance')
+            save_button = dialog.findChild(QDialogButtonBox).button(QDialogButtonBox.Save)
+            save_button.click()
+            self.assertTrue(dialog.isVisible())
+            self.assertIs(w.form_fields['Value'], field)
+            self.type_visible_settings_field(field, '22k')
+            save_button.click()
+            self.assertEqual(dialog.result(), QDialog.Accepted)
+            self.assertFalse(dialog.isVisible())
+            self.assertEqual(w.project['name'], 'Requested project name')
+            self.assertEqual(next(d['value'] for d in w.cell['devices'] if d['id'] == rid), '22k')
+            self.assertFalse(w._inspector_dirty)
+            self.assertEqual(w.project['pdk'], original_pdk)
+            self.assertEqual(w.selection, [rid])
+            self.assertEqual(len(w.history.undo_stack), history_count + 2)
+            self.assertEqual(w.path, path)
+            self.assertEqual(w.saved_hash, saved_hash)
+            self.assertEqual(path.read_bytes(), original_bytes)
+            self.assertTrue(w.save())
+            saved = load_project(path)
+            self.assertEqual(saved['name'], 'Requested project name')
+            self.assertEqual(next(d['value'] for d in saved['cells'][0]['devices'] if d['id'] == rid), '22k')
+            self.assertEqual(saved['pdk'], original_pdk)
+            self.assertEqual(self.errors, [])
+        finally:
+            dialog.reject()
+            dialog.deleteLater()
+
+    def test_settings_cancel_preserves_unchanged_valid_and_invalid_main_window_fields(self):
+        for draft in (None, '22k', 'invalid resistance'):
+            with self.subTest(draft=draft):
+                path, _ = self.prepare_settings_cell()
+                w = self.window
+                w.analysis_fields['stop'].setText('250u')
+                before = self.settings_document_snapshot(path)
+                dialog = self.open_real_project_settings()
+                try:
+                    field = w.form_fields['Value']
+                    if draft is not None:
+                        self.type_visible_settings_field(dialog.findChild(QLineEdit), 'Cancelled name')
+                        self.type_visible_settings_field(field, draft)
+                    with patch.object(w, 'flush_inspector', side_effect=AssertionError('Settings Cancel applied a draft')) as flush:
+                        dialog.findChild(QDialogButtonBox).button(QDialogButtonBox.Cancel).click()
+                        flush.assert_not_called()
+                    self.assertEqual(dialog.result(), QDialog.Rejected)
+                    self.assertFalse(dialog.isVisible())
+                    self.assertIs(w.form_fields['Value'], field)
+                    self.assertEqual(field.text(), draft or '10k')
+                    self.assertEqual(w._inspector_dirty, draft is not None)
+                    self.assertEqual(self.settings_document_snapshot(path), before)
+                    self.assertTrue(w.analysis_dirty)
+                    self.assertEqual(w.analysis_fields['stop'].text(), '250u')
+                    self.assertEqual(self.errors, [])
+                finally:
+                    dialog.reject()
+                    dialog.deleteLater()
+
+    def test_settings_open_with_existing_invalid_property_remains_blocked(self):
+        path, _ = self.prepare_settings_cell()
+        w = self.window
+        field = w.form_fields['Value']
+        self.type_visible_settings_field(field, 'invalid resistance')
+        before = self.settings_document_snapshot(path)
+        previous = getattr(w, '_settings_dialog', None)
+        for _ in range(2):
+            self.project_settings_action().trigger()
+            self.assertIs(getattr(w, '_settings_dialog', None), previous)
+            self.assertIs(w.form_fields['Value'], field)
+            self.assertEqual(field.text(), 'invalid resistance')
+            self.assertTrue(w._inspector_dirty)
+            self.assertTrue(w.property_error.text())
+            self.assertEqual(self.settings_document_snapshot(path), before)
+        self.assertEqual(self.errors, [])
+
+    def test_settings_save_and_cancel_keep_valid_analysis_and_digital_drafts(self):
+        from icstudio.digital import counter_project
+        for decision in (QDialogButtonBox.Save, QDialogButtonBox.Cancel):
+            with self.subTest(decision=decision):
+                path, _ = self.prepare(dirty=False)
+                w = self.window
+                self.addCleanup(w.setVisible, w.isVisible())
+                w.show()
+                w.set_project(counter_project(), path)
+                self.assertTrue(w.save())
+                original_bytes, saved_hash = path.read_bytes(), w.saved_hash
+                original_analysis = clone(w.project['analysis'])
+                original_digital = clone(w.project['digital'])
+                digital = w.digital_window()
+                digital.files.setCurrentRow(0)
+                digital.editor.insertPlainText('// Pending settings source\n')
+                pending_source = digital.editor.toPlainText()
+                self.assertTrue(digital.dirty)
+                w.analysis_fields['stop'].setText('250u')
+                dialog = self.open_real_project_settings()
+                try:
+                    self.type_visible_settings_field(dialog.findChild(QLineEdit), 'Requested digital name')
+                    dialog.findChild(QDialogButtonBox).button(decision).click()
+                    self.assertEqual(dialog.result(), QDialog.Accepted if decision == QDialogButtonBox.Save else QDialog.Rejected)
+                    self.assertEqual(w.project['name'], 'Requested digital name' if decision == QDialogButtonBox.Save else 'Digital counter')
+                    self.assertTrue(digital.dirty)
+                    self.assertEqual(digital.editor.toPlainText(), pending_source)
+                    self.assertTrue(w.analysis_dirty)
+                    self.assertEqual(w.analysis_fields['stop'].text(), '250u')
+                    self.assertEqual(w.project['analysis'], original_analysis)
+                    self.assertEqual(w.project['digital'], original_digital)
+                    self.assertEqual(w.saved_hash, saved_hash)
+                    self.assertEqual(w.path, path)
+                    self.assertEqual(path.read_bytes(), original_bytes)
+                    self.assertEqual(self.errors, [])
+                finally:
+                    dialog.reject()
+                    dialog.deleteLater()
 
 
 if __name__ == '__main__':
