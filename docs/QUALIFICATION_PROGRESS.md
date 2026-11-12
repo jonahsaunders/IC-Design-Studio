@@ -1,5 +1,41 @@
 # Chunks 1–12: progress and forecast
 
+**November 12 final combined document-context repair:** Cell Parameters,
+Regenerate active layout cell and Erase layout area now bind the opening
+document/session, project, cell and relevant parameter or geometry baseline.
+Changed targets, same-ID copied files and same-file reopen are rejected before
+unrelated drafts can flush. Regenerate and Erase also recheck after flush so a
+new geometry edit cannot be silently replaced or erased. Correct-context edits,
+Cancel, undo/redo and Save As continuity remain covered.
+
+The [fresh combined evidence](validation/experimental-document-context-final-2026-11-12.json)
+records one affected unit stage: **293 tests, three skips**, including the wrapper
+that executes **83 actual Qt cases**. The counts are not additive. All 64 base
+cases and helpers remain byte-exact. One exact original-feature control runs 19
+added methods and produces 31 expected assertions, with no unexpected errors.
+There are 1,637 syntax checks and 2,567 unchanged before/after source identities.
+The archive retains exact modified sources, both launchers, the full current
+unit/control logs and receipts, and one complete identity map. Private path
+prefixes in logs/receipts are normalized with original and normalized hashes.
+
+After restarts made local worktrees and backups unavailable, source was restored
+from `f418e3e` and retained conversation, then matched exactly to the prior
+reconstructed source hashes. Earlier raw archives, full logs and identity maps
+were not recovered; they are not reconstructed or reused as proof. Earlier fixture failures remain non-passes; this
+record uses fresh combined validation. A persistent source backup was saved and
+read back before these tests. The owner has authorized that backup, publication
+of **all three fixes** on a feature branch, and experimental integration only
+after hosted checks pass. The first source-upload attempt was denied despite
+that approval; publication is now blocked pending repository-specific
+authorization. No successful remote upload, branch update or PR is claimed,
+and no retry has been attempted. The persistent source backup remains verified.
+Hosted checks and integration are pending. Main must stay unchanged.
+Full exhaustive source/core qualification, all 14 local stages, fresh hosted
+and exact-candidate installed acceptance remain unrun for this candidate.
+No scientific qualification is promoted. Chunk 7 remains **74%**, low confidence
+**55–82%**, not an acceptance fraction.
+
+
 **November 12 Cell Parameters target/stale-state guard:** the local follow-on
 to `2c3b409` rejects a modeless parameter submission when the active project or
 cell changed, its target disappeared, or the opening parameter baseline became

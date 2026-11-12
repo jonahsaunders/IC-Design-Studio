@@ -176,9 +176,9 @@ class FeatureMixin:
         path,_=QFileDialog.getSaveFileName(self,'Export structural connectivity','design.v','Verilog (*.v)')
         if path and self.flush_inspector():atomic_write(path,verilog(self.project))
     def edit_parameters(self):
-        project_id=self.project['id'];cid=self.cid;baseline=clone(self.cell.get('parameters',{}))
+        document=self.history;project_id=self.project['id'];cid=self.cid;baseline=clone(self.cell.get('parameters',{}))
         def context_guard():
-            if self.project['id']!=project_id or self.cid!=cid:
+            if self.history is not document or self.project['id']!=project_id or self.cid!=cid:
                 raise ValueError('The active project or cell changed. Reopen Cell parameters for the intended cell.')
             target=next((c for c in self.project['cells'] if c['id']==cid),None)
             if target is None or target.get('parameters',{})!=baseline:
@@ -221,13 +221,21 @@ class FeatureMixin:
         dlg.fields['kind'].currentTextChanged.connect(relevant);relevant('guard_ring')
     def regenerate_dialog(self):
         from .physical import regenerate
-        recipe=self.cell.get('generator')
+        recipe=clone(self.cell.get('generator'))
         if not recipe:raise ValueError('Open a generated layout cell first.')
+        document=self.history;project_id=self.project['id'];cid=self.cid;shapes=clone(self.cell['shapes'])
+        def context_guard():
+            if self.history is not document or self.project['id']!=project_id or self.cid!=cid:
+                raise ValueError('The active project or cell changed. Reopen Regenerate layout cell for the intended cell.')
+            target=next((c for c in self.project['cells'] if c['id']==cid),None)
+            if target is None or target.get('generator')!=recipe or target['shapes']!=shapes:
+                raise ValueError('The target cell recipe or geometry changed. Reopen Regenerate layout cell before applying edits.')
         fields=[(k,k.replace('_',' ').title(),str(v)) for k,v in recipe['spec'].items() if k!='kind']
         def submit(v):
+            context_guard()
             old=recipe['spec'];spec={**old,**{k:(int(x) if isinstance(old[k],int) else x) for k,x in v.items()}}
-            self.commit(lambda p:regenerate(next(c for c in p['cells'] if c['id']==self.cid),spec),'Regenerate layout cell')
-        self.workflow_form('Regenerate layout cell',fields,submit,'Recipe dimensions are integer database units (nm). Every physical instance updates with the cell.')
+            self.commit(lambda p:regenerate(next(c for c in p['cells'] if c['id']==cid),spec),'Regenerate layout cell')
+        self.workflow_form('Regenerate layout cell',fields,submit,'Recipe dimensions are integer database units (nm). Every physical instance updates with the cell.',context_guard=context_guard)
     def physical_instance_dialog(self):
         candidates=[c for c in self.project['cells'] if c['id']!=self.cid]
         if not candidates:raise ValueError('Create another layout cell first.')
@@ -242,11 +250,19 @@ class FeatureMixin:
         self.workflow_form('Assisted Manhattan route',[('layer','Layer',[l['name'] for l in self.project['pdk']['layers']]),('net','Net','vout'),('width','Width (µm)','0.4'),('x1','Start X (µm)','0'),('y1','Start Y (µm)','0'),('x2','End X (µm)','10'),('y2','End Y (µm)','10')],submit,'Checks width and clearance on the chosen layer. Obstacles on other nets are avoided.')
     def erase_dialog(self):
         from .physical import erase
+        document=self.history;project_id=self.project['id'];cid=self.cid;shapes=clone(self.cell['shapes'])
+        def context_guard():
+            if self.history is not document or self.project['id']!=project_id or self.cid!=cid:
+                raise ValueError('The active project or cell changed. Reopen Erase layout area for the intended cell.')
+            target=next((c for c in self.project['cells'] if c['id']==cid),None)
+            if target is None or target['shapes']!=shapes:
+                raise ValueError('The target cell geometry changed. Reopen Erase layout area before applying edits.')
         def submit(v):
+            context_guard()
             box=[self.nm(v[k]) for k in ('x1','y1','x2','y2')]
             if box[0]>=box[2] or box[1]>=box[3]:raise ValueError('The upper-right corner must exceed the lower-left corner.')
-            self.commit(lambda p:erase(next(c for c in p['cells'] if c['id']==self.cid),v['layer'],box),'Erase physical geometry')
-        self.workflow_form('Erase layout area',[('layer','Layer',[l['name'] for l in self.project['pdk']['layers']]),('x1','Left (µm)','0'),('y1','Bottom (µm)','0'),('x2','Right (µm)','1'),('y2','Top (µm)','1')],submit,'Cuts geometry on the active cell and selected layer. Undo restores the edit.')
+            self.commit(lambda p:erase(next(c for c in p['cells'] if c['id']==cid),v['layer'],box),'Erase physical geometry')
+        self.workflow_form('Erase layout area',[('layer','Layer',[l['name'] for l in self.project['pdk']['layers']]),('x1','Left (µm)','0'),('y1','Bottom (µm)','0'),('x2','Right (µm)','1'),('y2','Top (µm)','1')],submit,'Cuts geometry on the active cell and selected layer. Undo restores the edit.',context_guard=context_guard)
     def physical_pin_dialog(self):
         devices=[d for d in self.cell['devices'] if d['kind'] not in ('V','I')]
         if not devices:raise ValueError('Add schematic devices before assigning physical terminals.')
