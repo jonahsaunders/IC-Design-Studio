@@ -71,7 +71,7 @@ def dependencies(root, paths):
 
 
 def library_sections(path):
-    return re.findall(r'^\s*\.lib\s+([A-Za-z0-9_]+)\s*$',path.read_text(errors='replace'),re.M|re.I)
+    return re.findall(r'^\s*\.lib\s+([A-Za-z0-9_]+)\s*$',path.read_text(errors='replace',encoding='utf-8'),re.M|re.I)
 
 
 def scan_local(path, progress=lambda message: None):

@@ -111,7 +111,7 @@ def xschem_netlist(source, output, executable='xschem', libraries=(), rcfile=Non
                 raise ValueError('Xschem emitted an unresolved Tcl value in '+deck.name+'. See '+str(output/'engine.log'))
         report.update(status='complete',netlists={p.name:file_digest(p) for p in decks})
     except Exception as exc:
-        if not (output/'engine.log').is_file():atomic_write(output/'engine.log',str(exc)+('\n'+erc.read_text() if erc.is_file() else ''))
+        if not (output/'engine.log').is_file():atomic_write(output/'engine.log',str(exc)+('\n'+erc.read_text(encoding='utf-8',errors='replace') if erc.is_file() else ''))
         report.update(status='failed',error=str(exc)); atomic_write(output/'report.json',json.dumps(report,indent=2)); raise
     atomic_write(output/'report.json',json.dumps(report,indent=2)); return report
 
@@ -177,7 +177,7 @@ def magic_workspace(project, cid, output, executable='magic', technology=None, p
                 inst.delete_property(61);inst.set_property(98,'studio_'+marker[9:])
     layout.write(str(output/'layout.gds'))
     for suffix,key in (('.report.json','file_hash'),('.exchange.json','layout_hash')):
-        file=output/('layout.gds'+suffix);meta=json.loads(file.read_text());meta[key]=file_digest(output/'layout.gds');atomic_write(file,json.dumps(meta,indent=2))
+        file=output/('layout.gds'+suffix);meta=json.loads(file.read_text(encoding='utf-8'));meta[key]=file_digest(output/'layout.gds');atomic_write(file,json.dumps(meta,indent=2))
     atomic_write(output/'interoperability.json',json.dumps(project_contract(project),indent=2))
     by = {c['id']:c for c in project['cells']}; setup = ''
     for key in reachable(project,cid,True):
@@ -198,7 +198,7 @@ def magic_workspace(project, cid, output, executable='magic', technology=None, p
     if not deck.is_file(): raise ValueError('Magic produced no extracted netlist.')
     interface=check_extracted_interface(deck,by[cid]['name'],by[cid]['ports'],project['pdk'])
     normalization=output/'native'/'rc-normalization.json'
-    if normalization.is_file():settings['capacitance_normalization']=json.loads(normalization.read_text())
+    if normalization.is_file():settings['capacitance_normalization']=json.loads(normalization.read_text(encoding='utf-8'))
     report = {'version':1,'created':now(),'tool':info,'project_hash':digest(project),'top':by[cid]['name'],
               'profile':profile,'settings':settings,'interface':interface,'technology_file':staged_tech.relative_to(output).as_posix(),'technology_sha256':file_digest(staged_tech),
               'files':{p.relative_to(output).as_posix():file_digest(p) for p in output.rglob('*') if p.is_file()},
@@ -208,7 +208,7 @@ def magic_workspace(project, cid, output, executable='magic', technology=None, p
 
 def check_extracted_interface(deck,top,expected,technology):
     from .interoperability import compare_interfaces
-    text=re.sub(r'\n\s*\+\s*',' ',Path(deck).read_text())
+    text=re.sub(r'\n\s*\+\s*',' ',Path(deck).read_text(encoding='utf-8'))
     declarations=[m for m in re.finditer(r'(?im)^\s*\.subckt\s+(\S+)([^\n]*)',text) if m[1].casefold()==top.casefold()]
     if len(declarations)!=1:raise ValueError('Extraction must contain exactly one top subcircuit: '+top)
     actual=[]
@@ -224,7 +224,7 @@ def magic_workspace_export(workspace,output,executable='magic'):
     """Capture edited native cells, export through Magic, then review in Studio."""
     from .model import load_project
     workspace=Path(workspace).resolve();output=Path(output).resolve()
-    report=json.loads((workspace/'workspace.json').read_text())
+    report=json.loads((workspace/'workspace.json').read_text(encoding='utf-8'))
     if report.get('version')!=1 or report.get('status')!='complete':raise ValueError('Choose a completed managed Magic workspace.')
     if output.exists() and any(output.iterdir()):raise ValueError('Choose an empty Magic review output folder.')
     for name,expected in report['files'].items():

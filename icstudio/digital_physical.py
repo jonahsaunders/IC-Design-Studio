@@ -125,11 +125,11 @@ def preview(def_file, lefs):
     if path.stat().st_size>128*1024*1024:raise ValueError('DEF exceeds the 128 MiB native preview limit.')
     sizes={}
     for lef in lefs:
-        text=Path(lef).read_text()
+        text=Path(lef).read_text(encoding='utf-8')
         for match in re.finditer(r'(?m)^\s*MACRO\s+(\S+)(.*?)(?=^\s*END\s+\1\s*$)',text,re.S):
             size=re.search(r'\bSIZE\s+([\d.]+)\s+BY\s+([\d.]+)',match[2])
             if size:sizes[match[1]]=[float(size[1]),float(size[2])]
-    text=path.read_text();unit=re.search(r'UNITS\s+DISTANCE\s+MICRONS\s+(\d+)',text)
+    text=path.read_text(encoding='utf-8');unit=re.search(r'UNITS\s+DISTANCE\s+MICRONS\s+(\d+)',text)
     if not unit:raise ValueError('DEF preview requires declared distance units.')
     scale=int(unit[1]);die=re.search(r'DIEAREA\s*\(\s*(-?\d+)\s+(-?\d+)\s*\)\s*\(\s*(-?\d+)\s+(-?\d+)\s*\)',text)
     if not die:raise ValueError('DEF preview currently requires a rectangular die.')
@@ -283,7 +283,7 @@ def execute(r):
     stream_layers={}
     for record in r.platform['files']:
         if record['path'].endswith('.lyt'):
-            text=(r.root/'platform'/record['path']).read_text()
+            text=(r.root/'platform'/record['path']).read_text(encoding='utf-8')
             for name,layer,datatype in re.findall(r"'([\w-]+)\.drawing\s*:\s*(\d+)/(\d+)'",text):stream_layers[name]=[int(layer),int(datatype)]
     for pin in geometry['pins']:
         if pin['layer'] in stream_layers:pin['gds_layer']=stream_layers[pin['layer']]
@@ -293,8 +293,8 @@ def execute(r):
     script+='read_verilog ../netlist.v\nhierarchy -check -top '+r.config['top']+'\nwrite_json ../netlist.json\ntee -o ../statistics.json stat -json\n'
     atomic_write(r.root/'physical_index.ys',script);r.command([r.tools['yosys'],'-s',str(r.root/'physical_index.ys')],'Indexing physical cells',fraction=.95)
     from .digital_reports import netlist_index
-    netlist=json.loads((r.root/'netlist.json').read_text());index=netlist_index(netlist,r.config['files'])
-    previous_index=json.loads((r.root/'netlist_index.json').read_text())
+    netlist=json.loads((r.root/'netlist.json').read_text(encoding='utf-8'));index=netlist_index(netlist,r.config['files'])
+    previous_index=json.loads((r.root/'netlist_index.json').read_text(encoding='utf-8'))
     locations={(i['module'],i['kind'],i['name']):i['locations'] for i in previous_index}
     for item in index:
         item['locations']=locations.get((item['module'],item['kind'],item['name']),[])
@@ -334,7 +334,7 @@ def execute(r):
     metrics={}
     for path in sorted(work.rglob('*.json')):
         if path.stat().st_size>8*1024*1024:continue
-        try:value=json.loads(path.read_text())
+        try:value=json.loads(path.read_text(encoding='utf-8'))
         except (ValueError,UnicodeError):continue
         if isinstance(value,dict):metrics[path.relative_to(work).as_posix()]=value
     r.save_json('physical_metrics',metrics,'physical_metrics.json')

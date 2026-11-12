@@ -43,7 +43,7 @@ def execute(args,cwd,timeout=180,input_text=None,on_line=None,env=None):
         return out
     finally:
         if proc.poll() is None:
-            if os.name=='nt':subprocess.run(['taskkill','/PID',str(proc.pid),'/T','/F'],capture_output=True)
+            if os.name=='nt':subprocess.run(['taskkill','/PID',str(proc.pid),'/T','/F'],capture_output=True,creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
             else:
                 try:os.killpg(proc.pid,signal.SIGTERM)
                 except ProcessLookupError:pass
@@ -186,7 +186,7 @@ def netgen_lvs(executable,schematic,schematic_cell,extracted,layout_cell,setup,o
     output=Path(output).resolve();output.mkdir(parents=True,exist_ok=True);log=output/'lvs.log'
     lhs=f'{tcl_word(Path(schematic).resolve())} {tcl_word(schematic_cell)}';rhs=f'{tcl_word(Path(extracted).resolve())} {tcl_word(layout_cell)}'
     text=execute([executable,'-batch','lvs',lhs,rhs,str(Path(setup).resolve()),str(log),'-json'],output)
-    report=log.read_text(errors='replace') if log.exists() else text
+    report=log.read_text(errors='replace',encoding='utf-8') if log.exists() else text
     atomic_write(output/'console.log',text)
     # Only surface raw evidence; deck-dependent log text does not imply signoff.
     return report
@@ -217,7 +217,7 @@ def magic_extract(executable,gds,technology,top,output,profile='rc'):
         log=magic_script(executable,technology,gds,top,[],output,
                          'extract do local\n'+commands+'ext2spice -o extracted.spice')
     except Exception as exc:
-        logs=[p.read_text() for p in (output/'resistance-console.log',output/'console.log') if p.is_file()]
+        logs=[p.read_text(encoding='utf-8',errors='replace') for p in (output/'resistance-console.log',output/'console.log') if p.is_file()]
         atomic_write(output/'extraction.log','\n'.join(logs+[str(exc)]));raise
     atomic_write(output/'extraction.log',log)
     # Keep the legacy final-script alias while retaining both exact RC phases.
@@ -226,7 +226,7 @@ def magic_extract(executable,gds,technology,top,output,profile='rc'):
     if not deck.is_file():raise RuntimeError('Magic returned no extracted SPICE deck. Inspect extraction.log.')
     normalization=output/'rc-normalization.json'
     if normalization.is_file():
-        settings['capacitance_normalization']=json.loads(normalization.read_text())
+        settings['capacitance_normalization']=json.loads(normalization.read_text(encoding='utf-8'))
         atomic_write(output/'profile.json',json.dumps(settings,indent=2))
     report={'engine':'Magic','profile':profile,'gds_hash':file_digest(gds),'technology_hash':file_digest(technology),
             'script_hash':file_digest(output/'extract.tcl'),
@@ -334,6 +334,6 @@ def magic_import(executable,source,technology,output,flatten=False):
     if flatten:report.append('Explicit flattened conversion: one physical cell; original Magic source hierarchy is preserved in its source files. Run fresh DRC/LVS on this conversion.')
     evidence={'source':str(source),'source_hash':file_digest(source),'dependencies':dependencies,'technology':file_digest(technology),'report':report,
               'hierarchy_mode':'flattened' if flatten else 'preserved','stream_normalization':normalization,
-              'feedback':feedback.read_text(errors='replace') if feedback.is_file() else ''}
+              'feedback':feedback.read_text(errors='replace',encoding='utf-8') if feedback.is_file() else ''}
     project['layout_source']['magic_import']=evidence
     save_project(project,output/'imported.icproj');atomic_write(output/'import-report.json',json.dumps(evidence,indent=2));return str(output/'imported.icproj')

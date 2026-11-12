@@ -415,7 +415,7 @@ class StudioCore(RecoveryUIMixin,QMainWindow):
     def cancel_job(self):
         if not self.process:return
         self.cancelled=True;job_store.state(self.active_job,'cancelled')
-        if os.name=='nt':subprocess.run(['taskkill','/PID',str(self.process.processId()),'/T','/F'],capture_output=True)
+        if os.name=='nt':subprocess.run(['taskkill','/PID',str(self.process.processId()),'/T','/F'],capture_output=True,creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
         else:self.process.terminate()
         target=self.process;QTimer.singleShot(2500,lambda:target.kill() if self.process is target and target.state()!=QProcess.NotRunning else None)
     def add_result(self,r):
@@ -509,7 +509,7 @@ class StudioCore(RecoveryUIMixin,QMainWindow):
     def import_technology(self):
         path,_=QFileDialog.getOpenFileName(self,'Import technology descriptor','','JSON descriptor (*.json)')
         if not path:return
-        tech=json.loads(Path(path).read_text());tech['status']='unqualified'
+        tech=json.loads(Path(path).read_text(encoding='utf-8'));tech['status']='unqualified'
         if any(s['layer'] not in {l['name'] for l in tech['layers']} for c in self.project['cells'] for s in c['shapes']):raise ValueError('Technology lacks layers already used by this project. Import into an empty project or provide an explicit layer mapping.')
         self.commit(lambda p:p.update(pdk=tech),'Import technology');self.layer_combo.clear();self.layer_combo.addItems([l['name'] for l in tech['layers']]);self.layout.visible_layers={l['name'] for l in tech['layers']};self.refresh()
     def pdk_status(self):
@@ -552,7 +552,7 @@ class StudioCore(RecoveryUIMixin,QMainWindow):
             cursor=edit.textCursor();cursor.movePosition(type(cursor).Start);edit.setTextCursor(cursor);edit.find(search.text())
         search.textChanged.connect(find);buttons=QDialogButtonBox(QDialogButtonBox.Close);buttons.rejected.connect(dlg.reject);v.addWidget(buttons);dlg.exec()
     def help_dialog(self):
-        path=Path(getattr(sys,'_MEIPASS',Path(__file__).parent.parent))/'docs'/'USER_GUIDE.md';self.text_dialog('IC Design Studio help',path.read_text() if path.exists() else 'Open docs/USER_GUIDE.md in the source package.')
+        path=Path(getattr(sys,'_MEIPASS',Path(__file__).parent.parent))/'docs'/'USER_GUIDE.md';self.text_dialog('IC Design Studio help',path.read_text(encoding='utf-8') if path.exists() else 'Open docs/USER_GUIDE.md in the source package.')
     def about(self):
         from .build_identity import identity,diagnostic_report
         build=identity()

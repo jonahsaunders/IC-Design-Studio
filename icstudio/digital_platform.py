@@ -223,7 +223,7 @@ def verify(platform):
 
 
 def read_manifest(path):
-    path=Path(path).resolve(); data=json.loads(path.read_text())
+    path=Path(path).resolve(); data=json.loads(path.read_text(encoding='utf-8'))
     paths=data.pop('files',[])
     if not all(isinstance(p,str) for p in paths):raise ValueError('The import manifest lists relative platform filenames.')
     data['root']=str(path.parent);data['files']=inventory(path.parent,paths)

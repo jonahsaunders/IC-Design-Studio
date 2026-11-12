@@ -106,7 +106,7 @@ def geometry(path, inventory):
 
 
 def abstract(source, inventory):
-    text = Path(source).read_text(); top = inventory['top']; x0, y0, _, _ = inventory['die_nm']
+    text = Path(source).read_text(encoding='utf-8'); top = inventory['top']; x0, y0, _, _ = inventory['die_nm']
     require(re.findall(r'^MACRO (\S+)\s*$', text, re.M) == [top] and
             not re.search(r'^\s*ORIGIN\s+', text, re.M) and text.count('\n  OBS\n') == 1, 'unsupported abstract format')
     start = text.index('\n  OBS\n')+len('\n  OBS\n'); end = text.index('\n  END\n', start-1)
@@ -193,11 +193,11 @@ def validate_saved(data, root):
         # Exported evidence uses relocated paths; bind content and read the new path.
         require(files.get(key, {}).get('sha256') == item.get('sha256'), 'changed evidence: '+key); read(key)
     require(json.loads(read('sky130_fill_rules').read_bytes()) == rules(), 'changed fill recipe')
-    require(read('sky130_fill_technology').read_text() == technology(read('sky130_fill_source_technology').read_bytes()), 'changed fill stream mapping')
+    require(read('sky130_fill_technology').read_text(encoding='utf-8') == technology(read('sky130_fill_source_technology').read_bytes()), 'changed fill stream mapping')
     inventory = json.loads(read('sky130_fill_inventory_json').read_bytes())
     require(inventory['top'] == report['top'] and inventory['checkpoint_sha256'] == files['checkpoint']['sha256'], 'changed fill inventory identity')
     require(geometry(read('gds'), inventory) == report['geometry'] == json.loads(read('sky130_fill_geometry_json').read_bytes()), 'fill measurement differs')
-    require(read('lef').read_text() == abstract(read('sky130_fill_source_lef'), inventory), 'fill is missing from the macro abstract')
+    require(read('lef').read_text(encoding='utf-8') == abstract(read('sky130_fill_source_lef'), inventory), 'fill is missing from the macro abstract')
     reviewed = json.loads(read('sky130_rules').read_bytes()); density = reviewed['oxide_density']
     require(files['sky130_rules']['sha256'] == report['density_sha256'] and
             density['gds_sha256'] == files['gds']['sha256'] and density['top'] == report['top'] and

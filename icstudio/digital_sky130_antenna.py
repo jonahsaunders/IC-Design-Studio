@@ -175,7 +175,7 @@ def validate_saved(data, root):
             all(k.startswith('sky130_antenna_') for k in evidence.values()), 'incomplete raw evidence')
     paths = {name: read(key) for name, key in evidence.items()}
     require(file_digest(paths['check.drc']) == DECK_SHA256 and
-            COMPLETE in paths['native.log'].read_text().splitlines(), 'changed deck or incomplete execution')
+            COMPLETE in paths['native.log'].read_text(encoding='utf-8').splitlines(), 'changed deck or incomplete execution')
     result = measured(json.loads(paths['metrics.json'].read_bytes()), paths['report.lyrdb'], report['top'])
     require(all(report.get(k) == v for k, v in result.items()), 'retained native measurements differ')
     request = json.loads(paths['request.json'].read_bytes())

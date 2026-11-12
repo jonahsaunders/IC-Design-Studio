@@ -1,5 +1,26 @@
 # Chunks 1–12: progress and forecast
 
+**November 12 teaching-solver timing and Windows text repair (0.23.1 source):**
+this follow-on to main `86a9087` is outside chunks 1–12 and changes no completion
+gate, device status or forecast. It repairs the included solver's transient
+schedule (a zero-length final step could divide by zero), floating-point pulse
+edges, the zero-delay pulse initial condition and the sine delay, and it reads
+included guides, saved run logs and exchanged text as UTF-8 on Windows. See the
+[0.23.1 notes](UPDATE_0.23.1.md). The exact accepted bytes of `simulation.py`,
+`run_manager.py`, `editor_workspace.py`, `build_info.py` and `__init__.py` are
+retained in `validation/solver-timing-text-retained-source-2026-11-12/`, chained
+to the previous chunk 4 manifest; the historical GF180 gate still authenticates
+that source only, and the repaired source has not run it. **Verified locally on
+Linux, Python 3.13, without PySide6 or KLayout:** 16 new unit tests and the 36
+matrix, closure, public-acceptance and retained-catalog tests pass, and unit
+discovery reports the same 1,780 failing or unavailable tests before and after
+the change, nearly all for the missing desktop libraries. That local run is not
+source feedback or acceptance. **Not yet run:** hosted source feedback, the seven
+release gates and any installed check; record them with their exact commit when
+they exist. Chunk 7 remains **74%**, low confidence **55–82%**, an engineering
+estimate that this repair does not move and not a qualification or acceptance
+fraction.
+
 **November 12 final combined document-context repair:** Cell Parameters,
 Regenerate active layout cell and Erase layout area now bind the opening
 document/session, project, cell and relevant parameter or geometry baseline.

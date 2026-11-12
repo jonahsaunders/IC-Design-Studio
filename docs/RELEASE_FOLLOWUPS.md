@@ -1,6 +1,6 @@
 # Release acceptance tracking
 
-The current source version is **0.23.0**; identify each candidate by its
+The current source version is **0.23.1**; identify each candidate by its
 full commit and asset hashes. Automated qualification and manual
 acceptance have separate completion criteria. Attach the exact source commit,
 package SHA-256 and observations; a closed issue without evidence does not

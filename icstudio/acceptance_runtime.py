@@ -81,7 +81,7 @@ def runtime(binding, engine, env):
     if sys.platform == 'linux':
         require(engine.read_bytes()[:4] == b'\x7fELF', 'Linux acceptance requires the actual ELF engine, not a wrapper.')
         preload = Path('/etc/ld.so.preload')
-        require(not preload.exists() or not preload.read_text().strip(), 'Unreviewed system preload is present.')
+        require(not preload.exists() or not preload.read_text(encoding='utf-8').strip(), 'Unreviewed system preload is present.')
         result = subprocess.run(['/usr/bin/ldd', str(engine)], env=env, capture_output=True, text=True, timeout=30)
         require(result.returncode == 0 and 'not found' not in result.stdout+result.stderr, 'Native library resolution failed.')
         ldd_output = re.sub(r'\(0x[0-9a-fA-F]+\)', '(address)', result.stdout+result.stderr)

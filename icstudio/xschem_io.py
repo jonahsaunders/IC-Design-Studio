@@ -57,7 +57,7 @@ def import_package(path):
     lock=root/'symbols.lock.json';explicit_ports=False
     if lock.exists():
         from .model import file_digest
-        locked_symbols=json.loads(lock.read_text());explicit_ports='symbols/_studio_iopin.sym' in locked_symbols
+        locked_symbols=json.loads(lock.read_text(encoding='utf-8'));explicit_ports='symbols/_studio_iopin.sym' in locked_symbols
         for rel,sha in locked_symbols.items():
             target=(root/rel).resolve()
             if not target.is_relative_to(root) or not target.is_file() or file_digest(target)!=sha:raise ValueError('An exported symbol changed or is missing: '+rel+'. Reconcile symbol changes in the native symbol editor before importing.')

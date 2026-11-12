@@ -274,7 +274,7 @@ def finish(directory, model_data, columns):
                          'Positive differential resistance alone is insufficient. Review the fixture, '
                          'port conversion and mesh; results were not attached.')
     convergence['passivity'] = passivity
-    manifest = json.loads((directory/'manifest.json').read_text())
+    manifest = json.loads((directory/'manifest.json').read_text(encoding='utf-8'))
     evidence = dict(backend='openEMS', run_hash=model_data['run_hash'], driver_sha256=model_data['driver_sha256'],
                     wave_basis=model_data['wave_basis'],
                     fixture=model_data['fixture'], ports=model_data['ports'], bounds_um=model_data['bounds_um'],

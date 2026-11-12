@@ -202,7 +202,7 @@ def run(p,cid,output,tools,selected,progress=lambda *_:None,blocked_reason=None,
             flag={'netgen':'-batch','magic':'--version','klayout':'-v'}[name]
             atomic_write(out/(name+'-version.log'),execute([str(path),flag],out,timeout=20))
         required=re.search(r'(?m)^\s*requires\s+magic-([0-9]+\.[0-9]+\.[0-9]+)',assets['technology'].read_text(encoding='utf-8')) if 'magic' in resolved else None
-        actual=re.search(r'\b([0-9]+\.[0-9]+\.[0-9]+)\b',(out/'magic-version.log').read_text()) if 'magic' in resolved else None
+        actual=re.search(r'\b([0-9]+\.[0-9]+\.[0-9]+)\b',(out/'magic-version.log').read_text(encoding='utf-8',errors='replace')) if 'magic' in resolved else None
         if required and (not actual or tuple(map(int,actual[1].split('.')))<tuple(map(int,required[1].split('.')))):
             raise ValueError('This PDK requires Magic '+required[1]+' or newer. Set up the current included physical tools.')
         save_project(p,out/'input.icproj');atomic_write(out/'schematic.spice',ref['text'])

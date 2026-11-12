@@ -550,4 +550,4 @@ class EditorWorkspaceMixin:
 
     def open_editor_doc(self,name):
         from pathlib import Path
-        self.text_dialog(name,(Path(__file__).resolve().parents[1]/'docs'/name).read_text())
+        self.text_dialog(name,(Path(__file__).resolve().parents[1]/'docs'/name).read_text(encoding='utf-8'))

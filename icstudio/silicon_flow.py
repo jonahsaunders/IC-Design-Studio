@@ -175,7 +175,7 @@ def run(p,cid,output,tools,progress=lambda *_:None,blocked_reason=None):
             commands='extract all\next2spice lvs\next2spice subcircuit top on\next2spice scale off\n'
             if cap:commands+='ext2spice cthresh 0\n'
             magic(name,commands+'ext2spice -o extracted.spice')
-            f=out/name/'extracted.spice';ports,body,_=subcircuit(f.read_text(),c['name'])
+            f=out/name/'extracted.spice';ports,body,_=subcircuit(f.read_text(encoding='utf-8'),c['name'])
             if set(ports)!=set(c['ports']):raise ValueError('Extracted interface differs from schematic ports: '+str(ports))
             caps=len(re.findall(r'^C\S+\s',body,re.I|re.M))
             if cap and not caps:raise ValueError('No parasitic capacitors were extracted.')
@@ -187,7 +187,7 @@ def run(p,cid,output,tools,progress=lambda *_:None,blocked_reason=None):
             return {'unique_match':True,'log':'lvs/lvs.log'}
         stage('lvs',lvs);stage('capacitance_extraction',lambda:extract('parasitics',True))
         def post():
-            d=out/'post-layout';d.mkdir();f=out/'parasitics/extracted.spice';ports,_,_=subcircuit(f.read_text(),c['name'])
+            d=out/'post-layout';d.mkdir();f=out/'parasitics/extracted.spice';ports,_,_=subcircuit(f.read_text(encoding='utf-8'),c['name'])
             deck='* Studio custom inverter extracted testbench\n'+'\n'.join(model_lines(p['pdk'],p['analysis'].get('corner','nominal')))+'\n'
             deck+='.include "'+f.as_posix()+'"\nVDD vdd 0 1.8\nVIN vin 0 PULSE(0 1.8 2n 200f 200f 10n 20n)\nXDUT '+' '.join(mapping[k] for k in ports)+' '+c['name']+'\nCL vout 0 5f\n.tran 20p 62n\n.save v(vin) v(vout)\n.end\n'
             atomic_write(d/'testbench.cir',deck);r=run_deck(bench,bench['top'],{'type':'deck','deck':str(d/'testbench.cir')},resolved['ngspice'],d)

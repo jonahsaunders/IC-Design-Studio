@@ -116,7 +116,7 @@ def produce(selected_project_path,out,engine,execution_id,pilot=False):
             for analysis in ('dc','ac'):
                 dest=folder/analysis/'application';dest.mkdir(parents=True);project=fixture();save_project(project,dest/'input.icproj');project=load_project(dest/'input.icproj')
                 result=engines.run_ngspice(project,project['top'],dict(settings,type=analysis),str(engine),dest)
-                write(dest/'result.json',result);calls((dest/'input.cir').read_text());row['analyses'].append(analysis)
+                write(dest/'result.json',result);calls((dest/'input.cir').read_text(encoding='utf-8'));row['analyses'].append(analysis)
             positive=folder/'dc/application'
             for fault in FAULTS:
                 dest=folder/fault;dest.mkdir()
@@ -124,7 +124,7 @@ def produce(selected_project_path,out,engine,execution_id,pilot=False):
                     if item.is_dir() and not item.name.startswith('rf-runtime-'):shutil.copytree(item,dest/item.name)
                     elif item.is_file() and item.name.startswith('pdk-'):shutil.copyfile(item,dest/item.name)
                 changed=[]
-                for line in (positive/'input.cir').read_text().splitlines():
+                for line in (positive/'input.cir').read_text(encoding='utf-8').splitlines():
                     words=line.split()
                     if len(words)>=4 and words[0].lower().startswith('x') and words[3]==MODEL:
                         i=int(words[0][-1]);area,perim=POINTS[i][2:]

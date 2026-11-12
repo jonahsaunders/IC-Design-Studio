@@ -122,7 +122,7 @@ def lifecycle(app,studio,out,device):
         with selected_file('getSaveFileName',out/('layout.'+ext)):studio.export_gds()
     raw=native_subcircuit(studio.project,studio.cid);require(simulation in raw,'Application reference does not contain the placed simulation instance.')
     captured=reference(raw,top);(out/'captured-reference.spice').write_text(raw,encoding='utf-8',newline='\n')
-    require(simulation in (out/'schematic.spice').read_text(),'Application SPICE export lost the original simulation instance.')
+    require(simulation in (out/'schematic.spice').read_text(encoding='utf-8'),'Application SPICE export lost the original simulation instance.')
     return dict(top=top,cell_id=cid,project_name=reopened['name'],instance_id=device['id'],nets=clone(device['nets']),default_width_um=7,default_length_um=7,
         multiplicity=1,mm_ok=1,edit_width_um=8,restored_width_um=7,simulation_statement=simulation,
         project='catalog.icproj',project_sha256=file_digest(path),design_hash=design_digest(reopened),

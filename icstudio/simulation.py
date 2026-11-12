@@ -32,8 +32,38 @@ def source(d,t=0,override=None):
     if override is not None: return override
     s=d['source']; low=scalar(s['low']); high=scalar(s['high']); period=scalar(s['period']); delay=scalar(s['delay'])
     if s['type']=='dc': return scalar(d['value'])
-    if s['type']=='sine': return low+(high-low)*math.sin(2*math.pi*(t-delay)/period)
-    return high if t>=delay and (t-delay)%period<period*scalar(s['duty']) else low
+    if s['type']=='sine':
+        # SPICE SIN holds the offset until the delay; the exported deck has the same contract.
+        return low+(high-low)*math.sin(2*math.pi*(t-delay)/period) if t>=delay else low
+    return high if pulse_high(t,delay,period,scalar(s['duty'])) else low
+
+PHASE_TOLERANCE=1e-9
+
+def pulse_high(t,delay,period,duty):
+    """Return whether an ideal pulse is high at t.
+
+    Sample times are products such as i*step, so (t-delay)%period can land a
+    rounding error below a period boundary and move that edge by one sample.
+    The cycle position is therefore compared with a relative tolerance.
+
+    The initial condition at t=0 is the level before the first edge, as it is
+    for the PULSE source in the exported SPICE deck, so a pulse without delay
+    starts low and rises at the first step.
+    """
+    cycles=(t-delay)/period
+    if t<=0 or cycles<-PHASE_TOLERANCE:return False
+    fraction=cycles-math.floor(cycles+PHASE_TOLERANCE)
+    return fraction<duty-PHASE_TOLERANCE
+
+def transient_times(stop,step):
+    """Return strictly increasing sample times from 0 through stop.
+
+    stop/step is often a rounding error above an integer, for example
+    1e-3/1e-5. Rounding that up used to append a zero-length final step.
+    """
+    ratio=stop/step;steps=round(ratio)
+    if steps<1 or abs(ratio-steps)>1e-9*max(1.,ratio):steps=math.ceil(ratio)
+    return [0.]+[i*step for i in range(1,steps)]+[stop]
 
 def mos_current(d,vd,vg,vs):
     pol=1 if d['kind']=='NMOS' else -1
@@ -132,9 +162,9 @@ def run(p,cid,settings,progress=lambda *_:None):
     elif typ=='tran':
         stop=scalar(settings['stop']); step=scalar(settings['step'])
         if not 0<step<=stop or stop/step>20000: raise ValueError('Transient needs positive stop/step and at most 20,000 steps.')
-        steps=math.ceil(stop/step); previous=op; record(0,op)
+        times=transient_times(stop,step); steps=len(times)-1; previous=op; record(0,op)
         for i in range(1,steps+1):
-            t=min(i*step,stop); dt=t-xs[-1]; previous=c.point(t,dt,previous,initial=previous);record(t,previous)
+            t=times[i]; dt=t-xs[-1]; previous=c.point(t,dt,previous,initial=previous);record(t,previous)
             if i%max(1,steps//100)==0: progress(i/steps,f'Transient point {i}/{steps}')
     elif typ=='dc':
         start=scalar(settings['dc_start']);stop=scalar(settings['dc_stop']);step=scalar(settings['dc_step']);src=settings['source']

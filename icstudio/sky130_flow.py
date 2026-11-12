@@ -105,7 +105,7 @@ def run(pdk_root,output,ngspice='ngspice',magic='magic',netgen='netgen',progress
     try:
         stage('preflight',preflight)
         lock=locked_assets(root);atomic_write(out/'pdk-lock.json',json.dumps({'root':str(root),'files':lock},indent=2))
-        ports,body,reference=subcircuit(files['spice'].read_text(),TOP);atomic_write(out/'reference.spice',reference)
+        ports,body,reference=subcircuit(files['spice'].read_text(encoding='utf-8'),TOP);atomic_write(out/'reference.spice',reference)
         def layout():
             import klayout.db as db
             source=db.Layout();source.read(str(files['gds']));cell=source.cell(TOP)
@@ -145,7 +145,7 @@ def run(pdk_root,output,ngspice='ngspice',magic='magic',netgen='netgen',progress
             if parasitics:commands+='ext2spice cthresh 0\n'
             commands+='ext2spice -o extracted.spice';magic_run(out/name,commands);deck=out/name/'extracted.spice'
             if not deck.is_file():raise ValueError('Magic did not create extracted.spice.')
-            header,body,_=subcircuit(deck.read_text(),TOP)
+            header,body,_=subcircuit(deck.read_text(encoding='utf-8'),TOP)
             if set(header)!=set(ports):raise ValueError('Extracted pin names differ from reference ports: '+str(header))
             capacitors=len(re.findall(r'^C\S+\s',body,re.I|re.M))
             if parasitics and capacitors==0:raise ValueError('Parasitic extraction contains no capacitors.')
@@ -158,7 +158,7 @@ def run(pdk_root,output,ngspice='ngspice',magic='magic',netgen='netgen',progress
         stage('lvs',lvs);stage('parasitic_extraction',lambda:extract('parasitics',True))
         def postlayout():
             directory=out/'post-layout';directory.mkdir();deck=directory/'testbench.cir'
-            extracted=out/'parasitics/extracted.spice';header,_,_=subcircuit(extracted.read_text(),TOP);mapping={'A':'vin','VGND':'0','VNB':'0','VPB':'vdd','VPWR':'vdd','Y':'vout'}
+            extracted=out/'parasitics/extracted.spice';header,_,_=subcircuit(extracted.read_text(encoding='utf-8'),TOP);mapping={'A':'vin','VGND':'0','VNB':'0','VPB':'vdd','VPWR':'vdd','Y':'vout'}
             text='* SKY130 inverter extracted testbench\n.lib "'+files['models'].as_posix()+'" tt\n.include "'+extracted.as_posix()+'"\nVDD vdd 0 1.8\nVIN vin 0 PULSE(0 1.8 2n 200f 200f 10n 20n)\nXDUT '+' '.join(mapping[k] for k in header)+' '+TOP+'\nCL vout 0 5f\n.tran 20p 62n\n.save v(vin) v(vout)\n.end\n';atomic_write(deck,text)
             r=run_deck(p,p['top'],{'type':'deck','deck':str(deck)},resolved['ngspice'],directory);atomic_write(directory/'result.json',json.dumps(r));metrics=logic_metrics(r);metrics['delay_delta_s']=metrics['mean_delay_s']-pre['mean_delay_s'];return metrics
         stage('post_layout_simulation',postlayout)
