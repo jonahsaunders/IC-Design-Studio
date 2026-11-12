@@ -1,5 +1,20 @@
 # Chunks 1–12: progress and forecast
 
+**November 12 instance-symbol editor Save guard:** the local follow-on to
+`6fae7a1` rejects Save when pending inspector validation fails, keeping the
+editor artwork and draft rather than falsely reporting a successful Save.
+The [focused evidence](validation/experimental-symbol-save-safety-2026-11-12.json)
+retains four new real-editor cases, all 52 actual Qt cases through the wrapper,
+and one expected invalid-Save failure among four original-code controls.
+Coverage includes mouse artwork, Save/Cancel, undo/reopen and injected commit
+failure. All 293 affected unit tests pass with three explicit skips; syntax
+checks cover 1,637 files and 2,567 source identities remain unchanged. The
+one-line guard needs no new historical retention. No full core, all 14 local
+source stages, new hosted or installed acceptance is claimed. Pending PR75
+source validation is separate and does not cover this follow-on. Chunk 7
+remains **74%**, low confidence **55–82%**, not an acceptance fraction.
+
+
 **November 12 New custom symbol inspector guard:** the local follow-on to
 `6995e9c` stops after accepted input dialogs if pending inspector validation
 fails, preserving the draft and preventing an unintended existing-cell editor

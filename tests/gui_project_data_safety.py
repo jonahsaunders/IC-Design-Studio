@@ -11,8 +11,10 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
-from PySide6.QtCore import QSettings, Qt
-from PySide6.QtWidgets import QApplication, QFileDialog, QInputDialog, QLabel, QListWidget, QMessageBox, QPushButton
+from PySide6.QtCore import QPoint, QSettings, Qt
+from PySide6.QtGui import QAction
+from PySide6.QtTest import QTest
+from PySide6.QtWidgets import QApplication, QDialog, QDialogButtonBox, QFileDialog, QInputDialog, QLabel, QListWidget, QMessageBox, QPushButton
 
 from icstudio.gui import Studio, StudioCore
 from icstudio.model import clone, digest, example, file_digest, load_project, save_project, uid
@@ -1363,6 +1365,199 @@ class ProjectDataSafetyTests(unittest.TestCase):
                         self.assertEqual(w.path, path)
                         self.assertEqual(path.read_bytes(), original_bytes)
                         self.assertEqual(self.errors, [])
+
+
+    def selected_device_symbol_editor(self):
+        actions = [a for a in self.window.findChildren(QAction)
+                   if a.text().replace('&', '') == 'Edit selected symbol…']
+        self.assertEqual(len(actions), 1)
+        self.assertTrue(actions[0].isEnabled())
+        actions[0].trigger()
+        dialog = self.window._symbol_dialog
+        self.app.processEvents()
+        self.assertTrue(dialog.isVisible())
+        self.assertEqual(dialog.cell['name'], 'R1')
+        return dialog
+
+    def draw_symbol_rectangle(self, dialog):
+        before = len(dialog.pad.symbol['primitives'])
+        dialog.tool.setCurrentText('Rectangle')
+        start = dialog.pad.rect().center() + QPoint(30, 30)
+        end = start + QPoint(40, 40)
+        QTest.mousePress(dialog.pad, Qt.LeftButton, pos=start)
+        QTest.mouseMove(dialog.pad, end)
+        QTest.mouseRelease(dialog.pad, Qt.LeftButton, pos=end)
+        self.assertEqual(len(dialog.pad.symbol['primitives']), before + 1)
+        self.assertEqual(dialog.error.text(), '')
+        return clone(dialog.pad.symbol)
+
+    def test_device_symbol_repeated_invalid_save_keeps_editor_artwork_and_draft(self):
+        path, _ = self.prepare(dirty=False)
+        w = self.window
+        w.mode_combo.setCurrentIndex(0)
+        rid = self.pending_resistor('invalid resistance')
+        field, root = w.form_fields['Value'], w.cid
+        before, saved_hash, disk_hash = digest(w.project), w.saved_hash, w._disk_hash
+        original_bytes = path.read_bytes()
+        history_counts = len(w.history.undo_stack), len(w.history.redo_stack)
+        dialog = self.selected_device_symbol_editor()
+        try:
+            artwork = self.draw_symbol_rectangle(dialog)
+            pad_history = clone(dialog.pad.history)
+            for _ in range(2):
+                dialog.findChild(QDialogButtonBox).button(QDialogButtonBox.Save).click()
+                self.assertFalse(dialog.saved)
+                self.assertNotEqual(dialog.result(), QDialog.Accepted)
+                self.assertTrue(dialog.isVisible())
+                self.assertEqual(dialog.error.text(), 'Resolve pending property edits before saving.')
+                self.assertEqual(dialog.pad.symbol, artwork)
+                self.assertEqual(dialog.pad.history, pad_history)
+                self.assertIs(w.form_fields['Value'], field)
+                self.assertEqual(field.text(), 'invalid resistance')
+                self.assertTrue(w._inspector_dirty)
+                self.assertTrue(w.property_error.text())
+                self.assertEqual(w.cid, root)
+                self.assertEqual(w.selection, [rid])
+                self.assertEqual(digest(w.project), before)
+                self.assertEqual((len(w.history.undo_stack), len(w.history.redo_stack)), history_counts)
+                self.assertEqual(w.saved_hash, saved_hash)
+                self.assertEqual(w._disk_hash, disk_hash)
+                self.assertEqual(w.path, path)
+                self.assertEqual(path.read_bytes(), original_bytes)
+            self.assertEqual(self.errors, [])
+        finally:
+            dialog.reject()
+            dialog.deleteLater()
+
+    def test_device_symbol_valid_save_applies_property_artwork_undo_redo_and_reopen(self):
+        path, original = self.prepare(dirty=False)
+        w = self.window
+        w.mode_combo.setCurrentIndex(0)
+        rid = self.pending_resistor('22k')
+        root, saved_hash, original_bytes = w.cid, w.saved_hash, path.read_bytes()
+        history_count = len(w.history.undo_stack)
+
+        def resistor(project):
+            cell = next(c for c in project['cells'] if c['id'] == root)
+            return next(d for d in cell['devices'] if d['id'] == rid)
+
+        dialog = self.selected_device_symbol_editor()
+        try:
+            artwork = self.draw_symbol_rectangle(dialog)
+            dialog.findChild(QDialogButtonBox).button(QDialogButtonBox.Save).click()
+            self.assertTrue(dialog.saved)
+            self.assertEqual(dialog.result(), QDialog.Accepted)
+            self.assertFalse(dialog.isVisible())
+            self.assertEqual(dialog.error.text(), '')
+            self.assertEqual(resistor(w.project)['value'], '22k')
+            self.assertEqual(resistor(w.project)['symbol'], artwork)
+            self.assertFalse(w._inspector_dirty)
+            self.assertEqual(w.cid, root)
+            self.assertEqual(w.selection, [rid])
+            self.assertEqual(len(w.history.undo_stack), history_count + 2)
+            self.assertEqual(w.saved_hash, saved_hash)
+            self.assertEqual(path.read_bytes(), original_bytes)
+            for old_cell, new_cell in zip(original['cells'], w.project['cells']):
+                self.assertEqual(old_cell.get('symbol'), new_cell.get('symbol'))
+                for old_device, new_device in zip(old_cell['devices'], new_cell['devices']):
+                    if old_device['id'] != rid:
+                        self.assertEqual(old_device, new_device)
+            w.undo()
+            self.assertEqual(resistor(w.project).get('symbol'), resistor(original).get('symbol'))
+            self.assertEqual(resistor(w.project)['value'], '22k')
+            w.undo()
+            self.assertEqual(resistor(w.project)['value'], '10k')
+            w.redo()
+            w.redo()
+            self.assertEqual(resistor(w.project)['value'], '22k')
+            self.assertEqual(resistor(w.project)['symbol'], artwork)
+            self.assertEqual(path.read_bytes(), original_bytes)
+            self.assertTrue(w.save())
+            saved = load_project(path)
+            self.assertEqual(resistor(saved)['value'], '22k')
+            self.assertEqual(resistor(saved)['symbol'], artwork)
+            self.assertEqual(w.saved_hash, digest(w.project))
+            self.assertEqual(w.path, path)
+            w.set_project(saved, path)
+            w.select([rid])
+            reopened = self.selected_device_symbol_editor()
+            try:
+                self.assertEqual(reopened.pad.symbol, artwork)
+                self.assertEqual(resistor(w.project)['value'], '22k')
+                reopened.findChild(QDialogButtonBox).button(QDialogButtonBox.Cancel).click()
+                self.assertFalse(reopened.saved)
+            finally:
+                reopened.reject()
+                reopened.deleteLater()
+            self.assertEqual(self.errors, [])
+        finally:
+            dialog.reject()
+            dialog.deleteLater()
+
+    def test_device_symbol_cancel_preserves_valid_and_invalid_property_drafts(self):
+        for draft in ('22k', 'invalid resistance'):
+            with self.subTest(draft=draft):
+                path, _ = self.prepare(dirty=False)
+                w = self.window
+                w.mode_combo.setCurrentIndex(0)
+                rid = self.pending_resistor(draft)
+                field, root = w.form_fields['Value'], w.cid
+                before, saved_hash, disk_hash = digest(w.project), w.saved_hash, w._disk_hash
+                original_bytes = path.read_bytes()
+                history_counts = len(w.history.undo_stack), len(w.history.redo_stack)
+                with patch.object(w, 'flush_inspector', side_effect=AssertionError('Cancel applied a draft')) as flush:
+                    dialog = self.selected_device_symbol_editor()
+                    try:
+                        self.draw_symbol_rectangle(dialog)
+                        dialog.findChild(QDialogButtonBox).button(QDialogButtonBox.Cancel).click()
+                        flush.assert_not_called()
+                        self.assertFalse(dialog.saved)
+                        self.assertEqual(dialog.result(), QDialog.Rejected)
+                        self.assertFalse(dialog.isVisible())
+                    finally:
+                        dialog.reject()
+                        dialog.deleteLater()
+                self.assertIs(w.form_fields['Value'], field)
+                self.assertEqual(field.text(), draft)
+                self.assertTrue(w._inspector_dirty)
+                self.assertEqual(w.cid, root)
+                self.assertEqual(w.selection, [rid])
+                self.assertEqual(digest(w.project), before)
+                self.assertEqual((len(w.history.undo_stack), len(w.history.redo_stack)), history_counts)
+                self.assertEqual(w.saved_hash, saved_hash)
+                self.assertEqual(w._disk_hash, disk_hash)
+                self.assertEqual(w.path, path)
+                self.assertEqual(path.read_bytes(), original_bytes)
+                self.assertEqual(self.errors, [])
+
+    def test_device_symbol_commit_failure_keeps_unsaved_artwork_available(self):
+        path, _ = self.prepare(dirty=False)
+        w = self.window
+        w.mode_combo.setCurrentIndex(0)
+        rid = next(d['id'] for d in w.cell['devices'] if d['kind'] == 'R')
+        w.select([rid])
+        before, saved_hash, original_bytes = digest(w.project), w.saved_hash, path.read_bytes()
+        history_counts = len(w.history.undo_stack), len(w.history.redo_stack)
+        dialog = self.selected_device_symbol_editor()
+        try:
+            artwork = self.draw_symbol_rectangle(dialog)
+            with patch.object(w, 'commit', side_effect=ValueError('Injected symbol commit failure')) as commit:
+                dialog.findChild(QDialogButtonBox).button(QDialogButtonBox.Save).click()
+                commit.assert_called_once()
+            self.assertFalse(dialog.saved)
+            self.assertNotEqual(dialog.result(), QDialog.Accepted)
+            self.assertTrue(dialog.isVisible())
+            self.assertEqual(dialog.error.text(), 'Injected symbol commit failure')
+            self.assertEqual(dialog.pad.symbol, artwork)
+            self.assertEqual(digest(w.project), before)
+            self.assertEqual((len(w.history.undo_stack), len(w.history.redo_stack)), history_counts)
+            self.assertEqual(w.saved_hash, saved_hash)
+            self.assertEqual(w.path, path)
+            self.assertEqual(path.read_bytes(), original_bytes)
+            self.assertEqual(self.errors, [])
+        finally:
+            dialog.reject()
+            dialog.deleteLater()
 
 
 if __name__ == '__main__':

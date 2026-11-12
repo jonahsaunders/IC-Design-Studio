@@ -402,6 +402,7 @@ class ProjectMixin:
         project_id=self.project['id'];cid=self.cid if device_id else cell['id']
         def save(symbol):
             if self.project['id']!=project_id:raise ValueError('The symbol belongs to a different project.')
+            if not self.flush_inspector():raise ValueError('Resolve pending property edits before saving.')
             def edit(p):
                 c=next(c for c in p['cells'] if c['id']==cid)
                 if device_id:next(d for d in c['devices'] if d['id']==device_id)['symbol']=symbol

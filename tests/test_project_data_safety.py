@@ -15,7 +15,7 @@ class ProjectDataSafetyRegressionTests(unittest.TestCase):
             capture_output=True, text=True, timeout=90,
         )
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
-        self.assertIn('Ran 48 tests', result.stderr)
+        self.assertIn('Ran 52 tests', result.stderr)
 
 
 if __name__ == '__main__':
