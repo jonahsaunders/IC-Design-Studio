@@ -147,7 +147,7 @@ def eco_case(app,studio,technology,model,folder):
 
 
 def native_array(path,top,model,count,widths=None):
-    rows=[line.split() for line in Path(path).read_text().splitlines() if line.strip() and not line.lstrip().startswith('*')]
+    rows=[line.split() for line in Path(path).read_text(encoding='utf-8').splitlines() if line.strip() and not line.lstrip().startswith('*')]
     require(len(rows)==count+2 and rows[0]==['.subckt',top,'R1','R2'] and rows[-1] in (['.ends'],['.ends',top]),'Native array must contain every separate unit and exact interface.')
     names=set();observed=[]
     for row in rows[1:-1]:

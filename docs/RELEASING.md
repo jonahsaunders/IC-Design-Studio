@@ -113,7 +113,7 @@ distribution execution, corresponding-source/evidence packaging and hashes.
 
 ## Publish a reviewable release
 
-Create a **draft prerelease** for the matching preview tag. Use [UPDATE_0.23.0.md](UPDATE_0.23.0.md) as the current notes. Retain the actual hosted run and exact asset identities in the validation records. Upload application packages, matching source, optional PDK adapters, the validation record and checksums.
+Create a **draft prerelease** for the matching preview tag. Use [UPDATE_0.23.1.md](UPDATE_0.23.1.md) as the current notes. Retain the actual hosted run and exact asset identities in the validation records. Upload application packages, matching source, optional PDK adapters, the validation record and checksums.
 
 Check the rendered README, release links and download instructions in the destination repository. Only then publish the draft. Keep the engineering-preview designation until the documented platform and process gates justify a stronger status. Do not attach an archive from another version to fill an unbuilt platform slot.
 
@@ -164,16 +164,16 @@ one-host gate does not satisfy [two-host worker acceptance](CAMPAIGN_WORKER_ACCE
 
 ## Public release preparation
 
-For 0.23.0, publish the Windows Setup EXE and portable ZIP, Linux archive,
+For 0.23.1, publish the Windows Setup EXE and portable ZIP, Linux archive,
 corresponding platform source, validation/evidence records and final checksums
-under the canonical **`v0.23.0`** release. Use newly built 0.23.0 assets; changing
+under the canonical **`v0.23.1`** release. Use newly built 0.23.1 assets; changing
 a filename cannot qualify an older binary.
 
-Public mode requires `main` and a plain three-part version such as `0.23.0`.
+Public mode requires `main` and a plain three-part version such as `0.23.1`.
 Request it through either of these paths:
 
 1. Push the release commit to `main` with the exact first commit-message line
-   **`Release 0.23.0`**, matching `icstudio.__version__`. An ordinary version bump
+   **`Release 0.23.1`**, matching `icstudio.__version__`. An ordinary version bump
    or merge message does not request public publication.
 2. Manually dispatch **Prepare desktop release** on `main` with the boolean
    **`publish_release`** input enabled. Its default is false, preserving private
@@ -186,7 +186,7 @@ the canonical version tag as a public, non-prerelease, latest GitHub release.
 An upload failure prevents promotion. An existing canonical release or tag is
 rejected rather than overwritten; older releases remain intact.
 
-The matching notes for this version are `docs/UPDATE_0.23.0.md`.
+The matching notes for this version are `docs/UPDATE_0.23.1.md`.
 Publishing a regular GitHub release does not expand the application's process or
 platform qualification: its **engineering preview** designation and remaining
 [consumer acceptance](RELEASE_FOLLOWUPS.md) limits still apply.

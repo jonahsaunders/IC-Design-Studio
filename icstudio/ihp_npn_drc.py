@@ -38,7 +38,7 @@ def check(executable,technology,style,source,top,ports,output,*,public_context=N
         if len(counts)!=1 or len(scales)!=1 or re.findall(r'^STUDIO_DRC_STYLE (.+)$',log,re.M)!=[style]:
             raise ValueError('The full native IHP NPN DRC check did not finish.')
         result.update(violations=int(counts[0]),style=style,technology_sha256=file_digest(technology))
-        for line in (out/'findings.tsv').read_text().splitlines():
+        for line in (out/'findings.tsv').read_text(encoding='utf-8').splitlines():
             reason,box=line.split('\t');coords=[round(float(v)*float(scales[0])*1000) for v in box.split(',')]
             if len(coords)!=4:raise ValueError('Malformed native IHP NPN DRC finding.')
             result['findings'].append(dict(reason=reason,bbox_nm=coords))

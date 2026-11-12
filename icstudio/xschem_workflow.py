@@ -201,7 +201,7 @@ class XschemWorkflowMixin:
             return
         signature=(str(path),file.stat().st_mtime_ns)
         if signature==self._xschem_case_signature:return
-        try:data=json.loads(file.read_text())
+        try:data=json.loads(file.read_text(encoding='utf-8'))
         except (OSError,ValueError):return
         self._xschem_case_signature=signature;self._xschem_run_path=path;self._xschem_rows=data['cases'];current=self.xschem_case_table.currentRow();self.xschem_case_table.setRowCount(len(self._xschem_rows))
         for i,case in enumerate(self._xschem_rows):

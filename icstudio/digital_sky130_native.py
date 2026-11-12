@@ -137,7 +137,7 @@ def validate_saved(data, root):
     require(file_digest(paths['sky130A_mr.drc']) == DECK_SHA256 and
             file_digest(paths['GPL-3.0.txt']) == LICENSE_SHA256 and
             paths['categories.json'].read_bytes() == (ASSETS/'categories.json').read_bytes(), 'source changed')
-    require('release 2026.03.30_01.00' in paths['native.log'].read_text().splitlines(), 'native run incomplete')
+    require('release 2026.03.30_01.00' in paths['native.log'].read_text(encoding='utf-8').splitlines(), 'native run incomplete')
     values = measured(paths['report.lyrdb'], report.get('top'))
     require(values['markers'] == 0 and all(report.get(k) == v for k, v in values.items()), 'measurements differ')
     request = json.loads(paths['request.json'].read_bytes())

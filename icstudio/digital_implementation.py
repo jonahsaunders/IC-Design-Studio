@@ -33,7 +33,7 @@ def verify_upstream(record):
     root=io_path(record['root']).resolve()
     if file_digest(root/'result.json')!=record['result_sha256']:raise ValueError('The upstream result changed after this job was queued.')
     from .digital_flow import validate_result
-    result=json.loads((root/'result.json').read_text());validate_result(result,root)
+    result=json.loads((root/'result.json').read_text(encoding='utf-8'));validate_result(result,root)
     if record['artifacts']!=result['digital_result']['artifacts']:raise ValueError('The upstream artifact binding changed.')
     return result
 
@@ -158,18 +158,18 @@ def mapped(runner):
         script+='delete t:$scopeinfo\ncheck -assert\nwrite_verilog -noattr -noexpr ../netlist.v\nwrite_json ../netlist.json\n'
         script+='tee -o ../statistics.json stat -json -liberty '+quote(libs[0])+'\n'
         atomic_write(r.root/'mapped.ys',script);r.command([r.tools['yosys'],'-s',str(r.root/'mapped.ys')],'Mapping '+r.config['top']+' to '+r.platform['name'])
-        hierarchy=json.loads((r.root/'netlist.json').read_text())
+        hierarchy=json.loads((r.root/'netlist.json').read_text(encoding='utf-8'))
         if any(c['type'].startswith('$') for c in hierarchy['modules'][r.config['top']].get('cells',{}).values()):
             raise ValueError('Technology mapping left unsupported cells. Inspect the retained synthesis logs.')
-        original=(r.root/'netlist.v').read_text();normalized=structural_verilog(original)
+        original=(r.root/'netlist.v').read_text(encoding='utf-8');normalized=structural_verilog(original)
         if normalized!=original:
             atomic_write(r.root/'netlist_yosys.v',original);r.add_artifact('synthesis_netlist',r.root/'netlist_yosys.v')
             atomic_write(r.root/'netlist.v',normalized)
         for key,name in (('netlist','netlist.v'),('hierarchy','netlist.json'),('statistics','statistics.json')):r.add_artifact(key,r.root/name)
     from .digital_reports import netlist_index
-    data=json.loads((r.root/'netlist.json').read_text());index=netlist_index(data,r.config['files'])
+    data=json.loads((r.root/'netlist.json').read_text(encoding='utf-8'));index=netlist_index(data,r.config['files'])
     if upstream and (r.root/'netlist_index.json').is_file():
-        retained={(i['module'],i['kind'],i['name']):i for i in json.loads((r.root/'netlist_index.json').read_text())}
+        retained={(i['module'],i['kind'],i['name']):i for i in json.loads((r.root/'netlist_index.json').read_text(encoding='utf-8'))}
         for item in index:
             old=retained.get((item['module'],item['kind'],item['name']),{})
             if not item['locations']:item['locations']=old.get('locations',[]);item['mapping']=old.get('mapping','unmapped')
@@ -177,7 +177,7 @@ def mapped(runner):
     module=data['modules'][r.config['top']]
     unmapped=[name for name,c in module.get('cells',{}).items() if c['type'].startswith('$')]
     if unmapped:raise ValueError('Technology mapping left unsupported cells: '+', '.join(unmapped[:10]))
-    stats=json.loads((r.root/'statistics.json').read_text())
+    stats=json.loads((r.root/'statistics.json').read_text(encoding='utf-8'))
     area=stats.get('design',{}).get('area')
     if area is None:
         area=next((m.get('area') for name,m in stats.get('modules',{}).items() if name.lstrip('\\')==r.config['top']),None)
@@ -360,7 +360,7 @@ def run(job,directory,progress):
                 fingerprints=fingerprints(r.config),input_key=stage_key(r.config,stage,r.settings.get('simulator','icarus')),
                 platform={key:r.platform.get(key) for key in ('name','corner','revision','fingerprint')} if r.platform else None,
                 versions=r.versions,environment=job['environment'],artifacts=r.artifacts,
-                diagnostics=diagnostics(r.log.read_text(),r.config['files']))
+                diagnostics=diagnostics(r.log.read_text(encoding='utf-8',errors='replace'),r.config['files']))
     result={'schema':1,'result_type':'digital','created':now(),'engine':'digital','project_id':job['project']['id'],
             'cell_id':job['cell'],'revision':job['project']['revision'],'design_hash':design_digest(job['project']),
             'settings':clone(job['settings']),'digital_result':data}

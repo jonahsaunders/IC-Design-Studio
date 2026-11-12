@@ -136,7 +136,7 @@ class FeatureMixin:
     def open_study_case(self):
         i=self.study_table.currentRow()
         if i<0 or not getattr(self,'_study_result',None):raise ValueError('Select a study run.')
-        path=Path(self._study_result['study_rows'][i]['result_file']);r=json.loads(path.read_text());self.add_result(r);self.results_tabs.setCurrentIndex(0)
+        path=Path(self._study_result['study_rows'][i]['result_file']);r=json.loads(path.read_text(encoding='utf-8'));self.add_result(r);self.results_tabs.setCurrentIndex(0)
     def export_study(self):
         if not getattr(self,'_study_result',None):raise ValueError('Run a study first.')
         path,_=QFileDialog.getSaveFileName(self,'Export study results','study.csv','CSV (*.csv)')
@@ -341,7 +341,7 @@ class FeatureMixin:
         files=sorted((self.jobs_dir/p['id']).glob('*/result.json'),key=lambda f:f.stat().st_mtime)[-30:]
         for file in files:
             try:
-                result=json.loads(file.read_text())
+                result=json.loads(file.read_text(encoding='utf-8'))
                 if result.get('project_id')==p['id']:self.add_result(result)
             except (ValueError,OSError,KeyError) as e:self.console.appendPlainText('Could not restore a saved run: '+str(e))
 

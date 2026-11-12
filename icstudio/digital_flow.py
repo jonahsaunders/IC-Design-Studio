@@ -298,7 +298,7 @@ def run(job, directory, progress=lambda *_: None):
         command([tools['yosys'], '-s', str(script)], .3, 'Synthesizing '+config['top'])
         for key, name in [('netlist', 'netlist.v'), ('hierarchy', 'netlist.json'), ('statistics', 'statistics.json')]:
             artifacts[key] = artifact(root, root/name)
-        stats = json.loads((root/'statistics.json').read_text())
+        stats = json.loads((root/'statistics.json').read_text(encoding='utf-8'))
         modules = stats.get('modules', {})
         cells = sum(m.get('num_cells', 0) for m in modules.values())
         summary = f'{"Elaboration" if stage=="elaborate" else "Synthesis"} complete · {cells} generic cells · no technology mapping or timing qualification'
@@ -343,9 +343,9 @@ def run(job, directory, progress=lambda *_: None):
     from .digital_reports import diagnostics, netlist_index, coverage_report
     from .digital_identity import fingerprints, stage_key
     result['digital_result'].update(fingerprints=fingerprints(config), input_key=stage_key(config, stage, settings['simulator']))
-    result['digital_result']['diagnostics']=diagnostics(log.read_text(),config['files'])
+    result['digital_result']['diagnostics']=diagnostics(log.read_text(encoding='utf-8',errors='replace'),config['files'])
     if 'hierarchy' in artifacts:
-        index=netlist_index(json.loads((root/'netlist.json').read_text()),config['files'])
+        index=netlist_index(json.loads((root/'netlist.json').read_text(encoding='utf-8')),config['files'])
         atomic_write(root/'netlist_index.json',json.dumps(index));artifacts['netlist_index']=artifact(root,root/'netlist_index.json')
     if 'coverage' in artifacts:result['digital_result']['coverage']=coverage_report(root/'coverage.info')
     validate_result(result, root)

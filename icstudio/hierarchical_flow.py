@@ -51,7 +51,7 @@ def simulation_deck(directory, mode):
     if mode!='rc' or not electrical.is_file():return source,None
     record=directory/'electrical.spice.islands.json'
     if not record.is_file():raise ValueError('Electrical RC deck is missing its retained island-pruning evidence.')
-    evidence=json.loads(record.read_text())
+    evidence=json.loads(record.read_text(encoding='utf-8'))
     if (evidence.get('source_sha256')!=file_digest(source) or
             evidence.get('electrical_sha256')!=file_digest(electrical)):
         raise ValueError('Electrical RC deck or its source changed after island pruning.')
@@ -196,11 +196,11 @@ def run(p,testbench,output,tools,progress=lambda *_:None,physical_extraction=Non
                 magic(name,commands)
                 if selected=='rc':
                     normalization=out/name/'rc-normalization.json'
-                    profile['capacitance_normalization']=json.loads(normalization.read_text())
+                    profile['capacitance_normalization']=json.loads(normalization.read_text(encoding='utf-8'))
                     # Both raw engine output and the exact corrected export
                     # belong to this run's immutable integrity boundary.
                     generated.update({name+'/'+part.name:file_digest(part) for part in (out/name).iterdir() if part.is_file()})
-            f=out/name/'extracted.spice';text=f.read_text();interface,_,_=subcircuit(text,c['name'])
+            f=out/name/'extracted.spice';text=f.read_text(encoding='utf-8');interface,_,_=subcircuit(text,c['name'])
             from .external_tools import check_extracted_interface
             check_extracted_interface(f,c['name'],electrical_ports(c['ports']),p['pdk'])
             simulated,pruning=simulation_deck(out/name,selected)
@@ -269,7 +269,7 @@ def run(p,testbench,output,tools,progress=lambda *_:None,physical_extraction=Non
         if cmim_unit:
             preflight_evidence=report['stages'][0]['evidence']
             verify_integrity(out,generated,preflight_evidence['assets'],preflight_evidence['tools'])
-        interface,_,_=subcircuit(simulated.read_text(),c['name']);stage('post_layout_simulation',lambda:simulation('post-layout',simulated,interface))
+        interface,_,_=subcircuit(simulated.read_text(encoding='utf-8'),c['name']);stage('post_layout_simulation',lambda:simulation('post-layout',simulated,interface))
         def integrity():
             from .pdks import model_lines
             model_lines(p['pdk'],t['analysis'].get('corner','nominal'))

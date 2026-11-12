@@ -326,7 +326,7 @@ def locking_probe(directory):
 def _terminate(process):
     if process.poll() is not None:return
     if os.name == 'nt':
-        subprocess.run(['taskkill','/PID',str(process.pid),'/T','/F'], capture_output=True)
+        subprocess.run(['taskkill','/PID',str(process.pid),'/T','/F'], capture_output=True,creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
     else:
         try:os.killpg(process.pid, signal.SIGTERM)
         except ProcessLookupError:return

@@ -196,5 +196,5 @@ class SiliconMixin:
         if not r:raise ValueError('Run physical verification first.')
         f=Path(r['evidence_directory'])/stage/'result.json'
         if not f.is_file():raise ValueError('This simulation stage did not complete. Review the physical workflow report.')
-        wave=json.loads(f.read_text());self.plot.set_result(wave,['vin','vout']);self.results_tabs.setCurrentIndex(0)
+        wave=json.loads(f.read_text(encoding='utf-8'));self.plot.set_result(wave,['vin','vout']);self.results_tabs.setCurrentIndex(0)
         self.cursor_label.setText(stage+' · saved physical verification waveform'+(' · STALE: design changed' if r['design_hash']!=design_digest(self.project) else ''))

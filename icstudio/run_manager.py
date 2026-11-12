@@ -112,7 +112,7 @@ class RunManager(QObject):
                 if row['job'].get('settings',{}).get('runtime') or row['job'].get('settings',{}).get('physical_runtime'):
                     from .digital_backend import cancel
                     cancel(row['path'])
-                if os.name=='nt':subprocess.run(['taskkill','/PID',str(proc.processId()),'/T','/F'],capture_output=True)
+                if os.name=='nt':subprocess.run(['taskkill','/PID',str(proc.processId()),'/T','/F'],capture_output=True,creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
                 else:proc.terminate()
                 QTimer.singleShot(2500,lambda row=row:self.kill_if_stopping(row))
         self.changed.emit();self.pump()
@@ -125,12 +125,12 @@ class RunManager(QObject):
         self.rows=[]
         for path in sorted((Path(root)/project_id).glob('*/input.json'),key=lambda p:p.stat().st_mtime_ns)[-2000:]:
             try:
-                job=json.loads(path.read_text());status=json.loads((path.parent/'status.json').read_text())
+                job=json.loads(path.read_text(encoding='utf-8'));status=json.loads((path.parent/'status.json').read_text(encoding='utf-8'))
                 if job['project']['id']!=project_id:continue
                 state=status['status'].title()
                 if state in ('Running','Queued','Stopping'):state='Interrupted'
-                meta=json.loads((path.parent/'run.json').read_text()) if (path.parent/'run.json').exists() else {}
-                row={'id':path.parent.name,'name':meta.get('name',job['settings']['type'].upper()),'job':job,'path':path.parent,'state':state,'progress':100 if state=='Complete' else 0,'elapsed':status.get('elapsed',0),'log':(path.parent/'output.log').read_text() if (path.parent/'output.log').exists() else '', 'buffer':'','process':None,'started':None}
+                meta=json.loads((path.parent/'run.json').read_text(encoding='utf-8')) if (path.parent/'run.json').exists() else {}
+                row={'id':path.parent.name,'name':meta.get('name',job['settings']['type'].upper()),'job':job,'path':path.parent,'state':state,'progress':100 if state=='Complete' else 0,'elapsed':status.get('elapsed',0),'log':(path.parent/'output.log').read_text(encoding='utf-8',errors='replace') if (path.parent/'output.log').exists() else '', 'buffer':'','process':None,'started':None}
                 if state=='Complete':row['result']=job_store.read_result(path.parent/'result.json',project_id)
                 self.rows.append(row)
             except (OSError,ValueError,KeyError):continue

@@ -155,7 +155,7 @@ def stage(job, work, native_work, native_root):
 
 def receive(source, destination):
     """Require the finished backend's complete artifact inventory and bytes."""
-    records=json.loads((source/'physical-artifacts.json').read_text())
+    records=json.loads((source/'physical-artifacts.json').read_text(encoding='utf-8'))
     actual={p.relative_to(source).as_posix():file_digest(p) for p in source.rglob('*')
             if p.is_file() and p.name!='physical-artifacts.json'}
     if records!=actual or any(p.is_symlink() for p in source.rglob('*')):
@@ -229,7 +229,7 @@ def dispatch(job, directory, progress):
         shutil.copy2(work/'native-input.json',root/'physical-backend-input.json')
         if file_digest(root/'physical-backend-input.json')!=metadata['native_input_sha256']:
             raise ValueError('Physical job inputs changed in the backend.')
-        result=json.loads((root/'physical-backend-result.json').read_text())
+        result=json.loads((root/'physical-backend-result.json').read_text(encoding='utf-8'))
         result['settings']=clone(job['settings']);result['design_hash']=design_digest(job['project'])
         result['pdk_hash']=digest(job['project']['pdk'])
         if job['settings'].get('managed_osdi'):
@@ -255,7 +255,7 @@ def dispatch(job, directory, progress):
 
 def native_run(work):
     from .silicon_flow import job as physical_job
-    work=Path(work);job=json.loads((work/'native-input.json').read_text());output=work/'output';output.mkdir()
+    work=Path(work);job=json.loads((work/'native-input.json').read_text(encoding='utf-8'));output=work/'output';output.mkdir()
     progress=lambda fraction,message:print(json.dumps({'progress':fraction,'message':message}),flush=True)
     if job['settings']['type']=='physical_probe':
         from .physical_runtime_probe import run

@@ -136,8 +136,8 @@ def dispatch(job, directory, progress):
             output = work/'output'
             if output.is_dir(): shutil.copytree(io_path(output),io_path(root),dirs_exist_ok=True)
             shutil.copy2(work/'native-input.json',io_path(root/'backend-input.json'))
-        result = json.loads((root/'backend-result.json').read_text())
-        metadata = json.loads((root/'backend.json').read_text())
+        result = json.loads((root/'backend-result.json').read_text(encoding='utf-8'))
+        metadata = json.loads((root/'backend.json').read_text(encoding='utf-8'))
         metadata['native_input_sha256'] = file_digest(root/'backend-input.json')
         atomic_write(root/'backend.json',json.dumps(metadata,indent=2))
         from .digital import source_hash
@@ -161,7 +161,7 @@ def dispatch(job, directory, progress):
 
 def native_run(work):
     from . import digital_flow
-    work = Path(work); job = json.loads((work/'native-input.json').read_text())
+    work = Path(work); job = json.loads((work/'native-input.json').read_text(encoding='utf-8'))
     os.environ['ICSTUDIO_DIGITAL_NATIVE']='1'
     restore_flow_permissions(job)
     job['environment'] = digital_flow.environment(job)

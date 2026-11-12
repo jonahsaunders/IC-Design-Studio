@@ -25,14 +25,14 @@ def collect(p, cid, directory):
     for file in ('link-findings.json','connection-findings.json'):
         path=out/file
         if path.is_file():
-            for i in json.loads(path.read_text()):
+            for i in json.loads(path.read_text(encoding='utf-8')):
                 row={**i,'cell_id':i.get('cell_id',cid),'source':file,'source_design_hash':design_digest(p)};issues.append(row)
     nav=out/'drc/navigation.tsv';legacy=out/'drc/findings.tsv';log=out/'drc/console.log'
     if nav.is_file() or (legacy.is_file() and log.is_file()):
-        scales=re.findall(r'^STUDIO_MAGIC_SCALE ([0-9.eE+-]+)$',log.read_text(),re.M) if log.is_file() else []
+        scales=re.findall(r'^STUDIO_MAGIC_SCALE ([0-9.eE+-]+)$',log.read_text(encoding='utf-8',errors='replace'),re.M) if log.is_file() else []
         factor=float(scales[0])*1000 if len(scales)==1 else None
         path=nav if nav.is_file() else legacy
-        for line in path.read_text().splitlines()[:4000]:
+        for line in path.read_text(encoding='utf-8').splitlines()[:4000]:
             parts=line.split('\t')
             if len(parts)==4:
                 name,reason,raw,scale=parts;key=byname.get(name);unit=float(scale)*1000
@@ -60,19 +60,19 @@ def collect(p, cid, directory):
                                   ('ihp-varactor-oxide.json','IHP.SVaricap.ThickGateOx','Marked high-voltage varactor gate is missing thick oxide.')):
         path=out/'drc'/filename
         if not path.is_file():continue
-        data=json.loads(path.read_text())
+        data=json.loads(path.read_text(encoding='utf-8'))
         for box in data.get('boxes_nm',[]):
             region=kdb().Region(kdb().Box(*box));objects=[s['id'] for s in by[cid]['shapes'] if not kdb().Region(polygon(s)).interacting(region).is_empty()]
             add(code,message,str(path.relative_to(out)),bbox=box,objects=objects,object=objects[0] if objects else '')
     path=out/'drc/npn-native/result.json'
     if path.is_file():
-        for finding in json.loads(path.read_text()).get('findings',[]):
+        for finding in json.loads(path.read_text(encoding='utf-8')).get('findings',[]):
             box=finding['bbox_nm'];region=kdb().Region(kdb().Box(*box))
             objects=[s['id'] for s in by[cid]['shapes'] if not kdb().Region(polygon(s)).interacting(region).is_empty()]
             add('IHP.NPN.MAGIC',finding['reason'],str(path.relative_to(out)),bbox=box,objects=objects,object=objects[0] if objects else '')
     mapping=device_map(p,cid);path=out/'lvs/lvs.json'
     if path.is_file():
-        try:data=json.loads(path.read_text())
+        try:data=json.loads(path.read_text(encoding='utf-8'))
         except (ValueError,TypeError):data=[]
         for cell in data:
             pins=cell.get('pins',[]);names=cell.get('name',[])
@@ -100,7 +100,7 @@ def collect(p, cid, directory):
     else:
         path=out/'lvs/lvs.log'
         if path.is_file():
-            text=path.read_text()
+            text=path.read_text(encoding='utf-8',errors='replace')
             for match in re.finditer(r'^([^\s]+) vs\. (.+):\n([^\n]+)',text,re.M):
                 name=match[1];add('NETGEN.PROPERTY',name+': '+match[3].strip(),'lvs/lvs.log',**mapping.get(name.casefold(),{}))
     return issues
@@ -113,7 +113,7 @@ def waveform(result, stage):
     base=Path(result['evidence_directory']).resolve();path=(base/ev.get('waveform_file','missing')).resolve()
     if not path.is_relative_to(base) or not path.is_file() or file_digest(path)!=ev.get('waveform_sha256'):
         raise ValueError('Saved waveform is missing, changed or has no recorded checksum. Run physical verification again.')
-    r=json.loads(path.read_text());bench=result['silicon_report']['testbench']
+    r=json.loads(path.read_text(encoding='utf-8'));bench=result['silicon_report']['testbench']
     permitted={result['design_hash']}
     if result['silicon_report'].get('execution',{}).get('received_files'):
         permitted.add(result['silicon_report'].get('native_design_hash'))

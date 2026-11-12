@@ -169,7 +169,8 @@ def source_identity(root=ROOT):
                    'experimental-export-safety-retained-source-2026-11-11',
                    'experimental-manifest-safety-retained-source-2026-11-11',
                    'experimental-findings-safety-retained-source-2026-11-12',
-                   'experimental-layer-safety-retained-source-2026-11-12'):
+                   'experimental-layer-safety-retained-source-2026-11-12',
+                   'solver-timing-text-retained-source-2026-11-12'):
         files += [p for p in (root / 'docs/validation' / folder).glob('*') if p.is_file()]
     # Retained qualification tests authenticate historical inputs separately
     # from live application code. Bind that complete selection to this run too.

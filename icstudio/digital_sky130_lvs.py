@@ -79,7 +79,7 @@ def measurements(folder, top):
     folder = Path(folder)
     observed = json.loads((folder/'database.json').read_bytes())
     masters = (folder/'masters.cdl').read_bytes()
-    reference, aliases, conversion = core.prepare_reference((folder/'raw-reference.cdl').read_text(), masters, observed)
+    reference, aliases, conversion = core.prepare_reference((folder/'raw-reference.cdl').read_text(encoding='utf-8'), masters, observed)
     spice = (folder/(core.CELL+'.spice')).read_bytes()
     binding = core.verify_library(spice, folder/(core.CELL+'.gds'), folder/'library.gds')
     reference = core.enrich_reference(reference, spice)
@@ -187,20 +187,20 @@ def validate_saved(data, root):
             observed['database'] == json.loads(read('database').read_bytes()),'reference database differs from the final implementation')
     require(capture['top'] == report['top'] and capture['checkpoint']['sha256'] == files['checkpoint']['sha256'] and
             len(capture['masters']) == 1 and capture['masters'][0]['sha256'] == file_digest(paths['masters.cdl']), 'capture request differs')
-    reference,aliases,conversion = core.prepare_reference(paths['raw-reference.cdl'].read_text(),paths['masters.cdl'].read_bytes(),observed)
+    reference,aliases,conversion = core.prepare_reference(paths['raw-reference.cdl'].read_text(encoding='utf-8'),paths['masters.cdl'].read_bytes(),observed)
     spice = paths[core.CELL+'.spice'].read_bytes()
     binding = core.verify_library(spice,paths[core.CELL+'.gds'],paths['library.gds'])
     reference = core.enrich_reference(reference,spice)
-    require(paths['reference.cdl'].read_text() == reference and json.loads(paths['aliases.json'].read_bytes()) == aliases and
+    require(paths['reference.cdl'].read_text(encoding='utf-8') == reference and json.loads(paths['aliases.json'].read_bytes()) == aliases and
             json.loads(paths['conversion.json'].read_bytes()) == conversion and
             json.loads(paths['library-binding.json'].read_bytes()) == binding,'reference conversion changed')
-    require(paths['strict.lvs'].read_text() == core.strict_deck(paths['upstream.lylvs'].read_bytes(),report['top']),
+    require(paths['strict.lvs'].read_text(encoding='utf-8') == core.strict_deck(paths['upstream.lylvs'].read_bytes(),report['top']),
             'native comparison settings changed')
     with tempfile.TemporaryDirectory(prefix='studio-sky130-lvs-') as temporary:
         target = Path(temporary)/'labels.gds';labels = core.label_copy(read('gds'),target,aliases)
         require(file_digest(target) == file_digest(paths['labelled.gds']) and
                 labels == json.loads(paths['label-audit.json'].read_bytes()),'comparison layout or port placement changed')
-    require('ICSTUDIO_SKY130_LVS_COMPLETE' in paths['native.log'].read_text().splitlines(),'native comparison incomplete')
+    require('ICSTUDIO_SKY130_LVS_COMPLETE' in paths['native.log'].read_text(encoding='utf-8').splitlines(),'native comparison incomplete')
     checked = core.audit(paths['report.lvsdb'],report['top'],list(aliases['ports'].values()))
     require(checked['matched'] and checked == report['audit'] == json.loads(paths['audit.json'].read_bytes()),'native connectivity comparison failed or changed')
     request = json.loads(paths['request.json'].read_bytes());command = request.get('command',[])

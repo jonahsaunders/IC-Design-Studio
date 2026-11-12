@@ -1,8 +1,18 @@
 # Release status
 
+## 0.23.1 source · unpublished at this commit
+
+The current source version is **0.23.1**. Its [release notes](UPDATE_0.23.1.md)
+describe the teaching-solver timing and Windows text-decoding repairs. This
+section is written before any 0.23.1 release preparation: no hosted gate result,
+draft or public asset for 0.23.1 is recorded here, and the published desktop
+downloads remain 0.23.0 below. Record the release preparation run, its exact
+commit and the asset metadata here after that run completes; do not infer them
+from the version number.
+
 ## 0.23.0 desktop engineering preview
 
-The current source version is **0.23.0**. Its [release notes](UPDATE_0.23.0.md)
+The source at this release was **0.23.0**. Its [release notes](UPDATE_0.23.0.md)
 describe the editing, engine setup, help and display-sizing repairs.
 [Release v0.23.0](https://github.com/jonahsaunders/IC-Design-Studio/releases/tag/v0.23.0)
 was published on **2026-10-03 at 17:58 UTC** from main commit

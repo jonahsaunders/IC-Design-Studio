@@ -148,10 +148,10 @@ def export_layout(p,path):
 def import_layout(path):
     path=Path(path);side=Path(str(path)+'.icstudio.json');report=Path(str(path)+'.report.json')
     if side.exists() and report.exists():
-        r=json.loads(report.read_text())
+        r=json.loads(report.read_text(encoding='utf-8'))
         manifest=Path(str(path)+'.exchange.json')
         if manifest.is_file():
-            metadata=json.loads(manifest.read_text())
+            metadata=json.loads(manifest.read_text(encoding='utf-8'))
             if metadata.get('version')!=1 or metadata.get('baseline_hash')!=file_digest(side):raise ValueError('The exchange baseline is missing or changed. Restore the original metadata files.')
         if r.get('file_hash')==file_digest(path):return load_project(side),['Unchanged export restored with sidecar metadata.']
         if Path(str(path)+'.exchange.json').is_file():
@@ -313,7 +313,7 @@ def export_handoff(p,dest):
         for deck in dest.rglob('*.cir'):
             # Deck paths are relative to their own working directory.
             relroot=os.path.relpath(dest.resolve(),deck.parent.resolve()).replace('\\','/')+'/'
-            atomic_write(deck,deck.read_text().replace(root,relroot))
+            atomic_write(deck,deck.read_text(encoding='utf-8').replace(root,relroot))
     if p['pdk'].get('package_lock') or runtime:
         for project_file in list(dest.rglob('*.icproj'))+list(dest.rglob('*.icstudio.json')):
             portable=load_project(project_file)
@@ -321,11 +321,11 @@ def export_handoff(p,dest):
             for entry in portable.get('simulation_runtime',{}).get('osdi',[]):entry['path']=os.path.relpath(entry['path'],project_file.parent.resolve()).replace('\\','/')
             save_project(portable,project_file)
         for manifest in dest.glob('*.exchange.json'):
-            metadata=json.loads(manifest.read_text());side=Path(str(manifest).removesuffix('.exchange.json')+'.icstudio.json')
+            metadata=json.loads(manifest.read_text(encoding='utf-8'));side=Path(str(manifest).removesuffix('.exchange.json')+'.icstudio.json')
             metadata['baseline_hash']=file_digest(side);atomic_write(manifest,json.dumps(metadata,indent=2))
         for name in ('native-exchange.json','capture-exchange.json'):
             for manifest in dest.rglob(name):
-                metadata=json.loads(manifest.read_text());metadata['project_sha256']=file_digest(manifest.parent/'studio-project.icproj')
+                metadata=json.loads(manifest.read_text(encoding='utf-8'));metadata['project_sha256']=file_digest(manifest.parent/'studio-project.icproj')
                 atomic_write(manifest,json.dumps(metadata,indent=2))
     files={str(f.relative_to(dest)):file_digest(f) for f in dest.rglob('*') if f.is_file()}
     atomic_write(dest/'preservation-report.json',json.dumps({'revision':p['revision'],'files':files,'status':'engineering-preview','not_qualified':['arbitrary-design DRC/LVS and extraction correctness','unrestricted external-library round trips','Windows binary','fabrication signoff'],'verification':'An export does not certify this design. See UPDATE_0.8.md for the executed custom-inverter and external-edit fixtures; rerun physical verification after changes.','magic':'Generate native .mag through the separately installed Magic engine with a matching technology file.'},indent=2))
