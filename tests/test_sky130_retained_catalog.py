@@ -23,45 +23,46 @@ class RetainedCatalogTests(unittest.TestCase):
 
     def test_complete_baseline_is_authenticated_with_verbatim_integration_snapshots(self):
         self.assertEqual(len(self.authentication['authenticated_sources']),85)
-        self.assertEqual(len(self.authentication['historical_application_sources']),8)
+        self.assertEqual(len(self.authentication['historical_application_sources']),9)
         for name,row in self.authentication['historical_application_sources'].items():
             self.assertEqual(row['sha256'],self.base['source_files'][name])
             self.assertNotIn(name,self.authentication['authenticated_sources'])
         self.assertIn('not rerun geometry',self.authentication['execution'])
 
-    def test_platform_snapshot_is_required_even_with_a_current_source_decoy(self):
+    def test_platform_and_model_snapshots_require_original_bytes_despite_current_decoys(self):
         from scripts.ci_feedback import source_identity
-        name='icstudio/digital_platform.py'
-        snapshot=retained.SNAPSHOTS[name]
-        paths={retained.BASELINE,retained.AUDIT,*self.base['inputs'],
-               *(retained.SNAPSHOTS.get(n,n) for n in self.base['source_files'])}
-        with TemporaryDirectory() as td:
-            root=Path(td)
-            for path in paths:
-                target=root/path
-                target.parent.mkdir(parents=True,exist_ok=True)
-                shutil.copyfile(retained.ROOT/path,target)
-            original=(root/snapshot).read_bytes()
-            identity=source_identity(root)
-            self.assertTrue(paths<=identity.keys())
-            self.assertEqual(identity[snapshot],self.base['source_files'][name])
-            # The current app can evolve without relabelling historical proof.
-            (root/name).write_bytes(b'current platform source is independent\n')
-            base,authentication=retained.load(root)
-            self.assertEqual(base,self.base)
-            self.assertEqual(authentication,self.authentication)
-            # Even byte-identical old code at the live path cannot hide damage
-            # to the explicitly selected historical source.
-            (root/name).write_bytes(original)
-            (root/snapshot).write_bytes(original+b'\n# changed historical source\n')
-            self.assertNotEqual(identity[snapshot],source_identity(root)[snapshot])
-            with self.assertRaisesRegex(ValueError,'Changed retained catalog dependency'):
-                retained.load(root)
-            (root/snapshot).unlink()
-            with self.assertRaises(FileNotFoundError):
-                retained.load(root)
-            (root/snapshot).write_bytes(original)
-            self.assertEqual(retained.load(root)[1],self.authentication)
+        for name in ('icstudio/digital_platform.py', 'icstudio/model.py'):
+            with self.subTest(name=name):
+                snapshot=retained.SNAPSHOTS[name]
+                paths={retained.BASELINE,retained.AUDIT,*self.base['inputs'],
+                       *(retained.SNAPSHOTS.get(n,n) for n in self.base['source_files'])}
+                with TemporaryDirectory() as td:
+                    root=Path(td)
+                    for path in paths:
+                        target=root/path
+                        target.parent.mkdir(parents=True,exist_ok=True)
+                        shutil.copyfile(retained.ROOT/path,target)
+                    original=(root/snapshot).read_bytes()
+                    identity=source_identity(root)
+                    self.assertTrue(paths<=identity.keys())
+                    self.assertEqual(identity[snapshot],self.base['source_files'][name])
+                    # The current app can evolve without relabelling historical proof.
+                    (root/name).write_bytes(b'current platform source is independent\n')
+                    base,authentication=retained.load(root)
+                    self.assertEqual(base,self.base)
+                    self.assertEqual(authentication,self.authentication)
+                    # Even byte-identical old code at the live path cannot hide damage
+                    # to the explicitly selected historical source.
+                    (root/name).write_bytes(original)
+                    (root/snapshot).write_bytes(original+b'\n# changed historical source\n')
+                    self.assertNotEqual(identity[snapshot],source_identity(root)[snapshot])
+                    with self.assertRaisesRegex(ValueError,'Changed retained catalog dependency'):
+                        retained.load(root)
+                    (root/snapshot).unlink()
+                    with self.assertRaises(FileNotFoundError):
+                        retained.load(root)
+                    (root/snapshot).write_bytes(original)
+                    self.assertEqual(retained.load(root)[1],self.authentication)
 
     def test_changed_dependency_and_path_escape_fail_closed(self):
         with TemporaryDirectory() as td:

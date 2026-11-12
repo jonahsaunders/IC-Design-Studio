@@ -29,6 +29,10 @@ SNAPSHOTS['icstudio/engines.py']='docs/validation/retained-engine-source-2026-10
 # platform staging source, while current capture behavior is tested separately.
 SNAPSHOTS['icstudio/digital_platform.py']='docs/validation/sky130-retained-platform-source-2026-11-06/digital_platform.py.txt'
 
+# Authenticate the original loader; current manifest-save/load behavior is
+# validated separately, not relabelled as historical catalog execution.
+SNAPSHOTS['icstudio/model.py']='docs/validation/experimental-manifest-safety-retained-source-2026-11-11/model.py.txt'
+
 def require(condition,message):
     if not condition:raise ValueError(message)
 

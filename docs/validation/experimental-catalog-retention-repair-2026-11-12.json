@@ -1,0 +1,64 @@
+{
+  "schema": 1,
+  "snapshot_utc": "2026-11-12T00:15:27Z",
+  "work_day_eastern": "2026-11-11",
+  "scope": "Retained SKY130 catalog dependency wiring repair; no application behavior change",
+  "base_commit": "b8cb77c44ebdf18302f39ae0b29bd6f31d8f76ca",
+  "previous_failure": {
+    "run": 43125063101,
+    "linux_job": 130874926189,
+    "windows_job": 130874925722,
+    "cause": "Changed retained catalog dependency: icstudio/model.py",
+    "scope": "Both hosted contract jobs rejected missing historical model snapshot wiring; complete original decoded failure logs retained."
+  },
+  "repair": "Point retained catalog model.py dependency to the existing exact original snapshot, preserving all hash guards. Update expected historical source count from8to9 and add decoy, corrupted, missing and restoration controls.",
+  "source_proof": {
+    "baseline_dependencies": 85,
+    "all_original_hashes_exact": true,
+    "model_sha256": "695ef2e7ffe90fb2a28fd468bcf73b6fba98ab0cf898f6d1fbfac43d639b6249",
+    "application_code_changed": false,
+    "hash_guard_weakened": false,
+    "independent_source_review": "PASS"
+  },
+  "validation": {
+    "stage": "complete affected unit-contracts",
+    "tests": 293,
+    "skips": 3,
+    "test_seconds": 31.072,
+    "receiver_seconds": 32.039,
+    "exit_code": 0,
+    "syntax_files": 1637,
+    "before_after_source_identities": 2561,
+    "source_unchanged": true
+  },
+  "not_run_for_this_follow_on": [
+    "full 14-stage source lane",
+    "full exhaustive core",
+    "fresh hosted matrix",
+    "exact-candidate installed acceptance"
+  ],
+  "prior_acceptance_not_inherited": "Prior405 hosted success is separate. The current base hosted run failed; this local repair is not a hosted acceptance result.",
+  "publication_status": "Unpublished repair prepared for existing PR72; fresh required hosted matrix remains pending. No main changes or integration claimed.",
+  "qualified": false,
+  "engineering_estimate": {
+    "chunk": 7,
+    "percent": 74,
+    "low_confidence_range": [
+      55,
+      82
+    ],
+    "acceptance_fraction": false
+  },
+  "privacy_review": {
+    "credential_private_memory_access_link_patterns": 0,
+    "redactions": 0,
+    "ordinary_test_and_hosted_runner_paths_retained": true
+  },
+  "archive": {
+    "path": "docs/validation/experimental-catalog-retention-repair-2026-11-12.zip",
+    "bytes": 186935,
+    "sha256": "9581a1e006355151e51ad1091a1b6735b861e6731c835cf384bf93a715b794bf",
+    "members": 10,
+    "readback": "PASS"
+  }
+}

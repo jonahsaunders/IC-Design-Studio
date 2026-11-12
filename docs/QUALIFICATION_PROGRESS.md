@@ -1,5 +1,20 @@
 # Chunks 1–12: progress and forecast
 
+**November 12 retained-catalog dependency repair:** hosted run
+[43125063101](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/43125063101)
+failed both contract jobs because the retained SKY130 catalog still read current
+`model.py` instead of its exact historical snapshot. The
+[focused repair record](validation/experimental-catalog-retention-repair-2026-11-12.json)
+preserves that failure and adds the missing snapshot wiring, without changing
+application code or weakening hash guards. All 85 baseline dependency hashes
+remain exact. The complete affected unit stage passes 293 tests with three
+skips; 1,637 syntax checks and 2,561 source identities are unchanged. Full
+local source/core lanes were not rerun, and fresh hosted/installed acceptance
+is not claimed. The required hosted matrix remains pending after publication;
+main is untouched. Chunk 7 remains **74%**, low confidence **55–82%**, not a
+qualification or acceptance fraction.
+
+
 **November 12 selected folder-manifest save/load repair:** the follow-on to
 `4050687` saves the exact selected `.icstudio` leaf, preserves an unselected
 canonical sibling, validates portable manifest names and recognizes uppercase
