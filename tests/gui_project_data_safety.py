@@ -1016,5 +1016,116 @@ class ProjectDataSafetyTests(unittest.TestCase):
                 self.assertEqual(self.errors, [])
 
 
+    def prepare_pending_layout_width(self, value):
+        from icstudio.layout import rect
+        path, _ = self.prepare(dirty=False)
+        w = self.window
+        shape = rect('metal1', 0, 0, 1000, 1000)
+        w.commit(lambda p: p['cells'][0]['shapes'].append(shape), 'Layout width fixture')
+        self.assertTrue(w.save())
+        w.mode_combo.setCurrentIndex(1)
+        w.select([shape['id']], 'layout')
+        w.layer_combo.setCurrentText('metal1')
+        self.assertEqual(w.form_fields['Width'].text(), '1')
+        w.form_fields['Width'].setText(value)
+        self.assertTrue(w._inspector_dirty)
+        return path, shape['id']
+
+    def click_layer_visibility(self, title):
+        button = next(button for button in self.window.navtabs.widget(2).findChildren(QPushButton)
+                      if button.text() == title)
+        button.click()
+
+    def test_layer_visibility_buttons_preserve_valid_and_invalid_geometry_drafts(self):
+        for title in ('All', 'None', 'Solo'):
+            for value in ('2', 'invalid width'):
+                with self.subTest(title=title, value=value):
+                    path, shape_id = self.prepare_pending_layout_width(value)
+                    w = self.window
+                    field = w.form_fields['Width']
+                    before, saved_hash = digest(w.project), w.saved_hash
+                    original_bytes = path.read_bytes()
+                    history_counts = len(w.history.undo_stack), len(w.history.redo_stack)
+                    names = {layer['name'] for layer in w.project['pdk']['layers']}
+                    expected = names if title == 'All' else set() if title == 'None' else {'metal1'}
+                    for _ in range(2):
+                        self.click_layer_visibility(title)
+                        self.assertIs(w.form_fields['Width'], field)
+                        self.assertEqual(field.text(), value)
+                        self.assertTrue(w._inspector_dirty)
+                        self.assertTrue(w.apply_button.isEnabled())
+                        self.assertEqual(w.selection, [shape_id])
+                        self.assertEqual(w.current_mode, 'layout')
+                        self.assertEqual(w.layout.visible_layers, expected)
+                        for i in range(w.layers.count()):
+                            item = w.layers.item(i)
+                            self.assertEqual(item.checkState() == Qt.Checked,
+                                             item.data(Qt.UserRole) in expected)
+                        for row in range(w.layer_table.rowCount()):
+                            name = w.layer_table.item(row, 0).data(Qt.UserRole)
+                            self.assertEqual(w.layer_table.item(row, 1).checkState() == Qt.Checked,
+                                             name in expected)
+                        self.assertFalse(w.layers.signalsBlocked())
+                        self.assertFalse(w.layer_table.signalsBlocked())
+                        self.assertEqual(digest(w.project), before)
+                        self.assertEqual(w.saved_hash, saved_hash)
+                        self.assertEqual((len(w.history.undo_stack), len(w.history.redo_stack)), history_counts)
+                        self.assertEqual(w.path, path)
+                        self.assertEqual(path.read_bytes(), original_bytes)
+                    self.assertEqual(self.errors, [])
+
+    def test_geometry_draft_survives_visibility_changes_until_explicit_apply_and_save(self):
+        path, shape_id = self.prepare_pending_layout_width('2')
+        w = self.window
+        before, saved_hash = digest(w.project), w.saved_hash
+        original_bytes, history_count = path.read_bytes(), len(w.history.undo_stack)
+        for title in ('None', 'Solo', 'All'):
+            self.click_layer_visibility(title)
+        self.assertEqual(w.form_fields['Width'].text(), '2')
+        self.assertTrue(w._inspector_dirty)
+        self.assertEqual(digest(w.project), before)
+        self.assertEqual(len(w.history.undo_stack), history_count)
+        w.apply_button.click()
+        shape = next(shape for shape in w.cell['shapes'] if shape['id'] == shape_id)
+        self.assertEqual(shape['points'][1][0] - shape['points'][0][0], 2000)
+        self.assertFalse(w._inspector_dirty)
+        self.assertEqual(w.selection, [shape_id])
+        self.assertEqual(len(w.history.undo_stack), history_count + 1)
+        self.assertEqual(w.saved_hash, saved_hash)
+        self.assertNotEqual(digest(w.project), saved_hash)
+        self.assertEqual(path.read_bytes(), original_bytes)
+        self.assertTrue(w.save())
+        saved = next(shape for shape in load_project(path)['cells'][0]['shapes'] if shape['id'] == shape_id)
+        self.assertEqual(saved['points'][1][0] - saved['points'][0][0], 2000)
+        self.assertEqual(w.saved_hash, digest(w.project))
+        self.assertEqual(self.errors, [])
+
+    def test_single_layer_visibility_checkbox_preserves_pending_geometry_draft(self):
+        for value in ('2', 'invalid width'):
+            with self.subTest(value=value):
+                path, shape_id = self.prepare_pending_layout_width(value)
+                w = self.window
+                field = w.form_fields['Width']
+                before, saved_hash = digest(w.project), w.saved_hash
+                original_bytes = path.read_bytes()
+                history_counts = len(w.history.undo_stack), len(w.history.redo_stack)
+                row = next(i for i in range(w.layer_table.rowCount())
+                           if w.layer_table.item(i, 0).data(Qt.UserRole) == 'metal1')
+                item = w.layer_table.item(row, 1)
+                for _ in range(2):
+                    checked = item.checkState() != Qt.Checked
+                    item.setCheckState(Qt.Checked if checked else Qt.Unchecked)
+                    self.assertEqual('metal1' in w.layout.visible_layers, checked)
+                    self.assertIs(w.form_fields['Width'], field)
+                    self.assertEqual(field.text(), value)
+                    self.assertTrue(w._inspector_dirty)
+                    self.assertEqual(w.selection, [shape_id])
+                    self.assertEqual(digest(w.project), before)
+                    self.assertEqual(w.saved_hash, saved_hash)
+                    self.assertEqual((len(w.history.undo_stack), len(w.history.redo_stack)), history_counts)
+                    self.assertEqual(path.read_bytes(), original_bytes)
+                self.assertEqual(self.errors, [])
+
+
 if __name__ == '__main__':
     unittest.main()

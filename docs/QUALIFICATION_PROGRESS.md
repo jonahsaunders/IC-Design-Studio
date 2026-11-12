@@ -1,5 +1,17 @@
 # Chunks 1–12: progress and forecast
 
+**November 12 Layers display-control repair:** the local follow-on to `d7fcdc1`
+updates All/None/Solo visibility without rebuilding editing state or silently
+dropping pending inspector drafts. The [focused evidence](validation/experimental-layer-visibility-safety-2026-11-12.json)
+retains 42 real Qt cases, seven expected original-code subtest failures across
+two methods, and 293 affected unit tests passing with three skips. Syntax checks
+cover 1,637 files; 2,567 source identities are unchanged. Identical before/after
+maps are retained once with both exact original hashes. No full-core, all 14-stage
+local source, new hosted or installed acceptance is claimed; base hosted results
+do not cover this follow-on. Main is unchanged. Chunk 7 remains **74%**, low
+confidence **55–82%**, not a qualification or acceptance fraction.
+
+
 **November 12 finding-navigation draft repair:** the local follow-on to `c7b5e73`
 flushes inspector edits before Checks validates revisions or navigates to a
 physical finding, avoiding silent draft loss. The [focused validation](validation/experimental-findings-navigation-safety-2026-11-12.json)

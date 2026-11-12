@@ -49,7 +49,7 @@ class QualificationMatrixTests(unittest.TestCase):
         identities = source_identity()
         self.assertEqual(identities[reference['path']], reference['sha256'])
         original = Path.read_bytes
-        for name in ('feature_ui.py', 'gui.py', 'xschem_workflow.py', 'lifecycle_ui.py', 'native_workspace.py', 'project_store.py', 'model.py', 'consistency_workspace.py'):
+        for name in ('feature_ui.py', 'gui.py', 'xschem_workflow.py', 'lifecycle_ui.py', 'native_workspace.py', 'project_store.py', 'model.py', 'consistency_workspace.py', 'layout_ui.py'):
             captured = manifest['files'][name]
             target = (ROOT / captured['path']).resolve()
             self.assertEqual(identities[captured['path']], captured['sha256'])
