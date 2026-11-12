@@ -1,5 +1,20 @@
 # Chunks 1–12: progress and forecast
 
+**November 12 selected folder-manifest save/load repair:** the follow-on to
+`4050687` saves the exact selected `.icstudio` leaf, preserves an unselected
+canonical sibling, validates portable manifest names and recognizes uppercase
+extensions during generic loading. The [focused validation](validation/experimental-project-manifest-safety-2026-11-11.json)
+retains 35 real Qt cases and 120 affected tests passing with two skips;
+1,637 syntax checks and 2,561 source identities are unchanged. Two original-code
+methods produce three expected failures. This risk-scaled pass does **not** rerun
+full core or all 14 local source stages; prior base validation is not inherited.
+The base hosted matrix passed, but fresh hosted and installed acceptance for
+this repair remain pending. This follow-on is not yet published or integrated;
+main is untouched. Historical accepted source snapshots retain their original
+scope. Chunk 7 remains **74%**, low confidence **55–82%**, not an acceptance
+fraction or scientific qualification claim.
+
+
 **November 11 targeted stale-export repair:** the follow-on to `5f4b441`
 synchronizes pending analysis/inspector edits for Xschem and structural Verilog
 exports. The [focused validation record](validation/experimental-project-export-safety-2026-11-11.json)

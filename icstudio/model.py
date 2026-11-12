@@ -291,7 +291,7 @@ def save_project(p,path):
     validate(p); atomic_write(path,json.dumps(p,indent=2,ensure_ascii=False,allow_nan=False)+'\n')
 def load_project(path):
     path=Path(path)
-    if path.is_dir() or path.suffix=='.icstudio':
+    if path.is_dir() or path.suffix.lower()=='.icstudio':
         from .project_store import load_directory
         return load_directory(path)
     if path.stat().st_size>512*1024*1024: raise ValueError('Project exceeds the 512 MiB native project limit.')

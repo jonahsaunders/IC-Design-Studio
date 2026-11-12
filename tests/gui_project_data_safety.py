@@ -4,6 +4,7 @@ Run in a fresh process: a prior QCoreApplication cannot own these widgets.
 Only dialog answers and selected paths are supplied by the test. Project
 loading, dirty-state decisions, saving, editor drafts and controls are real.
 """
+import json
 from pathlib import Path
 import sys
 import tempfile
@@ -14,9 +15,9 @@ from PySide6.QtCore import QSettings, Qt
 from PySide6.QtWidgets import QApplication, QFileDialog, QLabel, QListWidget, QMessageBox, QPushButton
 
 from icstudio.gui import Studio, StudioCore
-from icstudio.model import clone, digest, example, file_digest, load_project, save_project
+from icstudio.model import clone, digest, example, file_digest, load_project, save_project, uid
 from icstudio.project_hub_ui import ProjectHub
-from icstudio.project_store import load_directory
+from icstudio.project_store import load_directory, save_directory
 from icstudio.project_ui import ProjectMixin
 
 
@@ -736,6 +737,162 @@ class ProjectDataSafetyTests(unittest.TestCase):
                 self.assertNotEqual(digest(self.window.project), original_saved_hash)
                 self.assertEqual(path.read_bytes(), original_bytes)
                 self.assertFalse(any('exported' in str(call).lower() for call in message.call_args_list))
+
+
+    def prepare_directory(self, filename='project.icstudio', sibling=False):
+        source, _ = self.prepare(dirty=False)
+        root = source.parent / 'folder project'
+        canonical = save_directory(self.window.project, root)
+        selected = root / filename
+        if selected != canonical:
+            canonical.rename(selected)
+        if sibling:
+            other = clone(self.window.project)
+            other['id'] = uid()
+            other['name'] = 'Unrelated canonical sibling'
+            save_directory(other, root)
+        with patch.object(QFileDialog, 'getOpenFileName', return_value=(str(selected), '')):
+            self.window.open_project_folder()
+        self.assertEqual(self.window.path, selected)
+        self.assertEqual(self.errors, [])
+        return selected, canonical
+
+    def test_canonical_manifest_save_preserves_directory_format_and_current_edits(self):
+        selected, _ = self.prepare_directory()
+        before = json.loads(selected.read_text(encoding='utf-8'))
+        old_cells = {ref['path']: (selected.parent / ref['path']).read_bytes()
+                     for ref in before['cell_files']}
+        rid = self.pending_resistor('22k')
+        self.window.analysis_fields['stop'].setText('987u')
+        self.assertTrue(self.window.save())
+        after = json.loads(selected.read_text(encoding='utf-8'))
+        self.assertIn('cell_files', after)
+        self.assertNotIn('cells', after)
+        self.assertNotEqual(before['cell_files'], after['cell_files'])
+        reopened = load_directory(selected)
+        self.assertEqual(next(d for d in reopened['cells'][0]['devices'] if d['id'] == rid)['value'], '22k')
+        self.assertEqual(reopened['analysis']['stop'], '987u')
+        self.assertEqual(self.window.path, selected)
+        self.assertEqual(self.window.saved_hash, digest(self.window.project))
+        self.assertEqual(self.window._disk_hash, file_digest(selected))
+        for path, data in old_cells.items():
+            self.assertEqual((selected.parent / path).read_bytes(), data)
+
+    def test_renamed_manifest_save_updates_only_selected_file_and_reopens_latest_edits(self):
+        for with_sibling in (False, True):
+            with self.subTest(with_sibling=with_sibling):
+                selected, canonical = self.prepare_directory('amplifier.icstudio', sibling=with_sibling)
+                selected_id = self.window.project['id']
+                sibling_bytes = canonical.read_bytes() if with_sibling else None
+                sibling_id = load_directory(canonical)['id'] if with_sibling else None
+                self.window.commit(lambda p: p.update(name='Saved renamed project edit'), 'Rename edit')
+                rid = self.pending_resistor('22k')
+                self.window.analysis_fields['stop'].setText('987u')
+                self.assertTrue(self.window.save())
+                if with_sibling:
+                    self.assertTrue(canonical.read_bytes() == sibling_bytes, 'Save overwrote unrelated canonical manifest')
+                    self.assertEqual(load_directory(canonical)['id'], sibling_id)
+                    self.assertNotEqual(sibling_id, selected_id)
+                reopened = load_directory(selected)
+                self.assertEqual(reopened['name'], 'Saved renamed project edit')
+                self.assertEqual(reopened['id'], selected_id)
+                self.assertEqual(next(d for d in reopened['cells'][0]['devices'] if d['id'] == rid)['value'], '22k')
+                self.assertEqual(reopened['analysis']['stop'], '987u')
+                self.assertEqual(self.window.path, selected)
+                self.assertEqual(self.window.settings.value('last_project'), str(selected))
+                self.assertEqual(self.window._disk_hash, file_digest(selected))
+                self.assertEqual(self.window.saved_hash, digest(self.window.project))
+                if not with_sibling:
+                    self.assertFalse(canonical.exists())
+                with patch.object(QFileDialog, 'getOpenFileName', return_value=(str(selected), '')), \
+                        patch.object(QMessageBox, 'question', side_effect=AssertionError('Saved manifest prompted again')):
+                    self.window.open_project_folder()
+                self.assertEqual(self.window.project['name'], 'Saved renamed project edit')
+                self.window.commit(lambda p: p['cells'][0].update(name='Next_manifest_edit'), 'Later edit')
+                self.assertTrue(self.window.save())
+                latest = load_directory(selected)
+                self.assertEqual(latest['name'], 'Saved renamed project edit')
+                self.assertEqual(latest['cells'][0]['name'], 'Next_manifest_edit')
+                if with_sibling:
+                    self.assertEqual(canonical.read_bytes(), sibling_bytes)
+                else:
+                    self.assertFalse(canonical.exists())
+
+    def test_uppercase_manifest_extension_stays_directory_project_after_save(self):
+        selected, canonical = self.prepare_directory('amplifier.ICSTUDIO', sibling=True)
+        sibling_bytes = canonical.read_bytes()
+        self.window.commit(lambda p: p.update(name='Uppercase manifest edit'), 'Rename edit')
+        self.assertTrue(self.window.save())
+        manifest = json.loads(selected.read_text(encoding='utf-8'))
+        self.assertIn('cell_files', manifest)
+        self.assertNotIn('cells', manifest)
+        self.assertEqual(load_directory(selected)['name'], 'Uppercase manifest edit')
+        self.assertEqual(canonical.read_bytes(), sibling_bytes)
+        self.assertEqual(self.window.path, selected)
+        self.assertEqual(self.window._disk_hash, file_digest(selected))
+        self.assertEqual(self.window.saved_hash, digest(self.window.project))
+        with patch.object(QFileDialog, 'getOpenFileName', return_value=(str(selected), '')):
+            self.window.open_project_folder()
+        self.assertEqual(self.window.project['name'], 'Uppercase manifest edit')
+
+    def test_manifest_commit_failure_preserves_selected_file_sibling_and_unsaved_edits(self):
+        from icstudio.project_store import atomic_write
+        for filename in ('project.icstudio', 'amplifier.icstudio'):
+            with self.subTest(filename=filename):
+                selected, canonical = self.prepare_directory(filename, sibling=filename != 'project.icstudio')
+                selected_bytes = selected.read_bytes()
+                sibling_bytes = canonical.read_bytes()
+                saved_hash = self.window.saved_hash
+                disk_hash = self.window._disk_hash
+                previous_last_project = self.window.settings.value('last_project')
+                self.window.commit(lambda p: p.update(name='Still unsaved manifest edit'), 'Rename edit')
+                self.pending_resistor('22k')
+                writes = []
+
+                def fail_manifest(path, text):
+                    writes.append(Path(path))
+                    if Path(path) == selected:
+                        raise OSError('Injected manifest commit failure')
+                    return atomic_write(path, text)
+
+                with patch('icstudio.project_store.atomic_write', side_effect=fail_manifest), \
+                        patch.object(self.window, 'clear_recovery') as clear_recovery, \
+                        patch.object(self.window.project_index, 'remember') as remember:
+                    with self.assertRaisesRegex(OSError, 'Injected manifest commit failure'):
+                        self.window.save()
+                self.assertEqual(writes[-1], selected)
+                self.assertTrue(any('cells' in path.parts for path in writes[:-1]))
+                self.assertEqual(selected.read_bytes(), selected_bytes)
+                self.assertEqual(canonical.read_bytes(), sibling_bytes)
+                self.assertEqual(load_directory(selected)['name'], 'Original saved design')
+                self.assertEqual(self.window.project['name'], 'Still unsaved manifest edit')
+                self.assertEqual(self.window.path, selected)
+                self.assertEqual(self.window.saved_hash, saved_hash)
+                self.assertNotEqual(digest(self.window.project), saved_hash)
+                self.assertEqual(self.window._disk_hash, disk_hash)
+                self.assertEqual(self.window.settings.value('last_project'), previous_last_project)
+                clear_recovery.assert_not_called()
+                remember.assert_not_called()
+
+    def test_manifest_external_change_guard_does_not_write_selected_or_sibling(self):
+        selected, canonical = self.prepare_directory('amplifier.icstudio', sibling=True)
+        sibling_bytes = canonical.read_bytes()
+        saved_hash = self.window.saved_hash
+        disk_hash = self.window._disk_hash
+        external = json.loads(selected.read_text(encoding='utf-8'))
+        external['name'] = 'External manifest edit'
+        selected.write_text(json.dumps(external), encoding='utf-8')
+        external_bytes = selected.read_bytes()
+        self.window.commit(lambda p: p.update(name='My unsaved manifest edit'), 'Rename edit')
+        with patch('icstudio.project_store.atomic_write', side_effect=AssertionError('Conflict wrote a manifest')):
+            with self.assertRaisesRegex(ValueError, 'changed on disk'):
+                self.window.save()
+        self.assertEqual(selected.read_bytes(), external_bytes)
+        self.assertEqual(canonical.read_bytes(), sibling_bytes)
+        self.assertEqual(self.window.path, selected)
+        self.assertEqual(self.window.saved_hash, saved_hash)
+        self.assertNotEqual(digest(self.window.project), saved_hash)
+        self.assertEqual(self.window._disk_hash, disk_hash)
 
 
 if __name__ == '__main__':

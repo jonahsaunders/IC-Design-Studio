@@ -260,9 +260,9 @@ class StudioCore(RecoveryUIMixin,QMainWindow):
             path=Path(name)
             if path.suffix.lower()!='.icproj':path=path.with_suffix('.icproj')
         if not as_new and self.path and self._disk_hash and Path(path).exists() and file_digest(path)!=self._disk_hash:raise ValueError('This project changed on disk in another application. Use Save As to preserve your edits, then review both versions.')
-        if Path(path).suffix=='.icstudio':
+        if Path(path).suffix.lower()=='.icstudio':
             from .project_store import save_directory
-            save_directory(self.project,Path(path).parent)
+            save_directory(self.project,Path(path).parent,manifest_name=Path(path).name)
         else:save_project(self.project,path)
         self._disk_hash=file_digest(path);self.path=path;self.saved_hash=digest(self.project);self.clear_recovery();self.settings.setValue('last_project',str(path));self.refresh();return True
     def clear_recovery(self):

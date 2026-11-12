@@ -1,10 +1,17 @@
 """Immutable per-cell snapshots published by an atomic project manifest."""
-from pathlib import Path
+from pathlib import Path,PureWindowsPath
 import json
 from .model import validate,clone,digest,atomic_write,file_digest
 
-def save_directory(p,directory):
-    validate(p);root=Path(directory);root.mkdir(parents=True,exist_ok=True)
+def save_directory(p,directory,*,manifest_name='project.icstudio'):
+    validate(p);name=str(manifest_name)
+    # Validate the portable leaf before writing any immutable snapshots.
+    if (Path(name).name!=name or any(c in name for c in '\\<>:"|?*')
+            or any(ord(c)<32 or ord(c)==127 for c in name)
+            or PureWindowsPath(name).is_reserved()
+            or Path(name).suffix.lower()!='.icstudio'):
+        raise ValueError('Choose a portable project manifest filename ending in .icstudio.')
+    root=Path(directory);root.mkdir(parents=True,exist_ok=True)
     cell_refs=[]
     for cell in p['cells']:
         sha=digest(cell);rel=f'cells/{cell["id"]}/{sha}.json';atomic_write(root/rel,json.dumps(cell,indent=2,ensure_ascii=False,allow_nan=False));cell_refs.append({'id':cell['id'],'path':rel,'hash':sha})
@@ -12,8 +19,8 @@ def save_directory(p,directory):
     lock={'schema':1,'pdk_hash':digest(p['pdk']),'technology':p['pdk'].get('package_lock'), 'application_schema':p['schema']}
     lock_path='locks/'+digest(lock)+'.json';atomic_write(root/lock_path,json.dumps(lock,indent=2));snapshot['dependency_lock']=lock_path
     # This is the only commit point. An interrupted write leaves the previous manifest valid.
-    atomic_write(root/'project.icstudio',json.dumps(snapshot,indent=2,ensure_ascii=False,allow_nan=False))
-    return root/'project.icstudio'
+    atomic_write(root/name,json.dumps(snapshot,indent=2,ensure_ascii=False,allow_nan=False))
+    return root/name
 
 def load_directory(directory):
     root=Path(directory);manifest=root if root.is_file() else root/'project.icstudio';root=manifest.parent.resolve();p=json.loads(manifest.read_text(encoding='utf-8'))
