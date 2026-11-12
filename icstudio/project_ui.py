@@ -383,6 +383,7 @@ class ProjectMixin:
         if not ok:return
         ports,ok=QInputDialog.getText(self,'Symbol terminals','Space-separated terminal names',text='in out vdd vss')
         if not ok:return
+        if not self.flush_inspector():return
         from .symbol_editor import default_symbol
         c={'id':uid(),'name':name.strip(),'ports':ports.split(),'devices':[],'shapes':[],'symbol':default_symbol(ports.split())};self.commit(lambda p:p['cells'].append(c),'Create symbol cell');self.cid=c['id'];self.selection=[];self.refresh();self.symbol_dialog()
     def edit_selected_symbol(self):

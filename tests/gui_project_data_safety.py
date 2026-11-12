@@ -1242,5 +1242,128 @@ class ProjectDataSafetyTests(unittest.TestCase):
                     self.assertEqual(self.errors, [])
 
 
+    def custom_symbol_action(self):
+        def walk(menu):
+            for action in menu.actions():
+                if action.menu():
+                    yield from walk(action.menu())
+                else:
+                    yield action
+        matches = {id(action): action for action in walk(self.window.menuBar())
+                   if action.text().replace('&', '') == 'New custom symbol…'}
+        self.assertEqual(len(matches), 1)
+        action = next(iter(matches.values()))
+        self.assertTrue(action.isEnabled())
+        return action
+
+    def test_new_symbol_repeated_refusal_keeps_invalid_draft_and_never_opens_editor(self):
+        for kind in ('resistor', 'layout'):
+            with self.subTest(kind=kind):
+                path, oid, key = self.prepare_add_cell_draft(kind, 'invalid draft')
+                w = self.window
+                action, field = self.custom_symbol_action(), w.form_fields[key]
+                before, saved_hash, disk_hash = digest(w.project), w.saved_hash, w._disk_hash
+                root, mode, original_bytes = w.cid, w.current_mode, path.read_bytes()
+                history_counts = len(w.history.undo_stack), len(w.history.redo_stack)
+                answers = [('Requested_symbol', True), ('in out', True)] * 2
+                with patch.object(QInputDialog, 'getText', side_effect=answers) as dialogs, \
+                        patch.object(w, 'symbol_dialog') as editor:
+                    for _ in range(2):
+                        action.trigger()
+                        editor.assert_not_called()
+                        self.assertTrue(w._inspector_dirty)
+                        self.assertIs(w.form_fields[key], field)
+                        self.assertEqual(field.text(), 'invalid draft')
+                        self.assertTrue(w.property_error.text())
+                        self.assertEqual(w.cid, root)
+                        self.assertEqual(w.selection, [oid])
+                        self.assertEqual(w.current_mode, mode)
+                        self.assertEqual(digest(w.project), before)
+                        self.assertFalse(any(c['name'] == 'Requested_symbol' for c in w.project['cells']))
+                        self.assertEqual((len(w.history.undo_stack), len(w.history.redo_stack)), history_counts)
+                        self.assertEqual(w.saved_hash, saved_hash)
+                        self.assertEqual(w._disk_hash, disk_hash)
+                        self.assertEqual(w.path, path)
+                        self.assertEqual(path.read_bytes(), original_bytes)
+                    self.assertEqual(dialogs.call_count, 4)
+                self.assertEqual(self.errors, [])
+
+    def test_new_symbol_applies_valid_draft_and_opens_editor_for_created_symbol_cell(self):
+        for kind, draft, applied in (('resistor', '22k', '22k'), ('layout', '2', 2000)):
+            with self.subTest(kind=kind):
+                path, oid, _ = self.prepare_add_cell_draft(kind, draft)
+                w = self.window
+                action = self.custom_symbol_action()
+                root, count = w.cid, len(w.project['cells'])
+                original_bytes, saved_hash = path.read_bytes(), w.saved_hash
+                history_count = len(w.history.undo_stack)
+                opened = []
+                with patch.object(QInputDialog, 'getText', side_effect=[('Requested_symbol', True), ('in out', True)]), \
+                        patch.object(w, 'symbol_dialog', side_effect=lambda: opened.append((w.cid, clone(w.cell)))):
+                    action.trigger()
+                child = w.cid
+                self.assertNotEqual(child, root)
+                self.assertEqual(len(w.project['cells']), count + 1)
+                self.assertEqual(len(opened), 1)
+                self.assertEqual(opened[0][0], child)
+                self.assertEqual(opened[0][1]['name'], 'Requested_symbol')
+                self.assertEqual(opened[0][1]['ports'], ['in', 'out'])
+                self.assertEqual(set(opened[0][1]['symbol']['pins']), {'in', 'out'})
+                self.assertEqual(w.selection, [])
+                self.assertFalse(w._inspector_dirty)
+                self.assertEqual(len(w.history.undo_stack), history_count + 2)
+                self.assertEqual(w.saved_hash, saved_hash)
+                self.assertEqual(path.read_bytes(), original_bytes)
+                self.assertTrue(w.save())
+                for project in (w.project, load_project(path)):
+                    source = next(c for c in project['cells'] if c['id'] == root)
+                    if kind == 'resistor':
+                        value = next(d['value'] for d in source['devices'] if d['id'] == oid)
+                    else:
+                        shape = next(s for s in source['shapes'] if s['id'] == oid)
+                        value = shape['points'][1][0] - shape['points'][0][0]
+                    self.assertEqual(value, applied)
+                    created = next(c for c in project['cells'] if c['id'] == child)
+                    self.assertEqual(created['name'], 'Requested_symbol')
+                    self.assertEqual(created['ports'], ['in', 'out'])
+                    self.assertEqual(set(created['symbol']['pins']), {'in', 'out'})
+                self.assertEqual(w.path, path)
+                self.assertEqual(w.saved_hash, digest(w.project))
+                self.assertEqual(self.errors, [])
+
+    def test_new_symbol_cancel_at_either_dialog_preserves_pending_draft_without_flush(self):
+        for kind in ('resistor', 'layout'):
+            for valid in (False, True):
+                for cancel_at in ('name', 'ports'):
+                    with self.subTest(kind=kind, valid=valid, cancel_at=cancel_at):
+                        draft = ('22k' if kind == 'resistor' else '2') if valid else 'invalid draft'
+                        path, oid, key = self.prepare_add_cell_draft(kind, draft)
+                        w = self.window
+                        action, field = self.custom_symbol_action(), w.form_fields[key]
+                        before, saved_hash = digest(w.project), w.saved_hash
+                        root, mode, original_bytes = w.cid, w.current_mode, path.read_bytes()
+                        history_counts = len(w.history.undo_stack), len(w.history.redo_stack)
+                        answers = [('', False)] if cancel_at == 'name' else [('Requested_symbol', True), ('', False)]
+                        with patch.object(QInputDialog, 'getText', side_effect=answers) as dialogs, \
+                                patch.object(w, 'symbol_dialog') as editor, \
+                                patch.object(w, 'flush_inspector', side_effect=AssertionError('Cancel applied a draft')) as flush:
+                            action.trigger()
+                            flush.assert_not_called()
+                            editor.assert_not_called()
+                            self.assertEqual(dialogs.call_count, len(answers))
+                        self.assertIs(w.form_fields[key], field)
+                        self.assertEqual(field.text(), draft)
+                        self.assertTrue(w._inspector_dirty)
+                        self.assertEqual(w.cid, root)
+                        self.assertEqual(w.selection, [oid])
+                        self.assertEqual(w.current_mode, mode)
+                        self.assertEqual(digest(w.project), before)
+                        self.assertEqual((len(w.history.undo_stack), len(w.history.redo_stack)), history_counts)
+                        self.assertEqual(w.saved_hash, saved_hash)
+                        self.assertEqual(w.path, path)
+                        self.assertEqual(path.read_bytes(), original_bytes)
+                        self.assertEqual(self.errors, [])
+
+
 if __name__ == '__main__':
     unittest.main()

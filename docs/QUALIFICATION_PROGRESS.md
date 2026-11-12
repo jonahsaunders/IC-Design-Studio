@@ -1,5 +1,20 @@
 # Chunks 1–12: progress and forecast
 
+**November 12 New custom symbol inspector guard:** the local follow-on to
+`6995e9c` stops after accepted input dialogs if pending inspector validation
+fails, preserving the draft and preventing an unintended existing-cell editor
+request. The [focused evidence](validation/experimental-new-symbol-safety-2026-11-12.json)
+retains 48 real Qt cases, two expected original-code invalid-input failures,
+and 293 affected unit tests passing with three skips. Syntax checks cover
+1,637 files; 2,567 source identities are unchanged. Symbol-editor invocation
+and target were checked with the dialog entry intercepted; the actual
+symbol-editor UI was not tested. Valid creation already worked. Existing
+historical project UI retention remains valid. No full core, all 14 local
+source stages, new hosted or installed acceptance is claimed; green base
+source and pending main preview runs are separate. Chunk 7 remains **74%**,
+low confidence **55–82%**, not a qualification or acceptance fraction.
+
+
 **November 12 Add Cell inspector guard:** the local follow-on to `2d6678`
 aborts Add Cell when inspector validation fails, preserving invalid pending
 input and existing cells. Valid Add Cell behavior already worked. The
