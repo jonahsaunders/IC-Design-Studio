@@ -26067,8 +26067,8 @@
       "path": "docs/validation/gf180-fill-closure-2026-10-09.json",
       "sha256": "e11e1a23ccaa8c9c7ec1133587da95375286b2f2536f939572ef4b786f5a7be7",
       "historical_source_snapshot": {
-        "path": "docs/validation/experimental-manifest-safety-retained-source-2026-11-11/chunk4-manifest.json",
-        "sha256": "00cec9e72c4726f47f9dd6559a2400c89a55e4f89c1a3ca9762e377eba51d20a"
+        "path": "docs/validation/experimental-findings-safety-retained-source-2026-11-12/chunk4-manifest.json",
+        "sha256": "4150c7e3f246b674f36e52c60f4c888e7f444dd0d9725401c85d48c7a13d173b"
       }
     },
     "5": {

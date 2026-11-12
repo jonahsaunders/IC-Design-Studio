@@ -1,0 +1,80 @@
+{
+  "schema": 1,
+  "snapshot_utc": "2026-11-12T00:38:45Z",
+  "work_day_eastern": "2026-11-11",
+  "scope": "Finding-navigation inspector draft preservation; affected-stage source validation, not full source/core or installed acceptance",
+  "base_commit": "c7b5e73e578e444490db0030d964b9729d086f85",
+  "repair": "Flush pending inspector edits at check_selected entry before revision validation, preventing navigation to a physical finding from silently dropping the draft. Two-line production change only.",
+  "base_hosted_source": {
+    "run": 43126284319,
+    "status": "SUCCESS",
+    "covers_this_follow_on": false
+  },
+  "validation": {
+    "final_qt_wrapper": {
+      "tests": 1,
+      "actual_qt_cases": 39,
+      "seconds": 9.461,
+      "status": "PASS"
+    },
+    "original_negative_control": {
+      "base": "c7b5e73e578e444490db0030d964b9729d086f85",
+      "tests": 2,
+      "expected_failures": 2,
+      "seconds": 0.668
+    },
+    "final_complete_unit_stage": {
+      "tests": 293,
+      "skips": 3,
+      "test_seconds": 33.882,
+      "receiver_seconds": 34.383,
+      "returncode": 0,
+      "syntax_files": 1637,
+      "source_identities": 2564,
+      "source_unchanged": true,
+      "launcher_sha256": "63daa8aa30f6f07025e2aab657fe182e42da42fc149c8e844e13b72e1a1553ca"
+    },
+    "superseded_unit_stage": {
+      "status": "REJECTED_SOURCE_CHANGED",
+      "tests": 293,
+      "test_returncode": 0,
+      "source_unchanged": false,
+      "changed_files": [
+        "tests/gui_project_data_safety.py"
+      ],
+      "acceptance": false
+    }
+  },
+  "earlier_direct_qt_scope": "Direct39-case log8.997s predates assertion refinement; it is retained only as superseded evidence. Exact-final coverage comes from the final wrapper and unchanged final unit lane.",
+  "not_run_for_this_follow_on": [
+    "full exhaustive core",
+    "full14-stage local source lane",
+    "fresh hosted matrix",
+    "exact-candidate installed acceptance"
+  ],
+  "historical_retention": "Exact accepted consistency_workspace source retained separately; repaired code does not inherit native acceptance.",
+  "publication_scope": "This is a local follow-on to merged c7; no publication/integration of the finding-navigation repair or main changes are claimed.",
+  "qualified": false,
+  "engineering_estimate": {
+    "chunk": 7,
+    "percent": 74,
+    "low_confidence_range": [
+      55,
+      82
+    ],
+    "acceptance_fraction": false
+  },
+  "documentation_after_validation": true,
+  "privacy_review": {
+    "credential_private_memory_access_link_patterns": 0,
+    "redactions": 0,
+    "ordinary_test_workspace_paths_retained": true
+  },
+  "archive": {
+    "path": "docs/validation/experimental-findings-navigation-safety-2026-11-12.zip",
+    "bytes": 538274,
+    "sha256": "856aaa12cb0acc99b6837ce0499e971d2de9b57937b2b317c7d8db9678106aeb",
+    "members": 21,
+    "readback": "PASS"
+  }
+}

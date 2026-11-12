@@ -895,5 +895,126 @@ class ProjectDataSafetyTests(unittest.TestCase):
         self.assertEqual(self.window._disk_hash, disk_hash)
 
 
+    def prepare_physical_finding(self):
+        from icstudio.layout import rect
+        from icstudio.physical import connectivity
+        path, _ = self.prepare(dirty=False)
+        w = self.window
+        root, child = w.cid, uid()
+        w.commit(lambda p: p['cells'].append({
+            'id': child, 'name': 'Physical_child', 'ports': [], 'devices': [],
+            'shapes': [rect('metal1', 0, 0, 400, 400, net='unconnected')],
+        }), 'Add physical finding fixture')
+        self.assertTrue(w.save())
+        w.cell_combo.setCurrentIndex(w.cell_combo.findData(child))
+        w.show_physical_result({
+            'physical_result': connectivity(w.project, child),
+            'revision': w.project['revision'], 'settings': {'type': 'connectivity'},
+        })
+        row = next(i for i, issue in enumerate(w.issues) if issue['code'] == 'LVS.FLOATING_LABEL')
+        self.assertEqual(w.issues[row]['cell_id'], child)
+        w.cell_combo.setCurrentIndex(w.cell_combo.findData(root))
+        w.mode_combo.setCurrentIndex(0)
+        rid = next(d['id'] for d in w.cell['devices'] if d['kind'] == 'R')
+        w.select([rid])
+        self.assertEqual(self.errors, [])
+        return path, root, child, rid, row
+
+    def test_physical_finding_commits_pending_edit_then_rejects_newly_stale_navigation(self):
+        path, root, _, rid, row = self.prepare_physical_finding()
+        w = self.window
+        original_bytes, saved_hash = path.read_bytes(), w.saved_hash
+        history_count = len(w.history.undo_stack)
+        self.pending_resistor('22k')
+        # Exercise the signal connected to the real Studio MRO, not one mixin.
+        w.checks.cellClicked.emit(row, 0)
+        original_cell = next(cell for cell in w.project['cells'] if cell['id'] == root)
+        self.assertEqual(next(d for d in original_cell['devices'] if d['id'] == rid)['value'], '22k')
+        self.assertEqual(w.cid, root)
+        self.assertEqual(w.selection, [rid])
+        self.assertEqual(w.current_mode, 'schematic')
+        self.assertFalse(w._inspector_dirty)
+        self.assertEqual(len(w.history.undo_stack), history_count + 1)
+        self.assertNotEqual(w.check_revision, w.project['revision'])
+        self.assertIn('stale', w.statusBar().currentMessage().lower())
+        self.assertEqual(w.saved_hash, saved_hash)
+        self.assertNotEqual(digest(w.project), saved_hash)
+        self.assertEqual(path.read_bytes(), original_bytes)
+        w.checks.cellClicked.emit(row, 0)
+        self.assertEqual(w.cid, root)
+        self.assertEqual(len(w.history.undo_stack), history_count + 1)
+        w.undo()
+        self.assertEqual(next(d for d in w.cell['devices'] if d['id'] == rid)['value'], '10k')
+        w.redo()
+        self.assertEqual(next(d for d in w.cell['devices'] if d['id'] == rid)['value'], '22k')
+        self.assertTrue(w.save())
+        self.assertEqual(next(d for d in load_project(path)['cells'][0]['devices'] if d['id'] == rid)['value'], '22k')
+        self.assertEqual(self.errors, [])
+
+    def test_physical_finding_rejects_invalid_pending_edit_without_discarding_it(self):
+        path, root, _, rid, row = self.prepare_physical_finding()
+        w = self.window
+        before = digest(w.project)
+        original_bytes, saved_hash = path.read_bytes(), w.saved_hash
+        history_count = len(w.history.undo_stack)
+        self.pending_resistor('invalid resistance')
+        for _ in range(2):
+            w.checks.cellClicked.emit(row, 0)
+            self.assertEqual(w.cid, root)
+            self.assertEqual(w.selection, [rid])
+            self.assertEqual(w.current_mode, 'schematic')
+            self.assertTrue(w._inspector_dirty)
+            self.assertEqual(w.form_fields['Value'].text(), 'invalid resistance')
+            self.assertTrue(w.property_error.text())
+            self.assertEqual(digest(w.project), before)
+            self.assertEqual(len(w.history.undo_stack), history_count)
+            self.assertEqual(w.saved_hash, saved_hash)
+            self.assertEqual(path.read_bytes(), original_bytes)
+        self.assertEqual(self.errors, [])
+
+    def test_physical_finding_without_pending_edit_navigates_repeatedly_without_mutation(self):
+        path, _, child, _, row = self.prepare_physical_finding()
+        w = self.window
+        before = digest(w.project)
+        original_bytes, saved_hash = path.read_bytes(), w.saved_hash
+        history_count = len(w.history.undo_stack)
+        oid = w.issues[row]['object']
+        for _ in range(2):
+            w.checks.cellClicked.emit(row, 0)
+            self.assertEqual(w.cid, child)
+            self.assertEqual(w.selection, [oid])
+            self.assertEqual(w.current_mode, 'layout')
+            self.assertTrue(w.layout.finding_box)
+            self.assertFalse(w._inspector_dirty)
+            self.assertEqual(digest(w.project), before)
+            self.assertEqual(len(w.history.undo_stack), history_count)
+            self.assertEqual(w.saved_hash, saved_hash)
+            self.assertEqual(path.read_bytes(), original_bytes)
+        self.assertEqual(self.errors, [])
+
+    def test_stale_physical_finding_without_draft_does_not_navigate(self):
+        for stale_by in ('revision', 'source_design_hash'):
+            with self.subTest(stale_by=stale_by):
+                path, root, _, rid, row = self.prepare_physical_finding()
+                w = self.window
+                if stale_by == 'revision':
+                    w.commit(lambda p: p.update(name='Changed after verification'), 'Later edit')
+                else:
+                    w.issues[row]['source_design_hash'] = 'different saved design hash'
+                before, history_count = digest(w.project), len(w.history.undo_stack)
+                original_bytes = path.read_bytes()
+                self.assertFalse(w._inspector_dirty)
+                for _ in range(2):
+                    w.checks.cellClicked.emit(row, 0)
+                    self.assertEqual(w.cid, root)
+                    self.assertEqual(w.selection, [rid])
+                    self.assertEqual(w.current_mode, 'schematic')
+                    self.assertIn('stale', w.statusBar().currentMessage().lower())
+                    self.assertEqual(digest(w.project), before)
+                    self.assertEqual(len(w.history.undo_stack), history_count)
+                    self.assertEqual(path.read_bytes(), original_bytes)
+                self.assertEqual(self.errors, [])
+
+
 if __name__ == '__main__':
     unittest.main()

@@ -1,5 +1,18 @@
 # Chunks 1–12: progress and forecast
 
+**November 12 finding-navigation draft repair:** the local follow-on to `c7b5e73`
+flushes inspector edits before Checks validates revisions or navigates to a
+physical finding, avoiding silent draft loss. The [focused validation](validation/experimental-findings-navigation-safety-2026-11-12.json)
+retains the final 39-case Qt wrapper, two expected original-code failures, and
+293 affected unit tests passing with three skips; 1,637 syntax checks and 2,564
+source identities are unchanged. An earlier passing unit run was **rejected**
+because a test source changed during execution; its complete evidence remains
+separate. Full core, all14 local source stages and new hosted/installed acceptance
+were not run for this follow-on. Base source-green results are not inherited;
+main is unchanged. Chunk 7 remains **74%**, low confidence **55–82%**, not a
+qualification or acceptance fraction.
+
+
 **November 12 retained-catalog dependency repair:** hosted run
 [43125063101](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/43125063101)
 failed both contract jobs because the retained SKY130 catalog still read current
