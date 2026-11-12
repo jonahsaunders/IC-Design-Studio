@@ -287,6 +287,7 @@ class StudioCore(RecoveryUIMixin,QMainWindow):
     def add_cell(self):
         name,ok=QInputDialog.getText(self,'New cell','Unique cell name')
         if not ok:return
+        if not self.flush_inspector():return
         c={'id':uid(),'name':name.strip(),'ports':[],'devices':[],'shapes':[]};self.commit(lambda p:p['cells'].append(c),'Add cell');self.cid=c['id'];self.selection=[];self.refresh(True)
     def edit_ports(self):
         ports,ok=QInputDialog.getText(self,'Cell ports','Space-separated external net names (e.g. in out vdd vss)',text=' '.join(self.cell['ports']))

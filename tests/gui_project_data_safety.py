@@ -12,7 +12,7 @@ import unittest
 from unittest.mock import patch
 
 from PySide6.QtCore import QSettings, Qt
-from PySide6.QtWidgets import QApplication, QFileDialog, QLabel, QListWidget, QMessageBox, QPushButton
+from PySide6.QtWidgets import QApplication, QFileDialog, QInputDialog, QLabel, QListWidget, QMessageBox, QPushButton
 
 from icstudio.gui import Studio, StudioCore
 from icstudio.model import clone, digest, example, file_digest, load_project, save_project, uid
@@ -1125,6 +1125,121 @@ class ProjectDataSafetyTests(unittest.TestCase):
                     self.assertEqual((len(w.history.undo_stack), len(w.history.redo_stack)), history_counts)
                     self.assertEqual(path.read_bytes(), original_bytes)
                 self.assertEqual(self.errors, [])
+
+
+    def prepare_add_cell_draft(self, kind, value):
+        if kind == 'layout':
+            path, oid = self.prepare_pending_layout_width(value)
+            return path, oid, 'Width'
+        path, _ = self.prepare(dirty=False)
+        self.window.mode_combo.setCurrentIndex(0)
+        return path, self.pending_resistor(value), 'Value'
+
+    def test_add_cell_repeated_refusal_preserves_invalid_property_draft(self):
+        for kind in ('resistor', 'layout'):
+            with self.subTest(kind=kind):
+                path, oid, key = self.prepare_add_cell_draft(kind, 'invalid draft')
+                w = self.window
+                field = w.form_fields[key]
+                root, selection, mode = w.cid, list(w.selection), w.current_mode
+                before, saved_hash, disk_hash = digest(w.project), w.saved_hash, w._disk_hash
+                original_bytes = path.read_bytes()
+                history_counts = len(w.history.undo_stack), len(w.history.redo_stack)
+                with patch.object(QInputDialog, 'getText', return_value=('Requested_child', True)) as dialog:
+                    for _ in range(2):
+                        w.command_actions['Add cell…'].trigger()
+                        self.assertTrue(w._inspector_dirty)
+                        self.assertIs(w.form_fields[key], field)
+                        self.assertEqual(field.text(), 'invalid draft')
+                        self.assertTrue(w.property_error.text())
+                        self.assertEqual(w.cid, root)
+                        self.assertEqual(w.selection, selection)
+                        self.assertIn(oid, w.selection)
+                        self.assertEqual(w.current_mode, mode)
+                        self.assertEqual(digest(w.project), before)
+                        self.assertFalse(any(c['name'] == 'Requested_child' for c in w.project['cells']))
+                        self.assertEqual((len(w.history.undo_stack), len(w.history.redo_stack)), history_counts)
+                        self.assertEqual(w.saved_hash, saved_hash)
+                        self.assertEqual(w._disk_hash, disk_hash)
+                        self.assertEqual(w.path, path)
+                        self.assertEqual(path.read_bytes(), original_bytes)
+                    self.assertEqual(dialog.call_count, 2)
+                self.assertEqual(self.errors, [])
+
+    def test_add_cell_valid_property_edit_and_new_cell_survive_undo_redo_and_save(self):
+        for kind, draft, old, applied in (('resistor', '22k', '10k', '22k'), ('layout', '2', 1000, 2000)):
+            with self.subTest(kind=kind):
+                path, oid, _ = self.prepare_add_cell_draft(kind, draft)
+                w = self.window
+                root, count = w.cid, len(w.project['cells'])
+                original_bytes, saved_hash = path.read_bytes(), w.saved_hash
+                history_count = len(w.history.undo_stack)
+
+                def value(project):
+                    source = next(c for c in project['cells'] if c['id'] == root)
+                    if kind == 'resistor':
+                        return next(d['value'] for d in source['devices'] if d['id'] == oid)
+                    shape = next(s for s in source['shapes'] if s['id'] == oid)
+                    return shape['points'][1][0] - shape['points'][0][0]
+
+                with patch.object(QInputDialog, 'getText', return_value=('Requested_child', True)):
+                    w.command_actions['Add cell…'].trigger()
+                child = w.cid
+                self.assertNotEqual(child, root)
+                self.assertEqual(w.cell['name'], 'Requested_child')
+                self.assertEqual(len(w.project['cells']), count + 1)
+                self.assertEqual(w.selection, [])
+                self.assertEqual(value(w.project), applied)
+                self.assertFalse(w._inspector_dirty)
+                self.assertEqual(len(w.history.undo_stack), history_count + 2)
+                self.assertEqual(w.saved_hash, saved_hash)
+                self.assertEqual(path.read_bytes(), original_bytes)
+                w.undo()
+                self.assertFalse(any(c['id'] == child for c in w.project['cells']))
+                self.assertEqual(value(w.project), applied)
+                w.undo()
+                self.assertEqual(value(w.project), old)
+                w.redo()
+                w.redo()
+                self.assertEqual(value(w.project), applied)
+                self.assertEqual(next(c['name'] for c in w.project['cells'] if c['id'] == child), 'Requested_child')
+                self.assertEqual(path.read_bytes(), original_bytes)
+                self.assertTrue(w.save())
+                saved = load_project(path)
+                self.assertEqual(value(saved), applied)
+                self.assertEqual(next(c['name'] for c in saved['cells'] if c['id'] == child), 'Requested_child')
+                self.assertEqual(w.path, path)
+                self.assertEqual(w.saved_hash, digest(w.project))
+                self.assertEqual(self.errors, [])
+
+    def test_add_cell_cancel_preserves_valid_and_invalid_drafts_without_applying(self):
+        for kind in ('resistor', 'layout'):
+            for valid in (False, True):
+                with self.subTest(kind=kind, valid=valid):
+                    draft = ('22k' if kind == 'resistor' else '2') if valid else 'invalid draft'
+                    path, oid, key = self.prepare_add_cell_draft(kind, draft)
+                    w = self.window
+                    field = w.form_fields[key]
+                    root, mode = w.cid, w.current_mode
+                    before, saved_hash = digest(w.project), w.saved_hash
+                    original_bytes = path.read_bytes()
+                    history_counts = len(w.history.undo_stack), len(w.history.redo_stack)
+                    with patch.object(QInputDialog, 'getText', return_value=('', False)), \
+                            patch.object(w, 'flush_inspector', side_effect=AssertionError('Cancel applied a draft')) as flush:
+                        w.command_actions['Add cell…'].trigger()
+                        flush.assert_not_called()
+                    self.assertIs(w.form_fields[key], field)
+                    self.assertEqual(field.text(), draft)
+                    self.assertTrue(w._inspector_dirty)
+                    self.assertEqual(w.cid, root)
+                    self.assertEqual(w.selection, [oid])
+                    self.assertEqual(w.current_mode, mode)
+                    self.assertEqual(digest(w.project), before)
+                    self.assertEqual((len(w.history.undo_stack), len(w.history.redo_stack)), history_counts)
+                    self.assertEqual(w.saved_hash, saved_hash)
+                    self.assertEqual(w.path, path)
+                    self.assertEqual(path.read_bytes(), original_bytes)
+                    self.assertEqual(self.errors, [])
 
 
 if __name__ == '__main__':

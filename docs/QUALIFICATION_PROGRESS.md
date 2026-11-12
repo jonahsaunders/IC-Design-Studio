@@ -1,5 +1,19 @@
 # Chunks 1–12: progress and forecast
 
+**November 12 Add Cell inspector guard:** the local follow-on to `2d6678`
+aborts Add Cell when inspector validation fails, preserving invalid pending
+input and existing cells. Valid Add Cell behavior already worked. The
+[focused evidence](validation/experimental-add-cell-safety-2026-11-12.json)
+retains 45 real Qt cases, two expected original-code invalid-input failures,
+and 293 affected unit tests passing with three skips. Syntax checks cover
+1,637 files; 2,567 source identities are unchanged. Identical before/after maps
+are stored once with exact original hashes. Existing historical GUI retention
+remains valid. Full core, all 14 local source stages and fresh hosted/installed
+acceptance were not run for this follow-on; base hosted results are not inherited.
+Main is unchanged. Chunk 7 remains **74%**, low confidence **55–82%**, not a
+qualification or acceptance fraction.
+
+
 **November 12 Layers display-control repair:** the local follow-on to `d7fcdc1`
 updates All/None/Solo visibility without rebuilding editing state or silently
 dropping pending inspector drafts. The [focused evidence](validation/experimental-layer-visibility-safety-2026-11-12.json)
