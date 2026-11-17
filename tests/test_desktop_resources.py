@@ -32,4 +32,3 @@ class DesktopResourceTests(unittest.TestCase):
                 for name in qualification.catalog():
                     with self.subTest(reference=name):
                         self.assertTrue(qualification.status(name)['valid'])
-

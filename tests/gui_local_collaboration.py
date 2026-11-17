@@ -15,7 +15,7 @@ def main():
     from PySide6.QtCore import QSettings, QStandardPaths
     from PySide6.QtWidgets import QApplication
     from icstudio.gui import Studio
-    from icstudio.local_collaboration_probe import run
+    from icstudio.probes.local_collaboration_probe import run
     QSettings.setDefaultFormat(QSettings.IniFormat)
     QSettings.setPath(QSettings.IniFormat, QSettings.UserScope, str(out / 'settings'))
     QStandardPaths.writableLocation = staticmethod(lambda kind: str(out / 'profile' / str(kind.value)))

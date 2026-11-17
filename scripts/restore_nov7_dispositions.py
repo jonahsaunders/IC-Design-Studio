@@ -30,4 +30,3 @@ if __name__ == '__main__':
     parser.add_argument('--output', type=Path, required=True)
     output = parser.parse_args().output
     print(f'Restored {restore(output)} bytes to {output} (SHA-256 {REPORT_SHA})')
-

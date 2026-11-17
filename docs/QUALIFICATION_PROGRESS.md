@@ -1,5 +1,16 @@
 # Chunks 1–12: progress and forecast
 
+**November 17 experimental repository cleanup.** The baseline is main
+`147a5501b79783a508d6057da8273195dfb2878c`. The staged desktop documentation
+fell from about 430.4 MiB to 11.1 MiB. The staged gallery loads the RC waveform
+and authenticates its Banba records. The historical November 7 v4 disposition
+report restores to its original compressed SHA-256 from a 19,041-byte delta.
+The [restore instructions](SOURCE_DISPOSITION_AUDIT.md#restore-the-fourth-november-7-report)
+identify the original run. The [retained source manifest](validation/desktop-cleanup-retained-source-2026-11-17/chunk4-manifest.json)
+preserves the exact collaboration-probe and Help sources used by the historical
+GF180 gate. These packaging and source checks add no device acceptance.
+Chunk 7 remains an engineering estimate of 74% (low confidence, 55–82%).
+
 **November 12 teaching-solver timing and Windows text repair (0.23.1 source):**
 this follow-on to main `86a9087` is outside chunks 1–12 and changes no completion
 gate, device status or forecast. It repairs the included solver's transient

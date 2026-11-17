@@ -14,7 +14,7 @@ def main():
     from PySide6.QtCore import QSettings,QStandardPaths
     from PySide6.QtWidgets import QApplication
     from icstudio.gui import Studio
-    from icstudio.host_annotations_probe import run
+    from icstudio.probes.host_annotations_probe import run
     # The explicit organization/application constructor reads NativeFormat even
     # after setDefaultFormat. Isolate both editors from saved desktop/CI state.
     settings=QSettings(str(out/'settings.ini'),QSettings.IniFormat)

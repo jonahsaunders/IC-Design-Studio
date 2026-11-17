@@ -25,7 +25,7 @@ def main():
         from icstudio.inductor_probe import run as inductor_probe
         report['inductor']=inductor_probe(w,out)
         report['checks'].extend(report['inductor']['checks'])
-        from icstudio.live_probe import run as live_probe
+        from icstudio.probes.live_probe import run as live_probe
         report['checks'].append(live_probe(w,out))
         assert not errors,errors;report['status']='passed'
     except Exception:report=dict(status='failed',error=traceback.format_exc(),errors=errors)

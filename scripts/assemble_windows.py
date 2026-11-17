@@ -8,6 +8,7 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT))
+from scripts.source_files import checkout_workflow_hash
 from icstudio import __version__
 
 
@@ -16,7 +17,7 @@ def main():
     target=args.output.resolve()/('IC-Design-Studio-'+__version__+'-Windows-x64');target.mkdir(parents=True,exist_ok=True)
     if any(target.iterdir()):raise ValueError('Use an empty assembly directory.')
     app=target/'app';app.mkdir();ignored=shutil.ignore_patterns('__pycache__','*.pyc','*.so','*.dylib','runtime')
-    (ROOT/'icstudio/build_info.py').write_text('ENGINE_SOURCE_HASH = '+repr(hashlib.sha256((ROOT/'icstudio/simulation.py').read_bytes()).hexdigest())+'\nWORKFLOW_SOURCE_HASH = '+repr(hashlib.sha256(b''.join(p.name.encode()+p.read_bytes() for p in sorted((ROOT/'icstudio').glob('*.py')) if p.name!='build_info.py')).hexdigest())+'\n')
+    (ROOT/'icstudio/build_info.py').write_text('ENGINE_SOURCE_HASH = '+repr(hashlib.sha256((ROOT/'icstudio/simulation.py').read_bytes()).hexdigest())+'\nWORKFLOW_SOURCE_HASH = '+repr(checkout_workflow_hash(ROOT))+'\n')
     from scripts.desktop_resources import stage_documents
     stage_documents(ROOT, app)
     for name in ('icstudio','examples','licenses','native','scripts','tests','packaging','.github'):shutil.copytree(ROOT/name,app/name,ignore=ignored)

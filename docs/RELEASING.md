@@ -1,5 +1,17 @@
 # Preparing and publishing a release
 
+## Desktop documentation payload
+
+Both desktop builders use `scripts/desktop_resources.py` to stage guides,
+illustrations and documentation required by the gallery catalog. The source
+ZIP distributed with the desktop retains the research and qualification
+archive. Offline Help can open the shipped guides and images. Links to omitted
+evidence open the corresponding revision on GitHub.
+
+The frozen release probe opens Help, runs the RC gallery example with the
+teaching solver, and checks the archived Banba layout results. The focused
+`tests.test_desktop_resources` test also exercises an isolated resource tree.
+
 The [IC Design Studio repository](https://github.com/jonahsaunders/IC-Design-Studio)
 uses separate desktop, qualification and draft-release workflows. Desktop and
 qualification jobs have read-only repository permissions. The draft workflow,

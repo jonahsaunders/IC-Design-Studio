@@ -40,6 +40,7 @@ else:
      dependency_provenance.sha(dependency_work/'discovery/report.json'),dependency_work/'source-cache')
  dependency_provenance.capture(engine,dependency_work/'build-capture',source_index=dependency_source_inputs)
  dependency_build_sha=dependency_provenance.sha(dependency_work/'build-capture/report.json')
+from scripts.source_files import checkout_workflow_hash
 from icstudio.build_identity import identity
 from icstudio.digital_vga import REVISION as vga_revision
 vga_assets=root/'build/vga-playground/dist'
@@ -50,7 +51,7 @@ if build['commit']=='unknown' or build['dirty'] is not False:
  subprocess.run(['git','status','--short','--untracked-files=normal'],cwd=root,check=False)
  raise ValueError('Package a clean, committed source checkout so every binary has an exact source identity: '+repr(build))
 metadata=dict(ENGINE_SOURCE_HASH=hashlib.sha256((root/'icstudio'/'simulation.py').read_bytes()).hexdigest(),
- WORKFLOW_SOURCE_HASH=hashlib.sha256(b''.join(f.name.encode()+f.read_bytes() for f in sorted((root/'icstudio').glob('*.py')) if f.name!='build_info.py')).hexdigest(),
+ WORKFLOW_SOURCE_HASH=checkout_workflow_hash(root),
  BUILD_COMMIT=build['commit'],BUILD_BRANCH=build['branch'],BUILD_DIRTY=False)
 (root/'icstudio'/'build_info.py').write_text(''.join(key+' = '+repr(value)+'\n' for key,value in metadata.items()))
 args=[sys.executable,'-m','PyInstaller','--noconfirm','--clean','--name','ICDesignStudio','--windowed','--onedir','--collect-all','klayout','--add-data',f'{root/"icstudio"/"assets"}{os.pathsep}icstudio/assets','--hidden-import','PySide6.QtSvg','--hidden-import','icstudio.cli','--hidden-import','icstudio.sdk','--add-data',f'{root/"examples"}{os.pathsep}examples','--add-data',f'{root/"licenses"}{os.pathsep}licenses']

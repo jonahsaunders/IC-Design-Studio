@@ -221,7 +221,7 @@ def main(output):
         assert viewer.grab().save(str(out/'layout-3d.png'));assert digest(window.project)==before
         renderer=type(viewer.view).__name__;viewer.close();QTest.qWait(30);window.set_project(previous,previous_path)
         report['checks'].append('packaged 3D layout viewer, extrusion, display controls and PNG ('+renderer+')')
-        from .live_probe import run as live_probe
+        from .probes.live_probe import run as live_probe
         from .experimental_probe import run as experimental_probe
         report['experimental']=experimental_probe(window,out)
         report['checks'].extend(report['experimental']['checks'])
@@ -229,9 +229,9 @@ def main(output):
         report['inductor']=inductor_probe(window,out)
         report['checks'].extend(report['inductor']['checks'])
         report['checks'].append(live_probe(window,out))
-        from .local_collaboration_probe import run as local_server_probe
+        from .probes.local_collaboration_probe import run as local_server_probe
         report['checks'].append(local_server_probe(window,out))
-        from .host_annotations_probe import run as host_annotations_probe
+        from .probes.host_annotations_probe import run as host_annotations_probe
         report['checks'].append(host_annotations_probe(window,out))
         window.fit_active();QTest.qWait(100);assert window.grab().save(str(out/'desktop.png'));assert not errors,errors;report['status']='passed'
     except Exception:

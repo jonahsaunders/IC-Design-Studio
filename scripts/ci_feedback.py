@@ -116,15 +116,11 @@ RUNTIME_RELEASE_MODULES = (
 )
 
 
-PYTHON_SOURCE_FOLDERS = (
-    'icstudio', 'scripts', 'tests',
-    'scripts/qualification/sky130_mim_conditioning',
-)
-
-
 def python_sources(root):
-    return sorted(path for folder in PYTHON_SOURCE_FOLDERS
-                  for path in (root / folder).glob('*.py'))
+    from scripts.source_files import python_files
+    return sorted([*python_files(root / 'icstudio', {'assets'}),
+                   *python_files(root / 'scripts'),
+                   *python_files(root / 'tests', {'fixtures'})])
 
 
 def check_syntax(root=ROOT):

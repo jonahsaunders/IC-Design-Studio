@@ -1,6 +1,9 @@
 """Compare attachment-heavy edits and long drags against an extracted source."""
-import argparse,hashlib,json,platform,statistics,sys,time
+import argparse,json,platform,statistics,sys,time
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from scripts.source_files import checkout_workflow_hash
 
 
 def main():
@@ -46,10 +49,7 @@ def main():
             w.drag=QPointF(i*step,500);start=time.perf_counter();w.grab();times.append((time.perf_counter()-start)*1000)
         rows.append({'name':name,'expanded_shapes':10000,'frames':40,'step_nm':step,**stats(times)})
     w.close();app.processEvents()
-    h=hashlib.sha256()
-    for p in sorted((a.source/'icstudio').glob('*.py')):
-        if p.name!='build_info.py':h.update(p.name.encode()+p.read_bytes())
-    report={'version':__version__,'workflow_hash':h.hexdigest(),'platform':platform.platform(),'qt_platform':app.platformName(),'workloads':rows,
+    report={'version':__version__,'workflow_hash':checkout_workflow_hash(a.source),'platform':platform.platform(),'qt_platform':app.platformName(),'workloads':rows,
             'scope':'Operation-local geometry and history, plus CPU Qt Canvas rendering. Actual topology assertions; excludes durable recovery, full Studio refresh, external DRC and display presentation.'}
     a.out.parent.mkdir(parents=True,exist_ok=True);a.out.write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))
 

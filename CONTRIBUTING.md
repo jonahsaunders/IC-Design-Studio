@@ -34,6 +34,7 @@ the Windows temporary-directory and junction check, WSL setup, and results.
 | Mixed signal and learning | `icstudio/mixed_signal.py`, `icstudio/student_hub.py`, `icstudio/student_projects.py` |
 | Collaboration and recovery | `icstudio/live_client.py`, `icstudio/live_store.py`, `icstudio/review_drafts.py`, `icstudio/recovery.py` |
 | Examples and tutorials | `examples/`, `docs/` |
+| Desktop collaboration acceptance probes | `icstudio/probes/` |
 | Release automation | `scripts/`, `.github/workflows/` |
 
 ## Make a focused change

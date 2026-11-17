@@ -27,4 +27,3 @@ def stage_documents(root, destination):
         target = destination / relative
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(root / relative, target)
-

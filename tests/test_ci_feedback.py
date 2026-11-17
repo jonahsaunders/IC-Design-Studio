@@ -239,6 +239,31 @@ class FeedbackTests(unittest.TestCase):
             with self.assertRaises(SyntaxError):
                 check_syntax(root)
 
+    def test_new_subpackages_are_checked_and_change_release_identity(self):
+        from scripts.source_files import checkout_workflow_hash
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            for path in ('icstudio/probes/a/probe.py', 'icstudio/probes/b/probe.py',
+                         'scripts/tools/build.py', 'tests/ui/test_nested.py',
+                         'icstudio/assets/vendor/input.py', 'tests/fixtures/foreign.py'):
+                target = root / path
+                target.parent.mkdir(parents=True, exist_ok=True)
+                target.write_bytes(b'x = 1')
+            self.assertEqual(check_syntax(root), 4)
+            expected = {'icstudio/probes/a/probe.py', 'icstudio/probes/b/probe.py',
+                        'scripts/tools/build.py', 'tests/ui/test_nested.py'}
+            self.assertEqual(set(source_identity(root)), expected)
+            initial = checkout_workflow_hash(root)
+            target = root / 'icstudio/probes/a/probe.py'
+            target.write_bytes(b'def broken(:')
+            self.assertNotEqual(checkout_workflow_hash(root), initial)
+            with self.assertRaises(SyntaxError):
+                check_syntax(root)
+            target.write_bytes(b'x = 1')
+            self.assertEqual(checkout_workflow_hash(root), initial)
+            target.rename(target.with_name('renamed.py'))
+            self.assertNotEqual(checkout_workflow_hash(root), initial)
+
     def test_nested_qualification_code_and_fixture_are_bound(self):
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder)
