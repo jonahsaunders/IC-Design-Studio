@@ -810,7 +810,7 @@ collector was interrupted by the November 7 pause, so no completed local
 artifact readback is claimed for this run. PR #69 is now merged.
 
 **November 7 legacy-symbol inventory:** the
-[fourth disposition report](qualification/source-dispositions-2026-11-07-v4.json.gz)
+[fourth disposition report](SOURCE_DISPOSITION_AUDIT.md#restore-the-fourth-november-7-report)
 enumerates eight pinned headerless Xschem symbols and one Qucs component view:
 nine previously opaque sources and 145 additional facts. All 751,628 previous
 items remain exactly unchanged; the complete report has 43,671 source identities,

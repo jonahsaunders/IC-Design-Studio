@@ -150,6 +150,8 @@ def source_identity(root=ROOT):
                  'sky130-release-inputs-2026-11-07.json',
                  'upstream-semantics-gf-inputs-2026-11-07.json.gz',
                  'source-dispositions-companion-inputs-2026-11-07.json.gz',
+                 'source-dispositions-2026-11-07-v3.json.gz',
+                 'source-dispositions-2026-11-07-v4.delta.json.gz',
                  'upstream-semantics-inventory-2026-11-07-v2.json.gz',
                  'sky130-release-inventory-2026-11-07.json.gz',
                  'source-dispositions-2026-11-08-v1.json.gz',
