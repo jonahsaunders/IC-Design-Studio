@@ -24,6 +24,20 @@ def main(output):
         assert window.dark;assert window.devicePixelRatioF()>=float(report['scale'])-.05
         report['checks'].append('native dark workspace and requested DPI scale')
         if report['frozen']:
+            from .getting_started import examples, example_copy
+            from .qualification import project_status
+            from .simulation import run as teaching_simulation
+            window.open_editor_doc('GETTING_STARTED.md')
+            guide = window._document_dialog
+            assert guide.browser.source().isLocalFile() and 'waveform' in guide.browser.toPlainText().lower()
+            guide.close()
+            gallery = {entry['id']: entry for entry in examples()}
+            rc = example_copy(gallery['rc'])
+            response = teaching_simulation(rc, rc['top'], rc['analysis'])['traces']['vout']
+            assert max(response) > min(response), 'Packaged RC example produced no waveform'
+            banba = project_status(example_copy(gallery['gf180-banba-layout']))
+            assert banba and banba['valid'], 'Packaged Banba evidence failed its archive checks'
+            report['checks'].append('offline Help, first RC waveform and archived Banba results')
             from . import openems_runtime
             from .openems_ui import OpenEMSJob
             solver, _ = openems_runtime.discover()

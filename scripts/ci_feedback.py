@@ -22,7 +22,7 @@ UNIT_MODULES = (
     'test_digital.DigitalChildEnvironmentTests', 'test_digital.YosysIntegrationTests',
     'test_analog.AnalogTests.test_capabilities_do_not_trust_catalog_or_metadata',
     'test_digital_bundle', 'test_digital_runtime', 'test_digital_rc',
-    'test_sky130_retained_catalog', 'test_digital_platforms',
+    'test_desktop_resources', 'test_sky130_retained_catalog', 'test_digital_platforms',
     'test_release_acceptance', 'test_release_evidence', 'test_release_intent',
     'test_pdk_qualification_matrix', 'test_ihp_hv_mos_layouts', 'test_mos_grouping', 'test_sky130_li_linked', 'test_sky130_li_array_dynamic',
     'test_ihp_resistor_via_class', 'test_ihp_resistor_via_auditor', 'test_ihp_resistor_editor', 'test_ihp_guard_vias',
@@ -170,7 +170,8 @@ def source_identity(root=ROOT):
                    'experimental-manifest-safety-retained-source-2026-11-11',
                    'experimental-findings-safety-retained-source-2026-11-12',
                    'experimental-layer-safety-retained-source-2026-11-12',
-                   'solver-timing-text-retained-source-2026-11-12'):
+                   'solver-timing-text-retained-source-2026-11-12',
+                   'desktop-cleanup-retained-source-2026-11-17'):
         files += [p for p in (root / 'docs/validation' / folder).glob('*') if p.is_file()]
     # Retained qualification tests authenticate historical inputs separately
     # from live application code. Bind that complete selection to this run too.
