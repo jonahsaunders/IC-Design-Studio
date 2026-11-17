@@ -49,7 +49,9 @@ def connect_navigation(browser,dialog,link_color=None):
             revision=identity()['commit']
             if not re.fullmatch('[0-9a-f]{40}',revision):revision='main'
             web=QUrl('https://github.com/jonahsaunders/IC-Design-Studio/blob/'+revision+'/')
-            web.setPath(web.path()+relative.as_posix());web.setQuery(target.query());web.setFragment(target.fragment())
+            web.setPath(web.path()+relative.as_posix())
+            if target.hasQuery():web.setQuery(target.query())
+            if target.hasFragment():web.setFragment(target.fragment())
             QDesktopServices.openUrl(web)
         elif target.isLocalFile() and path.suffix.lower()=='.md':browser.setSource(target)
         else:QDesktopServices.openUrl(target)
