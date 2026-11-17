@@ -2,7 +2,7 @@
 
 Use the guides below for the current **0.23.1 engineering preview** source. Desktop packages have their own source identities and acceptance records; check [release status](RELEASE_STATUS.md) before applying source-only instructions to a downloaded build. Older versioned notes at the end are historical snapshots.
 
-**Quick links:** [First waveform](GETTING_STARTED.md) · [Examples](../examples/README.md) · [Feature tour](../README.md#explore-the-workspace) · [Source setup](../README.md#start-in-three-steps) · [Simulation engines](../SIMULATION_SETUP.md)
+**Quick links:** [First waveform](GETTING_STARTED.md) · [Examples](../examples/README.md) · [Feature tour](FEATURE_TOUR.md) · [Source setup](../README.md#start-in-three-steps) · [Simulation engines](../SIMULATION_SETUP.md)
 
 For development toward a complete analog/digital release, see the
 [SKY130, GF180MCU and IHP acceptance targets](PUBLIC_RELEASE_TARGETS.md).
@@ -30,7 +30,7 @@ LVT/HVT geometry, native model recognition and six source-editor device views.
 | **Sensor acquisition capstone** | [Student projects](../examples/student-hub/README.md) · [course](STUDENT_HUB.md) | Filter, converter, averaging and alarm with measured repair milestones |
 | **Counter, UART and APB FIFO** | [Digital flow](DIGITAL_FLOW.md) | Editable RTL, simulation/regression and implementation examples |
 
-The [gallery catalog](../README.md#example-library) contains 13 guided entries. The external voltage monitor is generated from its separately downloaded, pinned source; it is not a bundled gallery entry. The supplied bandgap and native Banba reference are different circuits.
+The [gallery catalog](FEATURE_TOUR.md#example-library) contains 13 guided entries. The external voltage monitor is generated from its separately downloaded, pinned source; it is not a bundled gallery entry. The supplied bandgap and native Banba reference are different circuits.
 
 ## Start here
 

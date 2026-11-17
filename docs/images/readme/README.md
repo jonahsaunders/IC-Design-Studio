@@ -15,11 +15,11 @@ The original product images below are direct Qt captures of IC Design Studio **0
 
 `vga-playground.png` is the unmodified `rings.png` from the **0.22.0.dev25** offscreen Qt VGA probe. It was captured from a working tree based on `8f87cf5a1e58af175d14a701a341f382eeb5becf`, with the audio fix subsequently committed as `d37323dc86eec8e7775083607be3fcf8e6458a3f`; it is source UI evidence, not a packaged-build result. It shows the actual Rings preset in the embedded renderer beside its native RTL source. Reproduce after building the VGA assets with `QT_QPA_PLATFORM=offscreen python main.py --vga-test /new/output`, then use `/new/output/rings.png`. See the [VGA guide and upstream attribution](../../VGA_PLAYGROUND.md).
 
-The main README also reuses the existing [statistical editor and results](../../ANALOG_REFERENCE_WORKFLOW.md#run-repeatable-statistical-campaigns), [second-pass Banba schematic and optimizer](../../../examples/gf180-banba/pass2/README.md), and [Banba layout capture](../../../examples/gf180-banba/layout/README.md). Their original example/validation folders retain the corresponding evidence and reproduction instructions.
+The [feature tour](../../FEATURE_TOUR.md) also reuses the existing [statistical editor and results](../../ANALOG_REFERENCE_WORKFLOW.md#run-repeatable-statistical-campaigns), [second-pass Banba schematic and optimizer](../../../examples/gf180-banba/pass2/README.md), and [Banba layout capture](../../../examples/gf180-banba/layout/README.md). Their original example/validation folders retain the corresponding evidence and reproduction instructions.
 
 The expanded feature tour reuses `docs/images/student-hub.png`, an actual native Student Hub capture documented in the [course guide](../../STUDENT_HUB.md) and [interface audit](../../STUDENT_HUB_AUDIT.md). It also includes `docs/images/sar-conversion.svg`, a plot of the measured SAR conversion, with a link to the actual `docs/images/mixed-signal-sar.png` result panel. The [SAR walkthrough](../../MIXED_SIGNAL_SAR.md#retained-validation) retains the Linux engine identities, nominal edge table and reproduction steps. These source captures do not establish packaged or native Windows/macOS mixed-signal qualification.
 
-The older `example-gallery.png` remains a nine-entry historical capture. The current README's 13-project catalog is checked against `examples/gallery.json`; the historical image is not used to depict that catalog.
+The older `example-gallery.png` remains a nine-entry historical capture. The feature tour's 13-project catalog is checked against `examples/gallery.json`; the historical image is not used to depict that catalog.
 
 ## Reproduce
 

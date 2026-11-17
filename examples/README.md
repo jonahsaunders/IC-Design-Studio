@@ -10,7 +10,7 @@
 | **SKY130 two-stage op-amp** | [Native project](sky130_two_stage_opamp.icproj) and [reference workflow](../docs/ANALOG_REFERENCE_WORKFLOW.md) | Saved operating-point, loop-gain, noise and startup fixtures, PVT plans and bounded physical comparisons |
 | **Mixed-signal SAR ADC** | [Native project](sar-adc/sar-adc.icproj); gallery **13** | Four-bit Verilog controller coupled to a native analog sample/hold and resistor DAC |
 
-The [main README catalog](../README.md#example-library) lists all **13** guided gallery entries. The external voltage monitor and generated digital/reference workflows are additional examples; they are not extra gallery entries.
+The [feature tour catalog](../docs/FEATURE_TOUR.md#example-library) lists all **13** guided gallery entries. The external voltage monitor and generated digital/reference workflows are additional examples; they are not extra gallery entries.
 
 ## Guided first circuits
 
