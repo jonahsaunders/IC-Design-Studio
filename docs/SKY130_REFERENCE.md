@@ -15,6 +15,10 @@ The 0.4.0 reference flow passed all stages in this Linux workspace. The fixture 
 
 At the TT corner, 1.8 V supply and 5 fF output load, mean measured delay was **32.338 ps** before extraction and **36.380 ps** afterward, a **4.042 ps** increase. Settled output high minima were 1.799983 V / 1.799969 V; low maxima were 0.000303 V / 0.000558 V. Delay is averaged over the six observed 50%-threshold transitions; it is not a characterized timing library.
 
+The [November 18 desktop replay](QUALIFICATION_PROGRESS.md)
+also checked the editable project's linked views and GDS export against the
+same pinned inverter. The export preserved child-cell geometry and pin labels.
+
 ## Locked environment
 
 - PDK: SKY130A, Volare release `sky130-fa87f8f4bbcc7255b6f0c0fb506960f531ae2392`; technology reports `1.0.291-82-gfa87f8f`.

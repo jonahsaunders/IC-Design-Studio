@@ -1,5 +1,44 @@
 # Chunks 1–12: progress and forecast
 
+**November 18 desktop roadmap pass.** Source
+`96b71b452fc5182df2fbed72f7bdbd1f05b1e425` passed 18 Qt editing tests and 11
+Student Hub usability checks each on Windows and Ubuntu. The RC exercise
+compared nonadjacent runs after changing component values, undoing and redoing
+an edit, then saved and reopened from a path with spaces. Reopening restored the
+saved plan and each completed run once, and excluded a cancelled result file.
+The recovery, migration, and simulation source suite ran 33 checks per host,
+with five external-tool skips on Windows. Windows also passed 10 real-worker
+analysis and wiring checks and five native-build identity checks. Ubuntu passed
+the Project Hub workflow. Both hosts passed the release-materials check.
+
+Student Hub checks included keyboard search, inverter profile scoping, empty
+search results, and 100–200% text in light and dark appearances. The
+[roadmap](ROADMAP.md#make-feedback-faster-alongside-feature-work) records the
+Windows packaging overlap estimate and the shared native-build requirement.
+
+Ubuntu replayed `sky130_fd_sc_hd__inv_1` at
+`ea0575af0ea97a7e2a87fb3e262d8a126df0c205` with SKY130A release
+`sky130-fa87f8f4bbcc7255b6f0c0fb506960f531ae2392`, Magic 8.3.684, Netgen
+1.5.300, ngspice 47 with KLU, and KLayout 0.30.5. All eight stages passed.
+Public DRC reported zero violations, LVS gave one match, and extraction
+reported 14 capacitors. The TT transient measured six transitions at 1.8 V
+and 5 fF, with mean propagation delay of 32.097 ps before extraction and
+36.208 ps after extraction. Linked views loaded the same cell, and GDS export
+to a path with spaces preserved the original geometry on every layer and all
+eight text labels. The hierarchy and label regression passed on both hosts.
+
+The replay used these SHA-256 asset identities:
+
+- `sky130.lib.spice` `5efa041a988893c1a3580d0ecd57870ea3146b27741c7d42b56baaa336b9549e`
+- `sky130A.tech` `5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e`
+- `sky130A_setup.tcl` `3b2e4eddc57b1d8dc531d95086a2c21b86709907ede11fcac676f37d501787e9`
+
+The physical replay covers one reference cell. This pass used source builds
+on Windows and Ubuntu. Fresh installer and macOS VoiceOver testing are pending.
+The [retained source manifest](validation/desktop-workflows-retained-source-2026-11-18/chunk4-manifest.json)
+preserves the accepted GF180 source bytes. The latest chunk 7 engineering
+estimate remains **74%**, with low confidence (55–82%).
+
 **November 18 simulation plan usability and bug fixes.** Candidate
 `cf212e0ac1c7590c92e367fc516b9aba8656c81d` respects unchecked setups during a
 batch run, runs one highlighted setup on demand, and restores saved program
