@@ -201,7 +201,8 @@ class StudentCapstoneTests(unittest.TestCase):
             for job in campaign_jobs(p,engines()):
                 case=job['student_campaign']['case'];row=execute(job['project'],root/case,job=job);rows.append(row)
                 self.assertEqual(report(row['result'],case)['status'],'PASS',case)
-            lesson=curriculum()['lessons'][-1];evaluate(lesson['steps'][2],lesson,p,rows)
+            lesson=next(item for item in curriculum()['lessons'] if item['id']=='c-qualify')
+            evaluate(lesson['steps'][2],lesson,p,rows)
             p['cells'][0]['devices'][0]['value']='90k'
             with self.assertRaisesRegex(ValueError,'latest design'):evaluate(lesson['steps'][2],lesson,p,rows)
             for fault in ('filter','decision','average','alarm'):

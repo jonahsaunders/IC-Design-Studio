@@ -1,5 +1,41 @@
 # Chunks 1–12: progress and forecast
 
+## Student Hub TIA and op-amp projects
+
+**November 18, 2026.** Source `0b3b986742a8d908ba02f66ee8ac15477d99dddf`
+adds two nine-step SKY130A design projects to Student Hub. Each starts with
+a spec and an editable fixture, then records gm/ID sizing, bias-reference
+compliance, schematic measurements, layout checks, nominal extracted
+measurements, and a design-review reflection.
+[TIA and op-amp project guide](STUDENT_ANALOG_PROJECTS.md)
+
+The clean Ubuntu replay used ngspice, Magic, and Netgen with the full
+SKY130A process and default capacitance extraction at 1.8 V and 27 °C.
+All eight verification benches passed. The TIA
+AC and pulse fixtures passed DRC, LVS, and schematic/extracted limits.
+Extracted results were 99.96 kΩ at 100 Hz, 985.5 kHz bandwidth, 99.96 mV
+output step and 0.58 µs settling. The op amp passed its operating point,
+AC, noise and startup fixtures before and after extraction. Extracted
+gain was 81.08 dB, unity-gain frequency was 4.45 MHz, and phase margin
+was 58.52° into 1 pF. The separate PMOS bias mirror passed its nominal
+compliance sweep before and after extraction. With a 130 kΩ programming
+resistor, nominal schematic and extracted currents both stayed within
+4.81–4.86 µA over a 0.45–0.85 V output clamp. An exploratory 200 kΩ
+setting correctly failed the current minimum. The input-pair bias bench
+captured about 5.02 µA and 101 µS on M2, or 20.2 V⁻¹ gm/ID.
+
+The learning projects keep the TIA feedback network and bias programming
+resistor in the external fixtures. The amplifier fixtures use a fixed
+5 µA bias to isolate the core measurements. The PVT plan is provided
+for further practice. The checked measurements are nominal and use the
+recorded extraction mode.
+
+Ubuntu passed all 22 focused tests. Windows passed 17 with five
+external-engine skips. Both hosts passed the 12 Student Hub desktop
+checks and the release-materials check. The desktop replay found both
+projects by search and checked navigation to their fixtures, layouts,
+and extracted-verification step.
+
 ## Tiny Tapeout SKY 26e UART source handoff
 
 **November 18, 2026.** Source `59a8c09006addac062106586b36a5f96f0f577a4`
