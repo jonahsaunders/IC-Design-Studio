@@ -162,7 +162,22 @@ def source_identity(root=ROOT):
             files.append(source)
     files += [p for p in (root / 'tests/fixtures/pw2dn-recovery-2026-11-11').glob('*') if p.is_file()]
     matrix = root / 'docs/qualification/pdk-matrix.json'
-    if matrix.is_file(): files.append(matrix)
+    if matrix.is_file():
+        files.append(matrix)
+        chunk4 = json.loads(matrix.read_bytes()).get('execution_acceptance', {}).get('4', {})
+        snapshot = chunk4.get('historical_source_snapshot')
+        if snapshot:
+            archive = (root / 'docs/validation').resolve()
+            manifest = root / snapshot['path']
+            if not manifest.resolve().is_relative_to(archive):
+                raise ValueError('Historical GF180 source manifest is outside the validation archive.')
+            retained = json.loads(manifest.read_bytes())
+            dependencies = [root / entry['path'] for group in ('files', 'checker_files')
+                            for entry in retained.get(group, {}).values()]
+            if any(not path.resolve().is_relative_to(archive) for path in dependencies):
+                raise ValueError('Historical GF180 source is outside the validation archive.')
+            files.append(manifest)
+            files.extend(dependencies)
     for folder in ('chunk7-openems-retained-source-2026-11-07',
                    'experimental-data-safety-retained-source-2026-11-11',
                    'experimental-copy-safety-retained-source-2026-11-11',
@@ -245,7 +260,7 @@ def source_identity(root=ROOT):
     files += list((root / '.github/workflows').glob('*.yml'))
     files += list(root.glob('requirements*.txt'))
     return {path.relative_to(root).as_posix(): hashlib.sha256(path.read_bytes()).hexdigest()
-            for path in sorted(files)}
+            for path in sorted(set(files))}
 
 
 def check_ihp_gui_output(folder):
