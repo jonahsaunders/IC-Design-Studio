@@ -1,5 +1,18 @@
 # Chunks 1–12: progress and forecast
 
+**November 18 local project version history.** Source
+`e96d3ec35af962659084e9de7c992233b6b7d447` adds named project versions,
+comparisons with the working design or another version, and a restore that
+keeps the current design in history before changing the editor. The Windows
+and Ubuntu Qt checks created two RC versions through the File menu, reopened
+a project with spaces in its path, compared resistor values, verified that a
+failed backup left the working design intact, and exercised restore, Undo,
+and Redo. The four version-store tests on both hosts cover simultaneous
+saves, project identity, snapshot integrity, and revision behavior. The
+Windows visual review checked light and dark appearances. See
+[Project versions](USER_GUIDE.md#project-versions) for the workflow and the
+companion database. This is source-level desktop evidence.
+
 **November 18 desktop roadmap pass.** Source
 `96b71b452fc5182df2fbed72f7bdbd1f05b1e425` passed 18 Qt editing tests and 11
 Student Hub usability checks each on Windows and Ubuntu. The RC exercise
