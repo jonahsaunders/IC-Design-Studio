@@ -1,5 +1,35 @@
 # Chunks 1–12: progress and forecast
 
+## Student Hub layout, LC filters, and Ahuja compensation
+
+**November 18, 2026.** Source `7b4f7e7d88bebbee360f22340cc4efc451dbbf5b`
+adds three lessons and their teaching plots.
+
+- [Why layout choices matter](STUDENT_LAYOUT_DECISIONS.md) checks repaired
+  via enclosure, a common centroid, and an intentional open that still
+  passes generic geometry DRC. The modeled 0.20, 0.40, and 0.80 µm
+  routes measured 12.16, 12.78, and 12.41 GHz against a 12.5 GHz target.
+  The comparisons use declared teaching coefficients and distributed RC.
+- [LC filters and Bode plots](STUDENT_LC_BODE.md) runs the four actual
+  schematic taps through the built-in AC solver. The measured low-pass
+  high-frequency tail was −40.10 dB/decade, the high-pass low-frequency
+  tail was +40.10 dB/decade, and the notch left phase undefined at its
+  null. Tests rejected a mistapped output and stale evidence, reduced
+  Q to about 0.673, and retuned the low-pass to approximately 10 kHz.
+- [Ahuja compensation](STUDENT_AHUJA.md) compares a direct Miller loop,
+  an ideal current-buffered loop, and a bandwidth-limited current buffer.
+  At 20 pF, the first two margins were 37.4° and 81.2°. A 10 MHz buffer
+  pole gave 16.1°. Independent ngspice controlled-source circuits
+  matched the complex model across three loads and two buffer poles.
+  The interactive results are small-signal equivalent-circuit evidence.
+
+The clean Ubuntu source replay passed all 24 focused tests. Windows
+passed 19 with five external-engine skips. Both hosts passed the 15
+Student Hub desktop checks and the release-materials check. The desktop
+tests opened all three lessons, ran the real LC and RC jobs, checked the
+notch phase gap and cursor, and changed the finite-buffer phase margin
+through the Ahuja controls.
+
 ## Student Hub TIA and op-amp projects
 
 **November 18, 2026.** Source `0b3b986742a8d908ba02f66ee8ac15477d99dddf`
