@@ -382,7 +382,7 @@
     "interview-input-pairs": {
       "concept": "Compare complementary input stages by tracing real common-mode and drain headroom, then choose a polarity for a source.",
       "worked_example": "For a bottom NMOS tail, a starting lower limit is VSS + VGS,input + VDSsat,tail. For a top PMOS tail, a starting upper limit is VDD − |VSG,input| − |VSDsat,tail|. Check the other edge at the drains. Test the actual topology if the loads, bias circuit, or body connections change.",
-      "try_next": "Run both common-mode sweeps. Each has a 10 mV input difference and a 1.8 V supply. The usable range keeps total current within 20% and differential gain above 70% of their values at 0.80 V. Compare both measured currents at 0.80 V before comparing gain or noise. Start with the saved pair sizes and bias, then trim VBIAS if you want a current-matched comparison. Make a polarity choice for a sensor whose common mode sits near ground and one that sits near VDD. Check the measured range against each actual sensor requirement.",
+      "try_next": "Run both common-mode sweeps. Each has a 10 mV input difference and a 1.8 V supply. The usable range keeps total current within 20% and differential gain above 70% of their values at 0.70 V. Compare both measured currents at 0.70 V before comparing gain or noise. Start with the saved pair sizes and bias, then trim VBIAS to keep the two tail currents within 20% of each other. Make a polarity choice for a sensor whose common mode sits near ground and one that sits near VDD. Check the measured range against each actual sensor requirement.",
       "interview": "How would you choose an input pair for a sensor that moves from near VSS to near VDD?",
       "artifact": "A prediction, a measured comparison, and a short design explanation."
     },
@@ -396,7 +396,7 @@
     "interview-slew": {
       "concept": "Use one SKY130 follower to separate linear settling, current-limited motion, and DC tracking error.",
       "worked_example": "Charging 8 pF with 8 µA moves the output at about 1 V/µs since I = C dV/dt. For precision settling, start the clock at the input edge. Use the last exit from the tolerance band and include any ringing. This experiment reports dynamic settling around the measured final output and gives command tracking error separately.",
-      "try_next": "Compare a 20 mV step on 2 pF with a 500 mV step on 2 pF, then put the same 500 mV step on 8 pF. The edge begins at 2 µs. Look at the 10–90% slope, where the output first looks linear in time, and how long it takes to enter and stay within 2% of its final excursion. Compare the final DC error to a 2% band referenced to the command as well.",
+      "try_next": "Compare a 20 mV step on 2 pF with a 500 mV step on 2 pF, then put the same 500 mV step on 8 pF. Compare the falling steps at both loads as well. The edge begins at 2 µs. Look at the 10–90% slope, where the output first looks linear in time, and how long it takes to enter and stay within 2% of its final excursion. Compare the final DC error to a 2% band referenced to the command as well.",
       "interview": "An op amp with good phase margin misses an ADC’s large-step settlement deadline. How would you use two step amplitudes and two load values to isolate the cause?",
       "artifact": "A prediction, a measured comparison, and a short design explanation."
     },

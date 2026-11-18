@@ -38,7 +38,7 @@ when gain collapses at low common mode.
 | Check the other side | Input transistors need drain voltage above their sources | Input transistors need drain voltage below their sources |
 
 Run both 1.8 V fixtures. Measured usable range requires tail current within
-20% of its value at 0.80 V and at least 70% of the differential gain there.
+20% of its value at 0.70 V and at least 70% of the differential gain there.
 Compare the measured ranges against a sensor's specified input common mode.
 If you compare gain, noise, or speed, first measure current and pick a fair
 bias condition. Consider body effect, device area, source impedance and
@@ -68,8 +68,9 @@ output conductance, transconductance, capacitance, and power.
 
 ## Slew rate and precision settling
 
-Try 20 mV and 500 mV commands on the same follower, then repeat the
-500 mV step with four times the load. `I=C dV/dt` gives an estimate of
+Try a 20 mV command and 500 mV steps in both directions on the same
+follower. Repeat the large steps with four times the load. Compare
+sourcing and sinking. `I=C dV/dt` gives an estimate of
 the current needed for a required large-signal slope. A measured 10–90%
 slope averages current-limited and linear portions of a trace. Inspect
 the waveform for an approximately constant-slope interval. Dynamic 2%
@@ -134,7 +135,9 @@ clocked control logic and converter output codes, see the
 Find the pass PMOS, feedback divider and error-amplifier polarity.
 A 0.90 V reference with 20 kΩ/60 kΩ gives 1.20 V. At 25 µA load, sweep
 input supply and identify where the output first enters the 2% regulation
-band. Keep the supply fixed and apply a 25-to-100 µA load step. The
+band. Inspect the error amplifier's input common mode and the pass gate
+before attributing the full measured headroom to the pass transistor.
+Keep the supply fixed and apply a 25-to-100 µA load step. The
 capacitor initially supplies the current difference. `ΔI/C` estimates
 the initial droop slope and `ΔI × ESR` the resistive change. Compare
 two ESR values on the same load step, then test a line step and power-on

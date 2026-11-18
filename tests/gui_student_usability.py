@@ -316,6 +316,9 @@ def main():
         g.analog_action.click()
         assert w.mode_combo.currentIndex()==0
     assert g.lesson['id']=='interview-post-layout-debug'
+    g.steps.setCurrentIndex(0)
+    g.answer.setCurrentIndex(g.answer.findData(g.active_step['answer']));g.check()
+    g.steps.setCurrentIndex(1)
     g.workspace()
     assert w.mode_combo.currentIndex()==1 and g.controls['Run lesson'].text()=='Compare extracted interconnect'
     g.run();deadline=time.monotonic()+30

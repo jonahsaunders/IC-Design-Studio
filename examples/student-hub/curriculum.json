@@ -3894,7 +3894,7 @@
           "id": "input-pairs",
           "kind": "check",
           "title": "Run the experiment and read the evidence",
-          "instructions": "Run both common-mode sweeps. Each has a 10 mV input difference and a 1.8 V supply. The usable range keeps total current within 20% and differential gain above 70% of their values at 0.80 V. Compare both measured currents at 0.80 V before comparing gain or noise. Start with the saved pair sizes and bias, then trim VBIAS if you want a current-matched comparison. Make a polarity choice for a sensor whose common mode sits near ground and one that sits near VDD. Check the measured range against each actual sensor requirement.",
+          "instructions": "Run both common-mode sweeps. Each has a 10 mV input difference and a 1.8 V supply. The usable range keeps total current within 20% and differential gain above 70% of their values at 0.70 V. Compare both measured currents at 0.70 V before comparing gain or noise. Start with the saved pair sizes and bias, then trim VBIAS to keep the two tail currents within 20% of each other. Make a polarity choice for a sensor whose common mode sits near ground and one that sits near VDD. Check the measured range against each actual sensor requirement.",
           "rule": {
             "type": "analog_project"
           }
@@ -3993,7 +3993,7 @@
           "id": "slew",
           "kind": "check",
           "title": "Run the experiment and read the evidence",
-          "instructions": "Compare a 20 mV step on 2 pF with a 500 mV step on 2 pF, then put the same 500 mV step on 8 pF. The edge begins at 2 µs. Look at the 10–90% slope, where the output first looks linear in time, and how long it takes to enter and stay within 2% of its final excursion. Compare the final DC error to a 2% band referenced to the command as well.",
+          "instructions": "Compare a 20 mV step on 2 pF with a 500 mV step on 2 pF, then put the same 500 mV step on 8 pF. Compare the falling steps at both loads as well. The edge begins at 2 µs. Look at the 10–90% slope, where the output first looks linear in time, and how long it takes to enter and stay within 2% of its final excursion. Compare the final DC error to a 2% band referenced to the command as well.",
           "rule": {
             "type": "analog_project"
           }

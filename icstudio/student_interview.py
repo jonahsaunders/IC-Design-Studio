@@ -11,7 +11,7 @@ BENCHES = {
     'differential': ('differential_sweep','common_mode_sweep'),
     'input-pairs': ('nmos_common_mode','pmos_common_mode'),
     'gain': ('drain_nominal','drain_gate_low','drain_gate_high'),
-    'slew': ('small_step','large_step','heavy_load_step'),
+    'slew': ('small_step','large_step','heavy_load_step','falling_step','heavy_load_fall'),
     'noise': ('low_source_resistance','high_source_resistance'),
     'mismatch': ('small_dc','small_trials','large_dc','large_trials'),
     'comparator': ('small_overdrive','large_overdrive'),
@@ -141,7 +141,7 @@ def _common_mode(p,name,wave,polarity):
     first,last = _currents(p,name,wave,polarity)
     total = [a+b for a,b in zip(first,last)]
     gain = [abs(a-b)/.01 for a,b in zip(_series(wave,'left'),_series(wave,'right'))]
-    center = .8 if name in BENCHES['input-pairs'] else .9
+    center = .7 if name in BENCHES['input-pairs'] else .9
     i = min(range(len(xs)),key=lambda i:abs(xs[i]-center))
     current,midgain = total[i],gain[i]
     if current <= 1e-6 or midgain < .1:
@@ -196,11 +196,12 @@ def slew(p,r):
         target = _voltage(w,'out',18e-6)
         command = _voltage(w,'inp',18e-6)
         step = target-initial
-        if step<=0:
-            raise ValueError('Keep the positive input step in the saved fixture.')
-        rise = _cross(xs,ys,initial+.9*step,2e-6)-_cross(xs,ys,initial+.1*step,2e-6)
-        errors = _settled(xs,ys,target,.02*step,2e-6)
-        results[name] = {'10–90% rise (ns)':rise*1e9,'10–90% slope (V/µs)':.8*step/rise*1e-6,
+        if abs(step)<1e-3:
+            raise ValueError('Apply an input step large enough to measure.')
+        fraction = [(v-initial)/step for v in ys]
+        transition = _cross(xs,fraction,.9,2e-6)-_cross(xs,fraction,.1,2e-6)
+        errors = _settled(xs,ys,target,.02*abs(step),2e-6)
+        results[name] = {'10–90% transition (ns)':transition*1e9,'10–90% slope (V/µs)':.8*step/transition*1e-6,
                          '2% settling (ns)':errors*1e9,'Final DC error (mV)':(command-target)*1e3}
     return results
 
@@ -359,11 +360,15 @@ def assess(step,values):
         passed = group['Left share at −240 mV (%)']<20 and group['Left share at +240 mV (%)']>80
     elif step=='input-pairs':
         n,p = (values[k] for k in ('NMOS','PMOS'))
-        passed = p['Lower input limit (V)']<n['Lower input limit (V)'] and n['Upper input limit (V)']>p['Upper input limit (V)']
+        current = n['Tail current at 0.70 V (µA)']
+        passed = (p['Lower input limit (V)']<n['Lower input limit (V)']
+                  and n['Upper input limit (V)']>p['Upper input limit (V)']
+                  and .8*current<=p['Tail current at 0.70 V (µA)']<=1.2*current)
     elif step=='gain':
         passed = values['Drain at 0.80 V']['Intrinsic gain (V/V)']>3*values['Drain at 0.08 V']['Intrinsic gain (V/V)']
     elif step=='slew':
-        passed = values['heavy_load_step']['10–90% rise (ns)']>values['large_step']['10–90% rise (ns)']
+        passed = (values['heavy_load_step']['2% settling (ns)']>values['large_step']['2% settling (ns)']
+                  and values['heavy_load_fall']['10–90% transition (ns)']>values['falling_step']['10–90% transition (ns)'])
     elif step=='noise':
         key = 'Integrated input noise (µV RMS)'
         passed = values['high_source_resistance'][key]>values['low_source_resistance'][key]

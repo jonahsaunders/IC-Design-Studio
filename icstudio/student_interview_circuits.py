@@ -88,7 +88,7 @@ def input_pairs(p, compare):
         for name in names:
             differential = name=='differential_sweep'
             fixture(p,dut,name,[
-                passive('V','VDD','1.8','vdd'), passive('V','VBIAS','.64' if is_n else '.65','bias'),
+                passive('V','VDD','1.8','vdd'), passive('V','VBIAS','.64' if is_n else '.73','bias'),
                 passive('V','VCM','.90','cm'),
                 passive('V','VDIFF','0' if differential else '5m','inp','cm'),
                 passive('V','VOFF','0' if differential else '-5m','inn','cm'),
@@ -118,7 +118,9 @@ def opamp():
 def slew(p, dut):
     for name,low,high,load in [('small_step','.89','.91','2p'),
                                ('large_step','.65','1.15','2p'),
-                               ('heavy_load_step','.65','1.15','8p')]:
+                               ('heavy_load_step','.65','1.15','8p'),
+                               ('falling_step','1.15','.65','2p'),
+                               ('heavy_load_fall','1.15','.65','8p')]:
         fixture(p,dut,name,[
             passive('V','VDD','1.8','vdd'), pulse('V','VIN',low,high,'2u','inp'),
             passive('I','IREF','5u','vdd','ibias'),passive('C','CL',load,'out'),
