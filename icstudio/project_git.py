@@ -7,7 +7,6 @@ import re
 import shutil
 import subprocess
 import tempfile
-from urllib.parse import quote
 
 from .model import clone, now, validate
 from .project_merge import merge_design
@@ -280,9 +279,3 @@ class ProjectGit:
             raise ValueError('Choose an up-to-date local branch and connect to GitHub before publishing.')
         self.load(branch.head)
         self._transport('push', '--porcelain', url, branch.head + ':refs/heads/' + branch.name)
-
-    def pull_request_url(self, base, head):
-        url = self.remote_url()
-        if not url or base == head:
-            raise ValueError('Choose different GitHub branches to review a pull request.')
-        return url.removesuffix('.git') + '/compare/' + quote(base, safe='') + '...' + quote(head, safe='') + '?expand=1'

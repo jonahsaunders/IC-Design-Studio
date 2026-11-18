@@ -129,8 +129,6 @@ class ProjectGitTests(unittest.TestCase):
         fetched = next(b for b in first.entries() if b.remote and b.name == 'main')
         self.assertEqual(fetched.head, upstream)
         self.assertIsNone(first.review(fetched).resolve()[0])
-        self.assertEqual(first.pull_request_url('main', 'review/tuning'),
-                         'https://github.com/owner/filter/compare/main...review%2Ftuning?expand=1')
         working = first.active()
         first.disconnect()
         self.assertEqual(first.remote_url(), '')

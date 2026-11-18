@@ -1,8 +1,7 @@
 """Branch management and a document-modal merge review."""
 import json
 
-from PySide6.QtCore import Qt, QUrl
-from PySide6.QtGui import QDesktopServices
+from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (QComboBox, QDialog, QDialogButtonBox, QFormLayout,
                                QGridLayout, QInputDialog, QListWidget, QListWidgetItem,
                                QMessageBox, QPlainTextEdit, QPushButton, QSplitter,
@@ -168,7 +167,6 @@ class BranchesDialog(QDialog):
         self.path = studio.path
         self.git = ProjectGit(studio.path, studio.project['id'])
         self.worker = None
-        self.published = set()
         configure_dialog(self, studio, 'Branches and GitHub')
         self.resize(720, 465)
         layout = QVBoxLayout(self)
@@ -186,7 +184,7 @@ class BranchesDialog(QDialog):
             ('version', 'Save Version…', self.capture), ('switch', 'Switch Branch', self.switch),
             ('tip', 'Load Saved Version', self.load_tip), ('merge', 'Review Merge…', self.review),
             ('connect', 'Connect to GitHub…', self.connect), ('fetch', 'Fetch GitHub Branches', self.fetch),
-            ('push', 'Publish Branch…', self.publish), ('pr', 'Compare on GitHub…', self.pull_request),
+            ('push', 'Publish Branch…', self.publish), ('pr', 'Pull Requests…', self.pull_request),
             ('disconnect', 'Disconnect GitHub', self.disconnect),
         )):
             button = QPushButton(title)
@@ -260,8 +258,7 @@ class BranchesDialog(QDialog):
             'connect': not self.remote, 'fetch': bool(self.remote),
             'disconnect': bool(self.remote),
             'push': bool(self.remote and branch and not branch.remote),
-            'pr': bool(self.remote and branch and branch.name in self.remote_names | self.published
-                       and (self.remote_names | self.published) - {branch.name}),
+            'pr': bool(self.remote),
         }
         visible = {'fetch', 'push', 'pr', 'disconnect'} if self.remote else {'connect'}
         if head:
@@ -402,7 +399,6 @@ class BranchesDialog(QDialog):
 
     def disconnect(self):
         self.git.disconnect()
-        self.published.clear()
         self.reload()
         self.message.setText('Disconnected GitHub. Your local branches are available.')
 
@@ -417,18 +413,15 @@ class BranchesDialog(QDialog):
         notice.exec()
         if notice.clickedButton() is publish:
             def complete():
-                self.published.add(branch.name)
-                self.controls()
                 self.message.setText(f'Published {branch.name} to GitHub.')
 
             self.run_network(lambda: self.git.publish(branch), 'Publishing branch…', complete)
 
     def pull_request(self):
-        head = self.selected().name
-        targets = sorted((self.remote_names | self.published) - {head}, key=lambda name: (name != 'main', name))
-        base, accepted = QInputDialog.getItem(self, 'Compare on GitHub', 'Base branch', targets, 0, False)
-        if accepted and not QDesktopServices.openUrl(QUrl(self.git.pull_request_url(base, head), QUrl.StrictMode)):
-            raise ValueError('Could not open GitHub in the browser.')
+        from .github_pull_requests_ui import show_pull_requests
+        branch = self.selected()
+        self.accept()
+        show_pull_requests(self.studio, self.remote, branch.name if branch else '')
 
 
 def show_branches(studio):

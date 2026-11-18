@@ -224,6 +224,150 @@ class EditingUsabilityTests(unittest.TestCase):
         self.w.undo_action.trigger()
         self.assertEqual(self.resistor()['value'], '20k')
 
+    def test_github_pull_request_create_review_and_merge_from_branch_window(self):
+        from PySide6.QtWidgets import QComboBox, QDialog, QLineEdit, QPlainTextEdit, QPushButton
+        from icstudio.github_pull_requests import GitHubPullRequests
+        from icstudio.github_pull_requests_ui import PullRequestsDialog
+        from icstudio.project_branches_ui import BranchesDialog
+        from tests.test_github_pull_requests import pull_json
+
+        class GitHubFixture(GitHubPullRequests):
+            def __init__(self):
+                super().__init__('https://github.com/designer/filter.git')
+                self.requests = {21: pull_json(21)}
+                self.reviews = []
+                self.merges = []
+
+            def api(self, endpoint, *, method='GET', data=None, paginate=False):
+                if endpoint == '':
+                    return {'default_branch': 'main', 'allow_rebase_merge': False}
+                if endpoint.startswith('/branches?'):
+                    return [{'name': 'main'}, {'name': 'tuning'}]
+                if endpoint.startswith('/pulls?'):
+                    return [clone(row) for row in self.requests.values() if row['state'] == 'open']
+                if endpoint == '/pulls' and method == 'POST':
+                    self.requests[42] = pull_json(title=data['title'])
+                    return clone(self.requests[42])
+                pieces = endpoint.split('?')[0].split('/')
+                number = int(pieces[2])
+                if len(pieces) == 3:
+                    return clone(self.requests[number])
+                if pieces[3] == 'files':
+                    return [{'filename': 'project.icproj', 'patch': '-10k\n+20k', 'status': 'modified',
+                             'additions': 1, 'deletions': 1}]
+                if pieces[3] == 'reviews':
+                    if method == 'POST':
+                        row = {'state': 'APPROVED', 'body': data['body'], 'commit_id': data['commit_id'],
+                               'user': {'login': 'reviewer'}}
+                        self.reviews.append(row)
+                        return row
+                    return clone(self.reviews)
+                if pieces[3] == 'merge' and method == 'PUT':
+                    self.merges.append(data)
+                    self.requests[number].update(merged=True, state='closed')
+                    return {'merged': True}
+                raise AssertionError(endpoint)
+
+        path = self.root / 'Pull requests.icproj'
+        with patch.object(QFileDialog, 'getSaveFileName', return_value=(str(path), '')):
+            self.assertTrue(self.w.save())
+        branch_window = BranchesDialog(self.w)
+        self.addCleanup(branch_window.deleteLater)
+        branch_window.remote = 'https://github.com/designer/filter.git'
+        branch_window.controls()
+        branch_window.show()
+        client = GitHubFixture()
+
+        def wait_for(ready):
+            deadline = time.monotonic() + 6
+            while not ready() and time.monotonic() < deadline:
+                QTest.qWait(10)
+            self.assertTrue(ready(), 'Pull request operation did not finish')
+
+        def form(window, heading, action):
+            timer = QTimer(window)
+
+            def use():
+                dialog = self.app.activeModalWidget()
+                if not isinstance(dialog, QDialog) or dialog.windowTitle() != heading:
+                    return
+                timer.stop()
+                try:
+                    action(dialog)
+                finally:
+                    if dialog.isVisible():
+                        dialog.reject()
+
+            timer.timeout.connect(use)
+            timer.start(10)
+            return timer
+
+        def widget(dialog, kind, name):
+            return next(w for w in dialog.findChildren(kind) if w.accessibleName() == name)
+
+        def click(dialog, text):
+            next(b for b in dialog.findChildren(QPushButton) if b.text() == text).click()
+
+        def create(form_dialog):
+            title = widget(form_dialog, QLineEdit, 'Pull request title')
+            QTest.keyClicks(title, 'Tune the RC filter')
+            click(form_dialog, 'Create Pull Request')
+
+        def approve(form_dialog):
+            action = widget(form_dialog, QComboBox, 'Review action')
+            action.setCurrentIndex(action.findData('APPROVE'))
+            widget(form_dialog, QPlainTextEdit, 'Review comment').setPlainText('Checked the new resistance.')
+            click(form_dialog, 'Submit Review')
+
+        def confirm(form_dialog):
+            method = widget(form_dialog, QComboBox, 'Merge method')
+            method.setCurrentIndex(method.findData('squash'))
+            self.assertFalse(any(b.isDefault() for b in form_dialog.findChildren(QPushButton)))
+            click(form_dialog, 'Merge Pull Request')
+
+        def use_window():
+            window = self.app.activeModalWidget()
+            try:
+                self.assertIsInstance(window, PullRequestsDialog)
+                wait_for(lambda: window.detail is not None and window.worker is None)
+                timer = form(window, 'New Pull Request', create)
+                window.new_button.click()
+                wait_for(lambda: window.detail is not None and window.detail.request.number == 42 and window.worker is None)
+                timer.stop()
+                self.assertEqual(window.requests.count(), 2)
+                self.assertIn('+20k', window.patch.toPlainText())
+                self.assertIn('Tune the RC filter', window.overview.toPlainText())
+
+                timer = form(window, 'Review Pull Request #42', approve)
+                window.review_button.click()
+                wait_for(lambda: 'Checked the new resistance.' in window.reviews.toPlainText() and window.worker is None)
+                timer.stop()
+                self.assertEqual(client.reviews[0]['commit_id'], 'a' * 40)
+
+                client.requests[42]['head']['sha'] = 'c' * 40
+                timer = form(window, 'Merge Pull Request #42', confirm)
+                window.merge_button.click()
+                wait_for(lambda: 'The base or head changed' in window.message.text() and window.worker is None)
+                timer.stop()
+                self.assertEqual(client.merges, [])
+                window.refresh_button.click()
+                wait_for(lambda: window.detail is not None and window.detail.request.head_sha == 'c' * 40)
+                timer = form(window, 'Merge Pull Request #42', confirm)
+                window.merge_button.click()
+                wait_for(lambda: window.detail is not None and window.detail.request.merged)
+                timer.stop()
+                self.assertEqual(client.merges, [{'sha': 'c' * 40, 'merge_method': 'squash'}])
+                self.assertFalse(window.merge_button.isEnabled())
+                self.assertEqual(self.resistor()['value'], '10k')
+            finally:
+                if window and window.isVisible():
+                    window.reject()
+
+        with patch('icstudio.github_pull_requests_ui.GitHubPullRequests', return_value=client):
+            QTimer.singleShot(0, use_window)
+            branch_window.buttons['pr'].click()
+        branch_window.reject()
+
     def other_cell(self):
         p = clone(self.w.project)
         child = example('empty')['cells'][0]
