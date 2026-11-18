@@ -1,5 +1,13 @@
 # Chunks 1–12: progress and forecast
 
+**November 18 tapeout development priorities.** The [agent instructions](../AGENTS.md#tapeout-first)
+set a first SKY130A/HD digital handoff target using the existing UART
+fixture on source `d2a7b7c5ce29e8517cc2ca8f804db50ebb52ad25`. The next check
+is to identify the named foundry or shuttle profile and replay its actual
+preflight from a locked environment. The plan also calls for an analog
+reference pass, subsequent per-process and mixed-signal acceptance, and
+workflow benchmarks for parity and speed. This entry records priorities.
+
 **November 18 in-app GitHub pull requests.** Source
 `2f99e5f11c89a6d3cfe84d44957049cf5ed2cba6` adds a dedicated pull request
 window for creation, file diffs, review submission, and remote merge.
