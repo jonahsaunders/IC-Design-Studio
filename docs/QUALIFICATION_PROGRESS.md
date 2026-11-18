@@ -1,5 +1,42 @@
 # Chunks 1–12: progress and forecast
 
+## Tiny Tapeout SKY 26e UART source handoff
+
+**November 18, 2026.** Source `59a8c09006addac062106586b36a5f96f0f577a4`
+adds the first named tapeout target, a SKY130A HD UART in one Tiny Tapeout
+tile. The desktop and CLI export the same source ZIP, including a package
+integrity manifest and a pinned hardening, stream precheck, and gate-level
+test workflow. The [handoff guide](TINY_TAPEOUT_HANDOFF.md) documents the pinout,
+versions, and desktop controls. The [feature inventory](../FEATURES_TO_ADD.md#tapeout-and-handoff)
+records the verified source scope by ID.
+
+The bundled UART fixture exported with author `IC Design Studio regression`
+and default metadata produced SHA-256
+`38038f9c1875461397a33b428cee51404bae05ae960df67489397c8b954bf42c`.
+Tiny Tapeout support tools `9d13ff3e3e6202090740110438c6a10c1d62ca0f`, with
+their locked Python requirements, accepted that package using
+`tt_tool.py --pdk sky130A --check-docs --create-user-config`. They generated
+the 161 × 111.52 µm tile template configuration with a `met4` routing limit,
+`VPWR` and `VGND`, and the merged 10 ns clock target and 1 ns I/O budget.
+Icarus Verilog 12.0 checked three UART frames, reset, enable, and spare
+outputs. Disconnecting TX produced a failing simulation and test report.
+Changing the direction of `uio_in` was rejected by the official checker.
+
+Windows and a clean Ubuntu source archive produced byte-identical ZIPs.
+All 34 source tests passed on Ubuntu. Windows passed 33 with one
+external-tool skip. The desktop regression covered the keyboard path,
+recovery from missing metadata, and exporting a draft without applying it to
+the project. The release-materials check passed on both hosts. The existing
+GF180 density evidence retains both previously tested digital entry points
+under their original source hashes.
+
+Physical hardening, gate-level simulation, final-stream precheck, and
+shuttle acceptance are pending. The local Ubuntu environment lacked the
+Docker integration or native LibreLane tools needed by the official
+hardening path.
+
+## Recent experimental work
+
 **November 18 feature inventory.** The [feature inventory](../FEATURES_TO_ADD.md)
 lists 798 numbered capabilities across 38 areas and links documented Studio
 starting points at source `8e8d41af9c7b0e32888ad32251abcae174e2014a`. Use its
