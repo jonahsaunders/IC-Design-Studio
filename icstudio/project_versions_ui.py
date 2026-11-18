@@ -34,7 +34,32 @@ def restore_blocker(studio):
 def dated_title(version):
     date = datetime.fromisoformat(version.created).astimezone()
     formatted = QLocale().toString(QDateTime(date), QLocale.FormatType.ShortFormat)
-    return f'{formatted} · Revision {version.revision}'
+    return f'{formatted} · Revision {version.revision}' if version.revision is not None else formatted
+
+
+class BranchVersions:
+    def __init__(self, history, branches):
+        self.history = history
+        self.branches = branches
+
+    def list(self):
+        self.branches.verify()
+        return sorted([*self.history.list(), *self.branches.list()],
+                      key=lambda row: datetime.fromisoformat(row.created), reverse=True)
+
+    def load(self, version_id):
+        return self.branches.load(version_id) if len(version_id) == 40 else self.history.load(version_id)
+
+    def save(self, project, name, note=''):
+        return self.branches.save(project, name, note)
+
+
+def version_store(studio):
+    from .project_git import ProjectGit
+    project_id = studio.project['id']
+    history = ProjectVersions(studio.path, project_id)
+    branches = ProjectGit(studio.path, project_id)
+    return BranchVersions(history, branches) if branches.path.exists() else history
 
 
 def configure_dialog(dialog, studio, title):
@@ -89,7 +114,7 @@ class SaveVersionDialog(QDialog):
             if self.studio.path is None and not self.studio.save():
                 return
             project = self.studio.project
-            store = ProjectVersions(self.studio.path, project['id'])
+            store = version_store(self.studio)
             self.version = store.save(project, self.name.text(), self.note.toPlainText())
         except (OSError, ValueError, OverflowError) as exc:
             self.message.setText(str(exc))
@@ -175,7 +200,7 @@ class VersionHistoryDialog(QDialog):
         self.versions.clear()
         self.records = {}
         path = self.studio.path
-        self.store = ProjectVersions(path, self.studio.project['id']) if path else None
+        self.store = version_store(self.studio) if path else None
         error = ''
         try:
             for version in self.store.list() if self.store else ():
@@ -290,8 +315,10 @@ def show_history(studio):
 
 
 def install(studio):
+    from .project_branches_ui import show_branches
     file_menu = studio.task_menus['File']
     menu = QMenu('Versions', file_menu)
     file_menu.insertMenu(studio.command_actions['Close project'], menu)
     studio.action(menu, 'Save Version…', lambda: save_version(studio))
     studio.action(menu, 'Browse Versions…', lambda: show_history(studio))
+    studio.action(menu, 'Branches and GitHub…', lambda: show_branches(studio))

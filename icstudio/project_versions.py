@@ -17,7 +17,7 @@ class Version:
     name: str
     note: str
     created: str
-    revision: int
+    revision: int | None
 
 
 class ProjectVersions:

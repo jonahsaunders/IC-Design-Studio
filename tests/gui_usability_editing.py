@@ -1,6 +1,7 @@
 """Document targeting, unapplied edits, exit recovery and simulation Stop on Qt."""
 import os
 from pathlib import Path
+import shutil
 import sys
 import tempfile
 import time
@@ -142,6 +143,86 @@ class EditingUsabilityTests(unittest.TestCase):
         self.assertEqual(self.resistor()['value'], '20k')
         self.w.redo_action.trigger()
         self.assertEqual(self.resistor()['value'], '10k')
+
+    @unittest.skipUnless(shutil.which('git'), 'Git is required for the branch workflow')
+    def test_branch_merge_reviews_conflicts_before_changing_the_design(self):
+        from icstudio.project_branches_ui import BranchesDialog, MergeDialog
+        from icstudio.project_versions_ui import version_store
+
+        path = self.root / 'Branch review.icproj'
+        with patch.object(QFileDialog, 'getSaveFileName', return_value=(str(path), '')):
+            self.assertTrue(self.w.save())
+        version_store(self.w).save(self.w.project, 'Earlier local version')
+        dialog = BranchesDialog(self.w)
+        self.addCleanup(dialog.deleteLater)
+        dialog.show()
+        dialog.buttons['start'].click()
+        self.assertEqual(dialog.active.name, 'main')
+
+        def select(name):
+            row = next(i for i in range(dialog.list.count())
+                       if dialog.list.item(i).data(Qt.UserRole).name == name)
+            dialog.list.setCurrentRow(row)
+
+        def edit(value):
+            self.w.select([self.resistor()['id']], 'schematic')
+            field = self.w.form_fields['Value']
+            field.selectAll()
+            QTest.keyClicks(field, value)
+            self.assertTrue(self.w.flush_inspector())
+
+        with patch.object(QInputDialog, 'getText', return_value=('tuning', True)):
+            dialog.buttons['new'].click()
+        self.assertEqual(dialog.active.name, 'tuning')
+        edit('47k')
+        select('main')
+        dialog.buttons['switch'].click()
+        self.assertIn('Save a version', dialog.message.text())
+        version_store(self.w).save(self.w.project, 'Try 47k')
+        dialog.reload()
+        select('main')
+        dialog.buttons['switch'].click()
+        self.assertEqual(self.resistor()['value'], '10k')
+        edit('20k')
+        version_store(self.w).save(self.w.project, 'Tune to 20k')
+        dialog.reload()
+        self.assertIn('Earlier local version', [row.name for row in version_store(self.w).list()])
+        select('tuning')
+        prior = dialog.active.head
+
+        def review(commit):
+            window = self.app.activeModalWidget()
+            try:
+                self.assertIsInstance(window, MergeDialog)
+                self.assertEqual(window.conflict_list.count(), 1)
+                self.assertIn('R1 / Value', window.conflict_list.item(0).text())
+                self.assertEqual([v.toPlainText() for v in window.values], ['"20k"', '"47k"'])
+                self.assertEqual(window.base_value.toPlainText(), '"10k"')
+                self.assertFalse(window.merge_button.isEnabled())
+                QTest.keyClick(window.conflict_list, Qt.Key_Return)
+                self.assertEqual(self.resistor()['value'], '20k')
+                window.choice.setCurrentIndex(window.choice.findData('incoming'))
+                self.assertIn('20k → 47k', window.changes.toPlainText())
+                if commit:
+                    window.merge_button.click()
+                else:
+                    QTest.keyClick(window, Qt.Key_Escape)
+            finally:
+                if window and window.isVisible():
+                    window.reject()
+
+        QTimer.singleShot(0, lambda: review(False))
+        dialog.buttons['merge'].click()
+        self.assertEqual(dialog.git.active().head, prior)
+        self.assertEqual(self.resistor()['value'], '20k')
+        QTimer.singleShot(0, lambda: review(True))
+        dialog.buttons['merge'].click()
+        self.assertNotEqual(dialog.git.active().head, prior)
+        self.assertEqual(self.resistor()['value'], '47k')
+        self.assertEqual(load_project(path)['cells'][0]['devices'][1]['value'], '10k')
+        dialog.reject()
+        self.w.undo_action.trigger()
+        self.assertEqual(self.resistor()['value'], '20k')
 
     def other_cell(self):
         p = clone(self.w.project)
