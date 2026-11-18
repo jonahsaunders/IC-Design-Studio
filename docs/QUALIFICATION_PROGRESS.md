@@ -1,5 +1,19 @@
 # Chunks 1–12: progress and forecast
 
+**November 18 in-app GitHub pull requests.** Source
+`2f99e5f11c89a6d3cfe84d44957049cf5ed2cba6` adds a dedicated pull request
+window for creation, file diffs, review submission, and remote merge.
+The desktop regression opens it from the branches window, creates a pull
+request, approves the displayed head, declines a stale merge, refreshes,
+and merges the new reviewed head. It checks that the merge confirmation
+has no default action and that the working design stays intact. GitHub
+HTTPS read-only verification retrieved two changed files and one review
+for public `cli/cli` pull request `#15095`. Write-path checks used a GitHub
+API fixture. The 21 Qt editing tests, 16 version control and GitHub tests,
+and release-materials checks passed on Windows and Ubuntu. The Windows
+visual review covered light and dark appearances.
+See [GitHub pull requests in Studio](USER_GUIDE.md#github-pull-requests-in-studio).
+
 **November 18 project branches and GitHub.** Source
 `4fbb3c22e9aac3cb3f7f4cfbdb55c8b31b3cdcbb` adds local Git branches, reviewed
 three-way design merges, and GitHub fetch and publish. The desktop regression
