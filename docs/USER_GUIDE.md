@@ -64,6 +64,8 @@ MOS models omit body effect, subthreshold current, junction effects, intrinsic d
 
 Jobs run in a separate process. Cancel job terminates the active job. Results are saved with the immutable project snapshot, settings, revision, engine hash, technology hash, and rule hash. Editing marks old results stale. Historical curves remain available for comparison; stale check markers are not used to navigate the new design.
 
+Open **Analysis → Simulation Explorer** to save multiple setups with **Add current setup**. **Run enabled** (Ctrl+F5) runs the setups checked in the **On** column. To run one saved setup, highlight it and choose **Run selected setup**. Its **On** setting stays the same. **Edit** loads the saved setup into the inspector, and **Update** saves your changes back to the selected setup.
+
 The waveform list enables or hides signals. Clicking a signal highlights its named net. Use the waveform tools for X cursors, Y limits and X/Y checks; **Markers…** edits exact coordinates and numerical comparisons. CSV export retains the underlying values. Calculated waveforms support expressions and AC magnitude/phase analysis; saved specifications and variation cases compare results against explicit requirements. See [simulation and studies](PROFESSIONAL_WORKFLOWS.md).
 
 ## Verification and waivers

@@ -262,6 +262,56 @@ class EditingUsabilityTests(unittest.TestCase):
         self.assertEqual(self.w.project['analysis']['step'], '400n')
         self.assertEqual(self.w.analysis_fields['step'].text(), '400n')
 
+    def test_batch_run_respects_an_empty_plan_and_unchecked_setups(self):
+        for setup_count in (0, 2):
+            with self.subTest(setup_count=setup_count):
+                self.w.set_project(example('rc'))
+                for row in range(setup_count):
+                    self.w.add_simulation_setup()
+                    self.w.setup_table.item(row, 0).setCheckState(Qt.Unchecked)
+                before = clone(self.w.project)
+                self.w.run_enabled_setups()
+                self.assertEqual(self.w.project, before)
+                self.assertEqual(self.w.run_manager.rows, [])
+
+    def test_run_selected_setup_uses_the_saved_settings_and_creates_one_result(self):
+        for stop in ('25u', '50u'):
+            self.w.analysis_fields['stop'].setText(stop)
+            self.w.add_simulation_setup()
+        self.w.setup_table.item(0, 0).setCheckState(Qt.Unchecked)
+        self.w.setup_table.clearSelection()
+        self.assertFalse(self.w.run_selected_setup_button.isEnabled())
+        self.w.setup_table.selectRow(0)
+        self.w.open_simulation_explorer()
+        self.assertTrue(self.w.run_selected_setup_button.isEnabled())
+        self.w.run_selected_setup_button.click()
+        self.finish_runs()
+        self.assertEqual(len(self.w.run_manager.rows), 1)
+        row = self.w.run_manager.rows[0]
+        self.assertEqual(row['state'], 'Complete', row['log'])
+        self.assertEqual(row['job']['settings']['stop'], '25u')
+        self.assertGreater(max(row['result']['traces']['vout']), 0)
+        self.assertEqual(self.w.setup_table.item(0, 0).checkState(), Qt.Unchecked)
+
+    def test_edit_saved_program_restores_its_waveforms_and_runtime(self):
+        from icstudio.native_migration import review_path
+        from tests.test_native_migration import divider
+
+        source = divider(self.root/'program-source', hierarchical=True, include=True)
+        reviewed = review_path(source)
+        self.assertEqual(reviewed['status'], 'Complete', reviewed['items'])
+        self.w.set_project(reviewed['candidate'])
+        for probes, minutes in (('v(out)', 23), ('v(in)', 41)):
+            self.w.xschem_probes.setText(probes)
+            self.w.xschem_timeout.setValue(minutes)
+            self.w.add_simulation_setup()
+        self.w.setup_table.selectRow(0)
+        self.w.edit_simulation_setup()
+        self.assertEqual(self.w.xschem_probes.text(), 'v(out)')
+        self.assertEqual(self.w.xschem_timeout.value(), 23)
+        self.w.update_simulation_setup()
+        self.assertEqual(self.w.project['simulation_setups'][0]['settings']['timeout'], 23*60)
+
     def test_main_stop_cancels_new_worker_when_completed_run_is_selected(self):
         self.w.quick_run()
         self.finish_runs()
