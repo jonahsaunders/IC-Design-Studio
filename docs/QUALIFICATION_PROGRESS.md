@@ -1,5 +1,12 @@
 # Chunks 1–12: progress and forecast
 
+**November 18 feature inventory.** The [feature inventory](../FEATURES_TO_ADD.md)
+lists 798 numbered capabilities across 38 areas and links documented Studio
+starting points at source `8e8d41af9c7b0e32888ad32251abcae174e2014a`. Use its
+IDs to connect implementation, parity checks, and qualification evidence.
+Prioritize the named SKY130A/HD UART handoff when selecting entries. Use the
+broader inventory for subsequent parity audits.
+
 **November 18 tapeout development priorities.** The [agent instructions](../AGENTS.md#tapeout-first)
 set a first SKY130A/HD digital handoff target using the existing UART
 fixture on source `d2a7b7c5ce29e8517cc2ca8f804db50ebb52ad25`. The next check

@@ -46,7 +46,9 @@ the [PDK matrix](docs/qualification/pdk-matrix.json) for current coverage.
 
 Track parity by tasks users can finish. Record the reference tool and version,
 fixture, expected output, remaining gap, and passing evidence for each task.
-Start with the highest-impact gap on the active tapeout path.
+Use [Features to add](FEATURES_TO_ADD.md) as the feature inventory. Cite its
+stable IDs in implementation and qualification work, and start with the
+highest-impact gap on the active tapeout path.
 
 | Workflow | Compare against | Measure |
 | --- | --- | --- |
