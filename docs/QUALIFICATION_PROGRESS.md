@@ -1,5 +1,19 @@
 # Chunks 1–12: progress and forecast
 
+**November 18 project branches and GitHub.** Source
+`4fbb3c22e9aac3cb3f7f4cfbdb55c8b31b3cdcbb` adds local Git branches, reviewed
+three-way design merges, and GitHub fetch and publish. The desktop regression
+reviewed three versions of an RC resistor value, cancelled a merge without
+changing either branch, resolved the conflict, then undid the working edit.
+The branch tests cover independent edits, deletion versus edit, stale reviews,
+fast-forward and two-parent merges, and rejected non-fast-forward publishes
+with two clients and a temporary Git remote. A read-only connection to the
+public `git/git` repository verified live GitHub HTTPS from Windows. The
+20 Qt editing tests, 10 version and branch tests, and release-materials
+checks passed on Windows and Ubuntu. The conflict review was inspected in
+light and dark appearances. See
+[Branches, merges, and GitHub](USER_GUIDE.md#branches-merges-and-github).
+
 **November 18 local project version history.** Source
 `e96d3ec35af962659084e9de7c992233b6b7d447` adds named project versions,
 comparisons with the working design or another version, and a restore that
