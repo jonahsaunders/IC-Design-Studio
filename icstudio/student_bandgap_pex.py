@@ -4,6 +4,7 @@ from collections import Counter
 import math
 from pathlib import Path
 import re
+import shutil
 
 from .getting_started import resource_root
 from .model import clone, file_digest, scalar
@@ -87,7 +88,22 @@ def tools_path():
     return resource_root()/'icstudio/assets/physical/student-bandgap/gf180mcuB.tech'
 
 
-def extract(project, cell, magic, directory):
+def magic_tool(configured=''):
+    direct = configured or shutil.which('magic')
+    if direct:
+        executable = Path(direct).resolve()
+        if not executable.is_file():
+            raise ValueError('Select an existing Magic executable in Engine setup.')
+        return dict(magic=str(executable), magic_sha256=file_digest(executable))
+    from .physical_backend import available
+    runtime = available()
+    if not runtime:
+        raise ValueError('Set up Magic under Tools → Physical tools setup, or select a local Magic executable.')
+    executable = Path(runtime['root'])/'opt/icstudio/bin/magic'
+    return dict(magic=str(executable), magic_sha256=file_digest(executable), runtime=runtime)
+
+
+def extract(project, cell, magic, directory, runtime=None):
     from .engines import execute, tcl_word
     from .interchange import export_layout
     from .model import atomic_write
@@ -112,8 +128,9 @@ def extract(project, cell, magic, directory):
     devices = {d['id']:d for d in cell['devices']}
     names = set(cell['ports'])
     top = cell['name']
-    tech = tools_path()
-    lines = ['drc off','tech load '+tcl_word(tech),'scalegrid 1 10','gds read '+tcl_word(gds),
+    tech = directory/'gf180mcuB.tech'
+    shutil.copy2(tools_path(),tech)
+    lines = ['drc off','tech load '+tcl_word(tech.name),'scalegrid 1 10','gds read '+tcl_word(gds.name),
              'load '+tcl_word(top),'select top cell']
     for pin in cell['layout_pins']:
         net = devices[pin['device_id']]['nets'][pin['pin']]
@@ -126,8 +143,17 @@ def extract(project, cell, magic, directory):
                   'ext2spice cthresh 0','ext2spice -o extracted-c.spice','quit -noprompt'])
     script = directory/'extract.tcl'
     atomic_write(script,'\n'.join(lines)+'\n')
+    command = [magic]
+    if runtime:
+        from .digital_runtime import identity, wsl
+        identity(runtime)
+        if runtime['kind']=='wsl':
+            distro = ['--distribution',runtime['distro']]
+            native_path = wsl([*distro,'--exec','wslpath','-a','-u',str(directory)])
+            command = [shutil.which('wsl.exe') or 'wsl.exe',*distro,'--cd',native_path,
+                       '--exec','/opt/icstudio/bin/magic']
     try:
-        log = execute([magic,'-dnull','-noconsole',script.name],directory,timeout=120)
+        log = execute([*command,'-dnull','-noconsole',script.name],directory,timeout=120)
     except RuntimeError as error:
         atomic_write(directory/'magic.log', str(error))
         raise

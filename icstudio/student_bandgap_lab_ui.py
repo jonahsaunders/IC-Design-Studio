@@ -18,7 +18,9 @@ class BandgapLabResults(QDialog):
         self.setWindowTitle('Bandgap lab results')
         self.resize(1040,680)
         outer = QVBoxLayout(self)
-        summary = QLabel(f'{sum(row["status"]=="passed" for row in self.rows)} of {len(self.rows)} conditions passed.')
+        target = result['requirements']['target']
+        summary = QLabel(f'{sum(row["status"]=="passed" for row in self.rows)} of {len(self.rows)} conditions passed. '
+                         f'Nominal design target {target:g} V.')
         if result.get('extraction'):
             summary.setText(summary.text()+f' Magic extracted {result["extraction"]["capacitors"]} capacitances.')
         summary.setWordWrap(True)
@@ -75,7 +77,10 @@ class BandgapLabResults(QDialog):
                                 traces={'vref':[r[stage]['values']['voltage_V'] for r in selected]})
                 self.wave.set_result(series('schematic'),['vref'],compare=series('extracted') if extracted else None)
                 span = self.result.get('schematic_temperature_span_V')
-                detail = f'Nominal-process voltage span {span*1000:.1f} mV.' if span is not None else ''
+                limit = self.result['requirements']['temperature_span']*1000
+                detail = f'Schematic temperature span {span*1000:.1f} mV. Limit {limit:g} mV.' if span is not None else ''
+                if extracted and 'extracted_temperature_span_V' in self.result:
+                    detail+=f' Extracted span {self.result["extracted_temperature_span_V"]*1000:.1f} mV.'
             else:
                 wave = read_wave(self.result,row,'schematic')
                 physical = read_wave(self.result,row,'extracted') if extracted else None

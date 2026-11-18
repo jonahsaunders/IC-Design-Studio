@@ -3440,7 +3440,7 @@
           "id": "accuracy",
           "kind": "check",
           "title": "Trim to the voltage and drift specification",
-          "instructions": "Open the transistor-level workspace. Read the circuit ports, identify the trim resistor, and predict how it moves VREF. The 5 pF fixture uses 3.3 V. Require 1.29–1.55 V, at most 180 µA supply current, and at most 80 mV peak-to-peak drift across −40, 0, 27, 60, 85 and 125 °C at nominal process.\n\nTry RFEED at 44 µm long, then restore 22 µm. Find out whether the shunt Q3 still draws enough current at hot temperature. Trim R2 and make sure RFEED can supply the detector and shunt branches over the sweep. Return to this checkpoint and run the temperature sweep. Open Results and compare the actual voltage curve with your prediction.",
+          "instructions": "Open the transistor-level workspace. Read the circuit ports, identify the trim resistor, and predict how it moves VREF. The 5 pF fixture uses 3.3 V. Require 1.29–1.55 V, at most 180 µA supply current, and at most 160 mV peak-to-peak drift across −40, 0, 27, 60, 85 and 125 °C at nominal process.\n\nTry RFEED at 44 µm long, then restore 22 µm. Find out whether the shunt Q3 still draws enough current at hot temperature. Trim R2 and make sure RFEED can supply the detector and shunt branches over the sweep. Return to this checkpoint and run the temperature sweep. Open Results and compare the actual voltage curve with your prediction.",
           "rule": {
             "type": "analog_project"
           }
@@ -3549,7 +3549,7 @@
           "id": "accuracy",
           "kind": "check",
           "title": "Trim to the voltage and drift specification",
-          "instructions": "Open the transistor-level workspace. Read the circuit ports, identify the trim resistor, and predict how it moves VREF. The 5 pF fixture uses 3.3 V. Require 1.14–1.26 V, at most 180 µA supply current, and at most 30 mV peak-to-peak drift across −40, 0, 27, 60, 85 and 125 °C at nominal process.\n\nTry trimming R1 from 48 µm while leaving R2 at 10 µm. The common emitter resistor carries both branch currents. For the startup experiment, compare MDRIVE width 2 µm and 4 µm, or increase CSTAB to 50 µm square. Return to this checkpoint and run the temperature sweep. Open Results and compare the actual voltage curve with your prediction.",
+          "instructions": "Open the transistor-level workspace. Read the circuit ports, identify the trim resistor, and predict how it moves VREF. The 5 pF fixture uses 3.3 V. Require 1.14–1.26 V, at most 180 µA supply current, and at most 30 mV peak-to-peak drift across −40, 0, 27, 60, 85 and 125 °C at nominal process.\n\nTry trimming R1 from 46 µm while leaving R2 at 10 µm. The common emitter resistor carries both branch currents. For the startup experiment, compare MDRIVE width 2 µm and 4 µm, or increase CSTAB to 50 µm square. Return to this checkpoint and run the temperature sweep. Open Results and compare the actual voltage curve with your prediction.",
           "rule": {
             "type": "analog_project"
           }

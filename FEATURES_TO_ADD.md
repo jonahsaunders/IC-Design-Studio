@@ -60,6 +60,7 @@ of an inventory item before closing it.
 | EDU-01–08, AUT-15–18 | Student Hub lessons, evidence and progress, plus scoped release checks. Includes spec-driven TIA and op-amp projects with schematic and post-layout checkpoints. [Student Hub](docs/STUDENT_HUB.md) · [Analog projects](docs/STUDENT_ANALOG_PROJECTS.md) · [Release gates](docs/RELEASING.md) |
 | EDU-01–08 | Guided layout tradeoffs, hand-plotted LC filters with simulated Bode traces, and interactive Ahuja compensation. [Layout lesson](docs/STUDENT_LAYOUT_DECISIONS.md) · [Bode lesson](docs/STUDENT_LC_BODE.md) · [Ahuja lesson](docs/STUDENT_AHUJA.md) |
 | EDU-01–08 | Miller zero and phase-margin study, measured SKY130 bias and cascode lab, and four bandgap lessons with topology-specific temperature experiments. [Miller](docs/STUDENT_MILLER.md) · [Bias and cascode](docs/STUDENT_BIAS_CASCODE.md) · [Bandgaps](docs/STUDENT_BANDGAPS.md) |
+| EDU-01–08 | Four editable GF180 bandgap labs with ratio trim, two-rate startup across process and temperature, layout, and Magic capacitance-extracted comparison. [Bandgap labs](docs/STUDENT_BANDGAPS.md) |
 
 ## Project and workspace
 

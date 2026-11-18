@@ -295,6 +295,10 @@ def main():
             index=next(i for i,step in enumerate(g.lesson['steps']) if step['id']==stage)
             g.steps.setCurrentIndex(index);g.workspace()
             assert g.controls['Run lesson'].text()==action
+            if stage=='accuracy':
+                assert g.analog_action.text()=='Open bandgap circuit'
+                g.analog_action.click()
+                assert w.cell['name']==('banba_layout' if topology=='banba' else topology+'_core')
         index=next(i for i,step in enumerate(g.lesson['steps']) if step['id']=='layout')
         g.steps.setCurrentIndex(index);g.workspace()
         assert w.mode_combo.currentIndex()==1

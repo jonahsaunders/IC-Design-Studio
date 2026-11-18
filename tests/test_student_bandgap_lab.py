@@ -53,3 +53,20 @@ class BandgapLabs(unittest.TestCase):
             compare_devices(body+end,actual.replace('XQ VDD VREF','XQ VREF VDD'),'bg')
         with self.assertRaisesRegex(ValueError, 'unknown circuit nets'):
             compare_devices(body+end,actual.replace('C1 VREF','C1 stray'),'bg')
+
+    def test_open_routing_via_fails_before_extraction(self):
+        from icstudio.layout import polygon
+
+        p = create('bandgap-lab-widlar')
+        generate(p)
+        cell = core_cell(p)
+        transistor = _named(cell,'Q3')
+        pin = next(pin for pin in cell['layout_pins']
+                   if pin['device_id']==transistor['id'] and pin['pin']=='c')
+        x,y = pin['point']
+        via1 = next(layer['name'] for layer in p['pdk']['layers'] if (layer['gds'],layer['datatype'])==(35,0))
+        cut = next(shape for shape in cell['shapes']
+                   if shape['layer']==via1 and (center:=polygon(shape).bbox().center()).x==x and center.y==y)
+        cell['shapes'].remove(cut)
+        with self.assertRaisesRegex(ValueError,'layout findings'):
+            check(p)

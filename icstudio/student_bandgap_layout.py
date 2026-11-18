@@ -4,6 +4,7 @@ from .getting_started import resource_root
 from .layout import kdb, rect, shape_from_polygon
 from .model import digest, file_digest, scalar, uid
 from .physical_cells import assign_port
+from .student_bandgap_lab import core_cell
 
 MASKS = dict(nwell=(21,0), active=(22,0), poly=(30,0), pplus=(31,0), nplus=(32,0),
              contact=(33,0), m1=(34,0), via1=(35,0), m2=(36,0), via2=(38,0),
@@ -25,11 +26,6 @@ PRIMITIVES = {
 def topology_digest(cell):
     return digest([(d['id'], d['kind'], d['model_ref'], d['nets'], d.get('params'), d.get('model_params'))
                    for d in cell['devices']])
-
-
-def layout_cell(p):
-    from .student_bandgap_lab import core_cell
-    return core_cell(p)
 
 
 class Layout:
@@ -216,7 +212,7 @@ class Layout:
 
 
 def generate(p, replace=False):
-    cell = layout_cell(p)
+    cell = core_cell(p)
     if cell['shapes'] and not replace:
         raise ValueError('Review the existing layout before replacing its geometry.')
     for key in ('shapes','layout_pins','layout_ports','layout_texts','layout_instances','pdk_layouts','analog_constraints'):
@@ -253,7 +249,7 @@ def check(p):
     from .layout import drc
     from .physical import connectivity
 
-    cell = layout_cell(p)
+    cell = core_cell(p)
     if not cell['shapes'] or cell.get('student_layout_digest')!=topology_digest(cell):
         raise ValueError('Generate the layout from the current component dimensions and connections.')
     if {port['name'] for port in cell.get('layout_ports',[])}!=set(cell['ports']):

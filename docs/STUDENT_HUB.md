@@ -19,7 +19,9 @@ in Layout, [LC filters and Bode plots](STUDENT_LC_BODE.md) in Analog, or
 in Analog design projects. The [current-reference and cascode lessons](STUDENT_BIAS_CASCODE.md)
 walk through bias current, current density, output headroom, and process and temperature sweeps.
 Four separate [bandgap reference lessons](STUDENT_BANDGAPS.md) cover Widlar,
-Brokaw, Kuijk, and Banba. Each has a worked trim and an interactive temperature plot.
+Brokaw, Kuijk, and Banba. Each starts with a first-order prediction, then uses a
+GF180 transistor schematic, startup corner matrix, editable layout and a
+Magic capacitance-extracted comparison.
 The frequency lessons put the chart, keyboard controls, and exact values
 together. The layout guide shows comparison controls when the task uses
 them. [Apple layout](https://developer.apple.com/design/human-interface-guidelines/layout) ·

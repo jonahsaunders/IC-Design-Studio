@@ -632,6 +632,12 @@ class LessonGuide(QDockWidget):
 
     def analog_project_action(self):
         self.flush();self.require_idle();s=self.studio
+        if self.lesson.get('analog_project')=='bandgap' and self.active_step['id'] in ('accuracy','startup'):
+            from .student_bandgap_lab import core_cell
+            if not s.leave_digital_workspace():return
+            s.cid=core_cell(s.project)['id'];s.mode_combo.setCurrentIndex(0);s.refresh(True)
+            self.show();self.raise_()
+            return
         if self.lesson.get('analog_project')=='bandgap' and self.active_step['id']=='layout':
             from .student_bandgap_lab import core_cell
             from .student_bandgap_layout import generate
@@ -779,6 +785,7 @@ class LessonGuide(QDockWidget):
                     from .student_bandgap_lab import core_cell
                     existing=bound and core_cell(self.studio.project)['shapes']
                     self.analog_action.setText('Regenerate layout…' if existing else 'Generate layout')
+                elif step in ('accuracy','startup'):self.analog_action.setText('Open bandgap circuit')
                 else:self.analog_action.setText('Open temperature model…')
                 self.analog_action.setEnabled(bound and not active);self.analog_action.show()
             elif step in ('fixture','bias','layout','bias-layout','schematic') or needs_full_pdk:

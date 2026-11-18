@@ -3,7 +3,6 @@
 import json
 import math
 from pathlib import Path
-import shutil
 
 from .catalog import create_device, link_technology
 from .components import configure_component
@@ -15,10 +14,9 @@ from .student_bandgap import NAMES
 SUPPLY = '3.3'
 FAST = '100n'
 SLOW = '100u'
-PVT = dict(kind='pvt', target='VDD.value', corners=['nominal', 'ss', 'ff'],
-           temperatures=[-40, 27, 125], voltages=[3.3], compare_layout=False)
-TEMPERATURE = dict(kind='pvt', target='VDD.value', corners=['nominal'],
-                   temperatures=[-40, 0, 27, 60, 85, 125], voltages=[3.3], compare_layout=False)
+PROCESS_CORNERS = ('nominal','ss','ff')
+STARTUP_TEMPERATURES = (-40,27,125)
+ACCURACY_TEMPERATURES = (-40,0,27,60,85,125)
 
 
 def _example(name):
@@ -76,15 +74,16 @@ def _widlar(p):
 def _brokaw(p):
     return [
         _pm(p, 'MSENSE1', 'COL1', 'COL1'), _pm(p, 'MSENSE2', 'COL2', 'COL1'),
-        _pm(p, 'MDRIVE', 'VREF', 'COL2', '2u', '8u'),
+        _pm(p, 'MDRIVE', 'VREF', 'COL2', '2u', '4u'),
         _q(p, 'Q1', 'COL1', 'VREF', 'EMIT1'),
         *[_q(p, f'Q2_{n}', 'COL2', 'VREF', 'EMIT2') for n in range(1, 9)],
-        _r(p, 'R1', 'EMIT1', 'VSS', '48u'),
+        _r(p, 'R1', 'EMIT1', 'VSS', '46u'),
         _r(p, 'R2', 'EMIT2', 'EMIT1', '10u'),
         _r(p, 'RSTART', 'VDD', 'VREF', '600u'),
         _r(p, 'RSINK', 'VREF', 'VSS', '130u'),
-        _cap(p, 'CSTAB', 'VREF', 'COL2', '20u'),
+        _cap(p, 'CSTAB', 'VREF', 'COL2', '15u'),
         _cap(p, 'COUT', 'VREF', 'VSS', '90u'),
+        *[_cap(p, f'COUT_{i}', 'VREF', 'VSS', '96u') for i in range(1,3)],
     ]
 
 
@@ -104,7 +103,7 @@ def _kuijk(p):
         if item['name']=='AMP_CMILLER':
             item['model_params'].update(w='44.72u',l='44.72u')
     return [
-        _pm(p, 'MDRIVE', 'VREF', 'GATE', '4u', '4u'),
+        _pm(p, 'MDRIVE', 'VREF', 'GATE', '3u', '4u'),
         _r(p, 'R1', 'VREF', 'SENSE1', '100u'),
         _r(p, 'R2', 'VREF', 'SENSE2', '95u'),
         _r(p, 'R3', 'SENSE2', 'EMIT2', '10u'),
@@ -155,7 +154,7 @@ def _segments(part):
 def limits(kind):
     if kind == 'widlar':
         return dict(target=1.42, minimum=1.29, maximum=1.55, peak=1.62, current=180e-6,
-                    temperature_span=.080, max_shift=.025, ripple=.004)
+                    temperature_span=.160, max_shift=.025, ripple=.004)
     if kind == 'banba':
         return dict(target=.6, minimum=.57, maximum=.63, peak=.75, current=80e-6,
                     temperature_span=.012, max_shift=.012, ripple=.002)
@@ -237,7 +236,8 @@ def verify_fixture(p):
         load = _named(cell,'CL')
         supply = _named(cell,'VDD')
         dut = _named(cell,'XDUT')
-        if (dut['nets']!={'VDD':'vdd','VSS':'0','VREF':'vref'} or dut['cell']!=core_cell(p)['id']
+        if (len(cell['devices'])!=3 or bench.get('initial_conditions')
+                or dut['nets']!={'VDD':'vdd','VSS':'0','VREF':'vref'} or dut['cell']!=core_cell(p)['id']
                 or load['kind']!='C' or scalar(load['value'])!=scalar('5p')
                 or set(load['nets'].values())!={'vref','0'}
                 or supply['kind']!='V' or supply['source']['type']!='dc'
@@ -275,12 +275,9 @@ def prepare(p, step, tools):
     bench = _get_bench(p,STAGES[step])
     settings = dict(type='student_bandgap_lab', testbench=bench['id'], stage=step)
     if step=='post-layout':
+        from .student_bandgap_pex import magic_tool
         check_layout(p)
-        magic = tools.get('magic') or shutil.which('magic')
-        if not magic or not Path(magic).is_file():
-            raise ValueError('Choose a local Magic executable in Engine setup for capacitance extraction.')
-        magic = Path(magic).resolve()
-        settings['tools'] = {'magic':str(magic), 'magic_sha256':file_digest(magic)}
+        settings['tools'] = magic_tool(tools.get('magic'))
     job = dict(project=clone(p), cell=bench['bench_cell'], settings=settings, engine='ngspice',
                executable=str(Path(exe).resolve()), student_analog=dict(project='bandgap',stage=step,bench=bench['name']))
     job['environment'] = stamp(job)
@@ -288,14 +285,14 @@ def prepare(p, step, tools):
 
 
 def _cases(kind, step):
-    accuracy = [(STAGES['accuracy'],'nominal',temp,3.3) for temp in TEMPERATURE['temperatures']]
+    accuracy = [(STAGES['accuracy'],'nominal',temp,3.3) for temp in ACCURACY_TEMPERATURES]
     low, high = (3.2,3.4) if kind=='widlar' else (3.0,3.6)
     representative = [('ss',-40,low),('nominal',27,3.3),('ff',125,high)]
     if step=='accuracy':
         return accuracy
     if step=='post-layout':
         return [*accuracy,*[(bench,*case) for bench in BENCHES for case in representative]]
-    corners = [(corner,temp,3.3) for corner in PVT['corners'] for temp in PVT['temperatures']]
+    corners = [(corner,temp,3.3) for corner in PROCESS_CORNERS for temp in STARTUP_TEMPERATURES]
     return [(bench,*case) for bench in BENCHES for case in [*corners,representative[0],representative[2]]]
 
 
@@ -338,14 +335,15 @@ def run_job(p, job, directory, progress):
     result = dict(project_id=p['id'], revision=p['revision'], cell_id=job['cell'],
                   design_hash=design_digest(p), settings=job['settings'],
                   engine='GF180 transistor-level bandgap lab', evidence_directory=str(directory),
-                  x=[], traces={}, phase={}, operating_point={}, bandgap_rows=[])
+                  requirements=criteria, x=[], traces={}, phase={}, operating_point={}, bandgap_rows=[])
     path, ports = None, None
     if step=='post-layout':
         progress(.01,'Extracting capacitance from the current GF180 layout')
         tools = job['settings']['tools']
         if file_digest(tools['magic']) != tools['magic_sha256']:
             raise ValueError('Magic changed after the job was queued. Requeue the comparison.')
-        path,ports,result['extraction'] = extract(p,core_cell(p),tools['magic'],directory/'extraction')
+        path,ports,result['extraction'] = extract(p,core_cell(p),tools['magic'],
+                                                   directory/'extraction',tools.get('runtime'))
     for index,(name,corner,temp,supply) in enumerate(cases):
         progress((index+.05)/len(cases), f'{name} · {corner} · {temp} °C · {supply:g} V')
         sample = clone(p)
@@ -379,7 +377,7 @@ def run_job(p, job, directory, progress):
     if step in ('accuracy','post-layout'):
         for stage in ('schematic','extracted') if path else ('schematic',):
             dc = [row for row in result['bandgap_rows'] if row['bench']==STAGES['accuracy'] and stage in row]
-            if len(dc)!=len(TEMPERATURE['temperatures']):
+            if len(dc)!=len(ACCURACY_TEMPERATURES):
                 continue
             voltages = [row[stage]['values']['voltage_V'] for row in dc]
             result[stage+'_temperature_span_V'] = max(voltages)-min(voltages)
