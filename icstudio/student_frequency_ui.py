@@ -6,7 +6,7 @@ from PySide6.QtWidgets import (
     QHeaderView, QLabel, QTableWidget, QTableWidgetItem, QVBoxLayout,
 )
 
-from . import student_ahuja, student_filters
+from . import student_ahuja, student_filters, student_miller
 from .plot import WavePlot, engineering, trace_colors
 
 
@@ -62,6 +62,25 @@ class FrequencyDialog(QDialog):
         self.values.setFixedHeight(self.values.horizontalHeader().height()
                                    + sum(self.values.rowHeight(i) for i in range(len(values))) + 4)
         self.cursor.setText('Click a plot to read its frequency and value.')
+
+    def _number(self, name, low, high, step, value):
+        number = QDoubleSpinBox()
+        number.setRange(low, high)
+        number.setDecimals(1)
+        number.setSingleStep(step)
+        number.setValue(value)
+        label = QLabel(name)
+        label.setBuddy(number)
+        self.form.addRow(label, number)
+        return number
+
+    def _show_loops(self, xs, data):
+        ticks = [10**power for power in range(1, 10)]
+        for plot, field, unit, reference in ((self.gain, 'gain', 'dB', 0),
+                                              (self.phase, 'phase', '°', student_ahuja.TARGET_PM-180)):
+            plot.set_result(_wave(xs, {name: row[field] for name, row in data.items()}, unit, ticks, reference=reference))
+        colors = trace_colors(self.dark)
+        return ' &nbsp; '.join(f'<span style="color:{colors[i]}">■</span> {name}' for i, name in enumerate(data))
 
 
 class FilterDialog(FrequencyDialog):
@@ -136,28 +155,39 @@ class AhujaDialog(FrequencyDialog):
         self.buffer.valueChanged.connect(self.refresh)
         self.refresh()
 
-    def _number(self, name, low, high, step, value):
-        number = QDoubleSpinBox()
-        number.setRange(low, high)
-        number.setDecimals(1)
-        number.setSingleStep(step)
-        number.setValue(value)
-        label = QLabel(name)
-        label.setBuddy(number)
-        self.form.addRow(label, number)
-        return number
-
     def refresh(self):
         xs, data = student_ahuja.study(self.load.value(), self.buffer.value())
-        ticks = [10**power for power in range(1,10)]
-        for plot, field, unit, reference in ((self.gain, 'gain', 'dB', 0),
-                                              (self.phase, 'phase', '°', student_ahuja.TARGET_PM-180)):
-            plot.set_result(_wave(xs, {name: row[field] for name, row in data.items()}, unit, ticks, reference=reference))
-        colors = trace_colors(self.dark)
-        self.legend.setText(' &nbsp; '.join(f'<span style="color:{colors[i]}">■</span> {name}'
-                                           for i, name in enumerate(data)) +
+        self.legend.setText(self._show_loops(xs, data) +
                             f'<br>Direct Miller RHP zero ≈ {student_ahuja.MILLER_ZERO_HZ/1e6:.1f} MHz. '
                             'The dashed levels mark 0 dB and −120°.')
         self.table([(name, f'{row["unity_Hz"]/1e6:.3g}', f'{row["phase_margin_deg"]:.1f}',
                      'Meets target' if row['phase_margin_deg'] >= student_ahuja.TARGET_PM else 'Below target')
                     for name, row in data.items()])
+
+
+class MillerDialog(FrequencyDialog):
+    def __init__(self, studio):
+        super().__init__(studio, 'Miller compensation study',
+                         'Compare the same two-stage amplifier with no compensation, a capacitor, and a series RC branch.',
+                         ('Model', 'First unity (MHz)', 'Phase margin (°)', 'Compensation zero'))
+        self.load = self._number('Output &load (pF)', 1, 100, 5, 20)
+        self.capacitor = self._number('Compensation &capacitor (pF)', .5, 10, .5, 2)
+        self.resistor = self._number('Series &resistor (Ω)', 0, 8000, 250, student_miller.NULL_OHM)
+        for control in (self.load, self.capacitor, self.resistor):
+            control.valueChanged.connect(self.refresh)
+        self.refresh()
+
+    def refresh(self):
+        cc = self.capacitor.value()
+        xs, data = student_miller.study(self.load.value(), cc, self.resistor.value())
+        effective = student_miller.equivalent_input_capacitance(cc)
+        self.legend.setText(self._show_loops(xs, data) +
+                            f'<br>Low-frequency C<sub>in, Miller</sub> ≈ {effective:.3g} pF. '
+                            f'R<sub>null</sub> = 1/g<sub>m2</sub> = {student_miller.NULL_OHM/1000:.3g} kΩ. '
+                            'The dashed levels mark 0 dB and −120° (60° phase margin).')
+        rows = []
+        for name, row in data.items():
+            side, frequency = row['zero']
+            zero = f'{side} · {engineering(frequency)}Hz' if frequency is not None else side
+            rows.append((name, f'{row["unity_Hz"]/1e6:.3g}', f'{row["phase_margin_deg"]:.1f}', zero))
+        self.table(rows)

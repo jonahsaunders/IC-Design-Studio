@@ -7,7 +7,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from icstudio import student_ahuja, student_filters as filters, student_layout_decisions as layout
+from icstudio import student_ahuja, student_bandgap, student_filters as filters, student_layout_decisions as layout, student_miller
 from icstudio.model import atomic_write, clone
 from icstudio.simulation import run
 from icstudio.student_hub import curriculum, evaluate, prepare_lesson
@@ -108,3 +108,50 @@ class StudentFrequencyTests(unittest.TestCase):
         self.assertLess(slow['Finite buffer']['phase_margin_deg'],20)
         self.assertAlmostEqual(slow['Ideal Ahuja']['phase_margin_deg'],fast['Ideal Ahuja']['phase_margin_deg'])
         self.assertGreater(light['Direct Miller']['phase_margin_deg'],60)
+
+    def test_miller_resistor_moves_the_zero_without_guaranteeing_margin(self):
+        cc = 2e-12
+        self.assertEqual(student_miller.equivalent_input_capacitance(2), 202)
+        _, nominal = student_miller.study()
+        _, higher = student_miller.study(resistor=2000)
+        side, zero_hz = nominal['Capacitor only']['zero']
+        self.assertEqual(side, 'Right half plane')
+        self.assertAlmostEqual(zero_hz/1e6, 79.58, delta=.01)
+        self.assertEqual(nominal['Series RC']['zero'], ('At infinity', None))
+        self.assertEqual(higher['Series RC']['zero'], ('Left half plane', zero_hz))
+        self.assertEqual(student_miller.zero(cc, 500), ('Right half plane', 2*zero_hz))
+        self.assertAlmostEqual(nominal['Uncompensated']['phase_margin_deg'], 3.1, delta=.1)
+        self.assertAlmostEqual(nominal['Series RC']['phase_margin_deg'], 42.8, delta=.1)
+        self.assertGreater(higher['Series RC']['phase_margin_deg'], nominal['Series RC']['phase_margin_deg'])
+        _, tuned = student_miller.study(cc_pf=4, resistor=2000)
+        self.assertGreater(tuned['Series RC']['phase_margin_deg'], 60)
+        self.assertLess(tuned['Series RC']['unity_Hz'], higher['Series RC']['unity_Hz'])
+        for load in (1, 100):
+            for cap in (.5, 10):
+                for resistor in (0, 8000):
+                    student_miller.study(load, cap, resistor)
+
+    def test_four_bandgap_models_trim_and_run_the_nominal_summation(self):
+        values = {}
+        for kind in student_bandgap.NAMES:
+            with self.subTest(topology=kind):
+                starter = 'bandgap-' + kind
+                ratio, weight, extra = student_bandgap.defaults(kind)
+                data = student_bandgap.study(kind, ratio, weight, extra)
+                self.assertEqual(self.lessons[starter]['bandgap'], kind)
+                p = create(starter)
+                measured = run(p, p['top'], p['analysis'])['traces']['vref'][0]
+                self.assertAlmostEqual(measured, data['nominal'], delta=1e-6)
+                trimmed = student_bandgap.study(kind, ratio, data['optimum_ratio'], extra)
+                self.assertAlmostEqual(trimmed['slope27'], 0.)
+                self.assertLess(trimmed['drift'][-1], -.005)
+                values[kind] = data
+        self.assertAlmostEqual(values['widlar']['delta_room'], .05956, delta=.00002)
+        self.assertAlmostEqual(values['brokaw']['nominal'], values['kuijk']['nominal'])
+        self.assertAlmostEqual(values['banba']['nominal'], .5*values['kuijk']['nominal'])
+        shifted = student_bandgap.study('kuijk', 8, 10, 2)
+        self.assertEqual(shifted['density_ratio'], 16)
+        self.assertAlmostEqual(shifted['optimum_ratio'], 7.53, delta=.01)
+        lower = student_bandgap.study('banba', 8, 10, .4)
+        self.assertAlmostEqual(lower['nominal'], .8*values['banba']['nominal'])
+        self.assertEqual(lower['optimum_ratio'], values['banba']['optimum_ratio'])

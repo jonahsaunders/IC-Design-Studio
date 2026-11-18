@@ -249,6 +249,47 @@ def main():
     QTest.qWait(30);study.grab().save(str(out/'ahuja-loop-study.png'));study.close()
     checked('Ahuja lesson changes the modeled loop and phase margin through keyboard-accessible controls')
 
+    h.search.setText('nulling resistor');assert h.selected()['id']=='project-miller'
+    h.start_selected();assert w.cell['name']=='two_stage_opamp' and g.steps.count()==6
+    g.analog_action.click();study=g.frequency_dialog
+    assert study.values.item(2,3).text()=='At infinity' and '202 pF' in study.legend.text()
+    study.resistor.setValue(500);assert study.values.item(2,3).text().startswith('Right half plane')
+    study.resistor.setValue(2000);assert study.values.item(2,3).text().startswith('Left half plane')
+    study.capacitor.setValue(4);assert float(study.values.item(2,2).text())>60
+    QTest.qWait(30);study.grab().save(str(out/'miller-loop-study.png'));study.close()
+    checked('Miller lesson shows the zero crossing infinity and recomputes margin as Cc changes')
+
+    h.select_lesson('project-bias-reference');h.start_selected()
+    assert w.cell['name']=='simple_bias_fixture'
+    bias_project=w.project['id']
+    g.steps.setCurrentIndex(2)
+    assert g.controls['Run lesson'].text()=='Run testbenches'
+    h.select_lesson('project-cascode');h.start_selected()
+    assert w.project['id']==bias_project and w.cell['name']=='cascode_mirror'
+    g.steps.setCurrentIndex(2);g.workspace()
+    assert w.cell['name']=='cascode_bias_fixture' and g.controls['Run lesson'].text()=='Run nine PVT cases'
+    checked('Bias and cascode lessons share the trimmed project and open the correct fixtures and corner study')
+
+    for topology in ('widlar','brokaw','kuijk','banba'):
+        h.select_lesson('project-bandgap-'+topology);h.start_selected()
+        assert w.cell['name']==topology+'_summation_model'
+        assert g.analog_action.text()=='Open temperature study…'
+        g.analog_action.click();study=g.frequency_dialog
+        assert study.kind==topology and study.volts.result['plot_unit']=='V' and study.drift.result['plot_unit']=='mV'
+        assert study.values.rowCount()==4
+        previous=float(study.values.item(1,3).text())
+        if topology=='banba':
+            study.extra.setValue(.4)
+            assert float(study.values.item(1,3).text())<previous
+        elif topology=='kuijk':
+            study.extra.setValue(2)
+            assert float(study.values.item(1,3).text())>previous
+        else:
+            study.ratio.setValue(16)
+            assert float(study.values.item(1,3).text())>previous
+        QTest.qWait(30);study.grab().save(str(out/f'bandgap-{topology}.png'));study.close()
+    checked('Four bandgap projects open independent temperature plots and respond to their topology-specific controls')
+
     # Second pass: project switches disable actions immediately and cannot misroute
     # cancellation or completed-run feedback to another project.
     w.set_project(create('divider'));assert not g.check_button.isEnabled()

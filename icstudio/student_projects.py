@@ -129,17 +129,24 @@ def divider(loaded=False, hierarchy=False):
 
 def create(starter, technology=None):
     from .example_schematics import arrange
+    if starter == 'bias-cascode':
+        from .student_bias import project
+        return arrange(project(technology))
+    if starter.startswith('bandgap-'):
+        from .student_bandgap import project
+        return arrange(project(starter.removeprefix('bandgap-')))
     if starter == 'lc-bode':
         from .student_filters import project
         return arrange(project())
     if starter == 'layout-decisions':
         from .student_layout_decisions import project
         return arrange(project())
-    if starter == 'ahuja-study':
+    if starter in ('ahuja-study', 'miller-study'):
         from .student_analog import bundled_technology
         from .two_stage_opamp import reference
         project, _, _ = reference(bundled_technology())
-        project['name'] = 'Student · Ahuja compensation study'
+        topic = 'Miller' if starter == 'miller-study' else 'Ahuja'
+        project['name'] = f'Student · {topic} compensation study'
         return arrange(project)
     if starter in ('analog-opamp', 'analog-tia'):
         from .student_analog import project

@@ -322,6 +322,55 @@
       "try_next": "Increase the load and lower the buffer pole. Observe the first unity crossing and phase margin for each response. Real current buffers need bias, headroom and verified bandwidth. Compare loop return ratio, step response, noise and PSRR in a transistor bench before making a design choice.",
       "interview": "Why can a right-half-plane zero raise the gain slope and still hurt phase margin? How does a low-impedance current input change both the schematic and the physical routing?",
       "artifact": "A written comparison of direct Miller, ideal Ahuja and finite-buffer behavior, with numerical loops and an implementation verification plan."
+    },
+    "project-miller": {
+      "concept": "A capacitor between the input and output of an inverting stage sees the swing at both ends. Its larger current at the input node makes a small capacitor appear large and creates a low-frequency dominant pole. The physical capacitor also forwards current, which creates a right-half-plane zero in a simple two-stage amplifier.",
+      "worked_example": "A 2 pF capacitor with a gain of −100 gives C_in≈2 pF×101=202 pF. For gm₂=1 mS, the capacitor-only zero is +500 million rad/s, or a frequency magnitude of 79.6 MHz. Set Rz=1/gm₂=1 kΩ to remove the finite zero. At 2 kΩ the zero is at −500 million rad/s and adds phase lead.",
+      "try_next": "Change compensation capacitance from 2 pF to 4 pF and compare the new unity frequency. At 20 pF load, try 4 pF and 2 kΩ in this model to see whether the curve crosses the 60° target. Then move the output load and check the result again.",
+      "interview": "Explain the Miller effect starting from capacitor current. Where does the feedforward zero come from, how does a series resistor null it, and what would change when gm₂ varies with bias or process?",
+      "artifact": "A short derivation, a Bode comparison at three resistor values, and a design choice supported by crossover and phase margin."
+    },
+    "project-bias-reference": {
+      "concept": "Proper biasing starts with a signal requirement, then chooses a current, device geometry and node voltages that keep the intended devices in region. A resistor and diode-connected MOS make a simple reference that moves with the supply and the MOS characteristics.",
+      "worked_example": "For gm = 100 µS at gm/ID = 20 V⁻¹ use 5 µA. At ID/W = 0.5 µA/µm, start at W = 10 µm. If the measured diode node is about 0.6 V, (1.8 V − 0.6 V)/5 µA gives about 240 kΩ. Verify the mirror current because its drain voltage differs from the reference.",
+      "try_next": "Compare a wider pair with the same resistor, then retune to the original current. Observe how ID/W, gm/ID, capacitance and voltage headroom change.",
+      "interview": "How do you size from gm/ID and current density, and how would you establish whether a current error came from the reference or the mirror?",
+      "artifact": "An editable reference and matched mirror with measured nominal current, normalized current density and saturation margin."
+    },
+    "project-cascode": {
+      "concept": "A common-gate device shields the lower mirror transistor from output swing. The increase in output resistance trades against compliance and bias headroom. Reference stability and mirror ratio accuracy are separate design requirements.",
+      "worked_example": "At 5 µA and 10 µm total width, the nominal density is 0.5 µA/µm. If a corner gives 6 µA at the same width, density is 0.6 µA/µm. Read the new gm/ID and headroom from the model rather than reusing the nominal estimates.",
+      "try_next": "Reduce the output clamp and repeat the corner study. For an actual design, sweep supply and output compliance, check startup and settling, and use appropriate statistical mismatch models.",
+      "interview": "Why can raising output resistance leave absolute bias current just as sensitive to temperature, and why can a cascode lose compliance?",
+      "artifact": "Two measured compliance sweeps and a nine-corner current, efficiency and saturation-margin table."
+    },
+    "project-bandgap-widlar": {
+      "concept": "The original three-transistor example uses unequal current densities in Q1 and Q2. Their ΔVBE appears across R3. The same ideal branch current creates (R2/R3)ΔVBE across R2, which is added to the sensing transistor Q3’s VBE.",
+      "worked_example": "At 27 °C and density ratio 10, ΔVBE = (kT/q)ln(10) ≈ 59.56 mV and its slope is about 198.4 µV/°C. To offset −1.8 mV/°C, choose R2/R3 ≈ 9.07. The teaching output is approximately 1.24 V.",
+      "try_next": "Set the ratio to 8, 9.07, and 10. Look at the sign of the room-temperature slope and compare full-range drift.",
+      "interview": "Why does a current-density ratio produce a PTAT term, and why is the curve still bowed after slope cancellation?",
+      "artifact": "A hand derivation, temperature sweep and notes on trimming and validating this topology."
+    },
+    "project-bandgap-brokaw": {
+      "concept": "The feedback loop senses the two collector currents. Equal currents and unequal emitter areas give different densities. R2 sees ΔVBE and the shared emitter resistor R1 carries approximately twice that branch current.",
+      "worked_example": "For area ratio A2/A1 = 8, ΔVBE ≈ 53.78 mV at 27 °C. The PTAT weight is 2R1/R2, so canceling −1.8 mV/°C needs R1/R2 ≈ 5.02.",
+      "try_next": "At area ratio 8 try R1/R2 = 4, 5.02 and 6. Compare full-range drift and think about unequal collector loads and finite beta.",
+      "interview": "Where does the factor of two come from, and how would you make sure the bias loop starts?",
+      "artifact": "A hand derivation, temperature sweep and notes on trimming and validating this topology."
+    },
+    "project-bandgap-kuijk": {
+      "concept": "In Kuijk’s fundamental circuit the op amp drives its inputs to equal voltages. R2/R1 sets a diode current ratio and the bipolar emitter areas turn that ratio into J1/J2. A separate ratio, R2/R3, weights the temperature-dependent voltage.",
+      "worked_example": "For matched junctions, Is2/Is1 ≈ A2/A1. Then ΔVBE = VT ln[(R2/R1)(A2/A1)]. With A2/A1=8 and R2/R1=1, the trim R2/R3 is about 10.05.",
+      "try_next": "Raise R2/R1 to 2 while keeping area ratio 8. Retune R2/R3. Then consider op-amp input offset and resistor ratio drift.",
+      "interview": "How are the current-setting and PTAT-weight ratios different design knobs?",
+      "artifact": "A hand derivation, temperature sweep and notes on trimming and validating this topology."
+    },
+    "project-bandgap-banba": {
+      "concept": "The sense amplifier equalizes two branch voltages and matched mirrors copy the summed current to an output resistor. The two ideal currents are Vf/R2 and ΔVf/R3, so R4 converts their sum into the chosen reference voltage.",
+      "worked_example": "With R2=100 kΩ, R3=10 kΩ and eight diode units, the currents at 27 °C are about 7.00 µA and 5.38 µA. R4=50 kΩ makes about 0.619 V. Reducing R4 scales the output without changing the ratio that cancels the local slope.",
+      "try_next": "Try R4/R2 = 0.40 and 0.50 at one trim. Then read the GF180 Banba-style sample’s startup and supply tests.",
+      "interview": "How does doing the summation in current help low-voltage design, and what limits the minimum supply in a real circuit?",
+      "artifact": "A hand derivation, temperature sweep and notes on trimming and validating this topology."
     }
   },
   "references": [

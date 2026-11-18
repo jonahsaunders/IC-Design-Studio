@@ -15,7 +15,11 @@ plus a prediction, practical task, evidence checkpoint and written reflection.
 
 For deeper practice, try [Why layout choices matter](STUDENT_LAYOUT_DECISIONS.md)
 in Layout, [LC filters and Bode plots](STUDENT_LC_BODE.md) in Analog, or
-[Ahuja compensation for op amps](STUDENT_AHUJA.md) in Analog design projects.
+[Miller compensation](STUDENT_MILLER.md) and [Ahuja compensation](STUDENT_AHUJA.md)
+in Analog design projects. The [current-reference and cascode lessons](STUDENT_BIAS_CASCODE.md)
+walk through bias current, current density, output headroom, and process and temperature sweeps.
+Four separate [bandgap reference lessons](STUDENT_BANDGAPS.md) cover Widlar,
+Brokaw, Kuijk, and Banba. Each has a worked trim and an interactive temperature plot.
 The frequency lessons put the chart, keyboard controls, and exact values
 together. The layout guide shows comparison controls when the task uses
 them. [Apple layout](https://developer.apple.com/design/human-interface-guidelines/layout) ·
@@ -73,7 +77,7 @@ and the remaining native macOS acceptance work.
 | --- | --- | --- |
 | Foundations | First RC transient → nets/ground → parameter edits and Undo → hierarchy → loading/debugging → layout and reproducibility | A saved, measured circuit and a learning record |
 | Analog (11 lessons) | Bias, gain and gm/ID sizing, then hand sketches and measured Bode plots for four LC filters | A measured sizing worksheet and frequency-response design rationale |
-| Analog design projects | Photodiode TIA or Miller op amp from testbench to extracted layout, plus an Ahuja compensation study | A before/after specification review and a loop-stability comparison |
+| Analog design projects | Photodiode TIA or Miller op amp from testbench to extracted layout, Miller and Ahuja compensation, and a cascode bias and corner study | Specification reviews, loop-stability comparisons, and measured bias points |
 | Digital (9 lessons) | Truth tables → counter → handshake → PWM → averaging → serial transmitter; latch repair → saturating arithmetic → pipeline validity | Repaired RTL, failing cases and independent reference simulations |
 | Mixed Signal | Bridge thresholds → acquisition/hold → quantization → timing repair → DAC-weight repair → repeated conversions | A working SAR converter with explicit analog/digital timing |
 | Layout (5 lessons) | Minimum width, spacing, via enclosure, matching, connectivity and extracted RC tradeoffs | Repaired geometry, measured rule checks and an optimized route |

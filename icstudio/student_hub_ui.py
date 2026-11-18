@@ -561,6 +561,15 @@ class LessonGuide(QDockWidget):
         if 'device_metrics' in evidence:
             point=evidence['device_metrics']
             feedback(self.feedback,f'Checkpoint passed. ID = {point["id"]*1e6:.3g} µA; gm = {point["gm"]*1e6:.3g} µS; gm/ID = {point["gmid"]:.3g} V⁻¹; headroom = {point.get("headroom",0):.3g} V. Evidence saved.')
+        elif 'bias_readings' in evidence:
+            point=evidence['bias_readings']
+            feedback(self.feedback,f'Iout {point["output_A"]*1e6:.2f} µA · ID/W {point["density_uA_per_um"]:.3f} µA/µm · headroom {point["headroom_V"]*1000:.0f} mV. Saved.')
+        elif 'bias_comparison' in evidence:
+            a,b=(evidence['bias_comparison'][name] for name in ('simple','cascode'))
+            feedback(self.feedback,f'Output resistance {a["resistance_ohm"]/1e6:.2f} → {b["resistance_ohm"]/1e6:.2f} MΩ. 5% flatness knee {a["compliance_V"]:.2f} → {b["compliance_V"]:.2f} V. Estimated saturation floor {a["saturation_floor_V"]:.2f} → {b["saturation_floor_V"]:.2f} V. Saved.')
+        elif 'bias_corners' in evidence:
+            points=evidence['bias_corners']
+            feedback(self.feedback,f'{sum(p["passes"] for p in points)} of {len(points)} cases meet the operating target. All measured cases saved.')
         elif 'analog_runs' in evidence:
             point=evidence['analog_runs'][0].get('gmid')
             if point:
@@ -604,7 +613,7 @@ class LessonGuide(QDockWidget):
         if self.lesson['starter']=='layout-decisions':
             from .student_layout_decisions import focus
             s.cid=focus(s.project,self.active_step['id'])
-        elif self.lesson['starter']=='ahuja-study':
+        elif self.lesson['starter'] in ('ahuja-study','miller-study'):
             s.cid=next(c['id'] for c in s.project['cells'] if c['name']=='two_stage_opamp')
         elif self.lesson.get('analog_project'):
             from .student_analog import focus_cell
@@ -618,9 +627,15 @@ class LessonGuide(QDockWidget):
 
     def analog_project_action(self):
         self.flush();self.require_idle();s=self.studio
-        if self.lesson['starter']=='ahuja-study':
-            from .student_frequency_ui import AhujaDialog
-            self.frequency_dialog=AhujaDialog(s)
+        if self.lesson.get('bandgap'):
+            from .student_bandgap_ui import BandgapDialog
+            self.frequency_dialog=BandgapDialog(s,self.lesson['bandgap'])
+            self.frequency_dialog.show()
+            return
+        if self.lesson['starter'] in ('ahuja-study','miller-study'):
+            from .student_frequency_ui import AhujaDialog, MillerDialog
+            dialog=MillerDialog if self.lesson['starter']=='miller-study' else AhujaDialog
+            self.frequency_dialog=dialog(s)
             self.frequency_dialog.show()
             return
         from .student_analog import _get_bench, run_names
@@ -725,7 +740,8 @@ class LessonGuide(QDockWidget):
         starter=self.lesson['starter']
         kind=self.lesson.get('analog_project')
         self.analog_action.hide()
-        self.controls['Open RTL'].setVisible(not kind and starter not in ('layout-decisions','lc-bode','ahuja-study'))
+        bandgap=self.lesson.get('bandgap')
+        self.controls['Open RTL'].setVisible(not kind and not bandgap and starter not in ('layout-decisions','lc-bode','ahuja-study','miller-study'))
         self.controls['Run lesson'].setText('Run lesson')
         if kind and self.active_step:
             from .student_analog import run_names
@@ -733,6 +749,8 @@ class LessonGuide(QDockWidget):
             can_run=can_run and bool(names)
             self.controls['Run lesson'].setVisible(bool(names))
             self.controls['Run lesson'].setText('Run post-layout checks' if step=='post-layout' else 'Run testbenches')
+            if kind=='bias' and step=='corners':
+                self.controls['Run lesson'].setText('Run nine PVT cases')
             from .process_adapters import capabilities
             needs_full_pdk=step=='post-layout' and not capabilities(self.studio.project['pdk'])['external_verification']
             if step in ('fixture','bias','layout','bias-layout','schematic') or needs_full_pdk:
@@ -745,10 +763,10 @@ class LessonGuide(QDockWidget):
             can_run=bound and not active and run_step
             self.controls['Run lesson'].setVisible(run_step)
             self.controls['Run lesson'].setText('Compare route RC')
-        elif starter=='ahuja-study':
+        elif starter in ('ahuja-study','miller-study') or bandgap:
             can_run=False
             self.controls['Run lesson'].hide()
-            self.analog_action.setText('Open loop comparison…')
+            self.analog_action.setText('Open temperature study…' if bandgap else 'Open loop comparison…')
             self.analog_action.setEnabled(bound)
             self.analog_action.show()
         else:
@@ -770,7 +788,7 @@ class LessonGuide(QDockWidget):
             self.run_status.setText(' · '.join(f'{sum(r["state"]==state for r in active)} {state.lower()}' for state in ('Running','Queued','Stopping') if any(r['state']==state for r in active)))
         elif not bound:self.run_status.setText('Resume this lesson from Student Hub to use its workspace.')
         elif rows:self.run_status.setText('Latest run: '+rows[-1]['state'])
-        elif kind or starter in ('layout-decisions','ahuja-study'):self.run_status.setText('Ready to run.' if can_run else '')
+        elif kind or bandgap or starter in ('layout-decisions','ahuja-study','miller-study'):self.run_status.setText('Ready to run.' if can_run else '')
         else:self.run_status.setText('Ready to run.' if not is_layout else 'This lesson checks the layout without simulation.')
 
     def finished(self,row,result):
@@ -793,6 +811,11 @@ class LessonGuide(QDockWidget):
             step=self.active_step['id']
             by_bench={r['job']['student_analog']['bench']:r for r in rows if r['job']['student_analog']['stage']==step}
             if not by_bench:raise ValueError('Run this step’s testbenches first.')
+            if self.lesson['analog_project']=='bias' and step=='corners':
+                from .student_bias_ui import BiasCornersDialog
+                saved=by_bench['cascode_bias']
+                self.bias_inspector=BiasCornersDialog(s,saved['job']['project'],saved['result'])
+                self.bias_inspector.show();return
             if len(by_bench)>1:
                 selected,ok=QInputDialog.getItem(self,'Testbench results','Open saved testbench',list(by_bench),0,False)
                 if not ok:return

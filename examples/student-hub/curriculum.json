@@ -3073,6 +3073,99 @@
       ]
     },
     {
+      "id": "project-miller",
+      "path": "analog-projects",
+      "title": "Miller compensation and the nulling resistor",
+      "starter": "miller-study",
+      "workspace": "project-miller",
+      "requires": [],
+      "minutes": 40,
+      "doc": "STUDENT_MILLER.md",
+      "summary": "Derive the Miller effect, see why the capacitor stabilizes the loop, and calculate how a series resistor moves the zero.",
+      "skills": [
+        "Miller effect",
+        "nulling resistor",
+        "pole splitting",
+        "phase margin",
+        "Bode plot",
+        "RHP zero",
+        "LHP zero"
+      ],
+      "steps": [
+        {
+          "id": "miller-effect",
+          "kind": "quiz",
+          "title": "Derive the effective input capacitance",
+          "instructions": "Open workspace and find the compensation capacitors between the high-impedance first-stage node and OUT. Start with ic = Cc·d(v₁−vout)/dt. At low frequency vout ≈ Av·v₁, so the current drawn from v₁ is Cc(1−Av)·dv₁/dt. If Av ≈ −100 and Cc = 2 pF, what is the input-side equivalent due to the branch?",
+          "options": [
+            "2 pF",
+            "200 pF",
+            "202 pF"
+          ],
+          "answer": 2,
+          "explanation": "1−(−100) = 101, so the 2 pF branch acts like about 202 pF at the first node at low frequency. Its current responds to the voltage difference across both terminals."
+        },
+        {
+          "id": "pole-splitting",
+          "kind": "quiz",
+          "title": "Compare unity gain and phase",
+          "instructions": "Choose Open loop comparison. Use 20 pF load and 2 pF compensation. Read the first falling 0 dB crossing and then the phase of that same curve. Phase margin is 180° + ∠T. Which change comes from the capacitor by itself in this model?",
+          "options": [
+            "It lowers the unity-gain frequency and increases the phase margin",
+            "It raises the unity-gain frequency and removes every pole",
+            "It leaves the loop response unchanged"
+          ],
+          "answer": 0,
+          "explanation": "The uncompensated model crosses near 30.8 MHz with 3.1° margin. The capacitor moves crossover near 7.93 MHz and yields 37.4°. The dominant pole moves down, while the interaction of the two nodes moves the other pole up in this example."
+        },
+        {
+          "id": "feedforward-zero",
+          "kind": "quiz",
+          "title": "Calculate the capacitor-only zero",
+          "instructions": "The output-stage current contains gm₂·v₁ and a feedforward capacitor current. In the loop numerator they combine as gm₂−sCc. Set this to zero and convert the magnitude from rad/s to Hz. With gm₂ = 1 mS and Cc = 2 pF, where is the zero?",
+          "options": [
+            "79.6 MHz in the left half plane",
+            "79.6 MHz in the right half plane",
+            "1 kHz in the right half plane"
+          ],
+          "answer": 1,
+          "explanation": "s = gm₂/Cc is positive, so the zero is in the right half plane. Its frequency magnitude is gm₂/(2πCc). The factor 1−s/ωz raises the magnitude slope and adds phase lag."
+        },
+        {
+          "id": "null",
+          "kind": "quiz",
+          "title": "Find the series resistor that nulls the zero",
+          "instructions": "Put Rz in series with Cc in the feedback branch. Its admittance is Yc = sCc/(1+sRzCc). Replace sCc with Yc in gm₂−Yc and clear the fraction. The numerator becomes gm₂[1+sCc(Rz−1/gm₂)]. What resistor makes the coefficient of s zero for gm₂ = 1 mS?",
+          "options": [
+            "500 Ω",
+            "1 kΩ",
+            "2 kΩ"
+          ],
+          "answer": 1,
+          "explanation": "Rz = 1/gm₂ = 1 kΩ. The model has no finite compensation zero. The poles still shape crossover and phase margin. At the default load, nulling alone gives about 42.8° against a 60° goal."
+        },
+        {
+          "id": "sweep",
+          "kind": "quiz",
+          "title": "Move the zero through infinity",
+          "instructions": "Keep the 20 pF load and 2 pF capacitor. Enter 500 Ω, 1 kΩ, and 2 kΩ in the series resistor control. Predict each zero using s_z = 1/[Cc(1/gm₂−Rz)], then check the table. What happens at 2 kΩ?",
+          "options": [
+            "The zero returns to the right half plane at 79.6 MHz",
+            "The zero stays at infinity for all larger resistors",
+            "The zero moves to the left half plane at a magnitude of 79.6 MHz"
+          ],
+          "answer": 2,
+          "explanation": "1/gm₂−Rz is negative, so s_z is negative. The left-half-plane factor gives phase lead. The series resistor also changes the poles, so read the whole loop curve rather than adding a fixed margin."
+        },
+        {
+          "id": "review",
+          "kind": "reflection",
+          "title": "Explain the design tradeoff",
+          "instructions": "Record first unity frequency and phase margin for the capacitor alone, 1 kΩ, and 2 kΩ. Predict what a larger capacitor does to bandwidth, then test it. Explain the 202 pF approximation, why the resistor belongs in series, and why the final choice must be checked across load and gm₂ variation."
+        }
+      ]
+    },
+    {
       "id": "project-ahuja",
       "path": "analog-projects",
       "title": "Ahuja compensation for op amps",
@@ -3149,6 +3242,401 @@
           "kind": "reflection",
           "title": "Record your design reasoning",
           "instructions": "Record loop crossings and phase margins at two loads and at both 10 MHz and 50 MHz buffer settings. Explain what happens to the direct Miller zero, why a finite buffer matters, and how you would verify a transistor implementation for headroom, PVT, maximum load, transient settling and supply rejection."
+        }
+      ]
+    },
+    {
+      "id": "project-bias-reference",
+      "path": "analog-projects",
+      "title": "Build a current reference and bias a mirror",
+      "starter": "bias-cascode",
+      "workspace": "bias-cascode",
+      "analog_project": "bias",
+      "requires": [],
+      "minutes": 45,
+      "summary": "Set a 5 µA operating point, size from measured current density, and verify the mirror at a specified load.",
+      "skills": [
+        "bias current",
+        "current reference",
+        "current density",
+        "ID/W",
+        "gm/ID",
+        "current mirror",
+        "operating point"
+      ],
+      "doc": "STUDENT_BIAS_CASCODE.md",
+      "steps": [
+        {
+          "id": "brief",
+          "kind": "quiz",
+          "title": "Translate the spec to a bias point",
+          "instructions": "The signal transistor needs 100 µS transconductance. Choose gm/ID = 20 V⁻¹ as a starting point. What drain current do you budget?",
+          "options": [
+            "5 µA",
+            "100 µA",
+            "2 mA"
+          ],
+          "answer": 0,
+          "explanation": "ID = gm/(gm/ID) = 100 µS ÷ 20 V⁻¹ = 5 µA. Check the actual operating point after choosing width, length and terminal voltages."
+        },
+        {
+          "id": "density",
+          "kind": "quiz",
+          "title": "Size from current density",
+          "instructions": "A pilot sweep gives ID/W ≈ 0.5 µA/µm at the selected L, VDS, VSB, temperature and gm/ID. What total width aims at 5 µA?",
+          "options": [
+            "2.5 µm",
+            "10 µm",
+            "50 µm"
+          ],
+          "answer": 1,
+          "explanation": "W = ID/(ID/W) ≈ 10 µm. A density from a different length, terminal bias, process or temperature can lead to a different width estimate."
+        },
+        {
+          "id": "reference",
+          "kind": "check",
+          "title": "Set the reference and verify the mirror",
+          "instructions": "Open workspace for simple_bias_fixture. RSET goes from 1.8 V to the diode-connected NMOS in the reference branch. The output device shares its gate. VCLAMP holds the output at 1.4 V so you can test the sink under a known load.\n\nRun the testbench at the starter RSET and inspect V(vset) and the two source currents. Estimate RSET ≈ (1.8 − VSET)/5 µA, then trim it. A larger RSET usually lowers current. Re-run after each edit. In Results inspect the lower output MOS bias point. Check that the mirror sinks 4.5–5.5 µA and has at least 50 mV of model saturation margin. Record |ID|/W in µA/µm and gm/ID in V⁻¹. If you change width, match the reference and output geometry and repeat the operating-point check.",
+          "rule": {
+            "type": "analog_project"
+          }
+        },
+        {
+          "id": "review",
+          "kind": "reflection",
+          "title": "Record your bias design",
+          "instructions": "Record the selected W, L and RSET. Give the measured reference and output currents, gm/ID, current density, and saturation margin. Explain why matched geometry can stabilize a ratio even when the absolute reference current drifts."
+        }
+      ]
+    },
+    {
+      "id": "project-cascode",
+      "path": "analog-projects",
+      "title": "Cascode mirrors across process and temperature",
+      "starter": "bias-cascode",
+      "workspace": "bias-cascode",
+      "analog_project": "bias",
+      "requires": [
+        "project-bias-reference"
+      ],
+      "minutes": 60,
+      "summary": "Measure the cascode’s output resistance and headroom cost, then inspect current density and saturation in nine SKY130 cases.",
+      "skills": [
+        "cascode",
+        "output resistance",
+        "output compliance",
+        "process corners",
+        "temperature corners",
+        "ID/W",
+        "PVT",
+        "body effect"
+      ],
+      "doc": "STUDENT_BIAS_CASCODE.md",
+      "steps": [
+        {
+          "id": "headroom",
+          "kind": "quiz",
+          "title": "Trace the stacked bias voltages",
+          "instructions": "Open workspace to inspect the cascode cell. A diode-connected reference stack establishes both gate biases. Why add the upper common-gate transistor?",
+          "options": [
+            "It holds the lower output device’s drain steadier as OUT changes",
+            "It removes the need for output voltage headroom",
+            "It generates a fixed, process-independent current"
+          ],
+          "answer": 0,
+          "explanation": "Holding the lower device’s drain steadier reduces channel-length modulation in that branch and increases output resistance. The upper device also needs its own drain-source headroom and can see body effect."
+        },
+        {
+          "id": "compare",
+          "kind": "check",
+          "title": "Measure output resistance and the compliance knee",
+          "instructions": "Open workspace for cascode_bias_fixture. Adjust its RSET for roughly 5 µA at the 1.4 V clamp. Measure the voltage at the top of the diode stack to estimate RSET. Run testbenches to sweep both outputs and collect operating points. The simple mirror shares the reference exercise’s settings. Keep both near 5 µA at the nominal clamp for a fair comparison.\n\nIn Results inspect |I(VCLAMP)| for each saved sweep. Estimate rout = ΔV/ΔI from 1.20 V and 1.50 V. The 5% flatness knee is the lowest sampled point after which the curve stays within 5% of its 1.4 V current. Compare it with the estimated saturation floor, Vout minus the upper output device’s saturation margin at the nominal clamp. That floor is a local estimate because the internal bias moves during the sweep. Explain why the two checks give different answers.",
+          "rule": {
+            "type": "analog_project"
+          }
+        },
+        {
+          "id": "corners",
+          "kind": "check",
+          "title": "Hold the design and sweep process and temperature",
+          "instructions": "Run nine PVT cases to use one RSET and one device geometry for nominal, SS and FF at −40, 27 and 85 °C. Supply and output clamp stay at 1.8 V and 1.4 V. Open Results to read ID/W, gm/ID and the smaller VDS−VDSsat margin in the cascode output stack. The operating target is 3–7 µA output with at least 50 mV margin. Keep any failing rows in your comparison.\n\nCompare IREF and IOUT separately. Both can drift while their ratio remains near one. At fixed width, ID/W follows drain current. At the same ID/W, gm/ID can still shift with process and temperature. Find your worst current, density and headroom, then choose a single geometry or resistor revision and re-run.",
+          "rule": {
+            "type": "analog_project"
+          }
+        },
+        {
+          "id": "review",
+          "kind": "reflection",
+          "title": "Record your bias design",
+          "instructions": "Compare both output resistances, both 5% current-flatness knees, and both estimated saturation floors. Give the worst process and temperature cases for output current, density and headroom. Explain one change you would make for a tighter current tolerance and how you would verify supply range and mismatch separately."
+        }
+      ]
+    },
+    {
+      "id": "project-bandgap-widlar",
+      "path": "analog-projects",
+      "title": "Widlar bandgap reference",
+      "starter": "bandgap-widlar",
+      "workspace": "project-bandgap-widlar",
+      "bandgap": "widlar",
+      "requires": [],
+      "minutes": 30,
+      "summary": "Weight a PTAT voltage to cancel the falling base–emitter voltage.",
+      "skills": [
+        "Widlar",
+        "bandgap reference",
+        "CTAT",
+        "PTAT",
+        "temperature drift",
+        "current density"
+      ],
+      "doc": "STUDENT_BANDGAPS.md",
+      "steps": [
+        {
+          "id": "sign",
+          "kind": "quiz",
+          "title": "Find the two temperature slopes",
+          "instructions": "Work with identical emitter areas and a 10:1 current ratio. At a fixed density ratio, which quantities have opposite temperature slopes?",
+          "options": [
+            "VBE falls while ΔVBE rises",
+            "Both fall",
+            "VBE rises while ΔVBE falls"
+          ],
+          "answer": 0,
+          "explanation": "VBE is the CTAT term in the operating region. ΔVBE = (kT/q)ln(J1/J2) grows with the absolute temperature."
+        },
+        {
+          "id": "ratio",
+          "kind": "quiz",
+          "title": "Calculate the first-order trim",
+          "instructions": "Find the PTAT slope using k/q ≈ 86.17 µV/K. Which R2/R3 offsets a −1.8 mV/°C junction slope with J1/J2=10?",
+          "options": [
+            "0.11",
+            "9.07",
+            "59.56"
+          ],
+          "answer": 1,
+          "explanation": "Divide 1.8 mV/°C by 0.1984 mV/°C to get about 9.07. The room-temperature ΔVBE itself is about 59.56 mV."
+        },
+        {
+          "id": "sweep",
+          "kind": "quiz",
+          "title": "Check slope and curvature",
+          "instructions": "Open temperature study. Use a 10:1 current ratio and R2/R3 = 9.07. Look at the drift graph from −40 to 125 °C. What remains?",
+          "options": [
+            "A bowed reference curve",
+            "An exactly flat curve",
+            "Only a temperature-independent offset"
+          ],
+          "answer": 0,
+          "explanation": "The trim cancels the local first derivative. VBE curvature remains, so compare the endpoints and the peak-to-peak drift."
+        },
+        {
+          "id": "review",
+          "kind": "reflection",
+          "title": "Record your temperature sweep",
+          "instructions": "Save the ratio, calculated trim, and room and endpoint values. Explain how base-current error or a changing resistor ratio can upset the voltage sum."
+        }
+      ]
+    },
+    {
+      "id": "project-bandgap-brokaw",
+      "path": "analog-projects",
+      "title": "Brokaw bandgap reference",
+      "starter": "bandgap-brokaw",
+      "workspace": "project-bandgap-brokaw",
+      "bandgap": "brokaw",
+      "requires": [],
+      "minutes": 30,
+      "summary": "Use equal collector currents and unequal emitter areas to make a PTAT term.",
+      "skills": [
+        "Brokaw",
+        "bandgap reference",
+        "CTAT",
+        "PTAT",
+        "temperature drift",
+        "current density"
+      ],
+      "doc": "STUDENT_BANDGAPS.md",
+      "steps": [
+        {
+          "id": "density",
+          "kind": "quiz",
+          "title": "Create unequal density at equal current",
+          "instructions": "The loop holds the collector currents equal. Q2 has eight times the emitter area of Q1. What is J1/J2?",
+          "options": [
+            "1/8",
+            "1",
+            "8"
+          ],
+          "answer": 2,
+          "explanation": "J = I/A. At equal current the smaller Q1 has eight times the density."
+        },
+        {
+          "id": "sum",
+          "kind": "quiz",
+          "title": "Trace the two emitter currents",
+          "instructions": "Neglect base currents. R2 carries one branch current ΔVBE/R2. Which expression gives the PTAT voltage across shared R1?",
+          "options": [
+            "(R1/R2)ΔVBE",
+            "(2R1/R2)ΔVBE",
+            "(R2/2R1)ΔVBE"
+          ],
+          "answer": 1,
+          "explanation": "The currents from both branches pass through R1. Twice the branch current gives 2R1ΔVBE/R2."
+        },
+        {
+          "id": "offset",
+          "kind": "quiz",
+          "title": "Tune at room temperature",
+          "instructions": "Open temperature study. Keep the area ratio at 8. Which R1/R2 brings the 27 °C slope closest to zero?",
+          "options": [
+            "2.51",
+            "5.02",
+            "10.05"
+          ],
+          "answer": 1,
+          "explanation": "The total PTAT weight needs to be about 10.05. Because the return resistor carries two currents, its ratio is about half of that."
+        },
+        {
+          "id": "review",
+          "kind": "reflection",
+          "title": "Record your temperature sweep",
+          "instructions": "Record R1/R2 and drift. Explain how collector sensing sets the ratio, how base current can still matter in a real circuit, and how a startup circuit can move the loop away from its off state."
+        }
+      ]
+    },
+    {
+      "id": "project-bandgap-kuijk",
+      "path": "analog-projects",
+      "title": "Kuijk bandgap reference",
+      "starter": "bandgap-kuijk",
+      "workspace": "project-bandgap-kuijk",
+      "bandgap": "kuijk",
+      "requires": [],
+      "minutes": 30,
+      "summary": "Use voltage feedback to enforce a diode voltage relation and set the density ratio.",
+      "skills": [
+        "Kuijk",
+        "bandgap reference",
+        "CTAT",
+        "PTAT",
+        "temperature drift",
+        "current density"
+      ],
+      "doc": "STUDENT_BANDGAPS.md",
+      "steps": [
+        {
+          "id": "feedback",
+          "kind": "quiz",
+          "title": "Use the equal-input feedback condition",
+          "instructions": "In the ideal Kuijk cell, which current ratio results when the feedback amplifier equalizes the sense input voltages?",
+          "options": [
+            "I1/I2 = R2/R1",
+            "I1/I2 = R2/R3",
+            "I1/I2 = 1 for every resistor choice"
+          ],
+          "answer": 0,
+          "explanation": "The drops on the current-setting resistors set I1/I2=R2/R1. R2/R3 sets the PTAT voltage weight."
+        },
+        {
+          "id": "ratio",
+          "kind": "quiz",
+          "title": "Predict both resistor settings",
+          "instructions": "Use area ratio 8 and change R2/R1 from 1 to 2. What happens to the density ratio inside the logarithm?",
+          "options": [
+            "It halves to 4",
+            "It doubles to 16",
+            "It stays at 8"
+          ],
+          "answer": 1,
+          "explanation": "J1/J2 scales as (R2/R1)(A2/A1). Increasing it raises PTAT slope, so less PTAT gain is needed for the same CTAT slope."
+        },
+        {
+          "id": "tune",
+          "kind": "quiz",
+          "title": "Check the new trim",
+          "instructions": "Open temperature study. Set area ratio 8 and R2/R1=2. Which R2/R3 now gives a near-zero room-temperature slope?",
+          "options": [
+            "5.02",
+            "7.53",
+            "10.05"
+          ],
+          "answer": 1,
+          "explanation": "Use 1.8 mV/°C divided by (k/q)ln(16), about 7.53. Op-amp offset and drift affect the achieved voltage once a real loop replaces the ideal equality."
+        },
+        {
+          "id": "review",
+          "kind": "reflection",
+          "title": "Record your temperature sweep",
+          "instructions": "Compare both current-setting ratios and both trims. Explain how the op amp’s offset changes the sensed voltage and why local slope and full-range curvature deserve separate checks."
+        }
+      ]
+    },
+    {
+      "id": "project-bandgap-banba",
+      "path": "analog-projects",
+      "title": "Banba bandgap reference",
+      "starter": "bandgap-banba",
+      "workspace": "project-bandgap-banba",
+      "bandgap": "banba",
+      "requires": [],
+      "minutes": 30,
+      "summary": "Sum CTAT and PTAT currents and scale the resulting voltage below one volt.",
+      "skills": [
+        "Banba",
+        "bandgap reference",
+        "CTAT",
+        "PTAT",
+        "temperature drift",
+        "current density"
+      ],
+      "doc": "STUDENT_BANDGAPS.md",
+      "steps": [
+        {
+          "id": "currents",
+          "kind": "quiz",
+          "title": "Convert both voltages to currents",
+          "instructions": "With equal sense voltages and matched mirrors, which currents are summed into the output mirror?",
+          "options": [
+            "Vf/R2 and ΔVf/R3",
+            "Vf and ΔVf as unscaled series voltages",
+            "Only the output load current"
+          ],
+          "answer": 0,
+          "explanation": "The loop creates CTAT Vf/R2 and PTAT ΔVf/R3. The output resistor converts their sum to voltage."
+        },
+        {
+          "id": "scale",
+          "kind": "quiz",
+          "title": "Choose a sub-1 V output",
+          "instructions": "The summed current is 12.38 µA. What output voltage results from R4=50 kΩ?",
+          "options": [
+            "1.238 V",
+            "0.619 V",
+            "0.124 V"
+          ],
+          "answer": 1,
+          "explanation": "Vout = I × R4 ≈ 0.619 V. A transistor implementation still needs adequate amplifier, diode and mirror headroom."
+        },
+        {
+          "id": "tune",
+          "kind": "quiz",
+          "title": "Separate output scale from cancellation",
+          "instructions": "Open temperature study. Hold R2/R3 and emitter area ratio fixed and change R4/R2 from 0.50 to 0.40. What changes?",
+          "options": [
+            "The ideal reference voltage and absolute drift scale together",
+            "The PTAT current becomes CTAT",
+            "The first-order cancellation ratio doubles"
+          ],
+          "answer": 0,
+          "explanation": "R4 scales both voltage contributions equally. The cancellation trim depends on the current ratio. Startup, minimum supply, and PSRR require separate circuit tests."
+        },
+        {
+          "id": "review",
+          "kind": "reflection",
+          "title": "Record your temperature sweep",
+          "instructions": "Record the two output scales and the resulting voltages. Explain which transistor and amplifier checks establish minimum supply, and how you would test startup over temperature."
         }
       ]
     }

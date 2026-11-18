@@ -2,7 +2,7 @@
 
 import unittest
 
-from icstudio import student_analog
+from icstudio import student_analog, student_bias
 from icstudio.student_hub import curriculum, evaluate
 from icstudio.student_learning import study_guide
 from icstudio.student_projects import create
@@ -13,7 +13,7 @@ class StudentAnalogProjects(unittest.TestCase):
     def setUp(self):
         self.data = curriculum()
         self.lessons = {lesson['analog_project']: lesson for lesson in self.data['lessons']
-                        if lesson.get('analog_project')}
+                        if lesson.get('analog_project') in ('opamp','tia')}
 
     def test_projects_teach_the_same_complete_process(self):
         self.assertEqual(set(self.lessons), {'opamp', 'tia'})
@@ -63,3 +63,16 @@ class StudentAnalogProjects(unittest.TestCase):
             ], [])
         with self.assertRaisesRegex(ValueError, 'phase_margin'):
             student_analog._limits('opamp_ac', [], [])
+
+    def test_bias_sweep_uses_the_same_edited_reference_and_fixed_clamp(self):
+        p = create('bias-cascode')
+        for kind in ('simple', 'cascode'):
+            point = student_analog._get_bench(p, kind+'_bias')
+            sweep = student_analog._get_bench(p, kind+'_compliance')
+            self.assertEqual(point['bench_cell'], sweep['bench_cell'])
+            self.assertEqual(sweep['analysis']['source'], 'VCLAMP')
+            student_bias.verify_fixture(p, point)
+            fixture = student_analog._cell(p, point['bench_cell'])
+            student_analog._named(fixture, 'VCLAMP')['value'] = '1.2'
+            with self.assertRaisesRegex(ValueError, '1.4 V output clamp'):
+                student_bias.verify_fixture(p, sweep)

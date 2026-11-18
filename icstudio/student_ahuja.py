@@ -10,6 +10,12 @@ TARGET_PM = 60
 GM1, GM2 = .15e-3, 1e-3
 R1, R2, C1, CC = 500e3, 100e3, .2e-12, 2e-12
 MILLER_ZERO_HZ = GM2 / (2 * math.pi * CC)
+FREQUENCIES = tuple(10**(1 + 8*i/800) for i in range(801))
+
+
+def miller_loop(y1, y2, bridge):
+    """Positive DC return ratio with an admittance between the two stages."""
+    return GM1*(GM2 - bridge) / (y1*y2 + bridge*(y1 + y2 + GM2))
 
 
 def response(frequency, load_pf, buffer_mhz):
@@ -22,13 +28,13 @@ def response(frequency, load_pf, buffer_mhz):
     """
     s = 2j * math.pi * frequency
     cl = load_pf * 1e-12
-    y2 = 1/R2 + s*(cl + CC)
+    y2 = 1/R2 + s*cl
     y1 = 1/R1 + s*C1
     copy = 1 / (1 + s/(2*math.pi*buffer_mhz*1e6))
     cc = s*CC
-    direct = GM1*(GM2 - cc) / ((y1 + cc)*y2 + cc*(GM2 - cc))
-    ideal = GM1*GM2 / (y1*y2 + cc*GM2)
-    finite = GM1*GM2 / (y1*y2 + cc*GM2*copy)
+    direct = miller_loop(y1, y2, cc)
+    ideal = GM1*GM2 / (y1*(y2 + cc) + cc*GM2)
+    finite = GM1*GM2 / (y1*(y2 + cc) + cc*GM2*copy)
     return direct, ideal, finite
 
 
@@ -51,15 +57,15 @@ def unity(xs, gains, phases):
     raise ValueError('The swept frequency range does not include a falling 0 dB crossing.')
 
 
+def loop_readout(values):
+    dbs = [gain_db(value) for value in values]
+    phases = unwrap(values)
+    freq, margin = unity(FREQUENCIES, dbs, phases)
+    return dict(gain=dbs, phase=phases, unity_Hz=freq, phase_margin_deg=margin)
+
+
 def study(load_pf, buffer_mhz):
     if not 1 <= load_pf <= 100 or not 5 <= buffer_mhz <= 500:
         raise ValueError('Choose a load of 1–100 pF and a buffer pole of 5–500 MHz.')
-    xs = [10**(1 + 8*i/800) for i in range(801)]
-    data = {}
-    responses = zip(*(response(freq, load_pf, buffer_mhz) for freq in xs))
-    for label, values in zip(LABELS, responses, strict=True):
-        dbs = [gain_db(value) for value in values]
-        phases = unwrap(values)
-        freq, margin = unity(xs, dbs, phases)
-        data[label] = dict(gain=dbs, phase=phases, unity_Hz=freq, phase_margin_deg=margin)
-    return xs, data
+    responses = zip(*(response(freq, load_pf, buffer_mhz) for freq in FREQUENCIES))
+    return list(FREQUENCIES), {name: loop_readout(values) for name, values in zip(LABELS, responses, strict=True)}
