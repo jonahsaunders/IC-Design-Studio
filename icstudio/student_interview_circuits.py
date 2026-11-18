@@ -2,8 +2,8 @@
 
 from .catalog import create_device, link_technology
 from .components import configure_component
-from .model import clone, device, example, uid, validate
-from .student_analog import _cell, _get_bench, _named, bundled_technology
+from .model import device, example, uid, validate
+from .student_analog import _cell, bundled_technology
 from .testbenches import create as save_bench
 
 

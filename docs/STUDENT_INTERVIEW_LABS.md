@@ -39,6 +39,10 @@ when gain collapses at low common mode.
 
 Run both 1.8 V fixtures. Measured usable range requires tail current within
 20% of its value at 0.70 V and at least 70% of the differential gain there.
+The saved NMOS case covers 0.62 V through the 1.80 V sweep endpoint.
+The PMOS case covers 0–0.78 V. The tail currents at 0.70 V are 2.66
+and 2.62 µA. To try another bias, edit VBIAS in the corresponding
+`nmos_common_mode_fixture` or `pmos_common_mode_fixture`.
 Compare the measured ranges against a sensor's specified input common mode.
 If you compare gain, noise, or speed, first measure current and pick a fair
 bias condition. Consider body effect, device area, source impedance and
@@ -79,6 +83,12 @@ The displayed DC tracking error lets you apply a separate absolute
 accuracy requirement to the commanded voltage. A good phase margin can
 coexist with a large-signal slew limit or a DC error that exceeds the band.
 [Texas Instruments op-amp specifications](https://www.ti.com/lit/an/sloa011b/sloa011b.pdf)
+
+With 2 pF, the 500 mV falling step takes about 141 ns between its 10%
+and 90% levels. With 8 pF it takes about 384 ns. The rising transition
+changes little in that comparison, while its 2% settling increases from
+204 ns to 308 ns. Use the asymmetry to discuss which circuit node or
+current may be limiting each part of the response.
 
 ## Noise budgeting
 
@@ -164,3 +174,11 @@ measurement. Draw the current path or reduced model and write the one
 equation that predicts the direction of the change. Use two measured
 values to explain how you separated possible causes. Finish with a
 tradeoff and the next measurement that would test your conclusion.
+
+Run the same saved experiments and checkpoints from a source checkout:
+
+```sh
+python scripts/verify_student_interview_labs.py --out build/interview-labs --ngspice /path/to/ngspice
+```
+
+[Measured reference results](validation/student-interview-labs-2026-11-18.json)

@@ -1,5 +1,34 @@
 # Chunks 1–12: progress and forecast
 
+## Student Hub analog interview labs
+
+**November 18, 2026.** Sources `85bffbebac35dfed6318f435739e9a4646a67f43`
+and `7593f994600bd7626d2de62f25d8f2e382ef6aab` add ten
+[analog interview labs](STUDENT_INTERVIEW_LABS.md). All 12 measured
+checkpoints passed through the normal worker and grading path. The 31 jobs
+include 128 seeded teaching mismatch trials, transistor-level SKY130
+ngspice measurements, measured SAR capacitor trim, and the interconnect
+timing diagnosis and repair.
+
+- At 0.70 V common mode the NMOS and PMOS pairs drew 2.66 and 2.62 µA.
+  Their usable ranges were 0.62 V through the 1.80 V sweep endpoint and
+  0–0.78 V, respectively, under the saved current and gain criteria.
+- Raising the output load from 2 pF to 8 pF increased the follower's
+  large falling transition from 141 to 384 ns. The rising 2% settling
+  time increased from 204 to 308 ns.
+- The nominal comparator delay was 0.776 ns at 3 mV overdrive and
+  0.507 ns at 40 mV. The sampler's defective MSB step rose from 0.715
+  to 0.797 V after repair, changing the estimated 0.76 V code from 8
+  to 7. The interconnect repair kept the 39.5 ps schematic result
+  and reduced modeled extracted settling from 51.75 to 49.25 ps.
+
+Ubuntu passed all 34 focused tests. Windows passed 29 with five
+external-engine skips. Both passed 19 Student Hub desktop checks and
+release-material validation. The results show teaching-model and selected
+fixture behavior. The PDK mismatch and full layout extraction requirements
+are separate from these exercises.
+[Measurements, source identities and result hashes](validation/student-interview-labs-2026-11-18.json)
+
 ## Student Hub transistor-level bandgap labs
 
 **November 18, 2026.** Source `e8622d40e98ffe05cf8fc6e7253801deeb1e9397`

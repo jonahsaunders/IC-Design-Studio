@@ -1,0 +1,325 @@
+{
+  "scope": "SKY130 ngspice and built-in teaching experiments, revision-bound Student Hub checkpoints",
+  "lessons_passed": 10,
+  "checkpoints_passed": 12,
+  "worker_runs": 31,
+  "lessons": {
+    "interview-mismatch": {
+      "mismatch": {
+        "status": "passed",
+        "metrics": {
+          "small": {
+            "Input-referred systematic shift (mV)": 4.366843210436632,
+            "Sample mean input-referred error (mV)": 4.240304766240838,
+            "Sample input-referred sigma (mV)": 3.9151717585095698,
+            "Within ±8 mV (of 64)": 53
+          },
+          "large": {
+            "Input-referred systematic shift (mV)": 4.366843210436632,
+            "Sample mean input-referred error (mV)": 4.303584091713751,
+            "Sample input-referred sigma (mV)": 1.95763412728002,
+            "Within ±8 mV (of 64)": 63
+          }
+        },
+        "worker_results": {
+          "small_dc": "67ccb0366c1af6ebfa302580fa775094d96a259b6e0de82bec381af2d0f28212",
+          "small_trials": "f27e2fe5d38a53c8935f8b5c30297be8250b5815c809bfeacffc255c0a031d48",
+          "large_dc": "68c096926c087bd8944c5827c5297cf620ac5942e762d9aad6401ea9aaa46529",
+          "large_trials": "81e3af45234196fd6c1f3b41cffdba92716626cbbcb6f78b49f85e8e371f531b"
+        },
+        "source_commit": "85bffbebac35dfed6318f435739e9a4646a67f43"
+      }
+    },
+    "interview-noise": {
+      "noise": {
+        "status": "passed",
+        "metrics": {
+          "low_source_resistance": {
+            "Source resistor alone (nV/√Hz)": 4.07137223721929,
+            "Integrated input noise (µV RMS)": 59.129130645881915,
+            "Integrated output noise (µV RMS)": 59.218271133552726
+          },
+          "high_source_resistance": {
+            "Source resistor alone (nV/√Hz)": 40.7137223721929,
+            "Integrated input noise (µV RMS)": 71.7145906094576,
+            "Integrated output noise (µV RMS)": 71.86743480322374
+          }
+        },
+        "worker_results": {
+          "low_source_resistance": "c427552f982c150de3c28c101a0870a27cd7592c7c2f3677cfb365edc39fc91b",
+          "high_source_resistance": "abfb64be41cf724c6e35b61effc8f4eeb9b5a06d677c20c9ef0e9133705dc1af"
+        },
+        "source_commit": "85bffbebac35dfed6318f435739e9a4646a67f43"
+      }
+    },
+    "interview-input-pairs": {
+      "input-pairs": {
+        "status": "passed",
+        "metrics": {
+          "NMOS": {
+            "Lower input limit (V)": 0.6200000000000003,
+            "Upper input limit (V)": 1.800000000000001,
+            "Tail current at 0.70 V (µA)": 2.6623525884857253,
+            "Differential gain at 0.70 V (V/V)": 0.9373798962653002
+          },
+          "PMOS": {
+            "Lower input limit (V)": 0.0,
+            "Upper input limit (V)": 0.7800000000000005,
+            "Tail current at 0.70 V (µA)": 2.6201260422733887,
+            "Differential gain at 0.70 V (V/V)": 0.7308628220373987
+          }
+        },
+        "worker_results": {
+          "nmos_common_mode": "075c65a2b9c68adc2e3afd960ef88fef9a6d8ebac6df777c7f7782048eb4c93b",
+          "pmos_common_mode": "251e39f9c1786f83c6476630dff5f2efb3b2f205b8f59dd8988a12428c229b36"
+        },
+        "source_commit": "7593f994600bd7626d2de62f25d8f2e382ef6aab"
+      }
+    },
+    "interview-differential": {
+      "differential": {
+        "status": "passed",
+        "metrics": {
+          "Differential sweep": {
+            "Left share at −240 mV (%)": 0.2597491672062199,
+            "Left share at +240 mV (%)": 99.7658810158807,
+            "Left share at 0 V (%)": 49.999999999999886
+          },
+          "Common-mode sweep": {
+            "Lower input limit (V)": 0.6400000000000003,
+            "Upper input limit (V)": 1.800000000000001,
+            "Tail current at 0.90 V (µA)": 2.8585719258691564,
+            "Differential gain at 0.90 V (V/V)": 1.0143567146233101
+          }
+        },
+        "worker_results": {
+          "differential_sweep": "400dff359dd374fc9fc6edbd71376595c4e16fe5cda70f1b8d18febef817b2fa",
+          "common_mode_sweep": "32196c95198688f73ebb3c56be65e32b0a062275709f558863677daed06d4b69"
+        },
+        "source_commit": "85bffbebac35dfed6318f435739e9a4646a67f43"
+      }
+    },
+    "interview-comparator": {
+      "comparator": {
+        "status": "passed",
+        "metrics": {
+          "small_overdrive": {
+            "Decision delay (ns)": 0.7758430154497182,
+            "Peak input kickback (mV)": 56.371862504299486,
+            "Final output difference (V)": 1.7999994867102842
+          },
+          "large_overdrive": {
+            "Decision delay (ns)": 0.5068248026730668,
+            "Peak input kickback (mV)": 59.053897218250164,
+            "Final output difference (V)": 1.7999995015168424
+          }
+        },
+        "worker_results": {
+          "small_overdrive": "c179c7a05791b6138b42a26efd79100a6611e30bd06b9804d98e8f28fe13d956",
+          "large_overdrive": "29d537575f872cbe9b23e54db10636646f3819bd256a5e85d39cf58b580ba8cf"
+        },
+        "source_commit": "85bffbebac35dfed6318f435739e9a4646a67f43"
+      }
+    },
+    "interview-post-layout-debug": {
+      "route-baseline": {
+        "status": "passed",
+        "metrics": {
+          "before": {
+            "2% settling (ps)": 39.5
+          },
+          "after": {
+            "2% settling (ps)": 51.74999999999999,
+            "Extracted route resistance (Ω)": 226.65,
+            "Added capacitance (fF)": 0.9066000000000002
+          }
+        },
+        "worker_results": {
+          "route_comparison": "6a842dd60c4eab84654be0668a9c7413ac7b34a78bf65e862d28119edc46ad0f"
+        },
+        "source_commit": "85bffbebac35dfed6318f435739e9a4646a67f43"
+      },
+      "route-repair": {
+        "status": "passed",
+        "metrics": {
+          "before": {
+            "2% settling (ps)": 39.5
+          },
+          "after": {
+            "2% settling (ps)": 49.25000000000001,
+            "Extracted route resistance (Ω)": 113.325,
+            "Added capacitance (fF)": 1.3599
+          }
+        },
+        "worker_results": {
+          "route_comparison": "e3a1f7fff2008fcfe5332b4f558056a11cde03e1c55c1a8eb68b4e8fc1ba5fe3"
+        },
+        "source_commit": "85bffbebac35dfed6318f435739e9a4646a67f43"
+      }
+    },
+    "interview-gain": {
+      "gain": {
+        "status": "passed",
+        "metrics": {
+          "Drain at 0.08 V": {
+            "gm (µS)": 129.63530957588176,
+            "ro (kΩ)": 36.163044249147454,
+            "Intrinsic gain (V/V)": 4.688007436444541,
+            "Gain magnitude with 50 kΩ load (V/V)": 2.720428158787418
+          },
+          "Drain at 0.80 V": {
+            "gm (µS)": 178.42427180170253,
+            "ro (kΩ)": 673.9720559529288,
+            "Intrinsic gain (V/V)": 120.25297329809764,
+            "Gain magnitude with 50 kΩ load (V/V)": 8.305083898563913
+          }
+        },
+        "worker_results": {
+          "drain_nominal": "d44eafb500475507d349d0829043d865ce0884d1ac6b0494e39b1f90067660d9",
+          "drain_gate_low": "1766150b6de14cedc2ae582afb282d4e8cd257d64f09f30dac0c45a351caa1f0",
+          "drain_gate_high": "f0e5e0d87804ec2cc7b9d29a16068d05eaae000923435f5291214335d5ec8a74"
+        },
+        "source_commit": "85bffbebac35dfed6318f435739e9a4646a67f43"
+      }
+    },
+    "interview-slew": {
+      "slew": {
+        "status": "passed",
+        "metrics": {
+          "small_step": {
+            "10–90% transition (ns)": 30.888639328225658,
+            "10–90% slope (V/µs)": 0.5186612769784006,
+            "2% settling (ns)": 122.03999999999714,
+            "Final DC error (mV)": -1.1527314716577308
+          },
+          "large_step": {
+            "10–90% transition (ns)": 142.73056261513568,
+            "10–90% slope (V/µs)": 2.80981461630848,
+            "2% settling (ns)": 204.47392110780027,
+            "Final DC error (mV)": -1.9166008352367037
+          },
+          "heavy_load_step": {
+            "10–90% transition (ns)": 143.88759100007707,
+            "10–90% slope (V/µs)": 2.787220342126465,
+            "2% settling (ns)": 308.4451330808802,
+            "Final DC error (mV)": -1.9166003150614674
+          },
+          "falling_step": {
+            "10–90% transition (ns)": 140.86496668344628,
+            "10–90% slope (V/µs)": -2.8470274056212768,
+            "2% settling (ns)": 286.0399999999921,
+            "Final DC error (mV)": -0.6085744369715984
+          },
+          "heavy_load_fall": {
+            "10–90% transition (ns)": 383.6341022960739,
+            "10–90% slope (V/µs)": -1.045387826748072,
+            "2% settling (ns)": 1326.0399999999602,
+            "Final DC error (mV)": -0.6085746479718157
+          }
+        },
+        "worker_results": {
+          "small_step": "ef0c969de73de5fc062660b6dae5e2807058bc9defd359c911121794f16b7942",
+          "large_step": "5870c730534122a85babcfe2b0a0172152d225eaa42058e04b9732d3e30102d3",
+          "heavy_load_step": "a8bd0f2160a662d66194522ef9a1e1ee4e9ab9fd98e434993533085dc8f76344",
+          "falling_step": "3e0ef3d278faba2284e0d0baad0ff7646a3fde2a9b389aeb8d9205672076a2ce",
+          "heavy_load_fall": "1c686f2eb523ff387b22b40a95176f11e14dd92aa517e8041ccc6403a5db8de0"
+        },
+        "source_commit": "7593f994600bd7626d2de62f25d8f2e382ef6aab"
+      }
+    },
+    "interview-sar": {
+      "sar-fault": {
+        "status": "passed",
+        "metrics": {
+          "slow_acquisition": {
+            "Acquisition error (mV)": 326.65113719685945,
+            "Hold pedestal (mV)": -0.09635630375381954,
+            "MSB step (V)": 0.7148134523030361,
+            "Sampled kT/C noise (µV RMS)": 53.4597365313373,
+            "Estimated code at 0.76 V": 8
+          },
+          "fast_acquisition": {
+            "Acquisition error (mV)": 0.7506403745621837,
+            "Hold pedestal (mV)": -0.37034044288641876,
+            "MSB step (V)": 0.7147355765619946,
+            "Sampled kT/C noise (µV RMS)": 53.4597365313373,
+            "Estimated code at 0.76 V": 8
+          }
+        },
+        "worker_results": {
+          "slow_acquisition": "43c9c4d837324d518b88effb0dcf8c7ffeefb2be9a1a94f7d133638d0b416914",
+          "fast_acquisition": "9163d003bc066eb4a32e833e2cd1db8baa18670674b4bcd2d01561e2e77fa02e"
+        },
+        "source_commit": "85bffbebac35dfed6318f435739e9a4646a67f43"
+      },
+      "sar-repair": {
+        "status": "passed",
+        "metrics": {
+          "slow_acquisition": {
+            "Acquisition error (mV)": 348.1542639835015,
+            "Hold pedestal (mV)": -0.06592547406003568,
+            "MSB step (V)": 0.7975393394155343,
+            "Sampled kT/C noise (µV RMS)": 50.89215296524112,
+            "Estimated code at 0.76 V": 7
+          },
+          "fast_acquisition": {
+            "Acquisition error (mV)": 1.2177940898592254,
+            "Hold pedestal (mV)": -0.3272909888560882,
+            "MSB step (V)": 0.797448034450628,
+            "Sampled kT/C noise (µV RMS)": 50.89215296524112,
+            "Estimated code at 0.76 V": 7
+          }
+        },
+        "worker_results": {
+          "slow_acquisition": "52e7b7bc987f5581509cf926372526ebdc1891cf85adb6d71772eaeb2ba29bdf",
+          "fast_acquisition": "1e0699d29327555ae2d8e698a89b73722f167fa8de481b9e96691eede5b96cab"
+        },
+        "source_commit": "85bffbebac35dfed6318f435739e9a4646a67f43"
+      }
+    },
+    "interview-ldo": {
+      "ldo": {
+        "status": "passed",
+        "metrics": {
+          "dropout_sweep": {
+            "First in regulation supply (V)": 1.45,
+            "Headroom at that point (mV)": 271.804894455699,
+            "Final regulated output (V)": 1.19845636630318
+          },
+          "load_step": {
+            "Maximum deviation (mV)": 527.6155624902248,
+            "Peak output (V)": 1.697618384692569,
+            "Final output (V)": 0.785149801801589,
+            "Return to 2% band (µs)": null
+          },
+          "capacitor_esr": {
+            "Maximum deviation (mV)": 57.77479808408903,
+            "Peak output (V)": 1.231752848836958,
+            "Final output (V)": 1.198443970728461,
+            "Return to 2% band (µs)": 0.34115999999999785
+          },
+          "supply_step": {
+            "Maximum deviation (mV)": 3.617441541242883,
+            "Peak output (V)": 1.198499107840867,
+            "Final output (V)": 1.197895381058395,
+            "Return to 2% band (µs)": 0.0
+          },
+          "supply_startup": {
+            "Maximum deviation (mV)": 1200.9572014888072,
+            "Peak output (V)": 1.653476672925167,
+            "Final output (V)": 1.198448185042562,
+            "Return to 2% band (µs)": 4.529260001896346
+          }
+        },
+        "worker_results": {
+          "dropout_sweep": "6ac7b878699eb3ac8556f6f85639c810d681225bab9ca45084bbd5f7446d8141",
+          "load_step": "15d7814394155abf1fd7e2d25d0bfab582ffd5ea3367febe02044d4078fab647",
+          "capacitor_esr": "910f771fb0f047ce18bcfb6b4867501b421b77b73044ce6389ca315d3f1b4685",
+          "supply_step": "d9e9400c5445cca01a574422ae02771911ce4411e4c77610f0da32456a69e9eb",
+          "supply_startup": "cf6bc35e8b71cdb098577132edde45556fccf235b0fa29240d3edec6478bcb48"
+        },
+        "source_commit": "85bffbebac35dfed6318f435739e9a4646a67f43"
+      }
+    }
+  }
+}
