@@ -1,5 +1,37 @@
 # Chunks 1–12: progress and forecast
 
+## Student Hub Miller, cascode bias, and bandgap lessons
+
+**November 18, 2026.** Lesson source
+`3e0014310b805712ccfdf9e14de45b0d3af1e9be`, desktop table polish
+`c74ac1367ea2e3cfc040e115176846010bdc894c`, and saved-current plot labels
+`a212d2fa8166fae018a9ca9e4ba739f6b73b00d2`.
+
+- [Miller compensation](STUDENT_MILLER.md) derives effective input
+  capacitance, pole splitting, the compensation zero, and phase margin.
+  Independent ngspice circuits with a physical series RC branch matched
+  the complex two-node model at eight component settings and 801
+  frequencies per setting, with maximum relative error of about 3e−13.
+- [Current reference and cascode](STUDENT_BIAS_CASCODE.md) use 1.8 V
+  SKY130A transistor models. The lesson worker captured 5.34 and 5.46 µA
+  near the nominal clamp, with output resistance rising from 2.21 to
+  395 MΩ. The measured 5% flatness knees were 0.85 and 0.25 V, while
+  the estimated saturation floors were 0.074 and 0.694 V. All nine
+  cascode cases met the exercise limits, with 4.05–6.70 µA output and
+  at least 475 mV of stack margin. Changing RSET rejected the old evidence.
+- [Widlar, Brokaw, Kuijk, and Banba](STUDENT_BANDGAPS.md) each have their
+  own workspace, calculation, adjustable temperature study, and
+  reflection. All four nominal summation schematics matched their
+  equations within 1 µV. The lessons use first-order ratio equations and
+  an explicit junction-curvature model.
+
+Ubuntu passed all 27 focused tests. Windows passed 22 with five external
+engine skips. Both hosts passed the 18 Student Hub desktop checks and
+release-material checks. Windows also passed the saved-run inspection
+check for current units. The desktop checks use Qt offscreen. The [GF180
+historical source manifest](validation/student-frequency-retained-source-2026-11-18/chunk4-manifest.json)
+retains the original saved-run inspector bytes for the earlier acceptance.
+
 ## Student Hub layout, LC filters, and Ahuja compensation
 
 **November 18, 2026.** Source `7b4f7e7d88bebbee360f22340cc4efc451dbbf5b`

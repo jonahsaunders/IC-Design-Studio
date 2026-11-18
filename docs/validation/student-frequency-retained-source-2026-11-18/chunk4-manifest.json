@@ -335,6 +335,10 @@
     "plot.py": {
       "path": "docs/validation/student-frequency-retained-source-2026-11-18/plot.py.txt",
       "sha256": "952187010cd6389e9e04f54d414651273461a746e28ff7bd5cfe7afc9edd63fc"
+    },
+    "analog_run_ui.py": {
+      "path": "docs/validation/student-frequency-retained-source-2026-11-18/analog_run_ui.py.txt",
+      "sha256": "ee729e38ea447c318f72013485271398cdb02e395d2ff375eb880ed65809528c"
     }
   },
   "explanation": "Preserve the exact historical saved-testbench implementation before the CMIM LVS and capacitance-graph repair. This retains historical reference scope only; no new full GF180/IHP production qualification is inferred.",
@@ -462,6 +466,12 @@
     "added_files": [
       "job_store.py",
       "student_hub_ui.py"
+    ]
+  },
+  "student_bias_retention": {
+    "captured_from_commit": "7aeb5f06ab84eaf2d9cd4fa25b1b7f98cae2a00e",
+    "added_files": [
+      "analog_run_ui.py"
     ]
   }
 }
