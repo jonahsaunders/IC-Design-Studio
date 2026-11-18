@@ -371,6 +371,76 @@
       "try_next": "Try R4/R2 = 0.40 and 0.50 at one trim. Then read the GF180 Banba-style sample’s startup and supply tests.",
       "interview": "How does doing the summation in current help low-voltage design, and what limits the minimum supply in a real circuit?",
       "artifact": "A trimmed GF180 transistor schematic, startup matrix, routed layout, and an evidence-backed schematic-to-extracted comparison."
+    },
+    "interview-differential": {
+      "concept": "Separate current steering from common-mode headroom in a SKY130 differential pair.",
+      "worked_example": "Define differential input as VP − VN and common mode as (VP + VN)/2. With matched input devices, 0 V differential input splits the tail current evenly. At small differential input, ΔI ≈ gm × vid, with gm taken at the quiescent branch current. A positive gate step pulls that branch’s resistive drain lower.",
+      "try_next": "Run the two sweeps. In the differential sweep VDIFF moves INP while INN is held at 0.90 V, so common mode also moves by half the input excursion. Read left-current share at both ends and at zero. In the common-mode sweep, VDIFF and VOFF keep INP−INN at 10 mV. Use the marked usable interval. At its low end compare V(TAIL) against the tail device’s required VDS.",
+      "interview": "The amplifier loses gain as both inputs move down together while their difference remains 10 mV. What node and device would you check first?",
+      "artifact": "A prediction, a measured comparison, and a short design explanation."
+    },
+    "interview-input-pairs": {
+      "concept": "Compare complementary input stages by tracing real common-mode and drain headroom, then choose a polarity for a source.",
+      "worked_example": "For a bottom NMOS tail, a starting lower limit is VSS + VGS,input + VDSsat,tail. For a top PMOS tail, a starting upper limit is VDD − |VSG,input| − |VSDsat,tail|. Check the other edge at the drains. Test the actual topology if the loads, bias circuit, or body connections change.",
+      "try_next": "Run both common-mode sweeps. Each has a 10 mV input difference and a 1.8 V supply. The usable range keeps total current within 20% and differential gain above 70% of their values at 0.80 V. Compare both measured currents at 0.80 V before comparing gain or noise. Start with the saved pair sizes and bias, then trim VBIAS if you want a current-matched comparison. Make a polarity choice for a sensor whose common mode sits near ground and one that sits near VDD. Check the measured range against each actual sensor requirement.",
+      "interview": "How would you choose an input pair for a sensor that moves from near VSS to near VDD?",
+      "artifact": "A prediction, a measured comparison, and a short design explanation."
+    },
+    "interview-gain": {
+      "concept": "Use three SKY130 drain sweeps to measure why gain collapses when the output transistor runs out of headroom.",
+      "worked_example": "Estimate gm from two gate voltages at the same drain bias, and gds from two drain voltages at the same gate bias. Then ro = 1/gds, |Av,intrinsic| ≈ gm/gds, and a resistively loaded common-source stage has Av ≈ −gm(ro || RD). Use a local derivative around each operating point.",
+      "try_next": "Keep VG at 0.64, 0.65 and 0.66 V in the three benches. Run the drain sweeps and plot I(VD). ngspice uses the voltage-source convention, so the drain current magnitude is −I(VD). Compare the computed gm, ro and gain at VDS = 0.08 V and 0.80 V. Use the 50 kΩ load estimate to explain why intrinsic gain alone overstates actual stage gain.",
+      "interview": "You need more gain at the same supply. How would you decide between a longer channel, more current, and a cascode?",
+      "artifact": "A prediction, a measured comparison, and a short design explanation."
+    },
+    "interview-slew": {
+      "concept": "Use one SKY130 follower to separate linear settling, current-limited motion, and DC tracking error.",
+      "worked_example": "Charging 8 pF with 8 µA moves the output at about 1 V/µs since I = C dV/dt. For precision settling, start the clock at the input edge. Use the last exit from the tolerance band and include any ringing. This experiment reports dynamic settling around the measured final output and gives command tracking error separately.",
+      "try_next": "Compare a 20 mV step on 2 pF with a 500 mV step on 2 pF, then put the same 500 mV step on 8 pF. The edge begins at 2 µs. Look at the 10–90% slope, where the output first looks linear in time, and how long it takes to enter and stay within 2% of its final excursion. Compare the final DC error to a 2% band referenced to the command as well.",
+      "interview": "An op amp with good phase margin misses an ADC’s large-step settlement deadline. How would you use two step amplitudes and two load values to isolate the cause?",
+      "artifact": "A prediction, a measured comparison, and a short design explanation."
+    },
+    "interview-noise": {
+      "concept": "Measure how source resistance and device noise combine in a real amplifier over a declared bandwidth.",
+      "worked_example": "An ideal resistor’s one-sided open-circuit voltage density is sqrt(4kTR). At about 300 K, 1 kΩ gives about 4.1 nV/√Hz and 100 kΩ gives about 40.7 nV/√Hz. Square a noise-density trace before integration. Independent noise powers add, and each source sees its own transfer function.",
+      "try_next": "Run the 1 kΩ and 100 kΩ source fixtures from 10 Hz to 1 MHz. Compare integrated input-referred and output noise, the low-frequency slope, and contributor names in Results. Change the source resistance as a follow-up and check where the dominant mechanism changes. Identify how a wider input device might affect flicker noise, source loading, and bandwidth together.",
+      "interview": "Your source resistance went up by 100×. Explain why resistor noise voltage density goes up by 10× and why total system RMS need not do the same.",
+      "artifact": "A prediction, a measured comparison, and a short design explanation."
+    },
+    "interview-mismatch": {
+      "concept": "Separate a systematic load error from sampled threshold mismatch before choosing a yield improvement.",
+      "worked_example": "The two teaching pairs have the same W/L. The larger pair has four times the gate area. For the declared threshold model σ(VTH)=4 mV·µm/√(WL), area alone halves standard deviation. Both circuits retain unequal loads to create a deterministic output error.",
+      "try_next": "Run 64 seeded trials per area. Compare the two histograms, sample mean, standard deviation and samples passing ±8 mV input-referred offset. RL starts at 15.3 kΩ and RR at 15 kΩ. Match RL to RR in both cells as a follow-up and repeat the same seed. The teaching solver varies the stated threshold parameter, keeping the nominal schematic and mismatch distribution separate.",
+      "interview": "The typical design meets spec but samples fail near one side of a symmetric offset limit. What measurements separate mean shift, random spread, and global process movement?",
+      "artifact": "A prediction, a measured comparison, and a short design explanation."
+    },
+    "interview-comparator": {
+      "concept": "Trace reset, current steering, and regeneration in a transistor-level clocked comparator.",
+      "worked_example": "The reset transistors precharge the latch. After the clock edge, unequal input currents create a small difference. Positive feedback amplifies it. For a local exponential approximation, decision time contains τ ln(Vdecision/Vinitial), so a smaller initial imbalance costs time.",
+      "try_next": "Compare 3 mV and 40 mV input overdrive at 0.90 V common mode. Read the time from the clock edge at 20 ns to OUTN−OUTP reaching 0.9 V. Then select INP or INN and inspect its disturbance relative to the corresponding ideal source. Try changing RP and RN together as a follow-up and explain the difference between source disturbance and decision delay.",
+      "interview": "The latch works with an ideal source but corrupts an ADC with a high-impedance source. Where does the disturbance come from and how would you test a fix?",
+      "artifact": "A prediction, a measured comparison, and a short design explanation."
+    },
+    "interview-sar": {
+      "concept": "Measure acquisition error and a real switch pedestal, then repair an incorrect SAR MSB capacitor.",
+      "worked_example": "The initial capacitors sum to 1.45 pF, including the dummy. An ideal 800 fF MSB out of 1.60 pF gives a 0.80 V trial step for a 1.60 V reference. The deliberate 650 fF fault lowers that threshold. The teaching code uses the measured MSB step and calculated smaller capacitor steps.",
+      "try_next": "The switches track the input until 50 ns, then hold it. At 75 ns the MSB bottom plate steps by 1.6 V. Compare the fast and slow drivers, the hold pedestal, the estimated kT/C noise and the measured MSB step. A high-resolution noise-budget example allows 60 µV RMS at 300 K, which requires about 1.15 pF. This four-bit capacitor fixture is used to show how a bit-weight error moves a decision threshold.",
+      "interview": "A SAR produces an early transition into the upper half of its codes. How do you separate an MSB-weight error from a slow input driver or switch pedestal?",
+      "artifact": "A prediction, a measured comparison, and a short design explanation."
+    },
+    "interview-ldo": {
+      "concept": "Use a SKY130 PMOS pass transistor and error amplifier to distinguish headroom limits from a ringing loop.",
+      "worked_example": "With a 0.90 V reference, RUP = 20 kΩ and RDN = 60 kΩ give 1.20 V from Vref(1+RUP/RDN). Immediately after the load increases, the output capacitor initially supplies the deficit. The ESR also gives a resistive step of approximately ΔI × ESR.",
+      "try_next": "Run the dropout, load-step, ESR, supply-step and power-on fixtures. Compare the two 25-to-100 µA load steps at 120 pF. Only the ESR changes. Find when the output stops ringing and remains within 2% of 1.20 V. Compare the lower supply limit with startup and line-step results. The external reference and amplifier bias are supplied by the fixture, so the ramp isolates regulator behavior.",
+      "interview": "A load step rings at high supply, and the same circuit has low output near minimum supply. How would you tell which failure is a stability problem and which is dropout?",
+      "artifact": "A prediction, a measured comparison, and a short design explanation."
+    },
+    "interview-post-layout-debug": {
+      "concept": "Find a layout parasitic that pushes a passing schematic past its settling deadline, then repair and rerun.",
+      "worked_example": "A first-order response reaches 2% error after ln(50)τ, or about 3.91τ. The schematic predicts about 39.5 ps in this fixture. Extracting the narrow route adds both series resistance and distributed capacitance. A wider route reduces resistance while increasing capacitance to its surroundings.",
+      "try_next": "Compare the same 0-to-1.8 V step on the schematic and extracted interconnect. The 2% settling target is 50 ps from the edge. Keep the circuit components fixed and change only the output route geometry. Read the added resistance and capacitance to explain the change.",
+      "interview": "The 0.20 µm route fails. Why might widening the route to 0.40 µm pass while widening it again to 0.80 µm misses the target?",
+      "artifact": "A prediction, a measured comparison, and a short design explanation."
     }
   },
   "references": [

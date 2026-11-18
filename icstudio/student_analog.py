@@ -173,6 +173,9 @@ def _get_bench(project, name):
 
 
 def run_names(kind, step):
+    if kind == 'interview':
+        from .student_interview import run_names as interview_runs
+        return interview_runs(step)
     if kind == 'bandgap':
         from .student_bandgap_lab import STAGES
         return (STAGES[step],) if step in STAGES else ()
@@ -188,6 +191,9 @@ def run_names(kind, step):
 
 
 def focus_cell(project, kind, step):
+    if kind == 'interview':
+        from .student_interview import focus
+        return focus(project, step)
     if kind == 'bandgap':
         from .student_bandgap_lab import focus
         return focus(project, step)
@@ -201,6 +207,9 @@ def focus_cell(project, kind, step):
 
 
 def prepare(project, kind, step, tools):
+    if kind == 'interview':
+        from .student_interview import prepare as prepare_interview
+        return prepare_interview(project, step, tools)
     if kind == 'bandgap':
         from .student_bandgap_lab import prepare as prepare_bandgap
         return prepare_bandgap(project, step, tools)
@@ -325,6 +334,9 @@ def _limits(name, specs, measures):
 
 
 def check(project, kind, step, rows):
+    if kind == 'interview':
+        from .student_interview import check as check_interview
+        return check_interview(project, step, rows)
     if kind == 'bandgap':
         from .student_bandgap_lab import check as check_bandgap
         return check_bandgap(project, step, rows)

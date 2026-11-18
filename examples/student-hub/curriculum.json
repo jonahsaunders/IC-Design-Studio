@@ -3807,6 +3807,523 @@
         }
       ],
       "analog_project": "bandgap"
+    },
+    {
+      "id": "interview-differential",
+      "path": "analog-projects",
+      "title": "Differential pairs and common-mode range",
+      "starter": "interview-differential",
+      "workspace": "interview-differential",
+      "analog_project": "interview",
+      "requires": [],
+      "minutes": 40,
+      "summary": "Separate current steering from common-mode headroom in a SKY130 differential pair.",
+      "skills": [
+        "current steering",
+        "common mode",
+        "tail current",
+        "differential pair",
+        "interview practice"
+      ],
+      "doc": "STUDENT_INTERVIEW_LABS.md",
+      "steps": [
+        {
+          "id": "predict",
+          "kind": "quiz",
+          "title": "Predict the current steering",
+          "instructions": "With a small positive INP−INN, which drain moves down first?",
+          "options": [
+            "The drain on the INP branch",
+            "The drain on the INN branch",
+            "Both move down by the same amount"
+          ],
+          "answer": 0,
+          "explanation": "Higher gate voltage initially steers more tail current into the INP device. More drop across its load resistor pulls its drain down."
+        },
+        {
+          "id": "differential",
+          "kind": "check",
+          "title": "Run the experiment and read the evidence",
+          "instructions": "Run the two sweeps. In the differential sweep VDIFF moves INP while INN is held at 0.90 V, so common mode also moves by half the input excursion. Read left-current share at both ends and at zero. In the common-mode sweep, VDIFF and VOFF keep INP−INN at 10 mV. Use the marked usable interval. At its low end compare V(TAIL) against the tail device’s required VDS.",
+          "rule": {
+            "type": "analog_project"
+          }
+        },
+        {
+          "id": "review",
+          "kind": "reflection",
+          "title": "Explain it at the whiteboard",
+          "instructions": "The amplifier loses gain as both inputs move down together while their difference remains 10 mV. What node and device would you check first?\n\nUse a schematic sketch or name the controlling nodes. State one prediction, two measured values, and one tradeoff. Follow-up: Explain why increasing the tail current can change both gain and usable common-mode range."
+        }
+      ]
+    },
+    {
+      "id": "interview-input-pairs",
+      "path": "analog-projects",
+      "title": "Choosing PMOS or NMOS input pairs",
+      "starter": "interview-input-pairs",
+      "workspace": "interview-input-pairs",
+      "analog_project": "interview",
+      "requires": [],
+      "minutes": 40,
+      "summary": "Compare complementary input stages by tracing real common-mode and drain headroom, then choose a polarity for a source.",
+      "skills": [
+        "PMOS input",
+        "NMOS input",
+        "input common mode",
+        "body effect",
+        "rail-to-rail input",
+        "interview practice"
+      ],
+      "doc": "STUDENT_INTERVIEW_LABS.md",
+      "steps": [
+        {
+          "id": "predict",
+          "kind": "quiz",
+          "title": "Read the headroom stack",
+          "instructions": "For a low common-mode signal in these conventional single-tail topologies, which pair is the better starting candidate?",
+          "options": [
+            "PMOS input pair with a top tail source",
+            "NMOS input pair with a bottom tail source",
+            "Either pair has the same range regardless of bias"
+          ],
+          "answer": 0,
+          "explanation": "The PMOS input sources sit above their gates. A bottom NMOS tail must fit below the input devices. Loads and supply determine the final usable range."
+        },
+        {
+          "id": "input-pairs",
+          "kind": "check",
+          "title": "Run the experiment and read the evidence",
+          "instructions": "Run both common-mode sweeps. Each has a 10 mV input difference and a 1.8 V supply. The usable range keeps total current within 20% and differential gain above 70% of their values at 0.80 V. Compare both measured currents at 0.80 V before comparing gain or noise. Start with the saved pair sizes and bias, then trim VBIAS if you want a current-matched comparison. Make a polarity choice for a sensor whose common mode sits near ground and one that sits near VDD. Check the measured range against each actual sensor requirement.",
+          "rule": {
+            "type": "analog_project"
+          }
+        },
+        {
+          "id": "review",
+          "kind": "reflection",
+          "title": "Explain it at the whiteboard",
+          "instructions": "How would you choose an input pair for a sensor that moves from near VSS to near VDD?\n\nUse a schematic sketch or name the controlling nodes. State one prediction, two measured values, and one tradeoff. Follow-up: Explain why complementary pairs may cover both ends while creating a transconductance and offset transition where both contribute."
+        }
+      ]
+    },
+    {
+      "id": "interview-gain",
+      "path": "analog-projects",
+      "title": "Gain, output swing, and transistor headroom",
+      "starter": "interview-gain",
+      "workspace": "interview-gain",
+      "analog_project": "interview",
+      "requires": [],
+      "minutes": 40,
+      "summary": "Use three SKY130 drain sweeps to measure why gain collapses when the output transistor runs out of headroom.",
+      "skills": [
+        "gm",
+        "ro",
+        "common source",
+        "voltage headroom",
+        "output swing",
+        "interview practice"
+      ],
+      "doc": "STUDENT_INTERVIEW_LABS.md",
+      "steps": [
+        {
+          "id": "predict",
+          "kind": "quiz",
+          "title": "Predict which slope changes",
+          "instructions": "As a common-source drain is pushed toward its source, which slope usually makes its gain collapse?",
+          "options": [
+            "Output conductance gds rises sharply",
+            "The drain current stops responding to drain voltage",
+            "Gate current becomes the intended signal path"
+          ],
+          "answer": 0,
+          "explanation": "The channel enters its resistive region. A large change in drain current for a small change in drain voltage means lower output resistance and less voltage gain."
+        },
+        {
+          "id": "gain",
+          "kind": "check",
+          "title": "Run the experiment and read the evidence",
+          "instructions": "Keep VG at 0.64, 0.65 and 0.66 V in the three benches. Run the drain sweeps and plot I(VD). ngspice uses the voltage-source convention, so the drain current magnitude is −I(VD). Compare the computed gm, ro and gain at VDS = 0.08 V and 0.80 V. Use the 50 kΩ load estimate to explain why intrinsic gain alone overstates actual stage gain.",
+          "rule": {
+            "type": "analog_project"
+          }
+        },
+        {
+          "id": "review",
+          "kind": "reflection",
+          "title": "Explain it at the whiteboard",
+          "instructions": "You need more gain at the same supply. How would you decide between a longer channel, more current, and a cascode?\n\nUse a schematic sketch or name the controlling nodes. State one prediction, two measured values, and one tradeoff. Follow-up: Use the measured curves to identify which fix would lose the most output swing."
+        }
+      ]
+    },
+    {
+      "id": "interview-slew",
+      "path": "analog-projects",
+      "title": "Slew rate and precision settling",
+      "starter": "interview-slew",
+      "workspace": "interview-slew",
+      "analog_project": "interview",
+      "requires": [],
+      "minutes": 40,
+      "summary": "Use one SKY130 follower to separate linear settling, current-limited motion, and DC tracking error.",
+      "skills": [
+        "slew",
+        "settling time",
+        "phase margin",
+        "load capacitance",
+        "interview practice"
+      ],
+      "doc": "STUDENT_INTERVIEW_LABS.md",
+      "steps": [
+        {
+          "id": "predict",
+          "kind": "quiz",
+          "title": "Find the additional bottleneck",
+          "instructions": "Phase margin is good on the small-signal test. What can still dominate settling for a large input step?",
+          "options": [
+            "Limited charging current and the output load",
+            "The selected waveform color",
+            "DC gain alone determines every transient"
+          ],
+          "answer": 0,
+          "explanation": "The loop can be locally stable and still saturate during a large transition. The capacitor can only move as quickly as the available source or sink current allows."
+        },
+        {
+          "id": "slew",
+          "kind": "check",
+          "title": "Run the experiment and read the evidence",
+          "instructions": "Compare a 20 mV step on 2 pF with a 500 mV step on 2 pF, then put the same 500 mV step on 8 pF. The edge begins at 2 µs. Look at the 10–90% slope, where the output first looks linear in time, and how long it takes to enter and stay within 2% of its final excursion. Compare the final DC error to a 2% band referenced to the command as well.",
+          "rule": {
+            "type": "analog_project"
+          }
+        },
+        {
+          "id": "review",
+          "kind": "reflection",
+          "title": "Explain it at the whiteboard",
+          "instructions": "An op amp with good phase margin misses an ADC’s large-step settlement deadline. How would you use two step amplitudes and two load values to isolate the cause?\n\nUse a schematic sketch or name the controlling nodes. State one prediction, two measured values, and one tradeoff. Follow-up: What cost or new failure could come from increasing the output stage’s bias current?"
+        }
+      ]
+    },
+    {
+      "id": "interview-noise",
+      "path": "analog-projects",
+      "title": "Transistor and resistor noise budgets",
+      "starter": "interview-noise",
+      "workspace": "interview-noise",
+      "analog_project": "interview",
+      "requires": [],
+      "minutes": 40,
+      "summary": "Measure how source resistance and device noise combine in a real amplifier over a declared bandwidth.",
+      "skills": [
+        "noise",
+        "input-referred noise",
+        "thermal noise",
+        "flicker noise",
+        "noise bandwidth",
+        "interview practice"
+      ],
+      "doc": "STUDENT_INTERVIEW_LABS.md",
+      "steps": [
+        {
+          "id": "predict",
+          "kind": "quiz",
+          "title": "Add noise correctly",
+          "instructions": "Two independent noise sources each contribute 10 µV RMS after referral to the same node and band. What is the total?",
+          "options": [
+            "14.1 µV RMS",
+            "20 µV RMS",
+            "10 µV RMS"
+          ],
+          "answer": 0,
+          "explanation": "Independent variances add. sqrt(10² + 10²) gives about 14.1 µV. A parent total and its own component traces overlap and must be counted once."
+        },
+        {
+          "id": "noise",
+          "kind": "check",
+          "title": "Run the experiment and read the evidence",
+          "instructions": "Run the 1 kΩ and 100 kΩ source fixtures from 10 Hz to 1 MHz. Compare integrated input-referred and output noise, the low-frequency slope, and contributor names in Results. Change the source resistance as a follow-up and check where the dominant mechanism changes. Identify how a wider input device might affect flicker noise, source loading, and bandwidth together.",
+          "rule": {
+            "type": "analog_project"
+          }
+        },
+        {
+          "id": "review",
+          "kind": "reflection",
+          "title": "Explain it at the whiteboard",
+          "instructions": "Your source resistance went up by 100×. Explain why resistor noise voltage density goes up by 10× and why total system RMS need not do the same.\n\nUse a schematic sketch or name the controlling nodes. State one prediction, two measured values, and one tradeoff. Follow-up: How would you handle a detector capacitance that changes the transfer function as you resize the input pair?"
+        }
+      ]
+    },
+    {
+      "id": "interview-mismatch",
+      "path": "analog-projects",
+      "title": "Offset, device area, and mismatch yield",
+      "starter": "interview-mismatch",
+      "workspace": "interview-mismatch",
+      "analog_project": "interview",
+      "requires": [],
+      "minutes": 40,
+      "summary": "Separate a systematic load error from sampled threshold mismatch before choosing a yield improvement.",
+      "skills": [
+        "matching",
+        "offset",
+        "Monte Carlo",
+        "Pelgrom",
+        "yield",
+        "interview practice"
+      ],
+      "doc": "STUDENT_INTERVIEW_LABS.md",
+      "steps": [
+        {
+          "id": "predict",
+          "kind": "quiz",
+          "title": "Choose the correction",
+          "instructions": "Larger devices halve the offset spread but the mean is roughly unchanged. What would you inspect first to shift the mean?",
+          "options": [
+            "Systematic load imbalance or bias asymmetry",
+            "Increase area again and expect the mean to converge to zero",
+            "Change the plotting range"
+          ],
+          "answer": 0,
+          "explanation": "A deterministic load difference affects the center of the distribution. Device area mainly reduces the modeled random variance."
+        },
+        {
+          "id": "mismatch",
+          "kind": "check",
+          "title": "Run the experiment and read the evidence",
+          "instructions": "Run 64 seeded trials per area. Compare the two histograms, sample mean, standard deviation and samples passing ±8 mV input-referred offset. RL starts at 15.3 kΩ and RR at 15 kΩ. Match RL to RR in both cells as a follow-up and repeat the same seed. The teaching solver varies the stated threshold parameter, keeping the nominal schematic and mismatch distribution separate.",
+          "rule": {
+            "type": "analog_project"
+          }
+        },
+        {
+          "id": "review",
+          "kind": "reflection",
+          "title": "Explain it at the whiteboard",
+          "instructions": "The typical design meets spec but samples fail near one side of a symmetric offset limit. What measurements separate mean shift, random spread, and global process movement?\n\nUse a schematic sketch or name the controlling nodes. State one prediction, two measured values, and one tradeoff. Follow-up: Explain what 64 seeded teaching trials can and cannot tell you about a production failure rate."
+        }
+      ]
+    },
+    {
+      "id": "interview-comparator",
+      "path": "analog-projects",
+      "title": "Dynamic comparator delay and kickback",
+      "starter": "interview-comparator",
+      "workspace": "interview-comparator",
+      "analog_project": "interview",
+      "requires": [],
+      "minutes": 40,
+      "summary": "Trace reset, current steering, and regeneration in a transistor-level clocked comparator.",
+      "skills": [
+        "comparator",
+        "StrongARM",
+        "regeneration",
+        "kickback",
+        "overdrive",
+        "interview practice"
+      ],
+      "doc": "STUDENT_INTERVIEW_LABS.md",
+      "steps": [
+        {
+          "id": "predict",
+          "kind": "quiz",
+          "title": "Predict the slower decision",
+          "instructions": "Which input produces the longer decision delay in this latch?",
+          "options": [
+            "3 mV overdrive",
+            "40 mV overdrive",
+            "Overdrive cannot affect a clocked latch"
+          ],
+          "answer": 0,
+          "explanation": "The weaker initial imbalance takes longer to grow to a logic-level difference. The common mode and clock slope can affect both cases."
+        },
+        {
+          "id": "comparator",
+          "kind": "check",
+          "title": "Run the experiment and read the evidence",
+          "instructions": "Compare 3 mV and 40 mV input overdrive at 0.90 V common mode. Read the time from the clock edge at 20 ns to OUTN−OUTP reaching 0.9 V. Then select INP or INN and inspect its disturbance relative to the corresponding ideal source. Try changing RP and RN together as a follow-up and explain the difference between source disturbance and decision delay.",
+          "rule": {
+            "type": "analog_project"
+          }
+        },
+        {
+          "id": "review",
+          "kind": "reflection",
+          "title": "Explain it at the whiteboard",
+          "instructions": "The latch works with an ideal source but corrupts an ADC with a high-impedance source. Where does the disturbance come from and how would you test a fix?\n\nUse a schematic sketch or name the controlling nodes. State one prediction, two measured values, and one tradeoff. Follow-up: Explain how a preamplifier or isolation switch trades off power, latency and kickback."
+        }
+      ]
+    },
+    {
+      "id": "interview-sar",
+      "path": "analog-projects",
+      "title": "Sampling, capacitor DACs, and SAR code errors",
+      "starter": "interview-sar",
+      "workspace": "interview-sar",
+      "analog_project": "interview",
+      "requires": [],
+      "minutes": 40,
+      "summary": "Measure acquisition error and a real switch pedestal, then repair an incorrect SAR MSB capacitor.",
+      "skills": [
+        "SAR ADC",
+        "sample and hold",
+        "kT/C",
+        "charge injection",
+        "capacitor mismatch",
+        "interview practice"
+      ],
+      "doc": "STUDENT_INTERVIEW_LABS.md",
+      "steps": [
+        {
+          "id": "predict",
+          "kind": "quiz",
+          "title": "Choose the noise tradeoff",
+          "instructions": "If the sampling capacitor is four times larger, what happens to ideal sampled RMS thermal noise?",
+          "options": [
+            "It halves",
+            "It quarters",
+            "It doubles"
+          ],
+          "answer": 0,
+          "explanation": "Thermal variance is kT/C, so the RMS voltage is proportional to 1/√C. More capacitance also takes more charge and can slow acquisition."
+        },
+        {
+          "id": "sar-fault",
+          "kind": "check",
+          "title": "Capture the acquisition and MSB faults",
+          "instructions": "The switches track the input until 50 ns, then hold it. At 75 ns the MSB bottom plate steps by 1.6 V. Compare the fast and slow drivers, the hold pedestal, the estimated kT/C noise and the measured MSB step. A high-resolution noise-budget example allows 60 µV RMS at 300 K, which requires about 1.15 pF. This four-bit capacitor fixture is used to show how a bit-weight error moves a decision threshold. Keep C3 at 650 fF for this run.",
+          "rule": {
+            "type": "analog_project"
+          }
+        },
+        {
+          "id": "sar-repair",
+          "kind": "check",
+          "title": "Repair the capacitor weight",
+          "instructions": "Choose Open circuit and set C3 to 800 fF while leaving the other capacitors and fixtures fixed. Rerun. Check that the MSB step is within 25 mV of 0.80 V and compare the estimated code at 0.76 V before and after the repair. The fast driver should acquire within 15 mV.",
+          "rule": {
+            "type": "analog_project"
+          }
+        },
+        {
+          "id": "review",
+          "kind": "reflection",
+          "title": "Explain it at the whiteboard",
+          "instructions": "A SAR produces an early transition into the upper half of its codes. How do you separate an MSB-weight error from a slow input driver or switch pedestal?\n\nUse a schematic sketch or name the controlling nodes. State one prediction, two measured values, and one tradeoff. Follow-up: Explain why a larger sampling capacitor can solve a noise problem while creating a settling problem."
+        }
+      ]
+    },
+    {
+      "id": "interview-ldo",
+      "path": "analog-projects",
+      "title": "LDO dropout, load transients, and stability",
+      "starter": "interview-ldo",
+      "workspace": "interview-ldo",
+      "analog_project": "interview",
+      "requires": [],
+      "minutes": 40,
+      "summary": "Use a SKY130 PMOS pass transistor and error amplifier to distinguish headroom limits from a ringing loop.",
+      "skills": [
+        "LDO",
+        "dropout",
+        "ESR",
+        "load transient",
+        "line regulation",
+        "startup",
+        "interview practice"
+      ],
+      "doc": "STUDENT_INTERVIEW_LABS.md",
+      "steps": [
+        {
+          "id": "predict",
+          "kind": "quiz",
+          "title": "Identify dropout",
+          "instructions": "The gate drive has reached its useful limit and VOUT falls as VIN drops. Which test does that indicate?",
+          "options": [
+            "DC dropout at this load",
+            "Input-referred noise",
+            "Only an ESR zero problem"
+          ],
+          "answer": 0,
+          "explanation": "The pass device needs drain-source voltage to deliver the load current. Once the loop has used up its drive, the output can no longer follow the target."
+        },
+        {
+          "id": "ldo",
+          "kind": "check",
+          "title": "Run the experiment and read the evidence",
+          "instructions": "Run the dropout, load-step, ESR, supply-step and power-on fixtures. Compare the two 25-to-100 µA load steps at 120 pF. Only the ESR changes. Find when the output stops ringing and remains within 2% of 1.20 V. Compare the lower supply limit with startup and line-step results. The external reference and amplifier bias are supplied by the fixture, so the ramp isolates regulator behavior.",
+          "rule": {
+            "type": "analog_project"
+          }
+        },
+        {
+          "id": "review",
+          "kind": "reflection",
+          "title": "Explain it at the whiteboard",
+          "instructions": "A load step rings at high supply, and the same circuit has low output near minimum supply. How would you tell which failure is a stability problem and which is dropout?\n\nUse a schematic sketch or name the controlling nodes. State one prediction, two measured values, and one tradeoff. Follow-up: How would you repeat the check over load, capacitor tolerance, ESR and process before approving a capacitor substitution?"
+        }
+      ]
+    },
+    {
+      "id": "interview-post-layout-debug",
+      "path": "analog-projects",
+      "title": "Debug a post-layout settling failure",
+      "starter": "interview-post-layout-debug",
+      "workspace": "interview-post-layout-debug",
+      "analog_project": "interview",
+      "requires": [],
+      "minutes": 40,
+      "summary": "Find a layout parasitic that pushes a passing schematic past its settling deadline, then repair and rerun.",
+      "skills": [
+        "post-layout debug",
+        "PEX",
+        "distributed RC",
+        "settling",
+        "routing",
+        "interview practice"
+      ],
+      "doc": "STUDENT_INTERVIEW_LABS.md",
+      "steps": [
+        {
+          "id": "predict",
+          "kind": "quiz",
+          "title": "Localize the failure",
+          "instructions": "The same stimulus passes on the schematic and fails after extraction. What should you compare first?",
+          "options": [
+            "The same before/after node and the parasitics on its path",
+            "An unrelated supply pin on a different fixture",
+            "Two simulations with different load and stimulus"
+          ],
+          "answer": 0,
+          "explanation": "Hold stimulus and load fixed, find the first node where traces diverge, and inspect the added R and C on that signal path."
+        },
+        {
+          "id": "route-baseline",
+          "kind": "check",
+          "title": "Reproduce the extracted timing miss",
+          "instructions": "Open Layout and keep the vout route at 0.20 µm. Run extracted interconnect. Save evidence that the schematic settles by 50 ps and the extracted trace misses.",
+          "rule": {
+            "type": "analog_project"
+          }
+        },
+        {
+          "id": "route-repair",
+          "kind": "check",
+          "title": "Change the route and prove the fix",
+          "instructions": "In Layout select the vout path and change its width. Try 0.40 µm, then compare it to 0.80 µm. Rerun the same experiment. Save a geometrically connected width that settles within 50 ps after extraction.",
+          "rule": {
+            "type": "analog_project"
+          }
+        },
+        {
+          "id": "review",
+          "kind": "reflection",
+          "title": "Explain it at the whiteboard",
+          "instructions": "The 0.20 µm route fails. Why might widening the route to 0.40 µm pass while widening it again to 0.80 µm misses the target?\n\nUse a schematic sketch or name the controlling nodes. State one prediction, two measured values, and one tradeoff. Follow-up: Describe a one-variable experiment that would falsify your proposed root cause."
+        }
+      ]
     }
   ]
 }

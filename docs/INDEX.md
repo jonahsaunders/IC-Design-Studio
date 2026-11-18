@@ -39,6 +39,7 @@ The [gallery catalog](FEATURE_TOUR.md#example-library) contains 13 guided entrie
 - [Projects, libraries and saved work](PROJECT_HUB.md)
 - [Student Hub learning paths and sensor-acquisition capstone](STUDENT_HUB.md)
 - [TIA and op-amp design projects](STUDENT_ANALOG_PROJECTS.md)
+- [Analog IC interview labs](STUDENT_INTERVIEW_LABS.md)
 - [Why layout choices matter](STUDENT_LAYOUT_DECISIONS.md)
 - [LC filters and Bode plots](STUDENT_LC_BODE.md)
 - [Miller compensation and the nulling resistor](STUDENT_MILLER.md)

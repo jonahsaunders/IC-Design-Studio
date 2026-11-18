@@ -308,6 +308,27 @@ def main():
         assert w.cell['layout_pins'] and g.analog_action.text()=='Regenerate layout…'
     checked('Four transistor-level bandgap projects open independent predictions and run, layout, and extracted controls')
 
+    for lesson in (item for item in h.data['lessons'] if item.get('analog_project')=='interview'):
+        h.select_lesson(lesson['id']);h.start_selected()
+        assert w.project['student_interview']==lesson['id'].removeprefix('interview-')
+        g.steps.setCurrentIndex(1)
+        assert g.controls['Run lesson'].isEnabled()
+        g.analog_action.click()
+        assert w.mode_combo.currentIndex()==0
+    assert g.lesson['id']=='interview-post-layout-debug'
+    g.workspace()
+    assert w.mode_combo.currentIndex()==1 and g.controls['Run lesson'].text()=='Compare extracted interconnect'
+    g.run();deadline=time.monotonic()+30
+    while w.run_manager.busy and time.monotonic()<deadline:QTest.qWait(20)
+    assert not w.run_manager.busy and g.controls['Results'].isEnabled()
+    g.results();study=g.bias_inspector
+    assert study.readings.rowCount()==4 and study.plot.compare is not None
+    assert 'Dashed line is schematic' in study.detail.text()
+    study.grab().save(str(out/'interview-extracted-settling.png'));study.close()
+    g.check()
+    assert 'Comparison recorded' in g.feedback.text()
+    checked('All interview labs open editable circuits and the settling lesson runs and compares actual extracted waveforms')
+
     # Second pass: project switches disable actions immediately and cannot misroute
     # cancellation or completed-run feedback to another project.
     w.set_project(create('divider'));assert not g.check_button.isEnabled()

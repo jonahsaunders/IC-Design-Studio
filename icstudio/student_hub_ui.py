@@ -287,7 +287,7 @@ class StudentHub(QWidget):
                 if l.get('inverter_profile'):
                     from .student_inverter import create as inverter
                     project=inverter(self.inverter_profiles[l['inverter_profile']])
-                elif l.get('analog_project') and l['analog_project']!='bandgap':
+                elif l.get('analog_project') and l['analog_project'] not in ('bandgap','interview'):
                     from .student_analog import choose_technology
                     project=create(l['starter'], choose_technology(self.inverter_profiles, s.project['pdk']))
                 else:project=create(l['starter'])
@@ -575,6 +575,8 @@ class LessonGuide(QDockWidget):
             span=measured['temperature_span_V']
             detail=f' Temperature span {span*1000:.1f} mV.' if span is not None else ''
             feedback(self.feedback,f'{measured["cases"]} cases passed.{detail} Measurements saved.')
+        elif 'interview_measurements' in evidence:
+            feedback(self.feedback,'Comparison recorded. Open Results to review the measurements before answering the interview prompt.')
         elif 'analog_runs' in evidence:
             point=evidence['analog_runs'][0].get('gmid')
             if point:
@@ -624,7 +626,7 @@ class LessonGuide(QDockWidget):
             from .student_analog import focus_cell
             step=self.active_step['id']
             s.cid=focus_cell(s.project,self.lesson['analog_project'],step)
-            show_layout=step in ('layout','bias-layout','post-layout')
+            show_layout=step in ('layout','bias-layout','post-layout') or step.startswith('route-')
         else:
             s.cid=s.project.get('mixed_signal',{}).get('analog_cell',s.project['top'])
         s.mode_combo.setCurrentIndex(1 if show_layout else 0);s.refresh(True)
@@ -632,6 +634,12 @@ class LessonGuide(QDockWidget):
 
     def analog_project_action(self):
         self.flush();self.require_idle();s=self.studio
+        if self.lesson.get('analog_project')=='interview':
+            from .student_interview import focus
+            if not s.leave_digital_workspace():return
+            s.cid=focus(s.project,self.active_step['id'],circuit=True)
+            s.mode_combo.setCurrentIndex(0);s.refresh(True);self.show();self.raise_()
+            return
         if self.lesson.get('analog_project')=='bandgap' and self.active_step['id'] in ('accuracy','startup'):
             from .student_bandgap_lab import core_cell
             if not s.leave_digital_workspace():return
@@ -778,7 +786,11 @@ class LessonGuide(QDockWidget):
                 self.controls['Run lesson'].setText('Run nine PVT cases')
             from .process_adapters import capabilities
             needs_full_pdk=step=='post-layout' and not capabilities(self.studio.project['pdk'])['external_verification']
-            if kind=='bandgap':
+            if kind=='interview':
+                self.controls['Run lesson'].setText('Compare extracted interconnect' if step.startswith('route-') else 'Run experiment')
+                self.analog_action.setText('Open circuit')
+                self.analog_action.setEnabled(bound and not active);self.analog_action.setVisible(bool(names))
+            elif kind=='bandgap':
                 names={'accuracy':'Run temperature sweep','startup':'Run startup cases','post-layout':'Run extracted comparison'}
                 if step in names:self.controls['Run lesson'].setText(names[step])
                 if step=='layout':
@@ -813,7 +825,7 @@ class LessonGuide(QDockWidget):
         result_rows=[r for r in rows if r.get('result') and r['job'].get('student_lesson')==self.lesson['id']]
         if kind and self.active_step:
             result_rows=[r for r in result_rows if r['job'].get('student_analog',{}).get('stage')==self.active_step['id']]
-        self.controls['Results'].setEnabled(bound and bool(result_rows))
+        self.controls['Results'].setEnabled(bound and bool(result_rows) and (kind!='interview' or not active))
         for name in ('Open workspace','Save work'):self.controls[name].setEnabled(bound)
         self.controls['Open RTL'].setEnabled(bound and self.lesson['path'] in ('digital','mixed','capstone'))
         self.check_button.setEnabled(bound)
@@ -846,6 +858,11 @@ class LessonGuide(QDockWidget):
             step=self.active_step['id']
             by_bench={r['job']['student_analog']['bench']:r for r in rows if r['job']['student_analog']['stage']==step}
             if not by_bench:raise ValueError('Run this step’s testbenches first.')
+            if self.lesson['analog_project']=='interview':
+                from .student_interview_ui import InterviewResults
+                saved=list(by_bench.values())[-1]['job']['project']
+                self.bias_inspector=InterviewResults(s,saved,step,rows)
+                self.bias_inspector.show();return
             if self.lesson['analog_project']=='bias' and step=='corners':
                 from .student_bias_ui import BiasCornersDialog
                 saved=by_bench['cascode_bias']

@@ -18,6 +18,10 @@ in Layout, [LC filters and Bode plots](STUDENT_LC_BODE.md) in Analog, or
 [Miller compensation](STUDENT_MILLER.md) and [Ahuja compensation](STUDENT_AHUJA.md)
 in Analog design projects. The [current-reference and cascode lessons](STUDENT_BIAS_CASCODE.md)
 walk through bias current, current density, output headroom, and process and temperature sweeps.
+Ten [analog interview labs](STUDENT_INTERVIEW_LABS.md) cover input pairs,
+gain and swing, settling, noise, mismatch, comparator kickback, SAR
+sampling, LDO behavior, and extracted-settling debug. Each combines a
+whiteboard prediction, measured experiment, and interview follow-up.
 Four separate [bandgap reference lessons](STUDENT_BANDGAPS.md) cover Widlar,
 Brokaw, Kuijk, and Banba. Each starts with a first-order prediction, then uses a
 GF180 transistor schematic, startup corner matrix, editable layout and a
