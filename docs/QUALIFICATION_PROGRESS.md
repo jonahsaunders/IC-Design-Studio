@@ -1,5 +1,29 @@
 # Chunks 1–12: progress and forecast
 
+## Project PDK switching and collaboration
+
+**November 18, 2026.** Source `4e442f050513a26a0e95ad7ff691a80521a1aeed`
+adds searchable [PDK switching](PDK_GUIDE.md#switch-the-open-project) and
+updates [live and shared-folder collaboration](LIVE_COLLABORATION.md).
+The desktop tests covered undo, stale previews, an independent cross-process
+copy with explicit model mapping and width and length review, shared-folder
+change preview, keyboard navigation during live polling, and conflict recovery
+to a separate project.
+
+The Ubuntu test checkout was extracted from the committed source archive
+with SHA-256 `7fd4b3eaedade12b1222a5f01e169f112d93d9ef044b03ca4c0b780d3e5db73b`.
+Ubuntu passed 67 focused tests and the desktop flows for PDK setup, lifecycle
+and live editing. Windows passed 32 focused tests, the lifecycle and live
+desktop flows and all 19 Student Hub desktop checks. Both hosts passed release
+material validation.
+
+The bundled SKY130A to GF180MCU D check remapped a four-terminal NMOS in a
+1.2 V resistor-loaded fixture and solved both operating points with ngspice.
+The drain voltages were 0.606 V and 1.094 V, respectively. The source geometry
+and connectivity were preserved, and the target schematic used the GF180
+device and its chosen geometry defaults. This evidence covers one circuit and
+local collaboration. It adds no process qualification or LAN/VPN acceptance.
+
 ## Student Hub analog interview labs
 
 **November 18, 2026.** Sources `85bffbebac35dfed6318f435739e9a4646a67f43`
