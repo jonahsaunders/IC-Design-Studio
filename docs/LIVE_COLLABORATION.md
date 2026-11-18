@@ -36,14 +36,17 @@ command palette and status-bar button open the same dashboard.
 
 | Dashboard area | What you can do |
 |---|---|
-| **Start and resume** | Share, join, or resume a recent workspace without finding recovery files |
-| **Live workspace** | See teammates, recent edits, and who has reserved a cell, net or object |
-| **Invite people and manage access** | Create/revoke invitations, or save a copy and delete an owned workspace |
-| **Review conflicting edit** | Compare original, shared and retained geometry before choosing a resolution |
-| **Shared folder** | Create/join a folder, claim cells/layers, publish, refresh and leave |
+| **Start and resume** | Find a recent workspace by name, editor or server. Unsent work is marked in the list. |
+| **Live workspace** | See your permission, sync status, recent edits and reservations. Select a teammate and press Return to visit their view. The selection persists through presence updates. |
+| **Invite people and manage access** | Create or revoke invitations. The panel confirms when the chosen invitation is on the clipboard. |
+| **Review conflicting edit** | Compare original, shared and retained geometry. Saving the retained edit creates an independent project in **Projects** and keeps the live workspace open. |
+| **Shared folder** | See the shared revision and preview incoming changes and unpublished edits before publishing or getting changes. Publishing requires active ownership claims. |
 | **Back to design** | Close the dashboard while collaboration continues |
 
 ![Collaboration dashboard](images/collaboration-dashboard.png)
+
+All teammates edit against the workspace's locked PDK. To try another process while you stay connected, open [Switch Project PDK](PDK_GUIDE.md#switch-the-open-project) and save a separate copy.
+
 
 ## Start a local server with a button
 

@@ -75,7 +75,7 @@ class StudentHub(QWidget):
         menu=QMenu(self.more);self.more_menu=menu;self.more.setMenu(menu)
         for title,fn in [('Continue learning',self.continue_learning),('Feature map',lambda:studio.open_editor_doc('STUDENT_HUB.md')),('Engine setup…',self.setup),
                          ('Export learning record…',self.export),('Export portfolio report…',lambda:self.export(report=True)),
-                         ('Locate lesson project…',self.locate),('Reload progress',self.reload_progress)]:
+                         ('Locate lesson project…',self.locate),('Switch open project PDK…',studio.switch_pdk_dialog),('Reload progress',self.reload_progress)]:
             menu.addAction(title,lambda checked=False,fn=fn:self.call(fn))
         sizes=menu.addMenu('Text size');self.text_size_menu=sizes
         for scale in (100,125,150,200):sizes.addAction(f'{scale}%',lambda checked=False,scale=scale:self.set_text_scale(scale))

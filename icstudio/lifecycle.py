@@ -5,12 +5,13 @@ from .model import clone, uid, now, digest, file_digest, validate, load_project
 from .catalog import create_device, binding_for, link_technology, parameter_values
 
 
-def duplicate_project(project, destination, name=None):
+def duplicate_project(project, destination, name=None, *, source=None):
     """Create an independent project, retaining internal references and PDK lock."""
     p = clone(project)
     p.update(id=uid(), name=name or project['name']+' copy', revision=0,
              created=now(), modified=now(), waivers=[])
-    p['copied_from'] = {'project_id': project['id'], 'design_hash': digest(project)}
+    original = project if source is None else source
+    p['copied_from'] = {'project_id': original['id'], 'design_hash': digest(original)}
     validate(p)
     destination = Path(destination).resolve()
     if destination.suffix != '.icproj':
@@ -45,7 +46,8 @@ def relink_assets(project, folder):
     project['pdk']['package_root'] = str(root)
 
 
-def replacement(technology, old, key, old_binding=None):
+def replacement(technology, old, key, old_binding=None, *, use_target_defaults=False,
+                project=None, cell=None):
     """Retain pin geometry/IDs so wires, labels and physical links stay attached."""
     new = create_device(technology, key, old['name'], old['x'], old['y'])
     if set(new['nets']) != set(old['nets']) or new['kind'] != old['kind']:
@@ -53,14 +55,19 @@ def replacement(technology, old, key, old_binding=None):
     new.update(id=old['id'], rotation=old['rotation'], nets=clone(old['nets']))
     from .symbol_io import device_symbol
     new['symbol'] = clone(old.get('symbol') or device_symbol(old))
-    for field in ('symbol', 'net_labels'):
+    for field in ('symbol', 'net_labels', 'mirror'):
         if field in old: new[field] = clone(old[field])
-    if old['kind'] in ('NMOS', 'PMOS'):
-        for field in ('w','l'): new['params'][field] = old['params'][field]
-    binding = binding_for(technology, new)
     notes = []
+    if old['kind'] in ('NMOS', 'PMOS'):
+        for field in ('w','l'):
+            if use_target_defaults:
+                notes.append(f"{field}: {old['params'][field]} → {new['params'][field]}")
+            else:
+                new['params'][field] = old['params'][field]
+    binding = binding_for(technology, new)
     for param, raw in old.get('model_params', {}).items():
-        if param in binding.get('parameters', {}): new['model_params'][param] = raw
+        rule = binding.get('parameters', {}).get(param)
+        if rule and not rule.get('computed'): new['model_params'][param] = raw
         else: notes.append('Drop override '+param+'='+str(raw))
     for param, rule in binding.get('parameters', {}).items():
         before = (old_binding or {}).get('parameters', {}).get(param, {}).get('default')
@@ -68,7 +75,12 @@ def replacement(technology, old, key, old_binding=None):
             notes.append(param+': default '+str(before)+' → '+str(rule['default']))
     if old_binding and old_binding.get('emit_parameters') != binding.get('emit_parameters'):
         notes.append('Netlist parameter mapping changes')
-    parameter_values(binding, new)
+    resolved = new
+    if project is not None:
+        from .design_ops import parameters, resolved_device
+        context = parameters(cell.get('parameters', {}), parameters(project.get('parameters', {})))
+        resolved = resolved_device(new, context)
+    parameter_values(binding, resolved)
     return new, notes
 
 
@@ -87,7 +99,7 @@ def migration_preview(project, technology, mapping=None):
                 continue
             old_key = old['model_ref']['device']; key = (mapping or {}).get(old_key, old_key)
             before = binding_for(project['pdk'], old)
-            new, notes = replacement(technology, old, key, before)
+            new, notes = replacement(technology, old, key, before, project=candidate, cell=cell)
             cell['devices'][i] = new
             report.append({'cell': cell['name'], 'instance': old['name'], 'from': before['model'],
                            'to': binding_for(technology,new)['model'], 'notes': notes})

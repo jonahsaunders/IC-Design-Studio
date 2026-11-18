@@ -13,8 +13,10 @@ from PySide6.QtWidgets import (QApplication, QComboBox, QDialog, QFileDialog,
 from .live_client import LiveClient, LiveHistory, Transport, check_session
 from .live_protocol import ID, PROTOCOL, LiveError, invitation_link, parse_invitation_details, server_url
 from .model import History, clone, digest, save_project
+from .lifecycle import duplicate_project
 
 COLORS = ['#64dfc0', '#ffba73', '#bca5ff', '#f18bbb', '#7bbfff', '#d5db75']
+ROLE_NAMES = {'owner': 'Owner', 'edit': 'Can edit', 'review': 'Can review', 'view': 'Can view'}
 
 
 def person_color(ident):
@@ -79,6 +81,7 @@ class LiveCollaborationMixin:
         v = QVBoxLayout(host)
         self.live_status = QLabel('No live session')
         self.live_status.setWordWrap(True)
+        self.live_status.setTextFormat(Qt.PlainText)
         self.live_status.setAccessibleName('Live connection status')
         v.addWidget(self.live_status)
         self.live_impact = QLabel('Schematic and layout share one revision. Recheck verification after changing the design.')
@@ -101,11 +104,13 @@ class LiveCollaborationMixin:
         leave.clicked.connect(lambda: self.guard(self.live_leave))
         top_actions.addWidget(leave)
         v.addLayout(top_actions)
+        conflict_actions = QHBoxLayout()
+        v.addLayout(conflict_actions)
         activity = QHBoxLayout()
         people = QVBoxLayout()
         people.addWidget(QLabel('Your teammates'))
         self.live_people = QListWidget()
-        self.live_people.itemDoubleClicked.connect(lambda item: self.guard(lambda: self.live_go_to_person(item)))
+        self.live_people.itemActivated.connect(lambda item: self.guard(lambda: self.live_go_to_person(item)))
         self.live_people.setAccessibleName('Live participants')
         self.live_people.setMinimumHeight(80)
         self.live_people.setMaximumHeight(120)
@@ -154,9 +159,15 @@ class LiveCollaborationMixin:
         form.addRow('Invitation permission', self.live_role)
         form.addRow('Expires in days', self.live_days)
         ov.addLayout(form)
-        invite = QPushButton('Create and copy invitation')
-        invite.clicked.connect(lambda: self.guard(self.live_invite))
-        ov.addWidget(invite)
+        self.live_invite_button = QPushButton('Create and copy invitation')
+        self.live_invite_button.clicked.connect(lambda: self.guard(self.live_invite))
+        ov.addWidget(self.live_invite_button)
+        self.live_access_status = QLabel()
+        self.live_access_status.setTextFormat(Qt.PlainText)
+        self.live_access_status.setWordWrap(True)
+        self.live_access_status.setAccessibleName('Invitation status')
+        ov.addWidget(self.live_access_status)
+        self._invite_client = None
         self.live_invitations = QListWidget()
         self.live_invitations.setAccessibleName('Revocable invitations')
         self.live_invitations.setMinimumHeight(80)
@@ -168,13 +179,13 @@ class LiveCollaborationMixin:
         self.live_review = QPushButton('Review conflicting edit…')
         self.live_review.setProperty('role', 'primary')
         self.live_review.clicked.connect(lambda: self.guard(self.live_review_conflict))
-        v.addWidget(self.live_review)
+        conflict_actions.addWidget(self.live_review)
         self.live_copy = QPushButton('Save retained conflicting edit…')
         self.live_copy.clicked.connect(lambda: self.guard(self.live_save_conflict))
-        v.addWidget(self.live_copy)
+        conflict_actions.addWidget(self.live_copy)
         self.live_discard = QPushButton('Use shared version…')
         self.live_discard.clicked.connect(lambda: self.guard(self.live_confirm_discard))
-        v.addWidget(self.live_discard)
+        conflict_actions.addWidget(self.live_discard)
         self.live_delete = QPushButton('Save a copy and delete workspace…')
         self.live_delete.clicked.connect(lambda: self.guard(self.live_delete_workspace))
         ov.addWidget(self.live_delete)
@@ -470,6 +481,8 @@ class LiveCollaborationMixin:
         self.live_client = client
         self.history = LiveHistory(client)
         self._live_schematic_state = {}
+        self._invite_client = None
+        self.live_access_status.clear()
         client.presence = self.live_presence_data
         client.can_install = self.live_can_install
         client.changed.connect(self.live_document_changed)
@@ -525,34 +538,53 @@ class LiveCollaborationMixin:
         self.save_recovery()
         self.live_update_panel(self.live_client.message)
 
+    def sync_live_people(self, people, actor):
+        listing = self.live_people
+        current = listing.currentItem()
+        selected = current.data(Qt.UserRole)['id'] if current else None
+        existing = [listing.item(i).data(Qt.UserRole)['id'] for i in range(listing.count())]
+        if existing != [person['id'] for person in people]:
+            listing.clear()
+            for person in people:
+                listing.addItem(QListWidgetItem())
+        cells = {cell['id']: cell['name'] for cell in self.project['cells']}
+        for index, person in enumerate(people):
+            item = listing.item(index)
+            fields = (person['name'], person.get('view', 'layout').title(), cells.get(person['cell'], ''),
+                      ROLE_NAMES[person['role']], 'You' if person['id'] == actor else '')
+            item.setText(' · '.join(field for field in fields if field))
+            item.setData(Qt.UserRole, person)
+            item.setToolTip('Press Return or double-click to visit this teammate’s view')
+            item.setForeground(QColor(person.get('color', person_color(person['id']))))
+            if person['id'] == selected and listing.currentItem() is not item:
+                listing.setCurrentItem(item)
+
     def live_update_panel(self, message):
         client = self.live_client
         if not client:
             return
-        self.live_status.setText(message)
+        role = ROLE_NAMES[client.info['role']]
+        self.live_status.setText(f"Your access · {role}\n{message}")
         from urllib.parse import urlsplit
         local = urlsplit(client.server).hostname in ('127.0.0.1', 'localhost', '::1')
         self.live_invitation_note.setText('This workspace is available only on this computer. Invitations can join from another IC Design Studio window here. For other computers, share through a team HTTPS server.' if local else 'Choose what your teammate can do, then copy an invitation to send them. You can revoke access here at any time.')
-        self.collaboration_button.setText('Collaboration · ' + ('Needs review' if client.conflict else 'Connected' if client.connected else 'Reconnecting'))
+        status = ('Needs review' if client.conflict else 'Reconnecting' if not client.connected
+                  else 'Syncing' if client.pending else role)
+        self.collaboration_button.setText('Collaboration · ' + status)
         self.live_recover_button.setVisible(client.info['role'] == 'owner' and not client.connected)
-        self.live_people.clear()
         people = client.info.get('participants', [])
-        cells = {c['id']: c['name'] for c in self.project['cells']}
-        for p in people:
-            item = QListWidgetItem(p['name'] + ' · ' + p.get('view', 'layout').title() + ' · ' + cells.get(p['cell'], '') + ' · ' + p['role'] + (' · you' if p['id'] == client.info['actor'] else ''))
-            item.setData(Qt.UserRole, p)
-            item.setToolTip('Double-click to visit this teammate’s view')
-            item.setForeground(QColor(p.get('color', person_color(p['id']))))
-            self.live_people.addItem(item)
+        self.sync_live_people(people, client.info['actor'])
         self.layout.live_presence = [p for p in people if p['id'] != client.info['actor']]
         self.schematic.live_presence = self.layout.live_presence
         self.schematic.update()
         self.layout.update()
-        self.live_history.clear()
-        for event in client.info.get('history', []):
-            self.live_history.addItem(str(event['revision']) + ' · ' + event['name'] + ' · ' + event['label'])
+        history = [f"{event['revision']} · {event['name']} · {event['label']}" for event in client.info.get('history', [])]
+        if history != [self.live_history.item(i).text() for i in range(self.live_history.count())]:
+            self.live_history.clear()
+            self.live_history.addItems(history)
         self.live_owner.setVisible(client.info['role'] == 'owner')
         self.live_manage_button.setVisible(client.info['role'] == 'owner')
+        self.live_invite_button.setEnabled(client.connected and not client.managing and self._invite_client is None)
         current = self.live_invitations.currentItem()
         selected = current.data(Qt.UserRole) if current else None
         self.live_invitations.clear()
@@ -583,16 +615,34 @@ class LiveCollaborationMixin:
         client = self.live_client
         if not client or client.info['role'] != 'owner':
             raise LiveError('Only the owner can create invitations.')
+        if not client.connected or client.managing or self._invite_client is not None:
+            raise LiveError('Wait for the workspace connection or current invitation request.')
+        self._invite_client = client
+        self.live_invite_button.setEnabled(False)
+        self.live_access_status.setText('Creating invitation…')
         def done(status, result):
+            if self._invite_client is client:
+                self._invite_client = None
+            if self.live_client is not client:
+                return
+            self.live_invite_button.setEnabled(client.connected and not client.managing)
             if status != 200:
-                self.error(result.get('error', 'Invitation creation failed.'))
+                self.live_access_status.setText(result.get('error', 'Invitation creation failed.'))
                 return
             link = invitation_link(client.server, client.workspace, result['invite'], client.server_certificate)
             QApplication.clipboard().setText(link)
-            self.statusBar().showMessage('Invitation copied · ' + result['role'] + ' permission', 15000)
+            message = 'Invitation copied · ' + ROLE_NAMES[result['role']]
+            self.live_access_status.setText(message)
+            self.statusBar().showMessage(message, 15000)
             client.tick()
-        client.transport.post(client.server, client.path + '/invite', client.token,
-                              dict(role=self.live_role.currentData(), days=self.live_days.value()), done)
+        try:
+            client.transport.post(client.server, client.path + '/invite', client.token,
+                                  dict(role=self.live_role.currentData(), days=self.live_days.value()), done)
+        except Exception:
+            self._invite_client = None
+            self.live_invite_button.setEnabled(client.connected and not client.managing)
+            self.live_access_status.clear()
+            raise
 
     def live_revoke(self):
         client, item = self.live_client, self.live_invitations.currentItem()
@@ -610,10 +660,16 @@ class LiveCollaborationMixin:
         client = self.live_client
         if not client or client.pending or not client.conflict or not client.conflict.get('proposed'):
             return
-        path, _ = QFileDialog.getSaveFileName(self, 'Save retained edit as an independent project', '', 'IC Studio project (*.icproj)')
+        conflict = client.conflict
+        source = conflict['proposed']
+        name = source['name'][:108] + ' conflict copy'
+        path, _ = QFileDialog.getSaveFileName(self, 'Save Retained Edit as a Copy', name + '.icproj', 'IC Studio project (*.icproj)')
         if path:
-            save_project(client.conflict['proposed'], path)
-            self.live_discard_conflict()
+            saved = duplicate_project(source, path, name)
+            self.project_index.remember(saved, path)
+            if self.live_client is client and client.conflict is conflict and not client.pending:
+                self.live_discard_conflict()
+            self.statusBar().showMessage('Saved a separate conflict copy · open it from Projects', 12000)
 
     def live_discard_conflict(self):
         client = self.live_client

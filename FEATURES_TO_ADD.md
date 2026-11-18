@@ -51,6 +51,7 @@ of an inventory item before closing it.
 | Related entries | Existing starting point and evidence |
 | --- | --- |
 | PRJ-01, PRJ-10–13 | Project files and folders, recovery, project management, and save/reopen controls. [Project Hub](docs/PROJECT_HUB.md) · [Design recovery](docs/RELIABLE_DESIGN_WORKFLOWS.md) |
+| PDK-01, PDK-04, PDK-17, PDK-22 | Search and switch installed PDKs, preview model changes, and save cross-process schematic copies. Physical migration across processes requires a new layout. [PDK switching](docs/PDK_GUIDE.md#switch-the-open-project) |
 | SCH-02–10, LAY-02–14, RTE-05 | Native wiring and buses, layout editing, linked views, physical instances, and via previews. [User guide](docs/USER_GUIDE.md) · [Native vectors](docs/NATIVE_VECTORS.md) · [Layout commands](docs/DRAWING_0.22.md) · [Vias](docs/LAYOUT_VIAS.md) |
 | SIM-02–06, EXP-01–05, WAV-06 | Named analysis setups, solver-backed runs, studies, and saved waveform comparison. [Analog workspace](docs/ANALOG_WORKSPACE.md) · [Simulation controls](docs/USER_GUIDE.md#simulation) |
 | PEX-02, PEX-04, PHY-02, PHY-07 | Real extraction, DRC, and LVS on selected reference fixtures such as the pinned inverter. [SKY130 inverter](docs/SKY130_REFERENCE.md) · [Process RC and hierarchy](docs/ANALOG_IMPLEMENTATION_EXTENSIONS.md) · [Public layouts](docs/PUBLIC_DESIGN_COMPATIBILITY.md) |

@@ -343,6 +343,26 @@
     "worker.py": {
       "path": "docs/validation/student-frequency-retained-source-2026-11-18/worker.py.txt",
       "sha256": "759638108d3d756c1601e60266805c1509fec111157573426d663742aa4be00d"
+    },
+    "collaboration_dashboard.py": {
+      "path": "docs/validation/student-frequency-retained-source-2026-11-18/collaboration_dashboard.py.txt",
+      "sha256": "5d3d64262d04fa1c63b7f8657a6f8e5218d6237d2483a3329a683b2f53206879"
+    },
+    "layout_collaboration_ui.py": {
+      "path": "docs/validation/student-frequency-retained-source-2026-11-18/layout_collaboration_ui.py.txt",
+      "sha256": "79a4e811547f703e3950143ae258de6e4f022ea41660fbd34fe2a6b3808554d0"
+    },
+    "lifecycle.py": {
+      "path": "docs/validation/student-frequency-retained-source-2026-11-18/lifecycle.py.txt",
+      "sha256": "425e769b01a654e6d9051680dd56cf55714332d13e1308c3c0e705ba7da52c22"
+    },
+    "live_ui.py": {
+      "path": "docs/validation/student-frequency-retained-source-2026-11-18/live_ui.py.txt",
+      "sha256": "096cb4f40a091dae8adc163a72ba8bebcbf03a14f30d4c9cbb54362d699c5cd1"
+    },
+    "onboarding.py": {
+      "path": "docs/validation/student-frequency-retained-source-2026-11-18/onboarding.py.txt",
+      "sha256": "fe890defaff89aff426a6d8d29165fedadb1f8cfed9de7eb0509555b59725bcf"
     }
   },
   "explanation": "Preserve the exact historical saved-testbench implementation before the CMIM LVS and capacitance-graph repair. This retains historical reference scope only; no new full GF180/IHP production qualification is inferred.",
@@ -482,5 +502,16 @@
     "added_files": [
       "worker.py"
     ]
+  },
+  "pdk_switch_collaboration_retention": {
+    "captured_from_commit": "bc5e54537e5bf7d07a4fc47f3f0cfa60dd1a1426",
+    "added_files": [
+      "collaboration_dashboard.py",
+      "layout_collaboration_ui.py",
+      "lifecycle.py",
+      "live_ui.py",
+      "onboarding.py"
+    ],
+    "scope": "Historical source authentication only."
   }
 }
