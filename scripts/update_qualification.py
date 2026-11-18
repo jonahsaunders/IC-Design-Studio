@@ -15,7 +15,7 @@ def update(check=False):
     path = ROOT/'docs/REFERENCE_QUALIFICATION.md'
     contents = documentation(ROOT)
     targets = {path: contents}
-    for path in (ROOT/'README.md', ROOT/'examples/gf180-banba/layout/README.md'):
+    for path in (ROOT/'docs/FEATURE_TOUR.md', ROOT/'examples/gf180-banba/layout/README.md'):
         text = path.read_text(encoding='utf-8')
         start, end = '<!-- qualification:banba:start -->', '<!-- qualification:banba:end -->'
         if start not in text or end not in text:

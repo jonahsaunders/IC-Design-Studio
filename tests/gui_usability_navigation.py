@@ -139,6 +139,18 @@ class UsabilityNavigationTests(unittest.TestCase):
                 self.assertEqual(opened.call_args.args[0].toString(), 'https://github.com/jonahsaunders/IC-Design-Studio/blob/'+expected+'/README.md#features')
         dialog.close()
 
+    def test_unbundled_evidence_opens_at_the_matching_commit(self):
+        self.studio.open_editor_doc('USER_GUIDE.md')
+        dialog = self.studio._document_dialog
+        commit = '147a5501b79783a508d6057da8273195dfb2878c'
+        with patch('icstudio.build_identity.identity', return_value={'commit': commit}), \
+             patch.object(QDesktopServices, 'openUrl', return_value=True) as opened:
+            dialog.browser.anchorClicked.emit(QUrl('validation/archive-only.json#results'))
+            target = opened.call_args.args[0].toString()
+            self.assertEqual(target, 'https://github.com/jonahsaunders/IC-Design-Studio/blob/'
+                             + commit + '/docs/validation/archive-only.json#results')
+        dialog.close()
+
     def test_student_progress_labels_match_selected_and_all_pdk_scopes(self):
         hub = StudentHub(self.studio)
         state = hub.portfolio.state

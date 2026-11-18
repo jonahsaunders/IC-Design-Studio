@@ -2,6 +2,9 @@
 import argparse,ast,hashlib,importlib.util,json,os,platform,re,shutil,stat,subprocess,sys,tarfile,zipfile
 from pathlib import Path,PurePosixPath
 ROOT=Path(__file__).resolve().parents[1]
+sys.path.insert(0,str(ROOT))
+from scripts.source_files import workflow_hash
+
 MANIFEST='manifest.json';ARCHIVE='payload.tar';READY='build/desktop-handoff-restored.json'
 SOURCE='build/desktop-handoff-source/source.zip'
 def require(ok,message):
@@ -85,9 +88,10 @@ def candidate_source(root,path,candidate):
      key=node.targets[0].id;require(key not in values,'Duplicate generated build metadata');values[key]=ast.literal_eval(node.value)
     require(values.get('BUILD_COMMIT')==candidate and values.get('BUILD_DIRTY') is False and set(values)=={'ENGINE_SOURCE_HASH','WORKFLOW_SOURCE_HASH','BUILD_COMMIT','BUILD_BRANCH','BUILD_DIRTY'},'Generated build metadata does not describe candidate')
     engine=z.read('IC-Design-Studio/icstudio/simulation.py')
-    modules=sorted(n for n in names if n.startswith('IC-Design-Studio/icstudio/') and len(PurePosixPath(n).parts)==3 and n.endswith('.py') and not n.endswith('/build_info.py'))
-    workflow=b''.join(PurePosixPath(n).name.encode()+z.read(n) for n in modules)
-    require(values['ENGINE_SOURCE_HASH']==hashlib.sha256(engine).hexdigest() and values['WORKFLOW_SOURCE_HASH']==hashlib.sha256(workflow).hexdigest(),'Generated build source hashes differ')
+    prefix='IC-Design-Studio/icstudio/'
+    modules=(name[len(prefix):] for name in names if name.startswith(prefix))
+    workflow=workflow_hash(modules, lambda name: z.read(prefix+name))
+    require(values['ENGINE_SOURCE_HASH']==hashlib.sha256(engine).hexdigest() and values['WORKFLOW_SOURCE_HASH']==workflow,'Generated build source hashes differ')
     require(isinstance(values['BUILD_BRANCH'],str) and values['BUILD_BRANCH'],'Missing generated build branch')
    else:
     require(hashlib.sha1(b'blob '+str(len(data)).encode()+b'\0'+data).hexdigest()==blob,'Release source differs from candidate: '+name)

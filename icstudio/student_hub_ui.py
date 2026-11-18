@@ -6,7 +6,7 @@ from PySide6.QtCore import Qt, QTimer, QEvent
 from PySide6.QtGui import QKeySequence, QShortcut, QFontDatabase
 from PySide6.QtWidgets import (QDialog,QWidget,QVBoxLayout,QHBoxLayout,QGridLayout,QLabel,QPushButton,
     QListWidget,QListWidgetItem,QListView,QTextBrowser,QPlainTextEdit,QComboBox,QProgressBar,QDockWidget,
-    QLineEdit,QFileDialog,QFormLayout,QDialogButtonBox,QSplitter,QMenu,QScrollArea,QMessageBox,QTabWidget)
+    QLineEdit,QFileDialog,QFormLayout,QDialogButtonBox,QSplitter,QMenu,QScrollArea,QMessageBox,QTabWidget,QInputDialog)
 
 from .model import digest, load_project, save_project, uid
 from .student_hub import (Portfolio,curriculum,earned,complete,missing_prerequisites,next_lesson,
@@ -45,7 +45,8 @@ def student_style(dark,scale):
     QLabel[role="title"] {{font-size:{round(24*scale/100)}px;}}
     QTextBrowser {{background:{t['panel']};color:{t['text']};border:0;padding:4px;}}
     QPushButton[role="primary"]:focus {{border:2px solid {t['text']};}}
-    QTextBrowser:focus, QPlainTextEdit:focus, QListWidget:focus {{border:2px solid {t['accent']};}}
+    QTextBrowser:focus, QPlainTextEdit:focus, QLineEdit:focus, QListWidget:focus, QComboBox:focus {{border:2px solid {t['accent']};}}
+    QLineEdit {{min-height:{round(22*scale/100)}px;}}
     QListWidget::item {{padding:10px 8px;}}
     QProgressBar {{max-height:8px;}}
     '''
@@ -74,7 +75,7 @@ class StudentHub(QWidget):
         menu=QMenu(self.more);self.more_menu=menu;self.more.setMenu(menu)
         for title,fn in [('Continue learning',self.continue_learning),('Feature map',lambda:studio.open_editor_doc('STUDENT_HUB.md')),('Engine setup…',self.setup),
                          ('Export learning record…',self.export),('Export portfolio report…',lambda:self.export(report=True)),
-                         ('Locate lesson project…',self.locate),('Reload progress',self.reload_progress)]:
+                         ('Locate lesson project…',self.locate),('Switch open project PDK…',studio.switch_pdk_dialog),('Reload progress',self.reload_progress)]:
             menu.addAction(title,lambda checked=False,fn=fn:self.call(fn))
         sizes=menu.addMenu('Text size');self.text_size_menu=sizes
         for scale in (100,125,150,200):sizes.addAction(f'{scale}%',lambda checked=False,scale=scale:self.set_text_scale(scale))
@@ -96,16 +97,18 @@ class StudentHub(QWidget):
         self.process_picker.currentIndexChanged.connect(self.process_changed)
         self.path_list=QListWidget();self.path_list.setAccessibleName('Learning paths');self.path_list.setMinimumWidth(175)
         self.path_list.setMaximumWidth(250);self.path_list.setWordWrap(True)
-        for path in [*self.data['paths'],dict(id='capstone',title='Advanced project')]:
-            item=QListWidgetItem(path['title']);item.setData(Qt.UserRole,path['id']);self.path_list.addItem(item)
-            self.path_picker.addItem(path['title'],path['id'])
+        self.path_titles={p['id']:p['title'] for p in self.data['paths']}
+        self.path_titles['capstone']='Advanced project'
+        for key,title in self.path_titles.items():
+            item=QListWidgetItem(title);item.setData(Qt.UserRole,key);self.path_list.addItem(item)
+            self.path_picker.addItem(title,key)
         self.path_list.currentRowChanged.connect(lambda i:self.choose_path(self.path_list.item(i).data(Qt.UserRole)) if i>=0 else None)
         self.path_picker.currentIndexChanged.connect(lambda i:self.choose_path(self.path_picker.itemData(i)))
         panes=QHBoxLayout();root.addLayout(panes,1);panes.addWidget(self.path_list)
         self.split=QSplitter();self.split.setChildrenCollapsible(False);panes.addWidget(self.split,1)
         left=QWidget();lv=QVBoxLayout(left);lv.setContentsMargins(0,0,0,0);self.split.addWidget(left)
         self.heading=label('','subtitle');lv.addWidget(self.heading)
-        self.search=QLineEdit();self.search.setPlaceholderText('Find a lesson…');self.search.setAccessibleName('Find a student lesson');self.search.textChanged.connect(self.fill)
+        self.search=QLineEdit();self.search.setPlaceholderText('Search all lessons…');self.search.setAccessibleName('Search all learning paths');self.search.textChanged.connect(self.fill)
         lv.addWidget(self.search);self.search.setClearButtonEnabled(True)
         self.search.returnPressed.connect(lambda:self.lessons.setFocus())
         self.find_shortcut=QShortcut(QKeySequence.Find,self);self.find_shortcut.activated.connect(self.search.setFocus)
@@ -154,7 +157,9 @@ class StudentHub(QWidget):
 
     def choose_path(self,key):
         if key is None:return
-        self.path_id=key;self.search.clear();self.fill()
+        self.path_id=key
+        if self.search.text():self.search.clear()
+        else:self.fill()
 
     def process_changed(self,*_):
         self.studio.settings.setValue('student/inverterProfile',self.process_picker.currentData())
@@ -195,29 +200,38 @@ class StudentHub(QWidget):
         for i in range(self.path_list.count()):
             item=self.path_list.item(i);path_key=item.data(Qt.UserRole)
             ls=[l for l in self.data['lessons'] if l['path']==path_key and (path_key!='inverter' or l['inverter_profile']==self.process_picker.currentData())];n=sum(complete(state,l) for l in ls)
-            title=self.path_picker.itemText(i).split(' · ')[0]
+            title=self.path_titles[path_key]
             item.setText(title+f'\n{n} of {len(ls)} complete');self.path_picker.setItemText(i,title+f' · {n}/{len(ls)}')
             if path_key==self.path_id:self.path_list.setCurrentRow(i);self.path_picker.setCurrentIndex(i)
         self.path_list.blockSignals(False);self.path_picker.blockSignals(False)
         if self.path_id=='capstone':self.heading.setText(self.data['capstone']['subtitle'])
         else:self.heading.setText(next(p['subtitle'] for p in self.data['paths'] if p['id']==self.path_id))
-        query=self.search.text().casefold()
+        words=self.search.text().casefold().split()
         for l in self.data['lessons']:
-            if l['path']!=self.path_id or query not in ' '.join([l['title'],l['summary'],*l['skills']]).casefold():continue
+            path_title=self.path_titles[l['path']]
+            if words:
+                search_text=' '.join([l['title'],l['summary'],path_title,*l['skills']]).casefold()
+                if not all(word in search_text for word in words):continue
+            elif l['path']!=self.path_id:continue
             if l['path']=='inverter' and l['inverter_profile']!=self.process_picker.currentData():continue
             count=len(earned(state,l));missing=missing_prerequisites(state,l,self.data)
             status='Completed' if complete(state,l) else 'Prerequisites needed' if missing else 'In progress' if count else 'Ready to start'
-            item=QListWidgetItem(f'{l["title"]}\n{status} · {count}/{len(l["steps"])} steps · {l["minutes"]} min')
+            title=f'{l["title"]}\n{path_title}' if words else l['title']
+            item=QListWidgetItem(f'{title}\n{status} · {count}/{len(l["steps"])} steps · {l["minutes"]} min')
             item.setToolTip(item.text())
             item.setData(Qt.UserRole,l['id']);self.lessons.addItem(item)
             if key==l['id']:self.lessons.setCurrentItem(item)
+        if words:
+            matches=self.lessons.count()
+            self.heading.setText(f'{matches} matching '+('lesson' if matches==1 else 'lessons'))
         if self.lessons.currentRow()<0:self.lessons.setCurrentRow(0)
         self.lessons.blockSignals(False);self.detail()
 
     def detail(self,*_):
         l=self.selected();self.start.setEnabled(bool(l))
+        self.progress.setVisible(bool(l))
         if not l:
-            self.details.setPlainText('No matching lessons. Clear the search to explore this path.')
+            self.details.setPlainText('No matching lessons. Try another topic or clear the search to return to your learning path.')
             self.progress.setValue(0);self.progress_text.setText('');self.start.setText('Start lesson');return
         state=self.portfolio.state;missing=missing_prerequisites(state,l,self.data);done=earned(state,l)
         esc=html.escape
@@ -273,6 +287,9 @@ class StudentHub(QWidget):
                 if l.get('inverter_profile'):
                     from .student_inverter import create as inverter
                     project=inverter(self.inverter_profiles[l['inverter_profile']])
+                elif l.get('analog_project') and l['analog_project'] not in ('bandgap','interview'):
+                    from .student_analog import choose_technology
+                    project=create(l['starter'], choose_technology(self.inverter_profiles, s.project['pdk']))
                 else:project=create(l['starter'])
                 path=self.portfolio.root/'projects'/(l['workspace']+'-'+uid()+'.icproj')
                 path.parent.mkdir(parents=True,exist_ok=True);save_project(project,path);self.portfolio.attach(l,project,path)
@@ -436,6 +453,8 @@ class LessonGuide(QDockWidget):
                                      ('Repair lesson fault',lambda:self.inverter_edit('repair'))]):
             control=button(title,lambda fn=fn:self.call(fn));iv.addWidget(control,i//2,i%2);self.inverter_buttons.append(control)
         self.inverter_actions.hide()
+        self.analog_action=button('Edit testbench…',lambda:self.call(self.analog_project_action))
+        self.analog_action.hide();v.addWidget(self.analog_action)
         self.qualify=button('Run four acceptance cases',lambda:self.call(self.qualification));v.addWidget(self.qualify)
         self.steps.currentIndexChanged.connect(self.step_changed)
         self.note_timer=QTimer(self);self.note_timer.setSingleShot(True);self.note_timer.setInterval(600)
@@ -518,6 +537,7 @@ class LessonGuide(QDockWidget):
         feedback(self.feedback,'Practice mode: checks give feedback; earn prerequisite lessons before progression credit.' if missing else
                  'Previously earned for a captured design.' if step['id'] in earned(self.hub.portfolio.state,self.lesson) else '')
         self.update_next()
+        self.update_run_state()
 
     def note_changed(self):
         if not self.filling:
@@ -541,6 +561,36 @@ class LessonGuide(QDockWidget):
         if 'device_metrics' in evidence:
             point=evidence['device_metrics']
             feedback(self.feedback,f'Checkpoint passed. ID = {point["id"]*1e6:.3g} µA; gm = {point["gm"]*1e6:.3g} µS; gm/ID = {point["gmid"]:.3g} V⁻¹; headroom = {point.get("headroom",0):.3g} V. Evidence saved.')
+        elif 'bias_readings' in evidence:
+            point=evidence['bias_readings']
+            feedback(self.feedback,f'Iout {point["output_A"]*1e6:.2f} µA · ID/W {point["density_uA_per_um"]:.3f} µA/µm · headroom {point["headroom_V"]*1000:.0f} mV. Saved.')
+        elif 'bias_comparison' in evidence:
+            a,b=(evidence['bias_comparison'][name] for name in ('simple','cascode'))
+            feedback(self.feedback,f'Output resistance {a["resistance_ohm"]/1e6:.2f} → {b["resistance_ohm"]/1e6:.2f} MΩ. 5% flatness knee {a["compliance_V"]:.2f} → {b["compliance_V"]:.2f} V. Estimated saturation floor {a["saturation_floor_V"]:.2f} → {b["saturation_floor_V"]:.2f} V. Saved.')
+        elif 'bias_corners' in evidence:
+            points=evidence['bias_corners']
+            feedback(self.feedback,f'{sum(p["passes"] for p in points)} of {len(points)} cases meet the operating target. All measured cases saved.')
+        elif 'bandgap_runs' in evidence:
+            measured=evidence['bandgap_runs']
+            span=measured['temperature_span_V']
+            detail=f' Temperature span {span*1000:.1f} mV.' if span is not None else ''
+            feedback(self.feedback,f'{measured["cases"]} cases passed.{detail} Measurements saved.')
+        elif 'interview_measurements' in evidence:
+            feedback(self.feedback,'Comparison recorded. Open Results to review the measurements before answering the interview prompt.')
+        elif 'analog_runs' in evidence:
+            point=evidence['analog_runs'][0].get('gmid')
+            if point:
+                feedback(self.feedback,f'M2 measured {point["gm_S"]*1e6:.3g} µS gm, {point["current_A"]*1e6:.3g} µA ID and {point["gm_over_id"]:.3g} V⁻¹ gm/ID. Evidence saved.')
+            else:
+                feedback(self.feedback,f'All {len(evidence["analog_runs"])} testbenches meet the targets. Measurements saved to your learning record.')
+        elif 'lesson_measurements' in evidence:
+            measured=evidence['lesson_measurements']
+            if 'after_Hz' in measured:
+                feedback(self.feedback,f'Bandwidth {measured["before_Hz"]/1e9:.2f} → {measured["after_Hz"]/1e9:.2f} GHz. Route resistance {measured["route_ohm"]:.1f} Ω. Saved.')
+            elif 'f0_Hz' in measured:
+                feedback(self.feedback,f'f₀ = {measured["f0_Hz"]/1e3:.3g} kHz · Q = {measured["q"]:.3g}. Measurements saved.')
+            else:
+                feedback(self.feedback,'All four slopes and center responses checked. Measurements saved.')
         elif 'measurements' in evidence:
             feedback(self.feedback,'Checkpoint passed. '+ '; '.join(f'{key}: {value}' for key,value in evidence['measurements'].items())+'. Generic geometry evidence saved.')
         elif 'inverter_measurements' in evidence:
@@ -566,9 +616,77 @@ class LessonGuide(QDockWidget):
     def workspace(self):
         self.require_project();s=self.studio
         if not s.leave_digital_workspace():return
-        s.cid=s.project.get('mixed_signal',{}).get('analog_cell',s.project['top'])
-        s.mode_combo.setCurrentIndex(1 if self.lesson['starter'].startswith('layout') else 0);s.refresh(True)
+        show_layout=self.lesson['starter'].startswith('layout')
+        if self.lesson['starter']=='layout-decisions':
+            from .student_layout_decisions import focus
+            s.cid=focus(s.project,self.active_step['id'])
+        elif self.lesson['starter'] in ('ahuja-study','miller-study'):
+            s.cid=next(c['id'] for c in s.project['cells'] if c['name']=='two_stage_opamp')
+        elif self.lesson.get('analog_project'):
+            from .student_analog import focus_cell
+            step=self.active_step['id']
+            s.cid=focus_cell(s.project,self.lesson['analog_project'],step)
+            show_layout=step in ('layout','bias-layout','post-layout') or step.startswith('route-')
+        else:
+            s.cid=s.project.get('mixed_signal',{}).get('analog_cell',s.project['top'])
+        s.mode_combo.setCurrentIndex(1 if show_layout else 0);s.refresh(True)
         self.show();self.raise_()
+
+    def analog_project_action(self):
+        self.flush();self.require_idle();s=self.studio
+        if self.lesson.get('analog_project')=='interview':
+            from .student_interview import focus
+            if not s.leave_digital_workspace():return
+            s.cid=focus(s.project,self.active_step['id'],circuit=True)
+            s.mode_combo.setCurrentIndex(0);s.refresh(True);self.show();self.raise_()
+            return
+        if self.lesson.get('analog_project')=='bandgap' and self.active_step['id'] in ('accuracy','startup'):
+            from .student_bandgap_lab import core_cell
+            if not s.leave_digital_workspace():return
+            s.cid=core_cell(s.project)['id'];s.mode_combo.setCurrentIndex(0);s.refresh(True)
+            self.show();self.raise_()
+            return
+        if self.lesson.get('analog_project')=='bandgap' and self.active_step['id']=='layout':
+            from .student_bandgap_lab import core_cell
+            from .student_bandgap_layout import generate
+            replace=bool(core_cell(s.project)['shapes'])
+            if replace and QMessageBox.question(self,'Regenerate bandgap layout?',
+                'Regeneration replaces the current geometry. You can undo it in the editor.',
+                QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.Cancel,
+                QMessageBox.StandardButton.Cancel)!=QMessageBox.StandardButton.Yes:
+                return
+            s.commit(lambda p:generate(p,replace=replace),'Generate GF180 bandgap layout')
+            self.workspace()
+            self.update_run_state()
+            feedback(self.feedback,'Layout generated. Inspect the device rows, supply buses, and vias.')
+            return
+        if self.lesson.get('bandgap'):
+            from .student_bandgap_ui import BandgapDialog
+            self.frequency_dialog=BandgapDialog(s,self.lesson['bandgap'])
+            self.frequency_dialog.show()
+            return
+        if self.lesson['starter'] in ('ahuja-study','miller-study'):
+            from .student_frequency_ui import AhujaDialog, MillerDialog
+            dialog=MillerDialog if self.lesson['starter']=='miller-study' else AhujaDialog
+            self.frequency_dialog=dialog(s)
+            self.frequency_dialog.show()
+            return
+        from .student_analog import _get_bench, run_names
+        kind=self.lesson['analog_project'];step=self.active_step['id']
+        if step=='layout':
+            self.workspace()
+            return s.two_stage_layout_dialog()
+        if step=='bias-layout':
+            self.workspace()
+            return s.analog_bank_dialog()
+        if step=='post-layout':
+            return s.migrate_pdk_dialog()
+        names=run_names(kind,step)
+        name=('tia_ac' if kind=='tia' else 'opamp_ac') if step=='fixture' else names[0]
+        key=_get_bench(s.project,name)['id']
+        s.open_testbenches()
+        s.testbench_combo.setCurrentIndex(s.testbench_combo.findData(key))
+        return s.edit_testbench()
 
     def open_inverter(self):
         from .student_inverter import context
@@ -596,7 +714,18 @@ class LessonGuide(QDockWidget):
 
     def run(self):
         self.flush();self.require_idle();s=self.studio
-        if self.lesson.get('inverter_profile'):
+        if self.lesson['starter']=='layout-decisions':
+            from .student_layout_decisions import prepare
+            job=prepare(s.project,self.active_step['id'])
+        elif self.lesson.get('analog_project'):
+            from .student_analog import prepare
+            jobs=prepare(s.project,self.lesson['analog_project'],self.active_step['id'],self.hub.tools())
+            for job in jobs:job['student_lesson']=self.lesson['id']
+            names=[job['student_analog']['bench'] for job in jobs]
+            s.run_manager.enqueue_many(jobs,s.jobs_dir,['Student · '+name for name in names])
+            feedback(self.feedback,'Queued '+', '.join(names)+'. Check this step when the runs finish.')
+            return
+        elif self.lesson.get('inverter_profile'):
             from .student_inverter import prepare
             job=prepare(s.project,self.lesson,self.hub.tools())
         else:
@@ -641,9 +770,62 @@ class LessonGuide(QDockWidget):
         rows=self.lesson_rows();active=[r for r in rows if r['state'] in ('Queued','Running','Stopping')]
         is_layout=self.lesson['starter'].startswith('layout')
         can_run=bound and not active and not is_layout
+        starter=self.lesson['starter']
+        kind=self.lesson.get('analog_project')
+        self.analog_action.hide()
+        bandgap=self.lesson.get('bandgap')
+        self.controls['Open RTL'].setVisible(not kind and not bandgap and starter not in ('layout-decisions','lc-bode','ahuja-study','miller-study'))
+        self.controls['Run lesson'].setText('Run lesson')
+        if kind and self.active_step:
+            from .student_analog import run_names
+            step=self.active_step['id'];names=run_names(kind,step)
+            can_run=can_run and bool(names)
+            self.controls['Run lesson'].setVisible(bool(names))
+            self.controls['Run lesson'].setText('Run post-layout checks' if step=='post-layout' else 'Run testbenches')
+            if kind=='bias' and step=='corners':
+                self.controls['Run lesson'].setText('Run nine PVT cases')
+            from .process_adapters import capabilities
+            needs_full_pdk=step=='post-layout' and not capabilities(self.studio.project['pdk'])['external_verification']
+            if kind=='interview':
+                self.controls['Run lesson'].setText('Compare extracted interconnect' if step.startswith('route-') else 'Run experiment')
+                self.analog_action.setText('Open circuit')
+                self.analog_action.setEnabled(bound and not active);self.analog_action.setVisible(bool(names))
+            elif kind=='bandgap':
+                names={'accuracy':'Run temperature sweep','startup':'Run startup cases','post-layout':'Run extracted comparison'}
+                if step in names:self.controls['Run lesson'].setText(names[step])
+                if step=='layout':
+                    from .student_bandgap_lab import core_cell
+                    existing=bound and core_cell(self.studio.project)['shapes']
+                    self.analog_action.setText('Regenerate layout…' if existing else 'Generate layout')
+                elif step in ('accuracy','startup'):self.analog_action.setText('Open bandgap circuit')
+                else:self.analog_action.setText('Open temperature model…')
+                self.analog_action.setEnabled(bound and not active);self.analog_action.show()
+            elif step in ('fixture','bias','layout','bias-layout','schematic') or needs_full_pdk:
+                self.analog_action.setText({'layout':'Generate core layout…','bias-layout':'Generate bias mirror layout…',
+                                            'post-layout':'Migrate PDK revision…'}.get(step,'Edit testbench…'))
+                self.analog_action.setEnabled(bound and not active);self.analog_action.show()
+        elif starter=='layout-decisions' and self.active_step:
+            from .student_layout_decisions import EXTRACTION_STEPS
+            run_step=self.active_step['id'] in EXTRACTION_STEPS
+            can_run=bound and not active and run_step
+            self.controls['Run lesson'].setVisible(run_step)
+            self.controls['Run lesson'].setText('Compare route RC')
+        elif starter in ('ahuja-study','miller-study') or bandgap:
+            can_run=False
+            self.controls['Run lesson'].hide()
+            self.analog_action.setText('Open temperature study…' if bandgap else 'Open loop comparison…')
+            self.analog_action.setEnabled(bound)
+            self.analog_action.show()
+        else:
+            self.controls['Run lesson'].show()
+            if starter=='lc-bode':
+                self.controls['Run lesson'].setText('Run AC sweep')
         self.controls['Run lesson'].setEnabled(can_run);self.qualify.setEnabled(can_run)
         self.controls['Cancel lesson runs'].setEnabled(bool(active));self.controls['Cancel lesson runs'].setVisible(bool(active))
-        self.controls['Results'].setEnabled(bound and any(r.get('result') and r['job'].get('student_lesson')==self.lesson['id'] for r in rows))
+        result_rows=[r for r in rows if r.get('result') and r['job'].get('student_lesson')==self.lesson['id']]
+        if kind and self.active_step:
+            result_rows=[r for r in result_rows if r['job'].get('student_analog',{}).get('stage')==self.active_step['id']]
+        self.controls['Results'].setEnabled(bound and bool(result_rows) and (kind!='interview' or not active))
         for name in ('Open workspace','Save work'):self.controls[name].setEnabled(bound)
         self.controls['Open RTL'].setEnabled(bound and self.lesson['path'] in ('digital','mixed','capstone'))
         self.check_button.setEnabled(bound)
@@ -653,6 +835,7 @@ class LessonGuide(QDockWidget):
             self.run_status.setText(' · '.join(f'{sum(r["state"]==state for r in active)} {state.lower()}' for state in ('Running','Queued','Stopping') if any(r['state']==state for r in active)))
         elif not bound:self.run_status.setText('Resume this lesson from Student Hub to use its workspace.')
         elif rows:self.run_status.setText('Latest run: '+rows[-1]['state'])
+        elif kind or bandgap or starter in ('layout-decisions','ahuja-study','miller-study'):self.run_status.setText('Ready to run.' if can_run else '')
         else:self.run_status.setText('Ready to run.' if not is_layout else 'This lesson checks the layout without simulation.')
 
     def finished(self,row,result):
@@ -665,6 +848,36 @@ class LessonGuide(QDockWidget):
         rows=[r for r in self.lesson_rows() if r.get('result') and r['job'].get('student_lesson')==self.lesson['id']]
         if not rows:raise ValueError('Run this lesson first.')
         latest=rows[-1]
+        if self.lesson['starter']=='lc-bode':
+            from .student_frequency_ui import FilterDialog
+            self.frequency_dialog=FilterDialog(s,latest['job']['project'],latest['result'])
+            self.frequency_dialog.show()
+            return
+        if self.lesson.get('analog_project'):
+            from .analog_run_ui import RunInspector
+            step=self.active_step['id']
+            by_bench={r['job']['student_analog']['bench']:r for r in rows if r['job']['student_analog']['stage']==step}
+            if not by_bench:raise ValueError('Run this step’s testbenches first.')
+            if self.lesson['analog_project']=='interview':
+                from .student_interview_ui import InterviewResults
+                saved=list(by_bench.values())[-1]['job']['project']
+                self.bias_inspector=InterviewResults(s,saved,step,rows)
+                self.bias_inspector.show();return
+            if self.lesson['analog_project']=='bias' and step=='corners':
+                from .student_bias_ui import BiasCornersDialog
+                saved=by_bench['cascode_bias']
+                self.bias_inspector=BiasCornersDialog(s,saved['job']['project'],saved['result'])
+                self.bias_inspector.show();return
+            if self.lesson['analog_project']=='bandgap':
+                from .student_bandgap_lab_ui import BandgapLabResults
+                self.bias_inspector=BandgapLabResults(s,next(iter(by_bench.values()))['result'])
+                self.bias_inspector.show();return
+            if len(by_bench)>1:
+                selected,ok=QInputDialog.getItem(self,'Testbench results','Open saved testbench',list(by_bench),0,False)
+                if not ok:return
+            else:selected=next(iter(by_bench))
+            self.bias_inspector=RunInspector(s,by_bench[selected]);self.bias_inspector.show()
+            return
         if any(step.get('rule',{}).get('type')=='device_metrics' for step in self.lesson['steps']):
             from .analog_run_ui import RunInspector
             self.bias_inspector=RunInspector(s,latest);self.bias_inspector.show();return
@@ -678,6 +891,8 @@ class LessonGuide(QDockWidget):
         if index is None:s.add_result(result)
         else:s.run_combo.setCurrentIndex(index)
         s.results_dock.show();s.results_tabs.setCurrentIndex(0)
+        if result.get('rc_comparison') and self.lesson['starter']=='layout-decisions':
+            s.open_engineering_tab(s.rc_tab)
         if result.get('silicon_report'):s.open_silicon()
 
     def save_work(self):

@@ -24,6 +24,20 @@ def main(output):
         assert window.dark;assert window.devicePixelRatioF()>=float(report['scale'])-.05
         report['checks'].append('native dark workspace and requested DPI scale')
         if report['frozen']:
+            from .getting_started import examples, example_copy
+            from .qualification import project_status
+            from .simulation import run as teaching_simulation
+            window.open_editor_doc('GETTING_STARTED.md')
+            guide = window._document_dialog
+            assert guide.browser.source().isLocalFile() and 'waveform' in guide.browser.toPlainText().lower()
+            guide.close()
+            gallery = {entry['id']: entry for entry in examples()}
+            rc = example_copy(gallery['rc'])
+            response = teaching_simulation(rc, rc['top'], rc['analysis'])['traces']['vout']
+            assert max(response) > min(response), 'Packaged RC example produced no waveform'
+            banba = project_status(example_copy(gallery['gf180-banba-layout']))
+            assert banba and banba['valid'], 'Packaged Banba evidence failed its archive checks'
+            report['checks'].append('offline Help, first RC waveform and archived Banba results')
             from . import openems_runtime
             from .openems_ui import OpenEMSJob
             solver, _ = openems_runtime.discover()
@@ -207,7 +221,7 @@ def main(output):
         assert viewer.grab().save(str(out/'layout-3d.png'));assert digest(window.project)==before
         renderer=type(viewer.view).__name__;viewer.close();QTest.qWait(30);window.set_project(previous,previous_path)
         report['checks'].append('packaged 3D layout viewer, extrusion, display controls and PNG ('+renderer+')')
-        from .live_probe import run as live_probe
+        from .probes.live_probe import run as live_probe
         from .experimental_probe import run as experimental_probe
         report['experimental']=experimental_probe(window,out)
         report['checks'].extend(report['experimental']['checks'])
@@ -215,9 +229,9 @@ def main(output):
         report['inductor']=inductor_probe(window,out)
         report['checks'].extend(report['inductor']['checks'])
         report['checks'].append(live_probe(window,out))
-        from .local_collaboration_probe import run as local_server_probe
+        from .probes.local_collaboration_probe import run as local_server_probe
         report['checks'].append(local_server_probe(window,out))
-        from .host_annotations_probe import run as host_annotations_probe
+        from .probes.host_annotations_probe import run as host_annotations_probe
         report['checks'].append(host_annotations_probe(window,out))
         window.fit_active();QTest.qWait(100);assert window.grab().save(str(out/'desktop.png'));assert not errors,errors;report['status']='passed'
     except Exception:

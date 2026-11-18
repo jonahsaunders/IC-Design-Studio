@@ -59,7 +59,8 @@ class SourceContractTests(unittest.TestCase):
         self.assertEqual(list(default_encoding_calls(sample)), [(1, 'read_text'), (3, 'read_text'), (4, 'write_text')])
 
     def test_application_text_files_name_their_encoding(self):
-        implicit = {path.name for path in sorted(PACKAGE.glob('*.py'))
+        from scripts.source_files import python_files
+        implicit = {path.relative_to(PACKAGE).as_posix() for path in python_files(PACKAGE, {'assets'})
                     if list(default_encoding_calls(path.read_text(encoding='utf-8')))}
         self.assertEqual(sorted(implicit - BOUND_HISTORICAL_SOURCES), [],
                          'Pass encoding="utf-8" so Windows reads and writes the same bytes as Linux.')

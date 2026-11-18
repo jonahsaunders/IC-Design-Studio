@@ -3,8 +3,11 @@
 The native database loop excludes selection UI, history and recovery; it is an
 engine reference, not a measurement of another desktop application's GUI.
 """
-import argparse, hashlib, json, platform, statistics, sys, time
+import argparse,  json, platform, statistics, sys, time
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from scripts.source_files import checkout_workflow_hash
 
 
 def main():
@@ -39,10 +42,7 @@ def main():
             native.append(measure(operation));assert all(s.bbox().left==0 for s in cell.shapes(layer).each())
         rows.append({'shapes':n,'studio_geometry_with_validation':stats(kernels),'studio_history_transaction':stats(history),'studio_connected_alignment':stats(connected) if connected else {'status':'not_available_in_source'},'klayout_database_transform_only':stats(native)})
         print(n,'objects:',round(statistics.median(kernels),2),'ms geometry',flush=True)
-    h=hashlib.sha256()
-    for p in sorted((a.source/'icstudio').glob('*.py')):
-        if p.name!='build_info.py':h.update(p.name.encode()+p.read_bytes())
-    report={'version':__version__,'workflow_hash':h.hexdigest(),'host':platform.platform(),'python':platform.python_version(),'workloads':rows,
+    report={'version':__version__,'workflow_hash':checkout_workflow_hash(a.source),'host':platform.platform(),'python':platform.python_version(),'workloads':rows,
             'scope':'Same flat rect geometry and fixed first reference. Studio includes grouping, grid checks and validation; history also includes cloning/delta/undo bookkeeping. KLayout database loop excludes import, selection, validation, history, display and durable I/O. Not a GUI parity benchmark.',
             'full_gui_with_recovery':'Run the durable integration gate separately; these measurements do not include save, refresh or first paint.'}
     a.out.parent.mkdir(parents=True,exist_ok=True);a.out.write_text(json.dumps(report,indent=2)+'\n')

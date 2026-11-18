@@ -16,13 +16,14 @@ if __package__ in (None, ''):
 
 UNIT_MODULES = (
     'test_ci_candidate', 'test_recover_pw2dn_diagnostics', 'test_frozen_physical', 'test_ci_feedback', 'test_reference_toolchain', 'test_checkout_integrity',
-    'test_core', 'test_lifecycle', 'test_project_data_safety', 'test_workflows', 'test_project_pdk',
-    'test_pdk_templates', 'test_student_physical',
+    'test_core', 'test_lifecycle', 'test_project_data_safety', 'test_project_versions', 'test_project_git', 'test_github_pull_requests',
+    'test_workflows', 'test_project_pdk',
+    'test_pdk_templates', 'test_student_physical', 'test_student_analog', 'test_student_frequency',
     'test_document.RecoveryQueueTests', 'test_layout_verification',
     'test_digital.DigitalChildEnvironmentTests', 'test_digital.YosysIntegrationTests',
     'test_analog.AnalogTests.test_capabilities_do_not_trust_catalog_or_metadata',
-    'test_digital_bundle', 'test_digital_runtime', 'test_digital_rc',
-    'test_sky130_retained_catalog', 'test_digital_platforms',
+    'test_digital_bundle', 'test_digital_runtime', 'test_digital_rc', 'test_tapeout',
+    'test_desktop_resources', 'test_sky130_retained_catalog', 'test_digital_platforms',
     'test_release_acceptance', 'test_release_evidence', 'test_release_intent',
     'test_pdk_qualification_matrix', 'test_ihp_hv_mos_layouts', 'test_mos_grouping', 'test_sky130_li_linked', 'test_sky130_li_array_dynamic',
     'test_ihp_resistor_via_class', 'test_ihp_resistor_via_auditor', 'test_ihp_resistor_editor', 'test_ihp_guard_vias',
@@ -116,15 +117,11 @@ RUNTIME_RELEASE_MODULES = (
 )
 
 
-PYTHON_SOURCE_FOLDERS = (
-    'icstudio', 'scripts', 'tests',
-    'scripts/qualification/sky130_mim_conditioning',
-)
-
-
 def python_sources(root):
-    return sorted(path for folder in PYTHON_SOURCE_FOLDERS
-                  for path in (root / folder).glob('*.py'))
+    from scripts.source_files import python_files
+    return sorted([*python_files(root / 'icstudio', {'assets'}),
+                   *python_files(root / 'scripts'),
+                   *python_files(root / 'tests', {'fixtures'})])
 
 
 def check_syntax(root=ROOT):
@@ -150,6 +147,8 @@ def source_identity(root=ROOT):
                  'sky130-release-inputs-2026-11-07.json',
                  'upstream-semantics-gf-inputs-2026-11-07.json.gz',
                  'source-dispositions-companion-inputs-2026-11-07.json.gz',
+                 'source-dispositions-2026-11-07-v3.json.gz',
+                 'source-dispositions-2026-11-07-v4.delta.json.gz',
                  'upstream-semantics-inventory-2026-11-07-v2.json.gz',
                  'sky130-release-inventory-2026-11-07.json.gz',
                  'source-dispositions-2026-11-08-v1.json.gz',
@@ -162,7 +161,22 @@ def source_identity(root=ROOT):
             files.append(source)
     files += [p for p in (root / 'tests/fixtures/pw2dn-recovery-2026-11-11').glob('*') if p.is_file()]
     matrix = root / 'docs/qualification/pdk-matrix.json'
-    if matrix.is_file(): files.append(matrix)
+    if matrix.is_file():
+        files.append(matrix)
+        chunk4 = json.loads(matrix.read_bytes()).get('execution_acceptance', {}).get('4', {})
+        snapshot = chunk4.get('historical_source_snapshot')
+        if snapshot:
+            archive = (root / 'docs/validation').resolve()
+            manifest = root / snapshot['path']
+            if not manifest.resolve().is_relative_to(archive):
+                raise ValueError('Historical GF180 source manifest is outside the validation archive.')
+            retained = json.loads(manifest.read_bytes())
+            dependencies = [root / entry['path'] for group in ('files', 'checker_files')
+                            for entry in retained.get(group, {}).values()]
+            if any(not path.resolve().is_relative_to(archive) for path in dependencies):
+                raise ValueError('Historical GF180 source is outside the validation archive.')
+            files.append(manifest)
+            files.extend(dependencies)
     for folder in ('chunk7-openems-retained-source-2026-11-07',
                    'experimental-data-safety-retained-source-2026-11-11',
                    'experimental-copy-safety-retained-source-2026-11-11',
@@ -170,7 +184,8 @@ def source_identity(root=ROOT):
                    'experimental-manifest-safety-retained-source-2026-11-11',
                    'experimental-findings-safety-retained-source-2026-11-12',
                    'experimental-layer-safety-retained-source-2026-11-12',
-                   'solver-timing-text-retained-source-2026-11-12'):
+                   'solver-timing-text-retained-source-2026-11-12',
+                   'desktop-cleanup-retained-source-2026-11-17'):
         files += [p for p in (root / 'docs/validation' / folder).glob('*') if p.is_file()]
     # Retained qualification tests authenticate historical inputs separately
     # from live application code. Bind that complete selection to this run too.
@@ -245,7 +260,7 @@ def source_identity(root=ROOT):
     files += list((root / '.github/workflows').glob('*.yml'))
     files += list(root.glob('requirements*.txt'))
     return {path.relative_to(root).as_posix(): hashlib.sha256(path.read_bytes()).hexdigest()
-            for path in sorted(files)}
+            for path in sorted(set(files))}
 
 
 def check_ihp_gui_output(folder):

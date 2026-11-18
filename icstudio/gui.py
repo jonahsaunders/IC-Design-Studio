@@ -235,7 +235,8 @@ class StudioCore(RecoveryUIMixin,QMainWindow):
         for f in sorted((self.jobs_dir/p['id']).glob('*/result.json'),key=lambda f:f.stat().st_mtime_ns)[-30:]:
             try:
                 r=job_store.read_result(f,p['id']);self.add_result(r)
-            except Exception:pass
+            except Exception as exc:
+                self.console.appendPlainText('Could not restore a saved run: '+str(exc))
     def maybe_save(self):
         if self.saved_hash==digest(self.project):return True
         answer=QMessageBox.question(self,'Save project?','Save changes to '+self.project['name']+'?',QMessageBox.Save|QMessageBox.Discard|QMessageBox.Cancel,QMessageBox.Save)
@@ -428,15 +429,20 @@ class StudioCore(RecoveryUIMixin,QMainWindow):
         self.traces.blockSignals(False);self.update_plot();self.update_result_status()
     def update_plot(self,*_):
         if not self.result:return
-        names=[self.traces.item(i).text() for i in range(self.traces.count()) if self.traces.item(i).checkState()==Qt.Checked];i=self.run_combo.currentIndex();old=self.jobs[i-1] if self.compare_check.isChecked() and i>0 else None
-        from .plot import analysis_kind
-        if old and (analysis_kind(old)!=analysis_kind(self.result) or old['cell_id']!=self.result['cell_id']):old=None
-        self.plot.set_result(self.result,names,old);measure=[]
+        names=[self.traces.item(i).text() for i in range(self.traces.count()) if self.traces.item(i).checkState()==Qt.Checked]
+        self.plot.set_result(self.result,names,self.comparison_result());measure=[]
         for name in names[:3]:
             vals=self.result['traces'][name]
             if vals:
                 rms=math.sqrt(sum(v*v for v in vals)/len(vals));measure.append(f'{name}: min {min(vals):.4g} · max {max(vals):.4g} · RMS {rms:.4g}')
         self.cursor_label.setText('   |   '.join(measure))
+    def comparison_result(self):
+        from .plot import analysis_kind
+        index=self.run_combo.currentIndex()
+        if self.compare_check.isChecked() and index>0:
+            old=self.jobs[index-1]
+            if analysis_kind(old)==analysis_kind(self.result) and old['cell_id']==self.result['cell_id']:
+                return old
     def trace_selected(self,it):
         self.net=it.text();self.schematic.set_data(self.cell,self.project['pdk'],self.selection,self.net);self.layout.set_data(self.cell,self.project['pdk'],self.selection,self.net,revision=self.project['revision'])
     def update_result_status(self):
@@ -706,6 +712,8 @@ class Studio(DigitalMixin,LiveCollaborationMixin,CollaborationMixin,Interoperabi
         install_student_hub(self)
         from .app_workspaces import install as install_app_workspaces
         install_app_workspaces(self)
+        from .project_versions_ui import install as install_versions
+        install_versions(self)
         self.reindex_commands()
     connect = SchematicMixin.connect
     move = LayoutDevelopmentMixin.move

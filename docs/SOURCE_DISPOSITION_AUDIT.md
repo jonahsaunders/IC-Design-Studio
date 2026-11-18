@@ -4,7 +4,7 @@ The [November 8 report](qualification/source-dispositions-2026-11-08-v1.json.gz)
 
 The [fifth November 7 report](qualification/source-dispositions-2026-11-07-v5.json.gz) adds fourteen literal schematic views and 24,080 source facts. 134 production inventory gaps remain. The [cross-host record](validation/chunk7-schematic-integration-2026-11-07.json) retains 307 affected tests per host and byte-identical complete audits. All prior items and 75 historical diagnostic-source declaration lists remain exact. Valid multiline headers are preserved; nineteen remaining embedded-code/property gaps now have accurate explanations. No connectivity, symbol/model equivalence or qualification is inferred. Earlier records below retain their original scope.
 
-The [fourth November 7 report](qualification/source-dispositions-2026-11-07-v4.json.gz) adds nine pinned legacy symbol views and 145 source facts. 148 production inventory gaps remain. The [cross-host record](validation/chunk7-legacy-symbol-integration-2026-11-07.json) retains 283 affected tests per host, identical complete reports and exact preservation of every previous item. Missing headers remain missing; pin boxes, bus references and extra power attributes remain distinct. The Qucs model identifiers and external symbol reference remain unresolved bindings. No upstream code or parameter equation is executed. Earlier records below retain their original scope.
+The [fourth November 7 report](#restore-the-fourth-november-7-report) adds nine pinned legacy symbol views and 145 source facts. 148 production inventory gaps remain. The [cross-host record](validation/chunk7-legacy-symbol-integration-2026-11-07.json) retains 283 affected tests per host, identical complete reports and exact preservation of every previous item. Missing headers remain missing; pin boxes, bus references and extra power attributes remain distinct. The Qucs model identifiers and external symbol reference remain unresolved bindings. No upstream code or parameter equation is executed. Earlier records below retain their original scope.
 
 The [third November 7 report](qualification/source-dispositions-2026-11-07-v3.json.gz) adds two CVC checker-rule files and six physical-layer/stack files: 484 additional source facts. 157 production inventory gaps remain. The [cross-host record](validation/chunk7-cvc-physical-integration-2026-11-07.json) retains 257 affected tests per host and byte-identical complete audits. Every previous item remains unchanged. Exact reviewed path/revision routing, unsupported-grammar controls and independent raw readback preserve the duplicated ITF layer, XS modeling exclusion and unevaluated Python lookup. These declarations do not supply missing simulator models or qualified operating limits. All earlier records below retain their original scope.
 
@@ -34,3 +34,23 @@ python scripts/audit_source_dispositions.py --cache <git-blob-cache> --sky-cache
 This Windows run wrote the report after its final guards. Its last terminal result was truncated during tool-context handoff, so the validation does not claim a retained observed process return or wall duration; `1` is the frozen runner's expected return for `GAPS`. The separate integration record retains replay command logs and observed returns.
 
 Chunk 7's engineering estimate remains 74%, low confidence (55–82%); it is separate from verified acceptance and unchanged by these counts.
+
+## Restore the fourth November 7 report
+
+The original compressed report is 22,930,906 bytes. This checkout stores its
+19,041-byte [delta](qualification/source-dispositions-2026-11-07-v4.delta.json.gz)
+against the [third report](qualification/source-dispositions-2026-11-07-v3.json.gz).
+Use Python 3.12 from the repository root and choose a fresh output path.
+
+```sh
+python scripts/restore_nov7_dispositions.py --output build/source-dispositions-2026-11-07-v4.json.gz
+```
+
+The restore verifies both inputs and checks the compressed output against the
+SHA-256 in the [original acceptance record](validation/chunk7-legacy-symbol-integration-2026-11-07.json).
+The [original full file](https://github.com/jonahsaunders/IC-Design-Studio/blob/147a5501b79783a508d6057da8273195dfb2878c/docs/qualification/source-dispositions-2026-11-07-v4.json.gz)
+remains available at the reviewed commit. The pilot saved 22,911,865 bytes of
+report storage in the working tree. A Windows Python 3.12.7 run restored and
+compared the compressed bytes in 18 seconds. Keep full inputs that an active
+tool opens by path. For a historical report, record its readers, baseline,
+hash, size and measured restore time before adopting this format.

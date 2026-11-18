@@ -18,7 +18,7 @@ def main():
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
     from PySide6.QtCore import QSettings, QStandardPaths, Qt
     from PySide6.QtTest import QTest
-    from PySide6.QtWidgets import QApplication, QLineEdit, QPushButton
+    from PySide6.QtWidgets import QApplication, QFileDialog, QLineEdit, QPushButton
     from PySide6.QtGui import QFontDatabase
     from icstudio.gui import Studio
     from icstudio.layout import rect
@@ -26,7 +26,7 @@ def main():
     from icstudio.live_protocol import LiveError, parse_invitation
     from icstudio.live_server import Server
     from icstudio.live_store import Store
-    from icstudio.model import clone, save_project
+    from icstudio.model import clone, load_project, save_project
 
     QSettings.setDefaultFormat(QSettings.IniFormat)
     QSettings.setPath(QSettings.IniFormat, QSettings.UserScope, str(out / 'profile/settings'))
@@ -159,6 +159,19 @@ def main():
         a.live_client.presence = lambda: dict(cell=cid, selection=[sid], cursor=[100, 500])
         b.live_client.presence = lambda: dict(cell=cid, selection=[b.cell['shapes'][1]['id']], cursor=[2900, 900])
         wait(lambda: len(a.live_client.info.get('participants', [])) == 3 and len(b.layout.live_presence) >= 2, 'Presence did not synchronize')
+        owner_dashboard=a.collaboration_dashboard(1)
+        bob_item=next(a.live_people.item(i) for i in range(a.live_people.count())
+                      if a.live_people.item(i).data(Qt.UserRole)['name']=='Bob')
+        a.live_people.setCurrentItem(bob_item)
+        assert 'Can view' in v.live_status.text()
+        b.live_client.presence = lambda: dict(cell=cid, selection=[b.cell['shapes'][1]['id']], cursor=[2800, 900])
+        wait(lambda: a.live_people.currentItem() and a.live_people.currentItem().data(Qt.UserRole)['cursor']==[2800, 900],
+             'Polling lost the selected teammate')
+        a.live_people.setFocus()
+        QTest.keyClick(a.live_people, Qt.Key_Return)
+        assert not owner_dashboard.isVisible(), 'Return did not visit the selected teammate'
+        b.live_client.presence = lambda: dict(cell=cid, selection=[b.cell['shapes'][1]['id']], cursor=[2900, 900])
+        checks.append('Teammate selection survives actual polling and Return visits their view')
         wait(lambda: any(l['actor'] == a.live_client.info['actor'] for l in b.live_client.info.get('leases', [])), 'Reservation missing')
         move(b, 0, 300)
         wait(lambda: b.live_client.conflict is not None, 'Reserved-object edit was not rejected')
@@ -183,6 +196,20 @@ def main():
         assert b.cell['shapes'][0]['points'][0][0] == 400
         assert b.cell['shapes'][2]['points'][0][0] == 750, 'Reapply lost the remote edit'
         checks.append('Visual review shows three versions, disables stale reapply, and preserves another editor’s accepted change')
+        a.live_client.presence = lambda: dict(cell=cid, selection=[sid], cursor=[100, 500])
+        wait(lambda: any(l['actor'] == a.live_client.info['actor'] for l in b.live_client.info.get('leases', [])), 'Reservation did not return')
+        move(b, 0, 200)
+        wait(lambda: b.live_client.conflict is not None, 'Second reserved edit was not retained')
+        conflict_copy = out / 'recovered-independent.icproj'
+        source_id = b.project['id']
+        with patch.object(QFileDialog, 'getSaveFileName', return_value=(str(conflict_copy), '')):
+            b.live_save_conflict()
+        copied = load_project(conflict_copy)
+        assert copied['id'] != source_id and copied['copied_from']['project_id'] == source_id
+        assert b.project['id'] == source_id and not b.live_client.conflict
+        assert copied['cells'][0]['shapes'][0]['points'][0][0] == 600
+        assert any(record['id'] == copied['id'] for record in b.project_index.entries())
+        checks.append('Saving a retained edit creates a separate discoverable project and leaves the workspace open')
         wait(lambda: any(p['name'] == 'Bob' and p.get('cursor') == [2900, 900] and p.get('selection') for p in a.layout.live_presence), 'Remote cursor and selection did not reach the owner canvas')
         a.raise_()
         a.layout.fit()
@@ -254,6 +281,10 @@ def main():
             if dashboard.recent.item(i).data(Qt.UserRole)['path'] == str(journal):
                 dashboard.recent.setCurrentRow(i)
                 break
+        dashboard.recent_search.setText('no-workspace-matches-this')
+        assert dashboard.empty_recent.isVisible() and not dashboard.resume_button.isEnabled()
+        dashboard.recent_search.clear()
+        assert dashboard.selected_record()['path'] == str(journal)
         dashboard.resume_button.click()
         wait(lambda: a.live_client and not a.live_client.connected and not a.live_client.busy, 'Expired owner did not pause')
         assert a.live_recover_button.isVisible()

@@ -16,6 +16,36 @@ The circuit workspace switches between Schematic, Layout, and Linked views. The 
 
 Local design work needs no account or hosted service. Copying a project file preserves its design; copy its result directories separately to retain historical waveforms. Optional [self-hosted collaboration](LIVE_COLLABORATION.md) shares schematic/layout edits and reviews. Start or join a session explicitly through **Tools → Collaboration**.
 
+### Project versions
+
+- Choose **File → Versions → Save Version…** to name a point in the working design and add an optional note. Studio asks you to save an untitled project first. Use regular **Save** to write your working design to the project file.
+- Choose **Browse Versions…** to review saved versions newest first. Select a version with the arrow keys or mouse. **Compare with** lets you compare that version with the working design or another saved version. The preview shows component changes and summarizes differences in layout, wiring, and project settings.
+- **Restore Version** keeps the working design as a new entry in history, then brings the selected design into the editor as a new edit. Use **Edit → Undo** to reverse it or **Save** to make the restored design the file on disk.
+
+The history is stored in `<project filename>.versions.sqlite3` beside the `.icproj` or `.icstudio` file. Move the database with the project to keep its history. If you rename the project file, update the database name to match. **Save As** starts a history at the new location. External model files and simulation results retain their own storage.
+
+The File menu and reversible restore follow Apple's guidance on [browsing document versions](https://support.apple.com/en-ie/guide/mac-help/mh40710/mac), [undo and redo](https://developer.apple.com/design/human-interface-guidelines/undo-and-redo), and [accessible controls](https://developer.apple.com/design/human-interface-guidelines/accessibility).
+
+#### Branches, merges, and GitHub
+
+Install Git and open **File → Versions → Branches and GitHub…**. Choose **Enable Branches** to save the working design as the first version on `main`. **New Branch…** starts at the current saved version and switches to the new branch. **Save Version…** records a named commit on the current branch. Earlier named versions are still available in **Browse Versions…**.
+
+Save a version of any pending design changes before switching or merging. Select a local or fetched GitHub branch and choose **Review Merge…**. Inspect the current, incoming, and common ancestor values for each conflict. Choose a resolution for every conflict, then review **Changes** before choosing **Merge Branches**. Studio validates the combined project before moving the branch forward. Use regular **Save** to write the project's working file. **Edit → Undo** changes the working design. To record that reversal in branch history, save it as a new version. If the working file differs from the current branch, **Load Saved Version** keeps a local copy of your work before loading the branch tip.
+
+Use **Connect to GitHub…** with an HTTPS URL for a dedicated design repository. For a new repository, start with an empty one. For a shared Studio repository, open a copy of its `project.icproj`, connect and fetch, then switch to the fetched branch. Studio uses Git's configured credential helper. **Fetch GitHub Branches** updates the remote versions available for review. **Publish Branch…** sends the selected saved branch and its history, including embedded design files. GitHub rejects a non-fast-forward update. Fetch and review a merge if a teammate has published new work. [GitHub authentication](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/about-authentication-to-github)
+
+Move `<project filename>.branches.git` with the project to retain its local branches. GitHub receives the root `project.icproj` and its Git history. External model files, run outputs, and older versions in the local SQLite history have separate storage. Merge review follows Apple's guidance on [document-modal sheets](https://developer.apple.com/design/human-interface-guidelines/sheets) and [keyboard-accessible controls](https://developer.apple.com/design/human-interface-guidelines/accessibility).
+
+#### GitHub pull requests in Studio
+
+Install GitHub CLI and sign in to `github.com` once with `gh auth login --hostname github.com`. Studio uses its existing sign-in. GitHub CLI also supports a token-based sign-in with `--with-token` for browser-free setup. Open **File → Versions → Branches and GitHub… → Pull Requests…** to work in the connected repository. [GitHub CLI authentication](https://cli.github.com/manual/gh_auth_login)
+
+- **New Pull Request…** lets you choose two published branches and enter a title and description. Publish the branches from the branch window first.
+- **Changes** shows the text patch for each file. **Reviews** shows submitted reviews. Use **Submit Review…** to comment, approve, or request changes on the displayed revision.
+- **Merge Pull Request…** shows the destination branch and the merge methods allowed by the repository. Studio checks the base and head again and sends the reviewed head to GitHub with the merge request. GitHub applies branch protections and required approvals. If the pull request changed, refresh and review it again. Fetch branches afterward to update the local branch list. [GitHub pull request and merge API](https://docs.github.com/en/rest/pulls/pulls)
+
+If GitHub reports conflicts, fetch the branches and switch to the pull request's head branch. Use **Review Merge…** to merge the base into the head, resolve the design conflicts, and publish the updated head. Refresh the pull request afterward. The review window uses visible keyboard focus and asks for an explicit merge confirmation. [Apple's focus and selection guidance](https://developer.apple.com/design/human-interface-guidelines/focus-and-selection) · [Apple's alerts guidance](https://developer.apple.com/design/human-interface-guidelines/alerts)
+
 ## Schematic editing
 
 Choose **Schematic → Place component…** or press **P** in the default Studio profile. Search the Devices panel, select a component, then choose Place component (or double-click the device). A preview follows your pointer; click the canvas to place it, or press Esc to cancel. Click a symbol or select it in the Components list. Edit its electrical values and connections in Properties; expand Position for coordinates. Apply changes commits a validated, undoable edit. Moving to another object commits valid drafts; invalid drafts remain with an inline error until corrected or Reset. Multiple selection exposes group actions; individual property editing requires one object. Values use SPICE suffixes: `k`, `meg`, `m`, `u`, `n`, `p`, `f`. `M` means milli, as in SPICE; use `meg` for a million.
@@ -64,7 +94,11 @@ MOS models omit body effect, subthreshold current, junction effects, intrinsic d
 
 Jobs run in a separate process. Cancel job terminates the active job. Results are saved with the immutable project snapshot, settings, revision, engine hash, technology hash, and rule hash. Editing marks old results stale. Historical curves remain available for comparison; stale check markers are not used to navigate the new design.
 
+Open **Analysis → Simulation Explorer** to save multiple setups with **Add current setup**. **Run enabled** (Ctrl+F5) runs the setups checked in the **On** column. To run one saved setup, highlight it and choose **Run selected setup**. Its **On** setting stays the same. **Edit** loads the saved setup into the inspector, and **Update** saves your changes back to the selected setup.
+
 The waveform list enables or hides signals. Clicking a signal highlights its named net. Use the waveform tools for X cursors, Y limits and X/Y checks; **Markers…** edits exact coordinates and numerical comparisons. CSV export retains the underlying values. Calculated waveforms support expressions and AC magnitude/phase analysis; saved specifications and variation cases compare results against explicit requirements. See [simulation and studies](PROFESSIONAL_WORKFLOWS.md).
+
+In **Waveforms**, select a run and use **Compare with** to overlay a compatible saved run as a dashed line. Both menus show each run's revision and engine. Hover over a run to read its analysis settings. Reopening the project reloads completed results from its run history.
 
 ## Verification and waivers
 

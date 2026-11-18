@@ -140,19 +140,44 @@ class NativeControlTests(unittest.TestCase):
 
 
 class CandidateTests(unittest.TestCase):
-    def test_private_immutable_git_rejects_modified_parent_checker(self):
+    def test_candidate_workflow_hash_tracks_nested_modules_and_checks_readers(self):
+        from scripts import verify_frozen_ihp_resistors as resistors
+        from scripts.source_files import checkout_workflow_hash
+
         with tempfile.TemporaryDirectory() as directory:
             root=Path(directory);env=gate.git_environment();env.update(GIT_CONFIG_NOSYSTEM='1',GIT_CONFIG_GLOBAL=os.devnull)
             def git(*args):return subprocess.check_output(['git',*args],cwd=root,env=env,stderr=subprocess.STDOUT)
+            def commit(message):
+                git('-c','user.name=CMIM checker test','-c','user.email=cmim-test@example.invalid',
+                    '-c','commit.gpgsign=false','-c','core.hooksPath=','commit','-qm',message)
+                return git('rev-parse','HEAD').decode().strip()
+
             git('init','-q')
-            names=[*gate.HELPERS,gate.PDK+'/package.json','icstudio/assets/pdks/collection.json',gate.FIXTURE+'/mask-only.json',gate.FIXTURE+'/SOURCE.json',gate.FIXTURE+'/LICENSE',*(p+'/SOURCE.json' for p in gate.PUBLIC),'icstudio/ihp_cmim_desktop_probe.py','icstudio/simulation.py','.github/workflows/build-desktop.yml']
+            names=[*gate.HELPERS,gate.PDK+'/package.json','icstudio/assets/pdks/collection.json',gate.FIXTURE+'/mask-only.json',gate.FIXTURE+'/SOURCE.json',gate.FIXTURE+'/LICENSE',*(p+'/SOURCE.json' for p in gate.PUBLIC),'icstudio/ihp_cmim_desktop_probe.py','icstudio/ihp_resistors.py','icstudio/ihp_resistor_desktop_probe.py','icstudio/simulation.py','.github/workflows/build-desktop.yml']
             for name in names:
                 path=root/name;path.parent.mkdir(parents=True,exist_ok=True);path.write_bytes((gate.ROOT/name).read_bytes() if name in gate.HELPERS else b'fixture source\n')
-            git('add','--',*names);git('-c','user.name=CMIM checker test','-c','user.email=cmim-test@example.invalid','-c','commit.gpgsign=false','-c','core.hooksPath=','commit','-qm','private immutable fixture')
-            commit=git('rev-parse','HEAD').decode().strip()
-            with patch.object(gate,'ROOT',root):
-                self.assertIn('workflow_hash',gate.candidate(commit));(root/gate.HELPERS[0]).write_bytes(b'mutated checker\n')
-                with self.assertRaisesRegex(ValueError,'checker differs'):gate.candidate(commit)
+            git('add','--',*names)
+            flat_commit=commit('flat source fixture')
+            flat_hash=checkout_workflow_hash(root)
+            nested='icstudio/probes/live_probe.py'
+            nested_path=root/nested;nested_path.parent.mkdir()
+            nested_path.write_bytes(b'PROBE = True\n')
+            git('add','--',nested)
+            nested_commit=commit('nested source fixture')
+            nested_hash=checkout_workflow_hash(root)
+
+            with patch.object(gate,'ROOT',root),patch.object(resistors,'ROOT',root):
+                self.assertNotEqual(flat_hash,nested_hash)
+                for reader in (gate,resistors):
+                    with self.subTest(reader=reader.__name__):
+                        self.assertEqual(reader.candidate(flat_commit)['workflow_hash'],flat_hash)
+                        inputs=reader.candidate(nested_commit)
+                        self.assertEqual(inputs['workflow_hash'],nested_hash)
+                        self.assertEqual(inputs['files'][nested],gate.sha(nested_path))
+                (root/'scripts/source_files.py').write_bytes(b'mutated checker\n')
+                for reader in (gate,resistors):
+                    with self.assertRaisesRegex(ValueError,'checker differs'):
+                        reader.candidate(nested_commit)
 
 
 class LifecycleTests(unittest.TestCase):

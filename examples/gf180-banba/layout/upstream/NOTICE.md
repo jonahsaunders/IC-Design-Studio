@@ -9,4 +9,9 @@
 
 The Banba generator removes the unit's default text labels, merges overlapping polygons without changing their area, translates the masks, assigns native device terminals, and adds circuit routing. It does not claim the routed assembly has the upstream cell's verification status.
 
+`npn_05p00x05p00.gds` comes from the same revision, directory, and license.
+Its SHA-256 is `56b375b6effe5d5272a31d8c89eceaeb4d2d35a774561c3eb8fe578e51baac84`.
+The Widlar and Brokaw Student Hub labs retain the primitive masks and route
+its collector, base, emitter, and substrate terminals separately.
+
 GF180 mask numbers and high-Rs resistor construction dimensions were checked against the same revision's `layers_def.py` and `draw_res.py`. MOS construction extends the geometry approach already used in Studio's bounded GF180 adapter to this example's explicitly checked sizes. MIM dimensions and top/bottom access follow the public GF180 Option B rules. These project-specific generators are independently screened; they are not certified foundry PCells.

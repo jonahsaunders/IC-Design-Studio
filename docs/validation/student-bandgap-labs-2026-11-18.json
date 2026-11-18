@@ -1,0 +1,216 @@
+{
+  "source_commit": "e8622d40e98ffe05cf8fc6e7253801deeb1e9397",
+  "scope": "GF180 educational DC, PVT startup, layout terminals and Magic capacitance",
+  "all_checkpoints_pass": true,
+  "designs": [
+    {
+      "topology": "widlar",
+      "stages": {
+        "accuracy": {
+          "passed": 6,
+          "runs": 6,
+          "failures": [],
+          "schematic_temperature_span_V": 0.1439622596676171,
+          "maximum_peak_V": 0,
+          "max_final_shift_V": 0,
+          "status": "passed",
+          "worker_result_sha256": "39f2eb4aa33050c483484ed669c093469954ed73333508d7122ec5ffae58a3e1"
+        },
+        "startup": {
+          "passed": 22,
+          "runs": 22,
+          "failures": [],
+          "maximum_peak_V": 1.502188041497703,
+          "max_final_shift_V": 0,
+          "status": "passed",
+          "worker_result_sha256": "931133685b87d17cc065016a2b7dffe357aa9caa84cc6c0d91eeb0b59a5410ce"
+        },
+        "post-layout": {
+          "passed": 12,
+          "runs": 12,
+          "failures": [],
+          "schematic_temperature_span_V": 0.1439622596676171,
+          "extracted_temperature_span_V": 0.14396225966779497,
+          "extraction": {
+            "devices": 7,
+            "capacitors": 13,
+            "sum_capacitance_F": 4.6172500000000005e-14,
+            "layout_sha256": "66964ce7f7d645afbd0808024b750489da6b9f34a61b96110fcfa56af9784c05",
+            "extracted_sha256": "f11b65cb1278918a145ae229f338f5856fd305b31f070707afe32c975625e613",
+            "technology_sha256": "38df8f856c93243b4c356bfb21e2e203af409a44d2649f658e362a7bf328ad61",
+            "magic_sha256": "359bd5dbfccf21114b2f18e2ffa008debf159bd0d1ab78e01738d2af9500b223",
+            "scope": "Magic capacitance and device geometry with named-terminal and dimension readback"
+          },
+          "maximum_peak_V": 1.477502393807815,
+          "max_final_shift_V": 4.405940057239377e-10,
+          "status": "passed",
+          "worker_result_sha256": "6b12d2ffefb0424e55fdae7f5df5b7ff7784f73bc607a6f002f6082673d2b7d1"
+        }
+      },
+      "layout": {
+        "devices": 7,
+        "terminals": 24,
+        "nets": 6,
+        "scope": "Local geometry, linked terminals and placement constraints"
+      },
+      "nominal_V": 1.416051231098571
+    },
+    {
+      "topology": "brokaw",
+      "stages": {
+        "accuracy": {
+          "passed": 6,
+          "runs": 6,
+          "failures": [],
+          "schematic_temperature_span_V": 0.009720145698685068,
+          "maximum_peak_V": 0,
+          "max_final_shift_V": 0,
+          "status": "passed",
+          "worker_result_sha256": "d0204b84661a20dab76e164f9a4bb2ebdc2e0b2bf8655f6840d048a60af87453"
+        },
+        "startup": {
+          "passed": 22,
+          "runs": 22,
+          "failures": [],
+          "maximum_peak_V": 1.36341158423312,
+          "max_final_shift_V": 0,
+          "status": "passed",
+          "worker_result_sha256": "dc1cf1e5a41adf90d6a381fbb1246c427f65065ec87fc32e2bbd41fb6cfebcb6"
+        },
+        "post-layout": {
+          "passed": 12,
+          "runs": 12,
+          "failures": [],
+          "schematic_temperature_span_V": 0.009720145698685068,
+          "extracted_temperature_span_V": 0.009720223072626988,
+          "extraction": {
+            "devices": 26,
+            "capacitors": 62,
+            "sum_capacitance_F": 4.2898070000000006e-13,
+            "layout_sha256": "cc78633389bf4a0d5d6560c513160e879c002ee97b45cbd0375bc6f9e5ee6d11",
+            "extracted_sha256": "573679f3abf28485356a7bac86091553b512e0ccee1cb742943814f4a578cce0",
+            "technology_sha256": "38df8f856c93243b4c356bfb21e2e203af409a44d2649f658e362a7bf328ad61",
+            "magic_sha256": "359bd5dbfccf21114b2f18e2ffa008debf159bd0d1ab78e01738d2af9500b223",
+            "scope": "Magic capacitance and device geometry with named-terminal and dimension readback"
+          },
+          "maximum_peak_V": 1.316999836376844,
+          "max_final_shift_V": 9.530294198256684e-08,
+          "status": "passed",
+          "worker_result_sha256": "20ac3824517dda1ae2f030bff608a63d00170bc99ad1b9bcbc6813bcdfedfee1"
+        }
+      },
+      "layout": {
+        "devices": 26,
+        "terminals": 86,
+        "nets": 13,
+        "scope": "Local geometry, linked terminals and placement constraints"
+      },
+      "nominal_V": 1.189826604916196
+    },
+    {
+      "topology": "kuijk",
+      "stages": {
+        "accuracy": {
+          "passed": 6,
+          "runs": 6,
+          "failures": [],
+          "schematic_temperature_span_V": 0.005545880435535944,
+          "maximum_peak_V": 0,
+          "max_final_shift_V": 0,
+          "status": "passed",
+          "worker_result_sha256": "44833bb3879e0cb5d07c6949ca9f1f09dbaec3a85ee39bec2d96653c36d0ddec"
+        },
+        "startup": {
+          "passed": 22,
+          "runs": 22,
+          "failures": [],
+          "maximum_peak_V": 1.721934809880201,
+          "max_final_shift_V": 0,
+          "status": "passed",
+          "worker_result_sha256": "632b8d6fe29f50c66364790bd1ac73b0455c5d560a7cf1d8eb97f84c280d5921"
+        },
+        "post-layout": {
+          "passed": 12,
+          "runs": 12,
+          "failures": [],
+          "schematic_temperature_span_V": 0.005545880435535944,
+          "extracted_temperature_span_V": 0.005545845563198926,
+          "extraction": {
+            "devices": 42,
+            "capacitors": 225,
+            "sum_capacitance_F": 1.99504921e-12,
+            "layout_sha256": "68bd10cd7ba9a9c35c17eebfdadd0d712069af2cf5a913dfe9c0e6c19852368c",
+            "extracted_sha256": "13e1be3fd230906425e639910d1a43f8f357aa5465841039066f0d0e2734c3ff",
+            "technology_sha256": "38df8f856c93243b4c356bfb21e2e203af409a44d2649f658e362a7bf328ad61",
+            "magic_sha256": "359bd5dbfccf21114b2f18e2ffa008debf159bd0d1ab78e01738d2af9500b223",
+            "scope": "Magic capacitance and device geometry with named-terminal and dimension readback"
+          },
+          "maximum_peak_V": 1.694593692495812,
+          "max_final_shift_V": 1.3706444736083512e-05,
+          "status": "passed",
+          "worker_result_sha256": "62668e2a8617f42a17f2e4813930448ec6a13cfa4d6393dddad0a26c0bdfe5ab"
+        }
+      },
+      "layout": {
+        "devices": 42,
+        "terminals": 128,
+        "nets": 23,
+        "scope": "Local geometry, linked terminals and placement constraints"
+      },
+      "nominal_V": 1.197551640115869
+    },
+    {
+      "topology": "banba",
+      "stages": {
+        "accuracy": {
+          "passed": 6,
+          "runs": 6,
+          "failures": [],
+          "schematic_temperature_span_V": 0.0010477364183577587,
+          "maximum_peak_V": 0,
+          "max_final_shift_V": 0,
+          "status": "passed",
+          "worker_result_sha256": "36b70ec7dc9b54ccd458bc7f473ebf51b2cc5e866de7587436035dd23b1c10fc"
+        },
+        "startup": {
+          "passed": 22,
+          "runs": 22,
+          "failures": [],
+          "maximum_peak_V": 0.6114152800908229,
+          "max_final_shift_V": 0,
+          "status": "passed",
+          "worker_result_sha256": "049b26167b3ef1923214c0f65fbd53655e3087060a0ba19fd8d306d362d3d38e"
+        },
+        "post-layout": {
+          "passed": 12,
+          "runs": 12,
+          "failures": [],
+          "schematic_temperature_span_V": 0.0010477364183577587,
+          "extracted_temperature_span_V": 0.0010477339028511778,
+          "extraction": {
+            "devices": 103,
+            "capacitors": 175,
+            "sum_capacitance_F": 2.36606343e-12,
+            "layout_sha256": "6d4727292c691b80392421dfcf78edf1401f71bcfffc450a807da1fea4691291",
+            "extracted_sha256": "6d2b09d6a70b1e8d31c800fcb1bbcd2b65c88b58d7f8df797ca204c00471af58",
+            "technology_sha256": "38df8f856c93243b4c356bfb21e2e203af409a44d2649f658e362a7bf328ad61",
+            "magic_sha256": "359bd5dbfccf21114b2f18e2ffa008debf159bd0d1ab78e01738d2af9500b223",
+            "scope": "Magic capacitance and device geometry with named-terminal and dimension readback"
+          },
+          "maximum_peak_V": 0.612754490388317,
+          "max_final_shift_V": 2.3326698153081082e-06,
+          "status": "passed",
+          "worker_result_sha256": "f8cd4ff18120848a4ce195967cac106ff6abf37ece58ae4fcdf3209871372ef5"
+        }
+      },
+      "layout": {
+        "devices": 103,
+        "terminals": 293,
+        "nets": 56,
+        "scope": "Local geometry, linked terminals and placement constraints"
+      },
+      "nominal_V": 0.6006157046256263
+    }
+  ],
+  "post_layout_results_dialog": "four actual results, keyboard row switching and schematic/extracted overlays passed"
+}

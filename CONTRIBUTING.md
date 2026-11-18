@@ -6,6 +6,19 @@ Help make open circuit design easier to learn and more dependable. Small, well-d
 
 Use Python 3.12 and the virtual-environment instructions in the [README](README.md). Install `requirements-build.txt` if working on packaging. Keep simulator and PDK dependencies explicit; do not commit installed environments, native binaries, private projects or full PDK trees.
 
+## Run the pull-request checks
+
+From the repository root with your Python 3.12 environment active, run:
+
+```sh
+python -m pip install -r requirements.txt -r requirements-qualification.txt
+python scripts/ci_feedback.py
+```
+
+The same runner powers the Linux and Windows PR jobs. For a focused run use
+`--group contracts` or `--group gui`. The [CI guide](docs/CI_FEEDBACK.md) covers
+the Windows temporary-directory and junction check, WSL setup, and results.
+
 ## Find the relevant code
 
 | Area | Location |
@@ -21,6 +34,7 @@ Use Python 3.12 and the virtual-environment instructions in the [README](README.
 | Mixed signal and learning | `icstudio/mixed_signal.py`, `icstudio/student_hub.py`, `icstudio/student_projects.py` |
 | Collaboration and recovery | `icstudio/live_client.py`, `icstudio/live_store.py`, `icstudio/review_drafts.py`, `icstudio/recovery.py` |
 | Examples and tutorials | `examples/`, `docs/` |
+| Desktop collaboration acceptance probes | `icstudio/probes/` |
 | Release automation | `scripts/`, `.github/workflows/` |
 
 ## Make a focused change
@@ -29,7 +43,7 @@ Describe the user-visible outcome. Preserve project identities, revision links a
 
 Add a meaningful regression for changed connectivity, units, parser behavior, job lifecycle or numerical results. A tiny reproducible circuit is preferable to a long simulation. Documentation-only changes need link and presentation checks, not artificial implementation tests.
 
-## Validate
+## Additional checks
 
 ```sh
 python -m unittest discover -s tests -v
@@ -39,7 +53,7 @@ python scripts/check_release.py
 Documentation checks validate local file targets, the version badge, gallery
 projects and generated qualification summaries. They do not validate heading
 fragments or establish engine/platform execution. Preserve the generated
-`qualification:banba` markers and contents in the README; use
+`qualification:banba` markers and contents in the [feature tour](docs/FEATURE_TOUR.md); use
 `python scripts/update_qualification.py --check` to check the reviewed records.
 Check new anchors and screenshot captions against their actual source/evidence.
 

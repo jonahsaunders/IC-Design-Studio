@@ -256,14 +256,15 @@ class OnboardingMixin:
                 if not it: state.setText('Select a registered revision first.'); return
                 if self.process or self.run_manager.busy: raise ValueError('Wait for active runs to finish before linking a PDK.')
                 from .catalog import link_technology
-                tech = self.pdk_registry.technology(it.data(Qt.UserRole))
-                if new:
-                    project = example('empty'); link_technology(project, tech)
-                    if not self._replace_document(): return
-                    self.set_project(project); self.sync_technology()
-                else:
-                    if not self.flush_inspector(): return
-                    self.commit(lambda p: link_technology(p, tech), 'Link project to PDK'); self.sync_technology()
+                key = it.data(Qt.UserRole)
+                if not new:
+                    dlg.accept()
+                    self.switch_pdk_dialog(preferred=key)
+                    return
+                tech = self.pdk_registry.technology(key)
+                project = example('empty'); link_technology(project, tech)
+                if not self._replace_document(): return
+                self.set_project(project); self.sync_technology()
                 state.setText('Linked. Open Devices to choose a model; select a corner in the Analysis inspector. Save your project to retain the revision link.')
             except Exception as exc: state.setText(str(exc))
         def use_bundled():
@@ -272,7 +273,7 @@ class OnboardingMixin:
         for text, fn in [('Use included PDKs', lambda: self.guard(use_bundled)), ('Find installed PDKs', lambda: start('discover', default_pdk_roots())), ('Add folder…', browse), ('Check and register', register)]:
             b = QPushButton(text); b.clicked.connect(fn); row.addWidget(b); buttons.append(b)
             if text == 'Check and register': b.setStyleSheet('background: #315ed4; color: white; padding: 9px; border-radius: 6px;')
-        for text, fn in [('New project with this PDK', lambda: link(True)), ('Link current project', link),
+        for text, fn in [('New project with this PDK', lambda: link(True)), ('Switch current project…', lambda: link()),
                          ('Manage / verify revisions…', lambda: super(OnboardingMixin, self).pdk_manager())]:
             b = QPushButton(text); b.clicked.connect(fn); project_row.addWidget(b); buttons.append(b)
             if text == 'New project with this PDK': b.setStyleSheet('background: #315ed4; color: white; padding: 9px; border-radius: 6px;')

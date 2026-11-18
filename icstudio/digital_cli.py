@@ -16,6 +16,17 @@ def main(argv=None):
     example.add_argument('--design',choices=['counter','uart','apb'],default='counter')
     capture = commands.add_parser('import'); capture.add_argument('manifest'); capture.add_argument('--output', required=True)
     export = commands.add_parser('export'); export.add_argument('project'); export.add_argument('--output', required=True)
+    from . import tapeout
+    handoff = commands.add_parser('tapeout', help='Export the UART source ZIP for Tiny Tapeout SKY 26e')
+    handoff.add_argument('project')
+    handoff.add_argument('--output', required=True)
+    handoff.add_argument('--author', required=True)
+    handoff.add_argument('--title')
+    handoff.add_argument('--description', default=tapeout.DEFAULT_DESCRIPTION)
+    handoff.add_argument('--top-module', default=tapeout.DEFAULT_TOP)
+    handoff.add_argument('--cell', help='Native cell ID (defaults to the bound digital cell)')
+    verify = commands.add_parser('verify-tapeout', help='Check the source ZIP against its manifest')
+    verify.add_argument('package')
     run = commands.add_parser('run'); run.add_argument('project'); run.add_argument('--output', required=True)
     run.add_argument('--stage', choices=digital_flow.STAGES, default='simulate')
     run.add_argument('--simulator', choices=['icarus', 'verilator'], default='icarus')
@@ -36,6 +47,10 @@ def main(argv=None):
         if args.command=='setup': return digital_runtime.main()
         if args.command=='status':
             info=digital_runtime.status(); print(json.dumps(info,indent=2)); return 0 if info['state']=='ready' else 1
+        if args.command == 'verify-tapeout':
+            tapeout.verify_package(args.package)
+            print('Source ZIP checksums match. Physical verification is a separate step.')
+            return 0
         if args.command in ('example', 'import'):
             project = digital.counter_project()
             if args.command=='example' and args.design=='uart':
@@ -51,6 +66,13 @@ def main(argv=None):
             save_project(project, args.output)
             print('Saved '+args.output); return 0
         project = load_project(args.project)
+        if args.command == 'tapeout':
+            package = tapeout.prepare(project, title=project['name'] if args.title is None else args.title,
+                                      author=args.author, description=args.description,
+                                      top=args.top_module, cell_id=args.cell)
+            path = tapeout.write_package(args.output, package)
+            print(f'Exported {path}. Official hardening and stream precheck are pending.')
+            return 0
         if args.command == 'export':
             print(digital_flow.export_flow(project['digital'], args.output)); return 0
         from .digital_design import config as cell_config,set_config

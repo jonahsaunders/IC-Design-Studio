@@ -1,18 +1,44 @@
 # Student Hub
 
 Open the **Student Hub** tab beside **Design**, or choose **View → Student Hub**. Design is the primary workspace; the Hub is an optional learning area. Starting a lesson or opening an example returns to Design. Switching tabs preserves the current editor and its drafts.
-Six learning paths cover foundations, analog, digital, mixed signal, layout and
-portfolio preparation. Four additional milestones build one sensor-acquisition
-project: **41 core lessons and 164 steps**, plus an eight-lesson
+Seven learning paths cover foundations, analog, digital, mixed signal, layout,
+portfolio preparation, and [analog design projects](STUDENT_ANALOG_PROJECTS.md).
+The photodiode TIA and two-stage op amp take an editable SKY130 circuit from a
+specification through gm/ID sizing, current reference, layout and extracted
+simulation. Four milestones build a sensor-acquisition project. The Hub also
+includes an eight-lesson
 [CMOS inverter course](STUDENT_INVERTER.md) for each available PDK revision.
 The inverter course adds process-model simulation, layout, DRC and LVS repair,
 and a design-review handoff. Every lesson includes a concept,
 worked example, follow-up experiment, interview prompt and portfolio outcome,
 plus a prediction, practical task, evidence checkpoint and written reflection.
 
+For deeper practice, try [Why layout choices matter](STUDENT_LAYOUT_DECISIONS.md)
+in Layout, [LC filters and Bode plots](STUDENT_LC_BODE.md) in Analog, or
+[Miller compensation](STUDENT_MILLER.md) and [Ahuja compensation](STUDENT_AHUJA.md)
+in Analog design projects. The [current-reference and cascode lessons](STUDENT_BIAS_CASCODE.md)
+walk through bias current, current density, output headroom, and process and temperature sweeps.
+Ten [analog interview labs](STUDENT_INTERVIEW_LABS.md) cover input pairs,
+gain and swing, settling, noise, mismatch, comparator kickback, SAR
+sampling, LDO behavior, and extracted-settling debug. Each combines a
+whiteboard prediction, measured experiment, and interview follow-up.
+Four separate [bandgap reference lessons](STUDENT_BANDGAPS.md) cover Widlar,
+Brokaw, Kuijk, and Banba. Each starts with a first-order prediction, then uses a
+GF180 transistor schematic, startup corner matrix, editable layout and a
+Magic capacitance-extracted comparison.
+The frequency lessons put the chart, keyboard controls, and exact values
+together. The layout guide shows comparison controls when the task uses
+them. [Apple layout](https://developer.apple.com/design/human-interface-guidelines/layout) ·
+[Apple accessibility](https://developer.apple.com/design/human-interface-guidelines/accessibility)
+
 ![Six learning paths and a measured gm/ID sizing exercise](images/student-hub-design-paths.png)
 
 ## Learn beside the real editor
+
+Use **Search all lessons** or **Ctrl+F** to find a topic across learning paths.
+Results show their learning path. Clear the search to return to the selected
+path. Use the arrow keys to browse lessons and **Enter** on a lesson to open it.
+Set **More → Text size** to increase text without losing the lesson controls.
 
 1. Choose **Continue learning**, or select a path and a lesson.
 2. **Start lesson** creates an independent, saved project. Existing work goes
@@ -56,10 +82,11 @@ and the remaining native macOS acceptance work.
 | Path | Progression | Final outcome |
 | --- | --- | --- |
 | Foundations | First RC transient → nets/ground → parameter edits and Undo → hierarchy → loading/debugging → layout and reproducibility | A saved, measured circuit and a learning record |
-| Analog (10 lessons) | Loaded divider → RC bandwidth → current mirror → differential pair → amplifier → matching; gm/ID bias → width → headroom → efficiency tradeoff | A measured sizing worksheet and circuit design rationale |
+| Analog (11 lessons) | Bias, gain and gm/ID sizing, then hand sketches and measured Bode plots for four LC filters | A measured sizing worksheet and frequency-response design rationale |
+| Analog design projects | Photodiode TIA or Miller op amp from testbench to extracted layout, Miller and Ahuja compensation, and a cascode bias and corner study | Specification reviews, loop-stability comparisons, and measured bias points |
 | Digital (9 lessons) | Truth tables → counter → handshake → PWM → averaging → serial transmitter; latch repair → saturating arithmetic → pipeline validity | Repaired RTL, failing cases and independent reference simulations |
 | Mixed Signal | Bridge thresholds → acquisition/hold → quantization → timing repair → DAC-weight repair → repeated conversions | A working SAR converter with explicit analog/digital timing |
-| Layout (4 lessons) | Minimum width → edge spacing → via enclosure → common centroid | Repaired geometry, measured rule checks and a physical verification plan |
+| Layout (5 lessons) | Minimum width, spacing, via enclosure, matching, connectivity and extracted RC tradeoffs | Repaired geometry, measured rule checks and an optimized route |
 | Portfolio & interviews (2 lessons) | Requirements and verification plan → reproducible design story | A design brief, interview narrative and readable portfolio report |
 
 The first three Foundations lessons unlock Analog and Digital. Mixed Signal

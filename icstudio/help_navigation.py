@@ -38,14 +38,20 @@ def connect_navigation(browser,dialog,link_color=None):
         target=browser.source().resolved(url)
         path=Path(target.toLocalFile())
         root=Path(getattr(sys,'_MEIPASS',Path(__file__).resolve().parents[1]))
-        if target.isLocalFile() and path==root/'README.md':
+        relative = path.resolve().relative_to(root.resolve()) if target.isLocalFile() and path.resolve().is_relative_to(root.resolve()) else None
+        archived = relative is not None and relative.parts[:2] in {
+            ('docs', 'validation'), ('docs', 'qualification'), ('docs', 'research')} and not path.exists()
+        if target.isLocalFile() and (path==root/'README.md' or archived):
             # The landing page contains HTML picture/table/details elements
             # that Qt's Markdown reader drops, including their surrounding text.
             # Open the matching source revision in the user's web browser.
             from .build_identity import identity
             revision=identity()['commit']
             if not re.fullmatch('[0-9a-f]{40}',revision):revision='main'
-            web=QUrl('https://github.com/jonahsaunders/IC-Design-Studio/blob/'+revision+'/README.md');web.setFragment(target.fragment())
+            web=QUrl('https://github.com/jonahsaunders/IC-Design-Studio/blob/'+revision+'/')
+            web.setPath(web.path()+relative.as_posix())
+            if target.hasQuery():web.setQuery(target.query())
+            if target.hasFragment():web.setFragment(target.fragment())
             QDesktopServices.openUrl(web)
         elif target.isLocalFile() and path.suffix.lower()=='.md':browser.setSource(target)
         else:QDesktopServices.openUrl(target)

@@ -6,7 +6,6 @@ Windows: run benchmark-windows.bat. Offscreen results are CPU/Qt evidence only.
 import argparse
 import cProfile
 import io
-import hashlib
 import json
 import os
 import platform
@@ -15,6 +14,9 @@ import statistics
 import sys
 import time
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from scripts.source_files import checkout_workflow_hash
 
 
 def main():
@@ -33,7 +35,7 @@ def main():
     from icstudio import recovery,__version__
     # Source runs must identify the code actually measured, even when a prior
     # packaging run left an older generated build_info.py in the checkout.
-    WORKFLOW_SOURCE_HASH=hashlib.sha256(b''.join(p.name.encode()+p.read_bytes() for p in sorted((args.source/'icstudio').glob('*.py')) if p.name!='build_info.py')).hexdigest()
+    WORKFLOW_SOURCE_HASH=checkout_workflow_hash(args.source)
     from icstudio.live_geometry import full
     QSettings.setDefaultFormat(QSettings.IniFormat);QSettings.setPath(QSettings.IniFormat,QSettings.UserScope,str(out/'qt-profile/settings'))
     app=QApplication([]);app.setStyle('Fusion');QSettings('ICDesignStudio','Studio').clear()

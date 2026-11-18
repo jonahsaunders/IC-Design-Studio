@@ -5,7 +5,7 @@ not qualify arbitrary user layouts or establish foundry tapeout signoff.
 """
 from pathlib import Path
 import json,re,shutil,math,os
-from .model import example,device,uid,clone,scalar,save_project,atomic_write,file_digest,digest,now
+from .model import device,uid,scalar,save_project,atomic_write,file_digest,digest,now
 from .engines import execute,tcl_word,parse_raw,run_ngspice,run_deck,netgen_lvs,require_lvs_match
 TOP='sky130_fd_sc_hd__inv_1'
 
@@ -52,7 +52,11 @@ def locked_assets(root):
 
 def native_project(root,reference,layout_path,lock):
     from .interchange import import_layout
-    ports,body,_=subcircuit(reference,TOP);p=example('empty');p['name']='SKY130 reference inverter';child={'id':uid(),'name':TOP,'ports':ports,'devices':[],'shapes':[]};p['cells'].append(child)
+    ports,body,_=subcircuit(reference,TOP)
+    p,_=import_layout(layout_path)
+    p['name']='SKY130 reference inverter'
+    child=next(c for c in p['cells'] if c['name']==TOP)
+    child['ports']=ports
     devices=[];bindings={}
     for line in body.strip().splitlines():
         if not line.strip() or line.lstrip().startswith('*'):continue
@@ -68,9 +72,11 @@ def native_project(root,reference,layout_path,lock):
         bindings[kind]={'model':model,'prefix':'X','pin_order':['d','g','s','b'],'parameter_scale':{'w':1e6,'l':1e6}}
     if len(devices)!=2 or len(bindings)!=2:raise ValueError('Expected one NMOS and one PMOS.')
     child['devices']=devices
-    imported,_=import_layout(layout_path);layout_cell=next(c for c in imported['cells'] if c['name']==TOP);child['shapes']=layout_cell['shapes']
-    p['pdk']=imported['pdk'];p['pdk'].update(name='SKY130A · inverter reference',revision=digest(lock)[:16],status='reference flow only; not foundry signoff',package_root=str(root),package_lock={'id':'sky130A-reference','revision':digest(lock)[:16],'files':lock},simulation={'ngspice_compatibility':'hsa','includes':[{'path':'libs.tech/ngspice/sky130.lib.spice','sections':{'nominal':'tt','tt':'tt'}}],'devices':bindings})
-    top=p['cells'][0];top['name']='testbench';top['devices']=[device('V','VDD',140,180,nets={'p':'vdd','n':'0'}),device('V','VIN',140,400,nets={'p':'vin','n':'0'},source={'type':'pulse','low':'0','high':'1.8','period':'20n','delay':'2n','duty':'0.5','ac':'1'}),device('X','XINV',400,280,cell=child['id'],nets={'A':'vin','VGND':'0','VNB':'0','VPB':'vdd','VPWR':'vdd','Y':'vout'}),device('C','CL',650,280,value='5f',nets={'p':'vout','n':'0'})]
+    p['pdk'].update(name='SKY130A · inverter reference',revision=digest(lock)[:16],status='reference flow only; not foundry signoff',package_root=str(root),package_lock={'id':'sky130A-reference','revision':digest(lock)[:16],'files':lock},simulation={'ngspice_compatibility':'hsa','includes':[{'path':'libs.tech/ngspice/sky130.lib.spice','sections':{'nominal':'tt','tt':'tt'}}],'devices':bindings})
+    top={'id':uid(),'name':'testbench','ports':[],'devices':[],'shapes':[]}
+    top['devices']=[device('V','VDD',140,180,nets={'p':'vdd','n':'0'}),device('V','VIN',140,400,nets={'p':'vin','n':'0'},source={'type':'pulse','low':'0','high':'1.8','period':'20n','delay':'2n','duty':'0.5','ac':'1'}),device('X','XINV',400,280,cell=child['id'],nets={'A':'vin','VGND':'0','VNB':'0','VPB':'vdd','VPWR':'vdd','Y':'vout'}),device('C','CL',650,280,value='5f',nets={'p':'vout','n':'0'})]
+    p['cells'].insert(0,top)
+    p['top']=top['id']
     p['analysis'].update(type='tran',step='20p',stop='62n',corner='tt')
     from .wiring import migrate
     for cell in p['cells']:migrate(cell,p)

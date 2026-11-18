@@ -29,6 +29,12 @@ class SimulationWorkspaceMixin:
         left=QWidget();lv=QVBoxLayout(left);lv.setContentsMargins(0,0,8,0);lv.addWidget(QLabel('ANALYSIS PLAN'))
         self.setup_table=self.simulation_table(['On','Setup','Analysis','Engine']);self.setup_table.setMinimumWidth(230);lv.addWidget(self.setup_table)
         self.setup_table.itemChanged.connect(self.setup_item_changed);self.setup_table.cellDoubleClicked.connect(lambda *_:self.edit_simulation_setup())
+        self.run_selected_setup_button=self.button('Run selected setup',fn=lambda:self.guard(self.run_selected_setup))
+        self.run_selected_setup_button.setToolTip('Run the highlighted setup once. The On checkbox controls batch runs.')
+        self.run_selected_setup_button.setEnabled(False)
+        self.setup_table.itemSelectionChanged.connect(
+            lambda:self.run_selected_setup_button.setEnabled(bool(self.setup_table.selectedItems())))
+        lv.addWidget(self.run_selected_setup_button)
         tools=QHBoxLayout();lv.addLayout(tools)
         for title,fn in [('Edit',self.edit_simulation_setup),('Update',self.update_simulation_setup),('Rename',self.rename_simulation_setup),('Remove',self.remove_simulation_setup)]:tools.addWidget(self.button(title,fn=lambda checked=False,fn=fn:self.guard(fn)))
         self.setup_table.setToolTip('Edit opens the Inspector. Update saves its settings into the selected setup.');split.addWidget(left)
@@ -259,11 +265,24 @@ class SimulationWorkspaceMixin:
         s=self.project['simulation_setups'][i]
         if s['cell']!=self.cid:
             self.cid=s['cell'];self.selection=[];self.refresh()
+        settings=s['settings']
         self.run_dialog();self._loading_analysis=True
-        self.analysis_type.setCurrentIndex(self.analysis_type.findData(s['settings']['type']));self.analysis_engine.setCurrentIndex(self.analysis_engine.findData(s['engine']))
-        for key,w in self.analysis_fields.items():w.setText(str(s['settings'][key]))
-        if hasattr(self,'native_dc_startup'):self.native_dc_startup.setChecked(s['settings'].get('dc_startup',False))
-        self.analysis_source.setCurrentText(s['settings']['source']);self._loading_analysis=False;self.analysis_dirty=True;self.analysis_visibility()
+        try:
+            self.analysis_type.setCurrentIndex(self.analysis_type.findData(settings['type']))
+            self.analysis_engine.setCurrentIndex(self.analysis_engine.findData(s['engine']))
+            for key,field in self.analysis_fields.items():
+                field.setText(str(settings.get(key,self.project['analysis'][key])))
+            self.analysis_source.setCurrentText(settings.get('source',''))
+            if hasattr(self,'native_dc_startup'):
+                self.native_dc_startup.setChecked(settings.get('dc_startup',False))
+                self.native_noise_output.setText(settings.get('output','out'))
+                if 'corner' in settings:self.corner_combo.setCurrentText(settings['corner'])
+            if settings['type'] in ('program','xschem'):
+                self.xschem_probes.setText(settings.get('probes',''))
+                self.xschem_timeout.setValue(max(1,int(settings.get('timeout',14400))//60))
+        finally:
+            self._loading_analysis=False
+        self.analysis_dirty=True;self.analysis_visibility()
 
     def rename_simulation_setup(self):
         from PySide6.QtWidgets import QInputDialog
@@ -283,13 +302,26 @@ class SimulationWorkspaceMixin:
         if i>=0:self.commit(lambda p:p['simulation_setups'].pop(i),'Remove simulation setup');self.fill_simulation_plan()
 
     def run_enabled_setups(self):
+        plan=self.project.get('simulation_setups',[])
+        setups=[s for s in plan if s.get('enabled',True)]
+        if not setups:
+            self.open_simulation_explorer()
+            message=('No setups are enabled. Check On for the setups you want to run.' if plan else
+                     'Add the current setup to build a plan, or press F5 to run the current analysis.')
+            self.statusBar().showMessage(message,8000)
+            return
+        self.run_simulation_setups(setups)
+
+    def run_selected_setup(self):
+        rows=self.setup_table.selectionModel().selectedRows()
+        if rows:
+            self.run_simulation_setups([self.project['simulation_setups'][rows[0].row()]])
+
+    def run_simulation_setups(self,setups):
         if not self.flush_inspector():return
         if self.process and self.process not in self.run_manager.processes:raise ValueError('Wait for the external command first.')
-        setups=[s for s in self.project.get('simulation_setups',[]) if s.get('enabled',True)]
-        if not setups:self.add_simulation_setup();setups=self.project.get('simulation_setups',[])
-        # Validate every setup before starting any job in the batch.
-        jobs=[(s,self.prepare_simulation(s['settings'],s['engine'],cid=s['cell'])) for s in setups]
-        for s,job in jobs:self.run_manager.enqueue(job,self.jobs_dir,s['name'])
+        jobs=[self.prepare_simulation(s['settings'],s['engine'],cid=s['cell']) for s in setups]
+        self.run_manager.enqueue_many(jobs,self.jobs_dir,[s['name'] for s in setups])
         self.open_simulation_explorer()
 
     def refresh(self,fit=False):

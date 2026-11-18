@@ -100,12 +100,12 @@ class StudentProgressTests(unittest.TestCase):
                     self.assertEqual(stamp['sources'],{})
         finally:checker_stamp.cache_clear()
 
-    def test_curriculum_has_six_paths_and_executable_starters(self):
+    def test_curriculum_has_executable_starters_and_valid_prerequisites(self):
         data=curriculum()
-        self.assertEqual([sum(l['path']==p['id'] for l in data['lessons']) for p in data['paths']],[6,10,9,6,4,2])
+        self.assertEqual([sum(l['path']==p['id'] for l in data['lessons']) for p in data['paths']],[6,11,9,6,5,2,20])
         self.assertEqual(sum(l['path']=='capstone' for l in data['lessons']),4)
         for l in data['lessons']:validate(create(l['starter']))
-        bad=clone(data);bad['lessons'][0]['requires']=[bad['lessons'][-1]['id']]
+        bad=clone(data);bad['lessons'][0]['requires']=['c-qualify']
         with self.assertRaisesRegex(ValueError,'Cyclic'):validate_curriculum(bad)
         bad=clone(data);bad['lessons'][0]['requires']=['missing']
         with self.assertRaisesRegex(ValueError,'Unknown prerequisite'):validate_curriculum(bad)
@@ -140,7 +140,8 @@ class StudentProgressTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as td:
             store=Portfolio(td);store.attach(lesson,p,Path(td)/'p.icproj')
             with self.assertRaisesRegex(ValueError,'another lesson'):store.award(lesson,step,dict(project_id='other'),data)
-            advanced=data['lessons'][-1];store.attach(advanced,p,Path(td)/'p.icproj')
+            advanced=next(item for item in data['lessons'] if item['id']=='c-qualify')
+            store.attach(advanced,p,Path(td)/'p.icproj')
             with self.assertRaisesRegex(ValueError,'prerequisites'):store.award(advanced,advanced['steps'][0],dict(project_id=p['id']),data)
             self.assertFalse(complete(store.state,advanced))
 
@@ -158,7 +159,7 @@ class StudentProgressTests(unittest.TestCase):
     def test_every_foundation_and_analog_checkpoint_has_a_reachable_target(self):
         with tempfile.TemporaryDirectory() as td:
             for lesson in curriculum()['lessons']:
-                if lesson['path'] not in ('foundations','analog'):continue
+                if lesson['path'] not in ('foundations','analog') or lesson['starter']=='lc-bode':continue
                 p=repaired(lesson,create(lesson['starter']));root=Path(td)/lesson['id'];root.mkdir()
                 path=root/'project.icproj';save_project(p,path)
                 rows=[] if lesson['starter']=='layout' else [execute(p,root/'run')]
@@ -200,7 +201,8 @@ class StudentCapstoneTests(unittest.TestCase):
             for job in campaign_jobs(p,engines()):
                 case=job['student_campaign']['case'];row=execute(job['project'],root/case,job=job);rows.append(row)
                 self.assertEqual(report(row['result'],case)['status'],'PASS',case)
-            lesson=curriculum()['lessons'][-1];evaluate(lesson['steps'][2],lesson,p,rows)
+            lesson=next(item for item in curriculum()['lessons'] if item['id']=='c-qualify')
+            evaluate(lesson['steps'][2],lesson,p,rows)
             p['cells'][0]['devices'][0]['value']='90k'
             with self.assertRaisesRegex(ValueError,'latest design'):evaluate(lesson['steps'][2],lesson,p,rows)
             for fault in ('filter','decision','average','alarm'):

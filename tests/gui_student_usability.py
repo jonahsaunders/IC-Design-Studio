@@ -25,7 +25,7 @@ def main():
     profile = Path(tempfile.mkdtemp(prefix='profile-', dir=out))
     from PySide6.QtCore import QSettings, QStandardPaths, Qt
     from PySide6.QtGui import QCloseEvent, QFontDatabase, QFontMetrics
-    from PySide6.QtWidgets import QApplication, QPushButton, QFileDialog
+    from PySide6.QtWidgets import QApplication, QPushButton, QFileDialog, QStyle, QStyleOptionFrame
     from PySide6.QtTest import QTest
     QSettings.setDefaultFormat(QSettings.IniFormat)
     QSettings.setPath(QSettings.IniFormat, QSettings.UserScope, str(profile))
@@ -79,6 +79,15 @@ def main():
     h.search.clear();assert h.start.isEnabled()
     checked('Keyboard search cannot open a project; empty search disables the action')
 
+    h.search.setText('  Advanced   project  ')
+    assert h.lessons.count() and h.path_id=='foundations'
+    assert all(h.by_id[h.lessons.item(i).data(Qt.UserRole)]['path']=='capstone' for i in range(h.lessons.count()))
+    assert 'Advanced project' in h.lessons.currentItem().text()
+    assert 'matching' in h.heading.text()
+    h.search.clear()
+    assert all(h.by_id[h.lessons.item(i).data(Qt.UserRole)]['path']=='foundations' for i in range(h.lessons.count()))
+    checked('Search finds lessons across paths and clearing it restores the active path')
+
     # Both palettes and all scales fit the minimum window, with vertical scrolling.
     h.select_lesson('f-connect')
     contrast = {}
@@ -98,6 +107,9 @@ def main():
             assert h.width()<=720 and h.height()<=680,(w.size(),h.size(),w.minimumSizeHint())
             assert h.scroll.horizontalScrollBar().maximum()==0
             assert h.path_picker.isVisible() and h.split.orientation()==Qt.Vertical
+            frame=QStyleOptionFrame();frame.initFrom(h.search)
+            contents=h.search.style().subElementRect(QStyle.SE_LineEditContents,frame,h.search)
+            assert contents.height()>=QFontMetrics(h.search.font()).height(),(dark,scale,contents)
             h.scroll.ensureWidgetVisible(h.start);app.processEvents()
             assert h.start.isVisible()
             h.scroll.verticalScrollBar().setValue(0)
@@ -179,6 +191,146 @@ def main():
     with patch.object(w,'save',return_value=False),patch.object(QFileDialog,'getSaveFileName') as choose:
         h.export();choose.assert_not_called()
     checked('Export saves current work and respects cancellation')
+
+    # Start both projects from search and visit the stage-specific controls.
+    for query, key in (('photodiode TIA', 'project-tia'), ('two-stage op amp', 'project-opamp')):
+        h.search.setText(query);assert h.selected()['id']==key
+        h.start_selected();assert g.lesson['id']==key
+        assert g.steps.count()==9 and not g.controls['Run lesson'].isVisible()
+        g.steps.setCurrentIndex(1)
+        assert g.analog_action.isVisible() and 'Edit testbench' in g.analog_action.text()
+        g.workspace();assert w.cell['name'] in ('tia_ac_fixture','opamp_ac_fixture')
+        g.steps.setCurrentIndex(3);g.workspace()
+        assert w.cell['name']=='reference_compliance_fixture'
+        assert g.controls['Run lesson'].text()=='Run testbenches'
+        g.steps.setCurrentIndex(5)
+        assert g.analog_action.text()=='Generate core layout…'
+        g.steps.setCurrentIndex(6);g.workspace()
+        assert w.cell['name']=='resistor_current_reference' and g.analog_action.text()=='Generate bias mirror layout…'
+        g.steps.setCurrentIndex(7);g.workspace()
+        assert w.cell['name']=='two_stage_opamp' and w.mode_combo.currentIndex()==1
+        assert g.controls['Run lesson'].text()=='Run post-layout checks'
+    checked('Search opens both analog projects and their stage actions target the correct fixture and core')
+
+    h.search.setText('LC filters');assert h.selected()['id']=='a-lc-bode'
+    h.start_selected();g.steps.setCurrentIndex(2);g.run()
+    deadline=time.monotonic()+30
+    while w.run_manager.busy and time.monotonic()<deadline:QTest.qWait(20)
+    assert not w.run_manager.busy and g.controls['Results'].isEnabled()
+    g.results();plot=g.frequency_dialog
+    assert plot.gain.result['plot_unit']=='dB' and plot.phase.result['plot_unit']=='°'
+    plot.output.setCurrentIndex(plot.output.findData('bs'));QTest.qWait(30)
+    assert plot.values.item(2,3).text()=='Undefined'
+    ticks=plot.phase.result['frequency_ticks']
+    assert len(ticks)==5 and plot.phase.result['trace_gaps']
+    QTest.mouseClick(plot.phase,Qt.LeftButton,pos=plot.phase.screen(ticks[2],0).toPoint())
+    assert 'undefined' in plot.cursor.text()
+    plot.grab().save(str(out/'lc-bode-notch.png'));plot.close()
+    checked('Real AC lesson runs open magnitude, phase and hand-sketch comparison; the notch phase is undefined')
+
+    h.search.setText('Why layout choices');assert h.selected()['id']=='l-layout-decisions'
+    h.start_selected();g.steps.setCurrentIndex(1);g.workspace()
+    assert w.cell['name']=='via_coupon'
+    g.steps.setCurrentIndex(4);g.workspace();assert w.cell['name']=='routing_bandwidth'
+    g.run()
+    deadline=time.monotonic()+30
+    while w.run_manager.busy and time.monotonic()<deadline:QTest.qWait(20)
+    assert not w.run_manager.busy and g.controls['Results'].isEnabled()
+    g.results()
+    assert w.results_tabs.currentIndex()==w.rc_tab and 'resistors' in w.rc_note.text()
+    checked('Layout lesson selects the stage coupon and opens a measured RC comparison')
+
+    h.search.setText('Ahuja compensation');assert h.selected()['id']=='project-ahuja'
+    h.start_selected();assert w.cell['name']=='two_stage_opamp'
+    g.analog_action.click();study=g.frequency_dialog
+    assert study.values.item(1,3).text()=='Meets target'
+    assert study.gain.result['y_reference']==0 and study.phase.result['y_reference']==-120
+    study.buffer.setValue(10);assert study.values.item(2,3).text()=='Below target'
+    QTest.qWait(30);study.grab().save(str(out/'ahuja-loop-study.png'));study.close()
+    checked('Ahuja lesson changes the modeled loop and phase margin through keyboard-accessible controls')
+
+    h.search.setText('nulling resistor');assert h.selected()['id']=='project-miller'
+    h.start_selected();assert w.cell['name']=='two_stage_opamp' and g.steps.count()==6
+    g.analog_action.click();study=g.frequency_dialog
+    assert study.values.item(2,3).text()=='At infinity' and '202 pF' in study.legend.text()
+    study.resistor.setValue(500);assert study.values.item(2,3).text().startswith('Right half plane')
+    study.resistor.setValue(2000);assert study.values.item(2,3).text().startswith('Left half plane')
+    study.capacitor.setValue(4);assert float(study.values.item(2,2).text())>60
+    QTest.qWait(30);study.grab().save(str(out/'miller-loop-study.png'));study.close()
+    checked('Miller lesson shows the zero crossing infinity and recomputes margin as Cc changes')
+
+    h.select_lesson('project-bias-reference');h.start_selected()
+    assert w.cell['name']=='simple_bias_fixture'
+    bias_project=w.project['id']
+    g.steps.setCurrentIndex(2)
+    assert g.controls['Run lesson'].text()=='Run testbenches'
+    h.select_lesson('project-cascode');h.start_selected()
+    assert w.project['id']==bias_project and w.cell['name']=='cascode_mirror'
+    g.steps.setCurrentIndex(2);g.workspace()
+    assert w.cell['name']=='cascode_bias_fixture' and g.controls['Run lesson'].text()=='Run nine PVT cases'
+    checked('Bias and cascode lessons share the trimmed project and open the correct fixtures and corner study')
+
+    for topology in ('widlar','brokaw','kuijk','banba'):
+        h.select_lesson('project-bandgap-'+topology);h.start_selected()
+        assert w.cell['name']==('banba_layout' if topology=='banba' else topology+'_core')
+        assert g.analog_action.text()=='Open temperature model…'
+        g.analog_action.click();study=g.frequency_dialog
+        assert study.kind==topology and study.volts.result['plot_unit']=='V' and study.drift.result['plot_unit']=='mV'
+        assert study.values.rowCount()==4
+        QTest.qWait(30)
+        assert study.values.verticalScrollBar().maximum()==0 and study.values.horizontalScrollBar().maximum()==0
+        previous=float(study.values.item(1,3).text())
+        if topology=='banba':
+            study.extra.setValue(.4)
+            assert float(study.values.item(1,3).text())<previous
+        elif topology=='kuijk':
+            study.extra.setValue(2)
+            assert float(study.values.item(1,3).text())>previous
+        else:
+            study.ratio.setValue(16)
+            assert float(study.values.item(1,3).text())>previous
+        QTest.qWait(30);study.grab().save(str(out/f'bandgap-{topology}.png'));study.close()
+        for stage,action in (('accuracy','Run temperature sweep'), ('startup','Run startup cases'),
+                             ('post-layout','Run extracted comparison')):
+            index=next(i for i,step in enumerate(g.lesson['steps']) if step['id']==stage)
+            g.steps.setCurrentIndex(index);g.workspace()
+            assert g.controls['Run lesson'].text()==action
+            if stage=='accuracy':
+                assert g.analog_action.text()=='Open bandgap circuit'
+                g.analog_action.click()
+                assert w.cell['name']==('banba_layout' if topology=='banba' else topology+'_core')
+        index=next(i for i,step in enumerate(g.lesson['steps']) if step['id']=='layout')
+        g.steps.setCurrentIndex(index);g.workspace()
+        assert w.mode_combo.currentIndex()==1
+        if topology!='banba':
+            assert g.analog_action.text()=='Generate layout'
+            g.analog_action.click()
+        assert w.cell['layout_pins'] and g.analog_action.text()=='Regenerate layout…'
+    checked('Four transistor-level bandgap projects open independent predictions and run, layout, and extracted controls')
+
+    for lesson in (item for item in h.data['lessons'] if item.get('analog_project')=='interview'):
+        h.select_lesson(lesson['id']);h.start_selected()
+        assert w.project['student_interview']==lesson['id'].removeprefix('interview-')
+        g.steps.setCurrentIndex(1)
+        assert g.controls['Run lesson'].isEnabled()
+        g.analog_action.click()
+        assert w.mode_combo.currentIndex()==0
+    assert g.lesson['id']=='interview-post-layout-debug'
+    g.steps.setCurrentIndex(0)
+    g.answer.setCurrentIndex(g.answer.findData(g.active_step['answer']));g.check()
+    g.steps.setCurrentIndex(1)
+    g.workspace()
+    assert w.mode_combo.currentIndex()==1 and g.controls['Run lesson'].text()=='Compare extracted interconnect'
+    g.run();deadline=time.monotonic()+30
+    while w.run_manager.busy and time.monotonic()<deadline:QTest.qWait(20)
+    assert not w.run_manager.busy and g.controls['Results'].isEnabled()
+    g.results();study=g.bias_inspector
+    assert study.readings.rowCount()==4 and study.plot.compare is not None
+    assert 'Dashed line is schematic' in study.detail.text()
+    study.grab().save(str(out/'interview-extracted-settling.png'));study.close()
+    g.check()
+    assert 'Comparison recorded' in g.feedback.text()
+    checked('All interview labs open editable circuits and the settling lesson runs and compares actual extracted waveforms')
 
     # Second pass: project switches disable actions immediately and cannot misroute
     # cancellation or completed-run feedback to another project.

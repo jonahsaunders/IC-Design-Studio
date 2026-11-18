@@ -40,9 +40,21 @@ The current package revisions and model source hashes are in `icstudio/assets/pd
 4. On **Registered revisions**, select a revision. Read its placeable-symbol count, model corners and physical capability summary.
 5. Choose **New project with this PDK**. Open **Devices** to search and place models, select a corner in the Analysis inspector, and save the project.
 
-**Link current project** is available when its electrical and physical mappings are compatible. Existing models or layer numbers are never silently substituted. **Manage / verify revisions** opens verification, relocation and revision-management controls.
+**Switch current project…** opens the same switcher as the editor.
+**Manage / verify revisions** opens verification, relocation and revision-management controls.
 
 ![The PDK assistant discovers local packages for review before registration](images/pdk-setup.png)
+
+## Switch the open project
+
+1. In the editor's Project sidebar, choose **Switch project PDK…**. It is also available under **Tools → Technology**, in the command palette, and under **More** in the Student Hub. Use **Add PDK…** to register another local kit.
+2. Search by process or revision and press Return or choose **Review Changes**. Studio checks the target's declared model files in the background. Review which saved settings or views are affected.
+3. For a process-bound schematic, choose the target model for each listed source model. The picker requires the same device kind and named terminals. Review model defaults and dimensions. If the old MOS dimensions fall outside the target range, you can explicitly choose the target width and length defaults and review those values.
+4. Choose **Switch PDK** for a compatible local edit. Undo restores the previous project state. Choose **Save Project Copy…** when moving a process-bound design across process families, or when switching an active shared workspace or Student Hub lesson. The separate project is available from **Projects**.
+
+A cross-process copy carries the schematic hierarchy, connectivity and testbench definitions. Physical geometry, routing records, extracted views and custom simulation runtime settings stay with the source. Review supply levels, PVT settings and measured targets at the new process before rebuilding layout and rerunning verification. A same-family revision can keep geometry when its layer mappings remain compatible. Native designs with external SPICE or Xschem dependencies require a fresh source import against the target kit for independent review of its includes and model names.
+
+The switcher follows Apple's guidance for labelled search, keyboard navigation, clear feedback and reversible changes. [Search fields](https://developer.apple.com/design/human-interface-guidelines/search-fields) · [Keyboards](https://developer.apple.com/design/human-interface-guidelines/keyboards/) · [Feedback](https://developer.apple.com/design/human-interface-guidelines/feedback)
 
 ## Obtain a tool-ready installation
 

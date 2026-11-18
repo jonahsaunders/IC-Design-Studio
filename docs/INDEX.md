@@ -2,7 +2,7 @@
 
 Use the guides below for the current **0.23.1 engineering preview** source. Desktop packages have their own source identities and acceptance records; check [release status](RELEASE_STATUS.md) before applying source-only instructions to a downloaded build. Older versioned notes at the end are historical snapshots.
 
-**Quick links:** [First waveform](GETTING_STARTED.md) · [Examples](../examples/README.md) · [Feature tour](../README.md#explore-the-workspace) · [Source setup](../README.md#start-in-three-steps) · [Simulation engines](../SIMULATION_SETUP.md)
+**Quick links:** [First waveform](GETTING_STARTED.md) · [Examples](../examples/README.md) · [Feature tour](FEATURE_TOUR.md) · [Source setup](../README.md#start-in-three-steps) · [Simulation engines](../SIMULATION_SETUP.md)
 
 For development toward a complete analog/digital release, see the
 [SKY130, GF180MCU and IHP acceptance targets](PUBLIC_RELEASE_TARGETS.md).
@@ -30,14 +30,22 @@ LVT/HVT geometry, native model recognition and six source-editor device views.
 | **Sensor acquisition capstone** | [Student projects](../examples/student-hub/README.md) · [course](STUDENT_HUB.md) | Filter, converter, averaging and alarm with measured repair milestones |
 | **Counter, UART and APB FIFO** | [Digital flow](DIGITAL_FLOW.md) | Editable RTL, simulation/regression and implementation examples |
 
-The [gallery catalog](../README.md#example-library) contains 13 guided entries. The external voltage monitor is generated from its separately downloaded, pinned source; it is not a bundled gallery entry. The supplied bandgap and native Banba reference are different circuits.
+The [gallery catalog](FEATURE_TOUR.md#example-library) contains 13 guided entries. The external voltage monitor is generated from its separately downloaded, pinned source; it is not a bundled gallery entry. The supplied bandgap and native Banba reference are different circuits.
 
 ## Start here
 
 - [Desktop downloads and package identity](DOWNLOADS.md)
 - [Your first circuit and waveform](GETTING_STARTED.md)
 - [Projects, libraries and saved work](PROJECT_HUB.md)
-- [41 core lessons and the sensor-acquisition capstone](STUDENT_HUB.md)
+- [Student Hub learning paths and sensor-acquisition capstone](STUDENT_HUB.md)
+- [TIA and op-amp design projects](STUDENT_ANALOG_PROJECTS.md)
+- [Analog IC interview labs](STUDENT_INTERVIEW_LABS.md)
+- [Why layout choices matter](STUDENT_LAYOUT_DECISIONS.md)
+- [LC filters and Bode plots](STUDENT_LC_BODE.md)
+- [Miller compensation and the nulling resistor](STUDENT_MILLER.md)
+- [Bias a current mirror and a cascode](STUDENT_BIAS_CASCODE.md)
+- [Widlar, Brokaw, Kuijk, and Banba bandgap reference lessons](STUDENT_BANDGAPS.md)
+- [Ahuja compensation for op amps](STUDENT_AHUJA.md)
 - [Included and installed PDKs](PDK_GUIDE.md)
 - [Linux launch and engine setup](LINUX_SETUP.md)
 - [Circuit, layout, CLI and plugin workflows](USER_GUIDE.md)
@@ -57,6 +65,7 @@ The [gallery catalog](../README.md#example-library) contains 13 guided entries. 
 
 - [RTL editing, debug, timing and physical inspection](DIGITAL_WORKSPACE.md)
 - [Digital engines, constraints and RTL-to-GDS implementation](DIGITAL_FLOW.md)
+- [Tiny Tapeout SKY 26e UART source handoff](TINY_TAPEOUT_HANDOFF.md)
 - [SKY130, GF180 and IHP digital profiles and qualification](DIGITAL_PLATFORM_QUALIFICATION.md)
 - [Eight interactive offline RTL presets](VGA_PLAYGROUND.md)
 - [Four-bit SAR ADC with clocked ngspice/Icarus coupling](MIXED_SIGNAL_SAR.md)

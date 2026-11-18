@@ -1,5 +1,374 @@
 # Chunks 1–12: progress and forecast
 
+## Project PDK switching and collaboration
+
+**November 18, 2026.** Source `4e442f050513a26a0e95ad7ff691a80521a1aeed`
+adds searchable [PDK switching](PDK_GUIDE.md#switch-the-open-project) and
+updates [live and shared-folder collaboration](LIVE_COLLABORATION.md).
+The desktop tests covered undo, stale previews, an independent cross-process
+copy with explicit model mapping and width and length review, shared-folder
+change preview, keyboard navigation during live polling, and conflict recovery
+to a separate project.
+
+The Ubuntu test checkout was extracted from the committed source archive
+with SHA-256 `7fd4b3eaedade12b1222a5f01e169f112d93d9ef044b03ca4c0b780d3e5db73b`.
+Ubuntu passed 67 focused tests and the desktop flows for PDK setup, lifecycle
+and live editing. Windows passed 32 focused tests, the lifecycle and live
+desktop flows and all 19 Student Hub desktop checks. Both hosts passed release
+material validation.
+
+The bundled SKY130A to GF180MCU D check remapped a four-terminal NMOS in a
+1.2 V resistor-loaded fixture and solved both operating points with ngspice.
+The drain voltages were 0.606 V and 1.094 V, respectively. The source geometry
+and connectivity were preserved, and the target schematic used the GF180
+device and its chosen geometry defaults. This evidence covers one circuit and
+local collaboration. It adds no process qualification or LAN/VPN acceptance.
+
+## Student Hub analog interview labs
+
+**November 18, 2026.** Sources `85bffbebac35dfed6318f435739e9a4646a67f43`
+and `7593f994600bd7626d2de62f25d8f2e382ef6aab` add ten
+[analog interview labs](STUDENT_INTERVIEW_LABS.md). All 12 measured
+checkpoints passed through the normal worker and grading path. The 31 jobs
+include 128 seeded teaching mismatch trials, transistor-level SKY130
+ngspice measurements, measured SAR capacitor trim, and the interconnect
+timing diagnosis and repair.
+
+- At 0.70 V common mode the NMOS and PMOS pairs drew 2.66 and 2.62 µA.
+  Their usable ranges were 0.62 V through the 1.80 V sweep endpoint and
+  0–0.78 V, respectively, under the saved current and gain criteria.
+- Raising the output load from 2 pF to 8 pF increased the follower's
+  large falling transition from 141 to 384 ns. The rising 2% settling
+  time increased from 204 to 308 ns.
+- The nominal comparator delay was 0.776 ns at 3 mV overdrive and
+  0.507 ns at 40 mV. The sampler's defective MSB step rose from 0.715
+  to 0.797 V after repair, changing the estimated 0.76 V code from 8
+  to 7. The interconnect repair kept the 39.5 ps schematic result
+  and reduced modeled extracted settling from 51.75 to 49.25 ps.
+
+Ubuntu passed all 34 focused tests. Windows passed 29 with five
+external-engine skips. Both passed 19 Student Hub desktop checks and
+release-material validation. The results show teaching-model and selected
+fixture behavior. The PDK mismatch and full layout extraction requirements
+are separate from these exercises.
+[Measurements, source identities and result hashes](validation/student-interview-labs-2026-11-18.json)
+
+## Student Hub transistor-level bandgap labs
+
+**November 18, 2026.** Source `e8622d40e98ffe05cf8fc6e7253801deeb1e9397`
+adds separate transistor-level [Widlar, Brokaw, Kuijk and Banba labs](STUDENT_BANDGAPS.md).
+All four use GF180 process models and saved 5 pF testbenches. Each lesson
+has a fixed six-temperature accuracy specification, two power-on ramps,
+and a layout checkpoint with named ports and linked terminal checks.
+
+The nominal-process schematic temperature spans over −40 to 125 °C were
+144.0 mV for Widlar, 9.72 mV for Brokaw, 5.55 mV for Kuijk, and 1.05 mV
+for Banba. All 88 schematic power-on cases and 48 paired post-layout cases
+passed their saved specifications. The largest paired final-voltage shift
+was 13.7 µV on Kuijk. The resistor-fed Widlar includes a wider drift budget. A change
+from 50.15 to 50.5 µm in Banba's output resistor rejected the older
+layout. Regenerating and extracting the edited design matched all 103
+devices and gave 604.787 mV on both views at 27 °C.
+
+The physical stage streams the GF180-B geometry, extracts capacitance and
+device geometry with Magic, and checks the physical ports, device models,
+terminals, and dimensions before the electrical replay. The scope is
+local geometry, linked connectivity, device readback and capacitance.
+Full process DRC, wire resistance extraction and whole-die requirements
+are separate gates.
+
+Ubuntu passed all 31 focused tests. Windows passed 26 with five
+external-engine skips. Both passed 18 Student Hub desktop checks and
+release-material validation. On Ubuntu the results dialog opened each
+actual extracted result and selected the overlaid traces by keyboard.
+[Saved measurements and artifact hashes](validation/student-bandgap-labs-2026-11-18.json)
+
+## Student Hub Miller, cascode bias, and bandgap lessons
+
+**November 18, 2026.** Lesson source
+`3e0014310b805712ccfdf9e14de45b0d3af1e9be`, desktop table polish
+`c74ac1367ea2e3cfc040e115176846010bdc894c`, and saved-current plot labels
+`a212d2fa8166fae018a9ca9e4ba739f6b73b00d2`.
+
+- [Miller compensation](STUDENT_MILLER.md) derives effective input
+  capacitance, pole splitting, the compensation zero, and phase margin.
+  Independent ngspice circuits with a physical series RC branch matched
+  the complex two-node model at eight component settings and 801
+  frequencies per setting, with maximum relative error of about 3e−13.
+- [Current reference and cascode](STUDENT_BIAS_CASCODE.md) use 1.8 V
+  SKY130A transistor models. The lesson worker captured 5.34 and 5.46 µA
+  near the nominal clamp, with output resistance rising from 2.21 to
+  395 MΩ. The measured 5% flatness knees were 0.85 and 0.25 V, while
+  the estimated saturation floors were 0.074 and 0.694 V. All nine
+  cascode cases met the exercise limits, with 4.05–6.70 µA output and
+  at least 475 mV of stack margin. Changing RSET rejected the old evidence.
+- [Widlar, Brokaw, Kuijk, and Banba](STUDENT_BANDGAPS.md) each have their
+  own workspace, calculation, adjustable temperature study, and
+  reflection. All four nominal summation schematics matched their
+  equations within 1 µV. The lessons use first-order ratio equations and
+  an explicit junction-curvature model.
+
+Ubuntu passed all 27 focused tests. Windows passed 22 with five external
+engine skips. Both hosts passed the 18 Student Hub desktop checks and
+release-material checks. Windows also passed the saved-run inspection
+check for current units. The desktop checks use Qt offscreen. The [GF180
+historical source manifest](validation/student-frequency-retained-source-2026-11-18/chunk4-manifest.json)
+retains the original saved-run inspector bytes for the earlier acceptance.
+
+## Student Hub layout, LC filters, and Ahuja compensation
+
+**November 18, 2026.** Source `7b4f7e7d88bebbee360f22340cc4efc451dbbf5b`
+adds three lessons and their teaching plots.
+
+- [Why layout choices matter](STUDENT_LAYOUT_DECISIONS.md) checks repaired
+  via enclosure, a common centroid, and an intentional open that still
+  passes generic geometry DRC. The modeled 0.20, 0.40, and 0.80 µm
+  routes measured 12.16, 12.78, and 12.41 GHz against a 12.5 GHz target.
+  The comparisons use declared teaching coefficients and distributed RC.
+- [LC filters and Bode plots](STUDENT_LC_BODE.md) runs the four actual
+  schematic taps through the built-in AC solver. The measured low-pass
+  high-frequency tail was −40.10 dB/decade, the high-pass low-frequency
+  tail was +40.10 dB/decade, and the notch left phase undefined at its
+  null. Tests rejected a mistapped output and stale evidence, reduced
+  Q to about 0.673, and retuned the low-pass to approximately 10 kHz.
+- [Ahuja compensation](STUDENT_AHUJA.md) compares a direct Miller loop,
+  an ideal current-buffered loop, and a bandwidth-limited current buffer.
+  At 20 pF, the first two margins were 37.4° and 81.2°. A 10 MHz buffer
+  pole gave 16.1°. Independent ngspice controlled-source circuits
+  matched the complex model across three loads and two buffer poles.
+  The interactive results are small-signal equivalent-circuit evidence.
+
+The clean Ubuntu source replay passed all 24 focused tests. Windows
+passed 19 with five external-engine skips. Both hosts passed the 15
+Student Hub desktop checks and the release-materials check. The desktop
+tests opened all three lessons, ran the real LC and RC jobs, checked the
+notch phase gap and cursor, and changed the finite-buffer phase margin
+through the Ahuja controls.
+
+## Student Hub TIA and op-amp projects
+
+**November 18, 2026.** Source `0b3b986742a8d908ba02f66ee8ac15477d99dddf`
+adds two nine-step SKY130A design projects to Student Hub. Each starts with
+a spec and an editable fixture, then records gm/ID sizing, bias-reference
+compliance, schematic measurements, layout checks, nominal extracted
+measurements, and a design-review reflection.
+[TIA and op-amp project guide](STUDENT_ANALOG_PROJECTS.md)
+
+The clean Ubuntu replay used ngspice, Magic, and Netgen with the full
+SKY130A process and default capacitance extraction at 1.8 V and 27 °C.
+All eight verification benches passed. The TIA
+AC and pulse fixtures passed DRC, LVS, and schematic/extracted limits.
+Extracted results were 99.96 kΩ at 100 Hz, 985.5 kHz bandwidth, 99.96 mV
+output step and 0.58 µs settling. The op amp passed its operating point,
+AC, noise and startup fixtures before and after extraction. Extracted
+gain was 81.08 dB, unity-gain frequency was 4.45 MHz, and phase margin
+was 58.52° into 1 pF. The separate PMOS bias mirror passed its nominal
+compliance sweep before and after extraction. With a 130 kΩ programming
+resistor, nominal schematic and extracted currents both stayed within
+4.81–4.86 µA over a 0.45–0.85 V output clamp. An exploratory 200 kΩ
+setting correctly failed the current minimum. The input-pair bias bench
+captured about 5.02 µA and 101 µS on M2, or 20.2 V⁻¹ gm/ID.
+
+The learning projects keep the TIA feedback network and bias programming
+resistor in the external fixtures. The amplifier fixtures use a fixed
+5 µA bias to isolate the core measurements. The PVT plan is provided
+for further practice. The checked measurements are nominal and use the
+recorded extraction mode.
+
+Ubuntu passed all 22 focused tests. Windows passed 17 with five
+external-engine skips. Both hosts passed the 12 Student Hub desktop
+checks and the release-materials check. The desktop replay found both
+projects by search and checked navigation to their fixtures, layouts,
+and extracted-verification step.
+
+## Tiny Tapeout SKY 26e UART source handoff
+
+**November 18, 2026.** Source `59a8c09006addac062106586b36a5f96f0f577a4`
+adds the first named tapeout target, a SKY130A HD UART in one Tiny Tapeout
+tile. The desktop and CLI export the same source ZIP, including a package
+integrity manifest and a pinned hardening, stream precheck, and gate-level
+test workflow. The [handoff guide](TINY_TAPEOUT_HANDOFF.md) documents the pinout,
+versions, and desktop controls. The [feature inventory](../FEATURES_TO_ADD.md#tapeout-and-handoff)
+records the verified source scope by ID.
+
+The bundled UART fixture exported with author `IC Design Studio regression`
+and default metadata produced SHA-256
+`38038f9c1875461397a33b428cee51404bae05ae960df67489397c8b954bf42c`.
+Tiny Tapeout support tools `9d13ff3e3e6202090740110438c6a10c1d62ca0f`, with
+their locked Python requirements, accepted that package using
+`tt_tool.py --pdk sky130A --check-docs --create-user-config`. They generated
+the 161 × 111.52 µm tile template configuration with a `met4` routing limit,
+`VPWR` and `VGND`, and the merged 10 ns clock target and 1 ns I/O budget.
+Icarus Verilog 12.0 checked three UART frames, reset, enable, and spare
+outputs. Disconnecting TX produced a failing simulation and test report.
+Changing the direction of `uio_in` was rejected by the official checker.
+
+Windows and a clean Ubuntu source archive produced byte-identical ZIPs.
+All 34 source tests passed on Ubuntu. Windows passed 33 with one
+external-tool skip. The desktop regression covered the keyboard path,
+recovery from missing metadata, and exporting a draft without applying it to
+the project. The release-materials check passed on both hosts. The existing
+GF180 density evidence retains both previously tested digital entry points
+under their original source hashes.
+
+Physical hardening, gate-level simulation, final-stream precheck, and
+shuttle acceptance are pending. The local Ubuntu environment lacked the
+Docker integration or native LibreLane tools needed by the official
+hardening path.
+
+## Recent experimental work
+
+**November 18 feature inventory.** The [feature inventory](../FEATURES_TO_ADD.md)
+lists 798 numbered capabilities across 38 areas and links documented Studio
+starting points at source `8e8d41af9c7b0e32888ad32251abcae174e2014a`. Use its
+IDs to connect implementation, parity checks, and qualification evidence.
+Prioritize the named SKY130A/HD UART handoff when selecting entries. Use the
+broader inventory for subsequent parity audits.
+
+**November 18 tapeout development priorities.** The [agent instructions](../AGENTS.md#tapeout-first)
+set a first SKY130A/HD digital handoff target using the existing UART
+fixture on source `d2a7b7c5ce29e8517cc2ca8f804db50ebb52ad25`. The next check
+is to identify the named foundry or shuttle profile and replay its actual
+preflight from a locked environment. The plan also calls for an analog
+reference pass, subsequent per-process and mixed-signal acceptance, and
+workflow benchmarks for parity and speed. This entry records priorities.
+
+**November 18 in-app GitHub pull requests.** Source
+`2f99e5f11c89a6d3cfe84d44957049cf5ed2cba6` adds a dedicated pull request
+window for creation, file diffs, review submission, and remote merge.
+The desktop regression opens it from the branches window, creates a pull
+request, approves the displayed head, declines a stale merge, refreshes,
+and merges the new reviewed head. It checks that the merge confirmation
+has no default action and that the working design stays intact. GitHub
+HTTPS read-only verification retrieved two changed files and one review
+for public `cli/cli` pull request `#15095`. Write-path checks used a GitHub
+API fixture. The 21 Qt editing tests, 16 version control and GitHub tests,
+and release-materials checks passed on Windows and Ubuntu. The Windows
+visual review covered light and dark appearances.
+See [GitHub pull requests in Studio](USER_GUIDE.md#github-pull-requests-in-studio).
+
+**November 18 project branches and GitHub.** Source
+`4fbb3c22e9aac3cb3f7f4cfbdb55c8b31b3cdcbb` adds local Git branches, reviewed
+three-way design merges, and GitHub fetch and publish. The desktop regression
+reviewed three versions of an RC resistor value, cancelled a merge without
+changing either branch, resolved the conflict, then undid the working edit.
+The branch tests cover independent edits, deletion versus edit, stale reviews,
+fast-forward and two-parent merges, and rejected non-fast-forward publishes
+with two clients and a temporary Git remote. A read-only connection to the
+public `git/git` repository verified live GitHub HTTPS from Windows. The
+20 Qt editing tests, 10 version and branch tests, and release-materials
+checks passed on Windows and Ubuntu. The conflict review was inspected in
+light and dark appearances. See
+[Branches, merges, and GitHub](USER_GUIDE.md#branches-merges-and-github).
+
+**November 18 local project version history.** Source
+`e96d3ec35af962659084e9de7c992233b6b7d447` adds named project versions,
+comparisons with the working design or another version, and a restore that
+keeps the current design in history before changing the editor. The Windows
+and Ubuntu Qt checks created two RC versions through the File menu, reopened
+a project with spaces in its path, compared resistor values, verified that a
+failed backup left the working design intact, and exercised restore, Undo,
+and Redo. The four version-store tests on both hosts cover simultaneous
+saves, project identity, snapshot integrity, and revision behavior. The
+Windows visual review checked light and dark appearances. See
+[Project versions](USER_GUIDE.md#project-versions) for the workflow and the
+companion database. This is source-level desktop evidence.
+
+**November 18 desktop roadmap pass.** Source
+`96b71b452fc5182df2fbed72f7bdbd1f05b1e425` passed 18 Qt editing tests and 11
+Student Hub usability checks each on Windows and Ubuntu. The RC exercise
+compared nonadjacent runs after changing component values, undoing and redoing
+an edit, then saved and reopened from a path with spaces. Reopening restored the
+saved plan and each completed run once, and excluded a cancelled result file.
+The recovery, migration, and simulation source suite ran 33 checks per host,
+with five external-tool skips on Windows. Windows also passed 10 real-worker
+analysis and wiring checks and five native-build identity checks. Ubuntu passed
+the Project Hub workflow. Both hosts passed the release-materials check.
+
+Student Hub checks included keyboard search, inverter profile scoping, empty
+search results, and 100–200% text in light and dark appearances. The
+[roadmap](ROADMAP.md#make-feedback-faster-alongside-feature-work) records the
+Windows packaging overlap estimate and the shared native-build requirement.
+
+Ubuntu replayed `sky130_fd_sc_hd__inv_1` at
+`ea0575af0ea97a7e2a87fb3e262d8a126df0c205` with SKY130A release
+`sky130-fa87f8f4bbcc7255b6f0c0fb506960f531ae2392`, Magic 8.3.684, Netgen
+1.5.300, ngspice 47 with KLU, and KLayout 0.30.5. All eight stages passed.
+Public DRC reported zero violations, LVS gave one match, and extraction
+reported 14 capacitors. The TT transient measured six transitions at 1.8 V
+and 5 fF, with mean propagation delay of 32.097 ps before extraction and
+36.208 ps after extraction. Linked views loaded the same cell, and GDS export
+to a path with spaces preserved the original geometry on every layer and all
+eight text labels. The hierarchy and label regression passed on both hosts.
+
+The replay used these SHA-256 asset identities:
+
+- `sky130.lib.spice` `5efa041a988893c1a3580d0ecd57870ea3146b27741c7d42b56baaa336b9549e`
+- `sky130A.tech` `5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e`
+- `sky130A_setup.tcl` `3b2e4eddc57b1d8dc531d95086a2c21b86709907ede11fcac676f37d501787e9`
+
+The physical replay covers one reference cell. This pass used source builds
+on Windows and Ubuntu. Fresh installer and macOS VoiceOver testing are pending.
+The [retained source manifest](validation/desktop-workflows-retained-source-2026-11-18/chunk4-manifest.json)
+preserves the accepted GF180 source bytes. The latest chunk 7 engineering
+estimate remains **74%**, with low confidence (55–82%).
+
+**November 18 simulation plan usability and bug fixes.** Candidate
+`cf212e0ac1c7590c92e367fc516b9aba8656c81d` respects unchecked setups during a
+batch run, runs one highlighted setup on demand, and restores saved program
+waveform selections and runtime limits in the inspector. The earlier behavior
+was reproduced in native Windows Qt before the fixes. The corrected source
+passed 17 Qt editing and simulation tests and 76 workflow, analysis-source,
+gallery and migration tests per platform on Windows and Ubuntu (one skip per
+unit run). The Windows native analysis and wiring smoke passed 10 checks with
+real simulation workers. Release materials and the qualification matrix passed
+validation on both hosts. The [retained source manifest](validation/simulation-plan-retained-source-2026-11-18/chunk4-manifest.json)
+preserves the accepted GF180 source bytes. These are source and desktop behavior
+checks. Full installed and device qualification have their existing evidence
+requirements. Chunk 7 stays at **74%**, an engineering estimate with low
+confidence (55–82%).
+
+**November 17 experimental repository cleanup.** The baseline is main
+`147a5501b79783a508d6057da8273195dfb2878c`. The historical November 7 v4 disposition
+report restores to its original compressed SHA-256 from a 19,041-byte delta.
+The [restore instructions](SOURCE_DISPOSITION_AUDIT.md#restore-the-fourth-november-7-report)
+identify the original run. The [retained source manifest](validation/desktop-cleanup-retained-source-2026-11-17/chunk4-manifest.json)
+preserves the exact collaboration-probe and Help sources used by the historical
+GF180 gate. These packaging and source checks add no device acceptance.
+Chunk 7 remains an engineering estimate of 74% (low confidence, 55–82%).
+
+The [installed run for `e465d79`](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/44148683876)
+passed offline Help, RC and Banba smoke checks on both platforms. Both runs
+then stopped when the installed MiM electrical checker could not find its
+pinned device reference. The follow-up packages the four audited documentation
+inputs used by the MiM, metal-resistor and parallel-array checkers. The staged
+input regression exercises each checker with its existing hashes.
+
+The corrected candidate `2bbf12de2ea3a14788f6e6bf19100ef50aec9b48` passed
+[Windows and Linux source feedback](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/44211182079).
+The [baseline build](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/44148730080)
+and [corrected build](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/44211194654)
+manifests report 194.8 MiB saved for the Windows installer (9.0%),
+273.9 MiB for the Windows portable ZIP (11.2%), and 419.2 MiB for the
+unpacked Linux application (11.9%). Staged documentation went from 430.4 MiB
+to 11.2 MiB, and both packages carry the four pinned references byte for byte.
+Both corrected packages passed the installed Help, RC and Banba smoke checks
+and the selected SKY130 MiM public geometry and electrical workflow. On
+November 18 both installed runs stopped at the IHP CMIM source fingerprint.
+The follow-up uses the same recursive fingerprint for the packagers and the
+Git-backed IHP CMIM and resistor verifiers. The regression compares the
+fingerprints for flat and nested module trees and rejects a changed checker.
+
+The follow-up candidate `78a2cff2bb13f2ebd81142ab7a7618c956d05c40` passed
+[source feedback on both platforms](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/44292701108).
+Both [desktop packages](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/44292716021)
+carry the expected source fingerprint and the four pinned references. The final
+Linux archive went from 2,426,769,472 to 2,162,774,695 bytes (10.9% smaller).
+The Windows installer went from 2,271,238,834 to 2,066,940,304 bytes (9.0%),
+and the portable ZIP from 2,557,910,129 to 2,270,721,926 bytes (11.2%).
+The installed Linux job passed all checks, including IHP CMIM and IHP resistors.
+Installed Windows verification is in progress.
+
 **November 12 teaching-solver timing and Windows text repair (0.23.1 source):**
 this follow-on to main `86a9087` is outside chunks 1–12 and changes no completion
 gate, device status or forecast. It repairs the included solver's transient
@@ -810,7 +1179,7 @@ collector was interrupted by the November 7 pause, so no completed local
 artifact readback is claimed for this run. PR #69 is now merged.
 
 **November 7 legacy-symbol inventory:** the
-[fourth disposition report](qualification/source-dispositions-2026-11-07-v4.json.gz)
+[fourth disposition report](SOURCE_DISPOSITION_AUDIT.md#restore-the-fourth-november-7-report)
 enumerates eight pinned headerless Xschem symbols and one Qucs component view:
 nine previously opaque sources and 145 additional facts. All 751,628 previous
 items remain exactly unchanged; the complete report has 43,671 source identities,

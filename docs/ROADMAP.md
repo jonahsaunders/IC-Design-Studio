@@ -1,6 +1,81 @@
 # The path forward
 
-## Public-release target
+## Current direction
+
+Make IC Design Studio more dependable and easier to use for real circuit
+design. Prioritize the workflows people already rely on, fix bugs where they
+occur, and improve features when a concrete design task shows what is missing.
+The priorities below guide desktop development on `experimental` from
+November 18, 2026.
+
+### First milestone — edit, simulate, compare, and reopen
+
+Start with the bundled RC project. Open a copy, run the first waveform, change
+the resistor value, compare the two results, then save and reopen the project.
+Use the [first-waveform guide](GETTING_STARTED.md) and the
+[simulation controls](USER_GUIDE.md#simulation) as the starting points.
+
+- Make it easy to choose the two runs you want to compare and see which
+  schematic revision, analysis settings, and engine produced each result.
+- Check that the waveform changes as expected, earlier runs retain their
+  inputs, and the reopened project restores the edited circuit and saved plan.
+- Exercise the workflow on Windows and Ubuntu. Use the saved-setup fixes as
+  regression coverage for running one case, checking batch selections, and
+  restoring program settings.
+
+### Next — protect projects and make edits predictable
+
+Exercise save, reopen, undo, recovery after an interrupted session, and project
+imports with spaces in their paths. Prioritize lost edits, wrong connectivity,
+incorrect results, and crashes. Reproduce each defect with a small project,
+fix it through the app's normal controls, and keep a regression check for it.
+
+### Then — carry a real design through layout and verification
+
+Use the [pinned SKY130 inverter](SKY130_REFERENCE.md) to exercise linked
+schematic and layout views, inspect public DRC and LVS findings, and check the
+exported design. Record the actual model and rule-deck revisions, expected
+results, and supported scope. Use the verified reference as a starting point
+for subsequent analog, digital, or exchange improvements when a specific
+workflow needs them.
+
+### Make feedback faster alongside feature work
+
+Use focused checks for the affected workflow during development. Measure the
+time from commit to testable installer. Start by evaluating whether Windows
+core tests can run alongside packaging against the same native build. Keep the
+established installed verification for release candidates and connect each
+result to its [exact package and source revision](RELEASE_STATUS.md).
+
+The [measured Windows baseline](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/44148730080/job/134278397965)
+spent 52 minutes in core tests and 14 minutes assembling the installer and
+portable ZIP. The current native-build receipt binds the checkout, compiler,
+and DLL to one runner. A parallel build would need a sealed handoff so both
+jobs consume the exact same DLL. The two outcomes can then join before
+installed acceptance. The 52 minutes is the maximum time that overlap can
+recover on that baseline before transfers and runner setup.
+
+## How we track progress
+
+Give each milestone one user task, an example project, and observable pass
+criteria. Record what was verified, on which platform, and which source or
+installer was tested. If work is blocked on a model, checker, or external
+reference, record the missing input and move to the next actionable app issue.
+
+The [twelve-chunk plan](PDK_QUALIFICATION_PLAN.md),
+[qualification tracker](QUALIFICATION_PROGRESS.md), and
+[process and tapeout targets](PUBLIC_RELEASE_TARGETS.md) retain the previous
+program's completed work, open requirements, and evidence. Use those records
+when verifying a specific device, process, or tapeout target. Resume broader
+qualification around a named target with the required source data and a defined
+acceptance scope.
+
+## Earlier roadmap and milestones
+
+The sections below record the previous roadmap in its original milestone and
+release context.
+
+### Public-release target
 
 The current development target is analog and digital design on SKY130,
 GF180MCU C/D and IHP SG13G2, with process-specific tapeout acceptance.
@@ -9,7 +84,7 @@ existing engineering preview from the remaining digital-platform, physical,
 chip-level signoff and desktop acceptance work. The older milestones below
 retain their original version and evidence scope.
 
-## Current dev25 priorities
+### Current dev25 priorities
 
 The [current source extensions](ANALOG_IMPLEMENTATION_EXTENSIONS.md) add native
 bus/array semantics, reviewed physical specialization with regeneration, bounded
@@ -74,7 +149,7 @@ retain their own hosts and narrower performance claims. Sub-200 ms native editin
 Repeat the checks on native consumer displays;
 offscreen repaint timings do not measure hardware presentation latency.
 
-## Experimental dev21: workflow and recovery
+### Experimental dev21: workflow and recovery
 
 The [dev21 update](UPDATE_0.22_DEV21.md) adds component shortcuts, a persistent
 workflow panel, hover selection, unsent review draft recovery, reuse of isolated
@@ -82,7 +157,7 @@ recovery snapshots and an explicit native desktop acceptance tool. Remaining
 work includes consumer hardware acceptance, broader physical qualification,
 general offline design editing and further measured responsiveness improvements.
 
-## Experimental dev20: detector consistency and runnable HSA bench
+### Experimental dev20: detector consistency and runnable HSA bench
 
 The [real-project workflow](OPEN_PROJECTS.md) adds bounded Xschem array import,
 reviewed layout attachment, exact layout text exchange and a pinned overvoltage
@@ -98,7 +173,7 @@ do not close the hardware acceptance items. Older milestones below are history.
 
 Our goal is an independent open design environment that makes circuit intent, experiments and physical implementation easy to follow. Compatibility with Xschem, ngspice, KLayout, Magic and Netgen remains part of that direction. This roadmap expresses priorities and acceptance criteria, not promised delivery dates.
 
-## Experimental dev18 implementation
+### Experimental dev18 implementation
 
 [Guided network hosting](LIVE_COLLABORATION.md#host-a-session-on-your-network)
 creates encrypted sessions with invitation-scoped trust, connection checks and
@@ -107,7 +182,7 @@ dragging, deletion and undo, including in shared sessions. The next hosting work
 is qualification across physical LAN/VPN devices and firewall configurations;
 managed internet hosting and relay service remain separate work.
 
-## Experimental dev17 implementation
+### Experimental dev17 implementation
 
 The [local server button](LIVE_COLLABORATION.md#start-a-local-server-with-a-button)
 starts the included collaboration service, handles its key automatically and
@@ -115,7 +190,7 @@ restarts saved local workspaces from the dashboard. This local-server mode is
 limited to the same computer; the later network-hosting wizard and reachable
 HTTPS team servers support other computers.
 
-## Experimental dev16 implementation
+### Experimental dev16 implementation
 
 The [workflow and review update](WORKFLOW_REVIEW_0.22.md) adds automatic workflow
 checks, selected testbench context, visual ECO inspection, reviewer permissions
@@ -124,21 +199,21 @@ qualification, durable submitted-review recovery and unsent drafts. Broader
 matched layouts, a general offline design-edit queue, notifications and further
 editing-latency improvements remain open.
 
-## Experimental dev14 implementation
+### Experimental dev14 implementation
 
 The [engineering workflow guide](PROFESSIONAL_WORKFLOWS.md) records the implemented document services, editing improvements, parameter variants, analog references, test matrices and team review, with measured performance and explicit qualification limits. The remaining priorities below continue beyond this increment.
 
-## Foundation already available
+### Foundation already available
 
 The current application has native schematic/layout editing, buses and instance arrays, reusable cells, saved simulation setups, waveform tools, analog optimization and campaigns, reviewed Xschem exchange, locked PDK adapters, linked physical geometry and bounded extraction. It also includes the [digital workspace](DIGITAL_WORKSPACE.md), [VGA Playground](VGA_PLAYGROUND.md), [mixed-signal SAR](MIXED_SIGNAL_SAR.md) and [Student Hub](STUDENT_HUB.md). See [release status](RELEASE_STATUS.md) for tested source/package identities; the older milestones above retain their original scope.
 
-## 1. Make releases dependable
+### 1. Make releases dependable
 
 **Next priority.** Run fresh-machine acceptance on Windows and Linux, including import, first simulation, save/reopen, model paths with spaces, cancellation, recovery and upgrade settings. Add signed Windows distributions when signing infrastructure is available. Qualify scaling, keyboard navigation, screen-reader names, text contrast and the macOS source workflow.
 
 **Done when:** each advertised platform has a reproducible install-to-result test and attached evidence. “Built” and “executed successfully” are separate release states.
 
-## 2. Make native design a strong destination
+### 2. Make native design a strong destination
 
 Progress in [0.21.1.dev1](UPDATE_0.21.1.md): a small parameterized hierarchy now covers repeated connected moves, exact undo/redo, stable identities and reviewed exchange after source removal. Exported ports reuse their own net labels, avoiding collisions with other nets and repeated label growth. Broader editing and exchange qualification remains open.
 
@@ -146,13 +221,13 @@ Extend the supported native bus/array, parameterized hierarchy, symbol and model
 
 **Done when:** a representative hierarchical project can be imported, migrated, edited, exported, reimported and compared without unexplained topology or parameter changes. Native projects remain usable without Xschem installed.
 
-## 3. Make each PDK workflow reproducible
+### 3. Make each PDK workflow reproducible
 
 Add managed, pinned downloads with progress, interruption/retry, storage estimates and revision rollback. Expand model and symbol adapters, guided OSDI provisioning, device-family smoke circuits and corner evidence. Make PDK capabilities searchable and pair physical recipes with matching extraction/rule decks.
 
 **Done when:** every advertised process/device subset lists its model revision, tested engine build, representative circuit results, physical support and known exclusions. Registration alone never becomes a “qualified” badge.
 
-## 4. Close the electrical–physical loop
+### 4. Close the electrical–physical loop
 
 Progress in [0.22.0.dev1](UPDATE_0.22.md): connected translation/stretching with physical component guards, queued multilayer route proposals with vias, bounded length tuning and shields, a declarative PCell library, and captured relative KLayout rule dependencies. New geometry is traced to design and technology inputs. Broader process device qualification and calibrated hierarchical extraction remain open.
 
@@ -160,13 +235,13 @@ Extend parametric device coverage and routing feedback. Improve hierarchical ext
 
 **Done when:** a declared process flow can trace a schematic change through regenerated geometry, verification, extraction and before/after specification results with reproducible inputs.
 
-## 5. Deepen experiments and reporting
+### 5. Deepen experiments and reporting
 
 Build on the existing [analog optimizer](ANALOG_OPTIMIZER.md): adaptive/Bayesian search, reusable device characterization, sensitivity, saved diagnostic fixtures and statistical campaigns are implemented within documented bounds. Broaden reference circuits, distributions, correlation studies, reporting and waveform retention without treating sampled pass fractions as manufacturing yield. Extend convergence diagnostics and scheduling. Advanced periodic and harmonic-balance analyses need engine support, explicit semantics and reference circuits; they remain future work.
 
 **Done when:** every new analysis has a numerical reference, a clear failure state, progress/cancellation behavior and saved inputs that reproduce the result.
 
-## 6. Scale and collaborate
+### 6. Scale and collaborate
 
 Progress in [0.22.0.dev1](UPDATE_0.22.md): hierarchical file XOR by layer/datatype, exact area summaries, saved reference snapshots, geometry queries, tiled density and bounded fill/rounding. A reproducible 10,000-square GDS/OASIS workload checks the comparison path. This does not establish large-layout interactive viewport performance.
 
@@ -174,6 +249,6 @@ Profile large schematics, geometry and waveform sets and continue measured rende
 
 **Done when:** published workload definitions and measured responsiveness justify the supported scale. Collaboration preserves revision identity, result provenance and recoverable edits.
 
-## How to help
+### How to help
 
 Small real examples are especially useful: a wire move that breaks a net, a symbol that cannot migrate, a model corner that fails, or a layout finding that is hard to locate. Open a focused issue using the repository templates. Proposals should describe the user's task, the expected behavior and a minimal acceptance example. See [CONTRIBUTING.md](../CONTRIBUTING.md).

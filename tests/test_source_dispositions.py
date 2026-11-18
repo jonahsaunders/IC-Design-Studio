@@ -34,6 +34,20 @@ def sky_fixture():
 
 
 class SourceDispositionsTests(unittest.TestCase):
+    def test_retained_november_7_pilot_matches_the_original_record(self):
+        from scripts import restore_nov7_dispositions as pilot
+        from scripts.reconstruct_source_dispositions import digest
+        record = json.loads((pilot.ROOT / 'docs/validation/chunk7-legacy-symbol-integration-2026-11-07.json').read_bytes())
+        self.assertEqual(record['report_sha256'], pilot.REPORT_SHA)
+        self.assertEqual(digest(pilot.BASE.read_bytes()), pilot.BASE_SHA)
+        self.assertEqual(digest(pilot.DELTA.read_bytes()), pilot.DELTA_SHA)
+        with tempfile.TemporaryDirectory() as folder:
+            output = Path(folder) / 'existing'
+            output.write_bytes(b'keep')
+            with self.assertRaises(FileExistsError):
+                pilot.restore(output)
+            self.assertEqual(output.read_bytes(), b'keep')
+
     def rejected_semantic(self,change):
         report,files=semantic_fixture();change(report)
         with self.assertRaises((ValueError,KeyError)):audit.semantic_items(report,files)

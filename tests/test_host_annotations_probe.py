@@ -6,7 +6,7 @@ import unittest
 
 from PySide6.QtCore import QCoreApplication, QTimer
 
-from icstudio.host_annotations_probe import wait
+from icstudio.probes.host_annotations_probe import wait
 
 
 class HostingWaitTests(unittest.TestCase):

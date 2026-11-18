@@ -80,6 +80,17 @@ class HandoffTests(unittest.TestCase):
   self.write('icstudio/build_info.py',''.join(k+' = '+repr(v)+'\n' for k,v in fields.items()))
  def test_generated_build_info_bound_to_exact_source(self):
   self.generated_metadata();self.prepare_restore();self.restore()
+ def test_nested_package_hash_survives_the_source_archive_handoff(self):
+  from scripts.source_files import checkout_workflow_hash
+  self.write('icstudio/probes/nested.py', 'def run(): return True\n')
+  self.generated_metadata()
+  path=self.root/'icstudio/build_info.py'
+  data=(self.root/'icstudio/simulation.py').read_bytes()
+  legacy=hashlib.sha256(b'simulation.py'+data).hexdigest()
+  current=checkout_workflow_hash(self.root)
+  self.assertNotEqual(legacy,current)
+  path.write_bytes(path.read_bytes().replace(legacy.encode(),current.encode()))
+  self.prepare_restore();self.restore()
  def test_false_generated_source_hash_rejected(self):
   self.generated_metadata(wrong=True)
   with self.assertRaises(ValueError):self.pack()
@@ -87,6 +98,7 @@ class HandoffTests(unittest.TestCase):
   if os.name!='nt':
    for name,data in self.case_distinct_runtime().items():self.write(name,data)
   self.write('scripts/desktop_acceptance_handoff.py',HELPER.read_bytes())
+  self.write('scripts/source_files.py',(REPO/'scripts/source_files.py').read_bytes())
   self.write('scripts/release_archives.py',(REPO/'scripts/release_archives.py').read_bytes())
   self.write('icstudio/__init__.py',"__version__='0.0'\n")
   self.run_git('add','scripts','icstudio');self.run_git('-c','user.name=Test','-c','user.email=test@example.invalid','commit','-qm','CLI fixture')

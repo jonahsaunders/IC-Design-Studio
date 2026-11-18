@@ -336,15 +336,6 @@ class FeatureMixin:
             self.commit(edit,'Edit annotation')
         dlg=self.workflow_form('Manage annotations',[('note','Annotation',[str(i+1)+': '+n['text'][:50] for i,n in enumerate(notes)]),('text','Text',(notes[0]['text'],)),('action','Action',['Update','Delete'])],submit)
         dlg.fields['note'].currentIndexChanged.connect(lambda i:dlg.fields['text'].setPlainText(notes[i]['text']))
-    def set_project(self,p,path=None):
-        super().set_project(p,path)
-        files=sorted((self.jobs_dir/p['id']).glob('*/result.json'),key=lambda f:f.stat().st_mtime)[-30:]
-        for file in files:
-            try:
-                result=json.loads(file.read_text(encoding='utf-8'))
-                if result.get('project_id')==p['id']:self.add_result(result)
-            except (ValueError,OSError,KeyError) as e:self.console.appendPlainText('Could not restore a saved run: '+str(e))
-
     def deck_dialog(self):
         path,_=QFileDialog.getOpenFileName(self,'Run extracted SPICE testbench','','SPICE (*.cir *.spice *.spc)')
         if path:self.start_job({'type':'deck','deck':path},'ngspice')
