@@ -23,13 +23,15 @@ import xml.etree.ElementTree as ET
 
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT))
+from scripts.source_files import is_workflow_module, workflow_hash
 from scripts.verify_frozen_mim import require,sha,digest,load as load_json,git_environment,git_blob,backend_binding,design_hash
 from scripts.verify_frozen_ihp_resistors import build_metadata,runtime_files,native_tool_paths,execute_job,stream,same_stream
 
 PDK='icstudio/assets/pdks/ihp-sg13g2'
 FIXTURE='icstudio/assets/qualification/ihp-cmim-reference'
 PUBLIC=('icstudio/assets/physical/ihp_klayout_lvs','icstudio/assets/physical/ihp_klayout_drc')
-HELPERS=('scripts/verify_frozen_ihp_cmim.py','scripts/verify_frozen_ihp_resistors.py','scripts/verify_frozen_mim.py')
+HELPERS=('scripts/verify_frozen_ihp_cmim.py','scripts/verify_frozen_ihp_resistors.py','scripts/verify_frozen_mim.py',
+         'scripts/source_files.py')
 STAGES=('preflight','layout_export','drc','lvs_extraction','lvs','integrity')
 ROUTES=('magic','ihp-klayout')
 FIELDS=('shapes','layout_instances','layout_texts','external_properties','layout_ports','layout_label_mode')
@@ -143,7 +145,7 @@ def candidate(commit):
     for entry in listing.split(b'\0'):
         if not entry:continue
         meta,name=entry.split(b'\t');name=name.decode();member(name)
-        if (name.startswith('icstudio/') and name.count('/')==1 and name.endswith('.py') and name!='icstudio/build_info.py') or name.startswith((FIXTURE+'/',*(p+'/' for p in PUBLIC))) or name in (*HELPERS,PDK+'/package.json','icstudio/assets/pdks/collection.json','.github/workflows/build-desktop.yml'):
+        if (name.startswith('icstudio/') and is_workflow_module(name.removeprefix('icstudio/'))) or name.startswith((FIXTURE+'/',*(p+'/' for p in PUBLIC))) or name in (*HELPERS,PDK+'/package.json','icstudio/assets/pdks/collection.json','.github/workflows/build-desktop.yml'):
             require(meta.split()[0]==b'100644' and meta.split()[1]==b'blob','Nonregular candidate source.');selected.append((name,meta.split()[2]))
     require(selected,'Missing candidate sources.')
     raw=subprocess.check_output(['git','cat-file','--batch'],cwd=ROOT,env=git_environment(),input=b'\n'.join(v for _,v in selected)+b'\n')
@@ -154,9 +156,9 @@ def candidate(commit):
     for name in HELPERS:require(name in values and hashlib.sha256(values[name]).hexdigest()==sha(ROOT/name),'Parent checker differs from candidate: '+name)
     mandatory=(*HELPERS,PDK+'/package.json','icstudio/assets/pdks/collection.json',FIXTURE+'/mask-only.json',FIXTURE+'/SOURCE.json',FIXTURE+'/LICENSE',*(p+'/SOURCE.json' for p in PUBLIC),'icstudio/ihp_cmim_desktop_probe.py','.github/workflows/build-desktop.yml')
     require(all(name in values for name in mandatory),'Incomplete CMIM candidate closure.')
-    modules=sorted(name for name in values if name.startswith('icstudio/') and name.count('/')==1 and name.endswith('.py'))
+    modules=(name.removeprefix('icstudio/') for name in values if name.startswith('icstudio/'))
     return dict(files={name:hashlib.sha256(value).hexdigest() for name,value in values.items()},
-        workflow_hash=hashlib.sha256(b''.join(Path(name).name.encode()+values[name] for name in modules)).hexdigest(),
+        workflow_hash=workflow_hash(modules,lambda name:values['icstudio/'+name]),
         engine_hash=hashlib.sha256(values['icstudio/simulation.py']).hexdigest(),
         package_sha256=hashlib.sha256(values[PDK+'/package.json']).hexdigest(),
         collection_sha256=hashlib.sha256(values['icstudio/assets/pdks/collection.json']).hexdigest())
@@ -252,6 +254,7 @@ def lifecycle(root,report,inputs,lock):
 def runtime_evidence(root,report,launch,inputs):
     before=report['managed_runtime_before'];require(before==report['managed_runtime_after'],'Producer runtime changed.')
     require(before['payload_root']==host_path(launch,launch['resource_root'],'icstudio/assets/runtime/digital') and before['backend_root']==host_path(launch,before['payload_root'],'backend/icstudio'),'External managed payload/backend.')
+    # The separately staged native worker still contains the flat backend modules.
     backend={name.split('/')[-1]:value for name,value in inputs['files'].items() if name.startswith('icstudio/') and name.count('/')==1 and name.endswith('.py')}
     backend['build_info.py']=launch['backend_build_info_sha256'];require(before['backend_files']==backend,'Producer backend differs from candidate.')
     for phase in ('before','after'):

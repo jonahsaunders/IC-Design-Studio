@@ -1,9 +1,7 @@
 # Chunks 1–12: progress and forecast
 
 **November 17 experimental repository cleanup.** The baseline is main
-`147a5501b79783a508d6057da8273195dfb2878c`. The staged desktop documentation
-fell from about 430.4 MiB to 11.1 MiB. The staged gallery loads the RC waveform
-and authenticates its Banba records. The historical November 7 v4 disposition
+`147a5501b79783a508d6057da8273195dfb2878c`. The historical November 7 v4 disposition
 report restores to its original compressed SHA-256 from a 19,041-byte delta.
 The [restore instructions](SOURCE_DISPOSITION_AUDIT.md#restore-the-fourth-november-7-report)
 identify the original run. The [retained source manifest](validation/desktop-cleanup-retained-source-2026-11-17/chunk4-manifest.json)
@@ -16,8 +14,23 @@ passed offline Help, RC and Banba smoke checks on both platforms. Both runs
 then stopped when the installed MiM electrical checker could not find its
 pinned device reference. The follow-up packages the four audited documentation
 inputs used by the MiM, metal-resistor and parallel-array checkers. The staged
-input regression exercises each checker with its existing hashes. A fresh
-installed run is needed to verify this follow-up.
+input regression exercises each checker with its existing hashes.
+
+The corrected candidate `2bbf12de2ea3a14788f6e6bf19100ef50aec9b48` passed
+[Windows and Linux source feedback](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/44211182079).
+The [baseline build](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/44148730080)
+and [corrected build](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/44211194654)
+manifests report 194.8 MiB saved for the Windows installer (9.0%),
+273.9 MiB for the Windows portable ZIP (11.2%), and 419.2 MiB for the
+unpacked Linux application (11.9%). Staged documentation went from 430.4 MiB
+to 11.2 MiB, and both packages carry the four pinned references byte for byte.
+Both corrected packages passed the installed Help, RC and Banba smoke checks
+and the selected SKY130 MiM public geometry and electrical workflow. On
+November 18 both installed runs stopped at the IHP CMIM source fingerprint.
+The follow-up uses the same recursive fingerprint for the packagers and the
+Git-backed IHP CMIM and resistor verifiers. The regression compares the
+fingerprints for flat and nested module trees and rejects a changed checker.
+The follow-up still needs a fresh installed run.
 
 **November 12 teaching-solver timing and Windows text repair (0.23.1 source):**
 this follow-on to main `86a9087` is outside chunks 1–12 and changes no completion

@@ -9,6 +9,7 @@ from concurrent.futures import ThreadPoolExecutor,wait,FIRST_COMPLETED
 from threading import Event
 
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
+from scripts.source_files import is_workflow_module, workflow_hash
 from scripts.verify_frozen_mim import require,sha,digest,load,relative,unlinked,confined,inventory,file_map,git_environment,git_blob,backend_binding,design_hash,content_hash,check_runtime
 
 MODELS=('rsil','rppd','rhigh')
@@ -19,6 +20,7 @@ STAGES=('preflight','layout_export','drc','lvs_extraction','lvs','integrity')
 ASSETS='icstudio/assets/qualification/ihp-resistor-templates'
 LEGACY='icstudio/assets/qualification/ihp-resistor-legacy'
 PDK='icstudio/assets/pdks/ihp-sg13g2'
+HELPERS=('scripts/verify_frozen_ihp_resistors.py','scripts/verify_frozen_mim.py','scripts/source_files.py')
 SCOPE='Frozen IHP Qt lifecycle for60 finite straight resistor layouts and165 actual-geometry/reference controls through the shipped managed backend; no electrical/operating-envelope/full-family/manufacturing qualification.'
 EXTRACTION=dict(hierarchy=True,blackbox=False,merge='none',scale=False,capacitance_threshold='infinite',resistance_threshold='infinite',distributed_resistance=False)
 
@@ -27,25 +29,26 @@ def write(path,value):
 
 def candidate(commit):
     """Authenticate checker, all Python workflow bytes and relevant assets to Git."""
-    listing=subprocess.check_output(['git','ls-tree','-rz',commit,'--','icstudio','scripts/verify_frozen_ihp_resistors.py','scripts/verify_frozen_mim.py','.github/workflows/build-desktop.yml'],cwd=ROOT,env=git_environment())
+    listing=subprocess.check_output(['git','ls-tree','-rz',commit,'--','icstudio',*HELPERS,'.github/workflows/build-desktop.yml'],cwd=ROOT,env=git_environment())
     selected=[]
     for entry in listing.split(b'\0'):
         if not entry:continue
         meta,name=entry.split(b'\t');name=name.decode()
-        if (name.startswith('icstudio/') and name.count('/')==1 and name.endswith('.py') and name!='icstudio/build_info.py') or name.startswith((ASSETS+'/',LEGACY+'/')) or name in (PDK+'/package.json','icstudio/assets/pdks/collection.json','scripts/verify_frozen_ihp_resistors.py','scripts/verify_frozen_mim.py','.github/workflows/build-desktop.yml'):
-            require(meta.split()[1]==b'blob','Expected regular candidate input.');selected.append((name,meta.split()[2]))
+        if (name.startswith('icstudio/') and is_workflow_module(name.removeprefix('icstudio/'))) or name.startswith((ASSETS+'/',LEGACY+'/')) or name in (PDK+'/package.json','icstudio/assets/pdks/collection.json',*HELPERS,'.github/workflows/build-desktop.yml'):
+            mode, kind, oid = meta.split()
+            require(mode in (b'100644', b'100755') and kind==b'blob','Expected regular candidate input.');selected.append((name,oid))
     require(selected,'Missing candidate inputs.')
     raw=subprocess.check_output(['git','cat-file','--batch'],cwd=ROOT,env=git_environment(),input=b'\n'.join(v for _,v in selected)+b'\n')
     values={};offset=0
     for name,oid in selected:
         end=raw.index(b'\n',offset);header=raw[offset:end].split();size=int(header[2]);require(header[:2]==[oid,b'blob'],'Candidate blob differs.')
         values[name]=raw[end+1:end+1+size];offset=end+size+2
-    for name in ('scripts/verify_frozen_ihp_resistors.py','scripts/verify_frozen_mim.py'):
+    for name in HELPERS:
         require(name in values and hashlib.sha256(values[name]).hexdigest()==sha(ROOT/name),'External checker differs from selected candidate: '+name)
-    modules=sorted(name for name in values if name.startswith('icstudio/') and name.count('/')==1 and name.endswith('.py'))
-    require('icstudio/ihp_resistors.py' in modules and 'icstudio/ihp_resistor_desktop_probe.py' in modules,'Candidate lacks IHP recipe/probe.')
+    modules=(name.removeprefix('icstudio/') for name in values if name.startswith('icstudio/'))
+    require('icstudio/ihp_resistors.py' in values and 'icstudio/ihp_resistor_desktop_probe.py' in values,'Candidate lacks IHP recipe/probe.')
     return dict(files={name:hashlib.sha256(value).hexdigest() for name,value in values.items()},
-        workflow_hash=hashlib.sha256(b''.join(Path(name).name.encode()+values[name] for name in modules)).hexdigest(),
+        workflow_hash=workflow_hash(modules,lambda name:values['icstudio/'+name]),
         engine_hash=hashlib.sha256(values['icstudio/simulation.py']).hexdigest(),
         package_sha256=hashlib.sha256(values[PDK+'/package.json']).hexdigest(),
         collection_sha256=hashlib.sha256(values['icstudio/assets/pdks/collection.json']).hexdigest())

@@ -13,10 +13,16 @@ def python_files(folder, excluded=()):
                 yield Path(directory) / name
 
 
+def is_workflow_module(name):
+    """Accept a maintained module by its path relative to icstudio."""
+    parts = PurePosixPath(name).parts
+    return (name.endswith('.py') and name != 'build_info.py'
+            and parts[0] != 'assets' and '__pycache__' not in parts)
+
+
 def workflow_hash(names, read_bytes):
     """Accept module names relative to icstudio, from disk or a source archive."""
-    modules = sorted(name for name in names if name.endswith('.py')
-                     and name != 'build_info.py' and PurePosixPath(name).parts[0] != 'assets')
+    modules = sorted(name for name in names if is_workflow_module(name))
     digest = hashlib.sha256()
     nested = any('/' in name for name in modules)
     if nested:
