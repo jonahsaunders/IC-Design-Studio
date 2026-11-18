@@ -30,7 +30,16 @@ November 18 both installed runs stopped at the IHP CMIM source fingerprint.
 The follow-up uses the same recursive fingerprint for the packagers and the
 Git-backed IHP CMIM and resistor verifiers. The regression compares the
 fingerprints for flat and nested module trees and rejects a changed checker.
-The follow-up still needs a fresh installed run.
+
+The follow-up candidate `78a2cff2bb13f2ebd81142ab7a7618c956d05c40` passed
+[source feedback on both platforms](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/44292701108).
+Both [desktop packages](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/44292716021)
+carry the expected source fingerprint and the four pinned references. The final
+Linux archive went from 2,426,769,472 to 2,162,774,695 bytes (10.9% smaller).
+The Windows installer went from 2,271,238,834 to 2,066,940,304 bytes (9.0%),
+and the portable ZIP from 2,557,910,129 to 2,270,721,926 bytes (11.2%).
+The installed Linux job passed all checks, including IHP CMIM and IHP resistors.
+Installed Windows verification is in progress.
 
 **November 12 teaching-solver timing and Windows text repair (0.23.1 source):**
 this follow-on to main `86a9087` is outside chunks 1–12 and changes no completion
