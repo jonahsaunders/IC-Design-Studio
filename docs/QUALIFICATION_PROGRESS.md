@@ -11,6 +11,14 @@ preserves the exact collaboration-probe and Help sources used by the historical
 GF180 gate. These packaging and source checks add no device acceptance.
 Chunk 7 remains an engineering estimate of 74% (low confidence, 55–82%).
 
+The [installed run for `e465d79`](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/44148683876)
+passed offline Help, RC and Banba smoke checks on both platforms. Both runs
+then stopped when the installed MiM electrical checker could not find its
+pinned device reference. The follow-up packages the four audited documentation
+inputs used by the MiM, metal-resistor and parallel-array checkers. The staged
+input regression exercises each checker with its existing hashes. A fresh
+installed run is needed to verify this follow-up.
+
 **November 12 teaching-solver timing and Windows text repair (0.23.1 source):**
 this follow-on to main `86a9087` is outside chunks 1–12 and changes no completion
 gate, device status or forecast. It repairs the included solver's transient
