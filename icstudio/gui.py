@@ -712,6 +712,8 @@ class Studio(DigitalMixin,LiveCollaborationMixin,CollaborationMixin,Interoperabi
         install_student_hub(self)
         from .app_workspaces import install as install_app_workspaces
         install_app_workspaces(self)
+        from .project_versions_ui import install as install_versions
+        install_versions(self)
         self.reindex_commands()
     connect = SchematicMixin.connect
     move = LayoutDevelopmentMixin.move

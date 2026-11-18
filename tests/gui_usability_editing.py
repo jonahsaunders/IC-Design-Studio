@@ -10,7 +10,7 @@ from unittest.mock import patch
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 os.environ.setdefault('QT_QPA_PLATFORM', 'offscreen')
-from PySide6.QtCore import QSettings, Qt
+from PySide6.QtCore import QSettings, Qt, QTimer
 from PySide6.QtGui import QContextMenuEvent, QFontDatabase
 from PySide6.QtTest import QTest
 from PySide6.QtWidgets import QApplication, QFileDialog, QInputDialog, QMessageBox
@@ -72,6 +72,76 @@ class EditingUsabilityTests(unittest.TestCase):
 
     def resistor(self):
         return next(d for d in self.w.cell['devices'] if d['kind']=='R')
+
+    def test_named_project_versions_from_file_menu_restore_without_overwriting_the_project(self):
+        from icstudio.project_versions import ProjectVersions
+        from icstudio.project_versions_ui import SaveVersionDialog, VersionHistoryDialog
+
+        path = self.root / 'Filter with spaces.icproj'
+
+        def invoke(command, dialog_type, interaction):
+            dialog_seen = []
+
+            def use_dialog():
+                dialog = self.app.activeModalWidget()
+                dialog_seen.append(dialog)
+                try:
+                    self.assertIsInstance(dialog, dialog_type)
+                    interaction(dialog)
+                finally:
+                    if dialog and dialog.isVisible():
+                        dialog.reject()
+
+            menu = next(a.menu() for a in self.w.task_menus['File'].actions() if a.text() == 'Versions')
+            action = next(a for a in menu.actions() if a.text() == command)
+            QTimer.singleShot(0, use_dialog)
+            action.trigger()
+            self.assertEqual(len(dialog_seen), 1)
+
+        def write_version(dialog, name, note):
+            self.assertFalse(dialog.save_button.isEnabled())
+            QTest.keyClicks(dialog.name, name)
+            dialog.note.setPlainText(note)
+            QTest.keyClick(dialog.name, Qt.Key_Return)
+            self.assertIsNotNone(dialog.version)
+
+        with patch.object(QFileDialog, 'getSaveFileName', return_value=(str(path), '')):
+            invoke('Save Version…', SaveVersionDialog, lambda d: write_version(d, 'Baseline', 'Before tuning'))
+        self.w.select([self.resistor()['id']], 'schematic')
+        value = self.w.form_fields['Value']
+        value.selectAll()
+        QTest.keyClicks(value, '20k')
+        invoke('Save Version…', SaveVersionDialog, lambda d: write_version(d, 'Tuned', 'Doubling R1'))
+        self.assertEqual(self.resistor()['value'], '20k')
+        self.assertEqual(load_project(path)['cells'][0]['devices'][1]['value'], '10k')
+        self.assertTrue(self.w.save())
+        self.w.set_project(load_project(path), path)
+
+        def browse(dialog):
+            self.assertEqual(dialog.versions.count(), 2)
+            QTest.keyClick(dialog.versions, Qt.Key_Down)
+            self.assertEqual(dialog.selected.name, 'Baseline')
+            self.assertIn('R1 · Value · 20k → 10k', dialog.preview.toPlainText())
+            self.assertIn('Before tuning', dialog.preview.toPlainText())
+            dialog.comparison.setCurrentIndex(1)
+            self.assertIn('Tuned', dialog.comparison.currentText())
+            QTest.keyClick(dialog.versions, Qt.Key_Return)
+            self.assertEqual(self.resistor()['value'], '20k')
+            with patch.object(ProjectVersions, 'save', side_effect=OSError('Disk full')):
+                dialog.restore_button.click()
+            self.assertIn('Disk full', dialog.message.text())
+            self.assertEqual(self.resistor()['value'], '20k')
+            dialog.restore_button.click()
+            self.assertEqual(self.resistor()['value'], '10k')
+
+        invoke('Browse Versions…', VersionHistoryDialog, browse)
+        self.assertEqual(load_project(path)['cells'][0]['devices'][1]['value'], '20k')
+        store = ProjectVersions(path, self.w.project['id'])
+        self.assertEqual(store.list()[0].name, 'Before restoring Baseline')
+        self.w.undo_action.trigger()
+        self.assertEqual(self.resistor()['value'], '20k')
+        self.w.redo_action.trigger()
+        self.assertEqual(self.resistor()['value'], '10k')
 
     def other_cell(self):
         p = clone(self.w.project)

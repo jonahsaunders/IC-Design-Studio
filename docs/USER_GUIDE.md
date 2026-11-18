@@ -16,6 +16,16 @@ The circuit workspace switches between Schematic, Layout, and Linked views. The 
 
 Local design work needs no account or hosted service. Copying a project file preserves its design; copy its result directories separately to retain historical waveforms. Optional [self-hosted collaboration](LIVE_COLLABORATION.md) shares schematic/layout edits and reviews. Start or join a session explicitly through **Tools → Collaboration**.
 
+### Project versions
+
+- Choose **File → Versions → Save Version…** to name a point in the working design and add an optional note. Studio asks you to save an untitled project first. Use regular **Save** to write your working design to the project file.
+- Choose **Browse Versions…** to review saved versions newest first. Select a version with the arrow keys or mouse. **Compare with** lets you compare that version with the working design or another saved version. The preview shows component changes and summarizes differences in layout, wiring, and project settings.
+- **Restore Version** keeps the working design as a new entry in history, then brings the selected design into the editor as a new edit. Use **Edit → Undo** to reverse it or **Save** to make the restored design the file on disk.
+
+The history is stored in `<project filename>.versions.sqlite3` beside the `.icproj` or `.icstudio` file. Move the database with the project to keep its history. If you rename the project file, update the database name to match. **Save As** starts a history at the new location. External model files and simulation results retain their own storage.
+
+The File menu and reversible restore follow Apple's guidance on [browsing document versions](https://support.apple.com/en-ie/guide/mac-help/mh40710/mac), [undo and redo](https://developer.apple.com/design/human-interface-guidelines/undo-and-redo), and [accessible controls](https://developer.apple.com/design/human-interface-guidelines/accessibility).
+
 ## Schematic editing
 
 Choose **Schematic → Place component…** or press **P** in the default Studio profile. Search the Devices panel, select a component, then choose Place component (or double-click the device). A preview follows your pointer; click the canvas to place it, or press Esc to cancel. Click a symbol or select it in the Components list. Edit its electrical values and connections in Properties; expand Position for coordinates. Apply changes commits a validated, undoable edit. Moving to another object commits valid drafts; invalid drafts remain with an inline error until corrected or Reset. Multiple selection exposes group actions; individual property editing requires one object. Values use SPICE suffixes: `k`, `meg`, `m`, `u`, `n`, `p`, `f`. `M` means milli, as in SPICE; use `meg` for a million.

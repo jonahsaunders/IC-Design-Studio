@@ -16,7 +16,7 @@ if __package__ in (None, ''):
 
 UNIT_MODULES = (
     'test_ci_candidate', 'test_recover_pw2dn_diagnostics', 'test_frozen_physical', 'test_ci_feedback', 'test_reference_toolchain', 'test_checkout_integrity',
-    'test_core', 'test_lifecycle', 'test_project_data_safety', 'test_workflows', 'test_project_pdk',
+    'test_core', 'test_lifecycle', 'test_project_data_safety', 'test_project_versions', 'test_workflows', 'test_project_pdk',
     'test_pdk_templates', 'test_student_physical',
     'test_document.RecoveryQueueTests', 'test_layout_verification',
     'test_digital.DigitalChildEnvironmentTests', 'test_digital.YosysIntegrationTests',
