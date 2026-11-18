@@ -57,7 +57,7 @@ of an inventory item before closing it.
 | RTL-02, VER-01, FRM-11, IMP-01, STA-06 | RTL editing, functional simulation, mapping/implementation, timing, and selected equivalence cases. [Digital workspace](docs/DIGITAL_WORKSPACE.md) · [RTL-to-GDS](docs/DIGITAL_FLOW.md) · [Platform evidence](docs/DIGITAL_PLATFORM_QUALIFICATION.md) |
 | AMS-05–07, EM-01, EM-10 | A clocked SAR example and a separate bounded field-solver workflow. [SAR co-simulation](docs/MIXED_SIGNAL_SAR.md) · [Electromagnetic analysis](docs/OPENEMS.md) |
 | COL-01–13, COL-16–19 | Local versions and branches, reviewed merges, in-app GitHub PRs, and scoped live editing. [GitHub review workflow](docs/USER_GUIDE.md#github-pull-requests-in-studio) · [Live collaboration](docs/LIVE_COLLABORATION.md) · [Recorded verification](docs/QUALIFICATION_PROGRESS.md) |
-| EDU-01–08, AUT-15–18 | Student Hub lessons, evidence and progress, plus scoped release checks. [Student Hub](docs/STUDENT_HUB.md) · [Release gates](docs/RELEASING.md) |
+| EDU-01–08, AUT-15–18 | Student Hub lessons, evidence and progress, plus scoped release checks. Includes spec-driven TIA and op-amp projects with schematic and post-layout checkpoints. [Student Hub](docs/STUDENT_HUB.md) · [Analog projects](docs/STUDENT_ANALOG_PROJECTS.md) · [Release gates](docs/RELEASING.md) |
 
 ## Project and workspace
 

@@ -18,7 +18,7 @@ UNIT_MODULES = (
     'test_ci_candidate', 'test_recover_pw2dn_diagnostics', 'test_frozen_physical', 'test_ci_feedback', 'test_reference_toolchain', 'test_checkout_integrity',
     'test_core', 'test_lifecycle', 'test_project_data_safety', 'test_project_versions', 'test_project_git', 'test_github_pull_requests',
     'test_workflows', 'test_project_pdk',
-    'test_pdk_templates', 'test_student_physical',
+    'test_pdk_templates', 'test_student_physical', 'test_student_analog',
     'test_document.RecoveryQueueTests', 'test_layout_verification',
     'test_digital.DigitalChildEnvironmentTests', 'test_digital.YosysIntegrationTests',
     'test_analog.AnalogTests.test_capabilities_do_not_trust_catalog_or_metadata',

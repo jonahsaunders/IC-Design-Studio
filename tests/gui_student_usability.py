@@ -192,6 +192,26 @@ def main():
         h.export();choose.assert_not_called()
     checked('Export saves current work and respects cancellation')
 
+    # Start both projects from search and visit the stage-specific controls.
+    for query, key in (('photodiode TIA', 'project-tia'), ('two-stage op amp', 'project-opamp')):
+        h.search.setText(query);assert h.selected()['id']==key
+        h.start_selected();assert g.lesson['id']==key
+        assert g.steps.count()==9 and not g.controls['Run lesson'].isVisible()
+        g.steps.setCurrentIndex(1)
+        assert g.analog_action.isVisible() and 'Edit testbench' in g.analog_action.text()
+        g.workspace();assert w.cell['name'] in ('tia_ac_fixture','opamp_ac_fixture')
+        g.steps.setCurrentIndex(3);g.workspace()
+        assert w.cell['name']=='reference_compliance_fixture'
+        assert g.controls['Run lesson'].text()=='Run testbenches'
+        g.steps.setCurrentIndex(5)
+        assert g.analog_action.text()=='Generate core layout…'
+        g.steps.setCurrentIndex(6);g.workspace()
+        assert w.cell['name']=='resistor_current_reference' and g.analog_action.text()=='Generate bias mirror layout…'
+        g.steps.setCurrentIndex(7);g.workspace()
+        assert w.cell['name']=='two_stage_opamp' and w.mode_combo.currentIndex()==1
+        assert g.controls['Run lesson'].text()=='Run post-layout checks'
+    checked('Search opens both analog projects and their stage actions target the correct fixture and core')
+
     # Second pass: project switches disable actions immediately and cannot misroute
     # cancellation or completed-run feedback to another project.
     w.set_project(create('divider'));assert not g.check_button.isEnabled()

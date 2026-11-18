@@ -43,6 +43,11 @@
       "subtitle": "Turn measured work into a design brief and an evidence-based interview story.",
       "level": "Design review",
       "color": "#dfc278"
+    },
+    {
+      "id": "analog-projects",
+      "title": "Analog design projects",
+      "subtitle": "Take a SKY130 amplifier from a specification through bias, simulation, layout and extracted verification."
     }
   ],
   "capstone": {
@@ -2677,6 +2682,222 @@
           "title": "Explain your result",
           "kind": "reflection",
           "instructions": "Write your final review: measured codes and averages, all four cases, tool identities, behavioral-model limitations, and next steps for noise, PVT, transistor-level implementation and physical verification. Export the learning record from the Hub. Record at least 40 characters. This is a written reflection, not an automatically graded engineering claim."
+        }
+      ]
+    },
+    {
+      "id": "project-opamp",
+      "path": "analog-projects",
+      "title": "Design a two-stage op amp",
+      "workspace": "project-opamp",
+      "starter": "analog-opamp",
+      "analog_project": "opamp",
+      "requires": [],
+      "minutes": 120,
+      "summary": "Design a SKY130 Miller op amp for at least 40 dB gain, 100 kHz unity-gain frequency, and 45° phase margin into 1 pF. Verify bias, noise, power, startup and the extracted core.",
+      "doc": "STUDENT_ANALOG_PROJECTS.md",
+      "skills": [
+        "SKY130",
+        "gm/ID",
+        "current reference",
+        "testbench",
+        "layout",
+        "DRC",
+        "LVS",
+        "extraction",
+        "post-layout simulation",
+        "op amp loop compensation"
+      ],
+      "steps": [
+        {
+          "id": "brief",
+          "kind": "quiz",
+          "title": "Read the specification",
+          "instructions": "Which measurement directly checks the loop-stability requirement for the amplifier driving 1 pF?",
+          "options": [
+            "Phase margin at unity loop gain",
+            "The 1 Hz open-loop gain",
+            "The quiescent supply current"
+          ],
+          "answer": 0,
+          "explanation": "Measure the loop phase where |T| crosses 1. Gain and current are separate requirements."
+        },
+        {
+          "id": "fixture",
+          "title": "Review and set up the testbench",
+          "kind": "check",
+          "instructions": "Open workspace to inspect the AC loop fixture. Set CL to 1 pF. Trace VDD, the 0.9 V bias and 5 µA current source. An inductor maintains feedback for the DC operating point and the AC shunt sets the injection return side. Use Edit testbench to review the saved loop ratio, gain limit, frequency range and phase-margin limit. Keep this fixture for post-layout comparison.",
+          "rule": {
+            "type": "analog_project"
+          }
+        },
+        {
+          "id": "sizing",
+          "title": "Size the input pair with gm/ID",
+          "kind": "check",
+          "instructions": "Open workspace to view the Miller core. M1 and M2 share the tail current; M5 mirrors the current set by M8. CC1 and CC2 connect the high-impedance first-stage node to OUT. Identify the two gain stages and the source/body ties.\n\nFor a first estimate use gm ≈ 2π·fu·Cc, with Cc the sum of CC1 and CC2. For 1 MHz and 4 pF this is about 25 µS. Pick a measured gm/ID region. At 12 V⁻¹ this estimate implies about 2.1 µA per input transistor. Use ID/W at the same length, drain voltage and corner to estimate W = ID/(ID/W). The first estimate assumes a dominant pole.\n\nChoose Run testbenches, then Results → Device bias. Record M2 gm, ID, gm/ID and saturation margin. Use Analysis → Analog design workspace → Optimize to sweep width or gate bias from an operating-point setup. Compare at least two widths while keeping M1 and M2 equal. Re-run at the chosen width. This checkpoint looks for 25–150 µS gm, 6–28 V⁻¹ gm/ID, and at least 15 mV saturation margin.",
+          "rule": {
+            "type": "analog_project"
+          }
+        },
+        {
+          "id": "bias",
+          "title": "Build and trim a 5 µA current reference",
+          "kind": "check",
+          "instructions": "Open workspace. Follow the PMOS reference branch from VDD through diode-connected MPREF to SET and RSET. MPOUT shares the gate voltage and sources current into VCLAMP. Keep both source and bulk terminals tied to VDD.\n\nEstimate RSET = (VDD − |VSG|)/5 µA. For VDD = 1.8 V and |VSG| ≈ 1.15 V from a typical process operating point, start near 130 kΩ. Edit RSET in the schematic. Run the DC sweep of VCLAMP from 0.45 V to 0.85 V. Open Results to inspect current versus load voltage. Trim RSET until the whole sweep stays between 4 and 6 µA.\n\nTry another supply and temperature using the saved PVT plan, then restore the nominal test. Explain how VDS mismatch, MOS threshold drift and resistor tolerance change the current. The amplifier fixtures use a separate 5 µA source to isolate amplifier performance. This exercise measures the resistor-programmed bias circuit separately.",
+          "rule": {
+            "type": "analog_project"
+          }
+        },
+        {
+          "id": "schematic",
+          "title": "Meet the schematic specifications",
+          "kind": "check",
+          "instructions": "Run the OP, AC, noise, and startup testbenches. Open each named result. Confirm output bias of 0.85–0.95 V, static power ≤180 µW, gain ≥40 dB, unity crossing ≥100 kHz and phase margin ≥45°. Check integrated noise over 10 Hz–10 MHz and supply-ramp settling ≤100 µs. Try compensation or load changes, inspect the gain–bandwidth–stability tradeoff, then restore the required 1 pF load and rerun. Use the PVT plan to compare additional conditions and retain any failures.",
+          "rule": {
+            "type": "analog_project"
+          }
+        },
+        {
+          "id": "layout",
+          "title": "Place, route and review the core",
+          "kind": "check",
+          "instructions": "Choose Generate core layout and review the proposed SKY130 geometry before applying. In Layout, find M1/M2 and M3/M4, the contacted p-substrate guard, both MiM compensation capacitors, and the VDD/VSS straps.\n\nCross-probe input and supply nets in Linked view. Inspect symmetry, orientation, source/body ties, common routes, and the length of the high-impedance first-stage connection. Keep the two input devices adjacent and similarly surrounded. Use identical local routing and comparable via counts for matched terminals. After a width change, use the schematic-driven layout update to keep device dimensions and pins in sync.\n\nCheck this step for physical port coverage, linked connectivity and saved matching constraints. The next step runs process DRC, LVS and extraction.",
+          "rule": {
+            "type": "analog_project"
+          }
+        },
+        {
+          "id": "bias-layout",
+          "title": "Lay out the matched bias mirror",
+          "kind": "check",
+          "instructions": "Choose Generate bias mirror layout and review the two matched PMOS devices. Inspect identical dimensions and orientation, the shared gate, and the well ties to VDD. Follow SET from the reference gate/drain to its physical port and OUT from the output drain to its port. The programming resistor stays in the external testbench. Run this checkpoint before repeating the compliance sweep on the extracted mirror.",
+          "rule": {
+            "type": "analog_project"
+          }
+        },
+        {
+          "id": "post-layout",
+          "title": "Run DRC, LVS and post-layout simulations",
+          "kind": "check",
+          "instructions": "For this step, link a complete SKY130A PDK with Magic/Netgen files and configure Tools → Physical tools setup. If the project started with bundled simulation models, register the complete SKY130A folder, then choose Migrate PDK revision and review the equivalent model and terminals for each device. After applying the migration, repeat the schematic measurements.\n\nChoose Run post-layout checks. For each saved amplifier and current-reference bench, the flow runs process DRC and extracted LVS, then uses the selected parasitic extraction model to repeat the same test. Open Results and select a bench. Read the first failed stage, compare before and after values under the unchanged limits, and inspect extracted net and parasitic evidence. Fix geometry or circuit values before repeating the same test. Record the extraction mode and which board-level parts remain outside the chip.",
+          "rule": {
+            "type": "analog_project"
+          }
+        },
+        {
+          "id": "review",
+          "title": "Write your design review",
+          "kind": "reflection",
+          "instructions": "Record the nominal target and before/after values for at least two specs, one sizing or layout change, the measured current-reference compliance, and the next PVT or mismatch check. Describe what changed, how you isolated it, and what a real implementation adds beyond this lab fixture. Export your portfolio from the hub."
+        }
+      ]
+    },
+    {
+      "id": "project-tia",
+      "path": "analog-projects",
+      "title": "Design a photodiode TIA",
+      "workspace": "project-tia",
+      "starter": "analog-tia",
+      "analog_project": "tia",
+      "requires": [],
+      "minutes": 110,
+      "summary": "Design a photodiode receiver for 100 kΩ nominal transimpedance, at least 200 kHz bandwidth, and at most 2 dB AC peaking. Verify the transistor core after extraction.",
+      "doc": "STUDENT_ANALOG_PROJECTS.md",
+      "skills": [
+        "SKY130",
+        "gm/ID",
+        "current reference",
+        "testbench",
+        "layout",
+        "DRC",
+        "LVS",
+        "extraction",
+        "post-layout simulation",
+        "TIA transimpedance"
+      ],
+      "steps": [
+        {
+          "id": "brief",
+          "kind": "quiz",
+          "title": "Read the specification",
+          "instructions": "A photodiode injects a positive 1 µA current into the summing node. With 100 kΩ feedback and 0.9 V common mode, where should OUT settle?",
+          "options": [
+            "About 0.8 V",
+            "About 1.0 V",
+            "About 0.9 V"
+          ],
+          "answer": 0,
+          "explanation": "Negative feedback makes ΔVout ≈ −Iphoto × RF, so 0.9 V − 0.1 V = 0.8 V."
+        },
+        {
+          "id": "fixture",
+          "title": "Review and set up the testbench",
+          "kind": "check",
+          "instructions": "Open workspace to view the AC fixture. VCM holds INP at 0.9 V. VSENSE is a zero-volt current probe in series with the photocurrent, and CPD models 2 pF of sensor capacitance. Check the 1.8 V supply, 5 µA bias, and 1 pF load. Wire RF and CF from OUT back to the inverting node SENSE. Change RF from 47 kΩ to the nominal 100 kΩ. The saved pulse fixture starts at 100 kΩ with the same feedback and sensor model. Use Edit testbench to review AC range, current ratio and saved limits.",
+          "rule": {
+            "type": "analog_project"
+          }
+        },
+        {
+          "id": "sizing",
+          "title": "Size the input pair with gm/ID",
+          "kind": "check",
+          "instructions": "Open workspace to view the Miller core. M1 and M2 share the tail current; M5 mirrors the current set by M8. CC1 and CC2 connect the high-impedance first-stage node to OUT. Identify the two gain stages and the source/body ties.\n\nFor a first estimate use gm ≈ 2π·fu·Cc, with Cc the sum of CC1 and CC2. For 1 MHz and 4 pF this is about 25 µS. Pick a measured gm/ID region. At 12 V⁻¹ this estimate implies about 2.1 µA per input transistor. Use ID/W at the same length, drain voltage and corner to estimate W = ID/(ID/W). The first estimate assumes a dominant pole.\n\nChoose Run testbenches, then Results → Device bias. Record M2 gm, ID, gm/ID and saturation margin. Use Analysis → Analog design workspace → Optimize to sweep width or gate bias from an operating-point setup. Compare at least two widths while keeping M1 and M2 equal. Re-run at the chosen width. This checkpoint looks for 25–150 µS gm, 6–28 V⁻¹ gm/ID, and at least 15 mV saturation margin.",
+          "rule": {
+            "type": "analog_project"
+          }
+        },
+        {
+          "id": "bias",
+          "title": "Build and trim a 5 µA current reference",
+          "kind": "check",
+          "instructions": "Open workspace. Follow the PMOS reference branch from VDD through diode-connected MPREF to SET and RSET. MPOUT shares the gate voltage and sources current into VCLAMP. Keep both source and bulk terminals tied to VDD.\n\nEstimate RSET = (VDD − |VSG|)/5 µA. For VDD = 1.8 V and |VSG| ≈ 1.15 V from a typical process operating point, start near 130 kΩ. Edit RSET in the schematic. Run the DC sweep of VCLAMP from 0.45 V to 0.85 V. Open Results to inspect current versus load voltage. Trim RSET until the whole sweep stays between 4 and 6 µA.\n\nTry another supply and temperature using the saved PVT plan, then restore the nominal test. Explain how VDS mismatch, MOS threshold drift and resistor tolerance change the current. The amplifier fixtures use a separate 5 µA source to isolate amplifier performance. This exercise measures the resistor-programmed bias circuit separately.",
+          "rule": {
+            "type": "analog_project"
+          }
+        },
+        {
+          "id": "schematic",
+          "title": "Meet the schematic specifications",
+          "kind": "check",
+          "instructions": "Run the AC and pulse testbenches. Measure Vout/I(VSENSE) in Ω, the first −3 dB bandwidth, and the peak relative to 100 Hz. The time-domain check expects a 90–110 mV drop and settling within 8 µs of the photocurrent edge. A larger CF usually reduces peaking at the cost of bandwidth. Change CF in both fixtures if you tune it. Use the PVT plan to explore additional conditions and keep the original nominal measurements.",
+          "rule": {
+            "type": "analog_project"
+          }
+        },
+        {
+          "id": "layout",
+          "title": "Place, route and review the core",
+          "kind": "check",
+          "instructions": "Choose Generate core layout and review the proposed SKY130 geometry before applying. In Layout, find M1/M2 and M3/M4, the contacted p-substrate guard, both MiM compensation capacitors, and the VDD/VSS straps.\n\nCross-probe input and supply nets in Linked view. Inspect symmetry, orientation, source/body ties, common routes, and the length of the high-impedance first-stage connection. Keep the two input devices adjacent and similarly surrounded. Use identical local routing and comparable via counts for matched terminals. After a width change, use the schematic-driven layout update to keep device dimensions and pins in sync.\n\nCheck this step for physical port coverage, linked connectivity and saved matching constraints. The next step runs process DRC, LVS and extraction.",
+          "rule": {
+            "type": "analog_project"
+          }
+        },
+        {
+          "id": "bias-layout",
+          "title": "Lay out the matched bias mirror",
+          "kind": "check",
+          "instructions": "Choose Generate bias mirror layout and review the two matched PMOS devices. Inspect identical dimensions and orientation, the shared gate, and the well ties to VDD. Follow SET from the reference gate/drain to its physical port and OUT from the output drain to its port. The programming resistor stays in the external testbench. Run this checkpoint before repeating the compliance sweep on the extracted mirror.",
+          "rule": {
+            "type": "analog_project"
+          }
+        },
+        {
+          "id": "post-layout",
+          "title": "Run DRC, LVS and post-layout simulations",
+          "kind": "check",
+          "instructions": "For this step, link a complete SKY130A PDK with Magic/Netgen files and configure Tools → Physical tools setup. If the project started with bundled simulation models, register the complete SKY130A folder, then choose Migrate PDK revision and review the equivalent model and terminals for each device. After applying the migration, repeat the schematic measurements.\n\nChoose Run post-layout checks. For each saved amplifier and current-reference bench, the flow runs process DRC and extracted LVS, then uses the selected parasitic extraction model to repeat the same test. Open Results and select a bench. Read the first failed stage, compare before and after values under the unchanged limits, and inspect extracted net and parasitic evidence. Fix geometry or circuit values before repeating the same test. Record the extraction mode and which board-level parts remain outside the chip.",
+          "rule": {
+            "type": "analog_project"
+          }
+        },
+        {
+          "id": "review",
+          "title": "Write your design review",
+          "kind": "reflection",
+          "instructions": "Record the nominal target and before/after values for at least two specs, one sizing or layout change, the measured current-reference compliance, and the next PVT or mismatch check. Describe what changed, how you isolated it, and what a real implementation adds beyond this lab fixture. Export your portfolio from the hub."
         }
       ]
     }

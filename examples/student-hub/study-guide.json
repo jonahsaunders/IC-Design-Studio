@@ -287,6 +287,20 @@
       "interview": "What would you add to move from a behavioral prototype toward a process-qualified implementation?",
       "artifact": "A short design note with the requirement, your prediction, a measured result or review finding, and one limitation. Include the saved project and relevant run evidence.",
       "try_next": "Change one variable, predict the result before running or inspecting it, and compare against your prediction. Restore the checked design before continuing. Record what the extra case does and does not demonstrate."
+    },
+    "project-opamp": {
+      "concept": "A Miller capacitor splits the two-stage amplifier poles. Transconductance buys loop speed, bias current pays for it, and capacitance from the load and routing changes the pole locations.",
+      "worked_example": "With 4 pF effective compensation and a 1 MHz starting target, 2πfuCc gives roughly 25 µS. At 12 V⁻¹, this suggests 2.1 µA per device. Use a measured current density to estimate width and test the circuit.",
+      "try_next": "Compare phase margin with another load. Return to 1 pF for the scored run and compare the extracted poles.",
+      "artifact": "A saved SKY130 schematic, current reference compliance sweep, annotated layout, and measured schematic/extracted design review.",
+      "interview": "Explain which measurement proved stability, what gm/ID cost you in area, and how extraction changed the result."
+    },
+    "project-tia": {
+      "concept": "A TIA holds a photodiode close to a fixed input voltage and converts current to output voltage. RF sets the low-frequency gain, while CPD, CF and loop gain shape the noise gain and stability.",
+      "worked_example": "100 kΩ × 1 µA gives a 100 mV inverting output step. With CF = 2 pF, 1/(2πRFCF) ≈ 796 kHz. Check the real bandwidth with finite loop gain and 2 pF sensor capacitance.",
+      "try_next": "Double the sensor capacitance and re-run both benches with the same feedback values. Explain why the response changes.",
+      "artifact": "A saved SKY130 schematic, current reference compliance sweep, annotated layout, and measured schematic/extracted design review.",
+      "interview": "Explain why a 100 kΩ feedback resistor does not by itself guarantee 100 kΩ response at all frequencies."
     }
   },
   "references": [

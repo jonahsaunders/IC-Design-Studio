@@ -1,9 +1,12 @@
 # Student Hub
 
 Open the **Student Hub** tab beside **Design**, or choose **View → Student Hub**. Design is the primary workspace; the Hub is an optional learning area. Starting a lesson or opening an example returns to Design. Switching tabs preserves the current editor and its drafts.
-Six learning paths cover foundations, analog, digital, mixed signal, layout and
-portfolio preparation. Four additional milestones build one sensor-acquisition
-project: **41 core lessons and 164 steps**, plus an eight-lesson
+Seven learning paths cover foundations, analog, digital, mixed signal, layout,
+portfolio preparation, and [analog design projects](STUDENT_ANALOG_PROJECTS.md).
+The photodiode TIA and two-stage op amp take an editable SKY130 circuit from a
+specification through gm/ID sizing, current reference, layout and extracted
+simulation. Four milestones build a sensor-acquisition project. The Hub also
+includes an eight-lesson
 [CMOS inverter course](STUDENT_INVERTER.md) for each available PDK revision.
 The inverter course adds process-model simulation, layout, DRC and LVS repair,
 and a design-review handoff. Every lesson includes a concept,
@@ -62,6 +65,7 @@ and the remaining native macOS acceptance work.
 | --- | --- | --- |
 | Foundations | First RC transient → nets/ground → parameter edits and Undo → hierarchy → loading/debugging → layout and reproducibility | A saved, measured circuit and a learning record |
 | Analog (10 lessons) | Loaded divider → RC bandwidth → current mirror → differential pair → amplifier → matching; gm/ID bias → width → headroom → efficiency tradeoff | A measured sizing worksheet and circuit design rationale |
+| Analog design projects (2 projects) | Photodiode TIA or Miller op amp → testbench → gm/ID → current reference → schematic simulation → layout → DRC, LVS and extraction | A before/after specification review with a saved SKY130 project |
 | Digital (9 lessons) | Truth tables → counter → handshake → PWM → averaging → serial transmitter; latch repair → saturating arithmetic → pipeline validity | Repaired RTL, failing cases and independent reference simulations |
 | Mixed Signal | Bridge thresholds → acquisition/hold → quantization → timing repair → DAC-weight repair → repeated conversions | A working SAR converter with explicit analog/digital timing |
 | Layout (4 lessons) | Minimum width → edge spacing → via enclosure → common centroid | Repaired geometry, measured rule checks and a physical verification plan |

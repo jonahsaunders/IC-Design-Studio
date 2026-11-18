@@ -6,7 +6,7 @@ from PySide6.QtCore import Qt, QTimer, QEvent
 from PySide6.QtGui import QKeySequence, QShortcut, QFontDatabase
 from PySide6.QtWidgets import (QDialog,QWidget,QVBoxLayout,QHBoxLayout,QGridLayout,QLabel,QPushButton,
     QListWidget,QListWidgetItem,QListView,QTextBrowser,QPlainTextEdit,QComboBox,QProgressBar,QDockWidget,
-    QLineEdit,QFileDialog,QFormLayout,QDialogButtonBox,QSplitter,QMenu,QScrollArea,QMessageBox,QTabWidget)
+    QLineEdit,QFileDialog,QFormLayout,QDialogButtonBox,QSplitter,QMenu,QScrollArea,QMessageBox,QTabWidget,QInputDialog)
 
 from .model import digest, load_project, save_project, uid
 from .student_hub import (Portfolio,curriculum,earned,complete,missing_prerequisites,next_lesson,
@@ -287,6 +287,9 @@ class StudentHub(QWidget):
                 if l.get('inverter_profile'):
                     from .student_inverter import create as inverter
                     project=inverter(self.inverter_profiles[l['inverter_profile']])
+                elif l.get('analog_project'):
+                    from .student_analog import choose_technology
+                    project=create(l['starter'], choose_technology(self.inverter_profiles, s.project['pdk']))
                 else:project=create(l['starter'])
                 path=self.portfolio.root/'projects'/(l['workspace']+'-'+uid()+'.icproj')
                 path.parent.mkdir(parents=True,exist_ok=True);save_project(project,path);self.portfolio.attach(l,project,path)
@@ -450,6 +453,8 @@ class LessonGuide(QDockWidget):
                                      ('Repair lesson fault',lambda:self.inverter_edit('repair'))]):
             control=button(title,lambda fn=fn:self.call(fn));iv.addWidget(control,i//2,i%2);self.inverter_buttons.append(control)
         self.inverter_actions.hide()
+        self.analog_action=button('Edit testbench…',lambda:self.call(self.analog_project_action))
+        self.analog_action.hide();v.addWidget(self.analog_action)
         self.qualify=button('Run four acceptance cases',lambda:self.call(self.qualification));v.addWidget(self.qualify)
         self.steps.currentIndexChanged.connect(self.step_changed)
         self.note_timer=QTimer(self);self.note_timer.setSingleShot(True);self.note_timer.setInterval(600)
@@ -532,6 +537,7 @@ class LessonGuide(QDockWidget):
         feedback(self.feedback,'Practice mode: checks give feedback; earn prerequisite lessons before progression credit.' if missing else
                  'Previously earned for a captured design.' if step['id'] in earned(self.hub.portfolio.state,self.lesson) else '')
         self.update_next()
+        self.update_run_state()
 
     def note_changed(self):
         if not self.filling:
@@ -555,6 +561,12 @@ class LessonGuide(QDockWidget):
         if 'device_metrics' in evidence:
             point=evidence['device_metrics']
             feedback(self.feedback,f'Checkpoint passed. ID = {point["id"]*1e6:.3g} µA; gm = {point["gm"]*1e6:.3g} µS; gm/ID = {point["gmid"]:.3g} V⁻¹; headroom = {point.get("headroom",0):.3g} V. Evidence saved.')
+        elif 'analog_runs' in evidence:
+            point=evidence['analog_runs'][0].get('gmid')
+            if point:
+                feedback(self.feedback,f'M2 measured {point["gm_S"]*1e6:.3g} µS gm, {point["current_A"]*1e6:.3g} µA ID and {point["gm_over_id"]:.3g} V⁻¹ gm/ID. Evidence saved.')
+            else:
+                feedback(self.feedback,f'All {len(evidence["analog_runs"])} testbenches meet the targets. Measurements saved to your learning record.')
         elif 'measurements' in evidence:
             feedback(self.feedback,'Checkpoint passed. '+ '; '.join(f'{key}: {value}' for key,value in evidence['measurements'].items())+'. Generic geometry evidence saved.')
         elif 'inverter_measurements' in evidence:
@@ -580,9 +592,35 @@ class LessonGuide(QDockWidget):
     def workspace(self):
         self.require_project();s=self.studio
         if not s.leave_digital_workspace():return
-        s.cid=s.project.get('mixed_signal',{}).get('analog_cell',s.project['top'])
-        s.mode_combo.setCurrentIndex(1 if self.lesson['starter'].startswith('layout') else 0);s.refresh(True)
+        show_layout=self.lesson['starter'].startswith('layout')
+        if self.lesson.get('analog_project'):
+            from .student_analog import focus_cell
+            step=self.active_step['id']
+            s.cid=focus_cell(s.project,self.lesson['analog_project'],step)
+            show_layout=step in ('layout','bias-layout','post-layout')
+        else:
+            s.cid=s.project.get('mixed_signal',{}).get('analog_cell',s.project['top'])
+        s.mode_combo.setCurrentIndex(1 if show_layout else 0);s.refresh(True)
         self.show();self.raise_()
+
+    def analog_project_action(self):
+        from .student_analog import _get_bench, run_names
+        self.flush();self.require_idle();s=self.studio
+        kind=self.lesson['analog_project'];step=self.active_step['id']
+        if step=='layout':
+            self.workspace()
+            return s.two_stage_layout_dialog()
+        if step=='bias-layout':
+            self.workspace()
+            return s.analog_bank_dialog()
+        if step=='post-layout':
+            return s.migrate_pdk_dialog()
+        names=run_names(kind,step)
+        name=('tia_ac' if kind=='tia' else 'opamp_ac') if step=='fixture' else names[0]
+        key=_get_bench(s.project,name)['id']
+        s.open_testbenches()
+        s.testbench_combo.setCurrentIndex(s.testbench_combo.findData(key))
+        return s.edit_testbench()
 
     def open_inverter(self):
         from .student_inverter import context
@@ -610,6 +648,14 @@ class LessonGuide(QDockWidget):
 
     def run(self):
         self.flush();self.require_idle();s=self.studio
+        if self.lesson.get('analog_project'):
+            from .student_analog import prepare
+            jobs=prepare(s.project,self.lesson['analog_project'],self.active_step['id'],self.hub.tools())
+            for job in jobs:job['student_lesson']=self.lesson['id']
+            names=[job['student_analog']['bench'] for job in jobs]
+            s.run_manager.enqueue_many(jobs,s.jobs_dir,['Student · '+name for name in names])
+            feedback(self.feedback,'Queued '+', '.join(names)+'. Check this step when the runs finish.')
+            return
         if self.lesson.get('inverter_profile'):
             from .student_inverter import prepare
             job=prepare(s.project,self.lesson,self.hub.tools())
@@ -655,9 +701,30 @@ class LessonGuide(QDockWidget):
         rows=self.lesson_rows();active=[r for r in rows if r['state'] in ('Queued','Running','Stopping')]
         is_layout=self.lesson['starter'].startswith('layout')
         can_run=bound and not active and not is_layout
+        kind=self.lesson.get('analog_project')
+        self.analog_action.hide()
+        self.controls['Open RTL'].setVisible(not kind)
+        self.controls['Run lesson'].setText('Run lesson')
+        if kind and self.active_step:
+            from .student_analog import run_names
+            step=self.active_step['id'];names=run_names(kind,step)
+            can_run=can_run and bool(names)
+            self.controls['Run lesson'].setVisible(bool(names))
+            self.controls['Run lesson'].setText('Run post-layout checks' if step=='post-layout' else 'Run testbenches')
+            from .process_adapters import capabilities
+            needs_full_pdk=step=='post-layout' and not capabilities(self.studio.project['pdk'])['external_verification']
+            if step in ('fixture','bias','layout','bias-layout','schematic') or needs_full_pdk:
+                self.analog_action.setText({'layout':'Generate core layout…','bias-layout':'Generate bias mirror layout…',
+                                            'post-layout':'Migrate PDK revision…'}.get(step,'Edit testbench…'))
+                self.analog_action.setEnabled(bound and not active);self.analog_action.show()
+        else:
+            self.controls['Run lesson'].show()
         self.controls['Run lesson'].setEnabled(can_run);self.qualify.setEnabled(can_run)
         self.controls['Cancel lesson runs'].setEnabled(bool(active));self.controls['Cancel lesson runs'].setVisible(bool(active))
-        self.controls['Results'].setEnabled(bound and any(r.get('result') and r['job'].get('student_lesson')==self.lesson['id'] for r in rows))
+        result_rows=[r for r in rows if r.get('result') and r['job'].get('student_lesson')==self.lesson['id']]
+        if kind and self.active_step:
+            result_rows=[r for r in result_rows if r['job'].get('student_analog',{}).get('stage')==self.active_step['id']]
+        self.controls['Results'].setEnabled(bound and bool(result_rows))
         for name in ('Open workspace','Save work'):self.controls[name].setEnabled(bound)
         self.controls['Open RTL'].setEnabled(bound and self.lesson['path'] in ('digital','mixed','capstone'))
         self.check_button.setEnabled(bound)
@@ -667,6 +734,7 @@ class LessonGuide(QDockWidget):
             self.run_status.setText(' · '.join(f'{sum(r["state"]==state for r in active)} {state.lower()}' for state in ('Running','Queued','Stopping') if any(r['state']==state for r in active)))
         elif not bound:self.run_status.setText('Resume this lesson from Student Hub to use its workspace.')
         elif rows:self.run_status.setText('Latest run: '+rows[-1]['state'])
+        elif kind:self.run_status.setText('Ready to run testbenches.' if can_run else '')
         else:self.run_status.setText('Ready to run.' if not is_layout else 'This lesson checks the layout without simulation.')
 
     def finished(self,row,result):
@@ -679,6 +747,17 @@ class LessonGuide(QDockWidget):
         rows=[r for r in self.lesson_rows() if r.get('result') and r['job'].get('student_lesson')==self.lesson['id']]
         if not rows:raise ValueError('Run this lesson first.')
         latest=rows[-1]
+        if self.lesson.get('analog_project'):
+            from .analog_run_ui import RunInspector
+            step=self.active_step['id']
+            by_bench={r['job']['student_analog']['bench']:r for r in rows if r['job']['student_analog']['stage']==step}
+            if not by_bench:raise ValueError('Run this step’s testbenches first.')
+            if len(by_bench)>1:
+                selected,ok=QInputDialog.getItem(self,'Testbench results','Open saved testbench',list(by_bench),0,False)
+                if not ok:return
+            else:selected=next(iter(by_bench))
+            self.bias_inspector=RunInspector(s,by_bench[selected]);self.bias_inspector.show()
+            return
         if any(step.get('rule',{}).get('type')=='device_metrics' for step in self.lesson['steps']):
             from .analog_run_ui import RunInspector
             self.bias_inspector=RunInspector(s,latest);self.bias_inspector.show();return

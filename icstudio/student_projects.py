@@ -127,8 +127,11 @@ def divider(loaded=False, hierarchy=False):
     p['analysis']['type']='op';return validate(p)
 
 
-def create(starter):
+def create(starter, technology=None):
     from .example_schematics import arrange
+    if starter in ('analog-opamp', 'analog-tia'):
+        from .student_analog import project
+        return arrange(project(starter.removeprefix('analog-'), technology))
     return arrange(_create(starter))
 
 
