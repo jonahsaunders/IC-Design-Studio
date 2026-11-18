@@ -1,5 +1,35 @@
 # Chunks 1–12: progress and forecast
 
+## Student Hub transistor-level bandgap labs
+
+**November 18, 2026.** Source `e8622d40e98ffe05cf8fc6e7253801deeb1e9397`
+adds separate transistor-level [Widlar, Brokaw, Kuijk and Banba labs](STUDENT_BANDGAPS.md).
+All four use GF180 process models and saved 5 pF testbenches. Each lesson
+has a fixed six-temperature accuracy specification, two power-on ramps,
+and a layout checkpoint with named ports and linked terminal checks.
+
+The nominal-process schematic temperature spans over −40 to 125 °C were
+144.0 mV for Widlar, 9.72 mV for Brokaw, 5.55 mV for Kuijk, and 1.05 mV
+for Banba. All 88 schematic power-on cases and 48 paired post-layout cases
+passed their saved specifications. The largest paired final-voltage shift
+was 13.7 µV on Kuijk. The resistor-fed Widlar includes a wider drift budget. A change
+from 50.15 to 50.5 µm in Banba's output resistor rejected the older
+layout. Regenerating and extracting the edited design matched all 103
+devices and gave 604.787 mV on both views at 27 °C.
+
+The physical stage streams the GF180-B geometry, extracts capacitance and
+device geometry with Magic, and checks the physical ports, device models,
+terminals, and dimensions before the electrical replay. The scope is
+local geometry, linked connectivity, device readback and capacitance.
+Full process DRC, wire resistance extraction and whole-die requirements
+are separate gates.
+
+Ubuntu passed all 31 focused tests. Windows passed 26 with five
+external-engine skips. Both passed 18 Student Hub desktop checks and
+release-material validation. On Ubuntu the results dialog opened each
+actual extracted result and selected the overlaid traces by keyboard.
+[Saved measurements and artifact hashes](validation/student-bandgap-labs-2026-11-18.json)
+
 ## Student Hub Miller, cascode bias, and bandgap lessons
 
 **November 18, 2026.** Lesson source

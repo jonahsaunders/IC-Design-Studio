@@ -195,4 +195,4 @@ python scripts/verify_student_bandgap_labs.py --out build/bandgap-labs \
 ```
 
 The evidence directory contains the cases, streamed layout, Magic log,
-extracted netlist, and both waveform sets.
+extracted netlist, and both waveform sets. [Measured reference results](validation/student-bandgap-labs-2026-11-18.json)
