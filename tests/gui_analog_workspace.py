@@ -39,6 +39,9 @@ def main():
         window.table.setCurrentCell(0,2);before=clone(w.project);window.open_run();inspector=window.run_inspector
         assert w.project==before and inspector.project['parameters']['load']=='20k'
         assert inspector.probe.currentData()==('voltage','vout')
+        current_probe = next(i for i in range(inspector.probe.count()) if inspector.probe.itemData(i)[0]=='current')
+        inspector.probe.setCurrentIndex(current_probe)
+        assert inspector.plot.result['plot_unit']=='A'
         inspector.select_device(1);app.processEvents();assert inspector.plot.names
         inspector.grab().save(str(out/'saved-run-inspector.png'))
         window.tabs.setCurrentIndex(0);window.grab().save(str(out/'analog-setup.png'))

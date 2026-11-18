@@ -73,7 +73,7 @@ At 27 °C in the nominal model, try 240 kΩ for the simple mirror and
 82 kΩ for the cascode. The two sinks measure about 5.34 µA and 5.46 µA.
 Their output resistances are about 2.21 MΩ and 395 MΩ. The 5% current
 flatness knees in this sweep are 0.85 V and 0.25 V, while the local
-saturation floors estimated at the nominal clamp are 0.074 V and 0.862 V.
+saturation floors estimated at the nominal clamp are 0.074 V and 0.694 V.
 Current can stay within tolerance while a stacked device leaves saturation.
 A nominal saturation floor also cannot predict the precise dropout voltage
 as the internal nodes move. Check both measures against your design spec.

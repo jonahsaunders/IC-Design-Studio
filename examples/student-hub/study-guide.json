@@ -340,7 +340,7 @@
     "project-cascode": {
       "concept": "A common-gate device shields the lower mirror transistor from output swing. The increase in output resistance trades against compliance and bias headroom. Reference stability and mirror ratio accuracy are separate design requirements.",
       "worked_example": "At 5 µA and 10 µm total width, the nominal density is 0.5 µA/µm. If a corner gives 6 µA at the same width, density is 0.6 µA/µm. Read the new gm/ID and headroom from the model rather than reusing the nominal estimates.",
-      "try_next": "Reduce the output clamp and repeat the corner study. For an actual design, sweep supply and output compliance, check startup and settling, and use appropriate statistical mismatch models.",
+      "try_next": "Make a copy for an independent testbench experiment. Reduce the output clamp, then use Characterization to check process and temperature again. For an actual design, sweep supply and output compliance, check startup and settling, and use appropriate statistical mismatch models.",
       "interview": "Why can raising output resistance leave absolute bias current just as sensitive to temperature, and why can a cascode lose compliance?",
       "artifact": "Two measured compliance sweeps and a nine-corner current, efficiency and saturation-margin table."
     },

@@ -115,7 +115,8 @@ class RunInspector(QDialog):
         probe=self.probe.currentData()
         if not probe:self.plot.set_result(None,[]);return
         kind,name=probe;data=clone(self.wave)
-        if kind=='current':data.update(traces=data.get('currents',{}),phase=data.get('current_phase',{}),y_label='Current (A)')
+        if kind=='current':
+            data.update(traces=data.get('currents',{}), phase=data.get('current_phase',{}), plot_unit='A')
         self.plot.set_result(data,[name])
 
     def select_device(self,i,j=0):
