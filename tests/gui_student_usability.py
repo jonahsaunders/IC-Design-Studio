@@ -272,8 +272,8 @@ def main():
 
     for topology in ('widlar','brokaw','kuijk','banba'):
         h.select_lesson('project-bandgap-'+topology);h.start_selected()
-        assert w.cell['name']==topology+'_summation_model'
-        assert g.analog_action.text()=='Open temperature study…'
+        assert w.cell['name']==('banba_layout' if topology=='banba' else topology+'_core')
+        assert g.analog_action.text()=='Open temperature model…'
         g.analog_action.click();study=g.frequency_dialog
         assert study.kind==topology and study.volts.result['plot_unit']=='V' and study.drift.result['plot_unit']=='mV'
         assert study.values.rowCount()==4
@@ -290,7 +290,19 @@ def main():
             study.ratio.setValue(16)
             assert float(study.values.item(1,3).text())>previous
         QTest.qWait(30);study.grab().save(str(out/f'bandgap-{topology}.png'));study.close()
-    checked('Four bandgap projects open independent temperature plots and respond to their topology-specific controls')
+        for stage,action in (('accuracy','Run temperature sweep'), ('startup','Run startup cases'),
+                             ('post-layout','Run extracted comparison')):
+            index=next(i for i,step in enumerate(g.lesson['steps']) if step['id']==stage)
+            g.steps.setCurrentIndex(index);g.workspace()
+            assert g.controls['Run lesson'].text()==action
+        index=next(i for i,step in enumerate(g.lesson['steps']) if step['id']=='layout')
+        g.steps.setCurrentIndex(index);g.workspace()
+        assert w.mode_combo.currentIndex()==1
+        if topology!='banba':
+            assert g.analog_action.text()=='Generate layout'
+            g.analog_action.click()
+        assert w.cell['layout_pins'] and g.analog_action.text()=='Regenerate layout…'
+    checked('Four transistor-level bandgap projects open independent predictions and run, layout, and extracted controls')
 
     # Second pass: project switches disable actions immediately and cannot misroute
     # cancellation or completed-run feedback to another project.

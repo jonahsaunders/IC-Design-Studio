@@ -287,7 +287,7 @@ class StudentHub(QWidget):
                 if l.get('inverter_profile'):
                     from .student_inverter import create as inverter
                     project=inverter(self.inverter_profiles[l['inverter_profile']])
-                elif l.get('analog_project'):
+                elif l.get('analog_project') and l['analog_project']!='bandgap':
                     from .student_analog import choose_technology
                     project=create(l['starter'], choose_technology(self.inverter_profiles, s.project['pdk']))
                 else:project=create(l['starter'])
@@ -570,6 +570,11 @@ class LessonGuide(QDockWidget):
         elif 'bias_corners' in evidence:
             points=evidence['bias_corners']
             feedback(self.feedback,f'{sum(p["passes"] for p in points)} of {len(points)} cases meet the operating target. All measured cases saved.')
+        elif 'bandgap_runs' in evidence:
+            measured=evidence['bandgap_runs']
+            span=measured['temperature_span_V']
+            detail=f' Temperature span {span*1000:.1f} mV.' if span is not None else ''
+            feedback(self.feedback,f'{measured["cases"]} cases passed.{detail} Measurements saved.')
         elif 'analog_runs' in evidence:
             point=evidence['analog_runs'][0].get('gmid')
             if point:
@@ -627,6 +632,20 @@ class LessonGuide(QDockWidget):
 
     def analog_project_action(self):
         self.flush();self.require_idle();s=self.studio
+        if self.lesson.get('analog_project')=='bandgap' and self.active_step['id']=='layout':
+            from .student_bandgap_lab import core_cell
+            from .student_bandgap_layout import generate
+            replace=bool(core_cell(s.project)['shapes'])
+            if replace and QMessageBox.question(self,'Regenerate bandgap layout?',
+                'Regeneration replaces the current geometry. You can undo it in the editor.',
+                QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.Cancel,
+                QMessageBox.StandardButton.Cancel)!=QMessageBox.StandardButton.Yes:
+                return
+            s.commit(lambda p:generate(p,replace=replace),'Generate GF180 bandgap layout')
+            self.workspace()
+            self.update_run_state()
+            feedback(self.feedback,'Layout generated. Inspect the device rows, supply buses, and vias.')
+            return
         if self.lesson.get('bandgap'):
             from .student_bandgap_ui import BandgapDialog
             self.frequency_dialog=BandgapDialog(s,self.lesson['bandgap'])
@@ -753,7 +772,16 @@ class LessonGuide(QDockWidget):
                 self.controls['Run lesson'].setText('Run nine PVT cases')
             from .process_adapters import capabilities
             needs_full_pdk=step=='post-layout' and not capabilities(self.studio.project['pdk'])['external_verification']
-            if step in ('fixture','bias','layout','bias-layout','schematic') or needs_full_pdk:
+            if kind=='bandgap':
+                names={'accuracy':'Run temperature sweep','startup':'Run startup cases','post-layout':'Run extracted comparison'}
+                if step in names:self.controls['Run lesson'].setText(names[step])
+                if step=='layout':
+                    from .student_bandgap_lab import core_cell
+                    existing=bound and core_cell(self.studio.project)['shapes']
+                    self.analog_action.setText('Regenerate layout…' if existing else 'Generate layout')
+                else:self.analog_action.setText('Open temperature model…')
+                self.analog_action.setEnabled(bound and not active);self.analog_action.show()
+            elif step in ('fixture','bias','layout','bias-layout','schematic') or needs_full_pdk:
                 self.analog_action.setText({'layout':'Generate core layout…','bias-layout':'Generate bias mirror layout…',
                                             'post-layout':'Migrate PDK revision…'}.get(step,'Edit testbench…'))
                 self.analog_action.setEnabled(bound and not active);self.analog_action.show()
@@ -815,6 +843,10 @@ class LessonGuide(QDockWidget):
                 from .student_bias_ui import BiasCornersDialog
                 saved=by_bench['cascode_bias']
                 self.bias_inspector=BiasCornersDialog(s,saved['job']['project'],saved['result'])
+                self.bias_inspector.show();return
+            if self.lesson['analog_project']=='bandgap':
+                from .student_bandgap_lab_ui import BandgapLabResults
+                self.bias_inspector=BandgapLabResults(s,next(iter(by_bench.values()))['result'])
                 self.bias_inspector.show();return
             if len(by_bench)>1:
                 selected,ok=QInputDialog.getItem(self,'Testbench results','Open saved testbench',list(by_bench),0,False)

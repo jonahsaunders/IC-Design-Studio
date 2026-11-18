@@ -53,6 +53,9 @@ def main(input_path,output_path):
         elif kind=='characterization':
             from .characterization import run
             result=run(p,job['settings']['testbench'],job['settings']['study'],job['executable'],Path(output_path).parent/'characterization',progress,tools=job['settings'].get('tools'))
+        elif kind=='student_bandgap_lab':
+            from .student_bandgap_lab import run_job
+            result=run_job(p,job,Path(output_path).parent/'bandgap',progress)
         elif kind=='study':
             from .studies import run_study
             result=run_study(p,job['cell'],job['settings']['analysis'],job['settings']['study'],job.get('engine','builtin'),job.get('executable',''),Path(output_path).parent,progress)

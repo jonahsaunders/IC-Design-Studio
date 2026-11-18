@@ -132,6 +132,9 @@ def create(starter, technology=None):
     if starter == 'bias-cascode':
         from .student_bias import project
         return arrange(project(technology))
+    if starter.startswith('bandgap-lab-'):
+        from .student_bandgap_lab import project
+        return arrange(project(starter.removeprefix('bandgap-lab-')))
     if starter.startswith('bandgap-'):
         from .student_bandgap import project
         return arrange(project(starter.removeprefix('bandgap-')))

@@ -173,6 +173,9 @@ def _get_bench(project, name):
 
 
 def run_names(kind, step):
+    if kind == 'bandgap':
+        from .student_bandgap_lab import STAGES
+        return (STAGES[step],) if step in STAGES else ()
     if kind == 'bias':
         from .student_bias import run_names as bias_runs
         return bias_runs(step)
@@ -185,6 +188,9 @@ def run_names(kind, step):
 
 
 def focus_cell(project, kind, step):
+    if kind == 'bandgap':
+        from .student_bandgap_lab import focus
+        return focus(project, step)
     if kind == 'bias':
         from .student_bias import focus
         return focus(project, step)
@@ -195,6 +201,9 @@ def focus_cell(project, kind, step):
 
 
 def prepare(project, kind, step, tools):
+    if kind == 'bandgap':
+        from .student_bandgap_lab import prepare as prepare_bandgap
+        return prepare_bandgap(project, step, tools)
     if kind == 'bias':
         from .student_bias import prepare as prepare_bias
         return prepare_bias(project, step, tools)
@@ -316,6 +325,9 @@ def _limits(name, specs, measures):
 
 
 def check(project, kind, step, rows):
+    if kind == 'bandgap':
+        from .student_bandgap_lab import check as check_bandgap
+        return check_bandgap(project, step, rows)
     if kind == 'bias':
         from .student_bias import check as check_bias
         return check_bias(project, step, rows)

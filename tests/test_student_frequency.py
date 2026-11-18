@@ -138,7 +138,7 @@ class StudentFrequencyTests(unittest.TestCase):
                 starter = 'bandgap-' + kind
                 ratio, weight, extra = student_bandgap.defaults(kind)
                 data = student_bandgap.study(kind, ratio, weight, extra)
-                self.assertEqual(self.lessons[starter]['bandgap'], kind)
+                self.assertEqual(self.lessons['bandgap-lab-'+kind]['bandgap'], kind)
                 p = create(starter)
                 measured = run(p, p['top'], p['analysis'])['traces']['vref'][0]
                 self.assertAlmostEqual(measured, data['nominal'], delta=1e-6)

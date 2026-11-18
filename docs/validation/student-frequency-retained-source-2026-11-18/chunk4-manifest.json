@@ -339,6 +339,10 @@
     "analog_run_ui.py": {
       "path": "docs/validation/student-frequency-retained-source-2026-11-18/analog_run_ui.py.txt",
       "sha256": "ee729e38ea447c318f72013485271398cdb02e395d2ff375eb880ed65809528c"
+    },
+    "worker.py": {
+      "path": "docs/validation/student-frequency-retained-source-2026-11-18/worker.py.txt",
+      "sha256": "759638108d3d756c1601e60266805c1509fec111157573426d663742aa4be00d"
     }
   },
   "explanation": "Preserve the exact historical saved-testbench implementation before the CMIM LVS and capacitance-graph repair. This retains historical reference scope only; no new full GF180/IHP production qualification is inferred.",
@@ -472,6 +476,11 @@
     "captured_from_commit": "7aeb5f06ab84eaf2d9cd4fa25b1b7f98cae2a00e",
     "added_files": [
       "analog_run_ui.py"
+    ]
+  },
+  "transistor_bandgap_retention": {
+    "added_files": [
+      "worker.py"
     ]
   }
 }

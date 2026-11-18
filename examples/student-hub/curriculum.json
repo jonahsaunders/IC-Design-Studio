@@ -3376,19 +3376,24 @@
       "id": "project-bandgap-widlar",
       "path": "analog-projects",
       "title": "Widlar bandgap reference",
-      "starter": "bandgap-widlar",
-      "workspace": "project-bandgap-widlar",
+      "starter": "bandgap-lab-widlar",
+      "workspace": "project-bandgap-widlar-transistor",
       "bandgap": "widlar",
       "requires": [],
-      "minutes": 30,
-      "summary": "Weight a PTAT voltage to cancel the falling base–emitter voltage.",
+      "minutes": 90,
+      "summary": "Weight a PTAT voltage to cancel the falling base–emitter voltage. Trim an editable GF180 circuit, then compare measured startup before and after layout.",
       "skills": [
         "Widlar",
         "bandgap reference",
         "CTAT",
         "PTAT",
         "temperature drift",
-        "current density"
+        "current density",
+        "transistor-level simulation",
+        "startup",
+        "process and temperature corners",
+        "matched layout",
+        "capacitance extraction"
       ],
       "doc": "STUDENT_BANDGAPS.md",
       "steps": [
@@ -3432,30 +3437,72 @@
           "explanation": "The trim cancels the local first derivative. VBE curvature remains, so compare the endpoints and the peak-to-peak drift."
         },
         {
+          "id": "accuracy",
+          "kind": "check",
+          "title": "Trim to the voltage and drift specification",
+          "instructions": "Open the transistor-level workspace. Read the circuit ports, identify the trim resistor, and predict how it moves VREF. The 5 pF fixture uses 3.3 V. Require 1.29–1.55 V, at most 180 µA supply current, and at most 80 mV peak-to-peak drift across −40, 0, 27, 60, 85 and 125 °C at nominal process.\n\nTry RFEED at 44 µm long, then restore 22 µm. Find out whether the shunt Q3 still draws enough current at hot temperature. Trim R2 and make sure RFEED can supply the detector and shunt branches over the sweep. Return to this checkpoint and run the temperature sweep. Open Results and compare the actual voltage curve with your prediction.",
+          "rule": {
+            "type": "analog_project"
+          }
+        },
+        {
+          "id": "startup",
+          "kind": "check",
+          "title": "Check fast and slow power-on across corners",
+          "instructions": "Run startup cases from 0 V using the 100 ns and 100 µs supply ramps. Compare nominal, SS and FF at −40, 27 and 125 °C at 3.3 V. Two extra conditions per ramp check cold/SS at low supply and hot/FF at high supply. Use 1.29–1.55 V by 350 µs, peak ≤ 1.62 V, and the final 100 µs ripple limit. Keep the cases that failed and change one component before running again.\n\nThe final ripple limit is 4 mV. Open Results and use arrow keys to compare traces. A settled DC operating point alone cannot establish startup.",
+          "rule": {
+            "type": "analog_project"
+          }
+        },
+        {
+          "id": "layout",
+          "kind": "check",
+          "title": "Place, route, and inspect the reference",
+          "instructions": "Open the Layout workspace and use Generate layout to place contacted devices with separate metal buses and explicit vias. Trace VDD, VSS, and VREF from their pins to the devices. Inspect the BJT placement, well and substrate ties, and resistor dimensions. Identify a sensitive node and explain how a long bus can affect its startup response. Check the linked terminals and local spacing. For a fault exercise, remove a via, run Check step, then undo or reconnect and repeat.",
+          "rule": {
+            "type": "analog_project"
+          }
+        },
+        {
+          "id": "post-layout",
+          "kind": "check",
+          "title": "Re-run the specification on extracted capacitance",
+          "instructions": "Run extracted comparison with Magic and ngspice. The job streams the current layout, extracts capacitance and device geometry, and checks extracted device names, terminal connectivity, geometry and ports against the schematic. Compare the six temperature points and both startup ramps at nominal, cold/SS/low supply and hot/FF/high supply. The same electrical limits apply, with at most 25 mV schematic-to-extracted final voltage shift. Open Results, compare the dashed extracted trace with the solid schematic trace, and record the worst shift and peak.",
+          "rule": {
+            "type": "analog_project"
+          }
+        },
+        {
           "id": "review",
           "kind": "reflection",
-          "title": "Record your temperature sweep",
-          "instructions": "Save the ratio, calculated trim, and room and endpoint values. Explain how base-current error or a changing resistor ratio can upset the voltage sum."
+          "title": "Record your design and review findings",
+          "instructions": "Save the ratio, calculated trim, and room and endpoint values. Explain how base-current error or a changing resistor ratio can upset the voltage sum. Also record the saved resistor dimensions, the limiting startup case, the layout checks, and the largest extracted shift. Indicate any remaining risk from wire resistance, mismatch, or supply ramp."
         }
-      ]
+      ],
+      "analog_project": "bandgap"
     },
     {
       "id": "project-bandgap-brokaw",
       "path": "analog-projects",
       "title": "Brokaw bandgap reference",
-      "starter": "bandgap-brokaw",
-      "workspace": "project-bandgap-brokaw",
+      "starter": "bandgap-lab-brokaw",
+      "workspace": "project-bandgap-brokaw-transistor",
       "bandgap": "brokaw",
       "requires": [],
-      "minutes": 30,
-      "summary": "Use equal collector currents and unequal emitter areas to make a PTAT term.",
+      "minutes": 90,
+      "summary": "Use equal collector currents and unequal emitter areas to make a PTAT term. Trim an editable GF180 circuit, then compare measured startup before and after layout.",
       "skills": [
         "Brokaw",
         "bandgap reference",
         "CTAT",
         "PTAT",
         "temperature drift",
-        "current density"
+        "current density",
+        "transistor-level simulation",
+        "startup",
+        "process and temperature corners",
+        "matched layout",
+        "capacitance extraction"
       ],
       "doc": "STUDENT_BANDGAPS.md",
       "steps": [
@@ -3499,30 +3546,72 @@
           "explanation": "The total PTAT weight needs to be about 10.05. Because the return resistor carries two currents, its ratio is about half of that."
         },
         {
+          "id": "accuracy",
+          "kind": "check",
+          "title": "Trim to the voltage and drift specification",
+          "instructions": "Open the transistor-level workspace. Read the circuit ports, identify the trim resistor, and predict how it moves VREF. The 5 pF fixture uses 3.3 V. Require 1.14–1.26 V, at most 180 µA supply current, and at most 30 mV peak-to-peak drift across −40, 0, 27, 60, 85 and 125 °C at nominal process.\n\nTry trimming R1 from 48 µm while leaving R2 at 10 µm. The common emitter resistor carries both branch currents. For the startup experiment, compare MDRIVE width 2 µm and 4 µm, or increase CSTAB to 50 µm square. Return to this checkpoint and run the temperature sweep. Open Results and compare the actual voltage curve with your prediction.",
+          "rule": {
+            "type": "analog_project"
+          }
+        },
+        {
+          "id": "startup",
+          "kind": "check",
+          "title": "Check fast and slow power-on across corners",
+          "instructions": "Run startup cases from 0 V using the 100 ns and 100 µs supply ramps. Compare nominal, SS and FF at −40, 27 and 125 °C at 3.3 V. Two extra conditions per ramp check cold/SS at low supply and hot/FF at high supply. Use 1.14–1.26 V by 350 µs, peak ≤ 1.40 V, and the final 100 µs ripple limit. Keep the cases that failed and change one component before running again.\n\nThe final ripple limit is 4 mV. Open Results and use arrow keys to compare traces. A settled DC operating point alone cannot establish startup.",
+          "rule": {
+            "type": "analog_project"
+          }
+        },
+        {
+          "id": "layout",
+          "kind": "check",
+          "title": "Place, route, and inspect the reference",
+          "instructions": "Open the Layout workspace and use Generate layout to place contacted devices with separate metal buses and explicit vias. Trace VDD, VSS, and VREF from their pins to the devices. Inspect the BJT placement, well and substrate ties, and resistor dimensions. Identify a sensitive node and explain how a long bus can affect its startup response. Check the linked terminals and local spacing. For a fault exercise, remove a via, run Check step, then undo or reconnect and repeat.",
+          "rule": {
+            "type": "analog_project"
+          }
+        },
+        {
+          "id": "post-layout",
+          "kind": "check",
+          "title": "Re-run the specification on extracted capacitance",
+          "instructions": "Run extracted comparison with Magic and ngspice. The job streams the current layout, extracts capacitance and device geometry, and checks extracted device names, terminal connectivity, geometry and ports against the schematic. Compare the six temperature points and both startup ramps at nominal, cold/SS/low supply and hot/FF/high supply. The same electrical limits apply, with at most 25 mV schematic-to-extracted final voltage shift. Open Results, compare the dashed extracted trace with the solid schematic trace, and record the worst shift and peak.",
+          "rule": {
+            "type": "analog_project"
+          }
+        },
+        {
           "id": "review",
           "kind": "reflection",
-          "title": "Record your temperature sweep",
-          "instructions": "Record R1/R2 and drift. Explain how collector sensing sets the ratio, how base current can still matter in a real circuit, and how a startup circuit can move the loop away from its off state."
+          "title": "Record your design and review findings",
+          "instructions": "Record R1/R2 and drift. Explain how collector sensing sets the ratio, how base current can still matter in a real circuit, and how a startup circuit can move the loop away from its off state. Also record the saved resistor dimensions, the limiting startup case, the layout checks, and the largest extracted shift. Indicate any remaining risk from wire resistance, mismatch, or supply ramp."
         }
-      ]
+      ],
+      "analog_project": "bandgap"
     },
     {
       "id": "project-bandgap-kuijk",
       "path": "analog-projects",
       "title": "Kuijk bandgap reference",
-      "starter": "bandgap-kuijk",
-      "workspace": "project-bandgap-kuijk",
+      "starter": "bandgap-lab-kuijk",
+      "workspace": "project-bandgap-kuijk-transistor",
       "bandgap": "kuijk",
       "requires": [],
-      "minutes": 30,
-      "summary": "Use voltage feedback to enforce a diode voltage relation and set the density ratio.",
+      "minutes": 90,
+      "summary": "Use voltage feedback to enforce a diode voltage relation and set the density ratio. Trim an editable GF180 circuit, then compare measured startup before and after layout.",
       "skills": [
         "Kuijk",
         "bandgap reference",
         "CTAT",
         "PTAT",
         "temperature drift",
-        "current density"
+        "current density",
+        "transistor-level simulation",
+        "startup",
+        "process and temperature corners",
+        "matched layout",
+        "capacitance extraction"
       ],
       "doc": "STUDENT_BANDGAPS.md",
       "steps": [
@@ -3566,30 +3655,72 @@
           "explanation": "Use 1.8 mV/°C divided by (k/q)ln(16), about 7.53. Op-amp offset and drift affect the achieved voltage once a real loop replaces the ideal equality."
         },
         {
+          "id": "accuracy",
+          "kind": "check",
+          "title": "Trim to the voltage and drift specification",
+          "instructions": "Open the transistor-level workspace. Read the circuit ports, identify the trim resistor, and predict how it moves VREF. The 5 pF fixture uses 3.3 V. Require 1.14–1.26 V, at most 180 µA supply current, and at most 30 mV peak-to-peak drift across −40, 0, 27, 60, 85 and 125 °C at nominal process.\n\nStart with R1/R2/R3 at 100/95/10 µm long for 1 µm wide poly. Change R2 for one trial, then explain why it changes both the sense current ratio and PTAT weighting. Compare startup with the supply-tracking capacitors reduced. Return to this checkpoint and run the temperature sweep. Open Results and compare the actual voltage curve with your prediction.",
+          "rule": {
+            "type": "analog_project"
+          }
+        },
+        {
+          "id": "startup",
+          "kind": "check",
+          "title": "Check fast and slow power-on across corners",
+          "instructions": "Run startup cases from 0 V using the 100 ns and 100 µs supply ramps. Compare nominal, SS and FF at −40, 27 and 125 °C at 3.3 V. Two extra conditions per ramp check cold/SS at low supply and hot/FF at high supply. Use 1.14–1.26 V by 350 µs, peak ≤ 1.80 V, and the final 100 µs ripple limit. Keep the cases that failed and change one component before running again.\n\nThe final ripple limit is 4 mV. Open Results and use arrow keys to compare traces. A settled DC operating point alone cannot establish startup.",
+          "rule": {
+            "type": "analog_project"
+          }
+        },
+        {
+          "id": "layout",
+          "kind": "check",
+          "title": "Place, route, and inspect the reference",
+          "instructions": "Open the Layout workspace and use Generate layout to place contacted devices with separate metal buses and explicit vias. Trace VDD, VSS, and VREF from their pins to the devices. Inspect the BJT placement, well and substrate ties, and resistor dimensions. Identify a sensitive node and explain how a long bus can affect its startup response. Check the linked terminals and local spacing. For a fault exercise, remove a via, run Check step, then undo or reconnect and repeat.",
+          "rule": {
+            "type": "analog_project"
+          }
+        },
+        {
+          "id": "post-layout",
+          "kind": "check",
+          "title": "Re-run the specification on extracted capacitance",
+          "instructions": "Run extracted comparison with Magic and ngspice. The job streams the current layout, extracts capacitance and device geometry, and checks extracted device names, terminal connectivity, geometry and ports against the schematic. Compare the six temperature points and both startup ramps at nominal, cold/SS/low supply and hot/FF/high supply. The same electrical limits apply, with at most 25 mV schematic-to-extracted final voltage shift. Open Results, compare the dashed extracted trace with the solid schematic trace, and record the worst shift and peak.",
+          "rule": {
+            "type": "analog_project"
+          }
+        },
+        {
           "id": "review",
           "kind": "reflection",
-          "title": "Record your temperature sweep",
-          "instructions": "Compare both current-setting ratios and both trims. Explain how the op amp’s offset changes the sensed voltage and why local slope and full-range curvature deserve separate checks."
+          "title": "Record your design and review findings",
+          "instructions": "Compare both current-setting ratios and both trims. Explain how the op amp’s offset changes the sensed voltage and why local slope and full-range curvature deserve separate checks. Also record the saved resistor dimensions, the limiting startup case, the layout checks, and the largest extracted shift. Indicate any remaining risk from wire resistance, mismatch, or supply ramp."
         }
-      ]
+      ],
+      "analog_project": "bandgap"
     },
     {
       "id": "project-bandgap-banba",
       "path": "analog-projects",
       "title": "Banba bandgap reference",
-      "starter": "bandgap-banba",
-      "workspace": "project-bandgap-banba",
+      "starter": "bandgap-lab-banba",
+      "workspace": "project-bandgap-banba-transistor",
       "bandgap": "banba",
       "requires": [],
-      "minutes": 30,
-      "summary": "Sum CTAT and PTAT currents and scale the resulting voltage below one volt.",
+      "minutes": 90,
+      "summary": "Sum CTAT and PTAT currents and scale the resulting voltage below one volt. Trim an editable GF180 circuit, then compare measured startup before and after layout.",
       "skills": [
         "Banba",
         "bandgap reference",
         "CTAT",
         "PTAT",
         "temperature drift",
-        "current density"
+        "current density",
+        "transistor-level simulation",
+        "startup",
+        "process and temperature corners",
+        "matched layout",
+        "capacitance extraction"
       ],
       "doc": "STUDENT_BANDGAPS.md",
       "steps": [
@@ -3633,12 +3764,49 @@
           "explanation": "R4 scales both voltage contributions equally. The cancellation trim depends on the current ratio. Startup, minimum supply, and PSRR require separate circuit tests."
         },
         {
+          "id": "accuracy",
+          "kind": "check",
+          "title": "Trim to the voltage and drift specification",
+          "instructions": "Open the transistor-level workspace. Read the circuit ports, identify the trim resistor, and predict how it moves VREF. The 5 pF fixture uses 3.3 V. Require 0.57–0.63 V, at most 80 µA supply current, and at most 12 mV peak-to-peak drift across −40, 0, 27, 60, 85 and 125 °C at nominal process.\n\nTry changing ROUT from 50.15 to 60 µm long, then return to the best measured value. Use RPTAT to trim the temperature slope. Keep RCA and RCB matched and retain the output and tracking capacitors when comparing voltage trim. Return to this checkpoint and run the temperature sweep. Open Results and compare the actual voltage curve with your prediction.",
+          "rule": {
+            "type": "analog_project"
+          }
+        },
+        {
+          "id": "startup",
+          "kind": "check",
+          "title": "Check fast and slow power-on across corners",
+          "instructions": "Run startup cases from 0 V using the 100 ns and 100 µs supply ramps. Compare nominal, SS and FF at −40, 27 and 125 °C at 3.3 V. Two extra conditions per ramp check cold/SS at low supply and hot/FF at high supply. Use 0.57–0.63 V by 350 µs, peak ≤ 0.75 V, and the final 100 µs ripple limit. Keep the cases that failed and change one component before running again.\n\nThe final ripple limit is 2 mV. Open Results and use arrow keys to compare traces. A settled DC operating point alone cannot establish startup.",
+          "rule": {
+            "type": "analog_project"
+          }
+        },
+        {
+          "id": "layout",
+          "kind": "check",
+          "title": "Place, route, and inspect the reference",
+          "instructions": "Open the Layout workspace and use Generate layout to place contacted devices with separate metal buses and explicit vias. Trace VDD, VSS, and VREF from their pins to the devices. Inspect the BJT placement, well and substrate ties, and resistor dimensions. Identify a sensitive node and explain how a long bus can affect its startup response. Check the linked terminals and local spacing. For a fault exercise, remove a via, run Check step, then undo or reconnect and repeat. The initial Banba reference includes a routed reference. Use Regenerate layout only when you want to replace that geometry.",
+          "rule": {
+            "type": "analog_project"
+          }
+        },
+        {
+          "id": "post-layout",
+          "kind": "check",
+          "title": "Re-run the specification on extracted capacitance",
+          "instructions": "Run extracted comparison with Magic and ngspice. The job streams the current layout, extracts capacitance and device geometry, and checks extracted device names, terminal connectivity, geometry and ports against the schematic. Compare the six temperature points and both startup ramps at nominal, cold/SS/low supply and hot/FF/high supply. The same electrical limits apply, with at most 12 mV schematic-to-extracted final voltage shift. Open Results, compare the dashed extracted trace with the solid schematic trace, and record the worst shift and peak.",
+          "rule": {
+            "type": "analog_project"
+          }
+        },
+        {
           "id": "review",
           "kind": "reflection",
-          "title": "Record your temperature sweep",
-          "instructions": "Record the two output scales and the resulting voltages. Explain which transistor and amplifier checks establish minimum supply, and how you would test startup over temperature."
+          "title": "Record your design and review findings",
+          "instructions": "Record the two output scales and the resulting voltages. Explain which transistor and amplifier checks establish minimum supply, and how you would test startup over temperature. Also record the saved resistor dimensions, the limiting startup case, the layout checks, and the largest extracted shift. Indicate any remaining risk from wire resistance, mismatch, or supply ramp."
         }
-      ]
+      ],
+      "analog_project": "bandgap"
     }
   ]
 }

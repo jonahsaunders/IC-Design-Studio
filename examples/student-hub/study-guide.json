@@ -349,28 +349,28 @@
       "worked_example": "At 27 °C and density ratio 10, ΔVBE = (kT/q)ln(10) ≈ 59.56 mV and its slope is about 198.4 µV/°C. To offset −1.8 mV/°C, choose R2/R3 ≈ 9.07. The teaching output is approximately 1.24 V.",
       "try_next": "Set the ratio to 8, 9.07, and 10. Look at the sign of the room-temperature slope and compare full-range drift.",
       "interview": "Why does a current-density ratio produce a PTAT term, and why is the curve still bowed after slope cancellation?",
-      "artifact": "A hand derivation, temperature sweep and notes on trimming and validating this topology."
+      "artifact": "A trimmed GF180 transistor schematic, startup matrix, routed layout, and an evidence-backed schematic-to-extracted comparison."
     },
     "project-bandgap-brokaw": {
       "concept": "The feedback loop senses the two collector currents. Equal currents and unequal emitter areas give different densities. R2 sees ΔVBE and the shared emitter resistor R1 carries approximately twice that branch current.",
       "worked_example": "For area ratio A2/A1 = 8, ΔVBE ≈ 53.78 mV at 27 °C. The PTAT weight is 2R1/R2, so canceling −1.8 mV/°C needs R1/R2 ≈ 5.02.",
       "try_next": "At area ratio 8 try R1/R2 = 4, 5.02 and 6. Compare full-range drift and think about unequal collector loads and finite beta.",
       "interview": "Where does the factor of two come from, and how would you make sure the bias loop starts?",
-      "artifact": "A hand derivation, temperature sweep and notes on trimming and validating this topology."
+      "artifact": "A trimmed GF180 transistor schematic, startup matrix, routed layout, and an evidence-backed schematic-to-extracted comparison."
     },
     "project-bandgap-kuijk": {
       "concept": "In Kuijk’s fundamental circuit the op amp drives its inputs to equal voltages. R2/R1 sets a diode current ratio and the bipolar emitter areas turn that ratio into J1/J2. A separate ratio, R2/R3, weights the temperature-dependent voltage.",
       "worked_example": "For matched junctions, Is2/Is1 ≈ A2/A1. Then ΔVBE = VT ln[(R2/R1)(A2/A1)]. With A2/A1=8 and R2/R1=1, the trim R2/R3 is about 10.05.",
       "try_next": "Raise R2/R1 to 2 while keeping area ratio 8. Retune R2/R3. Then consider op-amp input offset and resistor ratio drift.",
       "interview": "How are the current-setting and PTAT-weight ratios different design knobs?",
-      "artifact": "A hand derivation, temperature sweep and notes on trimming and validating this topology."
+      "artifact": "A trimmed GF180 transistor schematic, startup matrix, routed layout, and an evidence-backed schematic-to-extracted comparison."
     },
     "project-bandgap-banba": {
       "concept": "The sense amplifier equalizes two branch voltages and matched mirrors copy the summed current to an output resistor. The two ideal currents are Vf/R2 and ΔVf/R3, so R4 converts their sum into the chosen reference voltage.",
       "worked_example": "With R2=100 kΩ, R3=10 kΩ and eight diode units, the currents at 27 °C are about 7.00 µA and 5.38 µA. R4=50 kΩ makes about 0.619 V. Reducing R4 scales the output without changing the ratio that cancels the local slope.",
       "try_next": "Try R4/R2 = 0.40 and 0.50 at one trim. Then read the GF180 Banba-style sample’s startup and supply tests.",
       "interview": "How does doing the summation in current help low-voltage design, and what limits the minimum supply in a real circuit?",
-      "artifact": "A hand derivation, temperature sweep and notes on trimming and validating this topology."
+      "artifact": "A trimmed GF180 transistor schematic, startup matrix, routed layout, and an evidence-backed schematic-to-extracted comparison."
     }
   },
   "references": [
