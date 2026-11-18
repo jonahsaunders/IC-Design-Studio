@@ -1,5 +1,20 @@
 # Chunks 1–12: progress and forecast
 
+**November 18 simulation plan usability and bug fixes.** Candidate
+`cf212e0ac1c7590c92e367fc516b9aba8656c81d` respects unchecked setups during a
+batch run, runs one highlighted setup on demand, and restores saved program
+waveform selections and runtime limits in the inspector. The earlier behavior
+was reproduced in native Windows Qt before the fixes. The corrected source
+passed 17 Qt editing and simulation tests and 76 workflow, analysis-source,
+gallery and migration tests per platform on Windows and Ubuntu (one skip per
+unit run). The Windows native analysis and wiring smoke passed 10 checks with
+real simulation workers. Release materials and the qualification matrix passed
+validation on both hosts. The [retained source manifest](validation/simulation-plan-retained-source-2026-11-18/chunk4-manifest.json)
+preserves the accepted GF180 source bytes. These are source and desktop behavior
+checks. Full installed and device qualification have their existing evidence
+requirements. Chunk 7 stays at **74%**, an engineering estimate with low
+confidence (55–82%).
+
 **November 17 experimental repository cleanup.** The baseline is main
 `147a5501b79783a508d6057da8273195dfb2878c`. The historical November 7 v4 disposition
 report restores to its original compressed SHA-256 from a 19,041-byte delta.
