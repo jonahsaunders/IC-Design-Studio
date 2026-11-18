@@ -1,10 +1,10 @@
 """Topology-specific temperature controls and measured-in-model readouts."""
 
 from PySide6.QtWidgets import (
-    QDialog, QDialogButtonBox, QDoubleSpinBox, QFormLayout, QLabel, QVBoxLayout,
+    QDialog, QDialogButtonBox, QDoubleSpinBox, QFormLayout, QHeaderView, QLabel, QVBoxLayout,
 )
 
-from .analog_workspace_ui import fill, table
+from .analog_widgets import fill, table
 from .plot import WavePlot, trace_colors
 from . import student_bandgap as bandgap
 
@@ -41,7 +41,9 @@ class BandgapDialog(QDialog):
             plot.setAccessibleName(name)
             layout.addWidget(plot, 1)
         self.values = table(['Temperature (°C)', 'CTAT term (V)', 'PTAT term (V)', 'Reference (V)', 'Change (mV)'])
-        self.values.setMaximumHeight(148)
+        self.values.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.values.setMinimumHeight(165)
+        self.values.setMaximumHeight(180)
         layout.addWidget(self.values)
         buttons = QDialogButtonBox(QDialogButtonBox.StandardButton.Close)
         buttons.rejected.connect(self.close)

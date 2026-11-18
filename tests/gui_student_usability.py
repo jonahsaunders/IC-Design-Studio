@@ -277,6 +277,8 @@ def main():
         g.analog_action.click();study=g.frequency_dialog
         assert study.kind==topology and study.volts.result['plot_unit']=='V' and study.drift.result['plot_unit']=='mV'
         assert study.values.rowCount()==4
+        QTest.qWait(30)
+        assert study.values.verticalScrollBar().maximum()==0 and study.values.horizontalScrollBar().maximum()==0
         previous=float(study.values.item(1,3).text())
         if topology=='banba':
             study.extra.setValue(.4)

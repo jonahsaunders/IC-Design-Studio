@@ -1,8 +1,8 @@
 """Readable per-corner operating points from the captured characterization cases."""
 
-from PySide6.QtWidgets import QDialog, QDialogButtonBox, QLabel, QVBoxLayout
+from PySide6.QtWidgets import QDialog, QDialogButtonBox, QHeaderView, QLabel, QVBoxLayout
 
-from .analog_workspace_ui import fill, table
+from .analog_widgets import fill, table
 from .student_bias import corner_readings
 
 
@@ -18,6 +18,7 @@ class BiasCornersDialog(QDialog):
         layout.addWidget(note)
         view = table(['Process', 'Temperature (°C)', 'Iref (µA)', 'Iout (µA)', 'ID/W (µA/µm)',
                       'gm/ID (V⁻¹)', 'Headroom (mV)', 'Operating target'])
+        view.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         view.setAccessibleName('Current density, efficiency and saturation margin at nine corners')
         points = corner_readings(project, result)
         fill(view, [[point['corner'], point['temperature'], f'{point["reference_A"]*1e6:.2f}',
