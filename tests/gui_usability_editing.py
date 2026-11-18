@@ -293,11 +293,46 @@ class EditingUsabilityTests(unittest.TestCase):
         self.assertGreater(max(row['result']['traces']['vout']), 0)
         self.assertEqual(self.w.setup_table.item(0, 0).checkState(), Qt.Unchecked)
 
+    def test_rc_edits_compare_historical_runs_and_reopen_only_completed_results(self):
+        import shutil
+        from icstudio import job_store
+
+        self.w.add_simulation_setup()
+        original=self.resistor()['value']
+        for value in (original,'24k','47k'):
+            if value!=self.resistor()['value']:
+                self.w.select([self.resistor()['id']]);self.w.form_fields['Value'].setText(value)
+            self.w.quick_run();self.finish_runs()
+            self.assertEqual(self.w.run_manager.rows[-1]['state'],'Complete')
+        self.w.undo();self.assertEqual(self.resistor()['value'],'24k')
+        self.w.redo();self.assertEqual(self.resistor()['value'],'47k')
+        runs=list(self.w.jobs)
+        self.w.compare_combo.setCurrentIndex(self.w.compare_combo.findData(0))
+        self.assertIs(self.w.plot.result,runs[2]);self.assertIs(self.w.plot.compare,runs[0])
+        self.assertGreater(abs(runs[2]['traces']['vout'][50]-runs[0]['traces']['vout'][50]),.05)
+        self.assertIn('r'+str(runs[0]['revision']),self.w.compare_combo.currentText())
+        self.assertIn(runs[0]['engine'],self.w.compare_combo.currentText())
+        failed=self.w.run_manager.rows[0]['path'].with_name('cancelled result on disk')
+        shutil.copytree(self.w.run_manager.rows[0]['path'],failed)
+        job_store.state(failed,'cancelled')
+        folder=self.root/'Project with spaces';folder.mkdir()
+        path=folder/'RC comparison.icproj'
+        with patch.object(QFileDialog,'getSaveFileName',return_value=(str(path),'')):
+            self.assertTrue(self.w.save())
+        self.w.set_project(example('empty'))
+        with patch.object(QFileDialog,'getOpenFileName',return_value=(str(path),'')),\
+                patch.object(QMessageBox,'question',return_value=QMessageBox.Discard):
+            self.w.open_project()
+        self.assertEqual(self.resistor()['value'],'47k')
+        self.assertEqual(len(self.w.project['simulation_setups']),1)
+        self.assertCountEqual([r['design_hash'] for r in self.w.jobs],[r['design_hash'] for r in runs])
+        self.assertIn('Run was not completed',self.w.console.toPlainText())
+
     def test_edit_saved_program_restores_its_waveforms_and_runtime(self):
         from icstudio.native_migration import review_path
         from tests.test_native_migration import divider
 
-        source = divider(self.root/'program-source', hierarchical=True, include=True)
+        source = divider(self.root/'Program source with spaces', hierarchical=True, include=True)
         reviewed = review_path(source)
         self.assertEqual(reviewed['status'], 'Complete', reviewed['items'])
         self.w.set_project(reviewed['candidate'])

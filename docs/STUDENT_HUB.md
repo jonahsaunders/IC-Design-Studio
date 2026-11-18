@@ -14,6 +14,11 @@ plus a prediction, practical task, evidence checkpoint and written reflection.
 
 ## Learn beside the real editor
 
+Use **Search all lessons** or **Ctrl+F** to find a topic across learning paths.
+Results show their learning path. Clear the search to return to the selected
+path. Use the arrow keys to browse lessons and **Enter** on a lesson to open it.
+Set **More → Text size** to increase text without losing the lesson controls.
+
 1. Choose **Continue learning**, or select a path and a lesson.
 2. **Start lesson** creates an independent, saved project. Existing work goes
    through the normal save/discard/cancel flow before another document opens.

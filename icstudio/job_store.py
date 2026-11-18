@@ -10,8 +10,8 @@ def state(directory,status,**extra):
 
 def read_result(path,project_id,require_complete=True):
     original_path=Path(path);path=io_path(path);status=path.parent/'status.json'
-    if status.exists() and require_complete and json.loads(status.read_text())['status']!='complete':raise ValueError('Run was not completed; result is not publishable.')
-    result=json.loads(path.read_text());job=json.loads((path.parent/'input.json').read_text())
+    if status.exists() and require_complete and json.loads(status.read_text(encoding='utf-8'))['status']!='complete':raise ValueError('Run was not completed; result is not publishable.')
+    result=json.loads(path.read_text(encoding='utf-8'));job=json.loads((path.parent/'input.json').read_text(encoding='utf-8'))
     if result.get('project_id')!=project_id or job['project']['id']!=project_id:raise ValueError('Result belongs to a different project.')
     if result.get('cell_id')!=job['cell'] or result.get('design_hash')!=design_digest(job['project']):raise ValueError('Result does not match its saved input.')
     if job.get('settings',{}).get('type')=='digital':

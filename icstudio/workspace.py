@@ -126,7 +126,17 @@ class WorkspaceMixin:
         self.inspector_tabs=QTabWidget();self.form_host=QWidget();self.form=QVBoxLayout(self.form_host);self.form.setContentsMargins(16,16,16,18);self.form.setSpacing(12);self.form.setAlignment(Qt.AlignTop);self.inspector_scroll=QScrollArea();self.inspector_scroll.setWidgetResizable(True);self.inspector_scroll.setWidget(self.form_host);self.inspector_tabs.addTab(self.inspector_scroll,'Properties');self.analysis_page=self.make_analysis_panel();self.inspector_tabs.addTab(self.analysis_page,'Analysis');self.inspector=self.panel('Inspector','inspector',Qt.RightDockWidgetArea,self.inspector_tabs);self.inspector.setMinimumWidth(280)
         # Results open on demand and occupy only the center column.
         self.results_tabs=QTabWidget();self.results_dock=self.panel('Results','results',Qt.BottomDockWidgetArea,self.results_tabs);self.results_dock.setMinimumHeight(240)
-        wave,wv=box(True,(12,4,12,6),6);bar,bl=box(False,spacing=10);self.run_combo=QComboBox();self.run_combo.setMinimumWidth(170);self.run_combo.setMaximumWidth(270);self.run_combo.currentIndexChanged.connect(self.select_run);bl.addWidget(self.run_combo);self.compare_check=QCheckBox('Compare previous');self.compare_check.toggled.connect(self.update_plot);bl.addWidget(self.compare_check);bl.addStretch();self.result_status=label('No analysis yet','muted');bl.addWidget(self.result_status);wv.addWidget(bar)
+        wave,wv=box(True,(12,4,12,6),6);bar,bl=box(False,spacing=10)
+        self.run_combo=QComboBox();self.run_combo.setAccessibleName('Displayed run');self.run_combo.setMaximumWidth(300)
+        self.run_combo.currentIndexChanged.connect(self.select_run);bl.addWidget(self.run_combo)
+        self.result_status=label('No analysis yet','muted');self.result_status.setWordWrap(True);bl.addWidget(self.result_status,1);wv.addWidget(bar)
+        compare_bar,compare_layout=box(False,spacing=8)
+        compare_label=QLabel('Compare with');compare_layout.addWidget(compare_label)
+        self.compare_combo=QComboBox();self.compare_combo.setAccessibleName('Compare with saved run');compare_label.setBuddy(self.compare_combo)
+        self.compare_combo.addItem('No comparison');self.compare_combo.setEnabled(False);self.compare_combo.setMaximumWidth(340)
+        self.compare_combo.setToolTip('The comparison run appears as a dashed line.')
+        self.compare_combo.currentIndexChanged.connect(self.update_plot);compare_layout.addWidget(self.compare_combo,1)
+        wv.addWidget(compare_bar)
         split=QSplitter();split.setHandleWidth(1);self.traces=QListWidget();self.traces.setMinimumWidth(85);self.traces.setMaximumWidth(130);self.traces.itemChanged.connect(self.update_plot);self.traces.itemClicked.connect(self.trace_selected);self.plot=WavePlot();self.plot.cursor_changed.connect(lambda t:self.cursor_label.setText(t));split.addWidget(self.traces);split.addWidget(self.plot);wv.addWidget(split,1);self.cursor_label=label('Click to measure. Right-click to set a second cursor.','muted');self.cursor_label.setWordWrap(True);wv.addWidget(self.cursor_label);self.results_tabs.addTab(wave,'Waveforms')
         checks,cl=box(True,(12,8,12,8),8);self.check_note=label('Run a check to see findings for this cell.','muted');self.check_note.setWordWrap(True);cl.addWidget(self.check_note);self.checks=QTableWidget(0,4);self.checks.setHorizontalHeaderLabels(['Severity','Rule','Details','Waiver']);self.checks.setEditTriggers(QAbstractItemView.NoEditTriggers);self.checks.setSelectionBehavior(QAbstractItemView.SelectRows);self.checks.setSelectionMode(QAbstractItemView.SingleSelection);self.checks.verticalHeader().hide();self.checks.setShowGrid(False);self.checks.horizontalHeader().setSectionResizeMode(2,QHeaderView.Stretch);self.checks.setColumnWidth(0,80);self.checks.setColumnWidth(1,110);self.checks.setColumnWidth(3,80);self.checks.cellClicked.connect(self.check_selected);cl.addWidget(self.checks,1);self.waive_button=self.button('Waive selected finding…',fn=self.waive);self.waive_button.setEnabled(False);self.checks.itemSelectionChanged.connect(lambda:self.waive_button.setEnabled(self.checks.currentRow()>=0));cl.addWidget(self.waive_button);self.results_tabs.addTab(checks,'Checks')
         self.console=QPlainTextEdit();self.console.setReadOnly(True);self.console.setMaximumBlockCount(5000);self.results_tabs.addTab(self.console,'Job log');self.results_dock.hide()
@@ -595,7 +605,47 @@ class WorkspaceMixin:
         if self.process:self.result_status.setText('Cancelling…');self.run_button.setText('Stopping…')
         return super().cancel_job()
     def add_result(self,r):
-        super().add_result(r);i=len(self.jobs)-1;self.run_combo.setItemText(i,f'Run {i+1:02d} · {ANALYSES.get(r["settings"]["type"],r["settings"]["type"])} · r{r["revision"]}');self.run_combo.setItemData(i,r.get('created','')+' · '+r.get('engine',''),Qt.ToolTipRole)
+        super().add_result(r);i=len(self.jobs)-1
+        self.run_combo.setItemText(i,self.run_title(i,r));self.run_combo.setItemData(i,self.run_details(r),Qt.ToolTipRole)
+
+    def run_title(self,index,result):
+        kind=result['settings']['type'];engine=result.get('engine','')
+        return f'Run {index+1:02d} · {ANALYSES.get(kind,kind)} · r{result["revision"]} · {engine}'
+
+    def run_details(self,result):
+        settings='\n'.join(f'{key}: {value}' for key,value in result['settings'].items()
+                           if isinstance(value,(str,int,float)) and key not in ('type','engine'))
+        return f'{result.get("created", "")} · {result.get("engine", "")}\n{settings}'
+
+    @staticmethod
+    def comparable_runs(current,other):
+        from .plot import analysis_kind
+        return (current is not other and bool(current.get('x') and other.get('x'))
+                and current['cell_id']==other['cell_id'] and analysis_kind(current)==analysis_kind(other)
+                and current.get('x_label')==other.get('x_label')
+                and current.get('plot_unit',current.get('y_label'))==other.get('plot_unit',other.get('y_label'))
+                and bool(current['traces'].keys() & other['traces'].keys()))
+
+    def comparison_result(self):
+        index=self.compare_combo.currentData()
+        if self.result is not None and index is not None and index<len(self.jobs):
+            other=self.jobs[index]
+            if self.comparable_runs(self.result,other):return other
+
+    def fill_run_comparison(self,index):
+        previous=self.compare_combo.currentData()
+        previous_block=self.compare_combo.blockSignals(True)
+        try:
+            self.compare_combo.clear();self.compare_combo.addItem('No comparison')
+            if 0<=index<len(self.jobs):
+                for row,result in enumerate(self.jobs):
+                    if self.comparable_runs(self.jobs[index],result):
+                        self.compare_combo.addItem(self.run_title(row,result),row)
+                        self.compare_combo.setItemData(self.compare_combo.count()-1,self.run_details(result),Qt.ToolTipRole)
+            self.compare_combo.setCurrentIndex(max(0,self.compare_combo.findData(previous)))
+            self.compare_combo.setEnabled(self.compare_combo.count()>1)
+        finally:
+            self.compare_combo.blockSignals(previous_block)
     def update_result_status(self):
         if self._job_state=='running':self.result_status.setText('Running…');self.result_status.setStyleSheet('');return
         if not self.result:self.result_status.setText({'cancelled':'Cancelled','failed':'Failed · see Job log'}.get(self._job_state,'No analysis yet'));self.result_status.setStyleSheet('');return
@@ -663,6 +713,7 @@ class WorkspaceMixin:
         for i in range(self.traces.count()):self.traces.item(i).setForeground(QColor(trace_colors(self.dark)[i%6]))
         self.traces.blockSignals(False)
     def select_run(self,index):
+        self.fill_run_comparison(index)
         super().select_run(index);self.color_traces()
 
 

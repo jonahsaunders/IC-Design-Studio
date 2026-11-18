@@ -45,7 +45,8 @@ def student_style(dark,scale):
     QLabel[role="title"] {{font-size:{round(24*scale/100)}px;}}
     QTextBrowser {{background:{t['panel']};color:{t['text']};border:0;padding:4px;}}
     QPushButton[role="primary"]:focus {{border:2px solid {t['text']};}}
-    QTextBrowser:focus, QPlainTextEdit:focus, QListWidget:focus {{border:2px solid {t['accent']};}}
+    QTextBrowser:focus, QPlainTextEdit:focus, QLineEdit:focus, QListWidget:focus, QComboBox:focus {{border:2px solid {t['accent']};}}
+    QLineEdit {{min-height:{round(22*scale/100)}px;}}
     QListWidget::item {{padding:10px 8px;}}
     QProgressBar {{max-height:8px;}}
     '''
@@ -96,16 +97,18 @@ class StudentHub(QWidget):
         self.process_picker.currentIndexChanged.connect(self.process_changed)
         self.path_list=QListWidget();self.path_list.setAccessibleName('Learning paths');self.path_list.setMinimumWidth(175)
         self.path_list.setMaximumWidth(250);self.path_list.setWordWrap(True)
-        for path in [*self.data['paths'],dict(id='capstone',title='Advanced project')]:
-            item=QListWidgetItem(path['title']);item.setData(Qt.UserRole,path['id']);self.path_list.addItem(item)
-            self.path_picker.addItem(path['title'],path['id'])
+        self.path_titles={p['id']:p['title'] for p in self.data['paths']}
+        self.path_titles['capstone']='Advanced project'
+        for key,title in self.path_titles.items():
+            item=QListWidgetItem(title);item.setData(Qt.UserRole,key);self.path_list.addItem(item)
+            self.path_picker.addItem(title,key)
         self.path_list.currentRowChanged.connect(lambda i:self.choose_path(self.path_list.item(i).data(Qt.UserRole)) if i>=0 else None)
         self.path_picker.currentIndexChanged.connect(lambda i:self.choose_path(self.path_picker.itemData(i)))
         panes=QHBoxLayout();root.addLayout(panes,1);panes.addWidget(self.path_list)
         self.split=QSplitter();self.split.setChildrenCollapsible(False);panes.addWidget(self.split,1)
         left=QWidget();lv=QVBoxLayout(left);lv.setContentsMargins(0,0,0,0);self.split.addWidget(left)
         self.heading=label('','subtitle');lv.addWidget(self.heading)
-        self.search=QLineEdit();self.search.setPlaceholderText('Find a lesson…');self.search.setAccessibleName('Find a student lesson');self.search.textChanged.connect(self.fill)
+        self.search=QLineEdit();self.search.setPlaceholderText('Search all lessons…');self.search.setAccessibleName('Search all learning paths');self.search.textChanged.connect(self.fill)
         lv.addWidget(self.search);self.search.setClearButtonEnabled(True)
         self.search.returnPressed.connect(lambda:self.lessons.setFocus())
         self.find_shortcut=QShortcut(QKeySequence.Find,self);self.find_shortcut.activated.connect(self.search.setFocus)
@@ -154,7 +157,9 @@ class StudentHub(QWidget):
 
     def choose_path(self,key):
         if key is None:return
-        self.path_id=key;self.search.clear();self.fill()
+        self.path_id=key
+        if self.search.text():self.search.clear()
+        else:self.fill()
 
     def process_changed(self,*_):
         self.studio.settings.setValue('student/inverterProfile',self.process_picker.currentData())
@@ -195,29 +200,38 @@ class StudentHub(QWidget):
         for i in range(self.path_list.count()):
             item=self.path_list.item(i);path_key=item.data(Qt.UserRole)
             ls=[l for l in self.data['lessons'] if l['path']==path_key and (path_key!='inverter' or l['inverter_profile']==self.process_picker.currentData())];n=sum(complete(state,l) for l in ls)
-            title=self.path_picker.itemText(i).split(' · ')[0]
+            title=self.path_titles[path_key]
             item.setText(title+f'\n{n} of {len(ls)} complete');self.path_picker.setItemText(i,title+f' · {n}/{len(ls)}')
             if path_key==self.path_id:self.path_list.setCurrentRow(i);self.path_picker.setCurrentIndex(i)
         self.path_list.blockSignals(False);self.path_picker.blockSignals(False)
         if self.path_id=='capstone':self.heading.setText(self.data['capstone']['subtitle'])
         else:self.heading.setText(next(p['subtitle'] for p in self.data['paths'] if p['id']==self.path_id))
-        query=self.search.text().casefold()
+        words=self.search.text().casefold().split()
         for l in self.data['lessons']:
-            if l['path']!=self.path_id or query not in ' '.join([l['title'],l['summary'],*l['skills']]).casefold():continue
+            path_title=self.path_titles[l['path']]
+            if words:
+                search_text=' '.join([l['title'],l['summary'],path_title,*l['skills']]).casefold()
+                if not all(word in search_text for word in words):continue
+            elif l['path']!=self.path_id:continue
             if l['path']=='inverter' and l['inverter_profile']!=self.process_picker.currentData():continue
             count=len(earned(state,l));missing=missing_prerequisites(state,l,self.data)
             status='Completed' if complete(state,l) else 'Prerequisites needed' if missing else 'In progress' if count else 'Ready to start'
-            item=QListWidgetItem(f'{l["title"]}\n{status} · {count}/{len(l["steps"])} steps · {l["minutes"]} min')
+            title=f'{l["title"]}\n{path_title}' if words else l['title']
+            item=QListWidgetItem(f'{title}\n{status} · {count}/{len(l["steps"])} steps · {l["minutes"]} min')
             item.setToolTip(item.text())
             item.setData(Qt.UserRole,l['id']);self.lessons.addItem(item)
             if key==l['id']:self.lessons.setCurrentItem(item)
+        if words:
+            matches=self.lessons.count()
+            self.heading.setText(f'{matches} matching '+('lesson' if matches==1 else 'lessons'))
         if self.lessons.currentRow()<0:self.lessons.setCurrentRow(0)
         self.lessons.blockSignals(False);self.detail()
 
     def detail(self,*_):
         l=self.selected();self.start.setEnabled(bool(l))
+        self.progress.setVisible(bool(l))
         if not l:
-            self.details.setPlainText('No matching lessons. Clear the search to explore this path.')
+            self.details.setPlainText('No matching lessons. Try another topic or clear the search to return to your learning path.')
             self.progress.setValue(0);self.progress_text.setText('');self.start.setText('Start lesson');return
         state=self.portfolio.state;missing=missing_prerequisites(state,l,self.data);done=earned(state,l)
         esc=html.escape

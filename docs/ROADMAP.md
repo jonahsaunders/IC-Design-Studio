@@ -47,6 +47,14 @@ core tests can run alongside packaging against the same native build. Keep the
 established installed verification for release candidates and connect each
 result to its [exact package and source revision](RELEASE_STATUS.md).
 
+The [measured Windows baseline](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/44148730080/job/134278397965)
+spent 52 minutes in core tests and 14 minutes assembling the installer and
+portable ZIP. The current native-build receipt binds the checkout, compiler,
+and DLL to one runner. A parallel build would need a sealed handoff so both
+jobs consume the exact same DLL. The two outcomes can then join before
+installed acceptance. The 52 minutes is the maximum time that overlap can
+recover on that baseline before transfers and runner setup.
+
 ## How we track progress
 
 Give each milestone one user task, an example project, and observable pass

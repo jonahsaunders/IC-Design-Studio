@@ -68,6 +68,8 @@ Open **Analysis → Simulation Explorer** to save multiple setups with **Add cur
 
 The waveform list enables or hides signals. Clicking a signal highlights its named net. Use the waveform tools for X cursors, Y limits and X/Y checks; **Markers…** edits exact coordinates and numerical comparisons. CSV export retains the underlying values. Calculated waveforms support expressions and AC magnitude/phase analysis; saved specifications and variation cases compare results against explicit requirements. See [simulation and studies](PROFESSIONAL_WORKFLOWS.md).
 
+In **Waveforms**, select a run and use **Compare with** to overlay a compatible saved run as a dashed line. Both menus show each run's revision and engine. Hover over a run to read its analysis settings. Reopening the project reloads completed results from its run history.
+
 ## Verification and waivers
 
 ERC checks connectivity and configured electrical rules. Inspect findings and configure the applicable rules through **Verify → Electrical check rules…**. Passing the configured checks does not establish circuit performance or process signoff.

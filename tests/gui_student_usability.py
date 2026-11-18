@@ -25,7 +25,7 @@ def main():
     profile = Path(tempfile.mkdtemp(prefix='profile-', dir=out))
     from PySide6.QtCore import QSettings, QStandardPaths, Qt
     from PySide6.QtGui import QCloseEvent, QFontDatabase, QFontMetrics
-    from PySide6.QtWidgets import QApplication, QPushButton, QFileDialog
+    from PySide6.QtWidgets import QApplication, QPushButton, QFileDialog, QStyle, QStyleOptionFrame
     from PySide6.QtTest import QTest
     QSettings.setDefaultFormat(QSettings.IniFormat)
     QSettings.setPath(QSettings.IniFormat, QSettings.UserScope, str(profile))
@@ -79,6 +79,15 @@ def main():
     h.search.clear();assert h.start.isEnabled()
     checked('Keyboard search cannot open a project; empty search disables the action')
 
+    h.search.setText('  Advanced   project  ')
+    assert h.lessons.count() and h.path_id=='foundations'
+    assert all(h.by_id[h.lessons.item(i).data(Qt.UserRole)]['path']=='capstone' for i in range(h.lessons.count()))
+    assert 'Advanced project' in h.lessons.currentItem().text()
+    assert 'matching' in h.heading.text()
+    h.search.clear()
+    assert all(h.by_id[h.lessons.item(i).data(Qt.UserRole)]['path']=='foundations' for i in range(h.lessons.count()))
+    checked('Search finds lessons across paths and clearing it restores the active path')
+
     # Both palettes and all scales fit the minimum window, with vertical scrolling.
     h.select_lesson('f-connect')
     contrast = {}
@@ -98,6 +107,9 @@ def main():
             assert h.width()<=720 and h.height()<=680,(w.size(),h.size(),w.minimumSizeHint())
             assert h.scroll.horizontalScrollBar().maximum()==0
             assert h.path_picker.isVisible() and h.split.orientation()==Qt.Vertical
+            frame=QStyleOptionFrame();frame.initFrom(h.search)
+            contents=h.search.style().subElementRect(QStyle.SE_LineEditContents,frame,h.search)
+            assert contents.height()>=QFontMetrics(h.search.font()).height(),(dark,scale,contents)
             h.scroll.ensureWidgetVisible(h.start);app.processEvents()
             assert h.start.isVisible()
             h.scroll.verticalScrollBar().setValue(0)
