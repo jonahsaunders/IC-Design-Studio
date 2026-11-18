@@ -2900,6 +2900,257 @@
           "instructions": "Record the nominal target and before/after values for at least two specs, one sizing or layout change, the measured current-reference compliance, and the next PVT or mismatch check. Describe what changed, how you isolated it, and what a real implementation adds beyond this lab fixture. Export your portfolio from the hub."
         }
       ]
+    },
+    {
+      "id": "l-layout-decisions",
+      "path": "layout",
+      "title": "Why layout choices matter",
+      "starter": "layout-decisions",
+      "workspace": "l-layout-decisions",
+      "requires": [],
+      "minutes": 65,
+      "summary": "Fix via enclosure and matching, find a geometry-clean open, then improve the actual bandwidth of an RC route.",
+      "skills": [
+        "placement",
+        "matching",
+        "common centroid",
+        "via enclosure",
+        "DRC",
+        "LVS",
+        "parasitics",
+        "coupling",
+        "electromigration"
+      ],
+      "doc": "STUDENT_LAYOUT_DECISIONS.md",
+      "steps": [
+        {
+          "id": "intent",
+          "kind": "quiz",
+          "title": "Start from physical intent",
+          "instructions": "A layout has clean width and spacing checks. Which additional check answers whether the extracted circuit has the intended devices and connectivity?",
+          "options": [
+            "Layout versus schematic (LVS)",
+            "Another width check",
+            "An AC frequency sweep"
+          ],
+          "answer": 0,
+          "explanation": "DRC checks geometry against rules. LVS compares extracted devices and connectivity with the reference schematic. Use both before trusting extraction."
+        },
+        {
+          "id": "via",
+          "kind": "check",
+          "title": "Enclose a via in both layers",
+          "instructions": "Choose Open workspace for the via cross-layer coupon. Each 0.50 × 0.50 µm metal pad surrounds a 0.15 µm cut. Its right edge initially extends past the pad by 0.05 µm. In Properties → Geometry (µm), set the via’s left edge to 0.175 µm and keep its y at 0.175 µm.\n\nCheck the overlap on metal1 and metal2. Imagine overlay error shifting the cut toward a metal edge. Explain why a borderline or missing enclosure can make a resistive or open contact. Larger arrays can reduce via resistance and current per cut, subject to spacing and current rules.",
+          "rule": {
+            "type": "layout_decisions"
+          }
+        },
+        {
+          "id": "matching",
+          "kind": "check",
+          "title": "Reject a linear process gradient",
+          "instructions": "Open workspace for the four equal unit tiles. The initial AABB centers are 0.2, 1.0, 1.8 and 2.6 µm. Calculate the mean position of each pair. Move a tile from each group to produce ABBA (or BAAB) with the same four slots. Keep 0.40 µm units and at least 0.20 µm separation.\n\nPlace equal devices together when matching matters. Keep the same orientation and local surroundings. In a real array use appropriate edge dummies, symmetric contacts and routes, and equal current density. A common centroid cancels a first-order spatial gradient of equal units. Random mismatch and gradients with curvature still matter.",
+          "rule": {
+            "type": "layout_decisions"
+          }
+        },
+        {
+          "id": "connectivity",
+          "kind": "check",
+          "title": "Find an open that can pass geometry checks",
+          "instructions": "Open workspace for the RC routing cell. Identify the resistor-to-capacitor metal1 path, its two endpoints, and the separate ground plate. Select just the vout path, delete it, and compare Geometry DRC with the linked connectivity check. The pads can obey spacing while the physical signal path is open.\n\nUndo the deletion. Check this step after restoring continuity. Linked checks compare labelled terminal connectivity in this teaching fixture. For a real circuit, use the technology’s extracted netlist and LVS deck, then inspect shorts, opens, body ties, and pin order.",
+          "rule": {
+            "type": "layout_decisions"
+          }
+        },
+        {
+          "id": "baseline",
+          "kind": "check",
+          "title": "Measure the bandwidth penalty",
+          "instructions": "The schematic has 1 kΩ and 10 fF. Calculate f₃dB ≈ 1/(2πRC). The layout uses an approximately 22.67 µm path with 0.20 µm width and a teaching coefficient of 2 Ω/□. Predict R ≈ R□·L/W.\n\nChoose Compare route RC, then Results. Inspect the before and after bandwidth and the modeled 12.5 GHz requirement. Open Before / after waveforms to see the two AC responses. The same schematic, sweep, and target apply to both. The thin route should miss the target.",
+          "rule": {
+            "type": "layout_decisions"
+          }
+        },
+        {
+          "id": "optimize",
+          "kind": "check",
+          "title": "Meet the target without wasting metal",
+          "instructions": "Select just the vout path in Layout. Try widths of 0.40 µm and 0.80 µm and run Compare route RC after each edit. Keep the path endpoints and the schematic the same. Choose a width that gives at least 12.5 GHz.\n\nWider metal lowers resistance and current density, but increases area capacitance. Shortening a route lowers both. A parallel aggressor can add coupling, especially across a small gap or long overlap. In a sensitive high-impedance or clocked circuit, consider spacing, a quiet shield with a proper return, or fewer parallel runs. A shield also adds capacitance.",
+          "rule": {
+            "type": "layout_decisions"
+          }
+        },
+        {
+          "id": "review",
+          "kind": "reflection",
+          "title": "Record your design reasoning",
+          "instructions": "Record the three widths and their extracted resistance, capacitance and bandwidth. Explain why wider metal did not automatically help. Describe one matching or coupling decision and the DRC, LVS, extracted simulation, or reliability check you would use for an actual process."
+        }
+      ]
+    },
+    {
+      "id": "a-lc-bode",
+      "path": "analog",
+      "title": "LC filters and Bode plots",
+      "starter": "lc-bode",
+      "workspace": "a-lc-bode",
+      "requires": [],
+      "minutes": 75,
+      "summary": "Hand-sketch, simulate and tune low-pass, high-pass, band-pass and notch responses on one editable RLC bench.",
+      "skills": [
+        "Bode plot",
+        "RLC",
+        "poles and zeros",
+        "rolloff",
+        "dB per decade",
+        "phase",
+        "resonance",
+        "damping",
+        "Q"
+      ],
+      "doc": "STUDENT_LC_BODE.md",
+      "steps": [
+        {
+          "id": "axes",
+          "kind": "quiz",
+          "title": "Read the axes",
+          "instructions": "A Bode plot uses logarithmic frequency, voltage gain in dB, and a separate phase axis. A low-pass gain changes from −20 dB at 10 kHz to −60 dB at 100 kHz. What is the slope?",
+          "options": [
+            "−40 dB per decade",
+            "−4 dB per decade",
+            "+40 dB per decade"
+          ],
+          "answer": 0,
+          "explanation": "100 kHz / 10 kHz = 10, so the frequency increased one decade and the magnitude fell 40 dB."
+        },
+        {
+          "id": "factors",
+          "kind": "quiz",
+          "title": "Count poles and zeros",
+          "instructions": "A low-pass second-order denominator has two poles and a constant numerator. Far above its break, what happens to gain?",
+          "options": [
+            "It falls at about 40 dB per decade",
+            "It stays flat because the poles cancel",
+            "It rises at 40 dB per decade"
+          ],
+          "answer": 0,
+          "explanation": "Each pole subtracts 20 dB/decade in the high-frequency asymptote. Each zero adds 20. At the origin the factor contributes its slope from the first plotted frequency."
+        },
+        {
+          "id": "slopes",
+          "kind": "check",
+          "title": "Sketch and measure four filters",
+          "instructions": "Open workspace and follow the four series RLC branches. The output is across C for low-pass, L for high-pass, R for band-pass, and the series LC pair for notch. VIN is 1 V AC. Use H = Vout/Vin, magnitude 20 log₁₀|H| and phase arg(H).\n\nCalculate f₀ = 1/(2π√LC) and Q = √(L/C)/R. Draw a logarithmic axis with five equal-spaced points at 0.01, 0.1, 1, 10 and 100 times f₀. Mark the asymptotes. LP is flat then −40 dB/decade, HP is +40 then flat, BP is +20 then −20. The notch approaches 0 dB at both ends and has a zero at f₀.\n\nRun AC sweep and open Results. Select each output and toggle the dashed hand-sketch guide. Read the phase and exact measured dB at f₀. At a true notch null phase is undefined. The graph floors magnitude at −100 dB to keep the rolloff visible.",
+          "rule": {
+            "type": "lc_bode"
+          }
+        },
+        {
+          "id": "damping",
+          "kind": "check",
+          "title": "Change Q without moving f₀",
+          "instructions": "Record the original low-pass peak and phase. Change only RLP from 220 Ω to about 470 Ω. With 10 mH and 100 nF, Q falls from 1.44 to about 0.67. Compare the new AC run to your prediction. A lower Q damps the peak while leaving the natural frequency unchanged.\n\nMark −90° at f₀ and measure the magnitude there. Only a second-order low-pass with Q = 1/√2 gives −3 dB at f₀ relative to the DC gain. Distinguish that special case from the generic natural frequency.",
+          "rule": {
+            "type": "lc_bode"
+          }
+        },
+        {
+          "id": "tune",
+          "kind": "check",
+          "title": "Design for a 10 kHz natural frequency",
+          "instructions": "Keep LLP at 10 mH. Rearrange the f₀ equation to find CLP for a 10 kHz target. Enter your value, rerun the sweep and check f₀ using the phase crossing and the sample table. Leave the other three circuits as references.\n\nIf you also want the same damping, recompute RLP from Q = √(L/C)/R. Try tuning only C first, then both C and R. What moves along the frequency axis, and what changes shape?",
+          "rule": {
+            "type": "lc_bode"
+          }
+        },
+        {
+          "id": "review",
+          "kind": "reflection",
+          "title": "Record your design reasoning",
+          "instructions": "Record your hand-asymptote table, measured slopes and phase, before/after R and C, and the difference between f₀ and the −3 dB point. Explain why the notch has flat tails and a sharp dip, then predict how loss, source impedance or a real load would change one result."
+        }
+      ]
+    },
+    {
+      "id": "project-ahuja",
+      "path": "analog-projects",
+      "title": "Ahuja compensation for op amps",
+      "starter": "ahuja-study",
+      "workspace": "project-ahuja",
+      "requires": [],
+      "minutes": 55,
+      "summary": "Compare direct Miller and current-buffered compensation, then see how load and buffer bandwidth change the loop.",
+      "skills": [
+        "Ahuja compensation",
+        "Miller compensation",
+        "common-gate current buffer",
+        "RHP zero",
+        "phase margin",
+        "loop gain",
+        "PSRR"
+      ],
+      "doc": "STUDENT_AHUJA.md",
+      "steps": [
+        {
+          "id": "miller-path",
+          "kind": "quiz",
+          "title": "Trace direct Miller feedforward",
+          "instructions": "Open workspace and find CC1/CC2 on the two-stage Miller reference. A first-stage voltage change reaches the output through the inverting second stage and directly through the capacitor. Which sign is the direct capacitor path relative to the inverting stage?",
+          "options": [
+            "Opposite at the output",
+            "The same at the output",
+            "The capacitor carries no AC current"
+          ],
+          "answer": 0,
+          "explanation": "The direct path bypasses the stage inversion. In the simple model it produces a right-half-plane zero near gm₂/(2πCc) in Hz, which adds phase lag while raising the magnitude slope."
+        },
+        {
+          "id": "buffer",
+          "kind": "quiz",
+          "title": "Return compensation current through a buffer",
+          "instructions": "Open loop comparison. In the ideal Ahuja model the capacitor sees a low-impedance AC input at the buffer. Where does the current go?",
+          "options": [
+            "Back to the high-impedance first-stage node",
+            "Directly forward from the first-stage node to the output",
+            "Only into the supply at every frequency"
+          ],
+          "answer": 0,
+          "explanation": "The common-gate-style current buffer copies the output-derived compensation current back into the first stage. The ideal model removes the direct feedforward zero."
+        },
+        {
+          "id": "load",
+          "kind": "quiz",
+          "title": "Compare at the same capacitive load",
+          "instructions": "In Open loop comparison set Output load to 20 pF and Buffer pole to 50 MHz. Read the first 0 dB crossing and phase margin table. Which idealized comparison meets the 60° target?",
+          "options": [
+            "The ideal Ahuja response does; direct Miller is below target",
+            "Direct Miller does; ideal Ahuja is below target",
+            "Both have the same phase margin"
+          ],
+          "answer": 0,
+          "explanation": "At 20 pF the model gives about 37° for direct Miller and 81° for ideal Ahuja. Track each crossing separately because the curves cross 0 dB at different frequencies."
+        },
+        {
+          "id": "finite",
+          "kind": "quiz",
+          "title": "Test the buffer assumption",
+          "instructions": "Keep the output load at 20 pF. Move Buffer pole from 50 MHz to 10 MHz and read the finite-buffer row again. What conclusion fits this experiment?",
+          "options": [
+            "The finite buffer can miss the margin target even when the ideal model passes",
+            "The buffer pole cannot affect the loop",
+            "Ahuja compensation guarantees stability at every load"
+          ],
+          "answer": 0,
+          "explanation": "The copied feedback current now has appreciable phase shift near crossover. This classroom model gives roughly 16° for the slow buffer, so the ideal-buffer prediction is inadequate."
+        },
+        {
+          "id": "review",
+          "kind": "reflection",
+          "title": "Record your design reasoning",
+          "instructions": "Record loop crossings and phase margins at two loads and at both 10 MHz and 50 MHz buffer settings. Explain what happens to the direct Miller zero, why a finite buffer matters, and how you would verify a transistor implementation for headroom, PVT, maximum load, transient settling and supply rejection."
+        }
+      ]
     }
   ]
 }

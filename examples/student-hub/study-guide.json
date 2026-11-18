@@ -301,6 +301,27 @@
       "try_next": "Double the sensor capacitance and re-run both benches with the same feedback values. Explain why the response changes.",
       "artifact": "A saved SKY130 schematic, current reference compliance sweep, annotated layout, and measured schematic/extracted design review.",
       "interview": "Explain why a 100 kΩ feedback resistor does not by itself guarantee 100 kΩ response at all frequencies."
+    },
+    "l-layout-decisions": {
+      "concept": "Layout determines how a circuit is fabricated and how current, fields and gradients reach its devices. Start with a floorplan, ports, high-current paths, sensitive high-impedance nodes and matched groups, then decide the geometry and verify the electrical result.",
+      "worked_example": "Over a linear 10 mΩ/µm gradient, a 1.6 µm separation between pair centroids creates a 16 mΩ difference in their average unit values. The ABBA arrangement puts the centroids together. A 22.67 µm route at 0.20 µm width has about 113 squares, or 227 Ω at 2 Ω/□.",
+      "try_next": "Try an even wider route and compare bandwidth against the resistance-only prediction. In a real analog layout, also check duration/current limits, return paths, well and substrate ties, density and process-specific spacing.",
+      "interview": "Describe a DRC-clean electrical failure and why the lowest routing resistance did not give the best bandwidth.",
+      "artifact": "A repaired via and matching coupon, a linked-layout check, and before/after AC results for a layout that meets a bandwidth spec."
+    },
+    "a-lc-bode": {
+      "concept": "A pole is a denominator root and a zero is a numerator root after cancellation. Inductor and capacitor impedances set the output voltage at each frequency. Far from their corners, each first-order factor changes slope by 20 dB/decade. Near resonance, damping sets how close the result is to your sketch.",
+      "worked_example": "At L = 10 mH, C = 100 nF, and R = 220 Ω, f₀ ≈ 5.03 kHz and Q ≈ 1.44. At f₀, the capacitor and inductor voltages have equal magnitudes and opposite phases. Their sum gives the notch; the low-pass tap across C reads Q times the input, about +3.15 dB.",
+      "try_next": "Try using a finite source resistance or shunt load. Explain which assumption in the unloaded RLC pencil-and-paper divider it changes. Look for ringing in a corresponding transient test.",
+      "interview": "How can two circuits share poles and still have different gain curves? Trace the output tap, numerator zeros, and phase.",
+      "artifact": "Four measured Bode plots, a normalized hand sketch, and an edited low-pass design that meets 10 kHz."
+    },
+    "project-ahuja": {
+      "concept": "Direct Miller compensation feeds output voltage back through a capacitor and splits the dominant and nondominant poles. The same capacitor provides a forward path. Ahuja’s current buffer supplies the return current while isolating that direct forward path.",
+      "worked_example": "With gm₂ = 1 mS and Cc = 2 pF, the elementary direct-Miller RHP zero is approximately 79.6 MHz. In the loaded loop, measure phase where |T| = 1. For a positive low-frequency return ratio, phase margin at that crossing is 180° + ∠T.",
+      "try_next": "Increase the load and lower the buffer pole. Observe the first unity crossing and phase margin for each response. Real current buffers need bias, headroom and verified bandwidth. Compare loop return ratio, step response, noise and PSRR in a transistor bench before making a design choice.",
+      "interview": "Why can a right-half-plane zero raise the gain slope and still hurt phase margin? How does a low-impedance current input change both the schematic and the physical routing?",
+      "artifact": "A written comparison of direct Miller, ideal Ahuja and finite-buffer behavior, with numerical loops and an implementation verification plan."
     }
   },
   "references": [

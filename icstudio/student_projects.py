@@ -129,6 +129,18 @@ def divider(loaded=False, hierarchy=False):
 
 def create(starter, technology=None):
     from .example_schematics import arrange
+    if starter == 'lc-bode':
+        from .student_filters import project
+        return arrange(project())
+    if starter == 'layout-decisions':
+        from .student_layout_decisions import project
+        return arrange(project())
+    if starter == 'ahuja-study':
+        from .student_analog import bundled_technology
+        from .two_stage_opamp import reference
+        project, _, _ = reference(bundled_technology())
+        project['name'] = 'Student · Ahuja compensation study'
+        return arrange(project)
     if starter in ('analog-opamp', 'analog-tia'):
         from .student_analog import project
         return arrange(project(starter.removeprefix('analog-'), technology))

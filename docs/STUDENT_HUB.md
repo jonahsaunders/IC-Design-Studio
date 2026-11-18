@@ -13,6 +13,14 @@ and a design-review handoff. Every lesson includes a concept,
 worked example, follow-up experiment, interview prompt and portfolio outcome,
 plus a prediction, practical task, evidence checkpoint and written reflection.
 
+For deeper practice, try [Why layout choices matter](STUDENT_LAYOUT_DECISIONS.md)
+in Layout, [LC filters and Bode plots](STUDENT_LC_BODE.md) in Analog, or
+[Ahuja compensation for op amps](STUDENT_AHUJA.md) in Analog design projects.
+The frequency lessons put the chart, keyboard controls, and exact values
+together. The layout guide shows comparison controls when the task uses
+them. [Apple layout](https://developer.apple.com/design/human-interface-guidelines/layout) ·
+[Apple accessibility](https://developer.apple.com/design/human-interface-guidelines/accessibility)
+
 ![Six learning paths and a measured gm/ID sizing exercise](images/student-hub-design-paths.png)
 
 ## Learn beside the real editor
@@ -64,11 +72,11 @@ and the remaining native macOS acceptance work.
 | Path | Progression | Final outcome |
 | --- | --- | --- |
 | Foundations | First RC transient → nets/ground → parameter edits and Undo → hierarchy → loading/debugging → layout and reproducibility | A saved, measured circuit and a learning record |
-| Analog (10 lessons) | Loaded divider → RC bandwidth → current mirror → differential pair → amplifier → matching; gm/ID bias → width → headroom → efficiency tradeoff | A measured sizing worksheet and circuit design rationale |
-| Analog design projects (2 projects) | Photodiode TIA or Miller op amp → testbench → gm/ID → current reference → schematic simulation → layout → DRC, LVS and extraction | A before/after specification review with a saved SKY130 project |
+| Analog (11 lessons) | Bias, gain and gm/ID sizing, then hand sketches and measured Bode plots for four LC filters | A measured sizing worksheet and frequency-response design rationale |
+| Analog design projects | Photodiode TIA or Miller op amp from testbench to extracted layout, plus an Ahuja compensation study | A before/after specification review and a loop-stability comparison |
 | Digital (9 lessons) | Truth tables → counter → handshake → PWM → averaging → serial transmitter; latch repair → saturating arithmetic → pipeline validity | Repaired RTL, failing cases and independent reference simulations |
 | Mixed Signal | Bridge thresholds → acquisition/hold → quantization → timing repair → DAC-weight repair → repeated conversions | A working SAR converter with explicit analog/digital timing |
-| Layout (4 lessons) | Minimum width → edge spacing → via enclosure → common centroid | Repaired geometry, measured rule checks and a physical verification plan |
+| Layout (5 lessons) | Minimum width, spacing, via enclosure, matching, connectivity and extracted RC tradeoffs | Repaired geometry, measured rule checks and an optimized route |
 | Portfolio & interviews (2 lessons) | Requirements and verification plan → reproducible design story | A design brief, interview narrative and readable portfolio report |
 
 The first three Foundations lessons unlock Analog and Digital. Mixed Signal

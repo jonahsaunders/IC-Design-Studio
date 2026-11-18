@@ -58,6 +58,7 @@ of an inventory item before closing it.
 | AMS-05–07, EM-01, EM-10 | A clocked SAR example and a separate bounded field-solver workflow. [SAR co-simulation](docs/MIXED_SIGNAL_SAR.md) · [Electromagnetic analysis](docs/OPENEMS.md) |
 | COL-01–13, COL-16–19 | Local versions and branches, reviewed merges, in-app GitHub PRs, and scoped live editing. [GitHub review workflow](docs/USER_GUIDE.md#github-pull-requests-in-studio) · [Live collaboration](docs/LIVE_COLLABORATION.md) · [Recorded verification](docs/QUALIFICATION_PROGRESS.md) |
 | EDU-01–08, AUT-15–18 | Student Hub lessons, evidence and progress, plus scoped release checks. Includes spec-driven TIA and op-amp projects with schematic and post-layout checkpoints. [Student Hub](docs/STUDENT_HUB.md) · [Analog projects](docs/STUDENT_ANALOG_PROJECTS.md) · [Release gates](docs/RELEASING.md) |
+| EDU-01–08 | Guided layout tradeoffs, hand-plotted LC filters with simulated Bode traces, and interactive Ahuja compensation. [Layout lesson](docs/STUDENT_LAYOUT_DECISIONS.md) · [Bode lesson](docs/STUDENT_LC_BODE.md) · [Ahuja lesson](docs/STUDENT_AHUJA.md) |
 
 ## Project and workspace
 

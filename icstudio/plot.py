@@ -59,7 +59,20 @@ class WavePlot(QWidget):
         yscale,yprefix=unit_scale(max(abs(y0),abs(y1)));xscale,xprefix=unit_scale(x1) if analysis_kind(self.result)=='tran' else (1,'')
         for i in range(6):
             y=self.box.top()+i*self.box.height()/5;p.setPen(QColor('#26313e' if self.dark else '#e8edf2'));p.drawLine(QPointF(self.box.left(),y),QPointF(self.box.right(),y));p.setPen(QColor(fg));p.drawText(QRectF(0,y-8,40,18),Qt.AlignRight|Qt.AlignVCenter,f'{(y1-i*(y1-y0)/5)/yscale:.3g}')
-            x=self.box.left()+i*self.box.width()/5;v=x0*(x1/x0)**(i/5) if log else x0+(x1-x0)*i/5;p.drawText(QRectF(x-30,self.box.bottom()+8,60,18),Qt.AlignCenter,engineering(v) if log else f'{v/xscale:.3g}')
+        decades=[value for value in self.result.get('frequency_ticks',()) if x0<=value<=x1] if log else []
+        ticks=decades if len(decades)>=2 else [x0*(x1/x0)**(i/5) if log else x0+(x1-x0)*i/5 for i in range(6)]
+        for value in ticks:
+            x=self.screen(value,0).x()
+            if len(decades)>=2:
+                p.setPen(QColor('#26313e' if self.dark else '#e8edf2'))
+                p.drawLine(QPointF(x,self.box.top()),QPointF(x,self.box.bottom()))
+            p.setPen(QColor(fg));p.drawText(QRectF(x-30,self.box.bottom()+8,60,18),Qt.AlignCenter,engineering(value) if log else f'{value/xscale:.3g}')
+        reference=self.result.get('y_reference')
+        if reference is not None and y0<=reference<=y1:
+            y=self.screen(x0,reference).y()
+            p.setPen(QPen(QColor(fg),1,Qt.DashLine))
+            p.drawLine(QPointF(self.box.left(),y),QPointF(self.box.right(),y))
+        p.setPen(QColor(fg))
         p.drawText(QRectF(self.box.left(),self.height()-18,self.box.width(),17),Qt.AlignCenter,('Time ('+xprefix+'s)') if analysis_kind(self.result)=='tran' else self.result['x_label']);p.drawText(QPointF(7,12),yprefix+self.result.get('plot_unit',('V/√Hz' if analysis_kind(self.result)=='noise' else 'Hz' if self.result['settings'].get('study',{}).get('measurement',{}).get('metric')=='peak_x' else 'V')))
         p.save();p.setClipRect(self.box)
         for nindex,name in enumerate(self.names):
@@ -69,9 +82,16 @@ class WavePlot(QWidget):
                 pen=QPen(QColor(trace_colors(self.dark)[color_index%6]),1.1 if is_old else 2);pen.setStyle(Qt.DashLine if is_old else Qt.SolidLine);p.setPen(pen);path=QPainterPath();xs=result['x'];ys=result['traces'][name];stride=max(1,len(xs)//max(200,self.width()*2))
                 indices=list(range(0,len(xs),stride))
                 if xs and indices[-1]!=len(xs)-1:indices.append(len(xs)-1)
+                gaps=set(result.get('trace_gaps',{}).get(name,()))
+                if gaps:indices=sorted(set(indices)|gaps)
+                started=False
                 for j in indices:
-                    pos=self.screen(xs[j],ys[j]);path.moveTo(pos) if j==0 else path.lineTo(pos)
-                if len(xs)==1:p.drawEllipse(self.screen(xs[0],ys[0]),4,4)
+                    if j in gaps:
+                        started=False
+                        continue
+                    pos=self.screen(xs[j],ys[j]);path.lineTo(pos) if started else path.moveTo(pos)
+                    started=True
+                if len(xs)==1 and started:p.drawEllipse(self.screen(xs[0],ys[0]),4,4)
                 else:p.drawPath(path)
         p.restore()
         for index,label in [(self.a,'A'),(self.b,'B')]:
@@ -146,7 +166,10 @@ class WavePlot(QWidget):
         else:self.a=index
         pieces=[]
         for i,label in [(self.a,'A'),(self.b,'B')]:
-            if i is not None:pieces.append(label+f': x={self.result["x"][i]:.6g}  '+', '.join(f'{n}={self.result["traces"][n][i]:.6g}' for n in self.names))
+            if i is not None:
+                gaps=self.result.get('trace_gaps',{})
+                values=[f'{n}=undefined' if i in gaps.get(n,()) else f'{n}={self.result["traces"][n][i]:.6g}' for n in self.names]
+                pieces.append(label+f': x={self.result["x"][i]:.6g}  '+', '.join(values))
         if self.a is not None and self.b is not None:
             dt=self.result['x'][self.b]-self.result['x'][self.a];pieces.append(f'Δx={dt:.6g}'+(f'  1/|Δt|={1/abs(dt):.6g} Hz' if dt and analysis_kind(self.result)=='tran' else ''))
         self.cursor_changed.emit('   |   '.join(pieces));self.update()

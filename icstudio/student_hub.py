@@ -10,7 +10,7 @@ from .model import atomic_write, clone, design_digest, digest, file_digest, load
 
 RULES = {'structure','nets','value','hierarchy','layout','saved','result','current','difference',
          'digital_sources','digital','sar','config','config_number','rtl_contains','capstone','campaign',
-         'device_metrics','layout_exercise','inverter','analog_project'}
+         'device_metrics','layout_exercise','inverter','analog_project','layout_decisions','lc_bode'}
 # Increment for a change to grading semantics. Unrelated application releases
 # must not erase a student's earned progression; exact grader identity is also
 # retained on each newly awarded evidence record.
@@ -65,7 +65,9 @@ def checker_stamp():
                    file_digest(Path(__file__).with_name('student_projects.py')),
                    file_digest(Path(__file__).with_name('student_design_labs.py')),
                    file_digest(Path(__file__).with_name('student_inverter.py')),
-                   file_digest(Path(__file__).with_name('student_analog.py'))])
+                   file_digest(Path(__file__).with_name('student_analog.py')),
+                   file_digest(Path(__file__).with_name('student_filters.py')),
+                   file_digest(Path(__file__).with_name('student_layout_decisions.py'))])
 
 
 def lesson_stamp(lesson):
@@ -233,6 +235,15 @@ def evaluate(step, lesson, project, rows=(), path=None, answer=None, note=''):
     if kind=='analog_project':
         from .student_analog import check
         return dict(**evidence, **check(project, lesson['analog_project'], step['id'], rows))
+    if kind in ('layout_decisions','lc_bode'):
+        if kind=='layout_decisions':
+            from .student_layout_decisions import EXTRACTION_STEPS, check_geometry, check_run
+            if step['id'] not in EXTRACTION_STEPS:
+                return dict(**evidence, **check_geometry(project, step['id']))
+        else:
+            from .student_filters import check as check_run
+        result,record=current_result(project, rows)
+        return dict(**evidence, **record, lesson_measurements=check_run(project,result,step['id']))
     devices=[d for c in project['cells'] for d in c['devices']]
     def find(name):
         ds=[d for d in devices if d['name']==name]

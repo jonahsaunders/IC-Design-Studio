@@ -212,6 +212,43 @@ def main():
         assert g.controls['Run lesson'].text()=='Run post-layout checks'
     checked('Search opens both analog projects and their stage actions target the correct fixture and core')
 
+    h.search.setText('LC filters');assert h.selected()['id']=='a-lc-bode'
+    h.start_selected();g.steps.setCurrentIndex(2);g.run()
+    deadline=time.monotonic()+30
+    while w.run_manager.busy and time.monotonic()<deadline:QTest.qWait(20)
+    assert not w.run_manager.busy and g.controls['Results'].isEnabled()
+    g.results();plot=g.frequency_dialog
+    assert plot.gain.result['plot_unit']=='dB' and plot.phase.result['plot_unit']=='°'
+    plot.output.setCurrentIndex(plot.output.findData('bs'));QTest.qWait(30)
+    assert plot.values.item(2,3).text()=='Undefined'
+    ticks=plot.phase.result['frequency_ticks']
+    assert len(ticks)==5 and plot.phase.result['trace_gaps']
+    QTest.mouseClick(plot.phase,Qt.LeftButton,pos=plot.phase.screen(ticks[2],0).toPoint())
+    assert 'undefined' in plot.cursor.text()
+    plot.grab().save(str(out/'lc-bode-notch.png'));plot.close()
+    checked('Real AC lesson runs open magnitude, phase and hand-sketch comparison; the notch phase is undefined')
+
+    h.search.setText('Why layout choices');assert h.selected()['id']=='l-layout-decisions'
+    h.start_selected();g.steps.setCurrentIndex(1);g.workspace()
+    assert w.cell['name']=='via_coupon'
+    g.steps.setCurrentIndex(4);g.workspace();assert w.cell['name']=='routing_bandwidth'
+    g.run()
+    deadline=time.monotonic()+30
+    while w.run_manager.busy and time.monotonic()<deadline:QTest.qWait(20)
+    assert not w.run_manager.busy and g.controls['Results'].isEnabled()
+    g.results()
+    assert w.results_tabs.currentIndex()==w.rc_tab and 'resistors' in w.rc_note.text()
+    checked('Layout lesson selects the stage coupon and opens a measured RC comparison')
+
+    h.search.setText('Ahuja compensation');assert h.selected()['id']=='project-ahuja'
+    h.start_selected();assert w.cell['name']=='two_stage_opamp'
+    g.analog_action.click();study=g.frequency_dialog
+    assert study.values.item(1,3).text()=='Meets target'
+    assert study.gain.result['y_reference']==0 and study.phase.result['y_reference']==-120
+    study.buffer.setValue(10);assert study.values.item(2,3).text()=='Below target'
+    QTest.qWait(30);study.grab().save(str(out/'ahuja-loop-study.png'));study.close()
+    checked('Ahuja lesson changes the modeled loop and phase margin through keyboard-accessible controls')
+
     # Second pass: project switches disable actions immediately and cannot misroute
     # cancellation or completed-run feedback to another project.
     w.set_project(create('divider'));assert not g.check_button.isEnabled()
