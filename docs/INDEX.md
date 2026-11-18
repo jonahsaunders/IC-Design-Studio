@@ -57,6 +57,7 @@ The [gallery catalog](FEATURE_TOUR.md#example-library) contains 13 guided entrie
 
 - [RTL editing, debug, timing and physical inspection](DIGITAL_WORKSPACE.md)
 - [Digital engines, constraints and RTL-to-GDS implementation](DIGITAL_FLOW.md)
+- [Tiny Tapeout SKY 26e UART source handoff](TINY_TAPEOUT_HANDOFF.md)
 - [SKY130, GF180 and IHP digital profiles and qualification](DIGITAL_PLATFORM_QUALIFICATION.md)
 - [Eight interactive offline RTL presets](VGA_PLAYGROUND.md)
 - [Four-bit SAR ADC with clocked ngspice/Icarus coupling](MIXED_SIGNAL_SAR.md)

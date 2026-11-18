@@ -74,6 +74,52 @@ class EditingUsabilityTests(unittest.TestCase):
     def resistor(self):
         return next(d for d in self.w.cell['devices'] if d['kind']=='R')
 
+    def test_tiny_tapeout_export_keeps_unapplied_rtl_edits(self):
+        from zipfile import ZipFile
+
+        from icstudio.digital_examples import uart_project
+        from icstudio.tapeout_ui import TapeoutSourceDialog
+
+        self.w.set_project(uart_project())
+        window = self.w.digital_window()
+        original = digest(self.w.project)
+        marker = '\n// Source in the editor\n'
+        window.editor.setPlainText(window.editor.toPlainText() + marker)
+        self.assertTrue(window.dirty)
+        action = next(action for action in self.w.task_menus['Digital'].actions()
+                      if action.text() == 'Export Tiny Tapeout Source…')
+        output = self.root / 'UART source package.zip'
+        observed = {}
+
+        def interact():
+            dialog = self.app.activeModalWidget()
+            try:
+                observed['dialog'] = isinstance(dialog, TapeoutSourceDialog)
+                observed['focus'] = dialog.focusWidget().accessibleName()
+                QTest.keyClick(dialog.author, Qt.Key_Return)
+                observed['validation'] = dialog.message.text()
+                QTest.keyClicks(dialog.author, 'Studio Test')
+                QTest.keyClick(dialog.author, Qt.Key_Return)
+                observed['still_open'] = dialog.isVisible()
+                QTest.keyClick(dialog.author, Qt.Key_Return)
+            finally:
+                if isinstance(dialog, TapeoutSourceDialog) and dialog.isVisible():
+                    dialog.reject()
+
+        with patch.object(QFileDialog, 'getSaveFileName', side_effect=[('', ''), (str(output), '')]) as chooser:
+            QTimer.singleShot(0, interact)
+            action.trigger()
+        self.assertTrue(observed['dialog'])
+        self.assertEqual(observed['focus'], 'Author')
+        self.assertIn('Enter the author', observed['validation'])
+        self.assertTrue(observed['still_open'])
+        self.assertEqual(chooser.call_count, 2)
+        self.assertIn('stream precheck are pending', self.w.statusBar().currentMessage())
+        self.assertEqual(digest(self.w.project), original)
+        self.assertTrue(window.dirty)
+        with ZipFile(output) as archive:
+            self.assertTrue(archive.read('src/uart_tx.sv').endswith(marker.encode()))
+
     def test_named_project_versions_from_file_menu_restore_without_overwriting_the_project(self):
         from icstudio.project_versions import ProjectVersions
         from icstudio.project_versions_ui import SaveVersionDialog, VersionHistoryDialog

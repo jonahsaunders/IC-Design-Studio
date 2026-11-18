@@ -22,7 +22,7 @@ UNIT_MODULES = (
     'test_document.RecoveryQueueTests', 'test_layout_verification',
     'test_digital.DigitalChildEnvironmentTests', 'test_digital.YosysIntegrationTests',
     'test_analog.AnalogTests.test_capabilities_do_not_trust_catalog_or_metadata',
-    'test_digital_bundle', 'test_digital_runtime', 'test_digital_rc',
+    'test_digital_bundle', 'test_digital_runtime', 'test_digital_rc', 'test_tapeout',
     'test_desktop_resources', 'test_sky130_retained_catalog', 'test_digital_platforms',
     'test_release_acceptance', 'test_release_evidence', 'test_release_intent',
     'test_pdk_qualification_matrix', 'test_ihp_hv_mos_layouts', 'test_mos_grouping', 'test_sky130_li_linked', 'test_sky130_li_array_dynamic',

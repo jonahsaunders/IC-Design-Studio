@@ -663,6 +663,21 @@ References. [Cadence characterization and signoff](https://www.cadence.com/en_US
 
 References. [Tiny Tapeout local hardening](https://tinytapeout.com/guides/local-hardening/) · [Tiny Tapeout submission requirements](https://tinytapeout.com/specs/) · [Studio acceptance targets](docs/PUBLIC_RELEASE_TARGETS.md) · [Studio release verification](docs/RELEASING.md)
 
+### Verified first handoff scope
+
+The [Tiny Tapeout SKY 26e source handoff](docs/TINY_TAPEOUT_HANDOFF.md) covers
+the SKY130A HD UART on one tile. See the [qualification log](docs/QUALIFICATION_PROGRESS.md#tiny-tapeout-sky-26e-uart-source-handoff)
+for the source revision and replay results.
+
+| Feature IDs | Verified for the UART source package | Remaining for physical handoff |
+| --- | --- | --- |
+| TAP-01–04, TAP-14 | Named profile and pinned tool references. The official checker accepted the metadata and wrapper ports and generated the 161 × 111.52 µm tile configuration. Source simulation verified pin behavior, reset, and enable. | Verify effective tools, libraries, clock timing, pin geometry, layers, and power on the final layout. |
+| TAP-15–17, TAP-19–20 | Reproducible ZIP with source and configuration hashes. The verifier rejected a missing file, a changed file, and an invalid path. | Bind final geometry, netlists, decks, reports, and their provenance. Add comparison against current design revisions. |
+| TAP-22 | The desktop and CLI export the source and the official workflow to harden it and run downstream checks. | Run the workflow on the exact candidate, review the physical result, and submit through Tiny Tapeout. |
+
+Next on this path are hardening and final stream verification (TAP-07–12),
+then installed-app replay and external acceptance (TAP-21, TAP-23–24).
+
 - **TAP-01.** Select a named foundry or shuttle profile for the exact process and submission type.
 - **TAP-02.** Verify the current accepted PDK, metal stack, libraries, tools, decks, and runset options.
 - **TAP-03.** Check template or wrapper identity, design class, die boundary, origin, and dimensions.

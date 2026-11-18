@@ -573,6 +573,8 @@ class DigitalMixin:
 
 
 def install(studio):
+    from .tapeout_ui import export_source_dialog
+
     menu = QMenu('D&igital',studio)
     studio.menuBar().insertMenu(studio.task_menus['Tools'].menuAction(),menu)
     studio.task_menus['Digital']=menu
@@ -583,3 +585,5 @@ def install(studio):
     menu.addSeparator()
     for label,target in (('Verify digital block','verify'),('Run digital block to placement','place'),('Run digital block to GDS','finish')):
         studio.action(menu,label,lambda t=target:studio.digital_window().flow.start(t))
+    menu.addSeparator()
+    studio.action(menu, 'Export Tiny Tapeout Source…', lambda: export_source_dialog(studio))
