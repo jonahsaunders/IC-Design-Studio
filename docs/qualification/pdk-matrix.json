@@ -26067,8 +26067,8 @@
       "path": "docs/validation/gf180-fill-closure-2026-10-09.json",
       "sha256": "e11e1a23ccaa8c9c7ec1133587da95375286b2f2536f939572ef4b786f5a7be7",
       "historical_source_snapshot": {
-        "path": "docs/validation/solver-timing-text-retained-source-2026-11-12/chunk4-manifest.json",
-        "sha256": "57c17e3415765aad3a6f51e923817630241b5d99fa054dcc62626e30f6d21410"
+        "path": "docs/validation/pdk-switch-retained-source-2026-11-18/chunk4-manifest.json",
+        "sha256": "51fc579b35d1d0c5126dc8cdeb73d87bde2635162915c2a5cd3bbf11f06a7a2c"
       }
     },
     "5": {

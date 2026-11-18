@@ -1,5 +1,16 @@
 # Chunks 1–12: progress and forecast
 
+## PDK switching and collaboration promotion
+
+**November 18, 2026.** This release candidate brings the PDK switcher and
+collaboration changes from experimental source `4e442f0` to the current
+main line. See [PDK switching](PDK_GUIDE.md#switch-the-open-project) and
+[collaboration](LIVE_COLLABORATION.md#find-your-way-around). The Windows
+source checks cover undo, cross-process copies, stale previews and
+shared-folder change review. The historical GF180 archive retains the exact
+accepted source for the edited modules. This workflow update changes no
+tapeout completion gates.
+
 **November 12 teaching-solver timing and Windows text repair (0.23.1 source):**
 this follow-on to main `86a9087` is outside chunks 1–12 and changes no completion
 gate, device status or forecast. It repairs the included solver's transient

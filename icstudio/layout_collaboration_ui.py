@@ -1,10 +1,11 @@
 """Desktop sessions for claimed concurrent layout partitions."""
 from pathlib import Path
-from PySide6.QtCore import QTimer
+from PySide6.QtCore import Qt,QTimer
 from PySide6.QtWidgets import (QDialog,QVBoxLayout,QLabel,QPushButton,QFileDialog,
-    QInputDialog,QComboBox,QLineEdit,QFormLayout,QPlainTextEdit)
+    QInputDialog,QComboBox,QLineEdit,QFormLayout,QPlainTextEdit,QDialogButtonBox)
 from .model import clone, digest
 from .layout_collaboration import Session
+from .collaboration_document import diff
 
 
 class CollaborationMixin:
@@ -66,6 +67,41 @@ class CollaborationMixin:
 
     def shared_layout_refresh(self):
         if self.idle_edit():self._shared_install(self._session().refresh(self.project),'Refresh shared design')
+
+    def shared_layout_preview(self):
+        if not self.idle_edit() or not self.flush_analysis():
+            return
+        session = self._session()
+        merged, revision = session.preview(self.project)
+        local = self.project
+        names = {cell['id']: cell['name'] for design in (session.base, local, merged)
+                 for cell in design['cells']}
+        lines = [f'Shared revision {revision}', 'Publishing requires active ownership claims.']
+        for title, rows in (('Incoming changes', diff(local, merged)),
+                            ('Your changes still to publish', diff(session.base, local))):
+            lines.extend(['', f'{title} ({len(rows)})'])
+            for row in rows:
+                scope = 'Project settings' if row['field'] == 'project' else names.get(row['cell'], row['cell'])
+                change = 'Added' if row['before'] is None else 'Removed' if row['after'] is None else 'Updated'
+                detail = row['field'].replace('_', ' ')
+                fields = row['after'] if row['after'] is not None else row['before']
+                if isinstance(fields, dict):
+                    detail = fields.get('name', fields.get('label', detail))
+                lines.append(f'{scope} · {change} {detail}')
+        dialog = QDialog(self)
+        dialog.setAttribute(Qt.WA_DeleteOnClose)
+        dialog.setWindowTitle('Shared Folder Changes')
+        dialog.resize(580, 420)
+        layout = QVBoxLayout(dialog)
+        preview = QPlainTextEdit('\n'.join(lines))
+        preview.setReadOnly(True)
+        preview.setAccessibleName('Shared folder change preview')
+        layout.addWidget(preview)
+        buttons = QDialogButtonBox(QDialogButtonBox.Close)
+        buttons.rejected.connect(dialog.reject)
+        layout.addWidget(buttons)
+        dialog.show()
+        return dialog
 
     def shared_layout_dialog(self):
         session=self._session();dlg=QDialog(self);dlg.setWindowTitle('Shared schematic and layout editing');dlg.resize(780,570);v=QVBoxLayout(dlg)

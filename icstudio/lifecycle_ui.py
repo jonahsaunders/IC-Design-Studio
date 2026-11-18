@@ -2,10 +2,10 @@
 from pathlib import Path
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (QDialog,QVBoxLayout,QHBoxLayout,QFormLayout,QLabel,QLineEdit,
-    QComboBox,QPlainTextEdit,QDialogButtonBox,QFileDialog,QInputDialog,QTableWidget,QTableWidgetItem)
+    QComboBox,QPlainTextEdit,QDialogButtonBox,QFileDialog,QInputDialog)
 from .model import clone,digest,load_project
 from .catalog import binding_for
-from .lifecycle import duplicate_project,relink_assets,replacement,migration_preview
+from .lifecycle import duplicate_project,relink_assets,replacement
 
 
 class LifecycleMixin:
@@ -15,7 +15,7 @@ class LifecycleMixin:
         for menu,entries in {
             'File':[('Duplicate project…',self.duplicate_project_dialog),('Import SPICE component…',self.import_component_dialog)],
             'Design':[('Component properties…',self.component_dialog),('Replace selected PDK device…',self.replace_model_dialog)],
-            'Tools':[('Relink project PDK folder…',self.relink_pdk_dialog),('Migrate PDK revision…',self.migrate_pdk_dialog),('Simulation runtime…',self.runtime_dialog)]
+            'Tools':[('Switch project PDK…',self.switch_pdk_dialog),('Relink project PDK folder…',self.relink_pdk_dialog),('Migrate PDK revision…',self.migrate_pdk_dialog),('Simulation runtime…',self.runtime_dialog)]
         }.items():
             for title,fn in entries:self.action(menus[menu],title,fn)
 
@@ -100,30 +100,27 @@ class LifecycleMixin:
             return p,old['name']+' → '+binding_for(p['pdk'],d)['model']+'\n\nInstance ID, terminal nets, pin positions, rotation and physical links are retained.\nMOS width and length retain their physical values.\n\n'+('\n'.join(notes) or 'No parameter defaults or overrides change.')
         self.review_dialog('Replace PDK device',build,host)
 
+    def switch_pdk_dialog(self, preferred=None, revisions_only=False):
+        from .pdk_switch_ui import PDKSwitchDialog
+        existing = getattr(self, '_pdk_switch', None)
+        if existing and existing.isVisible() and existing.project_id == self.project['id']:
+            if preferred or existing.revisions_only != revisions_only:
+                existing.revisions_only = revisions_only
+                existing.search.clear()
+                existing.load_choices(preferred)
+            existing.raise_()
+            existing.activateWindow()
+            return existing
+        if existing:
+            existing.reject()
+        dlg = PDKSwitchDialog(self, preferred, revisions_only)
+        self._pdk_switch = dlg
+        dlg.finished.connect(lambda: setattr(self, '_pdk_switch', None))
+        dlg.show()
+        return dlg
+
     def migrate_pdk_dialog(self):
-        if not self.idle_edit():return
-        lock=self.project['pdk'].get('package_lock',{})
-        options=[e for e in self.pdk_registry.entries() if e.get('id')==lock.get('id') and not e.get('error')]
-        if not options:raise ValueError('Register a revision of this project’s PDK in PDK manager first.')
-        labels=[e['id']+'@'+e['revision'] for e in options]
-        key,ok=QInputDialog.getItem(self,'Migrate PDK revision','Target revision',labels,0,False)
-        if not ok:return
-        tech=self.pdk_registry.technology(key);catalog=tech['simulation']['catalog']
-        used={d['model_ref']['device']:d for c in self.project['cells'] for d in c['devices'] if d.get('model_ref')}
-        table=QTableWidget(len(used),2);table.setHorizontalHeaderLabels(['Current catalog device','Target device']);table.horizontalHeader().setStretchLastSection(True);table.setColumnWidth(0,330);combos={}
-        for row,(old_key,d) in enumerate(used.items()):
-            item=QTableWidgetItem(old_key);item.setFlags(item.flags() & ~Qt.ItemIsEditable);table.setItem(row,0,item);combo=QComboBox()
-            for k,e in catalog.items():
-                if not e.get('unavailable') and e['kind']==d['kind'] and set(e['pin_order'])==set(d['nets']):combo.addItem(e['label'],k)
-            combo.setCurrentIndex(combo.findData(old_key));table.setCellWidget(row,1,combo);combos[old_key]=combo
-        def build():
-            if any(c.currentIndex()<0 for c in combos.values()):raise ValueError('Choose a compatible target for every current device.')
-            p,report=migration_preview(self.project,tech,{k:c.currentData() for k,c in combos.items()})
-            text=lock['id']+'@'+lock['revision']+' → '+key+'\n\n'
-            text+='\n'.join(r['cell']+'/'+r['instance']+': '+r['from']+' → '+r['to']+'\n  '+'; '.join(r['notes']) for r in report)
-            text+='\n\nModel files and revision change. Layout masks retain their GDS layer/datatype. Corner resets to nominal. Run simulation and physical verification again. Undo restores the prior project.'
-            return p,text
-        self.review_dialog('Migrate PDK revision',build,table)
+        return self.switch_pdk_dialog(revisions_only=True)
 
     def component_dialog(self):
         if not self.idle_edit():return

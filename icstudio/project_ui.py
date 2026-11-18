@@ -6,7 +6,7 @@ from PySide6.QtWidgets import (QDialog,QVBoxLayout,QHBoxLayout,QFormLayout,QLabe
 from .model import clone,example,digest,uid,load_project,device
 from .pdks import PDKRegistry
 from .project_manager import ProjectIndex,delete_cell
-from .catalog import create_device,binding_for,link_technology
+from .catalog import create_device,binding_for
 from .workspace import DEVICE_NAMES,DEVICE_ICONS,label
 from .ui_style import icon,palette
 
@@ -210,29 +210,26 @@ class ProjectMixin:
         self.form.insertWidget(self.form.count()-1,self.button('Edit symbol…',fn=self.edit_selected_symbol))
     def new_project(self):
         return self.new_pdk_template(None)
-    def fill_pdk_choices(self,combo):
-        combo.addItem('No PDK · generic models',None)
-        for e in self.pdk_registry.entries():
-            if e.get('error'):continue
-            key=e['id']+'@'+e['revision'];combo.addItem(e['technology']['name']+' · '+e['revision'],key)
-        lock=self.project['pdk'].get('package_lock',{});key=lock.get('id','')+'@'+lock.get('revision','');idx=combo.findData(key)
-        if lock and idx<0:combo.addItem(self.project['pdk']['name']+' · project-local lock','current');idx=combo.count()-1
-        combo.setCurrentIndex(max(0,idx))
     def project_settings(self):
         if not self.flush_inspector():return
-        dlg=QDialog(self);dlg.setWindowTitle('Project settings');dlg.resize(660,350);v=QVBoxLayout(dlg);f=QFormLayout();v.addLayout(f);name=QLineEdit(self.project['name']);f.addRow('Name',name);pdk=QComboBox();self.fill_pdk_choices(pdk);f.addRow('Linked PDK',pdk);root=QComboBox()
+        dlg=QDialog(self);dlg.setWindowTitle('Project settings');dlg.resize(660,350);v=QVBoxLayout(dlg);f=QFormLayout();v.addLayout(f);name=QLineEdit(self.project['name']);f.addRow('Name',name);root=QComboBox()
+        from .pdk_switch import technology_label
+        technology = QLabel(technology_label(self.project['pdk']))
+        technology.setTextFormat(Qt.PlainText)
+        technology.setWordWrap(True)
+        f.addRow('Linked PDK', technology)
+        def switch():
+            switcher = self.switch_pdk_dialog()
+            switcher.finished.connect(lambda: technology.setText(technology_label(self.project['pdk'])))
+        v.addWidget(self.button('Switch project PDK…',fn=switch))
         for c in self.project['cells']:root.addItem(c['name'],c['id'])
         root.setCurrentIndex(root.findData(self.project['top']));f.addRow('Root cell',root);path=QLabel(str(self.path or 'Not saved yet'));path.setWordWrap(True);f.addRow('Project file',path)
-        note=QLabel('A project locks one PDK revision. Existing devices must match. Layout layers map only to identical GDS layer/datatype pairs.');note.setWordWrap(True);v.addWidget(note);v.addWidget(self.button('Open PDK manager…',fn=self.pdk_manager));error=QLabel();error.setWordWrap(True);v.addWidget(error);buttons=QDialogButtonBox(QDialogButtonBox.Save|QDialogButtonBox.Cancel);v.addWidget(buttons)
+        error=QLabel();error.setWordWrap(True);v.addWidget(error);buttons=QDialogButtonBox(QDialogButtonBox.Save|QDialogButtonBox.Cancel);v.addWidget(buttons)
         def apply():
             try:
                 if self.process:raise ValueError('Stop the active job before changing project technology.')
                 if not self.flush_inspector():raise ValueError('Resolve pending property edits before saving project settings.')
-                key=pdk.currentData();tech=self.project['pdk'] if key=='current' else self.pdk_registry.technology(key) if key else example('empty')['pdk']
-                def edit(p):
-                    p.update(name=name.text().strip(),top=root.currentData())
-                    if tech!=p['pdk']:link_technology(p,tech)
-                self.commit(edit,'Project settings');self.sync_technology();dlg.accept()
+                self.commit(lambda p:p.update(name=name.text().strip(),top=root.currentData()),'Project settings');dlg.accept()
             except Exception as e:error.setText(str(e))
         buttons.accepted.connect(apply);buttons.rejected.connect(dlg.reject);self._settings_dialog=dlg;dlg.show()
     def sync_technology(self):
@@ -359,19 +356,18 @@ class ProjectMixin:
             key=items.currentItem().data(Qt.UserRole) if items.currentItem() else None
             if not key:return
             try:
-                if self.process:raise ValueError('Stop the active job before linking a PDK.')
-                tech=self.pdk_registry.technology(key);self.commit(lambda p:link_technology(p,tech),'Link project to PDK');self.sync_technology();state.setText('Linked '+self.project['name']+' to '+key)
+                self.switch_pdk_dialog(preferred=key)
             except Exception as e:state.setText(str(e))
         def remove():
             key=items.currentItem().data(Qt.UserRole) if items.currentItem() else None
             if not key:return
             lock=self.project['pdk'].get('package_lock',{})
-            if key==lock.get('id','')+'@'+lock.get('revision',''):state.setText('Unlink this PDK in Project settings before removing its registration.');return
+            if key==lock.get('id','')+'@'+lock.get('revision',''):state.setText('Switch the current project to another PDK before removing this registration.');return
             users=[e['name'] for e in self.project_index.entries() if e.get('pdk','')+'@'+e.get('revision','')==key and Path(e['path']).exists()]
             if users:state.setText('Registered projects still use this revision: '+', '.join(users)+'. Migrate those projects first.');return
             if QMessageBox.question(dlg,'Remove PDK registration?','Remove '+key+' from the manager? Assets are retained in their current location or the registration archive.',QMessageBox.Yes|QMessageBox.Cancel,QMessageBox.Cancel)==QMessageBox.Yes:
                 self.pdk_registry.remove(key);fill()
-        for text,fn in [('Add folder…',register),('Install package…',package),('Verify',verify),('Locate…',relocate),('Link to project',link),('Remove…',remove)]:
+        for text,fn in [('Add folder…',register),('Install package…',package),('Verify',verify),('Locate…',relocate),('Switch current project…',link),('Remove…',remove)]:
             b=QPushButton(text);b.clicked.connect(fn);buttons.append(b);row.addWidget(b)
         # The worker owns no widgets. Prevent destruction while its scan is active.
         original_close=dlg.closeEvent

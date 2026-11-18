@@ -4,7 +4,7 @@ import time
 
 from PySide6.QtCore import Qt, QThread, Signal
 from PySide6.QtWidgets import (QApplication, QDialog,
-    QGroupBox, QHBoxLayout, QLabel, QListWidget, QListWidgetItem,
+    QGroupBox, QHBoxLayout, QLabel, QLineEdit, QListWidget, QListWidgetItem,
     QPushButton, QScrollArea, QTabWidget, QTreeWidget, QTreeWidgetItem, QSizePolicy,
     QVBoxLayout, QWidget)
 
@@ -56,6 +56,8 @@ class CollaborationDashboard(QDialog):
         self.resize(920, 700)
         self.setMinimumSize(620, 460)
         self.scan = None
+        self.records = []
+        self.recent_selection = None
         root = QVBoxLayout(self)
         root.setContentsMargins(24, 20, 24, 20)
         root.setSpacing(12)
@@ -109,11 +111,18 @@ class CollaborationDashboard(QDialog):
         recent_header.addStretch()
         self.refresh_button = button('Refresh list', self.refresh_recent, recent_header)
         overview.addLayout(recent_header)
+        self.recent_search = QLineEdit()
+        self.recent_search.setPlaceholderText('Search workspace, person, or server…')
+        self.recent_search.setAccessibleName('Search recent workspaces')
+        self.recent_search.setClearButtonEnabled(True)
+        self.recent_search.textChanged.connect(self.filter_recent)
+        self.recent_search.returnPressed.connect(lambda: self.recent.setFocus())
+        overview.addWidget(self.recent_search)
         self.recent = QListWidget()
         self.recent.setAccessibleName('Recent collaboration workspaces')
         self.recent.setMinimumHeight(130)
-        self.recent.itemDoubleClicked.connect(lambda *_: self.resume_selected())
-        self.recent.currentItemChanged.connect(lambda *_: self.update_recent_actions())
+        self.recent.itemActivated.connect(lambda *_: self.resume_selected())
+        self.recent.currentItemChanged.connect(self.remember_recent)
         overview.addWidget(self.recent, 1)
         self.empty_recent = note('No recent workspaces yet\nShare a project or join with an invitation to get started.')
         self.empty_recent.setAlignment(Qt.AlignCenter)
@@ -152,6 +161,7 @@ class CollaborationDashboard(QDialog):
         self.folder_active = QGroupBox('Your shared-folder session')
         folder_actions = QVBoxLayout(self.folder_active)
         for title, fn in [('Cells, layers & ownership…', studio.shared_layout_dialog),
+                          ('Review incoming and outgoing changes…', studio.shared_layout_preview),
                           ('Publish my changes', studio.shared_layout_publish),
                           ('Get shared changes', studio.shared_layout_refresh),
                           ('Leave shared folder', studio.shared_layout_leave)]:
@@ -191,7 +201,7 @@ class CollaborationDashboard(QDialog):
             self.summary.setText(s.project['name'] + ' · Shared-folder workspace')
         else:
             self.summary.setText('Share a project, join your team, or pick up where you left off.')
-        self.folder_status.setText('Connected as ' + s.layout_session.editor + '\n' + str(s.layout_session.root)
+        self.folder_status.setText(f'Connected as {s.layout_session.editor} · Shared revision {s.layout_session.revision}\n' + str(s.layout_session.root)
                                    if s.layout_session else 'You have not joined a shared folder.')
         self.update_recent_actions()
         self.review_panel.refresh_state()
@@ -245,10 +255,24 @@ class CollaborationDashboard(QDialog):
         self.scan.start()
 
     def install_recent(self, records):
-        selected = self.selected_record()
+        self.records = records
+        self.filter_recent()
+
+    def remember_recent(self, current, _previous):
+        if current:
+            self.recent_selection = current.data(Qt.UserRole)['path']
+        self.update_recent_actions()
+
+    def filter_recent(self, *_):
+        query = self.recent_search.text().casefold().split()
+        records = [record for record in self.records if all(word in ' '.join(
+            (record['name'], record['editor'], record['role'], record['server'])).casefold() for word in query)]
+        self.recent.blockSignals(True)
         self.recent.clear()
         self.recent.setVisible(bool(records))
         self.empty_recent.setVisible(not records)
+        self.empty_recent.setText('No matching workspaces. Try another search.' if query
+                                  else 'No recent workspaces yet\nShare a project or join with an invitation to get started.')
         for record in records:
             when = datetime.fromtimestamp(record['modified']).strftime('%d %b, %H:%M') if record['modified'] else ''
             state = ' · Unsynced work retained' if record['attention'] else ''
@@ -256,12 +280,15 @@ class CollaborationDashboard(QDialog):
                                    ' · '.join(x for x in (record['editor'], record['role'].title(), record['server'], when) if x))
             item.setData(Qt.UserRole, record)
             self.recent.addItem(item)
-            if selected and selected['path'] == record['path']:
+            if self.recent_selection == record['path']:
                 self.recent.setCurrentItem(item)
         if not self.recent.currentItem() and records:
             self.recent.setCurrentRow(0)
+        self.recent.blockSignals(False)
+        if not self.recent_selection and records:
+            self.recent_selection = records[0]['path']
         self.recent_note.setText('Choose a workspace and select Resume. Your saved edits and personal undo travel with the session.' if records
-                                else 'Your shared workspaces will appear here automatically. Start with Share or Join above.')
+                                else '' if self.records else 'Your shared workspaces will appear here automatically. Start with Share or Join above.')
         self.update_recent_actions()
 
     def selected_record(self):
@@ -279,12 +306,12 @@ class CollaborationDashboard(QDialog):
 
     def resume_selected(self):
         record = self.selected_record()
-        if record:
+        if self.resume_button.isEnabled() and record:
             self.run(lambda: self.studio.live_resume_path(record['path']))
 
     def recover_selected(self):
         record = self.selected_record()
-        if record:
+        if self.recover_button.isEnabled() and record:
             self.run(lambda: self.studio.live_recover_owner(record['path']))
 
     def done(self, result):
