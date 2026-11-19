@@ -3,12 +3,13 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+from unittest.mock import patch
 
 from icstudio import wiring
 from icstudio.example_schematics import arrange
 from icstudio.model import clone, digest, load_project, save_project, validate
 from icstudio.student_hub import curriculum
-from icstudio.student_projects import _create
+from icstudio.student_projects import create
 
 
 def electrical(project):
@@ -75,7 +76,8 @@ class ExampleSchematicTests(unittest.TestCase):
     def test_every_starter_retains_electrical_data_and_survives_reopen(self):
         for name in sorted({lesson['starter'] for lesson in curriculum()['lessons']}):
             with self.subTest(starter=name), tempfile.TemporaryDirectory() as td:
-                before=_create(name)
+                with patch('icstudio.example_schematics.arrange', side_effect=lambda project, *args, **kwargs: project):
+                    before = create(name)
                 after=arrange(clone(before))
                 self.assertEqual(electrical(before),electrical(after))
                 validate(after)

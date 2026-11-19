@@ -31,7 +31,8 @@ jobs:
       matrix:
         stage: [inverter, analog, analog-rc, hierarchy-rc, devices, bipolar, two-stage-opamp, detector, public-layouts]
     runs-on: ubuntu-24.04
-    timeout-minutes: ${{ (matrix.stage == 'two-stage-opamp' || matrix.stage == 'devices') && 90 || matrix.stage == 'detector' && 60 || 45 }}
+    # Cold engine setup and the inverter's sequential checks can exceed 45 minutes.
+    timeout-minutes: ${{ (matrix.stage == 'two-stage-opamp' || matrix.stage == 'devices') && 90 || matrix.stage == 'inverter' && 75 || matrix.stage == 'detector' && 60 || 45 }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

@@ -1,5 +1,27 @@
 # Chunks 1–12: progress and forecast
 
+## Windows build and public release checks
+
+**November 18, 2026.** The complete experimental tree was merged into main at
+`110166600f2e47196bbf2fcc0009384027e501b4`. The local Windows installer built
+from that commit has SHA-256
+`0322dac8099451b7c25a174e2a21ed3579cb183dd705b0061897e14b3dcc60b0`.
+The included runtime passed Windows installation checks for all four
+platforms, and the packaged application passed 47 Windows checks. The rebuilt
+portable ZIP measured 1,950,019,980 bytes and passed those checks after
+extraction. Its corresponding source remains a separate download, and the
+installer includes a copy.
+
+Hosted attempts exposed a stale course-size assertion, tests that called the
+legacy starter factory and a stale text-encoding exception. The corrected
+tests cover the current curriculum, including schematic connectivity before
+and after wire migration. The inverter qualification job exhausted its
+45-minute outer window while the MOS finger check was still executing. The
+75-minute job window preserves the existing individual step limits and all
+required evidence. This work changes no process qualification.
+[Source promotion](https://github.com/jonahsaunders/IC-Design-Studio/pull/81) ·
+[Observed inverter timeout](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/44432231562/job/135252485940)
+
 ## Project PDK switching and collaboration
 
 **November 18, 2026.** Source `4e442f050513a26a0e95ad7ff691a80521a1aeed`

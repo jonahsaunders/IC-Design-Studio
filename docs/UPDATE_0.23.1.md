@@ -1,14 +1,22 @@
-# IC Design Studio 0.23.1 — solver timing and Windows text repairs
+# IC Design Studio 0.23.1
 
-0.23.1 is a maintenance update to the 0.23.0 desktop **engineering preview**. It
-repairs the included teaching solver's transient schedule and ideal sources,
-and makes the Windows desktop read its own guides and saved run logs as UTF-8.
-The platform and process limits of [0.23.0](UPDATE_0.23.0.md) are unchanged.
+This **engineering preview** brings the experimental desktop workflows to main
+and repairs the included solver and Windows text handling.
 
-This file describes the source at version 0.23.1. A desktop package exists only
-when [release status](RELEASE_STATUS.md) records a completed release preparation
-for an exact commit; until then the published downloads remain
-[v0.23.0](https://github.com/jonahsaunders/IC-Design-Studio/releases/tag/v0.23.0).
+- Search installed PDKs and review model changes before switching. Cross-process
+  copies preserve the schematic and testbenches for design review. [PDK switching](PDK_GUIDE.md#switch-the-open-project)
+- Search recent workspaces, follow a teammate's view, preview shared-folder
+  edits and save a retained conflict as a separate project. [Collaboration](LIVE_COLLABORATION.md)
+- Save named versions, work on project branches, review merges and handle GitHub
+  pull requests from the app. [Project workflows](USER_GUIDE.md#github-pull-requests-in-studio)
+- Work through editable amplifier, compensation, layout, filter, bandgap and
+  interview labs in the Student Hub. [Student Hub](STUDENT_HUB.md)
+- Prepare the verified UART source handoff for Tiny Tapeout. See the guide for
+  its exact acceptance scope. [Tiny Tapeout handoff](TINY_TAPEOUT_HANDOFF.md)
+
+The installer includes the source archive. The portable Windows ZIP and its
+corresponding source are separate release downloads. Platform and process
+qualification remain scoped to their recorded evidence. [Release status](RELEASE_STATUS.md)
 
 ## Included teaching solver
 
