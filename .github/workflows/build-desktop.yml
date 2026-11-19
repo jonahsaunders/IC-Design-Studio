@@ -1127,7 +1127,9 @@ jobs:
         if: always()
         with:
           name: desktop-installed-checkpoint-${{ runner.os }}
+          include-hidden-files: ${{ runner.os == 'Windows' }}
           path: |
+            ${{ runner.os == 'Windows' && 'build/*evidence/**' || '' }}
             build/student-usability/*.json
             build/student-usability/*.png
             build/audit-regressions/*.json
@@ -1234,24 +1236,20 @@ jobs:
             build/ci-native/identity.json
             build/native-experimental-evidence/**/*.json
             build/native-experimental-evidence/**/*.png
-      - name: Assemble and execute Windows release archives
-        if: runner.os == 'Windows'
-        env:
-          QT_QPA_PLATFORM: offscreen
-        run: python scripts/prepare_release_payload.py --output build/release-payload --source-archive build/desktop-handoff-source/source.zip --pw2dn-evidence build/windows-evidence/pw2dn --ihp-cmim-evidence build/windows-evidence/ihp-cmim
       - name: Assemble and execute Linux release archives
         if: runner.os == 'Linux'
         env:
           QT_QPA_PLATFORM: offscreen
         run: python scripts/prepare_release_payload.py --output build/release-payload --source-archive build/desktop-handoff-source/source.zip --pw2dn-evidence build/frozen-pw2dn-evidence --ihp-cmim-evidence build/frozen-ihp-cmim-evidence
       - name: Retain release payload
+        if: runner.os == 'Linux'
         uses: actions/upload-artifact@v4
         with:
           name: release-${{ runner.os }}
           path: build/release-payload
           if-no-files-found: error
       - uses: actions/upload-artifact@v4
-        if: always()
+        if: always() && (runner.os == 'Linux' || failure())
         with:
           name: desktop-diagnostics-${{ runner.os }}
           path: |
@@ -1362,7 +1360,7 @@ jobs:
             build/native-experimental-evidence/**/*.json
             build/native-experimental-evidence/**/*.png
       - uses: actions/upload-artifact@v4
-        if: always()
+        if: always() && (runner.os == 'Linux' || failure())
         with:
           name: ICDesignStudio-${{ matrix.os }}
           path: |
@@ -1455,3 +1453,58 @@ jobs:
           name: desktop-storage-installed-Linux
           path: build/ci-storage
           if-no-files-found: error
+  windows-release-payload:
+    # The full Windows installation checks can take nearly six hours. Assemble
+    # and exercise the release bytes on a fresh runner after those gates pass.
+    needs: [package, installed-acceptance]
+    runs-on: windows-2022
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install release probe dependencies
+        run: python -m pip install -r requirements-build.txt
+      - name: Verify immutable release candidate
+        run: python scripts/ci_candidate.py
+      - name: Download this run's sealed Windows build
+        uses: actions/download-artifact@v4
+        with:
+          name: desktop-candidate-Windows
+          path: build/desktop-handoff
+      - name: Verify and restore the sealed Windows build
+        run: python scripts/desktop_acceptance_handoff.py restore --input build/desktop-handoff
+      - name: Restore successful Windows acceptance evidence
+        uses: actions/download-artifact@v4
+        with:
+          name: desktop-installed-checkpoint-Windows
+          path: build
+      - name: Configure the native desktop for the extracted app probe
+        shell: pwsh
+        run: |
+          powercfg /change monitor-timeout-ac 0
+          if ($LASTEXITCODE -ne 0) { throw 'Could not keep the CI display available.' }
+          Set-DisplayResolution -Width 1920 -Height 1080 -Force
+          Get-DisplayResolution
+      - name: Assemble and execute Windows release archives
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python scripts/prepare_release_payload.py --output build/release-payload --source-archive build/desktop-handoff-source/source.zip --pw2dn-evidence build/windows-evidence/pw2dn --ihp-cmim-evidence build/windows-evidence/ihp-cmim
+      - name: Retain Windows release payload
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-Windows
+          path: build/release-payload
+          if-no-files-found: error
+          compression-level: 0
+      - name: Retain Windows release assembly diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: desktop-windows-release-diagnostics
+          path: |
+            build/distribution-evidence/execution.log
+            build/distribution-evidence/probe
+            build/distribution-evidence/vga
+          if-no-files-found: ignore

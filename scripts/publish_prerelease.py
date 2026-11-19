@@ -132,7 +132,8 @@ def validate_public_assets(directory, assets, version, commit):
         if not matches(record) or record.get('platform') != platform:
             raise ValueError('Public release validation must match the selected version, commit and platform.')
         archive = prefix + ('Windows-x64-Portable.zip' if platform == 'Windows' else 'Linux-x86_64.tar.gz')
-        platform_required = {archive, prefix + 'Source-' + platform + '.zip', prefix + 'Evidence-' + platform + '.zip'}
+        source_name = prefix + 'Source-' + platform + '.zip'
+        platform_required = {archive, source_name, prefix + 'Evidence-' + platform + '.zip'}
         if platform == 'Windows': platform_required.add(prefix + 'Windows-x64-Setup.exe')
         recorded = record.get('assets', {})
         if not isinstance(recorded, dict) or not platform_required <= recorded.keys() or any(hashes.get(name) != digest for name, digest in recorded.items()):
@@ -156,7 +157,8 @@ def validate_public_assets(directory, assets, version, commit):
             if platform == 'Windows' and not same_cmim_receipt(cmim, installer_receipt.get('ihp_cmim')):
                 raise ValueError('Public Windows installer IHP CMIM receipt differs from the evidence.')
         check_pw2dn_distribution(files[archive], platform, record['pw2dn'])
-        check_cmim_distribution(files[archive], platform, cmim)
+        check_cmim_distribution(files[archive], platform, cmim,
+                                corresponding_source=files[source_name] if platform == 'Windows' else None)
         if platform == 'Windows':
             installer = record.get('installer', {}); setup = prefix + 'Windows-x64-Setup.exe'
             probes = installer.get('probes', []) if isinstance(installer, dict) else []

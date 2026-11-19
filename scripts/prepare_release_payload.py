@@ -142,8 +142,8 @@ def prepare(output, source=None, pw2dn_evidence=None, ihp_cmim_evidence=None):
         packages = [archive]
         installer = None
     check_pw2dn_distribution(archive, target, pw2dn)
-    check_cmim_distribution(archive, target, cmim)
     source = release_source(output, target, source)
+    check_cmim_distribution(archive, target, cmim, corresponding_source=source if target == 'Windows' else None)
     packages.append(source)
     probe = verify_distribution(archive, ROOT / 'build/distribution-evidence')
     evidence_zip = output / f'IC-Design-Studio-{__version__}-Evidence-{target}.zip'

@@ -459,6 +459,14 @@ class FeedbackTests(unittest.TestCase):
                                  ('Linux', 'build/frozen-pw2dn-evidence')):
             self.assertIn('Assemble and execute ' + platform + ' release archives', text)
             self.assertIn('--source-archive build/desktop-handoff-source/source.zip --pw2dn-evidence ' + output, text)
+        windows = text.split('\n  windows-release-payload:', 1)[1]
+        self.assertIn('needs: [package, installed-acceptance]', windows)
+        steps = [windows.index(name) for name in (
+            'name: desktop-candidate-Windows', 'desktop_acceptance_handoff.py restore',
+            'name: desktop-installed-checkpoint-Windows', 'prepare_release_payload.py',
+            'name: release-Windows')]
+        self.assertEqual(steps, sorted(steps))
+        self.assertNotIn('continue-on-error:', windows)
         for module in ('test_stage_linux_ngspice', 'test_linux_ngspice_dependencies',
                        'test_fetch_linux_ngspice_sources', 'test_release_pw2dn_evidence',
                        'test_release_qualification', 'test_sky130_esd_nvt_audit',

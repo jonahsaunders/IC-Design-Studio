@@ -155,6 +155,34 @@ class ReleaseCmimTests(unittest.TestCase):
                 with self.subTest(platform=platform, changed=changed), self.assertRaises(ValueError):
                     gate.check_distribution(path, platform, receipt)
 
+    def test_portable_accepts_only_the_exact_installed_source_as_a_separate_asset(self):
+        from tests.test_release_pw2dn_evidence import distribution
+        receipt = aggregation_receipt('Windows')
+        source = self.root / 'IC-Design-Studio-0.23.1-Source-Windows.zip'
+        embedded = 'IC-Design-Studio-0.23.1-Source.zip'
+        payload = b'corresponding source archive'
+        source.write_bytes(payload)
+        receipt['distribution_files'][embedded] = hashlib.sha256(payload).hexdigest()
+        portable = self.root / 'portable.zip'
+        distribution(portable, 'Windows')
+        with self.assertRaisesRegex(ValueError, 'inventory differs'):
+            gate.check_distribution(portable, 'Windows', receipt)
+        gate.check_distribution(portable, 'Windows', receipt, corresponding_source=source)
+
+        source.write_bytes(b'different source archive')
+        with self.assertRaisesRegex(ValueError, 'separate source differs'):
+            gate.check_distribution(portable, 'Windows', receipt, corresponding_source=source)
+
+        source.write_bytes(payload)
+        exe = 'ICDesignStudio/ICDesignStudio.exe'
+        distribution(portable, 'Windows', {exe: None})
+        with self.assertRaisesRegex(ValueError, 'inventory differs'):
+            gate.check_distribution(portable, 'Windows', receipt, corresponding_source=source)
+
+        distribution(portable, 'Windows', {'ICDesignStudio/' + embedded: b'changed embedded source'})
+        with self.assertRaisesRegex(ValueError, 'distributed input differs'):
+            gate.check_distribution(portable, 'Windows', receipt, corresponding_source=source)
+
     def test_linux_confined_symlink_and_internal_hardlink(self):
         receipt = aggregation_receipt('Linux')
         receipt['distribution_files'] = {'ICDesignStudio': hashlib.sha256(b'app').hexdigest(),
