@@ -43,6 +43,9 @@ Deliverables appear in `dist/installers`: the Setup EXE, portable ZIP, source
 archive and checksums. These builder outputs still need the verification below
 and the [complete release workflow](RELEASING.md).
 
+The installer includes a copy of the source archive. The portable ZIP and its
+corresponding source are separate downloads.
+
 ## Included tools and installer behavior
 
 The current package contains Python, Qt, KLayout, native ngspice, the SKY130/GF180/IHP

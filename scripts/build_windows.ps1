@@ -27,11 +27,20 @@ if (-not $SkipBuild) {
 $version = (& python -c 'from icstudio import __version__; print(__version__)').Trim()
 Run-Checked python @('scripts/check_simulation_assets.py','--bundle','dist/ICDesignStudio/_internal','--runtime')
 Run-Checked python @('scripts/release_archives.py','--output','dist/installers')
-Copy-Item "dist/installers/IC-Design-Studio-$version-Source.zip" 'dist/ICDesignStudio/' -Force
+$sourceArchive = "dist/installers/IC-Design-Studio-$version-Source.zip"
+$embeddedSource = "dist/ICDesignStudio/IC-Design-Studio-$version-Source.zip"
+Copy-Item -LiteralPath $sourceArchive -Destination $embeddedSource -Force
 Copy-Item LICENSE,README.md,THIRD_PARTY_NOTICES.md 'dist/ICDesignStudio/' -Force
 $iscc = (Get-Command ISCC.exe -ErrorAction SilentlyContinue).Source
 if (-not $iscc) { $iscc = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe" }
 if (-not (Test-Path $iscc)) { throw 'Install Inno Setup 6 from https://jrsoftware.org/isinfo.php, then rerun with -SkipBuild.' }
 Run-Checked $iscc @("/DAppVersion=$version",'packaging/windows/installer.iss')
-Compress-Archive -Path 'dist/ICDesignStudio' -DestinationPath "dist/installers/IC-Design-Studio-$version-Windows-x64-Portable.zip" -Force
+# The installer contains source. Portable users get the same source as a
+# separate download, keeping the executable archive under the release asset limit.
+Remove-Item -LiteralPath $embeddedSource
+try {
+    Compress-Archive -LiteralPath 'dist/ICDesignStudio' -DestinationPath "dist/installers/IC-Design-Studio-$version-Windows-x64-Portable.zip" -Force
+} finally {
+    Copy-Item -LiteralPath $sourceArchive -Destination $embeddedSource -Force
+}
 Get-ChildItem dist/installers -File | Where-Object { $_.Extension -in '.zip','.exe' } | Get-FileHash -Algorithm SHA256 | ForEach-Object { "$($_.Hash.ToLower())  $(Split-Path $_.Path -Leaf)" } | Set-Content dist/installers/SHA256SUMS-Windows.txt
