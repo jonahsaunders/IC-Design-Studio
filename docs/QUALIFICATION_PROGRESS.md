@@ -38,8 +38,19 @@ release payload. The Windows release runner restored the sealed build, then
 failed during download and extraction of the installed checkpoint. The
 1,965,117,405-byte ZIP contains 164,163 entries totaling 16,174,233,498 bytes.
 The Windows release job now verifies the download before extracting release
-evidence locally. The remaining hosted checks are portable execution and
-final release validation. Process qualification estimates are unchanged.
+evidence locally. The recovery passed the native Windows portable desktop and
+VGA probes, reused the accepted Linux payload and verified the final archives.
+The accepted Linux archive was 2,163,544,137 bytes. Two download parts
+reassemble to the SHA-256 recorded by its original execution check.
+
+GitHub published v0.23.1 at 5:20 p.m. Eastern on November 19 against the
+original commit. The publisher verified all 27 staged assets against GitHub's
+digests. An independent check of the public tag, inventory, 26 checksummed
+downloads and Linux parts manifest passed. Process qualification estimates
+are unchanged.
+[Public v0.23.1 release](https://github.com/jonahsaunders/IC-Design-Studio/releases/tag/v0.23.1) |
+[Windows recovery](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/44611706473) |
+[Publication](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/44623414028) |
 [Windows release job](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/44525971737/job/135848481686)
 
 ## Project PDK switching and collaboration
