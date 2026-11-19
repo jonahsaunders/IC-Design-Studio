@@ -1475,11 +1475,24 @@ jobs:
           path: build/desktop-handoff
       - name: Verify and restore the sealed Windows build
         run: python scripts/desktop_acceptance_handoff.py restore --input build/desktop-handoff
-      - name: Restore successful Windows acceptance evidence
-        uses: actions/download-artifact@v4
+      - name: Free the verified handoff archive after restoring its contents
+        shell: pwsh
+        run: Remove-Item -LiteralPath build/desktop-handoff/payload.tar -ErrorAction Stop
+      - name: Download the Windows acceptance checkpoint as a verified ZIP
+        uses: actions/download-artifact@v8
         with:
           name: desktop-installed-checkpoint-Windows
-          path: build
+          path: build/checkpoint-download
+          skip-decompress: true
+          digest-mismatch: error
+      - name: Restore release evidence from the verified local ZIP
+        shell: pwsh
+        run: |
+          $archive = @(Get-ChildItem -LiteralPath build/checkpoint-download -File)
+          if ($archive.Count -ne 1) { throw 'Expected one verified checkpoint ZIP.' }
+          tar.exe -xf $archive[0].FullName -C build '*evidence/*'
+          if ($LASTEXITCODE -ne 0) { throw 'Local checkpoint extraction failed.' }
+          Remove-Item -LiteralPath $archive[0].FullName
       - name: Configure the native desktop for the extracted app probe
         shell: pwsh
         run: |

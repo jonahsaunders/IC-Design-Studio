@@ -463,7 +463,9 @@ class FeedbackTests(unittest.TestCase):
         self.assertIn('needs: [package, installed-acceptance]', windows)
         steps = [windows.index(name) for name in (
             'name: desktop-candidate-Windows', 'desktop_acceptance_handoff.py restore',
-            'name: desktop-installed-checkpoint-Windows', 'prepare_release_payload.py',
+            'Remove-Item -LiteralPath build/desktop-handoff/payload.tar',
+            'name: desktop-installed-checkpoint-Windows', 'skip-decompress: true', 'digest-mismatch: error',
+            "tar.exe -xf $archive[0].FullName -C build '*evidence/*'", 'prepare_release_payload.py',
             'name: release-Windows')]
         self.assertEqual(steps, sorted(steps))
         self.assertNotIn('continue-on-error:', windows)

@@ -32,6 +32,27 @@ fresh runner, preserves the original receipt checks, and verifies the separate
 corresponding-source ZIP against the byte hash from the installation.
 [Hosted Windows job](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/44440660825/job/135355433772)
 
+**November 19, 2026.** Release run 44525971737 at `66368f8d1842439fbbef262cd4da1c4e6fed35df`
+passed 41 jobs, including Windows installed acceptance and the complete Linux
+release payload. The Windows release runner restored the sealed build, then
+failed during download and extraction of the installed checkpoint. The
+1,965,117,405-byte ZIP contains 164,163 entries totaling 16,174,233,498 bytes.
+The Windows release job now verifies the download before extracting release
+evidence locally. The recovery passed the native Windows portable desktop and
+VGA probes, reused the accepted Linux payload and verified the final archives.
+The accepted Linux archive was 2,163,544,137 bytes. Two download parts
+reassemble to the SHA-256 recorded by its original execution check.
+
+GitHub published v0.23.1 at 5:20 p.m. Eastern on November 19 against the
+original commit. The publisher verified all 27 staged assets against GitHub's
+digests. An independent check of the public tag, inventory, 26 checksummed
+downloads and Linux parts manifest passed. Process qualification estimates
+are unchanged.
+[Public v0.23.1 release](https://github.com/jonahsaunders/IC-Design-Studio/releases/tag/v0.23.1) |
+[Windows recovery](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/44611706473) |
+[Publication](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/44623414028) |
+[Windows release job](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/44525971737/job/135848481686)
+
 ## Project PDK switching and collaboration
 
 **November 18, 2026.** Source `4e442f050513a26a0e95ad7ff691a80521a1aeed`
