@@ -40,7 +40,16 @@ class InverterCourseTests(unittest.TestCase):
     def test_all_revisions_have_guidance_and_independent_progress(self):
         with tempfile.TemporaryDirectory() as td:
             profiles,data,material=library(td)
-            self.assertEqual(len(data['lessons']),41+8*len(profiles))
+            base_lessons = curriculum()['lessons']
+            inverter_lessons = [l for l in data['lessons'] if l['path'] == 'inverter']
+            self.assertEqual([l for l in data['lessons'] if l['path'] != 'inverter'], base_lessons)
+            self.assertEqual({l['inverter_profile'] for l in inverter_lessons},
+                             {p['token'] for p in profiles})
+            stages = ['process', 'schematic', 'dc', 'transient', 'layout', 'drc', 'lvs', 'handoff']
+            for profile in profiles:
+                with self.subTest(profile=profile['token']):
+                    self.assertEqual([l['inverter_stage'] for l in inverter_lessons
+                                      if l['inverter_profile'] == profile['token']], stages)
             self.assertEqual(set(material['lessons']),{l['id'] for l in data['lessons']})
             ready=[p for p in profiles if p['ready']]
             self.assertEqual({p['technology']['package_lock']['id'] for p in ready},{'sky130A','gf180mcuC','gf180mcuD','ihp-sg13g2'})
