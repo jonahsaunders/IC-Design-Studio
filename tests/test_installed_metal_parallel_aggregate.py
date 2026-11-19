@@ -102,7 +102,9 @@ class ReleaseRoutingTests(unittest.TestCase):
         windows_release=workflow.index('      - name: Assemble and execute Windows release archives')
         linux_release=workflow.index('      - name: Assemble and execute Linux release archives')
         self.assertLess(workflow.index('try { ./scripts/verify_windows.ps1 }'),windows_release)
-        self.assertIn("if: runner.os == 'Windows'",workflow[windows_release:linux_release])
+        windows_payload=workflow.index('  windows-release-payload:')
+        self.assertIn('needs: [package, installed-acceptance]',workflow[windows_payload:windows_release])
+        self.assertIn('runs-on: windows-2022',workflow[windows_payload:windows_release])
         self.assertIn("if: runner.os == 'Linux'",workflow[linux_release:workflow.index('\n      - ',linux_release+1)])
         self.assertIn('metal_parallel=(Get-Content',windows)
         for name in ('build/frozen-metal-parallel-evidence','build/frozen-metal-parallel-electrical-evidence',

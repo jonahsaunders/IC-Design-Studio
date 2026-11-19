@@ -145,10 +145,13 @@ or deleted. See
 [qualification and repository setup](QUALIFICATION_0.22.md) for required checks,
 the reviewed main ruleset and remaining clean-machine acceptance.
 
-The desktop jobs run `scripts/prepare_release_payload.py` after installer/frozen
-checks. That script executes the extracted archive with isolated application
-settings and retains its hash. `scripts/assemble_prerelease.py` rejects a changed
-asset, different source commit, missing platform or unqualified archive.
+The desktop jobs run `scripts/prepare_release_payload.py` after installer and
+frozen application checks. Windows archive assembly runs on a fresh runner
+after installed acceptance and restores the same run's sealed build and
+installed evidence. The script executes the extracted archive with isolated
+application settings and retains its hash. `scripts/assemble_prerelease.py`
+rejects a changed asset, different source commit, missing platform or
+unqualified archive.
 
 The Windows acceptance record names and hashes the exact installer before running
 it, checks its hash again afterwards and retains all three installed DPI probe
@@ -157,6 +160,8 @@ commit/version and the installer hash to match the supplied setup executable.
 Each platform also requires its expected desktop archive, corresponding source
 ZIP and evidence ZIP. A refreshed asset manifest cannot substitute for executing
 a changed installer.
+For Windows, the separate corresponding-source asset must match the source ZIP
+included in the installer byte for byte when the portable archive omits it.
 Distribution archives are hashed before extraction and checked again after the
 desktop and VGA probes; replacing an archive during execution fails acceptance.
 

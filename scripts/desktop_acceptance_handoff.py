@@ -3,6 +3,7 @@ import argparse,ast,hashlib,importlib.util,json,os,platform,re,shutil,stat,subpr
 from pathlib import Path,PurePosixPath
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT))
+from icstudio import __version__
 from scripts.source_files import workflow_hash
 
 MANIFEST='manifest.json';ARCHIVE='payload.tar';READY='build/desktop-handoff-restored.json'
@@ -171,6 +172,11 @@ def collect(root,selected,*,host):
  payload_names(out,host)
  return dict(sorted(out.items()))
 def write_source(root,destination):
+ if os.name=='nt':
+  embedded=unlinked(root/'dist/ICDesignStudio'/f'IC-Design-Studio-{__version__}-Source.zip',root)
+  require(embedded.is_file(),'Missing Windows installer corresponding source')
+  shutil.copyfile(embedded,destination)
+  return
  spec=importlib.util.spec_from_file_location('handoff_source_archive',root/'scripts/release_archives.py')
  module=importlib.util.module_from_spec(spec);sys.path.insert(0,str(root));spec.loader.exec_module(module)
  created=module.source_archive(destination.parent)

@@ -178,7 +178,7 @@ def from_zip(archive, prefix, commit):
         return from_directory(root, commit)
 
 
-def check_distribution(path, platform, receipt):
+def check_distribution(path, platform, receipt, *, corresponding_source=None):
     validate_receipt(receipt, receipt.get('expected_commit', ''))
     require(platform == receipt['platform'], 'distribution platform differs')
     expected = {'ICDesignStudio/' + name: sha for name, sha in receipt['distribution_files'].items()}
@@ -193,6 +193,15 @@ def check_distribution(path, platform, receipt):
                 safe(name)
                 require(name.casefold() not in aliases, 'duplicate distribution member')
                 aliases.add(name.casefold()); members[name] = item
+            if corresponding_source is not None:
+                source = Path(corresponding_source)
+                match = re.fullmatch(r'(IC-Design-Studio-[0-9]+\.[0-9]+\.[0-9]+(?:\.dev[0-9]+)?)-Source-Windows\.zip', source.name)
+                require(match is not None, 'invalid Windows corresponding-source filename')
+                embedded = 'ICDesignStudio/' + match[1] + '-Source.zip'
+                if embedded in expected and embedded not in members:
+                    with source.open('rb') as stream:
+                        require(digest(stream) == expected[embedded], 'separate source differs from installed source')
+                    del expected[embedded]
             require({name for name, item in members.items() if not item.is_dir()} == set(expected) | set(links),
                     'distribution file or link inventory differs')
             for name, target in links.items():

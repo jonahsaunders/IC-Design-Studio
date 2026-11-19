@@ -59,7 +59,8 @@ def assemble(inputs, output, commit):
         platform = data['platform']
         prefix = f'IC-Design-Studio-{__version__}-'
         archive_name = prefix + ('Windows-x64-Portable.zip' if platform == 'Windows' else 'Linux-x86_64.tar.gz')
-        required = {archive_name, prefix + f'Source-{platform}.zip', prefix + f'Evidence-{platform}.zip'}
+        source_name = prefix + f'Source-{platform}.zip'
+        required = {archive_name, source_name, prefix + f'Evidence-{platform}.zip'}
         if platform == 'Windows': required.add(prefix + 'Windows-x64-Setup.exe')
         require(required <= data['assets'].keys(), 'Missing required desktop, corresponding source or evidence asset for ' + platform)
         require(data['distribution']['status'] == 'passed', 'Archive execution is not qualified')
@@ -91,7 +92,8 @@ def assemble(inputs, output, commit):
             if platform == 'Windows':
                 require(same_cmim_receipt(cmim, data['installer'].get('ihp_cmim')), 'Windows installer IHP CMIM receipt differs')
         check_pw2dn_distribution(files[archive_name], platform, data['pw2dn'])
-        check_cmim_distribution(files[archive_name], platform, cmim)
+        check_cmim_distribution(files[archive_name], platform, cmim,
+                                corresponding_source=files[source_name] if platform == 'Windows' else None)
         require(record.name not in files, 'Duplicate validation record')
         files[record.name] = record
     output.mkdir(parents=True)

@@ -22,6 +22,16 @@ required evidence. This work changes no process qualification.
 [Source promotion](https://github.com/jonahsaunders/IC-Design-Studio/pull/81) ·
 [Observed inverter timeout](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/44432231562/job/135252485940)
 
+**November 19, 2026.** Run 44440660825 passed 40 jobs, including the Linux
+release payload, the Windows package producer, and all six non-desktop
+qualification groups. The Windows installed job passed its frozen digital and
+installed application steps. Its archive assembly failed and the job reached
+GitHub's six-hour execution limit during final diagnostics. This attempt did
+not publish 0.23.1. The next run assembles the sealed Windows packages on a
+fresh runner, preserves the original receipt checks, and verifies the separate
+corresponding-source ZIP against the byte hash from the installation.
+[Hosted Windows job](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/44440660825/job/135355433772)
+
 ## Project PDK switching and collaboration
 
 **November 18, 2026.** Source `4e442f050513a26a0e95ad7ff691a80521a1aeed`

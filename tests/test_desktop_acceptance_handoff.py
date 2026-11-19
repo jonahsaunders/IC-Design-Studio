@@ -105,12 +105,20 @@ class HandoffTests(unittest.TestCase):
   commit=self.run_git('rev-parse','HEAD')
   env={k:v for k,v in os.environ.items() if not k.upper().startswith('GIT_')}
   env.update(GITHUB_SHA=commit,GITHUB_RUN_ID='42',GITHUB_RUN_ATTEMPT='1',RUNNER_OS='Windows' if os.name=='nt' else 'Linux')
+  if os.name=='nt':
+   installers=self.root/'dist/installers'
+   result=subprocess.run([sys.executable,'-I','-B',str(self.root/'scripts/release_archives.py'),'--output',str(installers)],cwd=self.root,env=env,capture_output=True,timeout=30)
+   self.assertEqual(result.returncode,0,result.stderr.decode(errors='replace'))
+   embedded=self.root/'dist/ICDesignStudio/IC-Design-Studio-0.0-Source.zip'
+   shutil.copyfile(installers/embedded.name,embedded)
+   source_bytes=embedded.read_bytes()
   for command in ('pack','restore'):
    result=subprocess.run([sys.executable,'-I','-B',str(self.root/'scripts/desktop_acceptance_handoff.py'),command,'--output' if command=='pack' else '--input',str(self.folder)],cwd=self.root,env=env,capture_output=True,timeout=30)
    self.assertEqual(result.returncode,0,result.stderr.decode(errors='replace'))
    self.assertEqual(json.loads(result.stdout)['candidate'],commit)
    if command=='pack':self.clear_producer()
   self.assertEqual(h.load(self.root/h.READY)['status'],'PASS')
+  if os.name=='nt':self.assertEqual((self.root/h.SOURCE).read_bytes(),source_bytes)
  def test_existing_destination_never_overwritten(self):
   self.prepare_restore();self.write('dist/ICDesignStudio/owned',b'keep');self.reject();self.assertEqual((self.root/'dist/ICDesignStudio/owned').read_bytes(),b'keep')
  def test_preexisting_ready_rejected(self):
