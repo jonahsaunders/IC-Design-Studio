@@ -30,7 +30,7 @@ BOUND_HISTORICAL_SOURCES = frozenset((
     'digital_planning.py', 'digital_qualification.py', 'digital_rc.py', 'digital_reports.py',
     'digital_runtime.py', 'digital_setup_ui.py', 'digital_sky130_pins.py', 'digital_trace_store.py',
     'digital_workspace.py', 'exchange_review.py', 'feature_cli.py', 'hierarchy_ui.py',
-    'inductor_design_probe.py', 'interop_cli.py', 'job_store.py', 'layout_comparison.py',
+    'inductor_design_probe.py', 'interop_cli.py', 'layout_comparison.py',
     'layout_development_ui.py', 'layout_exchange.py', 'magic_rc.py', 'mixed_signal.py',
     'native_exchange.py', 'physical_desktop_probe.py', 'project_manager.py', 'release_probe.py',
     'sar_example.py', 'sdk.py', 'symbol_editor.py', 'variation_runs.py', 'vga_probe.py',
