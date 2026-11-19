@@ -32,6 +32,16 @@ fresh runner, preserves the original receipt checks, and verifies the separate
 corresponding-source ZIP against the byte hash from the installation.
 [Hosted Windows job](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/44440660825/job/135355433772)
 
+**November 19, 2026.** Release run 44525971737 at `66368f8d1842439fbbef262cd4da1c4e6fed35df`
+passed 41 jobs, including Windows installed acceptance and the complete Linux
+release payload. The Windows release runner restored the sealed build, then
+failed during download and extraction of the installed checkpoint. The
+1,965,117,405-byte ZIP contains 164,163 entries totaling 16,174,233,498 bytes.
+The Windows release job now verifies the download before extracting release
+evidence locally. The remaining hosted checks are portable execution and
+final release validation. Process qualification estimates are unchanged.
+[Windows release job](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/44525971737/job/135848481686)
+
 ## Project PDK switching and collaboration
 
 **November 18, 2026.** Source `4e442f050513a26a0e95ad7ff691a80521a1aeed`
