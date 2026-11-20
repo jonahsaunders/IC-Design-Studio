@@ -169,6 +169,7 @@ class PhysicalWorkspaceMixin:
         if self._live_pending:self._live_pending=False;self.live_timer.start()
     def live_checks_ready(self,packet):
         if (packet['project_id'],packet['revision'],packet['cid'])!=(self.project['id'],self.project['revision'],self.cid):return
+        self._live_context=(packet['project_id'],packet['revision'],packet['cid'])
         result=packet['result'];self._live_findings=result['issues'];self._live_revision=self.project['revision'];self.live_table.setRowCount(len(result['issues']))
         for i,issue in enumerate(result['issues']):
             for j,value in enumerate((issue['code'],issue['message'])):self.live_table.setItem(i,j,QTableWidgetItem(value))

@@ -5,7 +5,7 @@ from . import ai_testbench
 
 
 ACTIONS = {'circuit': 'Explain selected circuit', 'edit': 'Change selected schematic',
-           'failure': 'Explain failed run', 'bench': 'Create a testbench'}
+           'failure': 'Explain failed run', 'bench': 'Create a testbench', 'layout':'Investigate physical layout'}
 
 
 def excerpt(text, limit):

@@ -33,6 +33,8 @@ def check_enclosures(p,cid,shapes):
             missing=db.Region(polygon(s)).sized(minimum)-outer
             if not missing.is_empty():
                 b=polygon(s).bbox();out.append({'severity':'error','code':'ENCLOSURE','cell_id':cid,'object':s['id'],'bbox':[b.left,b.bottom,b.right,b.top],'message':f"{cut} needs {minimum} nm of {rule['conductor']} enclosure.",'fingerprint':digest([p['revision'],s['id'],rule])})
+                out[-1].update(layer=cut, conductor=rule['conductor'], minimum_nm=minimum,
+                               rule_source='Studio declared enclosure rules')
     return out
 
 

@@ -4,7 +4,7 @@ from PySide6.QtWidgets import QMenu, QPushButton
 from . import ai_investigation as investigation
 
 
-def context_menu(widget, resolve, ask):
+def context_menu(widget, resolve, ask, follow=None):
     def popup(point):
         item = widget.itemAt(point) if point.x() >= 0 else widget.currentItem()
         if item is not None:
@@ -15,8 +15,12 @@ def context_menu(widget, resolve, ask):
         menu = QMenu(widget)
         action = menu.addAction('Ask About This…')
         action.setEnabled(bool(args))
-        if menu.exec(widget.viewport().mapToGlobal(point)) == action and args:
+        link=menu.addAction('Follow in Layout Assistant…') if follow and args else None
+        picked=menu.exec(widget.viewport().mapToGlobal(point))
+        if picked == action and args:
             ask(**args)
+        elif link is not None and picked==link:
+            follow(**args)
     widget.setContextMenuPolicy(Qt.CustomContextMenu)
     widget.customContextMenuRequested.connect(popup)
 
@@ -35,6 +39,46 @@ def row_for_result(studio, result):
 
 
 def install(studio, show):
+    def ask_layout(marker=None,selection=None):
+        if marker and marker.get('source_design_hash'):
+            from .model import design_digest
+            if marker['source_design_hash']!=design_digest(studio.project):
+                studio.statusBar().showMessage('This finding is stale. Run the layout check again.')
+                return
+        if not studio.flush_inspector():return
+        panel = show()
+        panel.cancel()
+        panel.reset_context()
+        panel.action.blockSignals(True)
+        panel.action.setCurrentIndex(panel.action.findData('layout'))
+        panel.action.blockSignals(False)
+        panel.note.clear()
+        panel.call_local(lambda:panel.layout_tools.reload(marker,selection))
+        panel.refresh()
+        panel.note.setFocus()
+        return panel
+    studio.ask_layout = ask_layout
+    def finding(item,live):
+        rows = getattr(studio,'_live_findings',[]) if live else studio.issues
+        revision = getattr(studio,'_live_revision',None) if live else studio.check_revision
+        if revision!=studio.project['revision'] or item.row()>=len(rows):return
+        if live and getattr(studio,'_live_context',None)!=(studio.project['id'],revision,studio.cid):return
+        row=rows[item.row()]
+        if not live and not (row.get('bbox') or row.get('shape_ids') or
+                             row.get('object') in {s['id'] for s in studio.cell['shapes']}):return
+        return dict(marker=row)
+    def inspect_marker(marker):
+        from .model import design_digest
+        if marker.get('source_design_hash') and marker['source_design_hash']!=design_digest(studio.project):return
+        if not studio.flush_inspector():return
+        cid=marker.get('cell_id') or studio.cid
+        if cid!=studio.cid:
+            if cid not in {c['id'] for c in studio.project['cells']}:return
+            studio.cid=cid
+            studio.refresh()
+        ask_layout(marker)
+    context_menu(studio.checks,lambda item:finding(item,False),inspect_marker)
+    context_menu(studio.live_table,lambda item:finding(item,True),inspect_marker)
     def ask(row=None, requirement=None, probe=None, device=None, *, edit=False):
         if not row and not studio.flush_inspector():
             return
@@ -73,7 +117,16 @@ def install(studio, show):
         button.setEnabled(bool(wave_args()))
     studio.plot.result_changed.connect(sync_wave)
     studio.traces.currentRowChanged.connect(sync_wave)
-    context_menu(studio.traces,wave_args,ask)
+    def follow_wave(row,probe):
+        from .model import design_digest
+        job=row['job']
+        if job['cell']!=studio.cid or design_digest(job['project'])!=design_digest(studio.project):
+            studio.statusBar().showMessage('Open the saved circuit revision to follow this waveform into layout.')
+            return
+        panel=ask_layout()
+        if panel:
+            panel.call_local(lambda:panel.layout_tools.follow_wave(row,probe[1]))
+    context_menu(studio.traces,wave_args,ask,follow_wave)
     def simulation(item):
         row = next((r for r in studio.run_manager.rows if r['id']==item.data(Qt.UserRole)),None)
         return dict(row=row) if row else None

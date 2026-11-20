@@ -67,8 +67,13 @@ def drc(p,cid):
             for pair in checks.each():
                 box=pair.bbox();ref=next((s['id'] for s in shapes if polygon(s).bbox().touches(box)),'')
                 issues.append({'severity':'error','code':code,'object':ref,'message':f'{layer["name"]}: {code.lower()} below {layer["width" if code=="WIDTH" else "space"]} nm.','bbox':[box.left,box.bottom,box.right,box.top]})
+                issues[-1].update(layer=layer['name'], minimum_nm=layer['width' if code=='WIDTH' else 'space'],
+                                  measured_nm=pair.distance(), rule_source='Studio declared geometry rules',
+                                  edges=[[[e.p1.x,e.p1.y],[e.p2.x,e.p2.y]] for e in (pair.first,pair.second)])
                 if len(issues)>2000: raise ValueError('More than 2,000 violations. Fix coarse geometry first.')
-    for i in issues:i['fingerprint']=digest({'revision':p['revision'],'rule':i['code'],'object':i['object'],'bbox':i.get('bbox')})
+    for i in issues:
+        i['cell_id']=cid
+        i['fingerprint']=digest({'revision':p['revision'],'rule':i['code'],'object':i['object'],'bbox':i.get('bbox')})
     return issues
 
 def mapping_audit(p,cid):

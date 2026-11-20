@@ -653,6 +653,7 @@ class HumanWorkspaceMixin(GridSettingsMixin):
         if canvas.mode=='schematic':
             if hasattr(self,'ask_about'):
                 menu.addAction('Ask About This…',lambda:self.ask_about())
+                menu.addAction('Follow in Layout Assistant…',lambda:self.ask_layout())
                 action=menu.addAction('Request a Change…',lambda:self.ask_about(edit=True))
                 action.setEnabled(bool(self.selection or self.net))
             child=next((d for d in self.cell['devices'] if d['id'] in self.selection and d['kind']=='X'),None)
@@ -671,7 +672,26 @@ class HumanWorkspaceMixin(GridSettingsMixin):
                     name=obj.get('name') or ('Wire' if 'points' in obj else obj.get('text','Label'))
                     overlaps.addAction(name,lambda checked=False,ident=obj['id']:self.select([ident],'schematic'))
             menu.addSeparator()
+        elif hasattr(self,'ask_layout'):
+            point=canvas.model(QPointF(pos))
+            hit=canvas.hit(point)
+            ids=self.selection if hit is None or hit['id'] in self.selection else [hit['id']]
+            menu.addAction('Ask About This Layout…',lambda:self.ask_layout(selection=ids))
+            for marker in self.layout_markers_at(point):
+                menu.addAction('Explain '+marker['code']+'…',lambda checked=False,m=marker:self.ask_layout(m))
         self._canvas_context_menu=menu
         menu.addAction('Fit design',self.fit_active)
         menu.addAction('Grid settings…',self.grid_settings_dialog)
         menu.exec(canvas.mapToGlobal(pos))
+
+    def layout_markers_at(self,point):
+        found = []
+        live = getattr(self,'_live_context',None)==(self.project['id'],self.project['revision'],self.cid)
+        for revision,issues in [(self.project['revision'] if live else None,getattr(self,'_live_findings',[])),
+                                (self.check_revision,self.issues)]:
+            if revision!=self.project['revision']:continue
+            for i in issues:
+                box=i.get('bbox')
+                if box and (i.get('cell_id') or self.cid)==self.cid and box[0]<=point.x()<=box[2] and box[1]<=point.y()<=box[3]:
+                    if i not in found:found.append(i)
+        return found

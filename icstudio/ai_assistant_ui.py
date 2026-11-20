@@ -138,6 +138,8 @@ class Assistant(ReviewTools, QDockWidget):
         self.run = QComboBox()
         form.addRow('Failed run', self.run)
         self.run_label = form.labelForField(self.run)
+        from .ai_layout_ui import LayoutTools
+        self.layout_tools = LayoutTools(self)
         self.note = QLineEdit()
         self.note.setMaxLength(4000)
         self.note.setAccessibleName('Question or expected limits')
@@ -219,6 +221,7 @@ class Assistant(ReviewTools, QDockWidget):
                 editor.hide()
                 content.addStretch()
                 self.tabs.addTab(page, title)
+        self.layout_tab = self.tabs.addTab(self.layout_tools,'Layout')
         footer = QWidget()
         footer.setObjectName('investigationComposer')
         outer.addWidget(footer)
@@ -294,6 +297,7 @@ class Assistant(ReviewTools, QDockWidget):
 
     def controls(self):
         busy = self.reply is not None
+        self.layout_tools.setEnabled(not busy)
         bench = self.action.currentData() == 'bench'
         for w in (self.connection, self.action, self.note, self.run):
             w.setEnabled(not busy)
@@ -310,6 +314,7 @@ class Assistant(ReviewTools, QDockWidget):
         self.draft_button.setEnabled(self.add_button.isEnabled())
         self.pins_widget.setEnabled(not busy)
         self.tabs.setTabVisible(2, bench)
+        self.tabs.setTabVisible(self.layout_tab,self.action.currentData()=='layout')
         editing = self.action.currentData() == 'edit'
         self.review_change.setVisible(editing and self.change is not None)
         self.review_change.setEnabled(self.change is not None and not busy)
@@ -318,12 +323,16 @@ class Assistant(ReviewTools, QDockWidget):
             self.send_button.setEnabled(False)
 
     def refresh_request(self):
-        if self.action.currentData() == 'edit':
+        if self.action.currentData() in ('edit','layout'):
             self.reset_context()
         self.refresh()
 
     def refresh(self):
         self.cancel()
+        physical = self.action.currentData()=='layout'
+        self.tabs.setTabVisible(self.layout_tab,physical)
+        if physical and self.layout_tools.scope is None and self.layout_tools.pending is None and not self.layout_tools.problem:
+            self.call_local(self.layout_tools.reload)
         failure = self.action.currentData() == 'failure'
         self.run_label.setVisible(failure)
         self.run.setVisible(failure)
@@ -354,7 +363,7 @@ class Assistant(ReviewTools, QDockWidget):
         self.answer.clear()
         self.answer.setReadOnly(self.action.currentData() != 'bench')
         self.review.clear()
-        self.tabs.setCurrentIndex(0)
+        self.tabs.setCurrentIndex(self.layout_tab if self.action.currentData()=='layout' else 0)
         self.attachment_bar()
         self.call_local(self.update_evidence)
         self.update_preview()
@@ -367,6 +376,11 @@ class Assistant(ReviewTools, QDockWidget):
         layout.setStretch(layout.count()-1, 0 if expanded else 1)
 
     def describe_scope(self):
+        if self.action.currentData()=='layout':
+            scope = self.layout_tools.scope
+            self.scope_title.setText(f"{scope.cell['name']} · revision {scope.project['revision']}")
+            self.scope_detail.setText('Layout evidence · '+(', '.join(self.layout_tools.nets()) or 'selected geometry'))
+            return
         def listed(items):
             suffix = f' (+{len(items)-8} more)' if len(items) > 8 else ''
             return ', '.join(items[:8]) + suffix
@@ -535,6 +549,8 @@ class Assistant(ReviewTools, QDockWidget):
                     self.open_change_review()
                 else:
                     self.status.setText('No edits proposed. Add details and send a follow-up.')
+            elif self.action.currentData()=='layout':
+                self.layout_tools.receive(answer)
             else:
                 self.receive_explanation(answer)
         except (ValueError, RecursionError) as exc:
@@ -679,6 +695,10 @@ def install(studio):
         panel.show()
         panel.raise_()
         return panel
-    studio.action(studio.task_menus['Tools'], 'AI Assistant…', show)
+    def open_assistant():
+        if studio.current_mode=='layout' and getattr(studio,'_ai_assistant',None) is None:
+            return studio.ask_layout()
+        return show()
+    studio.action(studio.task_menus['Tools'], 'AI Assistant…', open_assistant)
     from . import ai_entry_points
     ai_entry_points.install(studio,show)
