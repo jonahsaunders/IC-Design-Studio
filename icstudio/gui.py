@@ -673,6 +673,11 @@ class Studio(DigitalMixin,LiveCollaborationMixin,CollaborationMixin,Interoperabi
     def set_project(self,project,path=None):
         result=super().set_project(project,path)
         if result is False:return False
+        assistant=getattr(self,'_ai_assistant',None)
+        if assistant:
+            assistant.cancel()
+            assistant.note.clear()
+            assistant.refresh()
         hub=getattr(self,'_student_hub',None)
         if hub:
             hub.guide.update_run_state()
@@ -720,6 +725,8 @@ class Studio(DigitalMixin,LiveCollaborationMixin,CollaborationMixin,Interoperabi
         install_app_workspaces(self)
         from .project_versions_ui import install as install_versions
         install_versions(self)
+        from .ai_assistant_ui import install as install_ai_assistant
+        install_ai_assistant(self)
         self.reindex_commands()
     connect = SchematicMixin.connect
     move = LayoutDevelopmentMixin.move

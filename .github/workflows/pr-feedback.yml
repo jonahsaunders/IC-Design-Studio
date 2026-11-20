@@ -49,6 +49,11 @@ jobs:
         env:
           QT_QPA_PLATFORM: offscreen
         run: python -m unittest tests.gui_package_download tests.gui_schematic_fit tests.test_example_schematics
+      - name: Check AI provider contracts and desktop assistant workflows
+        if: matrix.group == 'gui'
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python -m unittest tests.test_ai_assistant tests.gui_ai_assistant
       - name: Run focused contracts and GUI smoke checks
         run: python scripts/ci_feedback.py --group ${{ matrix.group }}
       - uses: actions/upload-artifact@v4

@@ -74,6 +74,7 @@ Python requirements do not install the digital engines, VGA assets or openEMS ru
 | Workflow | Start here |
 | --- | --- |
 | Analog | [Draw a schematic, run SPICE, and inspect a waveform](docs/ANALOG_WORKSPACE.md) |
+| AI Assistant | [Explain a circuit or failed run and create a testbench](docs/AI_ASSISTANT.md) |
 | Digital | [Simulate RTL and take a block through synthesis and layout](docs/DIGITAL_FLOW.md) |
 | Mixed signal | [Connect a SPICE circuit to a Verilog controller](docs/MIXED_SIGNAL_SAR.md) |
 | Physical design | [Explore layout, extraction, and verification](docs/FEATURE_TOUR.md#one-cell-both-views) |
