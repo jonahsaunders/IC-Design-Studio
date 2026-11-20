@@ -81,8 +81,8 @@
           "id": "9230bf9123d94339",
           "kind": "V",
           "name": "VDD",
-          "x": 140,
-          "y": 200,
+          "x": 120,
+          "y": 150,
           "rotation": 0,
           "nets": {
             "p": "vdd",
@@ -112,8 +112,8 @@
           "id": "c8b388f15e854151",
           "kind": "V",
           "name": "V1",
-          "x": 140,
-          "y": 400,
+          "x": 160,
+          "y": 350,
           "rotation": 0,
           "nets": {
             "p": "vin",
@@ -290,28 +290,6 @@
           "net": "vout"
         },
         {
-          "id": "b4ee956ee2b646ab",
-          "points": [
-            [
-              140,
-              250
-            ],
-            [
-              60,
-              250
-            ],
-            [
-              60,
-              450
-            ],
-            [
-              140,
-              450
-            ]
-          ],
-          "net": "0"
-        },
-        {
           "id": "a8fe99e044ed4ad9",
           "points": [
             [
@@ -324,20 +302,6 @@
             ]
           ],
           "net": "vin"
-        },
-        {
-          "id": "a80ae781e963463c",
-          "points": [
-            [
-              510,
-              400
-            ],
-            [
-              720,
-              400
-            ]
-          ],
-          "net": "0"
         },
         {
           "id": "7d2f46b29fa04015",
@@ -358,15 +322,15 @@
           "net": "vout"
         },
         {
-          "id": "b1f419ffe76746a4",
+          "id": "a16d774e30854628",
           "points": [
             [
-              140,
-              350
+              160,
+              300
             ],
             [
               410,
-              350
+              300
             ],
             [
               410,
@@ -376,11 +340,15 @@
           "net": "vin"
         },
         {
-          "id": "8c92206e041b4bb3",
+          "id": "805390ea67bb4cb7",
           "points": [
             [
-              140,
-              150
+              120,
+              100
+            ],
+            [
+              480,
+              100
             ],
             [
               480,
@@ -388,20 +356,6 @@
             ]
           ],
           "net": "vdd"
-        },
-        {
-          "id": "e0f6b605a2ef4008",
-          "points": [
-            [
-              140,
-              450
-            ],
-            [
-              480,
-              450
-            ]
-          ],
-          "net": "0"
         }
       ],
       "labels": [
@@ -412,6 +366,66 @@
           "anchor": {
             "kind": "pin",
             "id": "9230bf9123d94339",
+            "pin": "p"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "dc55c45fa8f9428e",
+          "kind": "ground",
+          "name": "0",
+          "anchor": {
+            "kind": "pin",
+            "id": "9230bf9123d94339",
+            "pin": "n"
+          },
+          "offset": [
+            0,
+            0
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "45f551f387a94bfa",
+          "kind": "net_label",
+          "name": "vin",
+          "anchor": {
+            "kind": "pin",
+            "id": "b5ccce8143c043c2",
+            "pin": "g"
+          },
+          "offset": [
+            -27,
+            -8
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "e641195541674cdc",
+          "kind": "ground",
+          "name": "0",
+          "anchor": {
+            "kind": "pin",
+            "id": "c8b388f15e854151",
+            "pin": "n"
+          },
+          "offset": [
+            0,
+            0
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "0186a27df6b7401a",
+          "kind": "net_label",
+          "name": "vout",
+          "anchor": {
+            "kind": "pin",
+            "id": "d14a8b7cf7094612",
             "pin": "p"
           },
           "offset": [
@@ -436,32 +450,17 @@
           "rotation": 0
         },
         {
-          "id": "45f551f387a94bfa",
-          "kind": "net_label",
-          "name": "vin",
+          "id": "086c26138a724c43",
+          "kind": "ground",
+          "name": "0",
           "anchor": {
             "kind": "pin",
-            "id": "b5ccce8143c043c2",
-            "pin": "g"
+            "id": "d14a8b7cf7094612",
+            "pin": "n"
           },
           "offset": [
-            -27,
-            -8
-          ],
-          "rotation": 0
-        },
-        {
-          "id": "f6aaf7764aa3418c",
-          "kind": "net_label",
-          "name": "vout",
-          "anchor": {
-            "kind": "pin",
-            "id": "b5ccce8143c043c2",
-            "pin": "d"
-          },
-          "offset": [
-            8,
-            -12
+            0,
+            0
           ],
           "rotation": 0
         }

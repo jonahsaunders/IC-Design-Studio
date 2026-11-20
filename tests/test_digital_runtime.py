@@ -40,6 +40,24 @@ class DigitalRuntimeTests(unittest.TestCase):
         self.assertEqual(runtime.status()['state'],'setup')
         self.assertFalse(list(self.state.glob('ready-*.json')))
 
+    def test_setup_reports_archive_bytes_and_completed_checks(self):
+        data=self.package();events=[]
+        location={'kind':'linux','root':str(self.state/'runtimes'/data['sha256'])}
+        def qualify(runtime,directory,progress,completed):
+            for count in range(1,11):completed(count)
+        with patch.object(runtime,'identity'),patch.object(runtime,'location',return_value=location), \
+             patch.object(runtime.host_platform,'libc_ver',return_value=('glibc','2.39')), \
+             patch('icstudio.digital_setup_probe.qualify',side_effect=qualify):
+            runtime.setup(report=events.append)
+        for phase in ('Checking package','Unpacking tools'):
+            measured=[e for e in events if e['phase']==phase]
+            self.assertEqual(measured[-1]['total'],(self.payload/'runtime.tar.gz').stat().st_size)
+            self.assertEqual(measured[-1]['done'],measured[-1]['total'])
+        checks=[e['done'] for e in events if e['unit']=='checks']
+        self.assertEqual(checks,list(range(11)))
+        self.assertEqual(events[-1]['completed'],events[-1]['steps'])
+        self.assertEqual(events[-1]['phase'],'Ready')
+
     def test_safe_extraction_rejects_escape_and_absolute_links(self):
         for name,link in [('../escape',''),('a','/tmp/escape'),('a','../../escape')]:
             archive=self.root/'bad.tar.gz'

@@ -994,9 +994,7 @@
               "t_53a00c43ec2e006e14dde467",
               "t_a2a9915f8eaa6e83a24b2ba7"
             ],
-            "wires": [
-              "4ef91c13ca234451"
-            ]
+            "wires": []
           },
           {
             "id": "n_f1b3157dbf6f61663bc7f034",
@@ -1052,21 +1050,6 @@
           ],
           "net": "vin",
           "net_id": "n_f1b3157dbf6f61663bc7f034"
-        },
-        {
-          "id": "4ef91c13ca234451",
-          "points": [
-            [
-              140,
-              290
-            ],
-            [
-              500,
-              290
-            ]
-          ],
-          "net": "0",
-          "net_id": "n_26f1a9ec10580b7094d8a529"
         }
       ],
       "labels": [
@@ -1077,6 +1060,36 @@
           "anchor": {
             "kind": "pin",
             "id": "a67358f8c3844f89",
+            "pin": "p"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "159f3ca638a94226",
+          "kind": "ground",
+          "name": "0",
+          "anchor": {
+            "kind": "pin",
+            "id": "a67358f8c3844f89",
+            "pin": "n"
+          },
+          "offset": [
+            0,
+            0
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "f02b371411c946a8",
+          "kind": "net_label",
+          "name": "vout",
+          "anchor": {
+            "kind": "pin",
+            "id": "78510f1eab534efd",
             "pin": "p"
           },
           "offset": [
@@ -1097,21 +1110,6 @@
           "offset": [
             0,
             0
-          ],
-          "rotation": 0
-        },
-        {
-          "id": "ff6b7c8603b64cad",
-          "kind": "net_label",
-          "name": "vout",
-          "anchor": {
-            "kind": "pin",
-            "id": "285b527b5b7c4818",
-            "pin": "n"
-          },
-          "offset": [
-            8,
-            -12
           ],
           "rotation": 0
         }

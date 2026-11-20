@@ -30,10 +30,12 @@ def io_path(path):
     if value.startswith('\\\\?\\'):return Path(value)
     return Path('\\\\?\\UNC\\'+value[2:] if value.startswith('\\\\') else '\\\\?\\'+value)
 
-def file_digest(path):
+def file_digest(path, progress=None):
     h=hashlib.sha256()
     with open(io_path(path),"rb") as f:
-        for block in iter(lambda:f.read(1024*1024),b""): h.update(block)
+        for block in iter(lambda:f.read(1024*1024),b""):
+            h.update(block)
+            if progress is not None: progress(f.tell())
     return h.hexdigest()
 
 def design_digest(p):

@@ -464,20 +464,6 @@
             ]
           ],
           "net": "vin"
-        },
-        {
-          "id": "5b82755166434dce",
-          "points": [
-            [
-              140,
-              290
-            ],
-            [
-              500,
-              290
-            ]
-          ],
-          "net": "0"
         }
       ],
       "labels": [
@@ -488,6 +474,36 @@
           "anchor": {
             "kind": "pin",
             "id": "b5f2542a6e714b46",
+            "pin": "p"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "9d1c0d5f579e43b1",
+          "kind": "ground",
+          "name": "0",
+          "anchor": {
+            "kind": "pin",
+            "id": "b5f2542a6e714b46",
+            "pin": "n"
+          },
+          "offset": [
+            0,
+            0
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "4e16b1bfbbb84b07",
+          "kind": "net_label",
+          "name": "vout",
+          "anchor": {
+            "kind": "pin",
+            "id": "16c9e140ce054e35",
             "pin": "p"
           },
           "offset": [
@@ -508,21 +524,6 @@
           "offset": [
             0,
             0
-          ],
-          "rotation": 0
-        },
-        {
-          "id": "6debf2b01d834fff",
-          "kind": "net_label",
-          "name": "vout",
-          "anchor": {
-            "kind": "pin",
-            "id": "3c5231d37bb245c7",
-            "pin": "n"
-          },
-          "offset": [
-            8,
-            -12
           ],
           "rotation": 0
         }

@@ -119,7 +119,18 @@ class WireCanvasMixin:
         key=(self.cell.get('wires',()),self.cell['devices'],self.cell.get('junctions',()),self.cell.get('labels',()))
         if hasattr(self,'_wire_geometry_key') and all(a is b for a,b in zip(key,self._wire_geometry_key)):return self._wire_geometry_cache
         self._wire_geometry_key=key
-        dots=wiring.junction_points(self.cell);pinlist,_,_,_,segments,index=self.wire_spatial();bridges=[];seen=set()
+        dots=set(wiring.junction_points(self.cell));pinlist,_,_,_,segments,index=self.wire_spatial();bridges=[];seen=set()
+        connected=set()
+        for pin,point in pinlist:
+            directions=set()
+            for i in index.query((*point,*point)):
+                a,b=segments[i][2:]
+                if wiring.on_segment(point,a,b):
+                    connected.add(pin)
+                    for end in (a,b):
+                        dx,dy=end[0]-point[0],end[1]-point[1]
+                        if dx or dy:directions.add(((dx>0)-(dx<0),(dy>0)-(dy<0)))
+            if len(directions)>=2:dots.add(tuple(point))
         for wire,_,a,b in segments:
             if a[0]!=b[0]:continue
             for i in index.query((a[0],min(a[1],b[1]),a[0],max(a[1],b[1]))):
@@ -128,14 +139,13 @@ class WireCanvasMixin:
                 x,y=a[0],c[1]
                 if min(a[1],b[1])<y<max(a[1],b[1]) and min(c[0],d[0])<x<max(c[0],d[0]) and (x,y) not in dots and (x,y) not in seen:
                     seen.add((x,y));bridges.append((wire,x,y))
-        connected={pin for pin,point in pinlist if any(wiring.on_segment(point,segments[i][2],segments[i][3]) for i in index.query((*point,*point)))}
         if self.cell.get('labels'):
             groups=wiring.graph(self.cell,labels=False);label_roots={groups[('label',l['id'])] for l in self.cell['labels']}
             connected.update(pin for pin,_ in pinlist if groups[pin] in label_roots)
         self._wire_geometry_cache=(dots,bridges,connected);return self._wire_geometry_cache
 
     def draw_wires(self,p):
-        t=palette(self.dark);color='#91a5c2' if self.dark else '#7187a6';chosen=set(self.selection);a=self.model(QPointF(0,0));b=self.model(QPointF(self.width(),self.height()));view=(min(a.x(),b.x())-10,min(a.y(),b.y())-10,max(a.x(),b.x())+10,max(a.y(),b.y())+10);_,_,_,_,segments,index=self.wire_spatial();visible={segments[i][0]['id'] for i in index.query(view)}
+        t=palette(self.dark);color='#c0cedc' if self.dark else '#394754';chosen=set(self.selection);a=self.model(QPointF(0,0));b=self.model(QPointF(self.width(),self.height()));view=(min(a.x(),b.x())-10,min(a.y(),b.y())-10,max(a.x(),b.x())+10,max(a.y(),b.y())+10);_,_,_,_,segments,index=self.wire_spatial();visible={segments[i][0]['id'] for i in index.query(view)}
         def ink(wire):return t['accent'] if wire['id'] in chosen or (self.net and wire.get('net')==self.net) else color
         wires=self.cell.get('wires',[])
         if getattr(self,'_wire_draw_source',None) is not wires:

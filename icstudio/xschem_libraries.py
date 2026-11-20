@@ -1,5 +1,5 @@
 """Pinned, offline Xschem and GF180 simulation assets with explicit provenance."""
-import hashlib,json,re,urllib.request,os
+import hashlib,json,re,urllib.request,os,sys
 from pathlib import Path
 from .model import atomic_write
 
@@ -20,7 +20,14 @@ def library_root(key):
     if healthy(ASSETS):return ASSETS
     if key=='gf180mcu':
         cache=cache_root()
-        if not healthy(cache):repair_gf180()
+        if not healthy(cache):
+            # The CLI and background import jobs keep their synchronous API.
+            widgets=sys.modules.get('PySide6.QtWidgets')
+            app=widgets.QApplication.instance() if widgets else None
+            if app and isinstance(app,widgets.QApplication) and app.thread().isCurrentThread():
+                from .library_download_ui import restore
+                restore(app.activeWindow())
+            else:repair_gf180()
         if healthy(cache):return cache
     raise ValueError('The included '+key+' library is missing or changed. Reinstall the application package.')
 
@@ -99,9 +106,22 @@ def prepare(path,libraries=(),locations=None):
 def repair_gf180(progress=lambda *_:None):
     """Restore pinned public model/symbol bytes, never select a moving latest ref."""
     library=manifest()['libraries']['gf180mcu'];items=list(library['files'].items())
+    from .transfer_progress import ProgressRate
     for i,(rel,item) in enumerate(items):
         path=cache_root()/rel
-        if path.is_file() and hashlib.sha256(path.read_bytes()).hexdigest()==item['sha256']:continue
-        with urllib.request.urlopen(library['raw_base']+item['source'],timeout=30) as response:data=response.read(10_000_001)
+        if path.is_file() and hashlib.sha256(path.read_bytes()).hexdigest()==item['sha256']:
+            progress((i+1)/len(items),'Verified '+path.name)
+            continue
+        title=f'File {i+1} of {len(items)} · {path.name}'
+        progress(i/len(items),title+' · Connecting…')
+        with urllib.request.urlopen(library['raw_base']+item['source'],timeout=30) as response:
+            length=response.headers.get('Content-Length','')
+            total=int(length) if length.isdigit() else 0
+            data=bytearray(); rate=ProgressRate()
+            for block in iter(lambda:response.read1(128*1024),b''):
+                data.extend(block)
+                if len(data)>10_000_000:raise ValueError('Library asset is too large: '+rel)
+                fraction=min(.99,len(data)/total) if total else 0
+                progress((i+fraction)/len(items),title+' · '+rate.describe(len(data),total))
         if hashlib.sha256(data).hexdigest()!=item['sha256']:raise ValueError('Downloaded library does not match its pinned revision: '+rel)
-        atomic_write(path,data);progress((i+1)/len(items),'Restored '+path.name)
+        atomic_write(path,bytes(data));progress((i+1)/len(items),'Restored '+path.name)

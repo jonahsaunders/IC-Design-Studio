@@ -55,6 +55,15 @@ are unchanged.
 
 ## Project PDK switching and collaboration
 
+**November 20, 2026.** The tool-setup and example-drawing pass based on
+`50a0c68e` covers UX-21 and SCH-03. Windows desktop checks exercised
+download progress, cancellation, retry and checksum rejection. The RC and
+CMOS inverter examples produced identical circuit statements and transient
+traces before and after routing their local grounds. The historical GF180
+and IHP fill checks use the original source bytes preserved in the
+[GF180 source manifest](validation/setup-progress-retained-source-2026-11-20/chunk4-manifest.json)
+and [IHP source manifest](validation/setup-progress-retained-source-2026-11-20/chunk5-manifest.json).
+
 **November 20, 2026.** The collaboration interface pass based on
 `70e181ca` covers COL-17 and COL-19. On Windows, 47 focused tests and
 12 live desktop scenarios passed. Three app windows shared a project on

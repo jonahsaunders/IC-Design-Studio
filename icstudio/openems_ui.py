@@ -204,7 +204,8 @@ class OpenEMSDialog(QDialog):
         self.profile_button = QPushButton('Set up physical layers…'); self.profile_button.clicked.connect(self.edit_profile)
         layout.addWidget(self.profile_button)
         self.download = QPushButton('Get the ready-to-run desktop app')
-        self.download.clicked.connect(lambda: QDesktopServices.openUrl(QUrl('https://github.com/jonahsaunders/IC-Design-Studio/releases')))
+        from . import package_download
+        self.download.clicked.connect(lambda: package_download.show(self))
         layout.addWidget(self.download)
         form = QFormLayout(); layout.addLayout(form)
         self.fields = {}
