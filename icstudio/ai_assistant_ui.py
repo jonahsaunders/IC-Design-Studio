@@ -78,6 +78,7 @@ class Assistant(QDockWidget):
     def __init__(self, studio):
         super().__init__('AI Assistant', studio)
         self.setObjectName('aiAssistant')
+        self.setMinimumWidth(320)
         self.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
         self.studio = studio
         self.provider = str(studio.settings.value('assistant/provider', 'openai'))

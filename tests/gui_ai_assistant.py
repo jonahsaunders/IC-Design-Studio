@@ -112,6 +112,7 @@ class AssistantDesktop(unittest.TestCase):
         panel.run.setCurrentIndex(panel.run.findData('failed_a'))
         self.assertNotIn('privatevalue', panel.preview.toPlainText())
         self.assertIn('Singular matrix at vout', panel.preview.toPlainText())
+        self.assertIn('devices_mentioned_in_log', panel.preview.toPlainText())
         self.ask('Inspect the DC path at vout.')
         studio.run_manager.rows.clear()
         panel.action.setCurrentIndex(panel.action.findData('bench'))
