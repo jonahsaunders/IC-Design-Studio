@@ -19,7 +19,7 @@ Foundations and Analog lessons use the included teaching solver. Digital lessons
 use Icarus through the selected Included or Custom digital toolchain; Run lesson
 opens setup when needed. Mixed Signal and the capstone require native local
 ngspice and Icarus separately. Configure and check those native tools through
-**More → Engine setup…** in the Hub. Inverter physical checkpoints can use
+**Student Hub menu → Engine setup…** in the Hub. Inverter physical checkpoints can use
 the included Magic/Netgen runtime. See
 [engine setup](../../docs/STUDENT_HUB.md#engines-and-models).
 
@@ -37,5 +37,5 @@ copy; edit saved-project RTL through the Digital workspace.
 
 The new design labs include four measured gm/ID exercises, four bounded layout
 repairs and three deliberately broken RTL projects with independent testbenches.
-Use **More → Export portfolio report** for readable HTML; the JSON learning
+Use **Student Hub menu → Export portfolio report** for readable HTML; the JSON learning
 record remains the export that embeds saved project snapshots.

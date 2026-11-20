@@ -103,6 +103,11 @@ def stylesheet(dark=False):
     QWidget#toolStrip { border-bottom: 1px solid %(line)s; }
     QWidget#panelHeader { background: %(panel)s; border-bottom: 1px solid %(line)s; }
     QToolBar { background: %(panel)s; border: 0; border-bottom: 1px solid %(line)s; spacing: 6px; padding: 8px 12px; }
+    QToolBar#workspaceNavigation { padding: 3px 10px; }
+    QToolBar#workspaceNavigation QTabBar::tab { padding: 7px 14px; font-weight: 600; }
+    QToolBar#workspaceNavigation QTabBar::tab:selected { background: %(tint)s; }
+    QToolButton#studentHubMenuButton { padding: 0; min-width: 26px; min-height: 24px; }
+    QToolButton#studentHubMenuButton::menu-indicator { image: none; }
     QMenuBar { background: %(panel)s; padding: 3px 8px; border: 0; }
     QMenuBar::item { padding: 3px 9px; background: transparent; }
     QMenuBar::item:selected { background: %(hover)s; border-radius: 4px; }
