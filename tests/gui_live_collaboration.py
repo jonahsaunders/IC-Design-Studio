@@ -79,6 +79,14 @@ def main():
         p['name'] = 'Shared analog layout'
         p['cells'][0]['shapes'] = [rect('metal1', 0, 0, 1600, 900), rect('metal1', 2400, 0, 1600, 900), rect('metal2', 700, 1700, 2600, 650)]
         a.set_project(p)
+        navigation = a.app_workspaces.navigation
+        a.removeToolBar(navigation)
+        old_layout = a.saveState(3)
+        a.addToolBar(navigation)
+        assert a.restoreState(old_layout, 3)
+        QTest.qWait(150)
+        assert navigation.geometry().bottom() < a.toolbar.geometry().top()
+        assert a.collaboration_button.isVisibleTo(a) and navigation.rect().contains(a.collaboration_button.geometry())
         assert a.collaboration_button.parentWidget().objectName() == 'workspaceNavigation'
         QTest.mouseClick(a.collaboration_button, Qt.LeftButton)
         dashboard = a._collaboration_dashboard
