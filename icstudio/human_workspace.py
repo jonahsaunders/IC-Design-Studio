@@ -18,8 +18,12 @@ class ElidingLabel(QLabel):
     def paintEvent(self, event):
         painter=QPainter(self)
         painter.setPen(self.palette().color(QPalette.WindowText))
+        metrics = self.fontMetrics()
+        text = self.text()
+        if metrics.horizontalAdvance(text) > self.width():
+            text = text.partition(' · ')[0]
         painter.drawText(self.rect(),Qt.AlignLeft|Qt.AlignVCenter,
-                         self.fontMetrics().elidedText(self.text(),Qt.ElideRight,self.width()))
+                         metrics.elidedText(text,Qt.ElideRight,self.width()))
 
 
 class FlowLayout(QLayout):
@@ -54,6 +58,69 @@ class FlowLayout(QLayout):
         return y+height+bottom-rect.y()
 
 
+class CanvasTools(QWidget):
+    """Keep a single command row and put its trailing actions in a labelled menu."""
+    def __init__(self, name):
+        super().__init__()
+        self.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Fixed)
+        self.row = QHBoxLayout(self)
+        self.row.setContentsMargins(4,3,4,3)
+        self.row.setSpacing(2)
+        self.buttons = []
+        self.more = QToolButton()
+        self.more.setObjectName('canvasToolsMore')
+        self.more.setText('More')
+        self.more.setAccessibleName('More ' + name.lower() + ' tools')
+        self.more.setPopupMode(QToolButton.InstantPopup)
+        self.more.setFocusPolicy(Qt.StrongFocus)
+        self.more.setMenu(QMenu(self.more))
+        self.row.addWidget(self.more)
+        self.row.addStretch()
+
+    def add_command(self, action):
+        button = QToolButton()
+        button.setDefaultAction(action)
+        button.setToolButtonStyle(Qt.ToolButtonTextBesideIcon)
+        button.setIconSize(QSize(18,18))
+        button.setAccessibleName(action.text())
+        button.setObjectName('taskButton')
+        button.setFocusPolicy(Qt.StrongFocus)
+        self.row.insertWidget(len(self.buttons), button)
+        self.buttons.append(button)
+        self.setTabOrder(button, self.more)
+        return button
+
+    def arrange(self):
+        available = self.width() - self.row.contentsMargins().left() - self.row.contentsMargins().right()
+        gap = self.row.spacing()
+        widths = [button.sizeHint().width() for button in self.buttons]
+        overflow = sum(widths) + gap * (len(widths)-1) > available
+        self.more.setVisible(overflow)
+        if overflow:
+            available -= self.more.sizeHint().width() + gap
+        menu = self.more.menu()
+        hidden = []
+        for button, width in zip(self.buttons, widths):
+            show = available >= width
+            if not show and button.hasFocus():
+                self.more.setFocus(Qt.OtherFocusReason)
+            button.setVisible(show)
+            if not show:
+                hidden.append(button.defaultAction())
+            available -= width + gap
+        if hidden != menu.actions():
+            menu.clear()
+            menu.addActions(hidden)
+
+    def resizeEvent(self, event):
+        super().resizeEvent(event)
+        self.arrange()
+
+    def showEvent(self, event):
+        super().showEvent(event)
+        self.arrange()
+
+
 class HumanWorkspaceMixin(GridSettingsMixin):
     def __init__(self, *args, **kwargs):
         self._human_ready = False
@@ -65,6 +132,15 @@ class HumanWorkspaceMixin(GridSettingsMixin):
 
     def make_ui(self):
         super().make_ui()
+        self.document_bar = self.mode_combo.parentWidget()
+        self.compact_view = QComboBox()
+        self.compact_view.setAccessibleName('Editor view')
+        self.compact_view.addItems([self.mode_combo.tabText(i) for i in range(self.mode_combo.count())])
+        self.compact_view.activated.connect(self.mode_combo.setCurrentIndex)
+        # The original view controller may restore its previous index on an invalid property draft.
+        self.mode_combo.currentChanged.connect(lambda _: self.compact_view.setCurrentIndex(self.mode_combo.currentIndex()))
+        self.document_bar.layout().insertWidget(self.document_bar.layout().indexOf(self.mode_combo), self.compact_view)
+        self.document_bar.installEventFilter(self)
         self.canvases.setHandleWidth(5)
         self.setDockOptions(QMainWindow.AllowNestedDocks | QMainWindow.AllowTabbedDocks
                             | QMainWindow.AnimatedDocks)
@@ -96,7 +172,9 @@ class HumanWorkspaceMixin(GridSettingsMixin):
         self.tool_hint.setMinimumWidth(0)
         self.tool_hint.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Preferred)
         self.tool_hint.setToolTip('Select: drag to move or box-select. Middle mouse or Space + drag pans. F fits.')
-        footer = self.grid_label.parentWidget().layout()
+        self.canvas_footer = self.grid_label.parentWidget()
+        self.canvas_footer.installEventFilter(self)
+        footer = self.canvas_footer.layout()
         self.grid_label.hide()
         self.grid_button = self.button('Grid', 'grid', self.grid_settings_dialog,
                                        tip='Visible grid and placement spacing for each editor')
@@ -232,23 +310,25 @@ class HumanWorkspaceMixin(GridSettingsMixin):
         for name, menu in self.task_menus.items(): visit(menu, menu.title().replace('&',''))
         self._commands = entries
 
-    def ribbon_button(self, layout, text, command, glyph, tool=None):
-        button = QToolButton()
-        action = self.command_actions.get(command)
-        if action: button.setDefaultAction(action)
-        else: button.clicked.connect(lambda checked=False:self.guard(command))
-        button.setText(text)
-        button.setAccessibleName(text)
-        button.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
-        button.setIconSize(QSize(22,22))
-        button.setIcon(icon(glyph, palette(self.dark)['muted']))
-        button.setMinimumSize(62, 54)
-        button.setObjectName('taskButton')
-        if action: button.setToolTip(title(action)+('  '+action.shortcut().toString() if not action.shortcut().isEmpty() else ''))
-        self._icons.append((button, glyph, False))
-        layout.addWidget(button)
+    def ribbon_button(self, bar, text, command, glyph, tool=None):
+        # One presentation action drives both the named button and the overflow menu.
+        action = QAction(icon(glyph, palette(self.dark)['muted']), text, bar)
+        source = self.command_actions.get(command)
+        if source:
+            action.setToolTip(title(source) + ('  ' + source.shortcut().toString() if source.shortcut() else ''))
+            action.setEnabled(source.isEnabled())
+            source.changed.connect(lambda: action.setEnabled(source.isEnabled()))
+            action.triggered.connect(source.trigger)
+        else:
+            action.triggered.connect(lambda: self.guard(command))
+        action.setCheckable(bool(tool))
+        if tool:
+            # A cancelled command or rejected Inspector draft may leave the previous tool active.
+            action.triggered.connect(lambda: action.setChecked(
+                (self.layout if self.current_mode == 'layout' else self.schematic).tool == tool))
+        button = bar.add_command(action)
+        self._icons.append((action, glyph, False))
         self.ribbon_buttons.append((button, tool))
-        return button
 
     def make_task_ribbon(self):
         self.ribbon = QTabWidget()
@@ -269,9 +349,11 @@ class HumanWorkspaceMixin(GridSettingsMixin):
         for mode, pages in specs.items():
             self.ribbon_pages[mode] = []
             for name, commands in pages:
-                page = QWidget(); layout = FlowLayout(page)
+                page = CanvasTools(name)
+                page.setObjectName('canvasTools')
+                page.setAccessibleName(name + ' tools')
                 for text, command, glyph, tool in commands:
-                    self.ribbon_button(layout, text, command, glyph, tool)
+                    self.ribbon_button(page, text, command, glyph, tool)
                 self.ribbon_pages[mode].append((name,page))
         self._ribbon_mode = None
         self._ribbon_tab = {'schematic':0,'layout':0}
@@ -291,8 +373,7 @@ class HumanWorkspaceMixin(GridSettingsMixin):
     def size_ribbon(self):
         page = self.ribbon.currentWidget()
         if page:
-            height = page.layout().heightForWidth(max(self.ribbon.width()-4,90))
-            self.ribbon.setFixedHeight(height+self.ribbon.tabBar().sizeHint().height()+4)
+            self.ribbon.setFixedHeight(page.sizeHint().height() + self.ribbon.tabBar().sizeHint().height() + 4)
 
     def adapt_tools(self):
         if self._human_ready:
@@ -330,11 +411,26 @@ class HumanWorkspaceMixin(GridSettingsMixin):
         active = self.layout if mode=='layout' else self.schematic
         for button,tool in self.ribbon_buttons:
             if tool:
-                button.setCheckable(True); button.setChecked(active.tool==tool)
+                button.defaultAction().setChecked(active.tool==tool)
         self.update_canvas_footer()
         self.adapt_tools()
 
     def eventFilter(self, obj, event):
+        if self._human_ready and event.type() in (QEvent.Resize, QEvent.Show):
+            if obj is self.document_bar:
+                row = obj.layout()
+                margins = row.contentsMargins()
+                needed = (max(self.cell_combo.minimumWidth(), self.cell_combo.sizeHint().width())
+                          + self.mode_combo.sizeHint().width() + self.revision_label.sizeHint().width()
+                          + margins.left() + margins.right() + 3 * row.spacing())
+                compact = obj.width() < needed
+                transfer_focus = self.mode_combo.hasFocus() if compact else self.compact_view.hasFocus()
+                self.compact_view.setVisible(compact)
+                self.mode_combo.setVisible(not compact)
+                if transfer_focus:
+                    (self.compact_view if compact else self.mode_combo).setFocus(Qt.OtherFocusReason)
+            elif obj is self.canvas_footer:
+                self.update_canvas_footer()
         if self._human_ready and obj in (self.schematic,self.layout):
             if event.type() in (QEvent.FocusIn,QEvent.MouseButtonPress) and self.mode_combo.currentIndex()==2:
                 if self.current_mode != obj.mode:
@@ -353,9 +449,13 @@ class HumanWorkspaceMixin(GridSettingsMixin):
         c = self.layout if self.current_mode=='layout' else self.schematic
         factor=1000 if c.mode=='layout' else 1;units='µm' if c.mode=='layout' else 'units'
         visible=getattr(c,'grid_style','lines')!='off';spacing=f'{c.grid_interval()/factor:g}'
-        self.grid_button.setText(f'Grid {spacing} {units}' if visible else 'Grid hidden')
+        compact = self.canvas_footer.width() < 460
+        grid_text = f'Grid {spacing} {units}' if visible else 'Grid hidden'
+        self.grid_button.setText('Grid' if compact else grid_text)
         snap=f'{c.snap_interval()/factor:g} {units}' if c.grid_snap_active() else 'off'
-        self.grid_label.setText('Snap '+snap);self.grid_label.show()
+        self.grid_label.setText('Snap '+snap)
+        self.grid_label.setVisible(not compact)
+        self.grid_button.setAccessibleName(f'{grid_text}, snap {snap}. Grid settings')
         self.grid_button.setToolTip(f'Visible spacing: {spacing} {units}. Snap: {snap}. Click for Grid Settings. Hiding the grid does not disable snapping.')
         if hasattr(self,'grid_toggle_action'):self.grid_toggle_action.setChecked(visible)
         if hasattr(self,'grid_snap_action'):

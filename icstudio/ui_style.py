@@ -123,7 +123,9 @@ def stylesheet(dark=False):
     QTabWidget#taskRibbon { background: %(bg)s; }
     QTabWidget#taskRibbon::pane { background: %(bg)s; border-bottom: 1px solid %(line)s; }
     QTabWidget#taskRibbon QTabBar::tab { padding: 5px 18px; font-size: 12px; }
-    QToolButton#taskButton { padding: 5px 8px; border: 1px solid transparent; border-radius: 5px; font-size: 12px; }
+    QWidget#canvasTools { background: %(bg)s; }
+    QToolButton#canvasToolsMore { padding: 3px 14px 3px 5px; }
+    QToolButton#taskButton { padding: 4px; border: 1px solid transparent; border-radius: 5px; font-size: 12px; }
     QToolButton#taskButton:hover { border-color: %(line)s; background: %(hover)s; }
     QToolButton#taskButton:checked { border-color: %(accent)s; background: %(tint)s; color: %(accent)s; }
     QToolButton#taskButton:focus { border-color: %(accent)s; }
@@ -137,13 +139,14 @@ def stylesheet(dark=False):
     QPushButton:checked, QToolButton:checked { color: %(accent)s; background: %(tint)s; }
     QPushButton[role="primary"] { background: #345fd1; color: white; padding: 7px 14px; border: 1px solid #345fd1; font-weight: 600; }
     QPushButton[role="primary"]:hover { background: #294fb9; }
+    QPushButton[role="primary"]:focus { border: 2px solid %(text)s; }
     QPushButton[role="secondary"] { background: %(panel)s; border: 1px solid %(line)s; }
     QPushButton[role="search"] { text-align: left; color: %(muted)s; border: 1px solid %(line)s; background: %(bg)s; }
     QPushButton:disabled, QToolButton:disabled { color: %(disabled)s; background: transparent; border-color: transparent; }
     QPushButton[role="primary"]:disabled { background: %(tint)s; color: %(muted)s; border: 1px solid %(line)s; }
     QPushButton[role="danger"] { color: %(error)s; }
     QToolButton::menu-indicator { subcontrol-position: right center; }
-    QLineEdit, QComboBox, QSpinBox, QDoubleSpinBox { background: %(field)s; border: 1px solid %(line)s; border-radius: 5px; padding: 6px 8px; min-height: 18px; selection-background-color: %(accent)s; }
+    QLineEdit, QComboBox, QSpinBox, QDoubleSpinBox { background: %(field)s; border: 1px solid %(line)s; border-radius: 5px; padding: 6px 8px; min-height: 18px; selection-background-color: %(accent)s; selection-color: %(field)s; }
     QLineEdit:focus, QComboBox:focus, QSpinBox:focus, QDoubleSpinBox:focus { border-color: %(accent)s; }
     QLineEdit[invalid="true"] { border-color: %(error)s; }
     QToolButton#sectionHeader, QToolButton#sectionHeader:checked { background: transparent; color: %(text)s; font-weight: 600; border: 0; border-bottom: 1px solid %(line)s; border-radius: 0; text-align: left; padding: 5px 0 8px 0; }
@@ -158,10 +161,18 @@ def stylesheet(dark=False):
     QTreeWidget::item:selected, QListWidget::item:selected { background: %(tint)s; color: %(accent)s; }
     QTreeWidget::item:focus, QListWidget::item:focus { border: 1px solid %(accent)s; }
     QTreeWidget#projectTree, QListWidget#outline { background: %(bg)s; }
-    QPlainTextEdit { background: %(field)s; color: %(text)s; border: 1px solid %(line)s; border-radius: 4px; }
+    QPlainTextEdit { background: %(field)s; color: %(text)s; border: 1px solid %(line)s; border-radius: 4px; selection-background-color: %(accent)s; selection-color: %(field)s; }
+    QPlainTextEdit:focus, QTableWidget::item:focus { border: 1px solid %(accent)s; }
+    QPlainTextEdit#schematicDiff { font-family: "Menlo", "Consolas", "DejaVu Sans Mono", monospace; }
     QTabWidget::pane { border: 0; background: %(panel)s; }
     QTabBar::tab { background: transparent; color: %(muted)s; padding: 10px 14px; border-bottom: 2px solid transparent; }
     QTabBar::tab:selected { color: %(accent)s; border-bottom-color: %(accent)s; }
+    QTabBar::tab:selected:focus { background: %(tint)s; border-bottom-color: %(accent)s; }
+    QTabBar#schematicComparison::tab { background: %(bg)s; padding: 4px 14px; min-height: 19px; border: 1px solid %(line)s; }
+    QTabBar#schematicComparison::tab:first { border-top-left-radius: 5px; border-bottom-left-radius: 5px; }
+    QTabBar#schematicComparison::tab:last { border-top-right-radius: 5px; border-bottom-right-radius: 5px; }
+    QTabBar#schematicComparison::tab:selected { color: %(accent)s; background: %(tint)s; font-weight: 600; border-color: %(accent)s; }
+    QTabBar#schematicComparison::tab:selected:focus { border: 2px solid %(accent)s; }
     QTabBar::tab:hover { background: %(hover)s; }
     QTabBar::tab:disabled { color: %(disabled)s; }
     QScrollArea { background: %(panel)s; border: 0; }

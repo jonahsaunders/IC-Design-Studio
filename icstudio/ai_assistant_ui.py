@@ -9,6 +9,7 @@ from PySide6.QtWidgets import (QComboBox, QDialog, QDialogButtonBox, QDockWidget
                                QVBoxLayout, QWidget)
 
 from . import ai_context, ai_providers as providers, ai_testbench
+from .ai_investigation import solver
 from .model import clone, design_digest
 from .ai_review_ui import ReviewTools
 from .analog_widgets import FlowActions, scroll
@@ -112,6 +113,10 @@ class Assistant(ReviewTools, QDockWidget):
         self.account = label()
         self.account.setProperty('role','subtitle')
         row.addWidget(self.account, 1)
+        self.setup_button = QPushButton('Set Up…')
+        self.setup_button.setAccessibleName('Set up AI connection')
+        self.setup_button.clicked.connect(lambda: Connection(self).exec())
+        row.addWidget(self.setup_button)
         self.connection = QToolButton()
         self.connection.setText('Options')
         self.connection.setAccessibleName('Investigation options')
@@ -193,7 +198,27 @@ class Assistant(ReviewTools, QDockWidget):
                 content.addWidget(editor,1)
                 self.tabs.addTab(page,'Fixture')
             else:
-                self.tabs.addTab(editor, title)
+                page = QWidget()
+                content = QVBoxLayout(page)
+                content.setContentsMargins(8,12,8,4)
+                self.scope_title = label()
+                self.scope_title.setProperty('role','subtitle')
+                self.scope_detail = label()
+                self.scope_detail.setTextInteractionFlags(Qt.TextSelectableByMouse)
+                content.addWidget(self.scope_title)
+                content.addWidget(self.scope_detail)
+                self.disclosure = QToolButton()
+                self.disclosure.setText('Full request')
+                self.disclosure.setCheckable(True)
+                self.disclosure.setArrowType(Qt.RightArrow)
+                self.disclosure.setToolButtonStyle(Qt.ToolButtonTextBesideIcon)
+                self.disclosure.setAccessibleName('Show full request')
+                self.disclosure.toggled.connect(self.show_full_request)
+                content.addWidget(self.disclosure, 0, Qt.AlignLeft)
+                content.addWidget(editor, 1)
+                editor.hide()
+                content.addStretch()
+                self.tabs.addTab(page, title)
         footer = QWidget()
         footer.setObjectName('investigationComposer')
         outer.addWidget(footer)
@@ -263,8 +288,9 @@ class Assistant(ReviewTools, QDockWidget):
 
     def update_connection(self):
         base, model = self.profile(self.provider)
-        self.account.setText(providers.PROVIDERS[self.provider].name + (' · ' + model if model else ' · Choose a connection'))
+        self.account.setText(providers.PROVIDERS[self.provider].name + (' · ' + model if model else ''))
         self.account.setToolTip(base)
+        self.setup_button.setVisible(not model)
 
     def controls(self):
         busy = self.reply is not None
@@ -272,19 +298,20 @@ class Assistant(ReviewTools, QDockWidget):
         for w in (self.connection, self.action, self.note, self.run):
             w.setEnabled(not busy)
         self.cancel_button.setVisible(busy)
-        self.send_button.setEnabled(bool(self.preview.toPlainText()) and not busy)
-        self.validate_button.setVisible(bench)
-        self.add_button.setVisible(bench)
-        self.validate_button.setEnabled(not busy and bool(self.answer.toPlainText()) and self.origin is not None)
+        self.send_button.setEnabled(bool(self.profile(self.provider)[1] and self.preview.toPlainText()) and not busy)
+        has_draft = bench and bool(self.answer.toPlainText()) and self.origin is not None
+        self.validate_button.setVisible(has_draft)
+        self.add_button.setVisible(bench and self.proposal is not None)
+        self.validate_button.setEnabled(not busy and has_draft)
         self.add_button.setEnabled(not busy and self.proposal is not None)
-        self.edit_button.setVisible(bench)
-        self.draft_button.setVisible(bench)
+        self.edit_button.setVisible(has_draft)
+        self.draft_button.setVisible(bench and self.proposal is not None)
         self.edit_button.setEnabled(self.validate_button.isEnabled())
         self.draft_button.setEnabled(self.add_button.isEnabled())
         self.pins_widget.setEnabled(not busy)
         self.tabs.setTabVisible(2, bench)
         editing = self.action.currentData() == 'edit'
-        self.review_change.setVisible(editing)
+        self.review_change.setVisible(editing and self.change is not None)
         self.review_change.setEnabled(self.change is not None and not busy)
         self.note.setPlaceholderText('Describe the schematic change…' if editing else 'Ask a question or set a goal…')
         if editing and not self.note.text().strip():
@@ -332,13 +359,74 @@ class Assistant(ReviewTools, QDockWidget):
         self.call_local(self.update_evidence)
         self.update_preview()
 
+    def show_full_request(self, expanded):
+        self.disclosure.setArrowType(Qt.DownArrow if expanded else Qt.RightArrow)
+        self.disclosure.setAccessibleName('Hide full request' if expanded else 'Show full request')
+        self.preview.setVisible(expanded)
+        layout = self.disclosure.parentWidget().layout()
+        layout.setStretch(layout.count()-1, 0 if expanded else 1)
+
+    def describe_scope(self):
+        def listed(items):
+            suffix = f' (+{len(items)-8} more)' if len(items) > 8 else ''
+            return ', '.join(items[:8]) + suffix
+
+        row = self.current_row()
+        if row:
+            job = row['job']
+            self.scope_title.setText(row['name'] + ' · revision ' + str(job['project']['revision']))
+            lines = [f"{row['state']} · {solver(job)} · {job['settings']['type']}"]
+            if self.check:
+                lines.append('Measurement: ' + self.check['definition']['name'])
+            if self.probe_ref:
+                lines.append('Waveform: ' + self.probe_ref[1])
+            if self.device_ref:
+                lines.append('Device: ' + self.device_ref)
+        else:
+            ctx = self.pinned or self.studio
+            bench = self.action.currentData() == 'bench'
+            cell = self.bench_cell() if bench else ctx.cell
+            self.scope_title.setText(f"{cell['name']} · revision {ctx.project['revision']}")
+            ids = set(ctx.selection)
+            if bench or not (ids or ctx.net):
+                count = len(cell['devices'])
+                lines = [f"Whole circuit · {count} component" + ('' if count == 1 else 's')]
+                if cell['ports']:
+                    lines.append('Ports: ' + listed(cell['ports']))
+            else:
+                parts = [d for d in cell['devices'] if d['id'] in ids]
+                nets = ([ctx.net] if ctx.net else []) + [w['net'] for w in cell['wires'] if w['id'] in ids]
+                nets.extend(l['name'] for l in cell.get('labels',[]) if l['id'] in ids)
+                nets.extend(n for d in parts for n in d['nets'].values() if n)
+                nets = list(dict.fromkeys(nets))
+                lines = []
+                names = [f"{d['name']} ({d['value']})" if d['kind'] in ('R','C','L') and d.get('value')
+                         else d['name'] for d in parts]
+                for caption, items in [('Components', names), ('Nets', nets)]:
+                    if items:
+                        lines.append(caption + ': ' + listed(items))
+        self.scope_detail.setText('\n'.join(lines))
+
     def update_preview(self, text=None):
+        update_scope = text is None or not self.preview.toPlainText()
         try:
             self.preview.setPlainText(self.prompt_text(typing=text is not None))
-            self.status.setText('Review the request before sending to ' + providers.PROVIDERS[self.provider].name + '.')
+            if update_scope:
+                self.describe_scope()
+            self.disclosure.show()
+            if not self.profile(self.provider)[1]:
+                self.status.setText('Set up a connection to send a request.')
+            elif self.action.currentData() == 'edit' and not self.note.text().strip():
+                self.status.setText('Describe the change you want to preview.')
+            else:
+                self.status.setText('Ready to send to ' + providers.PROVIDERS[self.provider].name + '.')
         except ValueError as exc:
             self.preview.clear()
-            self.status.setText(str(exc))
+            self.scope_title.setText('Request needs context')
+            self.scope_detail.setText(str(exc))
+            self.disclosure.setChecked(False)
+            self.disclosure.hide()
+            self.status.setText('Set up a connection to send a request.' if not self.profile(self.provider)[1] else '')
         self.controls()
 
     def current_prompt(self):
@@ -355,6 +443,7 @@ class Assistant(ReviewTools, QDockWidget):
             if prompt != self.preview.toPlainText():
                 self.update_preview()
                 self.tabs.setCurrentIndex(0)
+                self.disclosure.setChecked(True)
                 self.status.setText('The selection or run changed. Review the updated request before sending.')
                 return
             key = self.provider

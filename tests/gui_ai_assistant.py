@@ -8,7 +8,8 @@ import time
 import unittest
 from unittest.mock import patch
 
-from PySide6.QtCore import QSettings
+from PySide6.QtCore import QSettings, Qt, QTimer
+from PySide6.QtTest import QTest
 from PySide6.QtWidgets import QApplication
 from icstudio.gui import Studio
 from icstudio.model import clone, example
@@ -88,6 +89,71 @@ class AssistantDesktop(unittest.TestCase):
         self.assertEqual(body['messages'][0]['content'],preview)
         self.assertNotIn('session-secret',preview)
 
+    def test_setup_and_request_disclosure(self):
+        panel = self.panel
+        panel.configure('custom',panel.profile('custom')[0],'','')
+        self.assertFalse(panel.setup_button.isHidden())
+        self.assertFalse(panel.send_button.isEnabled())
+        self.assertIn('Set up',panel.status.text())
+        self.assertIn('Whole circuit',panel.scope_detail.text())
+        self.assertTrue(panel.preview.isHidden())
+        QTest.keyClick(panel.disclosure, Qt.Key_Space)
+        self.assertFalse(panel.preview.isHidden())
+        self.assertIn('Studio context',panel.preview.toPlainText())
+        QTest.keyClick(panel.disclosure, Qt.Key_Space)
+        self.assertTrue(panel.preview.isHidden())
+
+    def test_compact_workspace_commands_and_view_picker(self):
+        studio = self.studio
+        self.panel.hide()
+        studio.show()
+        QTest.qWait(80)
+        studio.resize(2200,900)
+        QTest.qWait(30)
+        self.assertFalse(studio.mode_combo.isHidden())
+        bar = studio.ribbon.currentWidget()
+        self.assertTrue(bar.more.isHidden(), (studio.size(), bar.size(), [b.sizeHint().width() for b in bar.buttons]))
+        wide_height = studio.ribbon.height()
+        studio.resize(920,680)
+        QTest.qWait(30)
+        self.assertFalse(studio.compact_view.isHidden())
+        self.assertTrue(studio.mode_combo.isHidden())
+        self.assertLessEqual(studio.ribbon.height(),wide_height+4)
+        self.assertTrue(bar.more.isVisible())
+        overflow = bar.more.menu()
+        self.assertEqual(overflow.actions(),[b.defaultAction() for b in bar.buttons if b.isHidden()])
+        source = studio.command_actions['Place wire']
+        wire = next(b.defaultAction() for b in bar.buttons if b.text()=='Wire')
+        source.setEnabled(False)
+        self.assertFalse(wire.isEnabled())
+        source.setEnabled(True)
+        self.assertTrue(wire.isEnabled())
+        # Open from the keyboard and dismiss before choosing a mode.
+        opened = []
+        def close_menu():
+            opened.append(overflow.isVisible())
+            overflow.close()
+        QTimer.singleShot(30,close_menu)
+        bar.more.setFocus()
+        QTest.keyClick(bar.more,Qt.Key_Space)
+        self.assertEqual(opened,[True])
+        if wire in overflow.actions():
+            wire.trigger()
+        else:
+            next(b for b in bar.buttons if b.defaultAction() == wire).click()
+        self.assertEqual(studio.schematic.tool,'connect')
+        studio.cancel_tool()
+        studio.compact_view.setFocus()
+        QTest.keyClick(studio.compact_view, Qt.Key_Down)
+        self.assertEqual(studio.mode_combo.currentIndex(),1)
+        self.assertEqual(studio.current_mode,'layout')
+        studio.mode_combo.setCurrentIndex(2)
+        self.assertEqual(studio.compact_view.currentText(),'Linked views')
+        studio.resize(2200,900)
+        QTest.qWait(30)
+        self.assertFalse(studio.mode_combo.isHidden())
+        self.assertEqual(studio.mode_combo.currentIndex(),2)
+
     def test_selection_failed_run_and_testbench(self):
         studio, panel = self.studio, self.panel
         r1 = next(d for d in studio.cell['devices'] if d['name']=='R1')
@@ -96,6 +162,8 @@ class AssistantDesktop(unittest.TestCase):
         panel.send_button.click()
         self.assertEqual(len(self.server.requests), count)
         self.assertIn('selection or run changed', panel.status.text())
+        self.assertTrue(panel.disclosure.isChecked())
+        self.assertIn('R1 (10k)', panel.scope_detail.text())
         self.ask('R1 and C1 set the pole.')
         self.assertIn('"R1"', panel.preview.toPlainText())
         self.assertNotIn('"C1"', panel.preview.toPlainText())
@@ -110,6 +178,7 @@ class AssistantDesktop(unittest.TestCase):
         self.assertEqual(panel.run.count(),2)
         self.assertIn('Gain',panel.preview.toPlainText())
         panel.run.setCurrentIndex(panel.run.findData('failed_a'))
+        self.assertIn('Transient A',panel.scope_title.text())
         self.assertNotIn('privatevalue', panel.preview.toPlainText())
         self.assertIn('Singular matrix at vout', panel.preview.toPlainText())
         self.assertIn('devices_mentioned_in_log', panel.preview.toPlainText())

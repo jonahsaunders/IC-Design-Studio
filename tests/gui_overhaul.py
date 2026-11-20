@@ -16,6 +16,7 @@ from icstudio.model import example,digest,load_project
 from icstudio.canvas import Canvas
 from icstudio.grid import visible_interval
 from icstudio.menu_map import ALIASES,title
+from tests.canvas_tools_driver import click_tool
 
 errors=[]
 sys.excepthook=lambda t,v,tb:(errors.append(str(v)),traceback.print_exception(t,v,tb))
@@ -77,8 +78,7 @@ passed('Grid dialog and keyboard visibility toggle act on the active editor with
 
 # Click the new command strip, place a component, then undo the transaction.
 w.capture_repeat.setChecked(False);w.ribbon.setCurrentIndex(0)
-button=next(b for b,_ in w.ribbon_buttons if b.text()=='Component')
-QTest.mouseClick(button,Qt.LeftButton);assert w.navtabs.currentIndex()==1
+click_tool(w,'Component');assert w.navtabs.currentIndex()==1
 w.begin_placement(1);point=QPoint(170,160);snap=w.schematic.snap(w.schematic.model(QPointF(point)))
 count=len(w.cell['devices']);QTest.mouseClick(w.schematic,Qt.LeftButton,pos=point)
 assert len(w.cell['devices'])==count+1
@@ -87,8 +87,7 @@ w.undo();assert len(w.cell['devices'])==count
 passed('Labeled component command opens the device library; pointer placement snaps and undoes atomically')
 
 w.set_project(example('empty'));w.apply_workspace_preset('Layout');QTest.qWait(70)
-button=next(b for b,_ in w.ribbon_buttons if b.text()=='Rectangle')
-QTest.mouseClick(button,Qt.LeftButton);assert w.layout.tool=='rect'
+click_tool(w,'Rectangle');assert w.layout.tool=='rect'
 QTest.mousePress(w.layout,Qt.LeftButton,pos=QPoint(110,110))
 QTest.mouseMove(w.layout,QPoint(200,170));QTest.mouseRelease(w.layout,Qt.LeftButton,pos=QPoint(200,170))
 assert len(w.cell['shapes'])==1
@@ -144,8 +143,9 @@ for mode in (0,1):
         w.ribbon.setCurrentIndex(i);QTest.qWait(30)
         page=w.ribbon.currentWidget()
         for b,_ in w.ribbon_buttons:
-            if b.parentWidget()==page:
+            if b.parentWidget()==page and b.isVisible():
                 assert page.rect().contains(b.geometry()),(mode,i,b.text(),page.rect(),b.geometry())
+        assert page.more.menu().actions()==[b.defaultAction() for b in page.buttons if b.isHidden()]
     w.ribbon.setCurrentIndex(0)
     for i in range(w.results_tabs.count()):
         w.results_dock.show();w.results_tabs.setCurrentIndex(i);QTest.qWait(30)

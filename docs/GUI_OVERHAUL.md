@@ -37,7 +37,7 @@ The footer distinguishes **Grid** (the displayed interval) from **Snap** (the ac
 
 Menus use at most one submenu level. Specialized imports, symbols and geometry remain grouped; common commands are directly reachable. Duplicate entries for electrical checking and cross-probing have been consolidated. The complete original command set remains available. Ctrl+K searches the new categories and the original actions retain their keyboard bindings.
 
-Draw contains everyday creation tools, Edit contains transformations, and Review contains inspection/checking tools. The strip changes with the active editor, including when you click between linked canvases. Labels remain visible in compact windows; controls wrap when necessary. Tool options appear only when relevant, and right-click menus expose a short list of local actions. Results views scroll within their panel so large tables and toolbars cannot cover the Inspector.
+Draw, Edit and Review follow the active canvas. When a panel narrows the canvas, the tools stay in one row. Open **More** to reach the remaining commands. The editor tabs become a **Schematic / Layout / Linked views** picker. The **Grid** button gives the current grid spacing and snap interval in its tooltip and opens Grid Settings. Results views scroll within their own panel.
 
 ## Workspaces and recovery
 

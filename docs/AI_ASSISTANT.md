@@ -1,6 +1,8 @@
 # AI Assistant
 
-Open **Tools → AI Assistant…**, then **Options → Connection Settings…**. Choose a provider and enter a text model ID or deployment name available to your account. Studio remembers your model and endpoint on this computer. A key or access token entered in the dialog lasts for the current Studio session. The dialog also shows the environment variable you can set before starting Studio. Review the text in **Request**. Choosing **Send** shares that text with the selected provider.
+Open **Tools → AI Assistant…** and choose **Set Up…**. Choose a provider and enter a text model ID or deployment name available to your account. To change it later, open **Options → Connection Settings…**. Studio remembers your model and endpoint on this computer. A key or access token entered in the dialog lasts for the current Studio session. The dialog also shows the environment variable you can set before starting Studio.
+
+The **Request** tab summarizes the selected components, connections or saved run. Expand **Full request** to read the exact text, including any follow-up history. **Send** shares that text with the selected provider.
 
 ## Try the RC example
 
@@ -8,7 +10,7 @@ Open **Tools → AI Assistant…**, then **Options → Connection Settings…**.
 
 Select components or a wire in the schematic, then right-click the selection and choose **Request a Change…**. Shift-click to select several components. You can also choose **Change selected schematic** from **Tools → AI Assistant…**.
 
-For example, select R1 and ask “Set R1 to 22 kΩ and add 10 pF from its output to ground.” **Send** opens a review when the provider returns a valid proposal. Switch between **Before** and **Proposed** to inspect the same area. Select a table row to highlight its component. Each row shows the original and proposed values or the new component and its terminal connections. **Exact Changes** shows the stored field differences, including any net label needed to attach a new part.
+For example, select R1 and ask “Set R1 to 22 kΩ and add 10 pF from its output to ground.” **Send** opens a review when the provider returns a valid proposal. Switch between **Before** and **Proposed** to inspect the same area. With that control focused, you can also use the left and right arrow keys. Select a table row to highlight its component. Each row shows the original and proposed values or the new component and its terminal connections. **Exact Changes** shows the stored field differences, including any net label needed to attach a new part.
 
 **Apply Changes** commits the entire preview in one undo step. **Discard** drops it. Closing the review lets you reopen it with **Review Changes…**. If the circuit revision changes, use **Options → Refresh Preview** to request a new proposal for the current selection.
 

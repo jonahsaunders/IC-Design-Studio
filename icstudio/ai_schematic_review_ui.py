@@ -1,7 +1,7 @@
 """Side-by-side property values and a switchable schematic for one reviewed edit."""
 from PySide6.QtCore import Qt, QEvent, QPointF, QTimer
-from PySide6.QtWidgets import (QButtonGroup, QDialog, QHBoxLayout, QHeaderView, QLabel, QPlainTextEdit,
-                               QPushButton, QSplitter, QTableWidgetItem, QTabWidget, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QDialog, QHBoxLayout, QHeaderView, QLabel, QPlainTextEdit,
+                               QPushButton, QSplitter, QTabBar, QTableWidgetItem, QTabWidget, QVBoxLayout, QWidget)
 
 from .analog_widgets import table
 from .canvas import Canvas
@@ -46,20 +46,27 @@ class ChangeReview(QDialog):
         self.setWindowTitle('Review Schematic Changes')
         self.resize(830,650)
         root = QVBoxLayout(self)
+        root.setContentsMargins(16,14,16,12)
+        root.setSpacing(8)
         ctx = panel.pinned
         shared = any(d['kind']=='X' and d.get('cell')==ctx.cid for c in ctx.project['cells'] for d in c['devices'])
-        title = QLabel(f"{ctx.cell['name']} · revision {ctx.project['revision']}" +
-                       (' · edits affect every instance of this cell' if shared else ''))
-        title.setTextFormat(Qt.PlainText)
-        title.setWordWrap(True)
-        title.setProperty('role','subtitle')
+        count = len(proposal.edits)
+        title = QLabel(f"{count} proposed {'change' if count == 1 else 'changes'}")
+        title.setProperty('role','title')
         root.addWidget(title)
+        context = QLabel(f"{ctx.cell['name']} · revision {ctx.project['revision']}" +
+                       (' · edits affect every instance of this cell' if shared else ''))
+        context.setTextFormat(Qt.PlainText)
+        context.setWordWrap(True)
+        context.setProperty('role','muted')
+        root.addWidget(context)
         question = getattr(panel,'pending_question','')
         if question:
             request = QLabel(question if len(question)<=180 else question[:179]+'…')
             request.setTextFormat(Qt.PlainText)
             request.setWordWrap(True)
             request.setToolTip(question)
+            request.setAccessibleDescription(question)
             root.addWidget(request)
         split = QSplitter(Qt.Vertical)
         root.addWidget(split,1)
@@ -67,16 +74,14 @@ class ChangeReview(QDialog):
         split.addWidget(self.tabs)
         schematic = QWidget()
         view = QVBoxLayout(schematic)
-        buttons = QHBoxLayout()
-        view.addLayout(buttons)
-        self.states = QButtonGroup(self)
-        for i,name in enumerate(('Before','Proposed')):
-            button = QPushButton(name)
-            button.setCheckable(True)
-            button.setAutoDefault(False)
-            self.states.addButton(button,i)
-            buttons.addWidget(button)
-        buttons.addStretch()
+        view.setContentsMargins(0,6,0,0)
+        self.states = QTabBar()
+        self.states.setObjectName('schematicComparison')
+        self.states.setAccessibleName('Schematic version')
+        self.states.setExpanding(False)
+        self.states.addTab('Before')
+        self.states.addTab('Proposed')
+        view.addWidget(self.states, 0, Qt.AlignLeft)
         self.canvas = PreviewCanvas(panel,proposal)
         view.addWidget(self.canvas,1)
         self.tabs.addTab(schematic,'Schematic')
@@ -84,12 +89,15 @@ class ChangeReview(QDialog):
         self.diff.setReadOnly(True)
         self.diff.setLineWrapMode(QPlainTextEdit.NoWrap)
         self.diff.setAccessibleName('Exact changes to the saved schematic fields')
+        self.diff.setObjectName('schematicDiff')
         self.tabs.addTab(self.diff,'Exact Changes')
         self.tabs.currentChanged.connect(self.show_diff)
         self.changes = table(['Component','Property / operation','Before','Proposed'])
         self.changes.setAccessibleName('Proposed schematic edits with original and new values')
         self.changes.setRowCount(len(proposal.edits))
-        self.changes.setAlternatingRowColors(True)
+        self.changes.setShowGrid(False)
+        self.changes.verticalHeader().setDefaultSectionSize(max(30,self.fontMetrics().height()+12))
+        self.changes.horizontalHeader().setDefaultAlignment(Qt.AlignLeft | Qt.AlignVCenter)
         self.changes.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
         self.changes.horizontalHeader().setStretchLastSection(True)
         kinds = {d['id']:d['kind'] for d in proposal.after['devices']}
@@ -102,10 +110,9 @@ class ChangeReview(QDialog):
                 self.changes.setItem(i,j,item)
         split.addWidget(self.changes)
         split.setSizes([380,145])
-        self.states.idClicked.connect(self.show_state)
+        self.states.currentChanged.connect(self.show_state)
         self.changes.itemSelectionChanged.connect(self.show_state)
-        self.states.button(1).setChecked(True)
-        self.show_state()
+        self.states.setCurrentIndex(1)
         self.message = QLabel()
         self.message.setTextFormat(Qt.PlainText)
         self.message.setWordWrap(True)
@@ -127,7 +134,7 @@ class ChangeReview(QDialog):
         self.check_current()
 
     def show_state(self, *_):
-        cell = self.proposal.after if self.states.checkedId()==1 else self.proposal.before
+        cell = self.proposal.after if self.states.currentIndex()==1 else self.proposal.before
         rows = self.changes.selectionModel().selectedRows()
         edits = [self.proposal.edits[r.row()] for r in rows] if rows else self.proposal.edits
         self.canvas.set_data(cell,self.canvas.pdk,[e.part_id for e in edits])

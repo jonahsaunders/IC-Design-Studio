@@ -3,7 +3,8 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
-from PySide6.QtCore import QPoint, QTimer
+from PySide6.QtCore import QPoint, Qt, QTimer
+from PySide6.QtTest import QTest
 from icstudio import ai_schematic_edits as edits, simulation
 from icstudio.model import clone, design_digest, example
 from tests import gui_ai_assistant as desktop
@@ -60,9 +61,10 @@ class SchematicEditDesktop(unittest.TestCase):
         self.assertEqual(review.changes.item(0,3).text(),'22k')
         self.assertIn('vout',review.changes.item(1,3).text())
         after = clone(panel.change.after)
-        review.states.button(0).click()
+        review.states.setFocus()
+        QTest.keyClick(review.states, Qt.Key_Left)
         self.assertEqual(review.canvas.cell,before)
-        review.states.button(1).click()
+        QTest.keyClick(review.states, Qt.Key_Right)
         self.assertEqual(review.canvas.cell,after)
         review.tabs.setCurrentIndex(1)
         self.assertIn('22k',review.diff.toPlainText())

@@ -23,6 +23,7 @@ def main():
     from icstudio.layout import rect,polygon,kdb
     from icstudio.layout_topology import partition
     from test_silicon import technology
+    from tests.canvas_tools_driver import click_tool
     QSettings.setDefaultFormat(QSettings.IniFormat)
     QSettings.setPath(QSettings.IniFormat,QSettings.UserScope,str(out/'profile/settings'))
     app=QApplication([]);app.setStyle('Fusion');checks=[];errors=[];w=None
@@ -50,11 +51,8 @@ def main():
         def accept(dlg):
             QTest.mouseClick(dlg.findChild(QDialogButtonBox).button(QDialogButtonBox.Ok),Qt.LeftButton)
             app.processEvents()
-        def via_button():
-            return next(button for button,tool in w.ribbon_buttons if tool=='via' and button.isVisible())
-
         setup(example('empty'));before=clone(w.project['cells'])
-        QTest.mouseClick(via_button(),Qt.LeftButton)
+        click_tool(w,'Via')
         assert w.layout.tool=='via' and w._via_configuration[1]=='M1 to M2'
         click([1000,1000]);assert len(w.cell['shapes'])==3,errors
         assert {s['layer'] for s in w.cell['shapes']}=={'metal1','via1','metal2'}
@@ -64,7 +62,7 @@ def main():
         checks.append('Via toolbar click creates three connected shapes; undo and redo are exact')
 
         p=example('empty');p['pdk']=technology();setup(p)
-        QTest.mouseClick(via_button(),Qt.LeftButton)
+        click_tool(w,'Via')
         w.editor_via.setCurrentText('Local interconnect to M1')
         assert w._via_configuration[1]=='Local interconnect to M1'
         click([1000,1000]);assert {s['layer'] for s in w.cell['shapes']}=={'li','mcon','m1'},errors
@@ -86,8 +84,7 @@ def main():
                         rect('metal2',500,-500,1000,2000,net='signal')]
         setup(p);ids=[s['id'] for s in w.cell['shapes']];w.select(ids,'layout')
         before=clone(w.project['cells'])
-        auto=next(button for button,tool in w.ribbon_buttons if button.text()=='Autovia' and button.isVisible())
-        QTest.mouseClick(auto,Qt.LeftButton);app.processEvents()
+        click_tool(w,'Autovia');app.processEvents()
         dlg=next(d for d in app.topLevelWidgets() if d.windowTitle()=='Autovia' and d.isVisible());accept(dlg)
         preview=w._layout_proposal_dialog
         assert preview.windowTitle()=='Autovia preview' and w.project['cells']==before
@@ -115,7 +112,7 @@ def main():
             box=kdb().Region([polygon(s) for s in flatten_layout(p,cid)]).bbox()
             x=((box.right+10000)//1000)*1000;y=((box.top+10000)//1000)*1000
             w.layout.auto_fit=False;w.layout.scale=.3;w.layout.offset=QPointF(150-x*.3,150-y*.3)
-            before=clone(w.project['cells']);QTest.mouseClick(via_button(),Qt.LeftButton);click([x,y])
+            before=clone(w.project['cells']);click_tool(w,'Via');click([x,y])
             assert {s['layer'] for s in w.cell['shapes'][-3:]}=={a,cut,b},errors
             w.undo();assert w.project['cells']==before;w.cancel_tool()
             def crossing(q):
@@ -136,7 +133,7 @@ def main():
     except Exception:
         report.update(status='failed',error=traceback.format_exc(),errors=errors)
         if w:
-            report['workspace']={'mode':w.mode_combo.currentText(),
+            report['workspace']={'mode':w.mode_combo.tabText(w.mode_combo.currentIndex()),
                                  'ribbon':w.ribbon.tabText(w.ribbon.currentIndex())}
             w.grab().save(str(out/'failure.png'))
     finally:
