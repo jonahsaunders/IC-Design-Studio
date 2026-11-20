@@ -1,5 +1,6 @@
 """Exercise the physical checker, edge attribution and candidate verification."""
 import unittest
+from unittest.mock import patch
 
 from icstudio.ai_rule_repairs import rule_repair
 from icstudio.layout import drc, rect
@@ -61,6 +62,27 @@ class MeasuredRuleRepairs(unittest.TestCase):
         repair=rule_repair(self.project,self.cid,marker)
         self.assertEqual((marker['measured_nm'],repair['after_nm']),(141,202))
         self.assertEqual(repair['proposed']['points'][0],[575,500])
+
+    def test_reversed_checker_edge_order_produces_identical_edits(self):
+        from icstudio.live_geometry import full
+        from icstudio.student_design_labs import layout_lab
+        for kind in ('width','spacing'):
+            p=layout_lab('layout-'+kind)
+            cid=p['top']
+            marker=drc(p,cid)[0]
+            expected=rule_repair(p,cid,marker)
+            def reversed_checker(project,cell):
+                result=full(project,cell)
+                for finding in result['issues']:
+                    if 'edges' in finding:finding['edges'].reverse()
+                return result
+            with patch('icstudio.ai_rule_repairs.full',reversed_checker):
+                actual=rule_repair(p,cid,marker)
+                self.assertEqual(actual,expected)
+                marker['edges'].reverse()
+                flipped=rule_repair(p,cid,marker)
+                self.assertEqual(flipped['proposed'],expected['proposed'])
+                self.assertEqual(flipped['after_edges'],expected['after_edges'][::-1])
 
     def test_polygon_notch_and_ambiguous_or_stale_edges(self):
         shape=rect('metal1',0,0,1,1)

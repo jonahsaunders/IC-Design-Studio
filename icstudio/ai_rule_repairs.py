@@ -157,6 +157,10 @@ def options(code, owners, edges, minimum, grid):
                 proposed={**shape,'width':width}
                 new_edges=sides(proposed)
                 if len(new_edges)==2 and db.EdgePair(*new_edges).distance()>=minimum:
+                    first=next(e for e in old if e.contains(edges[0].p1) and e.contains(edges[0].p2))
+                    side=new_edges[0]
+                    if (first.p2.x-first.p1.x)*(side.p2.x-side.p1.x)+(first.p2.y-first.p1.y)*(side.p2.y-side.p1.y)<0:
+                        new_edges.reverse()
                     yield 0,proposed,new_edges,f"Set path width from {shape['width']} to {width} nm along the stored centerline."
                     return
         return
@@ -229,6 +233,25 @@ def rule_repair(project, cid, issue, locked=()):
         if len(touching)!=1:
             raise ValueError('The measured edge has no unique shape owner. Inspect the merged geometry in the layout editor.')
         owners.append(touching[0])
+    # KLayout can enumerate the same pair in either order across platforms.
+    # Keep the lower/left shape fixed for spacing. On a single polygon try its
+    # upper/right boundary first. Validation may still require the other side.
+    def shape_order(shape):
+        box=polygon(shape).bbox()
+        return (box.left,box.bottom,box.right,box.top,shape.get('instance_path',''),
+                shape['id'],shape.get('source_id',''))
+    def edge_order(edge):
+        return sorted(endpoints(edge))
+    if owners[0] is owners[1]:
+        axis=normal_axis(edges[0])
+        if axis is not None and normal_axis(edges[1])==axis:
+            swap=coordinate(edges[0],axis)<coordinate(edges[1],axis)
+        else:swap=edge_order(edges[0])<edge_order(edges[1])
+    else:
+        swap=shape_order(owners[0])>shape_order(owners[1])
+    if swap:
+        owners.reverse()
+        edges.reverse()
     cell=next(c for c in project['cells'] if c['id']==cid)
     local={s['id'] for s in cell['shapes']}
     reason='The selected edges do not support a verified single-shape repair.'
@@ -248,7 +271,11 @@ def rule_repair(project, cid, issue, locked=()):
             reason=str(exc)
             continue
         if any(finding_key(f)==key for f in findings):continue
+        shown_edges=list(new_edges)
+        # Match the after annotations to the order of the marker in the UI,
+        # which may also have come from an independent incremental check.
+        if edge_order(edges[0])!=sorted(issue['edges'][0]):shown_edges.reverse()
         return dict(original=original,proposed=proposed,description=description,after_nm=measured_after,
-                    after_edges=[endpoints(e) for e in new_edges],reference=owners[1-i]['id'],
+                    after_edges=[endpoints(e) for e in shown_edges],reference=owners[1-i]['id'],
                     before_count=len(before),after_count=len(findings),origin=design_digest(project))
     raise ValueError('No checked repair is available. '+reason)
