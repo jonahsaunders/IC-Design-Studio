@@ -122,6 +122,18 @@ class LayoutAssistant(unittest.TestCase):
         w.other.setCurrentText('vout')
         self.assertEqual(w.evidence()['second_minus_first']['path_length_um'],1)
         self.assertIn('R1',w.details.toPlainText())
+        for kind in ('device current','device operating point'):
+            i=next(i for i,(_,k,t) in enumerate(w.sources) if k==kind and t=='R1')
+            w.source.setCurrentIndex(i)
+            w.open_run()
+            inspector=self.panel.windows[-1]
+            if kind=='device current':
+                self.assertEqual(tuple(inspector.probe.currentData()),('current','R1'))
+                self.assertEqual(w.evidence()['waveform']['unit'],'A')
+            else:
+                self.assertIn(dev['id'],inspector.schematic.selection)
+                self.assertIn('current',w.evidence()['operating_point']['values'])
+            inspector.close()
         w.navigate(True)
         self.assertEqual(s.current_mode,'layout')
         self.assertEqual(s.selection,[s.cell['shapes'][0]['id']])

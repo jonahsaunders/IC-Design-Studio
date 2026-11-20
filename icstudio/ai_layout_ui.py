@@ -324,8 +324,9 @@ class LayoutTools(QWidget):
         self.source.clear()
         self.sources = self.scope.sources(self.studio.run_manager.rows,self.nets())
         for row,kind,trace in self.sources:
-            self.source.addItem(f"{row['name']} · r{row['job']['project']['revision']} · {trace or kind}",(row['id'],kind,trace))
-        preferred = next((i for i,(_,kind,_) in enumerate(self.sources) if kind!='waveform'),0)
+            evidence=f'{trace} · {kind}' if trace else kind
+            self.source.addItem(f"{row['name']} · r{row['job']['project']['revision']} · {evidence}",(row['id'],kind,trace))
+        preferred = next((i for i,(_,kind,_) in enumerate(self.sources) if kind in ('extraction','ground capacitance')),0)
         index = self.source.findData(previous) if previous else -1
         self.source.setCurrentIndex(index if index>=0 else preferred)
         self.source.blockSignals(False)
@@ -386,6 +387,20 @@ class LayoutTools(QWidget):
                 ext = row['result']['extraction']
                 data['rc'] = {n:physical.net_rc(ext,n) for n in nets}
                 data['extraction'] = dict(corner=ext.get('corner'),method=ext.get('qualification',''),network_hash=ext['network_hash'])
+            elif kind in ('waveform','device current'):
+                from .ai_investigation import trace_view
+                view=trace_view(row['result'],{},('current' if kind=='device current' else 'voltage',trace))
+                if view:
+                    samples=view['traces'][trace]
+                    if samples:
+                        unit='V/√Hz' if kind=='waveform' and row['result'].get('y_label')=='Noise (V/√Hz)' else view['plot_unit']
+                        data['waveform']=dict(trace=trace,samples=len(samples),minimum=min(samples),maximum=max(samples),
+                                              final=samples[-1],unit=unit)
+            elif kind=='device operating point':
+                from .analog_debug import operating_rows
+                records=operating_rows(row['job']['project'],scope.cid,row['result'])
+                device=next((r for r in records if r['name']==trace and r['object'] in scope.selected_devices),None)
+                if device:data['operating_point']={k:device[k] for k in ('name','pins','voltages','values')}
             elif kind=='ground capacitance':
                 ext=row['result'].get('physical_result') or row['result']['extraction']
                 data['rc']={n:dict(ground_cap_fF=1e15*sum(c['capacitance'] for c in ext['capacitors'] if c['net']==n))
@@ -416,6 +431,13 @@ class LayoutTools(QWidget):
             lines.append(f"Second minus first: {delta['path_length_um']:+g} µm of drawn paths, {delta['via_cuts']:+d} via cuts.")
         for n,terminals in data['terminals'].items():
             if terminals:lines.append(n+' terminals: '+', '.join(terminals))
+        if 'waveform' in data:
+            wave=data['waveform']
+            lines.append(f"{wave['trace']} · {wave['samples']} saved samples · {wave['minimum']:.6g} to {wave['maximum']:.6g} {wave['unit']}")
+        if 'operating_point' in data:
+            op=data['operating_point']
+            volts=[f'{pin} {v:.6g} V' for pin,v in op['voltages'].items() if v is not None]
+            lines.append(op['name']+' · saved operating point'+('\n'+', '.join(volts) if volts else ''))
         for n,rc in data.get('rc',{}).items():
             lines.append(rc_text(n,rc))
         if len(data['routes'])==2:
@@ -559,10 +581,13 @@ class LayoutTools(QWidget):
 
     def open_run(self):
         row,kind,trace = self.selected_source()
-        if not row:return
+        if row:self.show_saved(row,kind,trace)
+
+    def show_saved(self,row,kind,trace):
         from .analog_run_ui import RunInspector
         view = self.panel.open_window(RunInspector(self.studio,row))
-        if kind=='waveform':view.focus_requirement(dict(name=trace,node=trace))
+        field={'waveform':'node','device operating point':'device','device current':'source'}.get(kind)
+        if field:view.focus_requirement({'name':trace,field:trace})
 
     def open_pinned(self):
         pin = self.pins.currentData()
@@ -570,9 +595,7 @@ class LayoutTools(QWidget):
         row = next((r for r in self.studio.run_manager.rows if r['id']==source['id'] and
                     r['job']['project']['id']==self.scope.project['id'] and r['job']['project']['revision']==source['revision']),None)
         if not row:raise ValueError('This saved run is unavailable on this computer. Its measurements are retained in the pin.')
-        from .analog_run_ui import RunInspector
-        view = self.panel.open_window(RunInspector(self.studio,row))
-        if source['kind']=='waveform':view.focus_requirement(dict(name=source['trace'],node=source['trace']))
+        self.show_saved(row,source['kind'],source['trace'])
 
     def inspect(self,repair):
         if not self.studio.flush_inspector():return

@@ -204,6 +204,15 @@ class LayoutScope:
             for n in nets:
                 if n.casefold() in traces and result.get('x') and result.get('cell_id',job.get('cell'))==self.cid:
                     sources.append((row,'waveform',traces[n.casefold()]))
+            if self.selected_devices and result.get('cell_id',job.get('cell'))==self.cid:
+                cell=next((c for c in job['project']['cells'] if c['id']==self.cid),{})
+                currents={k.casefold():k for k in result.get('currents',{})}
+                operating={k.casefold() for key in ('device_operating_point','operating_currents') for k in result.get(key,{})}
+                for dev in cell.get('devices',[]):
+                    if dev['id'] not in self.selected_devices:continue
+                    name=dev['name'].casefold()
+                    if name in operating:sources.append((row,'device operating point',dev['name']))
+                    if name in currents and result.get('x'):sources.append((row,'device current',currents[name]))
             ext = result.get('extraction') or {}
             if (isinstance(ext,dict) and ext.get('design_hash')==self.origin and ext.get('cell_id')==self.cid
                     and ext.get('network_hash') and ext['network_hash']==result.get('provenance',{}).get('network_hash')

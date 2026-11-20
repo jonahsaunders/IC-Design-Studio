@@ -162,4 +162,17 @@ def install_inspector(window, row, selector_layout):
     button.clicked.connect(lambda:ask(probe=window.probe.currentData()))
     selector_layout.addWidget(button)
     context_menu(window.requirements,lambda it:dict(requirement=window.requirement_rows[it.row()]['name']),ask)
-    context_menu(window.devices,lambda it:dict(device=window.device_rows[it.row()]['name']),ask)
+    def follow_device(device):
+        from .model import design_digest
+        studio=window.studio
+        if design_digest(row['job']['project'])!=design_digest(studio.project):
+            window.note.setText('Open the saved circuit revision to follow this device into layout.')
+            return
+        record=next((d for d in window.device_rows if d['name']==device),None)
+        if not record or not studio.flush_inspector():return
+        if studio.cid!=record['cell_id']:
+            studio.cid=record['cell_id']
+            studio.refresh(True)
+        window.hide()
+        studio.ask_layout(selection=[record['object']])
+    context_menu(window.devices,lambda it:dict(device=window.device_rows[it.row()]['name']),ask,follow_device)
