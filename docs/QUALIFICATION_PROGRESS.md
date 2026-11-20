@@ -85,7 +85,10 @@ worked examples and practice answers passed focused Qt checks. The 19 Student
 Hub usability scenarios passed, including both themes and text sizes through
 200%. The workspace suite also passed its 26 gallery transitions and 272
 ordered transitions. These results cover the student desktop experience.
-[Student Hub walkthrough](STUDENT_HUB.md#learn-beside-the-real-editor)
+The historical GF180 fill record now uses archived copies of the workspace
+navigation and visual style files. Both match the original acceptance hashes.
+[Student Hub walkthrough](STUDENT_HUB.md#learn-beside-the-real-editor) ·
+[Historical source manifest](validation/student-hub-navigation-retained-source-2026-11-20/chunk4-manifest.json)
 
 ## Student Hub analog interview labs
 
