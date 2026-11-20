@@ -1,6 +1,6 @@
 """Persistent Design / Student Hub tabs around the circuit and RTL editors."""
 from PySide6.QtCore import QSize, Qt
-from PySide6.QtWidgets import (QDialog, QDockWidget, QMenu, QStackedWidget, QTabBar,
+from PySide6.QtWidgets import (QDialog, QDockWidget, QMenu, QSizePolicy, QStackedWidget, QTabBar,
                                QToolBar, QToolButton, QVBoxLayout, QWidget)
 from shiboken6 import isValid
 
@@ -19,12 +19,12 @@ class AppWorkspaces(QStackedWidget):
         layout.setContentsMargins(0, 0, 0, 0)
         self.addWidget(self.student_page)
         navigation = QToolBar('Application workspaces', studio)
+        self.navigation = navigation
         navigation.setObjectName('workspaceNavigation')
         navigation.setMovable(False)
         navigation.setFloatable(False)
         navigation.toggleViewAction().setVisible(False)
-        studio.insertToolBar(studio.toolbar, navigation)
-        studio.insertToolBarBreak(studio.toolbar)
+        self.place_navigation()
         self.tabs = QTabBar(navigation)
         self.tabs.setAccessibleName('Application workspaces')
         self.tabs.setExpanding(False)
@@ -32,6 +32,10 @@ class AppWorkspaces(QStackedWidget):
         self.tabs.addTab('Design')
         self.tabs.addTab('Student Hub')
         navigation.addWidget(self.tabs)
+        spacer = QWidget()
+        spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
+        navigation.addWidget(spacer)
+        navigation.addWidget(studio.collaboration_button)
 
         self.menu_button = QToolButton(self.tabs)
         self.menu_button.setObjectName('studentHubMenuButton')
@@ -49,6 +53,13 @@ class AppWorkspaces(QStackedWidget):
         self.panels = []
         self.dialogs = []
         self.currentChanged.connect(self.switched)
+
+    def place_navigation(self):
+        # Earlier saved layouts only know the design toolbar. Qt can append
+        # unrecognized toolbars beside it, pushing workspace controls offscreen.
+        self.studio.insertToolBar(self.studio.toolbar, self.navigation)
+        self.studio.insertToolBarBreak(self.studio.toolbar)
+        self.navigation.show()
 
     def take_design(self):
         widget = self.widget(0)

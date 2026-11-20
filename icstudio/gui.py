@@ -631,6 +631,12 @@ from .digital_ui import DigitalMixin
 
 class Studio(DigitalMixin,LiveCollaborationMixin,CollaborationMixin,InteroperabilityMixin,LayoutDevelopmentMixin,OnboardingMixin,NativeWorkspaceMixin,XschemWorkflowMixin,VerificationWorkspaceMixin,PhysicalWorkspaceMixin,EngineeringWorkspaceMixin,SimulationWorkspaceMixin,HumanWorkspaceMixin,ConsistencyWorkspaceMixin,CaptureWorkspaceMixin,EditorWorkspaceMixin, LayoutToolsMixin, AnalogMixin, HierarchyMixin, SiliconMixin, LifecycleMixin, LayoutMixin, ProjectMixin, SchematicMixin, FeatureMixin, WorkspaceMixin, StudioCore):
     """Standalone desktop application with the document-focused workspace."""
+    def restoreState(self, state, version=0):
+        restored = super().restoreState(state, version)
+        if restored and getattr(self, 'app_workspaces', None):
+            self.app_workspaces.place_navigation()
+        return restored
+
     def design_widget(self):
         tabs = getattr(self, 'app_workspaces', None)
         return tabs.widget(0) if tabs else self.centralWidget()
