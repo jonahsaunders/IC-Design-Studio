@@ -4,6 +4,20 @@ Open **Tools → AI Assistant…**, then **Options → Connection Settings…**.
 
 ## Try the RC example
 
+### Change a selection
+
+Select components or a wire in the schematic, then right-click the selection and choose **Request a Change…**. Shift-click to select several components. You can also choose **Change selected schematic** from **Tools → AI Assistant…**.
+
+For example, select R1 and ask “Set R1 to 22 kΩ and add 10 pF from its output to ground.” **Send** opens a review when the provider returns a valid proposal. Switch between **Before** and **Proposed** to inspect the same area. Select a table row to highlight its component. Each row shows the original and proposed values or the new component and its terminal connections. **Exact Changes** shows the stored field differences, including any net label needed to attach a new part.
+
+**Apply Changes** commits the entire preview in one undo step. **Discard** drops it. Closing the review lets you reopen it with **Review Changes…**. If the circuit revision changes, use **Options → Refresh Preview** to request a new proposal for the current selection.
+
+The assistant can edit listed numeric component and source settings, including declared instance overrides. In Studio schematics it can also add a resistor, capacitor or inductor between selected scalar nets or ground. A wire selection supplies a connection point. A component selection also makes its editable fields available. Edits inside a shared cell definition affect its instances.
+
+![Review of the RC schematic showing a resistor change from 10k to 22k and a new 10p output capacitor](screenshots/ai-schematic-change-review.png)
+
+### Explain the circuit and build a testbench
+
 1. Right-click R1 on the schematic and choose **Ask About This…**. Ask what sets the time constant. The **Request** tab shows the selected device and its pin connections. Choose **Send**, then enter a follow-up in **Question**.
 2. Choose **Create a testbench**. Try “Run a transient analysis for 100 µs with a 200 ns step. Probe vin and vout and check that the final output is between 0 and 1.8 V.”
 3. Inspect the schematic on the **Fixture** tab. Choose **Edit Fixture…** to adjust analysis settings, sources, loads, probes or measurement limits. If a draft identifies two possible outputs, click a highlighted pin or use the output selector in the editor.

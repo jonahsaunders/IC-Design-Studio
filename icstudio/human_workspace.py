@@ -553,6 +553,8 @@ class HumanWorkspaceMixin(GridSettingsMixin):
         if canvas.mode=='schematic':
             if hasattr(self,'ask_about'):
                 menu.addAction('Ask About This…',lambda:self.ask_about())
+                action=menu.addAction('Request a Change…',lambda:self.ask_about(edit=True))
+                action.setEnabled(bool(self.selection or self.net))
             child=next((d for d in self.cell['devices'] if d['id'] in self.selection and d['kind']=='X'),None)
             commands=[]
             if child:commands += [('Enter schematic','enter',self.capture_enter),('Enter symbol','symbol',lambda:self.capture_enter(True))]

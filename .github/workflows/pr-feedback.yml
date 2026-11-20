@@ -53,7 +53,7 @@ jobs:
         if: matrix.group == 'gui'
         env:
           QT_QPA_PLATFORM: offscreen
-        run: python -m unittest tests.test_ai_assistant tests.gui_ai_assistant tests.gui_ai_investigation
+        run: python -m unittest tests.test_ai_assistant tests.gui_ai_assistant tests.gui_ai_investigation tests.gui_ai_schematic_edits
       - name: Run focused contracts and GUI smoke checks
         run: python scripts/ci_feedback.py --group ${{ matrix.group }}
       - uses: actions/upload-artifact@v4

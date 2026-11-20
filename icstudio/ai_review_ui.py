@@ -3,7 +3,7 @@ import json
 from types import SimpleNamespace
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QDialog, QInputDialog, QToolButton, QVBoxLayout
-from . import ai_context, ai_investigation as investigation, ai_testbench
+from . import ai_context, ai_investigation as investigation, ai_schematic_edits, ai_testbench
 from .model import clone
 
 
@@ -72,7 +72,7 @@ class ReviewTools:
         self.pinned = frozen_selection(self.studio)
         self.prepare()
 
-    def investigate(self, row=None, requirement=None, probe=None, device=None):
+    def investigate(self, row=None, requirement=None, probe=None, device=None, edit=False):
         self.cancel()
         self.reset_context()
         self.note.clear()
@@ -85,7 +85,7 @@ class ReviewTools:
             key = 'failure' if row['state'] != 'Complete' or ai_context.failed_checks(row) else 'circuit'
         else:
             self.pinned = frozen_selection(self.studio)
-            key = 'circuit'
+            key = 'edit' if edit else 'circuit'
         self.action.blockSignals(True)
         self.action.setCurrentIndex(self.action.findData(key))
         self.action.blockSignals(False)
@@ -133,9 +133,15 @@ class ReviewTools:
             entries.append(('device', self.device_ref))
         if self.pinned:
             entries.append(('circuit', self.pinned.cell['name']+' · r'+str(self.pinned.project['revision'])))
-            names = [d['name'] for d in self.pinned.cell['devices'] if d['id'] in self.pinned.selection]
-            if names or self.pinned.net:
-                entries.append(('selection', ', '.join(names[:3]) or self.pinned.net))
+            ids = set(self.pinned.selection)
+            names = [d['name'] for d in self.pinned.cell['devices'] if d['id'] in ids]
+            nets = [w['net'] for w in self.pinned.cell.get('wires',[]) if w['id'] in ids]
+            nets.extend(l['name'] for l in self.pinned.cell.get('labels',[]) if l['id'] in ids)
+            if self.pinned.net:
+                nets.append(self.pinned.net)
+            names.extend('Net '+n for n in dict.fromkeys(nets))
+            if names:
+                entries.append(('selection', ', '.join(names)))
         for key, text in entries:
             button = QToolButton()
             button.setProperty('attachment', True)
@@ -150,6 +156,10 @@ class ReviewTools:
         if self.needs_attachment:
             raise ValueError('Choose Ask About This on another item, or select New Investigation.')
         action = self.action.currentData()
+        if action == 'edit':
+            if not self.pinned and self.studio.current_mode!='schematic':
+                raise ValueError('Select components or a net in the schematic editor.')
+            return ai_schematic_edits.prompt(self.pinned or self.studio)
         if self.row:
             detail = investigation.evidence(self.studio,self.row,self.check,self.probe_ref,self.device_ref)
             prompt = ('Investigate the attached saved simulation. Cite measured values, limits, units and operating conditions. '

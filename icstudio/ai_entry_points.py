@@ -35,16 +35,21 @@ def row_for_result(studio, result):
 
 
 def install(studio, show):
-    def ask(row=None, requirement=None, probe=None, device=None):
+    def ask(row=None, requirement=None, probe=None, device=None, *, edit=False):
         if not row and not studio.flush_inspector():
             return
         panel = show()
-        panel.call_local(lambda:panel.investigate(row,requirement,probe,device))
+        panel.call_local(lambda:panel.investigate(row,requirement,probe,device,edit))
         panel.note.setFocus()
         studio.raise_()
         studio.activateWindow()
         return panel
     studio.ask_about = ask
+    def selected(*_):
+        panel = getattr(studio,'_ai_assistant',None)
+        if panel and panel.action.currentData()=='edit' and not panel.pinned and panel.reply is None:
+            panel.update_preview()
+    studio.schematic.selected.connect(selected)
     def wave_args(item=None):
         row = row_for_result(studio, studio.result)
         if not row:

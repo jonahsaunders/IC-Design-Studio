@@ -85,6 +85,7 @@ class Assistant(ReviewTools, QDockWidget):
         self.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
         self.studio = studio
         self.windows = []
+        self.change = self.change_window = None
         self.reset_context()
         self.provider = str(studio.settings.value('assistant/provider', 'openai'))
         if self.provider not in providers.PROVIDERS:
@@ -116,7 +117,7 @@ class Assistant(ReviewTools, QDockWidget):
         self.connection.setAccessibleName('Investigation options')
         self.connection.setPopupMode(QToolButton.InstantPopup)
         menu = QMenu(self.connection)
-        menu.addAction('Refresh Preview', self.refresh)
+        menu.addAction('Refresh Preview', self.refresh_request)
         menu.addAction('New Investigation', self.new_investigation)
         menu.addSeparator()
         menu.addAction('Connection Settings…', lambda: Connection(self).exec())
@@ -211,6 +212,9 @@ class Assistant(ReviewTools, QDockWidget):
         row = FlowActions()
         layout.addLayout(row)
         self.validate_button = QPushButton('Preview')
+        self.review_change = QPushButton('Review Changes…')
+        self.review_change.clicked.connect(self.open_change_review)
+        row.addWidget(self.review_change)
         self.add_button = QPushButton('Save Testbench')
         self.edit_button = QPushButton('Edit Fixture…')
         self.draft_button = QPushButton('Run Draft…')
@@ -279,6 +283,17 @@ class Assistant(ReviewTools, QDockWidget):
         self.draft_button.setEnabled(self.add_button.isEnabled())
         self.pins_widget.setEnabled(not busy)
         self.tabs.setTabVisible(2, bench)
+        editing = self.action.currentData() == 'edit'
+        self.review_change.setVisible(editing)
+        self.review_change.setEnabled(self.change is not None and not busy)
+        self.note.setPlaceholderText('Describe the schematic change…' if editing else 'Ask a question or set a goal…')
+        if editing and not self.note.text().strip():
+            self.send_button.setEnabled(False)
+
+    def refresh_request(self):
+        if self.action.currentData() == 'edit':
+            self.reset_context()
+        self.refresh()
 
     def refresh(self):
         self.cancel()
@@ -307,6 +322,7 @@ class Assistant(ReviewTools, QDockWidget):
         self.prepare()
 
     def prepare(self):
+        self.clear_change()
         self.origin = self.proposal = None
         self.answer.clear()
         self.answer.setReadOnly(self.action.currentData() != 'bench')
@@ -331,6 +347,9 @@ class Assistant(ReviewTools, QDockWidget):
     def send(self):
         if self.reply is not None or not self.studio.flush_inspector():
             return
+        if self.action.currentData()=='edit' and not self.note.text().strip():
+            self.status.setText('Describe the change you want to preview.')
+            return
         try:
             prompt = self.current_prompt()
             if prompt != self.preview.toPlainText():
@@ -353,6 +372,7 @@ class Assistant(ReviewTools, QDockWidget):
                 req.setAttribute(attr, QNetworkRequest.Manual)
             for name, value in headers.items():
                 req.setRawHeader(name.encode('ascii'), value.encode('ascii'))
+            self.clear_change()
             self.answer.clear()
             self.proposal = None
             self.remember_send()
@@ -414,6 +434,18 @@ class Assistant(ReviewTools, QDockWidget):
             if self.action.currentData() == 'bench':
                 self.answer.setPlainText(answer)
                 self.validate_draft()
+            elif self.action.currentData() == 'edit':
+                from .ai_schematic_edits import propose
+                summary, self.change = propose(self.pinned,answer)
+                reviewed = [e.name+' · '+e.field+' · '+e.before+' → '+e.after for e in self.change.edits] if self.change else []
+                self.turns.append((self.pending_question,'\n'.join([summary,*reviewed])))
+                self.turns = self.turns[-4:]
+                self.answer.setPlainText(summary)
+                if self.change:
+                    self.status.setText('Review the proposed changes before applying.')
+                    self.open_change_review()
+                else:
+                    self.status.setText('No edits proposed. Add details and send a follow-up.')
             else:
                 self.receive_explanation(answer)
         except (ValueError, RecursionError) as exc:
@@ -431,6 +463,35 @@ class Assistant(ReviewTools, QDockWidget):
         self.fixture_view.update()
         self.edit_button.setText('Edit Fixture…')
         self.controls()
+
+    def clear_change(self):
+        self.change = None
+        if self.change_window:
+            self.change_window.close()
+            self.change_window = None
+
+    def open_change_review(self):
+        if not self.change:
+            return
+        if not self.change_window:
+            from .ai_schematic_review_ui import ChangeReview
+            window = ChangeReview(self,self.change)
+            self.change_window = window
+            window.finished.connect(lambda *_:setattr(self,'change_window',None) if self.change_window is window else None)
+            self.open_window(window)
+        else:
+            self.change_window.raise_()
+            self.change_window.activateWindow()
+
+    def discard_change(self):
+        self.clear_change()
+        self.status.setText('Proposal discarded.')
+        self.controls()
+
+    def change_applied(self):
+        count = len(self.change.edits)
+        self.new_investigation()
+        self.status.setText(f'Applied {count} schematic edit' + ('.' if count==1 else 's.') + ' Edit → Undo reverses this change.')
 
     def choose_output(self, name):
         spec = ai_testbench.decode(self.answer.toPlainText())

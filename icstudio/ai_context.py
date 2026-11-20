@@ -4,7 +4,8 @@ import re
 from . import ai_testbench
 
 
-ACTIONS = {'circuit': 'Explain selected circuit', 'failure': 'Explain failed run', 'bench': 'Create a testbench'}
+ACTIONS = {'circuit': 'Explain selected circuit', 'edit': 'Change selected schematic',
+           'failure': 'Explain failed run', 'bench': 'Create a testbench'}
 
 
 def excerpt(text, limit):
