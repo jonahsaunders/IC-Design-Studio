@@ -1,23 +1,51 @@
 """Persistent Design / Student Hub tabs around the circuit and RTL editors."""
-from PySide6.QtCore import QSize
-from PySide6.QtWidgets import QTabWidget, QWidget, QVBoxLayout, QDockWidget, QDialog
+from PySide6.QtCore import QSize, Qt
+from PySide6.QtWidgets import (QDialog, QDockWidget, QMenu, QStackedWidget, QTabBar,
+                               QToolBar, QToolButton, QVBoxLayout, QWidget)
 from shiboken6 import isValid
 
 from .window_geometry import keep_visible
 
 
-class AppWorkspaces(QTabWidget):
+class AppWorkspaces(QStackedWidget):
     def __init__(self, studio):
         super().__init__(studio)
         self.studio = studio
         self.setObjectName('appWorkspaces')
         self.setAccessibleName('Application workspaces')
-        self.setDocumentMode(True)
-        self.addTab(studio.takeCentralWidget(), 'Design')
+        self.addWidget(studio.takeCentralWidget())
         self.student_page = QWidget()
         layout = QVBoxLayout(self.student_page)
         layout.setContentsMargins(0, 0, 0, 0)
-        self.addTab(self.student_page, 'Student Hub')
+        self.addWidget(self.student_page)
+        navigation = QToolBar('Application workspaces', studio)
+        navigation.setObjectName('workspaceNavigation')
+        navigation.setMovable(False)
+        navigation.setFloatable(False)
+        navigation.toggleViewAction().setVisible(False)
+        studio.insertToolBar(studio.toolbar, navigation)
+        studio.insertToolBarBreak(studio.toolbar)
+        self.tabs = QTabBar(navigation)
+        self.tabs.setAccessibleName('Application workspaces')
+        self.tabs.setExpanding(False)
+        self.tabs.setDrawBase(False)
+        self.tabs.addTab('Design')
+        self.tabs.addTab('Student Hub')
+        navigation.addWidget(self.tabs)
+
+        self.menu_button = QToolButton(self.tabs)
+        self.menu_button.setObjectName('studentHubMenuButton')
+        self.menu_button.setAccessibleName('Student Hub menu')
+        self.menu_button.setToolTip('Student Hub menu')
+        self.menu_button.setArrowType(Qt.DownArrow)
+        self.menu_button.setFocusPolicy(Qt.StrongFocus)
+        self.menu_button.setPopupMode(QToolButton.InstantPopup)
+        self.hub_menu = QMenu('Student Hub', self.menu_button)
+        self.menu_button.setMenu(self.hub_menu)
+        self.tabs.setTabButton(1, QTabBar.RightSide, self.menu_button)
+        self.hub_menu.aboutToShow.connect(lambda: self.setCurrentIndex(1))
+        self.tabs.currentChanged.connect(self.setCurrentIndex)
+        self.currentChanged.connect(self.tabs.setCurrentIndex)
         self.panels = []
         self.dialogs = []
         self.currentChanged.connect(self.switched)
@@ -25,7 +53,7 @@ class AppWorkspaces(QTabWidget):
     def take_design(self):
         widget = self.widget(0)
         self.blockSignals(True)
-        self.removeTab(0)
+        self.removeWidget(widget)
         self.blockSignals(False)
         widget.hide()
         widget.setParent(self.studio)
@@ -33,16 +61,17 @@ class AppWorkspaces(QTabWidget):
 
     def set_design(self, widget):
         self.blockSignals(True)
-        self.insertTab(0, widget, 'Design')
+        self.insertWidget(0, widget)
         self.setCurrentIndex(0)
         self.blockSignals(False)
+        self.tabs.setCurrentIndex(0)
         widget.show()
 
     def hub(self):
         hub = getattr(self.studio, '_student_hub', None)
         if hub is None:
             from .student_hub_ui import StudentHub
-            hub = StudentHub(self.studio)
+            hub = StudentHub(self.studio, menu=self.hub_menu)
             self.studio._student_hub = hub
             self.student_page.layout().addWidget(hub)
             self.studio.task_menus['View'].addAction(hub.guide.toggleViewAction())
@@ -51,6 +80,7 @@ class AppWorkspaces(QTabWidget):
     def switched(self, index):
         s = self.studio
         if index == 1:
+            navigating_tabs = self.tabs.hasFocus()
             hub = self.hub()
             try:
                 hub.reload_progress()
@@ -76,7 +106,10 @@ class AppWorkspaces(QTabWidget):
             s.toolbar.hide()
             keep_visible(s)
             hub.show()
-            hub.search.setFocus()
+            if navigating_tabs:
+                self.tabs.setFocus()
+            else:
+                hub.search.setFocus()
         else:
             if hasattr(self, 'design_minimum'):
                 s._workspace_minimum_size = QSize(self.design_minimum)

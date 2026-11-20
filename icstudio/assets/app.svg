@@ -1,1 +1,24 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256"><rect x="8" y="8" width="240" height="240" rx="50" fill="#171e2b"/><g stroke="#84afff" stroke-width="10" stroke-linecap="round"><path d="M64 88H40m24 40H40m24 40H40m128-80h24m-24 40h24m-24 40h24M88 64V40m40 24V40m40 24V40M88 192v24m40-24v24m40-24v24"/><rect x="64" y="64" width="128" height="128" rx="17" fill="#243852"/><path d="M88 140h24l16-30 16 30h24" fill="none" stroke="#cce0ff" stroke-width="8"/></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <title>IC Design Studio</title>
+  <defs>
+    <linearGradient id="case" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop stop-color="#203957"/>
+      <stop offset="1" stop-color="#101b35"/>
+    </linearGradient>
+    <linearGradient id="silicon" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop stop-color="#c0fff1"/>
+      <stop offset="1" stop-color="#54dcce"/>
+    </linearGradient>
+  </defs>
+  <rect x="5" y="5" width="246" height="246" rx="52" fill="url(#case)"/>
+  <path d="M61 168l15 8-15 9-15-8zm29 16l15 8-15 9-15-8zm105-16l15 9-15 8-15-9zm-29 16l15 9-15 8-15-9z" fill="#b4c9e6"/>
+  <!-- The separated lower mask gives the die a silhouette at taskbar sizes. -->
+  <path d="M40 150l80 43q8 5 16 0l80-43v12q0 6-7 10l-73 40q-8 5-16 0l-73-40q-7-4-7-10z" fill="#70a1ff"/>
+  <path d="M40 124l80 43q8 5 16 0l80-43v12q0 6-7 10l-73 40q-8 5-16 0l-73-40q-7-4-7-10z" fill="#438dc0"/>
+  <path d="M46 98l73-40q9-5 18 0l73 40q13 7 0 15l-73 40q-9 5-18 0l-73-40q-13-8 0-15z" fill="url(#silicon)"/>
+  <path d="M81 110l22-12 20 11 29-16 23 13" fill="none" stroke="#123954" stroke-width="12" stroke-linejoin="round" stroke-linecap="round"/>
+  <g fill="#123954">
+    <ellipse cx="81" cy="110" rx="10" ry="7.5"/>
+    <ellipse cx="175" cy="106" rx="10" ry="7.5"/>
+  </g>
+</svg>

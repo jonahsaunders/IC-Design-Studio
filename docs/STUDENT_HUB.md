@@ -1,6 +1,6 @@
 # Student Hub
 
-Open the **Student Hub** tab beside **Design**, or choose **View → Student Hub**. Design is the primary workspace; the Hub is an optional learning area. Starting a lesson or opening an example returns to Design. Switching tabs preserves the current editor and its drafts.
+Open the **Student Hub** tab at the top of the window, beside **Design**, or choose **View → Student Hub**. The arrow on the tab opens the Student Hub menu from either workspace. Design is the primary workspace; the Hub is an optional learning area. Starting a lesson or opening an example returns to Design. Switching tabs preserves the current editor and its drafts.
 Seven learning paths cover foundations, analog, digital, mixed signal, layout,
 portfolio preparation, and [analog design projects](STUDENT_ANALOG_PROJECTS.md).
 The photodiode TIA and two-stage op amp take an editable SKY130 circuit from a
@@ -31,14 +31,22 @@ together. The layout guide shows comparison controls when the task uses
 them. [Apple layout](https://developer.apple.com/design/human-interface-guidelines/layout) ·
 [Apple accessibility](https://developer.apple.com/design/human-interface-guidelines/accessibility)
 
-![Six learning paths and a measured gm/ID sizing exercise](images/student-hub-design-paths.png)
+![The Student Hub tab and a quick check explaining the RC time constant](images/student-hub-quick-check.png)
 
 ## Learn beside the real editor
 
 Use **Search all lessons** or **Ctrl+F** to find a topic across learning paths.
 Results show their learning path. Clear the search to return to the selected
 path. Use the arrow keys to browse lessons and **Enter** on a lesson to open it.
-Set **More → Text size** to increase text without losing the lesson controls.
+Use the progress filter to narrow the list by readiness or completion. **Clear filters**
+restores the current path when a search has no matches. Select **Study notes** to
+read the worked example, or **Quick check** to try the lesson prediction and see
+its explanation before opening a project. Quick checks are practice. The guided
+lesson records earned steps in your portfolio.
+
+The workspace tabs keep each editor in place, and practice answers give feedback
+beside the question. [Apple tab bars](https://developer.apple.com/design/human-interface-guidelines/tab-bars) ·
+[Apple feedback](https://developer.apple.com/design/human-interface-guidelines/feedback)
 
 1. Choose **Continue learning**, or select a path and a lesson.
 2. **Start lesson** creates an independent, saved project. Existing work goes
@@ -60,13 +68,13 @@ returns to the progression map. Use **Cancel lesson runs** to stop only the jobs
 launched for that lesson project. Duplicate submissions are blocked while a run
 is queued, running or stopping. A failed simulator run does not earn credit.
 
-The Hub adapts to a narrow window. **More → Text size** enlarges text up to 200%
+The Hub adapts to a narrow window. **Student Hub menu → Text size** enlarges text up to 200%
 in both the Hub and guide; scrolling keeps controls reachable. Use **Cmd+F** on
 macOS or **Ctrl+F** on Windows/Linux to search the current path. Return in search
 focuses the lesson list; Return on a lesson opens it. Tab navigates controls.
 
-**More → Locate lesson project** reconnects a moved file after checking its
-project identity. **More → Reload progress** recovers changes saved by another
+**Student Hub menu → Locate lesson project** reconnects a moved file after checking its
+project identity. **Student Hub menu → Reload progress** recovers changes saved by another
 window; if both windows edited the same reflection, choose which version to keep
 or cancel to preserve the unsaved draft. A failed draft save blocks dismissal or
 app exit until the draft can be preserved. **Export learning record** saves the
@@ -167,7 +175,7 @@ project explanation. Every lesson supplies a related interview prompt and an
 artifact to keep. The two portfolio milestones share a saved current-mirror
 case study, while the final review can cite any completed design lesson.
 
-**More → Export portfolio report** writes standalone HTML that opens in a browser
+**Student Hub menu → Export portfolio report** writes standalone HTML that opens in a browser
 and can be printed. It includes lesson status, portfolio outcomes, student drafts
 and captured evidence. **Export learning record** still provides the JSON project
 snapshots. Both save the active lesson first and respect Save cancellation.
@@ -181,12 +189,12 @@ Foundations and Analog use the included teaching solver and generic devices.
 Digital lessons use Icarus and embedded reference testbenches through the
 selected **Included tools** or **Custom tools** digital toolchain. **Run lesson**
 opens digital setup when Included tools are not ready and resumes after
-successful setup. **More → Engine setup… → Digital tools setup…** opens the same
+successful setup. **Student Hub menu → Engine setup… → Digital tools setup…** opens the same
 setup panel. In Custom mode, the Hub's Icarus fields override the shared custom
 paths when provided; in Included mode they do not override the managed runtime.
 
 Mixed Signal and the capstone run the native ngspice/Icarus closed loop described
-in the [SAR walkthrough](MIXED_SIGNAL_SAR.md). **More → Engine setup…** selects
+in the [SAR walkthrough](MIXED_SIGNAL_SAR.md). **Student Hub menu → Engine setup…** selects
 those native `ngspice`, `iverilog` and `vvp` executables. **Check native mixed-signal engines**
 reports all missing prerequisites together. Blank Icarus fields search PATH;
 blank ngspice uses Studio's native discovery, including its bundled executable

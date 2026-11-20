@@ -1,10 +1,11 @@
 """A native learning hub and a persistent guide beside the circuit/RTL editors."""
 import html
+from collections import Counter
 from pathlib import Path
 
-from PySide6.QtCore import Qt, QTimer, QEvent
-from PySide6.QtGui import QKeySequence, QShortcut, QFontDatabase
-from PySide6.QtWidgets import (QDialog,QWidget,QVBoxLayout,QHBoxLayout,QGridLayout,QLabel,QPushButton,
+from PySide6.QtCore import Qt, QTimer, QEvent, QSize
+from PySide6.QtGui import QActionGroup, QIcon, QKeySequence, QShortcut, QFontDatabase
+from PySide6.QtWidgets import (QDialog,QWidget,QVBoxLayout,QHBoxLayout,QGridLayout,QLabel,QPushButton,QButtonGroup,QSizePolicy,
     QListWidget,QListWidgetItem,QListView,QTextBrowser,QPlainTextEdit,QComboBox,QProgressBar,QDockWidget,
     QLineEdit,QFileDialog,QFormLayout,QDialogButtonBox,QSplitter,QMenu,QScrollArea,QMessageBox,QTabWidget,QInputDialog)
 
@@ -30,8 +31,8 @@ def button(text, callback, role=None):
     return widget
 
 
-def feedback(widget,text,error=False):
-    widget.setText(text);widget.setProperty('role','error' if error else 'muted')
+def feedback(widget,text,error=False,*,role='muted'):
+    widget.setText(text);widget.setProperty('role','error' if error else role)
     widget.style().unpolish(widget);widget.style().polish(widget)
     widget.setAccessibleName(text)
 
@@ -42,18 +43,93 @@ def student_style(dark,scale):
     return stylesheet(dark)+f'''
     QWidget {{font-family:"{family}";font-size:{size}px;}}
     QLabel[role="section"], QLabel[role="subtitle"] {{font-size:{size}px;}}
-    QLabel[role="title"] {{font-size:{round(24*scale/100)}px;}}
+    QLabel[role="title"] {{font-size:{round(25*scale/100)}px;font-weight:600;}}
+    QLabel[role="question"] {{font-size:{round(19*scale/100)}px;font-weight:600;}}
+    QLabel[role="correct"] {{color:{'#a0e8d2' if dark else '#11644d'};}}
     QTextBrowser {{background:{t['panel']};color:{t['text']};border:0;padding:4px;}}
     QPushButton[role="primary"]:focus {{border:2px solid {t['text']};}}
     QTextBrowser:focus, QPlainTextEdit:focus, QLineEdit:focus, QListWidget:focus, QComboBox:focus {{border:2px solid {t['accent']};}}
     QLineEdit {{min-height:{round(22*scale/100)}px;}}
     QListWidget::item {{padding:10px 8px;}}
+    QPushButton[role="answer"] {{background:{t['field']};border:1px solid {t['line']};padding:0;}}
+    QPushButton[role="answer"]:hover {{background:{t['hover']};}}
+    QPushButton[role="answer"]:checked {{background:{t['tint']};border-color:{t['accent']};}}
+    QPushButton[role="answer"]:focus {{border:2px solid {t['accent']};}}
+    QLabel[role="answerText"] {{background:transparent;}}
     QProgressBar {{max-height:8px;}}
     '''
 
 
+class PredictionPreview(QScrollArea):
+    """Try a curriculum question before opening the lesson project."""
+    def __init__(self):
+        super().__init__()
+        self.setWidgetResizable(True)
+        self.setAccessibleName('Practice prediction')
+        body = QWidget()
+        self.setWidget(body)
+        layout = QVBoxLayout(body)
+        layout.setContentsMargins(12, 14, 12, 14)
+        layout.setSpacing(10)
+        self.title = label('', 'muted')
+        self.question = label('', 'question')
+        layout.addWidget(self.title)
+        layout.addWidget(self.question)
+        self.choices = QVBoxLayout()
+        layout.addLayout(self.choices)
+        self.answers = QButtonGroup(self)
+        self.answers.idClicked.connect(self.answer)
+        self.result = label()
+        layout.addWidget(self.result)
+        layout.addStretch()
+        self.step = None
+
+    def set_lesson(self, lesson):
+        steps = lesson['steps'] if lesson else ()
+        step = next((s for s in steps if s['kind'] == 'quiz'), None)
+        if step is self.step:
+            return step is not None
+        self.step = step
+        for choice in self.answers.buttons():
+            self.answers.removeButton(choice)
+            self.choices.removeWidget(choice)
+            choice.hide()
+            choice.deleteLater()
+        self.title.setText(step['title'] if step else '')
+        self.question.setText(step['instructions'] if step else '')
+        self.result.clear()
+        if step is None:
+            return False
+        for index, option in enumerate(step['options']):
+            choice = QPushButton()
+            choice.setAutoDefault(False)
+            choice.setCheckable(True)
+            choice.setAccessibleName(option)
+            choice.setProperty('role', 'answer')
+            # A wrapped label keeps long circuit predictions readable at large text sizes.
+            caption = label(option, 'answerText')
+            caption.setAttribute(Qt.WA_TransparentForMouseEvents)
+            row = QVBoxLayout(choice)
+            row.setContentsMargins(12, 8, 12, 8)
+            row.addWidget(caption)
+            policy = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
+            policy.setHeightForWidth(True)
+            choice.setSizePolicy(policy)
+            self.answers.addButton(choice, index)
+            self.choices.addWidget(choice)
+        feedback(self.result, 'Choose an answer to practice. Start the lesson to earn credit.')
+        self.verticalScrollBar().setValue(0)
+        return True
+
+    def answer(self, index):
+        correct = index == self.step['answer']
+        verdict = 'Correct.' if correct else 'Try again.'
+        feedback(self.result, f'{verdict} {self.step["explanation"]}', role='correct' if correct else 'error')
+        self.ensureWidgetVisible(self.result)
+
+
 class StudentHub(QWidget):
-    def __init__(self,studio):
+    def __init__(self,studio,menu=None):
         super().__init__(studio);self.studio=studio;self.data=curriculum()
         self.material=study_guide(self.data)
         from .student_inverter import inventory, expand
@@ -69,19 +145,33 @@ class StudentHub(QWidget):
         self.scroll=QScrollArea();self.scroll.setWidgetResizable(True);outer.addWidget(self.scroll)
         body=QWidget();self.scroll.setWidget(body)
         root=QVBoxLayout(body);root.setContentsMargins(20,16,20,16);root.setSpacing(12)
-        head=QHBoxLayout();head.addWidget(label('Student Hub','title'),1)
-        self.resume=button('Continue learning',lambda:self.call(self.continue_learning));head.addWidget(self.resume)
-        self.more=button('More',lambda:None);self.more.setAccessibleName('Student Hub options')
-        menu=QMenu(self.more);self.more_menu=menu;self.more.setMenu(menu)
+        head=QHBoxLayout()
+        mark=QLabel()
+        mark.setPixmap(QIcon(str(Path(__file__).parent/'assets'/'app.svg')).pixmap(QSize(48,48),self.devicePixelRatioF()))
+        head.addWidget(mark,0,Qt.AlignVCenter)
+        head.setSpacing(12)
+        intro=QVBoxLayout();intro.setSpacing(3)
+        intro.addWidget(label('Student Hub','title'))
+        self.total=label('','muted');intro.addWidget(self.total)
+        head.addLayout(intro,1)
+        self.resume=button('Continue learning',lambda:self.call(self.continue_learning),'secondary')
+        head.addWidget(self.resume,0,Qt.AlignTop)
+        menu=menu if menu is not None else QMenu(self)
+        self.more_menu=menu
         for title,fn in [('Continue learning',self.continue_learning),('Feature map',lambda:studio.open_editor_doc('STUDENT_HUB.md')),('Engine setup…',self.setup),
                          ('Export learning record…',self.export),('Export portfolio report…',lambda:self.export(report=True)),
                          ('Locate lesson project…',self.locate),('Switch open project PDK…',studio.switch_pdk_dialog),('Reload progress',self.reload_progress)]:
+            if title in ('Engine setup…','Export learning record…','Locate lesson project…'):
+                menu.addSeparator()
             menu.addAction(title,lambda checked=False,fn=fn:self.call(fn))
+        menu.addSeparator()
         sizes=menu.addMenu('Text size');self.text_size_menu=sizes
-        for scale in (100,125,150,200):sizes.addAction(f'{scale}%',lambda checked=False,scale=scale:self.set_text_scale(scale))
-        head.addWidget(self.more);root.addLayout(head)
-        self.total=label('','muted');root.addWidget(self.total)
-        root.addWidget(label('Learn the idea → repair a design → check the evidence → explain your decisions.','muted'))
+        size_group=QActionGroup(sizes)
+        for scale in (100,125,150,200):
+            action=sizes.addAction(f'{scale}%',lambda checked=False,scale=scale:self.set_text_scale(scale))
+            action.setCheckable(True);action.setData(scale);size_group.addAction(action)
+            action.setChecked(scale==self.text_scale)
+        root.addLayout(head)
         self.path_picker=QComboBox();self.path_picker.setAccessibleName('Learning path');root.addWidget(self.path_picker)
         self.process_panel=QWidget();pv=QVBoxLayout(self.process_panel);pv.setContentsMargins(0,0,0,0)
         pr=QHBoxLayout();pv.addLayout(pr);pr.addWidget(label('Inverter process'))
@@ -104,12 +194,23 @@ class StudentHub(QWidget):
             self.path_picker.addItem(title,key)
         self.path_list.currentRowChanged.connect(lambda i:self.choose_path(self.path_list.item(i).data(Qt.UserRole)) if i>=0 else None)
         self.path_picker.currentIndexChanged.connect(lambda i:self.choose_path(self.path_picker.itemData(i)))
-        panes=QHBoxLayout();root.addLayout(panes,1);panes.addWidget(self.path_list)
+        panes=QHBoxLayout();root.addLayout(panes,1)
+        self.path_sidebar=QWidget()
+        sidebar=QVBoxLayout(self.path_sidebar);sidebar.setContentsMargins(0,0,0,0)
+        sidebar.addWidget(label('Learning paths','subtitle'));sidebar.addWidget(self.path_list,1)
+        panes.addWidget(self.path_sidebar)
         self.split=QSplitter();self.split.setChildrenCollapsible(False);panes.addWidget(self.split,1)
         left=QWidget();lv=QVBoxLayout(left);lv.setContentsMargins(0,0,0,0);self.split.addWidget(left)
-        self.heading=label('','subtitle');lv.addWidget(self.heading)
+        lv.addWidget(label('Lessons','subtitle'))
         self.search=QLineEdit();self.search.setPlaceholderText('Search all lessons…');self.search.setAccessibleName('Search all learning paths');self.search.textChanged.connect(self.fill)
         lv.addWidget(self.search);self.search.setClearButtonEnabled(True)
+        self.status_filter=QComboBox()
+        self.status_filter.setAccessibleName('Filter lessons by progress')
+        self.status_filter.addItems(['All statuses','Ready to start','In progress','Completed',
+                                     'Prerequisites needed','PDK setup needed'])
+        self.status_filter.currentIndexChanged.connect(self.fill)
+        lv.addWidget(self.status_filter)
+        self.heading=label('','muted');lv.addWidget(self.heading)
         self.search.returnPressed.connect(lambda:self.lessons.setFocus())
         self.find_shortcut=QShortcut(QKeySequence.Find,self);self.find_shortcut.activated.connect(self.search.setFocus)
         self.lessons=QListWidget();self.lessons.setWordWrap(True);self.lessons.setObjectName('studentLessons');self.lessons.setAccessibleName('Learning progression');lv.addWidget(self.lessons,1)
@@ -117,11 +218,19 @@ class StudentHub(QWidget):
         self.lessons.setMinimumHeight(120)
         self.lessons.itemActivated.connect(lambda _:self.call(self.start_selected))
         right=QWidget();rv=QVBoxLayout(right);rv.setContentsMargins(18,0,0,0)
-        self.details=QTextBrowser();self.details.setOpenLinks(False);self.details.anchorClicked.connect(lambda url:self.select_lesson(url.toString()));rv.addWidget(self.details,1)
+        self.preview=QTabWidget();self.preview.setDocumentMode(True);self.preview.tabBar().setDrawBase(False)
+        self.preview.setAccessibleName('Lesson preview');rv.addWidget(self.preview,1)
+        self.details=QTextBrowser();self.details.setOpenLinks(False);self.details.anchorClicked.connect(lambda url:self.select_lesson(url.toString()))
+        self.preview.addTab(self.details,'Overview')
+        self.study_notes=QTextBrowser();self.study_notes.setAccessibleName('Lesson study notes')
+        self.preview.addTab(self.study_notes,'Study notes')
+        self.prediction=PredictionPreview()
+        self.preview.addTab(self.prediction,'Quick check')
         self.details.setAccessibleName('Lesson overview');self.details.setMinimumWidth(240)
         self.progress_text=label('','muted');rv.addWidget(self.progress_text)
         self.progress=QProgressBar();self.progress.setTextVisible(False);self.progress.setAccessibleName('Lesson completion');rv.addWidget(self.progress)
         self.start=button('Start lesson',lambda:self.call(self.start_selected),'primary');rv.addWidget(self.start)
+        self.reset_filters=button('Clear filters',self.clear_filters,'secondary');rv.addWidget(self.reset_filters)
         self.split.addWidget(right);self.split.setSizes([320,600]);self.lessons.currentRowChanged.connect(self.detail)
         self.status=label('Progress is saved on this computer. Simulation checks and written reflections are recorded separately.','muted');root.addWidget(self.status)
         self.guide=LessonGuide(self);studio.addDockWidget(Qt.RightDockWidgetArea,self.guide);self.guide.hide()
@@ -131,16 +240,19 @@ class StudentHub(QWidget):
         style=student_style(self.studio.dark,self.text_scale)
         self.setStyleSheet(style);self.guide.setStyleSheet(style)
         self.guide.arrange_actions()
-        self.details.document().setDefaultStyleSheet(f'a {{color:{palette(self.studio.dark)["accent"]};}} li {{margin-bottom:8px;}}')
+        link_style=f'a {{color:{palette(self.studio.dark)["accent"]};}} li {{margin-bottom:8px;}}'
+        self.details.document().setDefaultStyleSheet(link_style)
         self.adapt_layout()
         scroll=self.details.verticalScrollBar().value();self.detail();self.details.verticalScrollBar().setValue(scroll)
 
     def set_text_scale(self,scale):
         self.text_scale=scale;self.studio.settings.setValue('student/textScale',scale);self.apply_theme();self.detail()
+        for action in self.text_size_menu.actions():
+            action.setChecked(action.data()==scale)
 
     def adapt_layout(self):
         compact=self.width()<1050 or self.text_scale>125
-        self.path_list.setVisible(not compact);self.path_picker.setVisible(compact)
+        self.path_sidebar.setVisible(not compact);self.path_picker.setVisible(compact)
         self.resume.setVisible(self.width()>=850 and self.text_scale<=125)
         vertical=self.width()<850 or self.text_scale>=150
         orientation=Qt.Vertical if vertical else Qt.Horizontal
@@ -181,6 +293,11 @@ class StudentHub(QWidget):
     def selected(self):
         item=self.lessons.currentItem();return self.by_id.get(item.data(Qt.UserRole)) if item else None
 
+    def clear_filters(self):
+        self.status_filter.setCurrentIndex(0)
+        self.search.clear()
+        self.search.setFocus()
+
     def fill(self,*_):
         previous=self.selected();key=previous['id'] if previous else None;state=self.portfolio.state
         from .student_inverter import readiness
@@ -207,6 +324,7 @@ class StudentHub(QWidget):
         if self.path_id=='capstone':self.heading.setText(self.data['capstone']['subtitle'])
         else:self.heading.setText(next(p['subtitle'] for p in self.data['paths'] if p['id']==self.path_id))
         words=self.search.text().casefold().split()
+        workspace_uses = Counter(lesson['workspace'] for lesson in self.data['lessons'])
         for l in self.data['lessons']:
             path_title=self.path_titles[l['path']]
             if words:
@@ -215,13 +333,24 @@ class StudentHub(QWidget):
             elif l['path']!=self.path_id:continue
             if l['path']=='inverter' and l['inverter_profile']!=self.process_picker.currentData():continue
             count=len(earned(state,l));missing=missing_prerequisites(state,l,self.data)
-            status='Completed' if complete(state,l) else 'Prerequisites needed' if missing else 'In progress' if count else 'Ready to start'
+            if l.get('inverter_profile') and not self.inverter_profiles[l['inverter_profile']]['ready']:
+                status='PDK setup needed'
+            elif complete(state,l):
+                status='Completed'
+            elif missing:
+                status='Prerequisites needed'
+            elif (count or any(state['lessons'].get(l['id'],{}).get('notes',{}).values())
+                  or (workspace_uses[l['workspace']] == 1 and self.portfolio.workspace(l))):
+                status='In progress'
+            else:
+                status='Ready to start'
+            if self.status_filter.currentIndex() and self.status_filter.currentText()!=status:continue
             title=f'{l["title"]}\n{path_title}' if words else l['title']
             item=QListWidgetItem(f'{title}\n{status} · {count}/{len(l["steps"])} steps · {l["minutes"]} min')
             item.setToolTip(item.text())
             item.setData(Qt.UserRole,l['id']);self.lessons.addItem(item)
             if key==l['id']:self.lessons.setCurrentItem(item)
-        if words:
+        if words or self.status_filter.currentIndex():
             matches=self.lessons.count()
             self.heading.setText(f'{matches} matching '+('lesson' if matches==1 else 'lessons'))
         if self.lessons.currentRow()<0:self.lessons.setCurrentRow(0)
@@ -230,8 +359,14 @@ class StudentHub(QWidget):
     def detail(self,*_):
         l=self.selected();self.start.setEnabled(bool(l))
         self.progress.setVisible(bool(l))
+        filtered=bool(self.search.text().strip() or self.status_filter.currentIndex())
+        self.reset_filters.setVisible(not l and filtered)
+        self.preview.setTabEnabled(1,bool(l))
+        self.preview.setTabEnabled(2,self.prediction.set_lesson(l))
         if not l:
-            self.details.setPlainText('No matching lessons. Try another topic or clear the search to return to your learning path.')
+            self.preview.setCurrentIndex(0);self.study_notes.clear()
+            self.details.setPlainText('No matching lessons. Clear the filters to see this learning path.' if filtered else
+                                      'No lessons are available for this selection.')
             self.progress.setValue(0);self.progress_text.setText('');self.start.setText('Start lesson');return
         state=self.portfolio.state;missing=missing_prerequisites(state,l,self.data);done=earned(state,l)
         esc=html.escape
@@ -240,6 +375,7 @@ class StudentHub(QWidget):
         rows=''.join(f'<li><b>{esc(s["title"])}</b> · {"Earned" if s["id"] in done else {"quiz":"Knowledge check","check":"Workspace check","reflection":"Written reflection"}[s["kind"]]}</li>' for s in l['steps'])
         cap='<p>This milestone continues the same sensor project. Earlier repairs are preserved.</p>' if l['path']=='capstone' else ''
         teaching=self.material['lessons'][l['id']]
+        self.study_notes.setHtml(f'<h2>{esc(l["title"])}</h2>'+notes_html(teaching))
         self.details.setHtml(f'<h2>{esc(l["title"])}</h2><p>{esc(l["summary"])}</p>{cap}<p><b>Skills</b><br>{esc(" · ".join(l["skills"]))}</p>'+
             overview_html(teaching)+
             (f'<p><b>Complete first</b><br>{pre}</p><p>{len(missing)} prerequisite lesson(s) remaining. You can practice now; earn progression credit after the prerequisites.</p>' if missing else '<p>Ready for guided work in the real editor.</p>')+
@@ -257,7 +393,8 @@ class StudentHub(QWidget):
             self.process_picker.blockSignals(True)
             self.process_picker.setCurrentIndex(self.process_picker.findData(self.by_id[key]['inverter_profile']))
             self.process_picker.blockSignals(False)
-        self.path_id=self.by_id[key]['path'];self.search.clear();self.fill()
+        self.path_id=self.by_id[key]['path']
+        self.status_filter.setCurrentIndex(0);self.search.clear();self.fill()
         for i in range(self.lessons.count()):
             if self.lessons.item(i).data(Qt.UserRole)==key:self.lessons.setCurrentRow(i);break
 
@@ -280,7 +417,7 @@ class StudentHub(QWidget):
             if not s._replace_document():return
             if record:
                 path=Path(record['path'])
-                if not path.is_file():raise ValueError('Saved lesson project is missing. Choose More → Locate lesson project to find it.')
+                if not path.is_file():raise ValueError('Saved lesson project is missing. Open the Student Hub menu and choose Locate lesson project.')
                 project=load_project(path)
                 if project['id']!=record['project_id']:raise ValueError('The saved lesson file was replaced with a different project.')
             else:
@@ -330,7 +467,7 @@ class StudentHub(QWidget):
                     g.filling=True;g.notes.setPlainText(note(fresh.state));g.filling=False;g.note_dirty=False
                     feedback(g.note_status,'Saved reflection loaded.')
         self.portfolio=fresh;g.save_note();self.fill()
-        feedback(self.status,'Progress reloaded. Your reflection draft is saved.')
+        feedback(self.status,'Progress is up to date.')
         return True
 
     def resolve_reflection(self,local,saved):

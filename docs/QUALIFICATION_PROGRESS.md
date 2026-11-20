@@ -77,6 +77,16 @@ and connectivity were preserved, and the target schematic used the GF180
 device and its chosen geometry defaults. This evidence covers one circuit and
 local collaboration. It adds no process qualification or LAN/VPN acceptance.
 
+## Student Hub navigation and practice
+
+**November 20, 2026.** The desktop navigation pass based on `9df2f297`
+covers EDU-04 and EDU-16. On Windows, the top-tab menu, progress filters,
+worked examples and practice answers passed focused Qt checks. The 19 Student
+Hub usability scenarios passed, including both themes and text sizes through
+200%. The workspace suite also passed its 26 gallery transitions and 272
+ordered transitions. These results cover the student desktop experience.
+[Student Hub walkthrough](STUDENT_HUB.md#learn-beside-the-real-editor)
+
 ## Student Hub analog interview labs
 
 **November 18, 2026.** Sources `85bffbebac35dfed6318f435739e9a4646a67f43`
