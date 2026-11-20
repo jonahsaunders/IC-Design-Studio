@@ -14,6 +14,7 @@ import shutil
 import subprocess
 import sys
 import tarfile
+import time
 import uuid
 from contextlib import contextmanager
 
@@ -200,13 +201,14 @@ def defaults(project, cid=None, runtime=None):
     return False
 
 
-def extract(archive, destination):
+def extract(archive, destination, progress=None):
     """Only regular files, directories and confined links; no device nodes."""
-    with tarfile.open(archive,'r:gz') as source:
+    with Path(archive).open('rb') as compressed, tarfile.open(fileobj=compressed,mode='r:gz') as source:
         for member in source:
             if member.name.lstrip('./').split('/')[0] in ('dev','proc','sys','run'): continue
             if member.isdev() or member.isfifo(): continue
             source.extract(member, destination, filter='data')
+            if progress: progress(compressed.tell())
 
 
 @contextmanager
@@ -286,10 +288,25 @@ def _cleanup_legacy_installs(state, sha):
     return count
 
 
-def setup(progress=lambda message: None):
+def setup(progress=lambda message: None, report=None):
     data = manifest()
     if not data: raise ValueError('The digital runtime payload is missing. Install a complete Studio release or build the payload with scripts/build_digital_runtime.py.')
     runtime = location(data); state = state_root().resolve()
+    checks = 2 + 8 * len(data.get('platforms', ['sky130hd']))
+    physical = {'magic','netgen','ngspice'} <= set(data.get('tools',[]))
+    steps = 3 + checks + int(physical) + 1
+    def stage(completed, phase, done=0, total=0, unit=''):
+        if report:
+            report(dict(completed=completed, steps=steps, phase=phase, done=done, total=total, unit=unit))
+    def byte_progress(completed, phase, length):
+        last = 0
+        def update(position):
+            nonlocal last
+            current = time.monotonic()
+            if current-last >= .2 or position == length:
+                stage(completed, phase, position, length, 'bytes')
+                last = current
+        return update
     with setup_lock(state):
         if not _cleanup_partial_install(state):
             progress('An unrecognized partial setup directory was retained for safety.')
@@ -297,8 +314,11 @@ def setup(progress=lambda message: None):
         ready.unlink(missing_ok=True)
         progress('Verifying the included digital package…')
         archive = payload_root()/data['archive']
-        if not archive.is_file() or file_digest(archive) != data['sha256']:
+        archive_size = archive.stat().st_size if archive.is_file() else 0
+        stage(0, 'Checking package', 0, archive_size, 'bytes')
+        if not archive.is_file() or file_digest(archive, byte_progress(0, 'Checking package', archive_size) if report else None) != data['sha256']:
             raise ValueError('The included digital archive is missing or damaged. Repair the application installation.')
+        stage(1, 'Preparing tool environment')
         if runtime['kind']=='wsl':
             progress('Preparing Studio’s private Windows Linux environment…')
             distributions = wsl(['--list','--quiet'],empty_list_ok=True).splitlines()
@@ -341,35 +361,49 @@ def setup(progress=lambda message: None):
                 atomic_write(journal,json.dumps({'schema':1,'kind':'linux','sha256':data['sha256'],
                                                 'directory':temporary.relative_to(state).as_posix()}))
                 temporary.mkdir()
-                try: extract(archive,temporary); temporary.rename(target)
+                try:
+                    if report:
+                        stage(1, 'Unpacking tools', 0, archive_size, 'bytes')
+                        extract(archive, temporary, byte_progress(1, 'Unpacking tools', archive_size))
+                    else:
+                        extract(archive, temporary)
+                    temporary.rename(target)
                 finally:
                     shutil.rmtree(temporary,ignore_errors=True)
                     if not temporary.exists():journal.unlink(missing_ok=True)
+        stage(2, 'Checking installed files')
         progress('Checking installed files…'); identity(runtime,full=True)
         progress('Running the installation acceptance design…')
         from .digital_setup_probe import qualify
         evidence = state/'checks'/uuid.uuid4().hex
-        qualification=qualify(runtime,evidence,progress)
+        def checked(count):
+            stage(3 + count, 'Verifying digital tools', count, checks, 'checks')
+        checked(0)
+        qualification=qualify(runtime,evidence,progress,checked) if report else qualify(runtime,evidence,progress)
         if 'platforms' in data and (not isinstance(qualification,dict) or qualification.get('status')!='PASS'
                                    or qualification.get('platforms')!=data['platforms']):
             raise ValueError('Installation checks did not qualify every included platform.')
         if 'platform_corners' in data and (not isinstance(qualification,dict)
                 or qualification.get('platform_corners')!=data['platform_corners']):
             raise ValueError('Installation checks did not qualify every included timing corner.')
-        if {'magic','netgen','ngspice'} <= set(data.get('tools',[])):
+        if physical:
             from .physical_runtime_probe import qualify as qualify_physical
             progress('Checking DRC, strict LVS and deliberate physical failures…')
+            stage(3 + checks, 'Verifying physical tools')
             qualify_physical(runtime,evidence/'physical-tools',progress)
+        stage(steps-1, 'Saving verification results')
         record = {'runtime':runtime,'manifest':digest(data),'backend':backend_identity(),'checked':now(),'evidence':str(evidence)}
         if 'platforms' in data:record['platforms']=qualification['platforms']
         if 'platform_corners' in data:record['platform_corners']=qualification['platform_corners']
         atomic_write(ready,json.dumps(record,indent=2))
+        stage(steps, 'Ready')
         progress('Ready. The included digital engines and platforms passed the installation checks.')
         return record
 
 
 def main():
     try:
-        setup(lambda message: print(json.dumps({'message':message}),flush=True)); return 0
+        setup(lambda message: print(json.dumps({'message':message}),flush=True),
+              lambda event: print(json.dumps({'progress':event}),flush=True)); return 0
     except Exception as exc:
         print(json.dumps({'error':str(exc)}),flush=True); return 1

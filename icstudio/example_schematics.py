@@ -49,13 +49,13 @@ def arrange(project,cell_ids=None,*,replace_wires=False):
             for d in cell['devices']:
                 if d.get('native_spice',{}).get('type')=='program':place(d['name'],700,100)
         elif {'MP1','MN1','VDD','V1','CL'}==names:
-            place('VDD',140,200);place('V1',140,400)
+            place('VDD',120,150);place('V1',160,350)
             place('MP1',460,200,180,True);place('MN1',460,400);place('CL',720,350)
         elif names=={'MP','MN'}:
             place('MP',360,160,180,True);place('MN',360,400)
         elif {'M1','M2','M3','M4','M5'}==names and cell['name']=='amplifier':
             place('M3',280,140,180,True);place('M4',640,140,180,True)
-            place('M1',280,360);place('M2',640,360);place('M5',460,580)
+            place('M1',280,360);place('M2',640,360,mirror=True);place('M5',460,580)
         elif cell['name']=='two_stage_opamp' and {'CC1','CC2'}<=names:
             # The imported capacitor's model caption extends beyond the old
             # 140-unit spacing and otherwise crosses the next capacitor lead.
@@ -95,6 +95,9 @@ def arrange(project,cell_ids=None,*,replace_wires=False):
         # crowded routes retain explicit labels instead of a visual short.
         for distance,a,b in sorted(pairs):
             if distance>720:continue
+            # Put local grounds below each branch. Keep short bulk/source
+            # straps on the same device explicit in the drawing.
+            if expected[a[0]][a[1]]=='0' and a[0]!=b[0]:continue
             groups=wiring.graph(cell,project,labels=False)
             if groups[a]==groups[b]:continue
             start,end=positions[a],positions[b]
@@ -126,6 +129,8 @@ def arrange(project,cell_ids=None,*,replace_wires=False):
             net=expected[members[0][0][0]][members[0][0][1]]
             low=net.lower() in ('0','vss','gnd')
             key,pt=(max(members,key=lambda v:(v[1][1],v[1][0])) if low else min(members,key=lambda v:(v[1][1],v[1][0])))
+            if net.casefold() in ('out','vout'):
+                key,pt=max(members,key=lambda member:(member[1][0],-member[1][1]))
             device=next(d for d in cell['devices'] if d['id']==key[0])
             ground=net=='0' and pt[1]>device['y']
             # Keep left-facing labels outside the body and its value text.

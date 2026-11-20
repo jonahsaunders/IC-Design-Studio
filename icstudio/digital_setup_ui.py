@@ -12,6 +12,9 @@ from PySide6.QtWidgets import (QDialog, QVBoxLayout, QLabel, QPlainTextEdit, QPu
                               QFormLayout, QLineEdit, QDialogButtonBox)
 
 from . import digital_runtime
+from . import package_download
+from .transfer_progress import ProgressRate, duration
+import time
 
 
 class DigitalSetupDialog(QDialog):
@@ -42,6 +45,9 @@ class DigitalSetupDialog(QDialog):
         self.status=QLabel(); self.status.setWordWrap(True); layout.addWidget(self.status)
         self.next_action=QLabel(); self.next_action.setWordWrap(True); layout.addWidget(self.next_action)
         self.progress=QProgressBar(); self.progress.setRange(0,0); self.progress.setVisible(False); layout.addWidget(self.progress)
+        self.progress.setAccessibleName('Completed tool setup steps')
+        self.timing=QLabel(); self.timing.setWordWrap(True); layout.addWidget(self.timing)
+        self.clock=QTimer(self, interval=500); self.clock.timeout.connect(self.update_progress)
         self.details=QToolButton(); self.details.setText('Show setup details'); self.details.setCheckable(True)
         self.details.toggled.connect(self.toggle_details); layout.addWidget(self.details)
         self.log=QPlainTextEdit(); self.log.setReadOnly(True); self.log.setAccessibleName('Digital installation log'); layout.addWidget(self.log,1)
@@ -52,7 +58,7 @@ class DigitalSetupDialog(QDialog):
         self.custom_button=QPushButton('Configure custom tools…'); self.custom_button.clicked.connect(self.configure_custom); buttons.addWidget(self.custom_button)
         self.close_button=QPushButton('Close'); self.close_button.clicked.connect(self.close); buttons.addWidget(self.close_button)
         links=QHBoxLayout(); layout.addLayout(links)
-        self.download=QPushButton('Get the desktop package'); self.download.clicked.connect(lambda:QDesktopServices.openUrl(QUrl('https://github.com/jonahsaunders/IC-Design-Studio/releases'))); links.addWidget(self.download)
+        self.download=QPushButton('Get the desktop package'); self.download.clicked.connect(lambda:package_download.show(self)); links.addWidget(self.download)
         self.preview=QPushButton('Desktop builds'); self.preview.clicked.connect(lambda:QDesktopServices.openUrl(QUrl('https://github.com/jonahsaunders/IC-Design-Studio/actions/workflows/build-desktop.yml?query=branch%3Amain'))); links.addWidget(self.preview)
         self.logs=QPushButton('Open setup logs'); self.logs.clicked.connect(self.open_logs); links.addWidget(self.logs)
         self.refresh()
@@ -108,6 +114,8 @@ class DigitalSetupDialog(QDialog):
             self.status.setText('Finish or stop the active jobs before verifying the runtime.'); return
         self.cancel_requested=False
         self.buffer=''; self.log.clear(); self.status.setText('Preparing the included tools…'); self.progress.show()
+        self.setup_event={}; self.started=time.monotonic(); self.progress.setRange(0,0)
+        self.timing.show(); self.update_progress(); self.clock.start()
         self.close_button.setText('Stop setup')
         self.process=QProcess(self); self.process.setProcessChannelMode(QProcess.MergedChannels)
         self.process.readyReadStandardOutput.connect(self.read)
@@ -124,11 +132,31 @@ class DigitalSetupDialog(QDialog):
         while '\n' in self.buffer:
             line,self.buffer=self.buffer.split('\n',1)
             try:
-                data=json.loads(line); line=data.get('message',data.get('error',line))
+                data=json.loads(line)
+                if isinstance(data,dict) and 'progress' in data:
+                    event=data['progress']
+                    if self.setup_event.get('phase')!=event['phase']:self.rate=ProgressRate()
+                    self.setup_event=event; self.update_progress()
+                    continue
+                if isinstance(data,dict):line=data.get('message',data.get('error',line))
             except ValueError: pass
             self.log.appendPlainText(line)
             self.status.setText(line[:350])
         self.log.document().setMaximumBlockCount(1500)
+
+    def update_progress(self):
+        elapsed='Elapsed '+duration(time.monotonic()-self.started)
+        if not self.setup_event:
+            self.timing.setText(elapsed+' · Estimating time remaining…')
+            return
+        event=self.setup_event
+        fraction=event['done']/event['total'] if event['unit']=='bytes' and event['total'] else 0
+        percent=int(100*(event['completed']+fraction)/event['steps'])
+        self.progress.setRange(0,100); self.progress.setValue(percent)
+        self.progress.setFormat('%p% of setup steps')
+        detail=(self.rate.describe(event['done'],event['total'],event['unit'])
+                if event['unit'] else 'Time remaining unknown')
+        self.timing.setText(event['phase']+' · '+detail+' · '+elapsed)
 
     def failed_start(self):
         self.log.appendPlainText('The setup worker could not start. Repair the application installation.'); self.process_finished(1)
@@ -151,7 +179,7 @@ class DigitalSetupDialog(QDialog):
             atomic_write(folder/'last-setup.log',self.log.toPlainText())
         except OSError:
             self.log.appendPlainText('The setup log could not be saved. Copy the details from this window before closing it.')
-        self.progress.hide(); self.close_button.setText('Close'); self.refresh()
+        self.clock.stop(); self.progress.hide(); self.timing.hide(); self.close_button.setText('Close'); self.refresh()
         if self.cancel_requested:
             self.status.setText('Setup cancelled. You can keep editing and start setup again when you are ready.')
             self.changed.emit()

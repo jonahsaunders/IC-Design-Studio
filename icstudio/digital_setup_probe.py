@@ -7,7 +7,7 @@ from .digital_qualification import counter, faulty_mapping, require_clean_route,
 from .model import atomic_write
 
 
-def qualify(runtime, directory, progress=lambda message: None):
+def qualify(runtime, directory, progress=lambda message: None, check_completed=None):
     root = Path(directory); root.mkdir(parents=True)
     platforms=digital_runtime.platforms(runtime)
     project=counter(next(iter(platforms.values())))
@@ -25,6 +25,7 @@ def qualify(runtime, directory, progress=lambda message: None):
                 or expected is None and data.get('verdict') in ('FAIL','ERROR','UNKNOWN','INCOMPLETE')):
             raise ValueError(name+' did not pass. See '+str(folder))
         records.append({'name':name,'summary':data['summary'],'verdict':data.get('verdict')})
+        if check_completed: check_completed(len(records))
         return folder, result
     try:
         run('icarus','simulate')

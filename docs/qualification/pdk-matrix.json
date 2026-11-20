@@ -26067,16 +26067,16 @@
       "path": "docs/validation/gf180-fill-closure-2026-10-09.json",
       "sha256": "e11e1a23ccaa8c9c7ec1133587da95375286b2f2536f939572ef4b786f5a7be7",
       "historical_source_snapshot": {
-        "path": "docs/validation/student-hub-navigation-retained-source-2026-11-20/chunk4-manifest.json",
-        "sha256": "66de2d156ac65e752cd5683d4134df511508653a1926d1983dcaf2b8368586b3"
+        "path": "docs/validation/setup-progress-retained-source-2026-11-20/chunk4-manifest.json",
+        "sha256": "4489224bf72ab5716338b51010e8535cb18134da8ad4a932284458bce9bc3d90"
       }
     },
     "5": {
       "path": "docs/validation/ihp-fill-closure-2026-10-11.json",
       "sha256": "4255cce72f604e38874eb3dfad97758557d6cd1b56c60dae4f710459220b0004",
       "historical_source_snapshot": {
-        "path": "docs/validation/ihp-fill-tested-source-2026-11-03-yosys/manifest.json",
-        "sha256": "5b0aebcd274ce6d17779491a679e60c2a85c527df04e8059a5aba4474343ae76"
+        "path": "docs/validation/setup-progress-retained-source-2026-11-20/chunk5-manifest.json",
+        "sha256": "2cd89d09c48ab2041f24773502cbb93a87b21d313bacf5c27b04931626f483d0"
       }
     },
     "6": {

@@ -31,6 +31,8 @@ while dialog.process and time.monotonic()<deadline: app.processEvents(); time.sl
 assert dialog.process is None,'Setup subprocess did not finish'
 assert status()['state']!='ready'
 assert 'damaged' in dialog.log.toPlainText(),dialog.log.toPlainText()
+assert dialog.setup_event['phase']=='Checking package' and dialog.setup_event['done']==dialog.setup_event['total']
+assert 'of setup steps' in dialog.progress.format()
 assert 'damaged' in (Path(os.environ['ICSTUDIO_DIGITAL_STATE'])/'last-setup.log').read_text()
 assert dialog.start.isEnabled()
 assert 'did not complete' in dialog.status.text()

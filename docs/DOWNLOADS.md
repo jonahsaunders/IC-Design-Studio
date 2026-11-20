@@ -55,8 +55,14 @@ Open the extracted `ICDesignStudio` directory and run `./ICDesignStudio`.
    example gallery → Your first waveform → Open a copy**, then press **F5**.
    That RC circuit uses the teaching solver.
 2. For digital work, let **Included tools (recommended)** setup complete.
-   Progress, detailed logs and retry are available; allow several minutes and
-   several GB of disk space.
+   In the updated source build, **Get the desktop package** opens a download
+   window with transferred bytes, percentage and estimated time left. Cancel
+   keeps the previous destination file. Linux package parts are checked and
+   joined automatically when using this window.
+   First-run setup has its own progress bar. It counts setup steps, shows bytes
+   during package checks and unpacking, and counts completed verification runs.
+   Time estimates appear once enough work has completed. Windows manages its
+   private Linux import and does not report a duration for that step.
 3. Open **Digital → New digital counter example**, then press **F5**. If setup
    is still needed, Run opens it and continues after success. Editing the design
    during setup requires a fresh Run request.

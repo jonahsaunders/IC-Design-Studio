@@ -28,6 +28,24 @@ def electrical(project):
 
 
 class ExampleSchematicTests(unittest.TestCase):
+    def test_local_grounds_preserve_spice_and_transient_waveforms(self):
+        from icstudio.interchange import spice
+        from icstudio.model import example
+        from icstudio.simulation import run
+        for kind in ('rc','inverter'):
+            with self.subTest(kind=kind):
+                original=example(kind); updated=arrange(clone(original))
+                cell=updated['cells'][0]
+                self.assertGreaterEqual(sum(l['kind']=='ground' for l in cell['labels']),2)
+                # The document hash includes drawing geometry.
+                def deck(p):
+                    return [line for line in spice(p).splitlines() if not line.startswith('* design-sha256 ')]
+                self.assertEqual(deck(original),deck(updated))
+                before=run(original,original['top'],original['analysis'])
+                after=run(updated,updated['top'],updated['analysis'])
+                for key in ('x','traces','operating_point'):
+                    self.assertEqual(after[key],before[key])
+
     def test_two_stage_opamp_presentation_retains_electrical_data(self):
         from tests.test_two_stage_opamp import technology
         from icstudio.two_stage_opamp import reference

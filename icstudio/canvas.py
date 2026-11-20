@@ -258,7 +258,18 @@ class Canvas(DrawingCanvasMixin,GridMixin,EditorCanvasMixin,LabelCanvasMixin,Wir
                 elif kind=='C':
                     p.drawLine(-16,-5,16,-5);p.drawLine(-16,5,16,5)
                 else:
-                    p.drawEllipse(QRectF(-20,-20,40,40));p.drawLine(-4,-7,4,-7);p.drawLine(0,-11,0,-3);p.drawLine(-4,8,4,8)
+                    p.drawEllipse(QRectF(-20,-20,40,40))
+                    waveform=d.get('source',{}).get('type','dc')
+                    if waveform=='pulse':
+                        p.drawPolyline(QPolygonF([QPointF(x,y) for x,y in
+                            [(-13,5),(-7,5),(-7,-5),(5,-5),(5,5),(13,5)]]))
+                    elif waveform=='sine':
+                        wave=QPainterPath(QPointF(-14,0))
+                        wave.cubicTo(-10,-10,-5,-10,0,0);wave.cubicTo(5,10,10,10,14,0);p.drawPath(wave)
+                    if waveform=='dc':
+                        p.drawLine(-4,-7,4,-7);p.drawLine(0,-11,0,-3);p.drawLine(-4,8,4,8)
+                    else:
+                        p.drawLine(-3,-13,3,-13);p.drawLine(0,-16,0,-10);p.drawLine(-3,13,3,13)
             elif kind in ('L','I'):
                 pen=self.pen(fg,1.5);pen.setCapStyle(Qt.RoundCap);pen.setJoinStyle(Qt.RoundJoin);p.setPen(pen);end=24 if kind=='L' else 20
                 p.drawLine(QPointF(0,-50),QPointF(0,-end));p.drawLine(QPointF(0,end),QPointF(0,50))
@@ -291,7 +302,10 @@ class Canvas(DrawingCanvasMixin,GridMixin,EditorCanvasMixin,LabelCanvasMixin,Wir
                 if name:p.drawText(QPointF(x+5,y-7),name)
                 connected=(d['id'],pin) in self._wired_pins or bool(name)
                 if self.net and d['nets'].get(pin)==self.net:p.setPen(self.pen(palette(self.dark)['accent'],2.5));p.setBrush(Qt.NoBrush);p.drawEllipse(QPointF(x,y),6,6)
-                p.setPen(self.pen(fg,1));p.setBrush(QColor(fg) if connected else QColor(palette(self.dark)['canvas']));p.drawEllipse(QPointF(x,y),2.2,2.2)
+                # Reserve filled dots for junctions. Terminal handles appear
+                # when wiring or selecting a component, and open pins stay visible.
+                if not connected or selected or self.tool=='connect' or name:
+                    p.setPen(self.pen(fg,1));p.setBrush(QColor(fg) if connected else QColor(palette(self.dark)['canvas']));p.drawEllipse(QPointF(x,y),2.2,2.2)
         p.setPen(QColor(palette(self.dark)['muted']));p.setFont(QFont('Sans Serif',10))
         for d in self.cell['devices']:
             text=getattr(self,'simulation_annotations',{}).get(d['id'])
