@@ -23,15 +23,15 @@ class RetainedCatalogTests(unittest.TestCase):
 
     def test_complete_baseline_is_authenticated_with_verbatim_integration_snapshots(self):
         self.assertEqual(len(self.authentication['authenticated_sources']),85)
-        self.assertEqual(len(self.authentication['historical_application_sources']),9)
+        self.assertEqual(len(self.authentication['historical_application_sources']),10)
         for name,row in self.authentication['historical_application_sources'].items():
             self.assertEqual(row['sha256'],self.base['source_files'][name])
             self.assertNotIn(name,self.authentication['authenticated_sources'])
         self.assertIn('not rerun geometry',self.authentication['execution'])
 
-    def test_platform_and_model_snapshots_require_original_bytes_despite_current_decoys(self):
+    def test_platform_model_and_layout_snapshots_require_original_bytes_despite_current_decoys(self):
         from scripts.ci_feedback import source_identity
-        for name in ('icstudio/digital_platform.py', 'icstudio/model.py'):
+        for name in ('icstudio/digital_platform.py', 'icstudio/model.py', 'icstudio/layout.py'):
             with self.subTest(name=name):
                 snapshot=retained.SNAPSHOTS[name]
                 paths={retained.BASELINE,retained.AUDIT,*self.base['inputs'],

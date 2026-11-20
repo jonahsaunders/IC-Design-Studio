@@ -33,6 +33,9 @@ SNAPSHOTS['icstudio/digital_platform.py']='docs/validation/sky130-retained-platf
 # validated separately, not relabelled as historical catalog execution.
 SNAPSHOTS['icstudio/model.py']='docs/validation/experimental-manifest-safety-retained-source-2026-11-11/model.py.txt'
 
+# The accepted catalog used the geometry checker before it reported measured edges.
+SNAPSHOTS['icstudio/layout.py']='docs/validation/ai-layout-retained-source-2026-11-20/layout.py.txt'
+
 def require(condition,message):
     if not condition:raise ValueError(message)
 

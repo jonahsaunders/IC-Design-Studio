@@ -3,7 +3,8 @@
 **November 20, 2026 — AI layout review.** The assistant now uses Studio's
 geometry and connectivity checks to explain findings and review individual via
 moves. The chunk 4 manifest preserves the accepted versions of the three
-affected physical-layout files byte for byte. The updated interface adds no
+affected physical-layout files byte for byte. The retained SKY130 catalog
+authenticates the same original layout checker. The updated interface adds no
 process-signoff qualification. [Retained sources](validation/ai-layout-retained-source-2026-11-20/chunk4-manifest.json)
 
 **November 20, 2026 — Assistant investigations.** The schematic and test-plan
