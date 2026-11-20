@@ -1,5 +1,10 @@
 # Chunks 1–12: progress and forecast
 
+**November 20, 2026 — Assistant investigations.** The schematic and test-plan
+menus now open saved evidence in the assistant. The chunk 4 historical source
+snapshot retains the two previously accepted interface files by their original
+hashes. The existing production acceptance applies to that recorded source.
+
 ## Windows build and public release checks
 
 **November 18, 2026.** The complete experimental tree was merged into main at

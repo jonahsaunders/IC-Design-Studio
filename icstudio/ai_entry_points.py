@@ -1,0 +1,107 @@
+"""Contextual commands resolve their evidence at invocation, including keyboard selection."""
+from PySide6.QtCore import Qt
+from PySide6.QtWidgets import QMenu, QPushButton
+from . import ai_investigation as investigation
+
+
+def context_menu(widget, resolve, ask):
+    def popup(point):
+        item = widget.itemAt(point) if point.x() >= 0 else widget.currentItem()
+        if item is not None:
+            widget.setCurrentItem(item)
+            if point.x() < 0:
+                point = widget.visualItemRect(item).center()
+        args = resolve(item) if item else None
+        menu = QMenu(widget)
+        action = menu.addAction('Ask About This…')
+        action.setEnabled(bool(args))
+        if menu.exec(widget.viewport().mapToGlobal(point)) == action and args:
+            ask(**args)
+    widget.setContextMenuPolicy(Qt.CustomContextMenu)
+    widget.customContextMenuRequested.connect(popup)
+
+
+def row_for_result(studio, result):
+    if result:
+        for row in reversed(studio.run_manager.rows):
+            if row.get('result') is result:
+                return row
+        keys = ('project_id','cell_id','design_hash','created','deck_hash')
+        if result.get('created') and result.get('design_hash'):
+            matches = [r for r in studio.run_manager.rows if r.get('result') and
+                       all(r['result'].get(k) == result.get(k) for k in keys)]
+            if len(matches)==1:
+                return matches[0]
+
+
+def install(studio, show):
+    def ask(row=None, requirement=None, probe=None, device=None):
+        if not row and not studio.flush_inspector():
+            return
+        panel = show()
+        panel.call_local(lambda:panel.investigate(row,requirement,probe,device))
+        panel.note.setFocus()
+        studio.raise_()
+        studio.activateWindow()
+        return panel
+    studio.ask_about = ask
+    def wave_args(item=None):
+        row = row_for_result(studio, studio.result)
+        if not row:
+            return None
+        item = item or studio.traces.currentItem()
+        name = item.text() if item else next(iter(studio.plot.names),'')
+        result = row['result']
+        return dict(row=row,probe=('voltage',name)) if name in result.get('traces',{}) else None
+    def wave():
+        args = wave_args()
+        if args:
+            ask(**args)
+        else:
+            studio.statusBar().showMessage('Select a trace from a saved simulation run.',6000)
+    button = QPushButton('Ask About This…')
+    button.setAccessibleName('Ask about selected waveform')
+    button.clicked.connect(wave)
+    studio.run_combo.parentWidget().layout().addWidget(button)
+    button.setEnabled(False)
+    def sync_wave(*_):
+        button.setEnabled(bool(wave_args()))
+    studio.plot.result_changed.connect(sync_wave)
+    studio.traces.currentRowChanged.connect(sync_wave)
+    context_menu(studio.traces,wave_args,ask)
+    def simulation(item):
+        row = next((r for r in studio.run_manager.rows if r['id']==item.data(Qt.UserRole)),None)
+        return dict(row=row) if row else None
+    context_menu(studio.simulation_runs,simulation,ask)
+    def measurement(widget, result, item):
+        row = row_for_result(studio,result)
+        name = widget.item(item.row(),0).text()
+        if row and investigation.saved_check(row,name):
+            return dict(row=row,requirement=name)
+    context_menu(studio.spec_results,lambda item:measurement(studio.spec_results,studio.result,item),ask)
+    context_menu(studio.bench_measurements,lambda item:measurement(studio.bench_measurements,getattr(studio,'_bench_result',None),item),ask)
+
+
+def install_matrix(window):
+    def selected(item):
+        row = next((r for r in window.studio.run_manager.rows if r['id']==item.data(Qt.UserRole)),None)
+        definition = item.data(Qt.UserRole+1) or {}
+        return dict(row=row, requirement=definition.get('name')) if row else None
+    def ask(**args):
+        window.hide()
+        window.studio.ask_about(**args)
+    context_menu(window.table,selected,ask)
+
+
+def install_inspector(window, row, selector_layout):
+    if not row.get('id') or not hasattr(window.studio, 'ask_about'):
+        return
+    def ask(**args):
+        window.hide()
+        window.studio.ask_about(row=row, **args)
+    button = QPushButton('Ask About This…')
+    button.setAccessibleName('Ask about this saved waveform')
+    button.clicked.connect(lambda:ask(probe=window.probe.currentData()))
+    selector_layout.addWidget(button)
+    context_menu(window.requirements,lambda it:dict(requirement=window.requirement_rows[it.row()]['name']),ask)
+    context_menu(window.devices,lambda it:dict(device=window.device_rows[it.row()]['name']),ask)

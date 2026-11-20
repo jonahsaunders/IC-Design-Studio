@@ -15,6 +15,8 @@ For a standalone circuit use connections={} and retain its existing sources. pro
 port names (standalone: existing net names). measurements is a list of {"name":"output_voltage","node":"actual probe"}
 with optional numeric min, max, or at (seconds for transient, Hz for AC). A voltage measurement defaults to the last sample.
 Only include pass/fail limits provided by the user. Do not invent device names, design requirements or simulation results."""
+INSTRUCTIONS += """ If two or more output pins are plausible, use @output for the unresolved probe and
+measurement node, and include output_candidates with two or more actual pin names. The designer selects one visually."""
 
 
 def fields(data, allowed, required=()):
@@ -101,7 +103,7 @@ def fixture_device(port, data, index):
     return port, item
 
 
-def propose(project, cell, answer):
+def decode(answer):
     if len(answer) > 48000:
         raise ValueError('The proposed testbench is too large.')
     block = re.fullmatch(r'```(?:json)?\s*(.*?)\s*```', answer.strip(), re.I | re.S)
@@ -109,7 +111,27 @@ def propose(project, cell, answer):
         spec = json.loads(block[1] if block else answer)
     except (ValueError, RecursionError):
         raise ValueError('The model did not return a valid testbench JSON object.') from None
-    fields(spec, ('name','analysis','connections','probes','measurements'), ('name','analysis','connections','probes','measurements'))
+    fields(spec, ('name','analysis','connections','probes','measurements','output_candidates','overrides'),
+           ('name','analysis','connections','probes','measurements'))
+    if (not isinstance(spec['name'],str) or not isinstance(spec['analysis'],dict) or
+        not isinstance(spec['connections'],dict) or not all(isinstance(v,dict) for v in spec['connections'].values()) or
+        not isinstance(spec['probes'],list) or not all(isinstance(n,str) for n in spec['probes']) or
+        not isinstance(spec['measurements'],list) or len(spec['measurements'])>64 or
+        not all(isinstance(m,dict) and isinstance(m.get('name'),str) and isinstance(m.get('node'),str)
+                for m in spec['measurements']) or not isinstance(spec.get('overrides',{}),dict)):
+        raise ValueError('The draft needs an analysis, port connections, named probes, and named voltage measurements.')
+    if 'output_candidates' in spec:
+        pins = spec['output_candidates']
+        if (not isinstance(pins,list) or not 2 <= len(pins) <= 64 or
+            not all(isinstance(n,str) for n in pins) or len(set(pins))!=len(pins)):
+            raise ValueError('Choose two or more distinct candidate output pins.')
+    return spec
+
+
+def propose(project, cell, answer):
+    spec = decode(answer)
+    if 'output_candidates' in spec:
+        raise ValueError('Choose the output pin in Edit Fixture before running or saving.')
     name = spec['name']
     if not isinstance(name, str) or not NAME.fullmatch(name) or len(name) > 60:
         raise ValueError('Use a unique testbench identifier of up to 60 characters.')
@@ -145,6 +167,16 @@ def propose(project, cell, answer):
             raise ValueError('Choose a probe other than a grounded port.')
     else:
         dut, mapping = snapshot(q, cell, name, probes)
+    overrides = spec.get('overrides', {})
+    if not isinstance(overrides, dict) or len(overrides)>128 or (ports and overrides):
+        raise ValueError('Component overrides apply to standalone testbench snapshots.')
+    if overrides:
+        from .studies import targets, set_target
+        allowed = targets(q, dut['id'])
+        for key, value in overrides.items():
+            if key not in allowed:
+                raise ValueError('Choose a numeric component field from the snapshot.')
+            set_target(q, dut['id'], key, number(value))
     devices.append(device('X', 'XDUT', 400, 230, cell=dut['id'], nets=mapping))
     fixture = dict(id=uid(), name=name, ports=[], devices=devices, shapes=[])
     if q.get('spice', {}).get('version') == 1:
@@ -165,6 +197,7 @@ def propose(project, cell, answer):
         sources = [d['name'] for d in cell['devices'] if d['kind'] in ('V','I')]
         if sources:
             details.append('Existing sources in snapshot: ' + ', '.join(sources))
+        details.extend(f'{key} = {value}' for key,value in overrides.items())
     details.extend(port + ' → ' + ', '.join(f'{k} = {v}' if k != 'kind' else str(v) for k,v in conn.items())
                    for port, conn in connections.items())
     for m in checks:

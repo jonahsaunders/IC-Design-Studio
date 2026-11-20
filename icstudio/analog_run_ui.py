@@ -45,6 +45,8 @@ class RunInspector(QDialog):
         self.tabs.addTab(self.requirements,'Requirements');self.requirements.cellClicked.connect(lambda i,j:self.call(lambda:self.focus_requirement(self.requirement_rows[i])))
         self.requirements.itemActivated.connect(lambda *_:self.call(lambda:self.focus_requirement(self.requirement_rows[self.requirements.currentRow()])))
         self.populate_wave();self.populate_verification()
+        from .ai_entry_points import install_inspector
+        install_inspector(self,row,selectors)
         for i in range(2):
             page=self.tabs.widget(i);title=self.tabs.tabText(i);self.tabs.removeTab(i);self.tabs.insertTab(i,scroll(page),title)
         self.setMinimumSize(760,560)

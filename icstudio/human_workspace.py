@@ -551,6 +551,8 @@ class HumanWorkspaceMixin(GridSettingsMixin):
             for key in keys:menu.addAction(self.command_actions[key])
             menu.addSeparator()
         if canvas.mode=='schematic':
+            if hasattr(self,'ask_about'):
+                menu.addAction('Ask About This…',lambda:self.ask_about())
             child=next((d for d in self.cell['devices'] if d['id'] in self.selection and d['kind']=='X'),None)
             commands=[]
             if child:commands += [('Enter schematic','enter',self.capture_enter),('Enter symbol','symbol',lambda:self.capture_enter(True))]

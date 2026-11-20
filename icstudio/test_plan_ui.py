@@ -100,6 +100,9 @@ class TestPlanWindow(QDialog):
         self.condition_label=QLabel();paging.addWidget(self.condition_label)
         self.next_conditions=QPushButton('Next conditions');self.next_conditions.clicked.connect(lambda:self.move_conditions(1));paging.addWidget(self.next_conditions)
         self.table=QTableWidget();self.table.setAccessibleName('Specifications by operating condition');self.table.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        if hasattr(studio,'ask_about'):
+            from .ai_entry_points import install_matrix
+            install_matrix(self)
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents);root.addWidget(self.table,1)
         self.result_buttons=actions(root,[('Open selected run',self.open_run),('Retry failed / cancelled',self.retry),('Cancel remaining',self.cancel),('Export CSV…',self.export),('Close',self.close)],self.call)
         self.table.itemSelectionChanged.connect(self.selection_changed)

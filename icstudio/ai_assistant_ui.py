@@ -2,13 +2,16 @@
 import json
 import os
 
-from PySide6.QtCore import Qt, QTimer, QUrl
+from PySide6.QtCore import Qt, QEvent, QTimer, QUrl
 from PySide6.QtNetwork import QNetworkAccessManager, QNetworkReply, QNetworkRequest
 from PySide6.QtWidgets import (QComboBox, QDialog, QDialogButtonBox, QDockWidget, QFormLayout, QHBoxLayout,
-                               QLabel, QLineEdit, QPlainTextEdit, QPushButton, QTabWidget, QVBoxLayout, QWidget)
+                               QLabel, QLineEdit, QMenu, QPlainTextEdit, QPushButton, QTabWidget, QToolButton,
+                               QVBoxLayout, QWidget)
 
 from . import ai_context, ai_providers as providers, ai_testbench
 from .model import clone, design_digest
+from .ai_review_ui import ReviewTools
+from .analog_widgets import FlowActions, scroll
 
 
 def label(text=''):
@@ -74,13 +77,15 @@ class Connection(QDialog):
         self.accept()
 
 
-class Assistant(QDockWidget):
+class Assistant(ReviewTools, QDockWidget):
     def __init__(self, studio):
         super().__init__('AI Assistant', studio)
         self.setObjectName('aiAssistant')
         self.setMinimumWidth(320)
         self.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
         self.studio = studio
+        self.windows = []
+        self.reset_context()
         self.provider = str(studio.settings.value('assistant/provider', 'openai'))
         if self.provider not in providers.PROVIDERS:
             self.provider = 'openai'
@@ -91,15 +96,31 @@ class Assistant(QDockWidget):
         self.deadline = QTimer(self, singleShot=True, interval=150000)
         self.deadline.timeout.connect(self.timeout)
         self.buffer = bytearray()
+        shell = QWidget()
+        self.setWidget(shell)
+        outer = QVBoxLayout(shell)
+        outer.setContentsMargins(0,0,0,0)
+        outer.setSpacing(0)
         body = QWidget()
-        self.setWidget(body)
+        outer.addWidget(scroll(body),1)
         layout = QVBoxLayout(body)
+        layout.setContentsMargins(12,10,12,10)
+        layout.setSpacing(8)
         row = QHBoxLayout()
         layout.addLayout(row)
         self.account = label()
+        self.account.setProperty('role','subtitle')
         row.addWidget(self.account, 1)
-        self.connection = QPushButton('Connection…')
-        self.connection.clicked.connect(lambda: Connection(self).exec())
+        self.connection = QToolButton()
+        self.connection.setText('Options')
+        self.connection.setAccessibleName('Investigation options')
+        self.connection.setPopupMode(QToolButton.InstantPopup)
+        menu = QMenu(self.connection)
+        menu.addAction('Refresh Preview', self.refresh)
+        menu.addAction('New Investigation', self.new_investigation)
+        menu.addSeparator()
+        menu.addAction('Connection Settings…', lambda: Connection(self).exec())
+        self.connection.setMenu(menu)
         row.addWidget(self.connection)
         form = QFormLayout()
         form.setRowWrapPolicy(QFormLayout.WrapLongRows)
@@ -113,38 +134,115 @@ class Assistant(QDockWidget):
         self.run_label = form.labelForField(self.run)
         self.note = QLineEdit()
         self.note.setMaxLength(4000)
-        self.note.setPlaceholderText('Optional goal, question, or expected limits')
-        form.addRow('Instructions', self.note)
+        self.note.setAccessibleName('Question or expected limits')
+        self.note.setPlaceholderText('Ask a question or set a goal…')
+        self.pins_widget = QWidget()
+        self.attachments = FlowActions(self.pins_widget)
+        layout.addWidget(self.pins_widget)
         self.tabs = QTabWidget()
         layout.addWidget(self.tabs, 1)
         self.preview, self.answer, self.review = QPlainTextEdit(), QPlainTextEdit(), QPlainTextEdit()
         for title, editor in [('Request', self.preview), ('Answer', self.answer), ('Testbench preview', self.review)]:
             editor.setReadOnly(True)
             editor.setAccessibleName(title)
-            self.tabs.addTab(editor, title)
+            if editor == self.answer:
+                page = QWidget()
+                content = QVBoxLayout(page)
+                content.setContentsMargins(0,4,0,0)
+                self.evidence_widget = QWidget()
+                self.evidence_widget.setObjectName('investigationEvidence')
+                evidence_layout = QVBoxLayout(self.evidence_widget)
+                evidence_layout.setContentsMargins(8,6,8,6)
+                evidence_layout.setSpacing(4)
+                self.evidence_note = label()
+                evidence_layout.addWidget(self.evidence_note)
+                evidence_actions = FlowActions()
+                evidence_layout.addLayout(evidence_actions)
+                self.wave_button = QPushButton('Waveform')
+                self.wave_button.setAccessibleName('Open waveform')
+                self.wave_button.setToolTip('Open the waveform for the saved measurement or probe')
+                self.wave_button.clicked.connect(lambda:self.call_local(self.inspect_evidence))
+                self.device_button = QPushButton('Device…')
+                self.device_button.setAccessibleName('Show device operating point')
+                self.device_button.clicked.connect(lambda:self.call_local(lambda:self.inspect_evidence(True)))
+                self.compare_button = QToolButton()
+                self.compare_button.setText('Compare')
+                self.compare_button.setAccessibleName('Compare simulation results')
+                self.compare_button.setPopupMode(QToolButton.InstantPopup)
+                menu = QMenu(self.compare_button)
+                self.pass_button = menu.addAction('Compare with Passing Run…',lambda:self.call_local(self.compare_passing))
+                self.experiment_button = menu.addAction('Compare One Change…',lambda:self.call_local(self.experiment))
+                self.compare_button.setMenu(menu)
+                for button in (self.wave_button,self.device_button,self.compare_button):
+                    button.setProperty('evidenceAction',True)
+                    evidence_actions.addWidget(button)
+                content.addWidget(self.evidence_widget)
+                content.addWidget(editor,1)
+                self.tabs.addTab(page,title)
+            elif editor == self.review:
+                from .ai_fixture_ui import FixtureView
+                page = QWidget()
+                content = QVBoxLayout(page)
+                content.setContentsMargins(0,4,0,0)
+                self.fixture_schematic = FixtureView(studio.dark)
+                self.fixture_view = self.fixture_schematic.canvas
+                self.fixture_view.setMinimumHeight(135)
+                self.fixture_view.picked.connect(self.choose_output)
+                content.addWidget(self.fixture_schematic,2)
+                content.addWidget(editor,1)
+                self.tabs.addTab(page,'Fixture')
+            else:
+                self.tabs.addTab(editor, title)
+        footer = QWidget()
+        footer.setObjectName('investigationComposer')
+        outer.addWidget(footer)
+        footer_layout = QVBoxLayout(footer)
+        footer_layout.setContentsMargins(10,8,10,8)
+        footer_layout.setSpacing(4)
         row = QHBoxLayout()
-        layout.addLayout(row)
-        self.refresh_button = QPushButton('Refresh preview')
+        footer_layout.addLayout(row)
+        row.addWidget(self.note,1)
         self.send_button = QPushButton('Send')
+        self.send_button.setProperty('role','primary')
         self.cancel_button = QPushButton('Cancel')
-        for button, fn in [(self.refresh_button, self.refresh), (self.send_button, self.send), (self.cancel_button, self.cancel)]:
+        for button, fn in [(self.send_button, self.send), (self.cancel_button, self.cancel)]:
             button.clicked.connect(fn)
             row.addWidget(button)
-        row = QHBoxLayout()
+        row = FlowActions()
         layout.addLayout(row)
-        self.validate_button = QPushButton('Preview testbench')
-        self.add_button = QPushButton('Add testbench')
-        for button, fn in [(self.validate_button, self.validate_draft), (self.add_button, self.apply)]:
+        self.validate_button = QPushButton('Preview')
+        self.add_button = QPushButton('Save Testbench')
+        self.edit_button = QPushButton('Edit Fixture…')
+        self.draft_button = QPushButton('Run Draft…')
+        for button, fn in [(self.edit_button, lambda:self.call_local(self.edit_fixture)),
+                           (self.validate_button, self.validate_draft), (self.draft_button,lambda:self.call_local(self.run_draft)),
+                           (self.add_button, self.apply)]:
             row.addWidget(button)
             button.clicked.connect(fn)
         self.status = label()
-        layout.addWidget(self.status)
-        self.action.currentIndexChanged.connect(self.refresh)
-        self.run.currentIndexChanged.connect(self.prepare)
-        self.note.textChanged.connect(self.prepare)
+        self.status.setProperty('role','muted')
+        footer_layout.addWidget(self.status)
+        self.action.currentIndexChanged.connect(self.new_investigation)
+        self.run.currentIndexChanged.connect(self.run_selected)
+        self.note.textChanged.connect(self.update_preview)
+        self.note.returnPressed.connect(self.send)
         self.answer.textChanged.connect(self.invalidate_draft)
+        self.apply_theme()
         self.update_connection()
         self.refresh()
+
+    def apply_theme(self):
+        from .ui_style import palette
+        self.setStyleSheet('''
+            QToolButton[attachment="true"] { color: %(accent)s; background: %(tint)s; border-radius: 8px; padding: 2px 6px; font-size: 12px; }
+            QToolButton[attachment="true"]:focus { border: 1px solid %(accent)s; }
+            QWidget#investigationEvidence { background: %(bg)s; border-radius: 6px; }
+            QWidget[evidenceAction="true"] { background: %(panel)s; border: 1px solid %(line)s; padding: 3px 7px; }
+            QWidget[evidenceAction="true"]:focus { border-color: %(accent)s; }
+            QWidget[evidenceAction="true"]:hover { background: %(hover)s; }
+            QToolButton[evidenceAction="true"] { padding-right: 17px; }
+            QWidget#investigationComposer { background: %(bg)s; }
+        ''' % palette(self.studio.dark))
 
     def profile(self, key):
         settings = self.studio.settings
@@ -161,13 +259,13 @@ class Assistant(QDockWidget):
 
     def update_connection(self):
         base, model = self.profile(self.provider)
-        self.account.setText(providers.PROVIDERS[self.provider].name + ' · ' + (model or 'Choose a model in Connection'))
+        self.account.setText(providers.PROVIDERS[self.provider].name + (' · ' + model if model else ' · Choose a connection'))
         self.account.setToolTip(base)
 
     def controls(self):
         busy = self.reply is not None
         bench = self.action.currentData() == 'bench'
-        for w in (self.connection, self.action, self.note, self.run, self.refresh_button):
+        for w in (self.connection, self.action, self.note, self.run):
             w.setEnabled(not busy)
         self.cancel_button.setVisible(busy)
         self.send_button.setEnabled(bool(self.preview.toPlainText()) and not busy)
@@ -175,6 +273,11 @@ class Assistant(QDockWidget):
         self.add_button.setVisible(bench)
         self.validate_button.setEnabled(not busy and bool(self.answer.toPlainText()) and self.origin is not None)
         self.add_button.setEnabled(not busy and self.proposal is not None)
+        self.edit_button.setVisible(bench)
+        self.draft_button.setVisible(bench)
+        self.edit_button.setEnabled(self.validate_button.isEnabled())
+        self.draft_button.setEnabled(self.add_button.isEnabled())
+        self.pins_widget.setEnabled(not busy)
         self.tabs.setTabVisible(2, bench)
 
     def refresh(self):
@@ -185,11 +288,22 @@ class Assistant(QDockWidget):
         self.run.blockSignals(True)
         self.run.clear()
         if failure:
-            selected = {r['id'] for r in self.studio.selected_simulation_runs()}
+            selected = {self.row['id']} if self.row else {r['id'] for r in self.studio.selected_simulation_runs()}
             for r in ai_context.failed_runs(self.studio):
                 self.run.addItem(r['name'] + ' · r' + str(r['job']['project']['revision']), r['id'])
             self.run.setCurrentIndex(next((i for i in range(self.run.count()) if self.run.itemData(i) in selected), 0))
         self.run.blockSignals(False)
+        if failure and not self.row and self.run.currentIndex() >= 0:
+            self.run_selected()
+            return
+        self.prepare()
+
+    def run_selected(self):
+        self.reset_context()
+        self.row = self.current_row()
+        if self.row:
+            from .ai_investigation import checks
+            self.check = next((c for c in checks(self.row) if str(c['actual'].get('status')).lower() in ('fail','failed','error')),None)
         self.prepare()
 
     def prepare(self):
@@ -198,16 +312,21 @@ class Assistant(QDockWidget):
         self.answer.setReadOnly(self.action.currentData() != 'bench')
         self.review.clear()
         self.tabs.setCurrentIndex(0)
+        self.attachment_bar()
+        self.call_local(self.update_evidence)
+        self.update_preview()
+
+    def update_preview(self, text=None):
         try:
-            self.preview.setPlainText(self.current_prompt())
-            self.status.setText('Review the text above before sending it to ' + providers.PROVIDERS[self.provider].name + '.')
+            self.preview.setPlainText(self.prompt_text(typing=text is not None))
+            self.status.setText('Review the request before sending to ' + providers.PROVIDERS[self.provider].name + '.')
         except ValueError as exc:
             self.preview.clear()
             self.status.setText(str(exc))
         self.controls()
 
     def current_prompt(self):
-        return ai_context.prompt(self.studio, self.action.currentData(), self.note.text(), self.run.currentData())
+        return self.prompt_text()
 
     def send(self):
         if self.reply is not None or not self.studio.flush_inspector():
@@ -215,13 +334,14 @@ class Assistant(QDockWidget):
         try:
             prompt = self.current_prompt()
             if prompt != self.preview.toPlainText():
-                self.refresh()
+                self.update_preview()
+                self.tabs.setCurrentIndex(0)
                 self.status.setText('The selection or run changed. Review the updated request before sending.')
                 return
             key = self.provider
             base, model = self.profile(key)
             if not model:
-                self.status.setText('Open Connection and choose a provider and model first.')
+                self.status.setText('Choose a provider and model in Options → Connection Settings.')
                 return
             token = self.credentials.get((key, base)) or os.environ.get(providers.PROVIDERS[key].env, '')
             url, headers, payload = providers.request_parts(key, base, model, token, prompt)
@@ -235,7 +355,8 @@ class Assistant(QDockWidget):
                 req.setRawHeader(name.encode('ascii'), value.encode('ascii'))
             self.answer.clear()
             self.proposal = None
-            self.origin = self.bench_origin() if self.action.currentData() == 'bench' else None
+            self.remember_send()
+            self.origin = self.bench_origin(self.pinned.project) if self.action.currentData() == 'bench' else None
             self.reply = self.network.post(req, json.dumps(payload, ensure_ascii=False).encode('utf-8'))
             self.buffer.clear()
             self.reply.setReadBufferSize(1024 * 1024)
@@ -288,11 +409,13 @@ class Assistant(QDockWidget):
             if len(self.buffer) > 1024 * 1024:
                 raise ValueError('The response exceeded the 1 MB limit.')
             answer = providers.response_text(self.provider, json.loads(self.buffer))
-            self.answer.setPlainText(answer)
             self.tabs.setCurrentIndex(1)
             self.status.setText('Answer received.')
             if self.action.currentData() == 'bench':
+                self.answer.setPlainText(answer)
                 self.validate_draft()
+            else:
+                self.receive_explanation(answer)
         except (ValueError, RecursionError) as exc:
             self.status.setText(str(exc))
         finally:
@@ -302,28 +425,64 @@ class Assistant(QDockWidget):
     def invalidate_draft(self):
         self.proposal = None
         self.review.clear()
+        self.fixture_schematic.cell_picker.hide()
+        self.fixture_view.candidates = set()
+        self.fixture_view.cell = None
+        self.fixture_view.update()
+        self.edit_button.setText('Edit Fixture…')
         self.controls()
 
-    def bench_origin(self):
-        studio = self.studio
-        return studio.project['id'], ai_context.target(studio)['id'], design_digest(studio.project)
+    def choose_output(self, name):
+        spec = ai_testbench.decode(self.answer.toPlainText())
+        if name not in spec.get('output_candidates',[]):
+            return
+        spec.pop('output_candidates')
+        spec['probes'] = list(dict.fromkeys(name if n=='@output' else n for n in spec['probes']))
+        if name not in spec['probes']:
+            spec['probes'].append(name)
+        for m in spec['measurements']:
+            if m.get('node')=='@output':
+                m['node'] = name
+        self.answer.setPlainText(json.dumps(spec,ensure_ascii=False,indent=2))
+        self.validate_draft()
+
+    def bench_origin(self, project=None):
+        project = project if project is not None else self.studio.project
+        return project['id'], self.bench_cell()['id'], design_digest(project)
 
     def verify_origin(self):
         if self.bench_origin() != self.origin:
-            raise ValueError('The circuit changed. Refresh the request and generate a new testbench.')
+            raise ValueError('The circuit changed. Choose New Investigation and generate a testbench for the current revision.')
 
     def validate_draft(self):
         self.proposal = None
         try:
             self.verify_origin()
-            cells, bench, description = ai_testbench.propose(self.studio.project, ai_context.target(self.studio), self.answer.toPlainText())
+            cells, bench, description = ai_testbench.propose(self.studio.project, self.bench_cell(), self.answer.toPlainText())
             self.proposal = cells, bench
             self.review.setPlainText(description)
+            self.fixture_schematic.show_fixture(cells,self.bench_cell(),self.studio.project['pdk'])
             self.tabs.setCurrentIndex(2)
-            self.status.setText('Review the generated fixture and measurements. Edit the Answer to adjust the draft.')
+            self.fixture_view.fit()
+            self.status.setText('Edit the fixture, run a draft, or save this testbench.')
         except (ValueError, RecursionError) as exc:
             self.tabs.setCurrentIndex(1)
             self.status.setText(str(exc))
+            try:
+                candidates = ai_testbench.decode(self.answer.toPlainText()).get('output_candidates')
+            except ValueError:
+                candidates = None
+            if self.origin and self.bench_origin()==self.origin and candidates:
+                cell = self.bench_cell()
+                if not set(candidates) <= (set(cell['ports']) or ai_testbench.circuit_nets(cell)) - {'0'}:
+                    self.status.setText('The proposed output pins must be existing non-ground pins on this circuit.')
+                    self.controls()
+                    return
+                self.fixture_schematic.show_candidates(cell,self.studio.project['pdk'],candidates)
+                self.review.setPlainText('Choose an output pin in the schematic or in Edit Fixture.\n' + ', '.join(candidates))
+                self.edit_button.setText('Choose Output…')
+                self.tabs.setCurrentIndex(2)
+                self.fixture_view.fit()
         self.controls()
 
     def apply(self):
@@ -349,6 +508,12 @@ class Assistant(QDockWidget):
         self.cancel()
         super().closeEvent(event)
 
+    def changeEvent(self, event):
+        if event.type() == QEvent.PaletteChange and hasattr(self,'fixture_view'):
+            self.fixture_view.dark = self.studio.dark
+            self.fixture_view.update()
+        super().changeEvent(event)
+
 
 def install(studio):
     def show():
@@ -363,4 +528,7 @@ def install(studio):
             panel.refresh()
         panel.show()
         panel.raise_()
+        return panel
     studio.action(studio.task_menus['Tools'], 'AI Assistant…', show)
+    from . import ai_entry_points
+    ai_entry_points.install(studio,show)

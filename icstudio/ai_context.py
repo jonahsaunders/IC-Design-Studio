@@ -84,6 +84,13 @@ def circuit_data(studio, bench):
     return data
 
 
+def mentioned_devices(cell, log_tail):
+    mentioned = {word.rstrip('.') for word in re.findall(r'[\w.$/!\[\]-]+', log_tail.casefold())}
+    devices = [d for d in cell.get('devices', []) if d['name'].casefold() in mentioned or
+               any(n != '0' and n.casefold() in mentioned for n in d['nets'].values())]
+    return [dict(name=d['name'], kind=d['kind'], pins=dict(list(d['nets'].items())[:16])) for d in devices[:12]]
+
+
 def prompt(studio, action, note, run_id=None):
     if len(note) > 4000:
         raise ValueError('Keep the additional instructions under 4,000 characters.')
@@ -96,12 +103,9 @@ def prompt(studio, action, note, run_id=None):
         data = dict(run=run['name'], state=run['state'], revision=job['project']['revision'], circuit=cell.get('name'),
                     engine=job['engine'], analysis=job['settings']['type'], failed_checks=failed_checks(run)[:32],
                     log_tail=excerpt(run.get('log', ''), 6000))
-        mentioned = {word.rstrip('.') for word in re.findall(r'[\w.$/!\[\]-]+', data['log_tail'].casefold())}
-        devices = [d for d in cell.get('devices', []) if d['name'].casefold() in mentioned or
-                   any(n != '0' and n.casefold() in mentioned for n in d['nets'].values())]
+        devices = mentioned_devices(cell,data['log_tail'])
         if devices:
-            data['devices_mentioned_in_log'] = [
-                dict(name=d['name'], kind=d['kind'], pins=dict(list(d['nets'].items())[:16])) for d in devices[:12]]
+            data['devices_mentioned_in_log'] = devices
         instruction = 'Explain this saved run. Distinguish a solver error, interrupted job, and a missed requirement. Cite the evidence and suggest concrete checks in Studio.'
     else:
         data = circuit_data(studio, bench=action == 'bench')

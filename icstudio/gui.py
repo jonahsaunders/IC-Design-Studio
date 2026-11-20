@@ -669,15 +669,15 @@ class Studio(DigitalMixin,LiveCollaborationMixin,CollaborationMixin,Interoperabi
         super().apply_theme()
         hub=getattr(self,'_student_hub',None)
         if hub:hub.apply_theme()
+        assistant=getattr(self,'_ai_assistant',None)
+        if assistant:assistant.apply_theme()
 
     def set_project(self,project,path=None):
         result=super().set_project(project,path)
         if result is False:return False
         assistant=getattr(self,'_ai_assistant',None)
         if assistant:
-            assistant.cancel()
-            assistant.note.clear()
-            assistant.refresh()
+            assistant.reset_project()
         hub=getattr(self,'_student_hub',None)
         if hub:
             hub.guide.update_run_state()
