@@ -7,16 +7,11 @@ and openEMS. Local Student Hub/SAR engine requirements are separate; see below.
 
 ## Choose your download
 
-The **0.23.0 engineering preview** is publicly available in
-[release v0.23.0](https://github.com/jonahsaunders/IC-Design-Studio/releases/tag/v0.23.0),
-published on **2026-10-03** from commit
-`6c9cf950737c5d0e793d47ef8e9ddcb7caa72b83`. GitHub metadata checked on
-2026-10-04 lists 23 release assets, including the downloads below. Its
-[release preparation](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/37135864594)
-passed all seven required gates for that commit. See
-[release status](RELEASE_STATUS.md#0230-desktop-engineering-preview) for the
-hosted scope and remaining consumer acceptance. Later source changes do not
-alter these published downloads.
+The **0.23.1 engineering preview** is the latest public release.
+[Release v0.23.1](https://github.com/jonahsaunders/IC-Design-Studio/releases/tag/v0.23.1) was
+published on **2026-11-19** from commit
+`66368f8d1842439fbbef262cd4da1c4e6fed35df`. See
+[release status](RELEASE_STATUS.md#0231-desktop-engineering-preview) for the publication record and validation scope.
 
 For a successful [desktop build](https://github.com/jonahsaunders/IC-Design-Studio/actions/workflows/build-desktop.yml?query=branch%3Amain),
 open its **release-Windows** or **release-Linux** artifact and extract it to find
@@ -25,19 +20,34 @@ release supplies the final checksum file. Actions artifacts require
 GitHub sign-in and may expire. If an artifact is unavailable, use a retained
 matching draft asset or prepare a new build; do not substitute another commit.
 
-| 0.23.0 asset | What to do |
+| 0.23.1 asset | What to do |
 |---|---|
-| [Windows x64 installer](https://github.com/jonahsaunders/IC-Design-Studio/releases/download/v0.23.0/IC-Design-Studio-0.23.0-Windows-x64-Setup.exe) | Run the installer, then launch Studio |
-| [Windows x64 portable ZIP](https://github.com/jonahsaunders/IC-Design-Studio/releases/download/v0.23.0/IC-Design-Studio-0.23.0-Windows-x64-Portable.zip) | Extract everything, then open `ICDesignStudio/ICDesignStudio.exe` |
-| [Linux x86_64 archive](https://github.com/jonahsaunders/IC-Design-Studio/releases/download/v0.23.0/IC-Design-Studio-0.23.0-Linux-x86_64.tar.gz) | Extract everything, enter `ICDesignStudio`, then run `./ICDesignStudio` |
-| [Windows source](https://github.com/jonahsaunders/IC-Design-Studio/releases/download/v0.23.0/IC-Design-Studio-0.23.0-Source-Windows.zip) / [Linux source](https://github.com/jonahsaunders/IC-Design-Studio/releases/download/v0.23.0/IC-Design-Studio-0.23.0-Source-Linux.zip) | Corresponding developer source; not the complete desktop runtime |
+| [Windows x64 installer](https://github.com/jonahsaunders/IC-Design-Studio/releases/download/v0.23.1/IC-Design-Studio-0.23.1-Windows-x64-Setup.exe) | Run the installer, then launch Studio |
+| [Windows x64 portable ZIP](https://github.com/jonahsaunders/IC-Design-Studio/releases/download/v0.23.1/IC-Design-Studio-0.23.1-Windows-x64-Portable.zip) | Extract everything, then open `ICDesignStudio/ICDesignStudio.exe` |
+| Linux x86_64 archive ([part 1](https://github.com/jonahsaunders/IC-Design-Studio/releases/download/v0.23.1/IC-Design-Studio-0.23.1-Linux-x86_64.tar.gz.part001), [part 2](https://github.com/jonahsaunders/IC-Design-Studio/releases/download/v0.23.1/IC-Design-Studio-0.23.1-Linux-x86_64.tar.gz.part002)) | Download both files, then [join and verify them](#assemble-the-linux-archive) |
+| [Windows source](https://github.com/jonahsaunders/IC-Design-Studio/releases/download/v0.23.1/IC-Design-Studio-0.23.1-Source-Windows.zip) / [Linux source](https://github.com/jonahsaunders/IC-Design-Studio/releases/download/v0.23.1/IC-Design-Studio-0.23.1-Source-Linux.zip) | Developer source for the matching release |
 | `Validation-*.json` / `Evidence-*.zip` | Build identity and evidence recorded for that asset |
-| `*.zip.parts.json` and numbered parts | Split evidence archive; [reassemble and verify it](RELEASING.md#large-evidence-archives) |
-| [SHA256SUMS-0.23.0.txt](https://github.com/jonahsaunders/IC-Design-Studio/releases/download/v0.23.0/SHA256SUMS-0.23.0.txt) | Checksums for the matching downloads |
+| `*.zip.parts.json` and numbered parts | Split evidence archive. [Reassemble and verify it](RELEASING.md#large-evidence-archives) |
+| [SHA256SUMS-0.23.1.txt](https://github.com/jonahsaunders/IC-Design-Studio/releases/download/v0.23.1/SHA256SUMS-0.23.1.txt) | Checksums for the matching downloads |
 
 Keep `_internal` and all its contents beside the executable. Copying a lone
 executable, or choosing **Code → Download ZIP**, does not install the desktop
 runtimes. Check **Help → About and release status** for the exact source commit.
+
+## Assemble the Linux archive
+
+Save both parts in the same directory. From that directory, join the parts,
+verify the assembled archive against the release checksum, and extract it:
+
+```sh
+cat IC-Design-Studio-0.23.1-Linux-x86_64.tar.gz.part001 IC-Design-Studio-0.23.1-Linux-x86_64.tar.gz.part002 \
+  > IC-Design-Studio-0.23.1-Linux-x86_64.tar.gz &&
+  printf '%s  %s\n' 'eb4fc7c1723a56611b09d7cdc0db3a8f8c47c0d4f9be2398a6960b94e3e6b526' \
+    'IC-Design-Studio-0.23.1-Linux-x86_64.tar.gz' | sha256sum -c - &&
+  tar -xzf IC-Design-Studio-0.23.1-Linux-x86_64.tar.gz
+```
+
+Open the extracted `ICDesignStudio` directory and run `./ICDesignStudio`.
 
 ## First launch
 
@@ -95,11 +105,10 @@ signing-policy and physical-network acceptance remain tracked in
 ## Verify a download
 
 Use the checksum file supplied with the exact build. On Linux, a complete set
-can be checked with `sha256sum -c SHA256SUMS-0.23.0.txt` if that is its
-actual filename. On Windows:
+can be checked with `sha256sum -c SHA256SUMS-0.23.1.txt`. On Windows:
 
 ```powershell
-Get-FileHash .\IC-Design-Studio-0.23.0-Windows-x64-Setup.exe -Algorithm SHA256
+Get-FileHash .\IC-Design-Studio-0.23.1-Windows-x64-Setup.exe -Algorithm SHA256
 ```
 
 Compare the result with the matching checksum entry. If you downloaded only a

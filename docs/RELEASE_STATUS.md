@@ -1,14 +1,19 @@
 # Release status
 
-## 0.23.1 source · unpublished at this commit
+## 0.23.1 desktop engineering preview
 
-The current source version is **0.23.1**. Its [release notes](UPDATE_0.23.1.md)
-describe the teaching-solver timing and Windows text-decoding repairs. This
-section is written before any 0.23.1 release preparation: no hosted gate result,
-draft or public asset for 0.23.1 is recorded here, and the published desktop
-downloads remain 0.23.0 below. Record the release preparation run, its exact
-commit and the asset metadata here after that run completes; do not infer them
-from the version number.
+[Release v0.23.1](https://github.com/jonahsaunders/IC-Design-Studio/releases/tag/v0.23.1) was
+published on **2026-11-19** from commit
+`66368f8d1842439fbbef262cd4da1c4e6fed35df`. It includes a Windows x64
+installer and portable ZIP, a two-part Linux x86_64 archive, corresponding
+source, validation evidence and checksums. [Download and setup guide](DOWNLOADS.md)
+
+The [qualification progress record](QUALIFICATION_PROGRESS.md#windows-build-and-public-release-checks)
+documents the hosted checks, Windows recovery and archive verification.
+[Publication run 44623414028](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/44623414028)
+records the successful upload. See the [release notes](UPDATE_0.23.1.md) for
+changes and [release follow-ups](RELEASE_FOLLOWUPS.md) for remaining consumer
+acceptance.
 
 ## 0.23.0 desktop engineering preview
 
@@ -20,7 +25,7 @@ was published on **2026-10-03 at 17:58 UTC** from main commit
 checked on **2026-10-04** identifies it as a public, non-prerelease with **23
 assets**: Windows x64 Setup and Portable downloads, a Linux x86_64 archive,
 corresponding source, validation/evidence records, split physical evidence and
-checksums. See [downloads](DOWNLOADS.md) for filenames and platform requirements.
+checksums. The linked release lists the original filenames.
 
 [Release preparation run 37135864594](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/37135864594)
 completed successfully for that exact commit. All seven required gates passed:
