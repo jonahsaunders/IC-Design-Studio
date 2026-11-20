@@ -20,6 +20,7 @@ def note(text):
 
 def button(text, callback, parent_layout, primary=False):
     widget = QPushButton(text)
+    widget.setAutoDefault(False)
     widget.setMinimumHeight(36)
     if primary:
         widget.setProperty('role', 'primary')
@@ -61,12 +62,12 @@ class CollaborationDashboard(QDialog):
         root = QVBoxLayout(self)
         root.setContentsMargins(24, 20, 24, 20)
         root.setSpacing(12)
-        heading = note('Work on a design together')
+        heading = note('Collaboration')
         heading.setProperty('role', 'title')
         heading.setMinimumHeight(36)
         heading.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
         root.addWidget(heading)
-        self.summary = note('Share a project, join your team, or pick up where you left off.')
+        self.summary = note('')
         self.summary.setMinimumHeight(32)
         self.summary.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
         root.addWidget(self.summary)
@@ -82,7 +83,7 @@ class CollaborationDashboard(QDialog):
         self.share = button('Host a session…', lambda: self.run(studio.host_session_dialog), actions, True)
         self.join = button('Join a workspace…', lambda: self.run(studio.live_join_dialog), actions)
         overview.addLayout(actions)
-        overview.addWidget(note('Host a shared schematic and layout on your network with automatic encrypted setup. To join, paste the complete invitation your teammate sent you.'))
+        overview.addWidget(note('Host this project on your network, or join with an invitation from a teammate.'))
         from .network_collaboration import network_host
         self.network_host = network_host(studio)
         self.network_status = note('')
@@ -96,18 +97,19 @@ class CollaborationDashboard(QDialog):
         self.local_host = local_host(studio)
         local_group = QGroupBox('Start on this computer')
         local_layout = QVBoxLayout(local_group)
-        local_layout.addWidget(note('Start the included server without commands or copying a key. Sessions are available only on this computer. For teammates on other computers, use a team HTTPS server.'))
+        local_layout.addWidget(note('Share between app windows on this computer using the included server.'))
         self.local_status = note('Server stopped. Saved workspaces are kept when you stop or close the app.')
         self.local_status.setAccessibleName('Local collaboration server status')
         local_layout.addWidget(self.local_status)
         local_actions = QHBoxLayout()
-        self.local_start = button('Start local server', lambda: self.run(lambda: studio.live_share_dialog(local=True)), local_actions, True)
+        self.local_start = button('Start local server', lambda: self.run(lambda: studio.live_share_dialog(local=True)), local_actions)
         self.local_stop = button('Stop local server', self.local_host.stop, local_actions)
         local_layout.addLayout(local_actions)
-        overview.addWidget(local_group)
         self.local_host.changed.connect(self.refresh_local)
         recent_header = QHBoxLayout()
-        recent_header.addWidget(note('Recent workspaces'))
+        recent_title = note('Recent workspaces')
+        recent_title.setProperty('role', 'subtitle')
+        recent_header.addWidget(recent_title)
         recent_header.addStretch()
         self.refresh_button = button('Refresh list', self.refresh_recent, recent_header)
         overview.addLayout(recent_header)
@@ -119,6 +121,7 @@ class CollaborationDashboard(QDialog):
         self.recent_search.returnPressed.connect(lambda: self.recent.setFocus())
         overview.addWidget(self.recent_search)
         self.recent = QListWidget()
+        self.recent.setWordWrap(True)
         self.recent.setAccessibleName('Recent collaboration workspaces')
         self.recent.setMinimumHeight(130)
         self.recent.itemActivated.connect(lambda *_: self.resume_selected())
@@ -126,15 +129,17 @@ class CollaborationDashboard(QDialog):
         overview.addWidget(self.recent, 1)
         self.empty_recent = note('No recent workspaces yet\nShare a project or join with an invitation to get started.')
         self.empty_recent.setAlignment(Qt.AlignCenter)
-        self.empty_recent.setMinimumHeight(130)
-        overview.addWidget(self.empty_recent, 1)
+        self.empty_recent.setMinimumHeight(44)
+        overview.addWidget(self.empty_recent)
         self.empty_recent.hide()
         row = QHBoxLayout()
-        self.resume_button = button('Resume workspace', self.resume_selected, row, True)
+        self.resume_button = button('Resume workspace', self.resume_selected, row)
         self.recover_button = button('Recover owner access…', self.recover_selected, row)
         overview.addLayout(row)
         self.recent_note = note('Loading your saved workspaces…')
         overview.addWidget(self.recent_note)
+        overview.addWidget(local_group)
+        overview.addStretch()
         self.tabs.addTab(scrolling_page(self.overview), 'Start and resume')
 
         self.session_page = QWidget()
@@ -196,11 +201,11 @@ class CollaborationDashboard(QDialog):
         self.session_scroll.setVisible(bool(client))
         self.folder_active.setVisible(s.layout_session is not None)
         if client:
-            self.summary.setText(s.project['name'] + ' · ' + client.message)
+            self.summary.setText(s.project['name'] + ' · Live workspace')
         elif s.layout_session:
             self.summary.setText(s.project['name'] + ' · Shared-folder workspace')
         else:
-            self.summary.setText('Share a project, join your team, or pick up where you left off.')
+            self.summary.setText(s.project['name'] + ' · On this computer')
         self.folder_status.setText(f'Connected as {s.layout_session.editor} · Shared revision {s.layout_session.revision}\n' + str(s.layout_session.root)
                                    if s.layout_session else 'You have not joined a shared folder.')
         self.update_recent_actions()
@@ -270,9 +275,10 @@ class CollaborationDashboard(QDialog):
         self.recent.blockSignals(True)
         self.recent.clear()
         self.recent.setVisible(bool(records))
+        self.recent_search.setVisible(bool(self.records) or bool(query))
         self.empty_recent.setVisible(not records)
-        self.empty_recent.setText('No matching workspaces. Try another search.' if query
-                                  else 'No recent workspaces yet\nShare a project or join with an invitation to get started.')
+        self.empty_recent.setText('No matching workspaces. Clear the search to see them all.' if query
+                                  else 'Workspaces you host or join will appear here.')
         for record in records:
             when = datetime.fromtimestamp(record['modified']).strftime('%d %b, %H:%M') if record['modified'] else ''
             state = ' · Unsynced work retained' if record['attention'] else ''
@@ -287,8 +293,8 @@ class CollaborationDashboard(QDialog):
         self.recent.blockSignals(False)
         if not self.recent_selection and records:
             self.recent_selection = records[0]['path']
-        self.recent_note.setText('Choose a workspace and select Resume. Your saved edits and personal undo travel with the session.' if records
-                                else '' if self.records else 'Your shared workspaces will appear here automatically. Start with Share or Join above.')
+        self.recent_note.setText('Resume to reopen your saved edits and personal undo history.' if records else '')
+        self.recent_note.setVisible(bool(records))
         self.update_recent_actions()
 
     def selected_record(self):
@@ -301,6 +307,7 @@ class CollaborationDashboard(QDialog):
         record = self.selected_record()
         available = not (self.studio.live_client or self.studio.layout_session)
         self.resume_button.setEnabled(bool(record) and available)
+        self.resume_button.setVisible(bool(self.records))
         self.recover_button.setEnabled(bool(record and record['role'] == 'owner') and available)
         self.recover_button.setVisible(bool(record and record['role'] == 'owner'))
 

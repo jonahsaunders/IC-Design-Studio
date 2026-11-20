@@ -55,6 +55,15 @@ are unchanged.
 
 ## Project PDK switching and collaboration
 
+**November 20, 2026.** The collaboration interface pass based on
+`70e181ca` covers COL-17 and COL-19. On Windows, 47 focused tests and
+12 live desktop scenarios passed. Three app windows shared a project on
+localhost. The toolbar reported the participants, both themes preserved
+the selected teammate during polling, and revoking an active invitation
+disconnected the viewer who had used it. A shared-folder session also opened
+from the toolbar and cleared its status on leave.
+[Live workspace](LIVE_COLLABORATION.md#find-your-way-around)
+
 **November 18, 2026.** Source `4e442f050513a26a0e95ad7ff691a80521a1aeed`
 adds searchable [PDK switching](PDK_GUIDE.md#switch-the-open-project) and
 updates [live and shared-folder collaboration](LIVE_COLLABORATION.md).

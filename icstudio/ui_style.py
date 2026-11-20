@@ -16,6 +16,11 @@ def icon(name, color='#606c7e', size=20):
     def line(*v): p.drawLine(QPointF(*v[:2]), QPointF(*v[2:]))
     def poly(points): p.drawPolyline(QPolygonF([QPointF(*x) for x in points]))
     if name=='select': poly([(5,3),(6,20),(10,15),(14,21),(17,19),(13,13),(20,12),(5,3)])
+    elif name=='people':
+        p.drawEllipse(QPointF(9,7),3,3)
+        p.drawArc(QRectF(2,13,14,12),0,180*16)
+        p.drawEllipse(QPointF(17,8),2.4,2.4)
+        p.drawArc(QRectF(13,13,9,10),0,100*16)
     elif name=='wire':
         poly([(4,6),(11,6),(11,18),(20,18)]);p.drawEllipse(QPointF(4,6),2,2);p.drawEllipse(QPointF(20,18),2,2)
     elif name in ('chip','cell'):

@@ -18,7 +18,7 @@ def main():
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
     from PySide6.QtCore import QSettings, QStandardPaths, Qt
     from PySide6.QtTest import QTest
-    from PySide6.QtWidgets import QApplication, QFileDialog, QLineEdit, QPushButton
+    from PySide6.QtWidgets import QApplication, QFileDialog, QInputDialog, QLineEdit, QPushButton
     from PySide6.QtGui import QFontDatabase
     from icstudio.gui import Studio
     from icstudio.layout import rect
@@ -79,7 +79,10 @@ def main():
         p['name'] = 'Shared analog layout'
         p['cells'][0]['shapes'] = [rect('metal1', 0, 0, 1600, 900), rect('metal1', 2400, 0, 1600, 900), rect('metal2', 700, 1700, 2600, 650)]
         a.set_project(p)
-        dashboard = a.collaboration_dashboard()
+        assert a.collaboration_button.parentWidget().objectName() == 'workspaceNavigation'
+        QTest.mouseClick(a.collaboration_button, Qt.LeftButton)
+        dashboard = a._collaboration_dashboard
+        assert dashboard.isVisible() and dashboard.tabs.currentIndex() == 0
         assert a.collaboration_action in a.task_menus['Tools'].actions()
         assert not any('collaboration' in action.text().lower() or 'Concurrent editing' in action.text()
                        for action in a.task_menus['Layout'].actions())
@@ -90,6 +93,18 @@ def main():
         assert dashboard.grab().save(str(out / 'collaboration-dashboard.png'))
         dashboard.hide()
         checks.append('Tools opens one dashboard with live and shared-folder tools, useful empty state and recent workspaces')
+        shared = out / 'folder-workspace'
+        shared.mkdir()
+        with patch.object(QFileDialog, 'getExistingDirectory', return_value=str(shared)), \
+             patch.object(QInputDialog, 'getText', return_value=('Alice', True)):
+            a.shared_layout_start(True)
+        a._collaboration_dialog.close()
+        a.collaboration_button.click()
+        assert a.collaboration_button.text() == 'Shared folder' and dashboard.tabs.currentIndex() == 2
+        a.shared_layout_leave()
+        assert a.collaboration_button.text() == 'Collaborate…' and not dashboard.folder_active.isVisible()
+        dashboard.hide()
+        checks.append('The top toolbar opens the shared-folder session and reflects leaving it')
         dlg = a.live_share_dialog()
         fields = dlg.findChildren(QLineEdit)
         fields[0].setText(url)
@@ -99,6 +114,10 @@ def main():
         wait(lambda: a.live_client is not None, 'Share UI did not connect')
         wait(lambda: settled(a), 'Owner did not synchronize')
         a.live_role.setCurrentIndex(a.live_role.findData('edit'))
+        assert 'edit the schematic and layout' in a.live_permission_summary.text()
+        a.live_days.setValue(1)
+        assert '1 day after creation' in a.live_permission_summary.text()
+        a.live_days.setValue(7)
         a.live_invite()
         wait(lambda: QApplication.clipboard().text().startswith(url + '/join#'), 'Edit invitation not copied')
         edit_link = QApplication.clipboard().text()
@@ -159,7 +178,10 @@ def main():
         a.live_client.presence = lambda: dict(cell=cid, selection=[sid], cursor=[100, 500])
         b.live_client.presence = lambda: dict(cell=cid, selection=[b.cell['shapes'][1]['id']], cursor=[2900, 900])
         wait(lambda: len(a.live_client.info.get('participants', [])) == 3 and len(b.layout.live_presence) >= 2, 'Presence did not synchronize')
-        owner_dashboard=a.collaboration_dashboard(1)
+        wait(lambda: a.collaboration_button.text() == 'Shared · 3 people', 'Toolbar presence count')
+        a.collaboration_button.click()
+        owner_dashboard=a._collaboration_dashboard
+        assert owner_dashboard.tabs.currentIndex()==1
         bob_item=next(a.live_people.item(i) for i in range(a.live_people.count())
                       if a.live_people.item(i).data(Qt.UserRole)['name']=='Bob')
         a.live_people.setCurrentItem(bob_item)
@@ -167,9 +189,23 @@ def main():
         b.live_client.presence = lambda: dict(cell=cid, selection=[b.cell['shapes'][1]['id']], cursor=[2800, 900])
         wait(lambda: a.live_people.currentItem() and a.live_people.currentItem().data(Qt.UserRole)['cursor']==[2800, 900],
              'Polling lost the selected teammate')
+        owner_dashboard.resize(920, 700)
+        for dark in (False, True):
+            a.dark = dark
+            a.apply_theme()
+            QTest.qWait(65)
+            selected = a.live_people.currentItem()
+            assert selected.data(Qt.UserRole)['name'] == 'Bob'
+            assert selected.foreground().style() == Qt.NoBrush and not selected.icon().isNull()
+            assert a.live_visit.isEnabled()
+            assert owner_dashboard.grab().save(str(out / ('people-dark.png' if dark else 'people-light.png')))
         a.live_people.setFocus()
         QTest.keyClick(a.live_people, Qt.Key_Return)
         assert not owner_dashboard.isVisible(), 'Return did not visit the selected teammate'
+        a.collaboration_button.click()
+        assert a.live_visit.isEnabled()
+        a.live_visit.click()
+        assert not owner_dashboard.isVisible(), 'Visit teammate did not return to the design'
         b.live_client.presence = lambda: dict(cell=cid, selection=[b.cell['shapes'][1]['id']], cursor=[2900, 900])
         checks.append('Teammate selection survives actual polling and Return visits their view')
         wait(lambda: any(l['actor'] == a.live_client.info['actor'] for l in b.live_client.info.get('leases', [])), 'Reservation missing')
@@ -262,10 +298,17 @@ def main():
         checks.append('Restarting a desktop session replays an unacknowledged edit exactly once')
 
         wait(lambda: any(i['role'] == 'view' for i in a.live_client.info.get('invitations', [])), 'Invitations not restored')
-        index = next(i for i in range(a.live_invitations.count()) if a.live_invitations.item(i).text().startswith('view'))
+        view_id = next(inv['id'] for inv in a.live_client.info['invitations'] if inv['role'] == 'view')
+        index = next(i for i in range(a.live_invitations.count()) if a.live_invitations.item(i).data(Qt.UserRole)==view_id)
         a.live_invitations.setCurrentRow(index)
-        a.live_revoke()
+        chosen = a.live_invitations.currentItem()
+        assert 'Can view · Active' in chosen.text() and 'Expiry' in chosen.text()
+        a.live_update_panel(a.live_client.message)
+        assert a.live_invitations.currentItem() is chosen and a.live_revoke_button.isEnabled()
+        a.live_revoke_button.click()
+        assert not a.live_revoke_button.isEnabled()
         wait(lambda: not v.live_client.connected and 'revoked' in v.live_client.message, 'Revoked viewer remained connected')
+        assert 'Revoked' in chosen.text() and not a.live_revoke_button.isEnabled()
         checks.append('Owner revocation disconnects an already joined viewer')
         wait(lambda: settled(a), 'Owner did not settle before recovery check')
         owner_id = a.live_client.info['actor']

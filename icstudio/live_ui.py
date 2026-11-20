@@ -3,11 +3,12 @@ import hashlib
 import json
 from pathlib import Path
 import time
+from datetime import datetime
 
-from PySide6.QtCore import QPointF, QRectF, Qt
-from PySide6.QtGui import QColor, QCursor, QFont, QPen, QPolygonF
+from PySide6.QtCore import QPointF, QRectF, Qt, QSignalBlocker
+from PySide6.QtGui import QColor, QCursor, QFont, QIcon, QPen, QPixmap, QPolygonF
 from PySide6.QtWidgets import (QApplication, QComboBox, QDialog, QFileDialog,
-    QFormLayout, QLabel, QLineEdit, QListWidget, QListWidgetItem, QPushButton,
+    QFormLayout, QGridLayout, QLabel, QLineEdit, QListWidget, QListWidgetItem, QPushButton,
     QSpinBox, QVBoxLayout, QWidget, QTreeWidget, QMessageBox, QHBoxLayout)
 
 from .live_client import LiveClient, LiveHistory, Transport, check_session
@@ -85,11 +86,10 @@ class LiveCollaborationMixin:
         self.live_status.setAccessibleName('Live connection status')
         v.addWidget(self.live_status)
         self.live_impact = QLabel('Schematic and layout share one revision. Recheck verification after changing the design.')
-        self.live_impact.setWordWrap(True);self.live_impact.setAccessibleName('Shared design verification status');v.addWidget(self.live_impact)
+        self.live_impact.setWordWrap(True);self.live_impact.setAccessibleName('Shared design verification status')
         checks = QHBoxLayout()
         erc = QPushButton('Check schematic');erc.clicked.connect(lambda: self.guard(lambda: self.check('erc')));checks.addWidget(erc)
         workflow = QPushButton('Review schematic and layout');workflow.clicked.connect(lambda: self.guard(self.design_workflow));checks.addWidget(workflow)
-        v.addLayout(checks)
         self.live_recover_button = QPushButton('Recover owner access…')
         self.live_recover_button.clicked.connect(lambda: self.guard(lambda: self.live_recover_owner()))
         v.addWidget(self.live_recover_button)
@@ -106,24 +106,30 @@ class LiveCollaborationMixin:
         v.addLayout(top_actions)
         conflict_actions = QHBoxLayout()
         v.addLayout(conflict_actions)
-        activity = QHBoxLayout()
-        people = QVBoxLayout()
-        people.addWidget(QLabel('Your teammates'))
+        activity = QGridLayout()
+        activity.setColumnStretch(0, 1)
+        activity.setColumnStretch(1, 1)
+        activity.addWidget(QLabel('People in this workspace'), 0, 0)
+        activity.addWidget(QLabel('Recent shared edits'), 0, 1)
         self.live_people = QListWidget()
         self.live_people.itemActivated.connect(lambda item: self.guard(lambda: self.live_go_to_person(item)))
         self.live_people.setAccessibleName('Live participants')
+        self.live_people.setWordWrap(True)
         self.live_people.setMinimumHeight(80)
         self.live_people.setMaximumHeight(120)
-        people.addWidget(self.live_people)
-        activity.addLayout(people, 1)
-        edits = QVBoxLayout()
-        edits.addWidget(QLabel('Recent shared edits'))
+        activity.addWidget(self.live_people, 1, 0)
+        self.live_visit = QPushButton('Visit teammate')
+        self.live_visit.setAutoDefault(False)
+        self.live_visit.setProperty('role', 'secondary')
+        self.live_visit.setEnabled(False)
+        self.live_visit.clicked.connect(lambda: self.guard(lambda: self.live_go_to_person(self.live_people.currentItem())))
+        self.live_people.currentItemChanged.connect(self.update_visit_action)
+        activity.addWidget(self.live_visit, 2, 0, Qt.AlignLeft)
         self.live_history = QListWidget()
         self.live_history.setAccessibleName('Shared edit history')
         self.live_history.setMinimumHeight(80)
         self.live_history.setMaximumHeight(120)
-        edits.addWidget(self.live_history)
-        activity.addLayout(edits, 2)
+        activity.addWidget(self.live_history, 1, 1)
         v.addLayout(activity)
         v.addWidget(QLabel('Reserved objects'))
         self.live_reservations = QTreeWidget()
@@ -137,15 +143,17 @@ class LiveCollaborationMixin:
         self.live_reservation_note = QLabel()
         self.live_reservation_note.setWordWrap(True)
         v.addWidget(self.live_reservation_note)
+        v.addWidget(self.live_impact)
+        v.addLayout(checks)
         self.live_manage = QDialog(self)
         self.live_manage.setWindowTitle('Invite people and manage access')
-        self.live_manage.resize(560, 480)
+        self.live_manage.resize(560, 540)
         management = QVBoxLayout(self.live_manage)
         self.live_owner = QWidget(self.live_manage)
         management.addWidget(self.live_owner)
         ov = QVBoxLayout(self.live_owner)
         ov.setContentsMargins(0, 0, 0, 0)
-        invitation_note = self.live_invitation_note = QLabel('Choose what your teammate can do, then copy an invitation to send them. You can revoke access here at any time.')
+        invitation_note = self.live_invitation_note = QLabel()
         invitation_note.setWordWrap(True)
         ov.addWidget(invitation_note)
         form = QFormLayout()
@@ -156,9 +164,18 @@ class LiveCollaborationMixin:
         self.live_days = QSpinBox()
         self.live_days.setRange(1, 30)
         self.live_days.setValue(7)
+        self.live_role.setAccessibleName('Invitation permission')
+        self.live_days.setAccessibleName('Invitation lifetime in days')
         form.addRow('Invitation permission', self.live_role)
         form.addRow('Expires in days', self.live_days)
         ov.addLayout(form)
+        self.live_permission_summary = QLabel()
+        self.live_permission_summary.setTextFormat(Qt.PlainText)
+        self.live_permission_summary.setWordWrap(True)
+        self.live_role.currentIndexChanged.connect(self.update_permission_summary)
+        self.live_days.valueChanged.connect(self.update_permission_summary)
+        self.update_permission_summary()
+        ov.addWidget(self.live_permission_summary)
         self.live_invite_button = QPushButton('Create and copy invitation')
         self.live_invite_button.clicked.connect(lambda: self.guard(self.live_invite))
         ov.addWidget(self.live_invite_button)
@@ -173,9 +190,14 @@ class LiveCollaborationMixin:
         self.live_invitations.setMinimumHeight(80)
         self.live_invitations.setMaximumHeight(120)
         ov.addWidget(self.live_invitations)
-        revoke = QPushButton('Revoke selected invitation')
-        revoke.clicked.connect(lambda: self.guard(self.live_revoke))
-        ov.addWidget(revoke)
+        revoke_note = QLabel('Revoking an invitation disconnects people who joined with it.')
+        revoke_note.setWordWrap(True)
+        ov.addWidget(revoke_note)
+        self.live_revoke_button = QPushButton('Revoke selected invitation')
+        self.live_revoke_button.setEnabled(False)
+        self.live_revoke_button.clicked.connect(lambda: self.guard(self.live_revoke))
+        self.live_invitations.currentItemChanged.connect(self.update_invitation_actions)
+        ov.addWidget(self.live_revoke_button)
         self.live_review = QPushButton('Review conflicting edit…')
         self.live_review.setProperty('role', 'primary')
         self.live_review.clicked.connect(lambda: self.guard(self.live_review_conflict))
@@ -192,10 +214,9 @@ class LiveCollaborationMixin:
         close_manage = QPushButton('Done')
         close_manage.clicked.connect(self.live_manage.hide)
         management.addWidget(close_manage)
-        self.collaboration_button = QPushButton('Collaboration')
-        self.collaboration_button.setToolTip('Open Tools → Collaboration')
-        self.collaboration_button.clicked.connect(lambda: self.guard(self.collaboration_dashboard))
-        self.statusBar().addPermanentWidget(self.collaboration_button)
+        self.collaboration_button = self.button('Collaborate…', 'people', self.collaboration_dashboard,
+                                                role='secondary', tip='Share this project or join a workspace')
+        self._revoking = None
 
     def make_actions(self):
         super().make_actions()
@@ -208,6 +229,8 @@ class LiveCollaborationMixin:
             self._collaboration_dashboard = CollaborationDashboard(self)
         dlg = self._collaboration_dashboard
         dlg.refresh_state()
+        if tab is None and not dlg.isVisible():
+            tab = 1 if self.live_client else 2 if self.layout_session else 0
         if tab is not None:
             dlg.tabs.setCurrentIndex(tab)
         dlg.refresh_recent()
@@ -229,7 +252,41 @@ class LiveCollaborationMixin:
     def shared_layout_start(self, create):
         if self.live_client:
             raise LiveError('Leave the live session before joining a shared-folder workspace.')
-        return super().shared_layout_start(create)
+        result = super().shared_layout_start(create)
+        self.update_collaboration_button()
+        return result
+
+    def shared_layout_leave(self):
+        if self.layout_session:
+            super().shared_layout_leave()
+            self.update_collaboration_button()
+            if self._collaboration_dashboard:
+                self._collaboration_dashboard.refresh_state()
+
+    def update_collaboration_button(self):
+        client = self.live_client
+        if client:
+            others = sum(p['id'] != client.info['actor'] for p in client.info.get('participants', []))
+            if client.conflict:
+                status = 'Needs review'
+            elif not client.connected:
+                status = 'Disconnected'
+            elif client.pending:
+                status = 'Syncing'
+            else:
+                status = '1 person' if others == 0 else f'{others + 1} people'
+            text = f'Shared · {status}'
+            tip = f"{self.project['name']} · {ROLE_NAMES[client.info['role']]}\n{client.message}"
+        elif self.layout_session:
+            text = 'Shared folder'
+            tip = f'{self.project["name"]} · {self.layout_session.editor}'
+        else:
+            text = 'Collaborate…'
+            tip = 'Share this project or join a workspace'
+        self.collaboration_button.setText(text)
+        self.collaboration_button.setAccessibleName(text)
+        self.collaboration_button.setAccessibleDescription(tip)
+        self.collaboration_button.setToolTip(tip)
 
     def set_project(self, p, path=None):
         if getattr(self, 'live_client', None):
@@ -482,6 +539,7 @@ class LiveCollaborationMixin:
         self.history = LiveHistory(client)
         self._live_schematic_state = {}
         self._invite_client = None
+        self._revoking = None
         self.live_access_status.clear()
         client.presence = self.live_presence_data
         client.can_install = self.live_can_install
@@ -508,14 +566,16 @@ class LiveCollaborationMixin:
             for canvas in (self.schematic, self.layout))
 
     def live_go_to_person(self, item):
-        person = item.data(Qt.UserRole)
-        if not person or not self.flush_inspector(): return
+        person = item.data(Qt.UserRole) if item else None
+        client = self.live_client
+        if not person or not client or not client.connected or person['id'] == client.info['actor']: return
+        if not self.flush_inspector(): return
         if not self.live_can_install():
             self.statusBar().showMessage('Finish or cancel your current edit before visiting a teammate.', 8000)
             return
         if person['cell'] not in {c['id'] for c in self.project['cells']}: return
+        if not self.activate_circuit_view(0 if person.get('view') == 'schematic' else 1): return
         self.cid = person['cell']; self.selection = []
-        self.mode_combo.setCurrentIndex(0 if person.get('view') == 'schematic' else 1)
         self.refresh(True)
         canvas = self.schematic if person.get('view') == 'schematic' else self.layout
         if person.get('cursor'):
@@ -538,6 +598,16 @@ class LiveCollaborationMixin:
         self.save_recovery()
         self.live_update_panel(self.live_client.message)
 
+    def update_visit_action(self, *_):
+        item = self.live_people.currentItem()
+        person = item.data(Qt.UserRole) if item else None
+        client = self.live_client
+        enabled = bool(client and client.connected and person and person['id'] != client.info['actor']
+                       and any(cell['id'] == person['cell'] for cell in self.project['cells']))
+        self.live_visit.setEnabled(enabled)
+        self.live_visit.setToolTip('Open the selected teammate’s cell and view' if enabled else
+                                   'Select another connected teammate to visit their view')
+
     def sync_live_people(self, people, actor):
         listing = self.live_people
         current = listing.currentItem()
@@ -554,23 +624,30 @@ class LiveCollaborationMixin:
                       ROLE_NAMES[person['role']], 'You' if person['id'] == actor else '')
             item.setText(' · '.join(field for field in fields if field))
             item.setData(Qt.UserRole, person)
-            item.setToolTip('Press Return or double-click to visit this teammate’s view')
-            item.setForeground(QColor(person.get('color', person_color(person['id']))))
+            item.setToolTip('Your current view' if person['id'] == actor else
+                            'Press Return or double-click to visit this teammate’s view')
+            color = person.get('color', person_color(person['id']))
+            if item.data(Qt.UserRole + 1) != color:
+                swatch = QPixmap(10, 10)
+                swatch.fill(QColor(color))
+                item.setIcon(QIcon(swatch))
+                item.setData(Qt.UserRole + 1, color)
             if person['id'] == selected and listing.currentItem() is not item:
                 listing.setCurrentItem(item)
+        self.update_visit_action()
 
     def live_update_panel(self, message):
         client = self.live_client
         if not client:
             return
         role = ROLE_NAMES[client.info['role']]
-        self.live_status.setText(f"Your access · {role}\n{message}")
+        sync = f'Shared revision {client.revision}' if message.startswith('Live · ') else message
+        self.live_status.setText(f'{role} · {sync}')
         from urllib.parse import urlsplit
         local = urlsplit(client.server).hostname in ('127.0.0.1', 'localhost', '::1')
-        self.live_invitation_note.setText('This workspace is available only on this computer. Invitations can join from another IC Design Studio window here. For other computers, share through a team HTTPS server.' if local else 'Choose what your teammate can do, then copy an invitation to send them. You can revoke access here at any time.')
-        status = ('Needs review' if client.conflict else 'Reconnecting' if not client.connected
-                  else 'Syncing' if client.pending else role)
-        self.collaboration_button.setText('Collaboration · ' + status)
+        self.live_invitation_note.setText('This invitation works only on this computer. Open it in another IC Design Studio window.'
+                                         if local else 'Copy an invitation and send it to the people you want to join this workspace.')
+        self.update_collaboration_button()
         self.live_recover_button.setVisible(client.info['role'] == 'owner' and not client.connected)
         people = client.info.get('participants', [])
         self.sync_live_people(people, client.info['actor'])
@@ -584,17 +661,7 @@ class LiveCollaborationMixin:
             self.live_history.addItems(history)
         self.live_owner.setVisible(client.info['role'] == 'owner')
         self.live_manage_button.setVisible(client.info['role'] == 'owner')
-        self.live_invite_button.setEnabled(client.connected and not client.managing and self._invite_client is None)
-        current = self.live_invitations.currentItem()
-        selected = current.data(Qt.UserRole) if current else None
-        self.live_invitations.clear()
-        for inv in client.info.get('invitations', []):
-            state = 'revoked' if inv['revoked'] else 'expired' if inv['expires'] <= time.time() else 'active'
-            item = QListWidgetItem(inv['role'] + ' · ' + state + ' · ' + inv['id'][:8])
-            item.setData(Qt.UserRole, inv['id'])
-            self.live_invitations.addItem(item)
-            if inv['id'] == selected:
-                self.live_invitations.setCurrentItem(item)
+        self.sync_invitations(client.info.get('invitations', []))
         self.live_copy.setVisible(bool(client.conflict and client.conflict.get('proposed')))
         self.live_discard.setVisible(bool(client.conflict))
         self.live_review.setVisible(bool(client.conflict and client.conflict.get('proposed')))
@@ -611,21 +678,65 @@ class LiveCollaborationMixin:
         self.undo_action.setEnabled(editable and bool(client.info.get('undo')))
         self.redo_action.setEnabled(editable and bool(client.info.get('redo')))
 
+    def update_permission_summary(self, *_):
+        permissions = {'view': 'view the design', 'review': 'comment and approve reviews',
+                       'edit': 'edit the schematic and layout'}
+        days = self.live_days.value()
+        permission = permissions[self.live_role.currentData()]
+        self.live_permission_summary.setText(
+            f'Anyone with this invitation can {permission}. Access expires {days} {"day" if days == 1 else "days"} after creation.')
+
+    def sync_invitations(self, invitations):
+        listing = self.live_invitations
+        existing = [listing.item(i).data(Qt.UserRole) for i in range(listing.count())]
+        changed = existing != [inv['id'] for inv in invitations]
+        current = listing.currentItem()
+        selected = current.data(Qt.UserRole) if current else None
+        with QSignalBlocker(listing):
+            if changed:
+                listing.clear()
+            now = time.time()
+            for index, inv in enumerate(invitations):
+                item = QListWidgetItem(listing) if changed else listing.item(index)
+                state = 'Revoked' if inv['revoked'] else 'Expired' if inv['expires'] <= now else 'Active'
+                deadline = datetime.fromtimestamp(inv['expires']).strftime('%d %b %Y, %H:%M')
+                item.setText(f"{ROLE_NAMES[inv['role']]} · {state}\nExpiry {deadline} · {inv['id'][:8]}")
+                item.setToolTip('Invitation expiry in local time · ' + deadline)
+                item.setData(Qt.UserRole, inv['id'])
+                if changed and inv['id'] == selected:
+                    listing.setCurrentItem(item)
+        self.update_invitation_actions()
+
+    def selected_active_invitation(self):
+        client, item = self.live_client, self.live_invitations.currentItem()
+        if (not client or not client.connected or client.info['role'] != 'owner' or client.managing
+                or self._revoking is not None or self._invite_client is not None or item is None):
+            return None
+        return next((inv for inv in client.info.get('invitations', [])
+                     if inv['id'] == item.data(Qt.UserRole) and not inv['revoked'] and inv['expires'] > time.time()), None)
+
+    def update_invitation_actions(self, *_):
+        client = self.live_client
+        available = bool(client and client.connected and client.info['role'] == 'owner' and not client.managing
+                         and self._invite_client is None and self._revoking is None)
+        self.live_invite_button.setEnabled(available)
+        self.live_revoke_button.setEnabled(self.selected_active_invitation() is not None)
+
     def live_invite(self):
         client = self.live_client
         if not client or client.info['role'] != 'owner':
             raise LiveError('Only the owner can create invitations.')
-        if not client.connected or client.managing or self._invite_client is not None:
+        if not client.connected or client.managing or self._invite_client is not None or self._revoking is not None:
             raise LiveError('Wait for the workspace connection or current invitation request.')
         self._invite_client = client
-        self.live_invite_button.setEnabled(False)
+        self.update_invitation_actions()
         self.live_access_status.setText('Creating invitation…')
         def done(status, result):
             if self._invite_client is client:
                 self._invite_client = None
             if self.live_client is not client:
                 return
-            self.live_invite_button.setEnabled(client.connected and not client.managing)
+            self.update_invitation_actions()
             if status != 200:
                 self.live_access_status.setText(result.get('error', 'Invitation creation failed.'))
                 return
@@ -640,21 +751,40 @@ class LiveCollaborationMixin:
                                   dict(role=self.live_role.currentData(), days=self.live_days.value()), done)
         except Exception:
             self._invite_client = None
-            self.live_invite_button.setEnabled(client.connected and not client.managing)
+            self.update_invitation_actions()
             self.live_access_status.clear()
             raise
 
     def live_revoke(self):
-        client, item = self.live_client, self.live_invitations.currentItem()
-        if not client or item is None:
-            raise LiveError('Select an invitation to revoke.')
+        client = self.live_client
+        invitation = self.selected_active_invitation()
+        if invitation is None:
+            return
+        ident = invitation['id']
+        self._revoking = ident
+        self.update_invitation_actions()
+        self.live_access_status.setText('Revoking invitation…')
         def done(status, result):
+            if self.live_client is not client or self._revoking != ident:
+                return
+            self._revoking = None
             if status != 200:
-                self.error(result.get('error', 'Revocation failed.'))
+                self.live_access_status.setText(result.get('error', 'Revocation failed.'))
             else:
-                self.statusBar().showMessage('Invitation revoked; sessions using it can no longer access the workspace.', 15000)
+                for inv in client.info.get('invitations', []):
+                    if inv['id'] == ident:
+                        inv['revoked'] = True
+                self.sync_invitations(client.info.get('invitations', []))
+                self.live_access_status.setText('Invitation revoked. People who joined with it have lost access.')
                 client.tick()
-        client.transport.post(client.server, client.path + '/revoke', client.token, dict(invitation=item.data(Qt.UserRole)), done)
+            self.update_invitation_actions()
+        try:
+            client.transport.post(client.server, client.path + '/revoke', client.token, dict(invitation=ident), done)
+        except Exception:
+            self._revoking = None
+            self.update_invitation_actions()
+            self.live_access_status.clear()
+            raise
 
     def live_save_conflict(self):
         client = self.live_client
@@ -857,7 +987,7 @@ class LiveCollaborationMixin:
             self.layout.live_presence = []
             self.schematic.live_presence = []
             self.schematic.update()
-            self.collaboration_button.setText('Collaboration')
+            self.update_collaboration_button()
             self.live_manage.hide()
             self.refresh()
             if self._collaboration_dashboard:

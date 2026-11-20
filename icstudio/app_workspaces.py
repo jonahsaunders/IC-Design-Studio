@@ -1,6 +1,6 @@
 """Persistent Design / Student Hub tabs around the circuit and RTL editors."""
 from PySide6.QtCore import QSize, Qt
-from PySide6.QtWidgets import (QDialog, QDockWidget, QMenu, QStackedWidget, QTabBar,
+from PySide6.QtWidgets import (QDialog, QDockWidget, QMenu, QSizePolicy, QStackedWidget, QTabBar,
                                QToolBar, QToolButton, QVBoxLayout, QWidget)
 from shiboken6 import isValid
 
@@ -32,6 +32,10 @@ class AppWorkspaces(QStackedWidget):
         self.tabs.addTab('Design')
         self.tabs.addTab('Student Hub')
         navigation.addWidget(self.tabs)
+        spacer = QWidget()
+        spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
+        navigation.addWidget(spacer)
+        navigation.addWidget(studio.collaboration_button)
 
         self.menu_button = QToolButton(self.tabs)
         self.menu_button.setObjectName('studentHubMenuButton')
