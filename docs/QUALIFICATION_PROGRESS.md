@@ -1,5 +1,12 @@
 # Chunks 1–12: progress and forecast
 
+**November 20, 2026 — Measured width and spacing reviews (LAY-12, UX-02).**
+Extending the via review at `14368c3`, the assistant can preview and apply
+single-shape repairs against Studio's geometry rules. Both Student Hub fixtures
+reach 200 nm, pass the exercise checker and restore their original geometry with
+Undo. The existing foundry-deck and tapeout acceptance gates still apply.
+See the [assistant guide](AI_ASSISTANT.md#investigate-a-layout).
+
 **November 20, 2026 — AI layout review.** The assistant now uses Studio's
 geometry and connectivity checks to explain findings and review individual via
 moves. The chunk 4 manifest preserves the accepted versions of the three

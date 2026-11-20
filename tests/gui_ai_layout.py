@@ -1,4 +1,5 @@
 """Exercise the layout assistant through the desktop, provider transport and history."""
+import json
 import tempfile
 import unittest
 from pathlib import Path
@@ -70,12 +71,98 @@ class LayoutAssistant(unittest.TestCase):
         self.assertEqual(w.marker['measured_nm'],100)
         self.assertEqual(len(w.marker['edges']),2)
         self.assertIn('0.1 µm',w.details.toPlainText())
-        self.assertTrue(w.fix_button.isHidden())
+        self.assertEqual(w.fix_button.text(),'Preview spacing fix')
         w.inspect(False).reject()
         p=layout_lab('layout-via')
         p['cells'][0]['shapes'][0]['points'][1]=[150,500]
         with self.assertRaises(ValueError):
             ai_layout.via_repair(p,p['top'],'lab_shape_2')
+
+    def test_width_and_spacing_review_apply_match_preview_and_undo(self):
+        from PySide6.QtWidgets import QCheckBox
+        from icstudio.student_design_labs import check_layout
+        s=self.studio
+        for kind,index in [('width',0),('spacing',1)]:
+            with self.subTest(kind=kind):
+                lab='layout-'+kind
+                s.set_project(layout_lab(lab))
+                s.activate_circuit_view(1)
+                w=s.ask_layout().layout_tools
+                self.assertIsNone(w.marker)
+                w.finding.setCurrentIndex(1)
+                self.assertEqual(w.fix_button.text(),f'Preview {kind} fix')
+                original=clone(s.cell['shapes'])
+                revision=s.project['revision']
+                w.fix_button.click()
+                dialog=w.geometry_windows[-1]
+                self.assertIn('100 → 200 nm',dialog.summary.text())
+                self.assertIn(original[index]['id'],dialog.summary.text())
+                dialog.mode.setCurrentText('After')
+                dialog.mode.setCurrentText('Before')
+                dialog.findChild(QCheckBox).click()
+                self.assertFalse(dialog.exact.isHidden())
+                dialog.reject()
+                self.assertEqual(s.cell['shapes'],original)
+                self.assertEqual(s.project['revision'],revision)
+                # A direct shape selection also finds the second edge of a gap.
+                s.select([original[index]['id']],'layout')
+                w=s.ask_layout().layout_tools
+                self.assertEqual(w.marker['code'],'WIDTH' if kind=='width' else 'SPACE')
+                self.panel.note.setText('Preview the proposed fix.')
+                self.ask('Review the geometry.\n```layout\n{"action":"preview_'+kind+'_fix"}\n```')
+                self.assertEqual(s.cell['shapes'],original)
+                dialog=w.geometry_windows[-1]
+                exact=dialog.exact.toPlainText()
+                dialog.apply.click()
+                self.assertEqual(s.project['revision'],revision+1)
+                self.assertEqual(w.geometry_windows,[])
+                self.assertIn('After   '+json.dumps(s.cell['shapes'][index]['points']),exact)
+                self.assertEqual(s.cell['shapes'][1-index],original[1-index])
+                check_layout(s.project,lab)
+                self.assertFalse(drc(s.project,s.cid))
+                s.undo()
+                self.assertEqual(s.cell['shapes'],original)
+
+    def test_spacing_cannot_apply_a_stale_locked_or_mismatched_request(self):
+        s=self.studio
+        s.set_project(layout_lab('layout-spacing'))
+        marker=drc(s.project,s.cid)[0]
+        w=s.ask_layout(marker).layout_tools
+        before=clone(s.cell['shapes'])
+        with self.assertRaises(ValueError):
+            w.receive('```layout\n{"action":"preview_width_fix"}\n```')
+        dialog=w.inspect(True)
+        s.layout.locked_layers.add('metal1')
+        dialog.apply.click()
+        self.assertIn('Unlock',dialog.status.text())
+        s.layout.locked_layers.clear()
+        s.commit(lambda p:p.update(name='Changed revision'),'Rename')
+        dialog.apply.click()
+        self.assertIn('changed',dialog.status.text())
+        self.assertEqual(s.cell['shapes'],before)
+        dialog.reject()
+
+    def test_picker_targets_only_the_selected_violation(self):
+        p=layout_lab('layout-width')
+        second=rect('metal1',5000,0,100,1000,net='second')
+        p['cells'][0]['shapes'].append(second)
+        s=self.studio
+        s.set_project(p)
+        w=s.ask_layout().layout_tools
+        self.assertEqual(w.finding.count(),3)
+        w.finding.setCurrentIndex(1)
+        first=w.inspect(True)
+        target=next(i for i,f in enumerate(w.scope.findings,1) if f['object']==second['id'])
+        w.finding.setCurrentIndex(0)
+        self.assertFalse(first.isVisible())
+        w.finding.setCurrentIndex(target)
+        self.assertEqual(w.nets(),['second'])
+        review=w.inspect(True)
+        self.assertIn(second['id'],review.summary.text())
+        before=clone(s.cell['shapes'])
+        review.apply.click()
+        self.assertEqual(s.cell['shapes'][:2],before[:2])
+        self.assertEqual([i['object'] for i in drc(s.project,s.cid)],['lab_shape_0'])
 
     def test_background_selection_and_superseded_result(self):
         s=self.studio

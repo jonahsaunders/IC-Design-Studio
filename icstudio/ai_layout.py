@@ -3,8 +3,9 @@ from collections import Counter, defaultdict
 import math
 
 from .design_ops import flatten_layout
-from .layout import kdb, polygon
-from .layout_topology import require_preserved, shape_key
+from .layout import drc, kdb, polygon
+from .layout_topology import shape_key
+from .ai_rule_repairs import checked_change, supporting_edge
 from .layout_vias import technology
 from .live_geometry import enclosure_rules, full
 from .model import clone, design_digest, digest
@@ -53,7 +54,7 @@ def enclosure_evidence(shapes, cut, rule):
 
 
 def finding_evidence(project, shapes, issue):
-    keys = ('code','message','object','bbox','edges','layer','conductor','minimum_nm','measured_nm',
+    keys = ('code','message','object','cell_id','bbox','edges','layer','conductor','minimum_nm','measured_nm',
             'rule_source','rule','deck','source','source_design_hash','remediation','net','shape_ids','objects')
     data = {k:clone(issue[k]) for k in keys if k in issue}
     if data.get('rule_source'):
@@ -65,6 +66,13 @@ def finding_evidence(project, shapes, issue):
         if cut:
             data.update(enclosure_evidence(shapes,cut,dict(conductor=issue['conductor'],minimum=issue['minimum_nm'])))
     return data
+
+
+def on_finding(shape,issue):
+    if shape['layer']!=issue.get('layer'):return False
+    if issue['code']=='ENCLOSURE':return shape['id']==issue.get('object')
+    db=kdb()
+    return any(supporting_edge(shape,db.Edge(db.Point(*a),db.Point(*b))) for a,b in issue.get('edges',[]))
 
 
 def via_repair(project, cid, cut_id, locked=()):
@@ -101,16 +109,8 @@ def via_repair(project, cid, cut_id, locked=()):
         raise ValueError('This via already meets the declared enclosure rules.')
     changed = clone(cut)
     changed['points'] = [[px+dx,py+dy] for px,py in cut['points']]
-    after = {**project,'cells':[({**c,'shapes':[changed if s['id']==cut_id else s for s in c['shapes']]}
-                                 if c['id']==cid else c) for c in project['cells']]}
-    require_preserved(project,after,cid)
-    from .route_constraints import enforce
-    enforce(project,after,cid)
-    before_issues, after_issues = (full(p,cid)['issues'] for p in (project,after))
-    def identities(issues):
-        return Counter(digest([i['code'],i.get('object'),i.get('bbox'),i.get('message')]) for i in issues)
-    if identities(after_issues) - identities(before_issues):
-        raise ValueError('The move introduces another layout finding.')
+    before_issues = full(project,cid)['issues']
+    after_issues = checked_change(project,cid,cut,changed,before_issues)
     def target(issues):
         return [i for i in issues if i['code']=='ENCLOSURE' and i.get('object')==cut_id]
     if not target(before_issues) or target(after_issues):
@@ -120,14 +120,23 @@ def via_repair(project, cid, cut_id, locked=()):
 
 
 def inspect_selection(project,cid,selection,net,marker):
-    if not marker and selection:
-        from .live_geometry import check_enclosures
-        cut_layers={r['cut'] for r in enclosure_rules(technology(project))}
-        cell=next(c for c in project['cells'] if c['id']==cid)
-        if any(o['id'] in selection and o['layer'] in cut_layers for o in cell['shapes']):
-            issues=check_enclosures(project,cid,flatten_layout(project,cid))
-            marker=next((i for i in issues if i['object'] in selection),None)
-    return LayoutScope(project,cid,selection,net,marker)
+    from .live_geometry import check_enclosures
+    from .spatial import SpatialIndex
+    scope=LayoutScope(project,cid,selection,net,marker)
+    if marker or (selection and not scope.selected_shapes) or not scope.shapes:return scope
+    selected=SpatialIndex((bounds(s),s) for s in scope.selected_shapes)
+    def related(issue):
+        if not selection:return True
+        return any(on_finding(s,issue) for s in selected.query(issue['bbox']))
+    try:
+        issues=check_enclosures(project,cid,scope.shapes) if any(s['layer'] in scope.cuts for s in (scope.selected_shapes or scope.shapes)) else []
+        issues.extend(i for i in drc(project,cid) if i['code'] in ('WIDTH','SPACE'))
+        scope.findings=[i for i in issues if related(i)]
+    except ValueError as exc:
+        scope.findings_note=str(exc)
+    if selection and scope.findings:
+        scope.marker=finding_evidence(project,scope.shapes,scope.findings[0])
+    return scope
 
 
 class LayoutScope:
@@ -171,7 +180,15 @@ class LayoutScope:
         self.net_names = sorted(set(self.by_net) | {n for d in self.devices.values() for n in d['nets'].values() if n})
         self.primary = net if net in self.net_names else next(iter(sorted(self.selected_nets & set(self.net_names))),'')
         self.marker = finding_evidence(project,self.shapes,marker) if marker else None
+        self.findings = [marker] if marker else []
+        self.findings_note = ''
         self.connectivity_issues = check['issues']
+
+    def finding_nets(self,issue):
+        from .spatial import SpatialIndex
+        if not hasattr(self,'finding_index'):
+            self.finding_index=SpatialIndex((bounds(s),(s,n)) for n,shapes in self.by_net.items() for s in shapes)
+        return sorted({n for s,n in self.finding_index.query(issue['bbox']) if on_finding(s,issue)})
 
     def metrics(self, net):
         shapes = self.by_net.get(net,[])
