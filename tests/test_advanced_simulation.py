@@ -6,7 +6,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from icstudio import external_simulation, job_store, rf_network, worker
+from icstudio import external_simulation, job_store, periodic_steady_state, rf_network, worker
 from icstudio.engines import parse_raw
 from icstudio.model import device, example
 from icstudio.spice_program import find_ngspice
@@ -112,3 +112,21 @@ class AdvancedSimulationTests(unittest.TestCase):
         path.write_text('FREQ,V(OUT)\n100,0\n100,1\n', encoding='ascii')
         with self.assertRaisesRegex(ValueError, 'increasing sweep'):
             external_simulation.read_table(path)
+
+    @unittest.skipUnless(NGSPICE and os.environ.get('ICSTUDIO_TEST_PSS'), 'Requires a PSS-enabled ngspice build')
+    def test_driven_rc_periodic_orbit_matches_linear_response(self):
+        stimulus = device('V','V1',60,100,value='0',nets={'p':'in','n':'0'})
+        stimulus['source'].update(type='sine',low='0',high='1',period='1u',delay='0')
+        self.project['cells'][0]['devices'] = [stimulus,
+            device('R','R1',100,100,value='1k',nets={'p':'in','n':'out'}),
+            device('C','C1',160,100,value='1n',nets={'p':'out','n':'0'})]
+        job = periodic_steady_state.prepare(self.project, self.cell,
+            dict(node='out', frequency=1e6, stabilization=20e-6, temperature=27, corner='nominal',
+                 coefficient=.005, points=256, harmonics=7, iterations=50), NGSPICE)
+        folder = self.execute(job)
+        result = job_store.read_result(folder/'result.json', self.project['id'], False)
+        self.assertAlmostEqual(result['x'][-1], 1e-6, places=10)
+        self.assertEqual(len(result['x']), 257)
+        self.assertAlmostEqual(result['pss']['fundamental']/1e6, 1, places=4)
+        self.assertAlmostEqual(result['pss']['spectrum']['traces']['out'][1], .1571767255, places=4)
+        self.assertTrue((folder/'pss.raw').is_file())

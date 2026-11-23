@@ -22,6 +22,7 @@ ANALYSES={'tran':'Transient','op':'Operating point','dc':'DC sweep','ac':'AC res
 ANALYSES['xschem']='Xschem program'
 ANALYSES['program']='Native simulation program'
 ANALYSES['rf_network']='RF network'
+ANALYSES['periodic_steady_state']='Periodic steady state'
 ANALYSES['external_simulator']='External simulator'
 
 def device_description(d):

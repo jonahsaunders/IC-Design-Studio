@@ -8,7 +8,7 @@ from PySide6.QtCore import Qt, QUrl
 from PySide6.QtGui import QDesktopServices
 from PySide6.QtWidgets import QComboBox, QDialog, QDialogButtonBox, QFileDialog, QFormLayout, QLabel, QVBoxLayout
 
-from . import external_simulation, rf_network
+from . import external_simulation, periodic_steady_state, rf_network
 from .model import atomic_write, scalar
 
 
@@ -159,9 +159,70 @@ def open_external_outputs(studio):
         raise ValueError('The simulator output folder is not available yet.')
 
 
+def pss_dialog(studio):
+    project_id, cell_id = studio.project['id'], studio.cid
+    fields = [('node', 'Observation net', ''), ('frequency', 'Estimated fundamental (Hz)', '1Meg'),
+              ('stabilization', 'Startup settling time (s)', '20u'), ('points', 'Samples per period', 256),
+              ('harmonics', 'Spectral bins including DC', 7), ('iterations', 'Shooting iterations', 50),
+              ('coefficient', 'Convergence coefficient', '.005'), ('corner', 'Model corner', 'nominal'),
+              ('temperature', 'Temperature (°C)', 27)]
+
+    def submit(values):
+        if studio.project['id'] != project_id or studio.cid != cell_id:
+            raise ValueError('Reopen periodic steady state for the current fixture schematic.')
+        settings = {name: scalar(values[name]) for name in ('frequency','stabilization','temperature','coefficient')}
+        settings.update({name: int(values[name]) for name in ('points','harmonics','iterations')})
+        settings.update(node=values['node'].strip(), corner=values['corner'].strip() or 'nominal')
+        job = periodic_steady_state.prepare(studio.project, cell_id, settings, studio.settings.value('engine/ngspice', ''))
+        queue(studio, job, 'Experimental periodic steady state')
+
+    return studio.workflow_form('Periodic steady state (experimental)', fields, submit,
+        'Uses the experimental ngspice shooting solver. Configure the periodic source and loads '
+        'on the fixture schematic. Successful runs show one orbit and a harmonic spectrum. '
+        'This workflow was verified with the driven RC reference.')
+
+
+def inspect_pss(studio):
+    from .plot import WavePlot
+    result = studio.result
+    if not result or 'pss' not in result:
+        raise ValueError('Select a periodic steady-state result before opening its spectrum.')
+    captured = result['pss']
+    dialog = QDialog(studio)
+    dialog.setWindowTitle('Periodic steady-state harmonics')
+    dialog.setAttribute(Qt.WA_DeleteOnClose)
+    dialog.resize(720, 460)
+    layout = QVBoxLayout(dialog)
+    layout.addWidget(QLabel(f'Revision {result["revision"]} · Fundamental {captured["fundamental"]:.8g} Hz'))
+    plot = WavePlot()
+    plot.dark = studio.dark
+    layout.addWidget(plot, 1)
+    traces = QComboBox()
+    traces.setAccessibleName('Select node for the harmonic spectrum')
+    traces.addItems(list(captured['spectrum']['traces']))
+    traces.setCurrentText(result['settings']['node'].casefold())
+    form = QFormLayout()
+    form.addRow('Node', traces)
+    layout.insertLayout(1, form)
+    caption = QLabel('')
+    caption.setWordWrap(True)
+    plot.cursor_changed.connect(caption.setText)
+    layout.addWidget(caption)
+    spectrum = {**result, **captured['spectrum'], 'x_label':'Harmonic frequency (Hz)'}
+    traces.currentTextChanged.connect(lambda name: plot.set_result(spectrum, [name]))
+    plot.set_result(spectrum, [traces.currentText()])
+    buttons = QDialogButtonBox(QDialogButtonBox.Close)
+    buttons.rejected.connect(dialog.close)
+    layout.addWidget(buttons)
+    dialog.show()
+    return dialog
+
+
 def install(studio):
     menu = studio.task_menus['Simulate'].addMenu('Advanced simulation')
     for title, handler in [('RF network analysis…', rf_dialog), ('Inspect RF parameters…', inspect_rf),
                            ('Export RF Touchstone…', export_touchstone),
+                           ('Periodic steady state (experimental)…', pss_dialog),
+                           ('Inspect periodic harmonics…', inspect_pss),
                            ('Run external simulator…', external_dialog), ('Open external run folder', open_external_outputs)]:
         studio.action(menu, title, lambda handler=handler: handler(studio))

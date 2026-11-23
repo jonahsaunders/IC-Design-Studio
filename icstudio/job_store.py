@@ -29,13 +29,14 @@ def read_result(path,project_id,require_complete=True):
         if (result.get('settings')!=job['settings'] or
                 output_manifest((original_path.parent/'external').resolve(),job['settings']['outputs'])!=result.get('external_outputs')):
             raise ValueError('External simulator artifacts or run settings changed since capture.')
-    elif job.get('settings',{}).get('type')=='rf_network':
+    elif job.get('settings',{}).get('type') in ('rf_network','periodic_steady_state'):
         from .model import file_digest
-        evidence=result.get('rf_network',{})
+        key,stem=('rf_network','rf') if job['settings']['type']=='rf_network' else ('pss','pss')
+        evidence=result.get(key,{})
         if (result.get('settings')!=job['settings'] or
                 any(not (path.parent/name).is_file() or file_digest(original_path.parent/name)!=evidence.get(key)
-                    for name,key in (('rf-input.cir','deck_sha256'),('rf.raw','raw_sha256')))):
-            raise ValueError('RF analysis artifacts or run settings changed since capture.')
+                    for name,key in ((stem+'-input.cir','deck_sha256'),(stem+'.raw','raw_sha256')))):
+            raise ValueError('Analysis artifacts or run settings changed since capture.')
     elif not isinstance(result.get('traces'),dict) or not isinstance(result.get('x'),list):raise ValueError('Invalid result structure.')
     if result.get('xschem_cases') or result.get('analysis_cases'):
         # Raw captures travel with their saved job; do not retain a previous

@@ -1,6 +1,6 @@
-# RF network analysis and external simulators
+# RF, periodic steady state, and external simulators
 
-Open **Analysis → Advanced simulation**. Both workflows use Simulation Explorer
+Open **Analysis → Advanced simulation**. The workflows use Simulation Explorer
 for run history, cancellation and rerunning the captured inputs.
 
 ## Measure a circuit's network parameters
@@ -39,6 +39,23 @@ RF noise and large-signal periodic analysis are outside this workflow. See the
 [ngspice manual](https://ngspice.sourceforge.io/docs/ngspice-46-manual.pdf) and
 [Touchstone specification](https://ibis.org/touchstone_ver2.0/).
 
+## Inspect a periodic steady state
+
+Choose **Periodic steady state (experimental)…** on a schematic with a
+periodic source. Enter the observed net, estimated fundamental and startup
+settling time. Set the samples per period, spectral bins and shooting limits.
+The calculation uses ngspice's experimental PSS solver. Studio publishes an
+orbit only when ngspice reports convergence and the returned time and harmonic
+plots agree with its solved fundamental.
+
+For the reference fixture, drive a 1 kΩ / 1 nF low-pass filter with a 1 V peak
+sinusoid at 1 MHz. Observe `out` with 20 µs of stabilization, 256 samples,
+seven spectral bins and the default shooting limits. The orbit spans about
+1 µs. **Inspect periodic harmonics…** shows about 0.15717 V at 1 MHz,
+matching the analytical filter response. The current evidence covers this
+driven fixture with the Windows ngspice 46 runtime. Autonomous oscillators,
+periodic AC and periodic noise need separate reference runs and support.
+
 ## Run a deck with another installed simulator
 
 Choose **Run external simulator…** and select the simulator's own deck or
@@ -70,9 +87,10 @@ load file changes, because the run uses the captured copy.
 | Workflow | Evidence |
 | --- | --- |
 | Native S, Y and Z with Touchstone export (RF-02, RF-03) | Windows ngspice 46, analytical one-, two- and three-port references, and a desktop queue, plot and export pass. |
+| Experimental periodic steady state (RF-09) | The driven RC fixture matched the solved period and fundamental magnitude. The desktop test opened both the orbit and harmonic spectrum. |
 | Configurable simulator execution (SIM-21) | A real ngspice deck verified the external command, captured dependency, run reuse inputs and artifact integrity. |
 | Xyce harmonic balance (RF-10) | The runner accepts an engine-authored deck and can preserve output or plot a compatible CSV. Actual Xyce execution requires a working local build and remains unverified. |
-| Cadence PSS, periodic AC/noise, harmonic balance, envelope and X-parameters (RF-09–13) | A licensed Cadence solver and reference runs are needed to verify deck execution and output. Native setup and vendor-output import remain pending. |
+| Cadence periodic AC/noise, harmonic balance, envelope and X-parameters (RF-10–13) | A licensed Cadence solver and reference runs are needed to verify deck execution and output. Native setup and vendor-output import remain pending. |
 | Mixed-signal HDL (AMS-01–09) | A Cadence AMS command can be supplied to the external runner with its inputs. Native Verilog-AMS authoring, view binding, co-simulation and vendor-result inspection remain pending. |
 
 See the backend references for [Xyce](https://xyce.sandia.gov/documentation-tutorials/),

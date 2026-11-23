@@ -53,9 +53,13 @@ def validate_settings(project, cell_id, settings):
 def prepare(project, cell_id, settings, configured=''):
     settings = {**settings, 'type': 'rf_network'}
     validate_settings(project, cell_id, settings)
+    return ngspice_job(project, cell_id, settings, configured)
+
+
+def ngspice_job(project, cell_id, settings, configured):
     executable = find_ngspice(configured)
     if not executable:
-        raise ValueError('Configure ngspice in Analysis → Engine setup to run RF network analysis.')
+        raise ValueError('Configure ngspice in Analysis → Engine setup to run this analysis.')
     from .osdi import verified
     verified(project)
     job = dict(project=clone(project), cell=cell_id, engine='ngspice',
@@ -65,14 +69,18 @@ def prepare(project, cell_id, settings, configured=''):
     return job
 
 
-def deck(project, cell_id, settings, directory):
+def fixture_text(project, cell_id, settings, directory):
     from .native_spice import native
     analysis = {'type': 'op', 'temperature': settings['temperature'], 'corner': settings['corner']}
     if native(project):
         text, _ = native_analysis.deck(project, cell_id, analysis, directory)
     else:
         text = interchange.spice(project, cell_id, analysis, hierarchical=False)
-    text = native_analysis.circuit_text(text)
+    return native_analysis.circuit_text(text) + f'.temp {scalar(settings["temperature"]):.16g}\n'
+
+
+def deck(project, cell_id, settings, directory):
+    text = fixture_text(project, cell_id, settings, directory)
     if re.search(r'^\s*v\S+\s+[^\n]*\bportnum\b', text, re.I | re.M):
         raise ValueError('Remove existing SPICE RF port declarations from the fixture before defining ports here.')
     if re.search(r'^\s*v__icstudio_rf\d+\s', text, re.I | re.M):
@@ -87,8 +95,7 @@ def deck(project, cell_id, settings, directory):
             raise ValueError('Rename the fixture net or resistor reserved for the isolated RF termination.')
         lines.extend((f'V__icstudio_rf2 __icstudio_rf_term 0 DC 0 AC 1 portnum 2 z0 {z0:.16g}',
                       f'R__icstudio_rf_term __icstudio_rf_term 0 {z0:.16g}'))
-    lines.extend((f'.temp {scalar(settings["temperature"]):.16g}',
-                  f'.sp lin {settings["points"]} {scalar(settings["start"]):.16g} {scalar(settings["stop"]):.16g}',
+    lines.extend((f'.sp lin {settings["points"]} {scalar(settings["start"]):.16g} {scalar(settings["stop"]):.16g}',
                   '.end'))
     return text + '\n'.join(lines) + '\n'
 
@@ -138,17 +145,14 @@ def converted_parameters(scattering, size, impedance, family):
     return result
 
 
-def run(job, directory, progress):
+def run_fixture(job, directory, text, stem):
     from .ngspice_compat import prepare as prepare_compatibility
     from .osdi import preload
     from .pdks import stage_model_deck
-    project, cell, settings, executable = (job[k] for k in ('project', 'cell', 'settings', 'executable'))
-    validate_settings(project, cell, settings)
-    directory = Path(directory).resolve()
-    source, raw = directory/'rf-input.cir', directory/'rf.raw'
-    text = stage_model_deck(project['pdk'], deck(project, cell, settings, directory), directory)
+    project, executable = job['project'], job['executable']
+    source, raw = directory/(stem+'-input.cir'), directory/(stem+'.raw')
+    text = stage_model_deck(project['pdk'], text, directory)
     atomic_write(source, prepare_compatibility(preload(project, text, directory), executable, directory))
-    progress(.1, 'Running the ngspice scattering-parameter analysis')
     try:
         log = execute(ngspice_command(project, executable, raw, source), directory,
                       env=runtime_environment(executable))
@@ -157,7 +161,16 @@ def run(job, directory, progress):
         raise
     atomic_write(directory/'engine.log', log)
     if not raw.is_file():
-        raise ValueError('ngspice produced no RF data. See the engine log and check .sp support.')
+        raise ValueError('ngspice produced no raw data. See the run log and verify solver support.')
+    return source, raw, log
+
+
+def run(job, directory, progress):
+    project, cell, settings, executable = (job[k] for k in ('project', 'cell', 'settings', 'executable'))
+    validate_settings(project, cell, settings)
+    directory = Path(directory).resolve()
+    progress(.1, 'Running the ngspice scattering-parameter analysis')
+    source, raw, log = run_fixture(job, directory, deck(project, cell, settings, directory), 'rf')
     variables, rows, complex_data = parse_raw(raw)
     variables = [v.casefold() for v in variables]
     names = parameter_names(len(settings['ports']))

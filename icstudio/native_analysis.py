@@ -20,7 +20,7 @@ def circuit_text(text):
             inside = False; continue
         if inside: continue
         if word == '+' and skip_continuation: continue
-        skip_continuation = word in ('.op', '.tran', '.dc', '.ac', '.noise', '.sp', '.tf', '.pz', '.sens', '.disto', '.four', '.measure', '.meas', '.save', '.print', '.plot', '.temp', '.end')
+        skip_continuation = word in ('.op', '.tran', '.dc', '.ac', '.noise', '.sp', '.pss', '.tf', '.pz', '.sens', '.disto', '.four', '.measure', '.meas', '.save', '.print', '.plot', '.temp', '.end')
         if not skip_continuation: output.append(line)
     if inside: raise ValueError('Unclosed simulation control block.')
     return '\n'.join(output) + '\n'
