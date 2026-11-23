@@ -1,6 +1,6 @@
 # Student Hub
 
-Open the **Student Hub** tab beside **Design** in IC Design Studio. The Hub has **115 distinct lessons across eleven worlds**, including eight CMOS inverter stages that repeat for each supported PDK revision. Choose **Map** to explore the worlds or **List** to browse them. Both views share your progress, search, and lesson prerequisites. Filter by Easy, Medium, or Hard in either view.
+Open the **Student Hub** tab beside **Design** in IC Design Studio. The Hub has **122 distinct lessons across eleven worlds**, including eight CMOS inverter stages that repeat for each supported PDK revision. Choose **Map** to explore the worlds or **List** to browse them. Both views share your progress, search, and lesson prerequisites. Filter by Easy, Medium, or Hard in either view.
 
 ![Student Hub in Map view with eleven worlds, including Standard Cells and Testbenches](images/student-hub/world-map.jpg)
 
@@ -173,6 +173,23 @@ Place model-linked devices, finish the supply and output routes, and compare sch
 | [![Compact inverter routed within its width target](images/student-hub/sc-inv-compact.jpg)](images/student-hub/sc-inv-compact.jpg) | **Fit an inverter into a 12.8 µm cell**. *Easy*. Reduce horizontal pitch while keeping the rail alignment and logic function. |
 | [![Loaded NAND layout with widened series NMOS devices](images/student-hub/sc-nand-drive.jpg)](images/student-hub/sc-nand-drive.jpg) | **Drive 40 fF with a faster NAND**. *Medium*. Size the stack to meet a 100 ps falling-delay target. |
 | [![Routed flip-flop with a resized Q driver](images/student-hub/sc-dff-clock.jpg)](images/student-hub/sc-dff-clock.jpg) | **Meet the flip-flop clock-to-Q budget**. *Hard*. Tune both clock-to-Q edges while respecting the combined driver width cap. |
+
+#### Row integration
+
+| Screenshot | Lesson |
+| --- | --- |
+| [![Inverter and NAND with aligned power rails](images/student-hub/sc-abutment.jpg)](images/student-hub/sc-abutment.jpg) | **Make two cells fit side by side**. *Easy*. Align the placed children and check both shared rails and seam spacing. |
+
+#### Characterization
+
+| Screenshot | Lesson |
+| --- | --- |
+| [![NOR layout with the series PMOS pair](images/student-hub/sc-nor-rise.jpg)](images/student-hub/sc-nor-rise.jpg) | **Speed up a NOR’s rising edge**. *Easy*. Reduce the loaded rising delay by 25% without growing the cell. |
+| [![NAND layout sized for input B](images/student-hub/sc-nand-input.jpg)](images/student-hub/sc-nand-input.jpg) | **Make a NAND easier to drive**. *Medium*. Reduce the effective input capacitance and keep the pull-down fast. |
+| [![Transmission-gate mux layout with its output stage](images/student-hub/sc-mux-glitch.jpg)](images/student-hub/sc-mux-glitch.jpg) | **Keep a mux output steady during switching**. *Medium*. Limit the worst glitch at either equal-input level. |
+| [![Layout of a two-stage buffer](images/student-hub/sc-buffer-fo4.jpg)](images/student-hub/sc-buffer-fo4.jpg) | **Build a buffer for four loads**. *Medium*. Drive four inverter inputs within timing and transistor-width budgets. |
+| [![Transmission-gate XOR layout](images/student-hub/sc-xor-energy.jpg)](images/student-hub/sc-xor-energy.jpg) | **Build a lower-energy XOR**. *Hard*. Improve energy per transition and verify four independent timing arcs. |
+| [![Master-slave flip-flop layout for setup and hold](images/student-hub/sc-dff-aperture.jpg)](images/student-hub/sc-dff-aperture.jpg) | **Find a flip-flop’s setup and hold limits**. *Hard*. Bracket each limit by sweeping the data edge around the clock. |
 
 ### CMOS inverter · PDK to LVS
 

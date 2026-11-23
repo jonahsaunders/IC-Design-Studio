@@ -138,5 +138,246 @@
     "tune": "Adjust the two Q driver widths separately. Check both clock-to-Q delay readings and their combined width before rerunning.",
     "solution": "Set the Q NMOS width to 2 µm and the Q PMOS width to 3.5 µm. The combined width is 5.5 µm. Verify Q rise at or below 185 ps and Q fall at or below 128 ps, with capture and hold intact.",
     "reflection": "Record both clock-to-Q measurements and your combined driver width. Explain how you divided the width budget between the NMOS and PMOS."
+  },
+  {
+    "key": "abutment",
+    "cell": "INV + NAND2",
+    "requires": [
+      "sc-inv"
+    ],
+    "title": "Make two cells fit side by side",
+    "inputs": [],
+    "concept": "Check how independently routed cells share power where their boundaries meet. Join the inverter and NAND without leaving a seam gap or creating a short.",
+    "question": "What has to match so both power rails continue across the seam?",
+    "options": [
+      "Both cells have the same rail heights and the boundaries touch",
+      "Both cells have the same width",
+      "Both output pins are on the same track"
+    ],
+    "explanation": "The cell width can vary. The row height and power-rail positions must agree at the touching boundaries.",
+    "focus": "Follow the VPWR and VGND tracks on both sides of the seam.",
+    "solution": "Keep the inverter at the origin. Set the NAND to X = 13.8 µm and Y = 0 µm. Inspect both shared rails and run the checkpoint.",
+    "reflection": "Record the initial and final offsets. Explain how a layout can pass within each cell and still leave an open power rail in the assembled row.",
+    "topic": "Row integration",
+    "characterization": true,
+    "answer": 0
+  },
+  {
+    "key": "nor-rise",
+    "base": "nor2",
+    "cell": "NOR2",
+    "title": "Speed up a NOR’s rising edge",
+    "inputs": [
+      "A",
+      "B"
+    ],
+    "load": "20f",
+    "specs": {
+      "nor_rise_ps": {
+        "relative": 0.75
+      },
+      "footprint_um": 25.4
+    },
+    "concept": "A NOR pulls up through two PMOS devices in series. Widen both devices to speed up the loaded rising edge without growing the cell.",
+    "question": "Which devices charge Y when both NOR inputs are low?",
+    "options": [
+      "The two series PMOS devices",
+      "The two parallel NMOS devices",
+      "Only the PMOS controlled by B"
+    ],
+    "explanation": "The output charges through both PMOS devices. The test lets B fall while A stays low to isolate the rising edge.",
+    "focus": "Trace P_STACK between MP_A and MP_B. The PMOS path ends at Y.",
+    "tune": "Widen both PMOS devices and keep the original horizontal pitch.",
+    "solution": "Set PMOS stack width to 4 µm. Route the cell, then check the layout-loaded B-to-Y rising delay against 75% of the starter value.",
+    "reflection": "Record delay and footprint before and after sizing. Explain why a wider PMOS stack speeds this transition.",
+    "topic": "Characterization",
+    "characterization": true,
+    "answer": 0
+  },
+  {
+    "key": "nand-input",
+    "base": "nand2",
+    "cell": "NAND2",
+    "title": "Make a NAND easier to drive",
+    "inputs": [
+      "A",
+      "B"
+    ],
+    "load": "40f",
+    "specs": {
+      "input_cap_ff": {
+        "relative": 0.8
+      },
+      "nand_fall_ps": 120
+    },
+    "starter_widths": {
+      "MN_A": 2,
+      "MN_B": 2,
+      "MP_A": 4,
+      "MP_B": 4
+    },
+    "concept": "Reduce the charge supplied by the previous stage to input B while keeping the NAND pull-down fast under a 40 fF load.",
+    "question": "Which measurement includes the charge that B supplies while Y moves?",
+    "options": [
+      "The time integral of current from the B source divided by its voltage swing",
+      "The capacitance of the output fixture alone",
+      "The settled output voltage"
+    ],
+    "explanation": "The integral over the B transition gives input charge. Dividing by the input swing gives effective switched input capacitance for this vector.",
+    "focus": "Compare MP_B and MN_B. Both load B, but the NMOS sets the width of one transistor in the series pull-down.",
+    "tune": "Reduce B’s PMOS width first, then vary its NMOS width while watching the 120 ps limit.",
+    "solution": "Try B PMOS at 1 µm and B NMOS at 1.8 µm. Compare effective input capacitance to the fixed starter and rerun the four truth-table vectors.",
+    "reflection": "Record input capacitance and loaded delay before and after. Explain how moving one width changed the load seen by the preceding stage.",
+    "topic": "Characterization",
+    "characterization": true,
+    "answer": 0
+  },
+  {
+    "key": "mux-glitch",
+    "base": "mux2",
+    "cell": "MUX2",
+    "title": "Keep a mux output steady during switching",
+    "inputs": [
+      "S",
+      "A",
+      "B"
+    ],
+    "specs": {
+      "glitch_low_v": 0.18,
+      "glitch_high_v": 0.18
+    },
+    "starter_widths": {
+      "MN_BUF2": 0.5,
+      "MP_BUF2": 0.7
+    },
+    "concept": "When both data inputs agree, select should leave the output steady. Size the output inverter to reject an explicit select-to-output coupling stress in the fixture.",
+    "question": "When should a transition on select leave Y unchanged?",
+    "options": [
+      "Whenever A and B are equal",
+      "Whenever A is high",
+      "Whenever B is low"
+    ],
+    "explanation": "Either mux path then selects the same value. A transient excursion is a glitch even when the settled logic is correct.",
+    "focus": "Follow the paths into SELECTED and locate the final output inverter. The test adds 8 fF of coupling from select to Y.",
+    "tune": "Increase the output NMOS and PMOS widths independently and compare both equal-input windows.",
+    "solution": "Try final-stage NMOS at 2 µm and PMOS at 4 µm. Measure the peak absolute excursion around both select edges for each common input level.",
+    "reflection": "Record both worst-case excursions. Explain why the truth-table samples alone cannot reveal a brief peak.",
+    "topic": "Characterization",
+    "characterization": true,
+    "answer": 0
+  },
+  {
+    "key": "buffer-fo4",
+    "base": "buffer",
+    "cell": "BUF",
+    "requires": [
+      "sc-inv"
+    ],
+    "title": "Build a buffer for four loads",
+    "inputs": [
+      "A"
+    ],
+    "specs": {
+      "rise_ps": 120,
+      "fall_ps": 120,
+      "total_width_um": 8
+    },
+    "starter_widths": {
+      "MN_OUT": 0.5,
+      "MP_OUT": 0.7
+    },
+    "concept": "Choose sizes for a two-stage non-inverting buffer driving four actual SKY130 inverter inputs. Split the width budget between its first and second stages.",
+    "question": "Why can sizing up the output stage eventually stop improving total delay?",
+    "options": [
+      "Its gates increase the load on the first stage",
+      "Its load changes from four inverters to one",
+      "Its output polarity flips"
+    ],
+    "explanation": "A larger output stage drives the load harder, but its gates are a larger capacitive load for the first stage.",
+    "focus": "Trace A through MID to Y. The fixture connects Y to A on each of four identical inverters.",
+    "tune": "Start with a smaller first stage and wider second stage. Compare both edge delays and the sum of all four widths.",
+    "solution": "Try first-stage NMOS/PMOS at 1/2 µm and output-stage NMOS/PMOS at 1.5/3 µm. Check both arcs and the 8 µm budget.",
+    "reflection": "Record both delays and the total width. Explain how you chose where to spend the available width.",
+    "topic": "Characterization",
+    "characterization": true,
+    "answer": 0
+  },
+  {
+    "key": "xor-energy",
+    "base": "xor2",
+    "cell": "XOR2",
+    "requires": [
+      "sc-mux2"
+    ],
+    "title": "Build a lower-energy XOR",
+    "inputs": [
+      "A",
+      "B"
+    ],
+    "load": "10f",
+    "specs": {
+      "energy_fj": {
+        "relative": 0.85
+      },
+      "worst_delay_ps": 165
+    },
+    "starter_widths": {
+      "MP_BINV": 4,
+      "MP_SEL": 4,
+      "MP_L": 4,
+      "MP_H": 4,
+      "MP_BUF": 4,
+      "MP_OUT": 3,
+      "MN_BINV": 2,
+      "MN_SEL": 2,
+      "MN_L": 2,
+      "MN_H": 2,
+      "MN_BUF": 2,
+      "MN_OUT": 1.5
+    },
+    "concept": "Walk through 00, 01, 11 and 10 in a loop. Reduce mean energy drawn from the cell’s supply per output transition while limiting all four propagation delays.",
+    "question": "Why change one XOR input at a time in the energy fixture?",
+    "options": [
+      "Each vector step gives one independent output transition",
+      "The supply can then be switched off between steps",
+      "The XOR now needs just two truth-table vectors"
+    ],
+    "explanation": "A one-bit input change always toggles XOR. Four such steps return the cell to its initial state and give four measurable timing arcs.",
+    "focus": "Look for the conditional inversion of B and find the internal gate loads before the output stage.",
+    "tune": "Shrink the internal devices first. Leave enough output-stage drive to keep all four timing arcs within budget.",
+    "solution": "Try internal NMOS at 0.7 µm and PMOS at 1.4 µm, and output NMOS/PMOS at 1.25/2.5 µm. Check the energy and worst of all four arcs.",
+    "reflection": "Record energy per transition and worst delay. Explain why the fixture integrates supply current over a full cycle.",
+    "topic": "Characterization",
+    "characterization": true,
+    "answer": 0
+  },
+  {
+    "key": "dff-aperture",
+    "base": "dff",
+    "cell": "DFF",
+    "title": "Find a flip-flop’s setup and hold limits",
+    "inputs": [
+      "D",
+      "CLK"
+    ],
+    "specs": {
+      "setup_ps": 800,
+      "hold_ps": 800
+    },
+    "concept": "Sweep D around a rising clock edge. Find the setup and hold limits where captured Q stays valid and clock-to-Q remains within 10% of a settled reference.",
+    "question": "Which edges move in the setup and hold experiments?",
+    "options": [
+      "D rises before the clock for setup and falls after the clock for hold",
+      "The clock falls earlier in both tests",
+      "D is held constant in both tests"
+    ],
+    "explanation": "The setup sweep reduces how long D is high before the clock. The hold sweep reduces how long it stays high after that edge.",
+    "focus": "Find the input transmission gate of the master latch. Clock phase controls when D stops reaching the latch.",
+    "tune": "If the sweep cannot bracket a limit, compare the settled Q reference with the failing rows. Try a different master-input gate size.",
+    "solution": "Use the default master-input dimensions first. In Timing sweep, work from the settled reference toward the clock. For each sweep report the nearest stable passing row and its adjacent failing offset.",
+    "reflection": "Record the closest stable passing offset and its adjacent failing offset for setup and hold. Explain the 10% delay criterion and why the result is a bracket.",
+    "topic": "Characterization",
+    "characterization": true,
+    "answer": 0
   }
 ]

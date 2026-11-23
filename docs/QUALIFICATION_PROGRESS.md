@@ -1,5 +1,20 @@
 # Chunks 1–12: progress and forecast
 
+**November 23, 2026 - Seven Standard Cells characterization lessons (EDU-01–08,
+EXP-01, UX-02).** On experimental base `c817e026`, the Student Hub now lists
+122 distinct lessons. The added row-integration check rejects a 1 µm gap
+and offset, then verifies both rails and Metal 2/3 spacing at the aligned seam.
+Native SKY130/ngspice runs measured 65.70 ps NOR rising delay at 25.4 µm,
+2.72 fF effective NAND B capacitance at 73.33 ps fall delay, and mux excursions
+of 24.0 mV and 49.2 mV. The four-load buffer achieved 60.41/59.80 ps with
+7.5 µm total width. The XOR reached 43.80 fJ per transition with a 137.05 ps
+worst arc. The DFF timing sweep found adjacent passing/failing offsets of
+50/25 ps for setup and 0/−100 ps for hold at the exercise resolution.
+The desktop lesson controls and the selectable D, clock, and Q sweep
+waveforms were exercised on Windows. These are teaching-fixture measurements
+using the lesson’s estimated metal-to-ground capacitance.
+See the [Standard Cells guide](STUDENT_STANDARD_CELLS.md#row-integration-and-characterization).
+
 **November 23, 2026 — Lesson difficulty and design targets (UX-02, EXP-01).**
 On experimental base `3124ad8`, every Student Hub lesson has an authored
 Easy, Medium, or Hard rating. Map and List share a difficulty filter, and

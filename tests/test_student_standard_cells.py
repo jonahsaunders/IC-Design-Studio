@@ -17,7 +17,13 @@ from icstudio.worker import main
 
 NGSPICE = os.environ.get('ICSTUDIO_TEST_NGSPICE', '')
 SOLUTIONS = {'inv-compact': {'pitch':'4.8'}, 'nand-drive': {'stack':'2'},
-             'dff-clock': {'q_n':'2', 'q_p':'3.5'}}
+             'dff-clock': {'q_n':'2', 'q_p':'3.5'},
+             'nor-rise': {'stack':'4'},
+             'nand-input': {'b_n':'1.8','b_p':'1'},
+             'mux-glitch': {'out_n':'2','out_p':'4'},
+             'buffer-fo4': {'first_n':'1','first_p':'2','out_n':'1.5','out_p':'3'},
+             'xor-energy': {'logic_n':'.7','logic_p':'1.4','out_n':'1.25','out_p':'2.5'},
+             'dff-aperture': {'in_n':'1','in_p':'2'}}
 
 
 def route(project, cell):
@@ -32,8 +38,10 @@ class StandardCellLessons(unittest.TestCase):
                        if lesson.get('standard_cell')}
 
     def test_all_layout_starters_have_two_measurable_gaps(self):
-        self.assertEqual(set(self.lessons), {'inv', 'nand2', 'nor2', 'aoi21', 'mux2', 'dff', *SOLUTIONS})
+        self.assertEqual(set(self.lessons), {'inv', 'nand2', 'nor2', 'aoi21', 'mux2', 'dff', 'abutment', *SOLUTIONS})
         for key, lesson in self.lessons.items():
+            if key == 'abutment':
+                continue
             with self.subTest(key=key):
                 project = create(lesson['starter'])
                 place, routing = lesson['steps'][1:3]
@@ -54,6 +62,35 @@ class StandardCellLessons(unittest.TestCase):
                 evidence = evaluate(routing, lesson, project)
                 self.assertEqual(evidence['height_um'], 24.5)
                 self.assertIn(cells.output_pin(key), evidence['connected_nets'])
+
+    def test_row_starts_misaligned_and_checks_actual_rail_contact(self):
+        lesson = self.lessons['abutment']
+        project = create(lesson['starter'])
+        step = lesson['steps'][1]
+        with self.assertRaisesRegex(ValueError, 'horizontal gap is 1'):
+            evaluate(step,lesson,project)
+        cells.build_layout(project,'abutment',dict(x='13.8',y='0'))
+        evidence = evaluate(step,lesson,project)
+        self.assertEqual(evidence['continuous_rails'], ['VPWR','VGND'])
+        self.assertEqual(evidence['spacing_issues'], 0)
+        _, child = next((i,c) for i in project['cells'][0]['layout_instances']
+                        for c in project['cells'] if i['name']=='XNAND' and c['id']==i['cell'])
+        child['shapes'] = [s for s in child['shapes'] if s.get('net')!='VPWR']
+        with self.assertRaises(ValueError):
+            evaluate(step,lesson,project)
+
+    def test_fo4_uses_four_independent_reusable_inverter_loads(self):
+        project = create(self.lessons['buffer-fo4']['starter'])
+        fixture = cells.check_fixture(project,'buffer-fo4')
+        loads = [d for d in fixture['devices'] if d['name'].startswith('XLOAD')]
+        self.assertEqual(len(loads),4)
+        self.assertEqual({d['nets']['A'] for d in loads},{'out'})
+        self.assertEqual(len({d['nets']['Y'] for d in loads}),4)
+        self.assertEqual(len({d['cell'] for d in loads}),1)
+        inv = next(c for c in project['cells'] if c['id']==loads[0]['cell'])
+        inv['devices'][0]['params']['w'] = '3u'
+        with self.assertRaisesRegex(ValueError,'load dimensions'):
+            cells.check_fixture(project,'buffer-fo4')
 
     def test_inverter_physical_ports_and_geometry(self):
         lesson = self.lessons['inv']
@@ -92,6 +129,8 @@ class StandardCellLessons(unittest.TestCase):
     def test_real_truth_tables_capture_hold_and_stale_evidence(self):
         with tempfile.TemporaryDirectory(prefix='sc-') as folder:
             for key, lesson in self.lessons.items():
+                if key == 'abutment':
+                    continue
                 with self.subTest(key=key):
                     project = create(lesson['starter'])
                     cells.build_layout(project, key, SOLUTIONS.get(key))
@@ -115,6 +154,13 @@ class StandardCellLessons(unittest.TestCase):
                     if key in SOLUTIONS:
                         self.assertTrue(evidence['targets'])
                         self.assertTrue(all(row['passed'] for row in evidence['targets']))
+                        if key in {'nor-rise','nand-input','xor-energy'}:
+                            self.assertGreater(evidence['targets'][0]['reference'], evidence['targets'][0]['value'])
+                        if key == 'dff-aperture':
+                            for kind in ('Setup','Hold'):
+                                rows = [r for r in evidence['timing_sweep'] if r['kind']==kind]
+                                self.assertTrue(any(r['passed'] for r in rows))
+                                self.assertTrue(any(not r['passed'] for r in rows))
                         altered=clone(result)
                         altered['student_cell_layout']['targets'][0]['value'] = 0
                         atomic_write(out,json.dumps(altered))

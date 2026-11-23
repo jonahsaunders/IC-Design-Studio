@@ -1,9 +1,9 @@
 # Standard Cells
 
-Open **Student Hub → Standard Cells** in IC Design Studio. Each lesson starts
-with a working transistor schematic and an empty physical view. Place the
-devices, finish two Metal 3 connections, check the layout, and test the
-result against the schematic.
+Open **Student Hub → Standard Cells** in IC Design Studio. In the cell labs,
+start from a transistor schematic, place the devices, finish two Metal 3
+connections, and compare the routed cell with the schematic. The row
+integration lab starts with two routed cells ready to align.
 
 ## Design challenges
 
@@ -29,6 +29,41 @@ shows exactly which design limits still need work.
 
 ![The revised flip-flop passes both timing targets and the same width budget](images/student-hub/sc-specs-tuned.jpg)
 
+## Row integration and characterization
+
+| Difficulty | Lesson | Passing spec |
+| --- | --- | --- |
+| Easy | Make two cells fit side by side | Zero horizontal gap and rail offset. VPWR and VGND continuous across the seam. Zero Metal 2 and Metal 3 lesson-spacing violations. |
+| Easy | Speed up a NOR’s rising edge | B falling to Y rising at most 75% of the starter delay at 20 fF. Cell width at most 25.4 µm. |
+| Medium | Make a NAND easier to drive | Effective B input capacitance at most 80% of the starter. B rising to Y falling within 120 ps at 40 fF. |
+| Medium | Keep a mux output steady during switching | Excursions at both equal-input levels stay within 0.18 V with a 1.8 V supply and an explicit 8 fF select-to-output coupling stress. |
+| Medium | Build a buffer for four loads | Both input-to-output delays within 120 ps into four identical inverter inputs, with at most 8 µm total transistor width. |
+| Hard | Build a lower-energy XOR | Average supply energy per output transition at most 85% of the starter. Each of the four timing arcs within 165 ps under the same load and stimulus. |
+| Hard | Find a flip-flop’s setup and hold limits | Bracket both limits. Q stays above 80% of the supply and clock-to-Q stays within 110% of its settled reference at each stable passing offset. |
+
+Open **Align cell row** at the abutment checkpoint to move the NAND in the
+hierarchical layout. When the two outlines touch and both rails line up,
+**Check this step** checks continuity and spacing across the seam. The two
+cells share power and retain independent signals.
+
+![Inverter and NAND abutted with both power rails aligned](images/student-hub/sc-abutment.jpg)
+
+For the comparative labs, **Results → Targets** shows the starter measurement
+alongside the current run. Studio measures each from a layout-loaded simulation
+using the same fixture. The NAND measurement integrates current from the B
+source during the switching event and divides by the input voltage swing.
+The XOR measurement integrates power drawn from VDD across a four-transition
+cycle and reports the average per transition.
+
+For the flip-flop, open **Results → Timing sweep**. Positive setup offsets put
+the rising D edge before the clock. Positive hold offsets put the falling D
+edge after it. Move from the 1,500 ps reference toward zero until the capture
+or delay criterion fails, then record the adjacent passing and failing offsets.
+Select either row to see D, clock, and Q waveforms around the rising edge.
+The reported setup and hold values are brackets at the supplied sweep spacing.
+
+![Flip-flop setup and hold sweep with measured clock-to-Q and capture checks](images/student-hub/sc-timing-sweep.jpg)
+
 ## Layout lessons
 
 | Cell | What to trace in layout | What to test |
@@ -44,7 +79,7 @@ shows exactly which design limits still need work.
 
 1. Choose **Place cell rows**. Studio places the model-linked SKY130 devices,
    terminal contacts, via stacks, and an unfinished set of metal tracks. Look
-   for the PMOS row above the NMOS row. All nine exercises use a 24.5 µm
+   for the PMOS row above the NMOS row. The cells use a 24.5 µm
    teaching row, with the upper VPWR and lower VGND centers at Y = 1.5 µm and 23 µm.
    Both rails reach the side boundaries so adjacent cells can share the rail heights.
 2. Inspect the footprint and physical pins. Signal ports reach the left edge
@@ -64,8 +99,8 @@ shows exactly which design limits still need work.
 ## Test the routed cell
 
 Choose **Run lesson** for two native ngspice transients using the same 1.8 V
-stimulus and fixture load. The layout lessons use a 10 fF load and the
-timing challenges use 40 fF. The layout-loaded case adds a lumped
+stimulus and fixture load. The basic layout lessons use a 10 fF load. The challenge fixture sets the
+load for each measurement. The layout-loaded case adds a lumped
 metal-to-ground capacitance estimate from the current connected polygons.
 The **Results** window shows the added output capacitance, overlaid voltages,
 and a **Samples** table with the expected logic and both measured voltages.

@@ -1177,6 +1177,8 @@ class LessonGuide(QDockWidget):
             message=f'{count} samples passed in both the schematic and layout-loaded cases.'
             if evidence.get('targets'):message+=' All design targets passed.'
             feedback(self.feedback,message,role='correct')
+        elif 'continuous_rails' in evidence:
+            feedback(self.feedback,'VPWR and VGND are continuous across the seam. The checked layers meet spacing.',role='correct')
         elif 'bench_reading' in evidence:
             from .student_testbench import WORKFLOWS
             workflow=WORKFLOWS[evidence['bench_workflow']]
@@ -1500,6 +1502,13 @@ class LessonGuide(QDockWidget):
         self.controls['Run lesson'].setText('Run lesson')
         if self.lesson.get('standard_cell'):
             step=self.active_step['id'] if self.active_step else None
+            if self.lesson['standard_cell']=='abutment':
+                run_button.hide()
+                if step=='place':
+                    self.analog_action.setText('Align cell row…')
+                    self.analog_action.setEnabled(can_run)
+                    self.analog_action.show()
+                return
             run_button.setVisible(step=='verify')
             if step=='verify' and self.lesson.get('goal'):
                 self.analog_action.setText('Revise design…')

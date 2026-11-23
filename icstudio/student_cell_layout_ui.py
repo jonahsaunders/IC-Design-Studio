@@ -2,13 +2,14 @@
 
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (QComboBox, QDialog, QDialogButtonBox, QFormLayout, QHeaderView,
-                               QLabel, QLineEdit, QMessageBox, QTabWidget, QTableWidget, QTableWidgetItem,
+                               QHBoxLayout, QLabel, QLineEdit, QMessageBox, QTabWidget, QTableWidget, QTableWidgetItem,
                                QVBoxLayout, QWidget)
 
 from . import student_cell_layout as geometry, student_standard_cells as cells
-from . import student_cell_specs as specs
+from . import student_cell_specs as specs, student_cell_row as row_lab
+from .student_cell_characterization import LOAD_DESCRIPTION, SETTLED_PS, clip, sweep_cases
 from .model import design_digest, scalar
-from .plot import WavePlot
+from .plot import WavePlot, trace_colors
 
 
 def label(text=''):
@@ -22,6 +23,8 @@ def design_editor(guide, preview=False):
     studio = guide.studio
     lesson = guide.lesson
     key = lesson['standard_cell']
+    if key == row_lab.KEY:
+        return row_editor(guide,preview)
     project_id = studio.project['id']
     cell, _ = cells.context(studio.project,key)
     existing = bool(cell['shapes'])
@@ -71,6 +74,56 @@ def design_editor(guide, preview=False):
                 guide.steps.setCurrentIndex(next(i for i,s in enumerate(lesson['steps']) if s['id']=='route'))
             guide.workspace()
             guide.update_run_state()
+        except ValueError as exc:
+            error.setText(str(exc))
+
+    if not preview:
+        dialog.setAttribute(Qt.WA_DeleteOnClose)
+        dialog.buttons.accepted.connect(save)
+        dialog.buttons.rejected.connect(dialog.reject)
+        dialog.show()
+    return dialog
+
+
+def row_editor(guide, preview=False):
+    studio = guide.studio
+    project_id = studio.project['id']
+    unit = row_lab.KEY
+    cell, _ = cells.context(studio.project,unit)
+    dialog = QDialog(studio)
+    dialog.setWindowTitle('Align cell row')
+    dialog.setWindowModality(Qt.WindowModal)
+    dialog.resize(500, 260)
+    layout = QVBoxLayout(dialog)
+    layout.addWidget(label(row_lab.GOAL))
+    layout.addWidget(label('Move the NAND in micrometres. The inverter stays where it is. Undo restores the earlier position.'))
+    form = QFormLayout()
+    layout.addLayout(form)
+    dialog.fields = {}
+    dimensions = row_lab.dimensions(studio.project,cell)
+    for name, title, value in dimensions[:2]:
+        field = dialog.fields[name] = QLineEdit(f'{value:g}')
+        field.setAccessibleName(title+' in micrometres')
+        form.addRow(title+' (µm)',field)
+    if guide.mode_picker.currentData() == 'guided':
+        layout.addWidget(label(f'The inverter right edge is at X = {dimensions[-1][2]:g} µm.'))
+    error = label()
+    error.setProperty('role','error')
+    layout.addWidget(error)
+    dialog.buttons = QDialogButtonBox(QDialogButtonBox.Save | QDialogButtonBox.Cancel)
+    dialog.buttons.button(QDialogButtonBox.Save).setText('Move NAND')
+    layout.addWidget(dialog.buttons)
+
+    def save():
+        try:
+            guide.flush()
+            guide.require_idle()
+            if studio.project['id'] != project_id or guide.lesson['standard_cell'] != unit:
+                raise ValueError('Open the shared row lesson before moving the NAND.')
+            values = {name: field.text().strip() for name,field in dialog.fields.items()}
+            studio.commit(lambda project: cells.build_layout(project,unit,values), 'Align the NAND and inverter')
+            dialog.accept()
+            guide.workspace()
         except ValueError as exc:
             error.setText(str(exc))
 
@@ -178,27 +231,83 @@ class CellResults(QDialog):
         record = result['student_cell_layout']
         cap = sum(row['capacitance'] for row in record['capacitors'] if row['net'] == output)
         load_ff = scalar(cells.fixture_load(key))*1e15
+        fixture = LOAD_DESCRIPTION.get(key, f'a {load_ff:g} fF fixture load')
         layout.addWidget(label(f'{output} gained an estimated {cap*1e15:.3g} fF of metal-to-ground capacitance. '
-                               f'Both cases use the same 1.8 V stimulus and {load_ff:g} fF fixture load.'))
+                               f'Both cases use the same 1.8 V supply and {fixture}.'))
         if result['design_hash'] != design_digest(studio.project):
             layout.addWidget(label('Saved result from an earlier revision. Run the lesson again to test your current layout.'))
         tabs = QTabWidget()
         layout.addWidget(tabs, 1)
         self.targets = None
         if record.get('targets'):
-            targets = self.targets = QTableWidget(len(record['targets']),4)
+            show_reference = any('reference' in row for row in record['targets'])
+            headers = ['Metric','Measured','Target','Status']
+            if show_reference:
+                headers.insert(2,'Starter')
+            targets = self.targets = QTableWidget(len(record['targets']),len(headers))
             targets.setAccessibleName('Measured standard-cell targets')
-            targets.setHorizontalHeaderLabels(['Metric','Measured','Target','Status'])
+            targets.setHorizontalHeaderLabels(headers)
             targets.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
             targets.horizontalHeader().setSectionResizeMode(0,QHeaderView.ResizeToContents)
             targets.setEditTriggers(QTableWidget.NoEditTriggers)
             for index,row in enumerate(record['targets']):
-                value = 'No crossing' if row['value'] is None else f'{row["value"]:.3g} {row["unit"]}'
-                readings = (row['metric'], value, f'≤ {row["maximum"]:g} {row["unit"]}',
-                            'Passed' if row['passed'] else 'Over target')
+                value = 'Unavailable' if row['value'] is None else f'{row["value"]:.4g} {row["unit"]}'
+                status = 'Passed' if row['passed'] else ('Unavailable' if row['value'] is None else 'Over target')
+                readings = [row['metric'],value,f'≤ {row["maximum"]:.4g} {row["unit"]}',status]
+                if show_reference:
+                    readings.insert(2, f'{row["reference"]:.4g} {row["unit"]}' if 'reference' in row else '—')
                 for column,text in enumerate(readings):
                     targets.setItem(index,column,QTableWidgetItem(text))
             tabs.addTab(targets,'Targets')
+        self.sweep = None
+        if record.get('sweep'):
+            sweep = QWidget()
+            sweep_layout = QVBoxLayout(sweep)
+            sweep_layout.addWidget(label(f'Read each group from the {SETTLED_PS} ps reference toward the clock. '
+                                         'A row passes when Q holds high and clock-to-Q stays within 110% of the reference. '
+                                         'Select a row to inspect its waveforms.'))
+            table = self.sweep = QTableWidget(len(record['sweep']),5)
+            table.setAccessibleName('Measured flip-flop setup and hold sweep')
+            table.setHorizontalHeaderLabels(['Sweep','Offset (ps)','Clock-to-Q (ps)','Q held high','Check'])
+            table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+            table.setEditTriggers(QTableWidget.NoEditTriggers)
+            for index,row in enumerate(record['sweep']):
+                delay = row['delay_ps']
+                values = (row['kind'], str(row['offset_ps']), f'{delay:.4g}' if delay is not None else 'No crossing',
+                          'Yes' if row['captured'] else 'No', 'Passed' if row['passed'] else 'Failed')
+                for column,value in enumerate(values):
+                    table.setItem(index,column,QTableWidgetItem(value))
+            table.setSelectionBehavior(QTableWidget.SelectRows)
+            table.setSelectionMode(QTableWidget.SingleSelection)
+            sweep_layout.addWidget(table, 2)
+            self.sweep_plot = WavePlot()
+            self.sweep_plot.dark = studio.dark
+            self.sweep_plot.setAccessibleName('Data, clock and Q waveforms for the selected timing offset')
+            sweep_layout.addWidget(self.sweep_plot, 1)
+            legend = QHBoxLayout()
+            series = ('Data (D)', 'Clock', 'Output (Q)')
+            for name, color in zip(series, trace_colors(studio.dark)):
+                key_label = label(name)
+                key_label.setStyleSheet(f'color: {color}')
+                legend.addWidget(key_label)
+            legend.addStretch()
+            sweep_layout.addLayout(legend)
+            cases = list(sweep_cases())
+
+            def select_case(index, *_):
+                if index < 0:
+                    return
+                _, _, tag = cases[index]
+                cropped = {}
+                for name,node in zip(series,('d_'+tag, 'sweep_clk', 'q_'+tag)):
+                    time, cropped[name] = clip(result['x'],result['traces'][node],10e-9,14e-9)
+                self.sweep_plot.set_result(dict(x=time, traces=cropped, x_label=result['x_label'],
+                                                settings=dict(type='tran')))
+
+            table.currentCellChanged.connect(select_case)
+            first_pass = next((i for i,row in enumerate(record['sweep']) if row['passed']),0)
+            table.setCurrentCell(first_pass,0)
+            tabs.addTab(sweep,'Timing sweep')
         plot = self.plot = WavePlot()
         plot.dark = studio.dark
         plot.setAccessibleName('Standard-cell output comparison')

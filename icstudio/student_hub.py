@@ -106,7 +106,9 @@ def checker_stamp():
                    file_digest(Path(__file__).with_name('student_testbench.py')),
                    file_digest(Path(__file__).with_name('student_standard_cells.py')),
                    file_digest(Path(__file__).with_name('student_cell_layout.py')),
-                   file_digest(Path(__file__).with_name('student_cell_specs.py'))])
+                   file_digest(Path(__file__).with_name('student_cell_specs.py')),
+                   file_digest(Path(__file__).with_name('student_cell_characterization.py')),
+                   file_digest(Path(__file__).with_name('student_cell_row.py'))])
 
 
 def lesson_stamp(lesson):

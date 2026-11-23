@@ -296,8 +296,10 @@ def step_images(guide):
     if lesson.get('goal') and lesson.get('standard_cell') and step['id']=='place':
         from .student_cell_layout_ui import design_editor
         dialog = design_editor(guide, preview=True)
-        bench_images.append(StepImage('Design dimensions', 'Set the dimensions before placing the physical cell.',
-                                      _capture(dialog, guide, 640, 345)))
+        row = lesson['standard_cell']=='abutment'
+        title, caption = ('Align cell row','Move the NAND to close the gap and align both power rails.') if row else (
+            'Design dimensions', 'Set the dimensions before placing the physical cell.')
+        bench_images.append(StepImage(title, caption, _capture(dialog, guide, 640, 345)))
     return [image for image in (rtl, *canvas, fields, *bench_images, _control_image(guide), results) if image is not None]
 
 
