@@ -11,6 +11,8 @@ def stamp(job):
         from .digital_flow import environment
         return environment(job)
     out={'workflow_hash':WORKFLOW_SOURCE_HASH,'engine':job['engine']}
+    if job['engine']=='external_simulator':
+        out['executable_sha256']=file_digest(job['executable'])
     if job['engine']=='ngspice':
         if job['settings'].get('managed_osdi'):
             from . import digital_runtime
