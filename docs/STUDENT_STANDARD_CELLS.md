@@ -5,6 +5,32 @@ with a working transistor schematic and an empty physical view. Place the
 devices, finish two Metal 3 connections, check the layout, and test the
 result against the schematic.
 
+## Design challenges
+
+| Difficulty | Challenge | Targets |
+| --- | --- | --- |
+| Easy | Fit an inverter into a 12.8 µm cell | Width ≤ 12.8 µm and both logic levels correct with 10 fF |
+| Medium | Drive 40 fF with a faster NAND | B rising to Y falling ≤ 100 ps with A held high, plus all four truth-table vectors |
+| Hard | Meet the flip-flop clock-to-Q budget | Q rise ≤ 185 ps and Q fall ≤ 128 ps with 40 fF, combined Q driver width ≤ 5.8 µm, and capture and hold pass |
+
+Open **Size and place** to choose your starting dimensions. Adjust the
+inverter pitch, the width of each series NMOS in the NAND, or the separate
+NMOS and PMOS widths of the flip-flop's Q driver. Route the gaps and run
+the lesson. **Results → Targets** shows each measured value beside its limit.
+Use **Revise design** to try another size. Rebuilding opens the two routing
+gaps again, and **Undo** restores the earlier layout.
+
+The inverter starter measures 13.8 µm wide. The loaded NAND starter
+measures 138.5 ps. The loaded flip-flop starts at 203.0 ps rising and
+153.7 ps falling. Each starter passes its logic samples, so the Targets tab
+shows exactly which design limits still need work.
+
+![The starter flip-flop passes its width budget and misses both timing targets](images/student-hub/sc-specs-baseline.jpg)
+
+![The revised flip-flop passes both timing targets and the same width budget](images/student-hub/sc-specs-tuned.jpg)
+
+## Layout lessons
+
 | Cell | What to trace in layout | What to test |
 | --- | --- | --- |
 | INV | A reaches both gates and Y joins both drains | Both input levels |
@@ -18,7 +44,7 @@ result against the schematic.
 
 1. Choose **Place cell rows**. Studio places the model-linked SKY130 devices,
    terminal contacts, via stacks, and an unfinished set of metal tracks. Look
-   for the PMOS row above the NMOS row. All six exercises use a 24.5 µm
+   for the PMOS row above the NMOS row. All nine exercises use a 24.5 µm
    teaching row, with the upper VPWR and lower VGND centers at Y = 1.5 µm and 23 µm.
    Both rails reach the side boundaries so adjacent cells can share the rail heights.
 2. Inspect the footprint and physical pins. Signal ports reach the left edge
@@ -38,7 +64,8 @@ result against the schematic.
 ## Test the routed cell
 
 Choose **Run lesson** for two native ngspice transients using the same 1.8 V
-stimulus and 10 fF fixture load. The layout-loaded case adds a lumped
+stimulus and fixture load. The layout lessons use a 10 fF load and the
+timing challenges use 40 fF. The layout-loaded case adds a lumped
 metal-to-ground capacitance estimate from the current connected polygons.
 The **Results** window shows the added output capacitance, overlaid voltages,
 and a **Samples** table with the expected logic and both measured voltages.
@@ -52,6 +79,10 @@ The combinational fixture applies binary-count vectors in the listed pin order.
 The grader reads the output 8 ns into each 12 ns slot. Logic low is at most
 0.36 V and logic high is at least 1.44 V. The flip-flop uses separate data and
 clock sources.
+
+The timing challenges measure from the input crossing to the matching
+output crossing at 0.9 V, half the supply. The DFF challenge adds an
+extra clock edge to measure a rising Q after a known low state.
 
 | Time | D | CLK | Expected Q | What the sample shows |
 | --- | --- | --- | --- | --- |

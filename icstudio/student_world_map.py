@@ -349,8 +349,8 @@ class LessonTrail(QScrollArea):
         self.snapshot = None
         self.rows = {}
 
-    def set_lessons(self, world, lessons, status_filter):
-        snapshot = world, status_filter, tuple((lesson['id'], status, count) for lesson, status, count in lessons)
+    def set_lessons(self, world, lessons, status_filter, difficulty=None):
+        snapshot = world, status_filter, difficulty, tuple((lesson['id'], status, count) for lesson, status, count in lessons)
         if snapshot == self.snapshot:
             return
         same_world = self.snapshot is not None and world == self.snapshot[0]
@@ -371,7 +371,8 @@ class LessonTrail(QScrollArea):
                                                             'More lessons' if topics else 'Lessons')
             groups.setdefault(topic, []).append((lesson, status, count))
         for topic, items in groups.items():
-            visible = [item for item in items if not status_filter or item[1] == status_filter]
+            visible = [item for item in items if (not status_filter or item[1] == status_filter)
+                       and (not difficulty or item[0]['difficulty'] == difficulty)]
             if not visible:
                 continue
             done = sum(status == 'Completed' for _, status, _ in items)
@@ -388,7 +389,7 @@ class LessonTrail(QScrollArea):
                 row.setCheckable(True)
                 row.setProperty('role', 'trailLesson')
                 row.setAccessibleName(lesson['title'])
-                description = f'{status} · {count}/{len(lesson["steps"])} steps · {lesson["minutes"]} min'
+                description = f'{lesson["difficulty"]} · {status} · {count}/{len(lesson["steps"])} steps · {lesson["minutes"]} min'
                 row.setAccessibleDescription(description)
                 row.clicked.connect(lambda checked=False, key=key: self.lesson_selected.emit(key))
                 group.addButton(row)
@@ -406,7 +407,7 @@ class LessonTrail(QScrollArea):
                 route_layout.addWidget(row)
                 self.rows[key] = row
         if not self.rows:
-            layout.addWidget(_label('No matching lessons.' if status_filter else
+            layout.addWidget(_label('No matching lessons.' if status_filter or difficulty else
                                     'No lessons are available for this selection.'))
         layout.addStretch()
         self.setWidget(body)

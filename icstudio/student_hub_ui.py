@@ -11,7 +11,7 @@ from PySide6.QtWidgets import (QDialog,QWidget,QVBoxLayout,QHBoxLayout,QLabel,QP
     QBoxLayout)
 
 from .model import digest, load_project, save_project, uid
-from .student_hub import (Portfolio,curriculum,earned,complete,missing_prerequisites,next_lesson,
+from .student_hub import (DIFFICULTIES,Portfolio,curriculum,earned,complete,missing_prerequisites,next_lesson,
                          prepare_lesson,campaign_jobs,evaluate)
 from .ui_style import icon, palette, stylesheet
 from .student_learning import (study_guide, notes_html, overview_html, export_portfolio,
@@ -381,6 +381,9 @@ class StudentHub(QWidget):
         self.status_filter.addItems(['All statuses','Ready to start','In progress','Completed',
                                      'Prerequisites needed','PDK setup needed'])
         self.controls.addWidget(self.status_filter)
+        self.difficulty_filter=QComboBox();self.difficulty_filter.setAccessibleName('Filter lessons by difficulty')
+        self.difficulty_filter.addItems(['All difficulties',*DIFFICULTIES])
+        self.controls.addWidget(self.difficulty_filter)
         self.controls.addWidget(self.search,1)
         self.map_heading=label('World map','title');root.addWidget(self.map_heading)
         self.world_header=QWidget();world_row=QHBoxLayout(self.world_header);world_row.setContentsMargins(0,0,0,0)
@@ -463,6 +466,7 @@ class StudentHub(QWidget):
         self.reset_filters=button('Clear filters',self.clear_filters,'secondary');rv.addWidget(self.reset_filters)
         self.split.addWidget(right);self.split.setSizes([320,600]);self.lessons.currentRowChanged.connect(self.detail)
         self.search.textChanged.connect(self.search_changed);self.status_filter.currentIndexChanged.connect(self.fill)
+        self.difficulty_filter.currentIndexChanged.connect(self.fill)
         self.status=label('Progress is saved on this computer. Simulation checks and written reflections are recorded separately.','muted');root.addWidget(self.status)
         self.guide=LessonGuide(self);studio.addDockWidget(Qt.RightDockWidgetArea,self.guide);self.guide.hide()
         self.apply_theme();self.fill();self.search.setFocus()
@@ -569,8 +573,9 @@ class StudentHub(QWidget):
 
     def clear_filters(self):
         origin,self.search_origin=self.search_origin,None
-        with QSignalBlocker(self.status_filter), QSignalBlocker(self.search):
+        with QSignalBlocker(self.status_filter), QSignalBlocker(self.difficulty_filter), QSignalBlocker(self.search):
             self.status_filter.setCurrentIndex(0)
+            self.difficulty_filter.setCurrentIndex(0)
             self.search.clear()
         self.clear_search_shortcut.setEnabled(False)
         self.fill(lesson_id=origin)
@@ -582,7 +587,8 @@ class StudentHub(QWidget):
         profile=self.process_picker.currentData()
         words=self.search.text().casefold().split()
         filter_status=self.status_filter.currentText() if self.status_filter.currentIndex() else None
-        all_worlds=bool(words or (self.mode=='map' and self.map_overview and filter_status))
+        difficulty=self.difficulty_filter.currentText() if self.difficulty_filter.currentIndex() else None
+        all_worlds=bool(words or (self.mode=='map' and self.map_overview and (filter_status or difficulty)))
         overview=self.mode=='map' and self.map_overview and not all_worlds
         route=self.mode=='map' and not self.map_overview and not words
         self.world_map.setVisible(overview);self.map_heading.setVisible(overview)
@@ -641,18 +647,19 @@ class StudentHub(QWidget):
         for l,status,count in rows:
             path_title=self.path_titles[l['path']]
             if words:
-                search_text=' '.join([l['title'],l['summary'],path_title,*l['skills']]).casefold()
+                search_text=' '.join([l['title'],l['summary'],l['difficulty'],path_title,*l['skills']]).casefold()
                 if not all(word in search_text for word in words):continue
             if filter_status and filter_status!=status:continue
+            if difficulty and l['difficulty']!=difficulty:continue
             title=f'{l["title"]}\n{path_title}' if all_worlds else l['title']
-            item=QListWidgetItem(f'{title}\n{status} · {count}/{len(l["steps"])} steps · {l["minutes"]} min')
+            item=QListWidgetItem(f'{title}\n{l["difficulty"]} · {status} · {count}/{len(l["steps"])} steps · {l["minutes"]} min')
             item.setToolTip(item.text())
             item.setData(Qt.UserRole,l['id']);self.lessons.addItem(item)
             if key==l['id']:self.lessons.setCurrentItem(item)
-        if all_worlds or filter_status:
+        if all_worlds or filter_status or difficulty:
             matches=self.lessons.count()
             self.heading.setText(f'{matches} matching '+('lesson' if matches==1 else 'lessons'))
-        if route:self.trail.set_lessons(self.path_id,world_rows[self.path_id],filter_status)
+        if route:self.trail.set_lessons(self.path_id,world_rows[self.path_id],filter_status,difficulty)
         if self.lessons.currentRow()<0:self.lessons.setCurrentRow(0)
         self.lessons.blockSignals(False);self.detail()
 
@@ -660,7 +667,7 @@ class StudentHub(QWidget):
         l=self.selected();self.start.setEnabled(bool(l))
         if l and not self.trail.isHidden():self.trail.select(l['id'])
         self.progress.setVisible(bool(l))
-        filtered=bool(self.search.text().strip() or self.status_filter.currentIndex())
+        filtered=bool(self.search.text().strip() or self.status_filter.currentIndex() or self.difficulty_filter.currentIndex())
         self.reset_filters.setVisible(not l and filtered)
         self.preview.setTabEnabled(1,bool(l))
         key=l['id'] if l else ''
@@ -680,12 +687,13 @@ class StudentHub(QWidget):
         pre='<br>'.join(f'<a href="{k}">{esc(self.by_id[k]["path"].title()+" · "+self.by_id[k]["title"])}</a>' for k in direct)
         rows=''.join(f'<li><b>{esc(s["title"])}</b> · {"Earned" if s["id"] in done else {"quiz":"Knowledge check","check":"Workspace check","reflection":"Written reflection"}[s["kind"]]}</li>' for s in l['steps'])
         cap='<p>This milestone continues the same sensor project. Earlier repairs are preserved.</p>' if l['path']=='capstone' and not l.get('signal_lab') else ''
+        goal=f'<p><b>{esc(l["goal"])}</b></p>' if l.get('goal') else ''
         teaching=self.material['lessons'][l['id']]
         self.study_notes.setHtml(f'<h2>{esc(l["title"])}</h2>'+notes_html(teaching))
-        self.details.setHtml(f'<h2>{esc(l["title"])}</h2><p>{esc(l["summary"])}</p>{cap}<p><b>Skills</b><br>{esc(" · ".join(l["skills"]))}</p>'+
+        self.details.setHtml(f'<h2>{esc(l["title"])}</h2><p><b>{l["difficulty"]}</b> · {l["minutes"]} min</p><p>{esc(l["summary"])}</p>{goal}{cap}<p><b>Skills</b><br>{esc(" · ".join(l["skills"]))}</p>'+
             overview_html(teaching)+
             (f'<p><b>Complete first</b><br>{pre}</p><p>{len(missing)} prerequisite lesson(s) remaining. You can practice now; earn progression credit after the prerequisites.</p>' if missing else '<p>Ready for guided work in the real editor.</p>')+
-            f'<ol>{rows}</ol><p>Expected time: {l["minutes"]} minutes. Earlier earned steps remain a record of the design that passed at that time.</p>')
+            f'<ol>{rows}</ol><p>Earlier earned steps remain a record of the design that passed at that time.</p>')
         self.progress.setRange(0,len(l['steps']));self.progress.setValue(len(done));self.progress.setFormat('%v of %m steps earned')
         self.progress_text.setText(f'{len(done)} of {len(l["steps"])} steps complete')
         self.start.setText('Practice lesson' if missing else 'Review lesson' if complete(state,l) else 'Resume lesson' if self.portfolio.workspace(l) else 'Start lesson')
@@ -740,8 +748,8 @@ class StudentHub(QWidget):
                 self.process_picker.setCurrentIndex(self.process_picker.findData(self.by_id[key]['inverter_profile']))
         self.path_id=self.by_id[key]['path']
         if self.mode=='map':self.map_overview=False
-        with QSignalBlocker(self.status_filter), QSignalBlocker(self.search):
-            self.status_filter.setCurrentIndex(0);self.search.clear()
+        with QSignalBlocker(self.status_filter), QSignalBlocker(self.difficulty_filter), QSignalBlocker(self.search):
+            self.status_filter.setCurrentIndex(0);self.difficulty_filter.setCurrentIndex(0);self.search.clear()
         self.search_origin=None;self.clear_search_shortcut.setEnabled(False)
         self.fill(lesson_id=key)
 
@@ -919,6 +927,8 @@ class LessonGuide(QDockWidget):
         self.scroll=QScrollArea();self.scroll.setWidgetResizable(True);self.setWidget(self.scroll)
         body=QWidget();v=QVBoxLayout(body);v.setContentsMargins(14,12,14,12);v.setSpacing(10);self.scroll.setWidget(body)
         self.title=label('','subtitle');v.addWidget(self.title)
+        self.difficulty_label=label('','muted');v.addWidget(self.difficulty_label)
+        self.target_label=label('','muted');self.target_label.hide();v.addWidget(self.target_label)
         self.steps=QComboBox();self.steps.setAccessibleName('Guided lesson step');self.steps.setMinimumContentsLength(10)
         self.steps.setSizeAdjustPolicy(QComboBox.AdjustToMinimumContentsLengthWithIcon);v.addWidget(self.steps)
         from .analog_widgets import FlowActions
@@ -1020,6 +1030,8 @@ class LessonGuide(QDockWidget):
 
     def open_lesson(self,lesson):
         self.save_note();self.lesson=lesson;self.title.setText(lesson['title']);self.active_step=None
+        self.difficulty_label.setText(lesson['difficulty'])
+        self.target_label.setText(lesson.get('goal',''));self.target_label.setVisible(bool(lesson.get('goal')))
         self.ask_button.show();self.solution_button.show()
         self.sync_learning_mode(self.hub.learning_mode(lesson))
         if lesson.get('bench_project'):
@@ -1162,7 +1174,9 @@ class LessonGuide(QDockWidget):
             feedback(self.feedback,'Checkpoint passed. '+evidence['explanation'],role='correct')
         elif 'logic_samples' in evidence:
             count=len(evidence['logic_samples'])
-            feedback(self.feedback,f'{count} samples passed in both the schematic and layout-loaded cases.',role='correct')
+            message=f'{count} samples passed in both the schematic and layout-loaded cases.'
+            if evidence.get('targets'):message+=' All design targets passed.'
+            feedback(self.feedback,message,role='correct')
         elif 'bench_reading' in evidence:
             from .student_testbench import WORKFLOWS
             workflow=WORKFLOWS[evidence['bench_workflow']]
@@ -1277,6 +1291,9 @@ class LessonGuide(QDockWidget):
             if self.active_step['id']=='route':
                 from .student_cell_layout_ui import route_editor
                 return route_editor(self)
+            if self.lesson.get('goal'):
+                from .student_cell_layout_ui import design_editor
+                return design_editor(self)
             from .student_standard_cells import build_layout
             key=self.lesson['standard_cell']
             s.commit(lambda p:build_layout(p,key),'Place standard-cell rows')
@@ -1484,11 +1501,17 @@ class LessonGuide(QDockWidget):
         if self.lesson.get('standard_cell'):
             step=self.active_step['id'] if self.active_step else None
             run_button.setVisible(step=='verify')
+            if step=='verify' and self.lesson.get('goal'):
+                self.analog_action.setText('Revise design…')
+                self.analog_action.setEnabled(can_run)
+                self.analog_action.show()
             if step in ('place','route'):
                 cell=next((c for c in project['cells'] if c['id']==project.get('student_standard_cell',{}).get('cell')),None)
                 if step=='place':
-                    self.analog_action.setText('Place cell rows')
-                    self.analog_action.setEnabled(can_run and bool(cell) and not cell['shapes'])
+                    sized=bool(self.lesson.get('goal'))
+                    self.analog_action.setText(('Revise design…' if cell and cell['shapes'] else 'Size and place…')
+                                              if sized else 'Place cell rows')
+                    self.analog_action.setEnabled(can_run and bool(cell) and (sized or not cell['shapes']))
                     self.analog_action.show()
                 elif cell and cell.get('student_cell_layout'):
                     self.analog_action.setText('Add route…')

@@ -1,5 +1,17 @@
 # Chunks 1–12: progress and forecast
 
+**November 23, 2026 — Lesson difficulty and design targets (UX-02, EXP-01).**
+On experimental base `3124ad8`, every Student Hub lesson has an authored
+Easy, Medium, or Hard rating. Map and List share a difficulty filter, and
+rating metadata leaves existing earned progress intact. Three Standard
+Cells challenges grade footprint, loaded NAND delay, and DFF clock-to-Q
+within a driver-width budget. Native ngspice 46 captured both circuit
+models for all three starters and revised designs. The starter targets
+failed while their logic samples passed. The revisions reached 12.8 µm
+inverter width, 70.44 ps NAND fall delay at 40 fF, and 172.13/123.95 ps
+DFF rise/fall delays at 40 fF with 5.5 µm combined Q driver width.
+See the [Standard Cells guide](STUDENT_STANDARD_CELLS.md#design-challenges).
+
 **November 23, 2026 — Standard Cells layout and testing (UX-02, SCH-19,
 EXP-01).** On experimental base `90cefd3`, all six lessons now start
 with model-linked SKY130 placement and two intentional routing gaps.

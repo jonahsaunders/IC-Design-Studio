@@ -15,6 +15,25 @@ RULES = {'structure','nets','value','hierarchy','layout','saved','result','curre
 # must not erase a student's earned progression; exact grader identity is also
 # retained on each newly awarded evidence record.
 CHECKER_REVISION = 1
+DIFFICULTIES = ('Easy', 'Medium', 'Hard')
+
+
+@lru_cache(maxsize=1)
+def difficulty_map():
+    from .getting_started import resource_root
+    source = resource_root()/'examples/student-hub/difficulty.json'
+    bands = json.loads(source.read_text(encoding='utf-8'))
+    labels = {key: band for band, keys in bands.items() for key in keys}
+    if set(bands) != set(DIFFICULTIES) or len(labels) != sum(map(len,bands.values())):
+        raise ValueError('Assign each lesson exactly one difficulty.')
+    return labels
+
+
+def difficulty_for(key):
+    try:
+        return difficulty_map()[key]
+    except KeyError as exc:
+        raise ValueError('Assign a difficulty to lesson '+key+'.') from exc
 
 
 def curriculum():
@@ -28,6 +47,8 @@ def curriculum():
     data['lessons'].extend(student_testbench.lessons())
     data['paths'].append(dict(student_standard_cells.PATH))
     data['lessons'].extend(student_standard_cells.lessons())
+    for lesson in data['lessons']:
+        lesson['difficulty'] = difficulty_for(lesson['id'])
     validate_curriculum(data)
     return data
 
@@ -45,6 +66,8 @@ def validate_curriculum(data):
         ids.add(lesson['id'])
         if lesson['path'] not in {*paths,'capstone'}:
             raise ValueError('Unknown learning path.')
+        if lesson.get('difficulty') not in DIFFICULTIES:
+            raise ValueError('Choose Easy, Medium or Hard for every lesson.')
         if not re.fullmatch('[a-z][a-z0-9-]{1,60}',lesson['workspace']):raise ValueError('Invalid lesson workspace.')
         steps = lesson['steps']
         if not steps or len({s['id'] for s in steps}) != len(steps):raise ValueError('Steps need unique IDs.')
@@ -82,11 +105,13 @@ def checker_stamp():
                    file_digest(Path(__file__).with_name('student_signal_circuits.py')),
                    file_digest(Path(__file__).with_name('student_testbench.py')),
                    file_digest(Path(__file__).with_name('student_standard_cells.py')),
-                   file_digest(Path(__file__).with_name('student_cell_layout.py'))])
+                   file_digest(Path(__file__).with_name('student_cell_layout.py')),
+                   file_digest(Path(__file__).with_name('student_cell_specs.py'))])
 
 
 def lesson_stamp(lesson):
-    return digest(dict(lesson=lesson,checker_revision=CHECKER_REVISION))
+    graded = {key:value for key,value in lesson.items() if key!='difficulty'}
+    return digest(dict(lesson=graded,checker_revision=CHECKER_REVISION))
 
 
 def earned(state, lesson):

@@ -27,8 +27,10 @@ def course():
 
 
 def lessons():
+    from .student_cell_specs import target_text
     result = []
     for key, unit in course().items():
+        base = unit.get('base', key)
         steps = [
             dict(id='predict', kind='quiz', title='Plan the cell layout',
                  instructions=unit['question'], options=unit['options'], answer=unit['answer'],
@@ -40,18 +42,22 @@ def lessons():
                  instructions=f'Close the gaps on VPWR and {output_pin(key)}. Verify layer, width, and connectivity.',
                  rule={'type': 'standard_cell'}),
             dict(id='verify', kind='check', title='Test the routed cell',
-                 instructions='Compare schematic and layout-loaded capture and hold on Q.' if key == 'dff'
+                 instructions='Compare schematic and layout-loaded capture and hold on Q.' if base == 'dff'
                  else 'Compare schematic and layout-loaded output levels for all input vectors.',
                  rule={'type': 'standard_cell'}),
         ]
         steps.append(dict(id='reflect', kind='reflection', title='Record the design trade-off',
                           instructions=unit['reflection']))
         starter = STARTER + key
-        result.append(dict(id='sc-' + key, title=unit['title'], path=PATH['id'], topic=unit['topic'],
+        lesson = dict(id='sc-' + key, title=unit['title'], path=PATH['id'], topic=unit['topic'],
                            starter=starter, workspace=starter+'-layout', standard_cell=key,
-                           requires=[] if key == 'inv' else ['sc-inv'], minutes=30,
+                           requires=[] if key == 'inv' else ['sc-'+base] if base!=key else ['sc-inv'], minutes=30,
                            summary=unit['concept'], skills=['CMOS', 'standard cells', 'ngspice', unit['cell']],
-                           doc='STUDENT_STANDARD_CELLS.md', steps=steps))
+                           doc='STUDENT_STANDARD_CELLS.md', steps=steps)
+        if unit.get('specs'):
+            lesson['goal'] = target_text(unit)
+            steps[3]['instructions'] += ' Meet these targets. '+lesson['goal']+'.'
+        result.append(lesson)
     return result
 
 
@@ -74,10 +80,13 @@ def hints(key):
 
 
 def practice(key):
+    from .student_cell_specs import target_text
     unit = course()[key]
     output = output_pin(key)
     count = len(samples(key))
-    verify = ('At 30, 42, and 56 ns Q is high. At 79 and 99 ns Q is low. '
+    verify = ('Check capture and hold under the 40 fF load. Use the Targets tab for both half-supply clock-to-Q measurements.'
+              if key == 'dff-clock' else
+              'At 30, 42, and 56 ns Q is high. At 79 and 99 ns Q is low. '
               'The 42 and 99 ns samples show hold after D changes.' if key == 'dff'
               else f'Check {count} input combinations. Read Y 8 ns into each 12 ns slot. '
               'Use at most 0.36 V for low and at least 1.44 V for high.')
@@ -113,11 +122,25 @@ def practice(key):
                       if key != 'dff' else '') + ' Both models should reach the same logic levels at the sample times.',
         ],
     }
+    if unit.get('specs'):
+        tasks['place'][1][0] = 'Choose Size and place to enter the design dimensions and build a layout.'
+        tasks['verify'][0] = 'Hit the targets at 1.8 V with CL = '+fixture_load(key)+'. '+target_text(unit)+'.'
+        tasks['verify'][1] = [
+            'Complete both routes and choose Run lesson to capture the schematic and layout-loaded cases.',
+            'Open Results and read the measured values against the limits in Targets.',
+            'If a target fails, choose Revise design. '+unit['tune'],
+            'Review the logic samples and choose Check this step after every target passes.',
+        ]
+        tasks['verify'][2] = unit['solution']
     return dict(tasks=tasks, questions={})
 
 
 def output_pin(key):
-    return 'Q' if key == 'dff' else 'Y'
+    return 'Q' if course()[key].get('base',key) == 'dff' else 'Y'
+
+
+def fixture_load(key):
+    return course()[key].get('load', LOAD)
 
 
 def network(key):
@@ -130,6 +153,7 @@ def network(key):
         return [('N', 'MN_' + label, positive, target, source),
                 ('P', 'MP_' + label, negative, target, source)]
 
+    key = course()[key].get('base',key)
     if key == 'inv':
         return inverter('A', 'A', 'Y')
     if key == 'nand2':
@@ -164,6 +188,9 @@ def terminals(polarity, gate, drain, source):
 
 
 def samples(key):
+    if key == 'dff-clock':
+        return [(30, (1, 1), 1), (46, (0, 1), 1), (56, (0, 0), 1),
+                (79, (0, 1), 0), (99, (1, 0), 0), (126, (0, 1), 1)]
     if key == 'dff':
         return [(30, (1, 1), 1), (42, (0, 1), 1), (56, (0, 0), 1),
                 (79, (0, 1), 0), (99, (1, 0), 0)]
@@ -173,12 +200,14 @@ def samples(key):
         'nor2': lambda a, b: not (a or b),
         'aoi21': lambda a, b, c: not ((a and b) or c),
         'mux2': lambda s, a, b: b if s else a,
-    }[key]
+    }[course()[key].get('base',key)]
     vectors = itertools.product((0, 1), repeat=len(course()[key]['inputs']))
     return [(i * VECTOR_NS + 8, bits, int(truth(*bits))) for i, bits in enumerate(vectors)]
 
 
 def stimulus(key):
+    if key == 'dff-clock':
+        return {'D': (12, 80, '.4'), 'CLK': (24, 48, '.5')}
     if key == 'dff':
         return {'D': (12, 80, '.3'), 'CLK': (24, 48, '.5')}
     pins = course()[key]['inputs']
@@ -192,7 +221,7 @@ def sources(key):
         pulse = dict(type='pulse', low='0', high=str(SUPPLY), delay=f'{delay}n', period=f'{period}n',
                      duty=duty, rise='100p', fall='100p', ac='0')
         parts.append(device('V', 'V_'+pin, 120, 260+160*i, source=pulse, nets={'p': pin.lower(), 'n': '0'}))
-    parts.append(device('C', 'CL', 800, 290, value=LOAD, nets={'p': 'out', 'n': '0'}))
+    parts.append(device('C', 'CL', 800, 290, value=fixture_load(key), nets={'p': 'out', 'n': '0'}))
     return parts
 
 
@@ -210,8 +239,9 @@ def create(key):
     link_technology(p, bundled_technology())
     models = defaults(p['pdk'])
     bench = p['cells'][0]
-    bench['name'] = key + '_characterization'
-    cell = dict(id=uid(), name=key, ports=ports, shapes=[], devices=[])
+    cell_name = key.replace('-', '_')
+    bench['name'] = cell_name + '_characterization'
+    cell = dict(id=uid(), name=cell_name, ports=ports, shapes=[], devices=[])
     p['cells'].append(cell)
     positions = {'P': 0, 'N': 0}
     for polarity, name, gate, drain, source in network(key):
@@ -223,7 +253,7 @@ def create(key):
         part['params'].update(w='2u' if polarity == 'P' else '1u', l='.15u', nf='1', m='1')
         part['nets'] = terminals(polarity, gate, drain, source)
         cell['devices'].append(part)
-    configure_component(p, cell['id'], key, ports, {})
+    configure_component(p, cell['id'], cell_name, ports, {})
     nets = {pin: pin.lower() for pin in unit['inputs']}
     nets.update({output: 'out', 'VPWR': 'vdd', 'VGND': '0'})
     bench['devices'] = sources(key) + [device('X', 'XDUT', 510, 280, cell=cell['id'], nets=nets)]
@@ -235,7 +265,7 @@ def create(key):
 
 
 def analysis_settings(key):
-    stop = 104 if key == 'dff' else VECTOR_NS * len(samples(key))
+    stop = {'dff': 104, 'dff-clock': 136}.get(key, VECTOR_NS * len(samples(key)))
     return dict(type='tran', step='20p', stop=f'{stop}n', temperature=27, corner='nominal', uic=False)
 
 
@@ -286,17 +316,31 @@ def check_wiring(project, key):
         kind = 'PMOS' if polarity == 'P' else 'NMOS'
         if part.get('kind') != kind or part.get('model_ref', {}).get('pdk') != 'sky130A':
             raise ValueError(f'Keep {name} as a SKY130 {kind}.')
+        if course()[key].get('specs') and any(
+                scalar(part['params'].get(field,1)) != scalar(expected)
+                for field,expected in (('l','.15u'),('nf',1),('m',1))):
+            raise ValueError('Keep the nominal 0.15 µm channel length and one device finger per transistor.')
         for pin, net in terminals(polarity, gate, drain, source).items():
             if part['nets'].get(pin) != net:
                 raise ValueError(f'Connect {name} terminal {pin} to {net}.')
     return dict(standard_cell=key, ports=expected_ports, transistors=len(definition))
 
 
-def build_layout(project, key):
+def build_layout(project, key, dimensions=None, replace=False):
     from .student_cell_layout import place
     check_wiring(project, key)
     cell, _ = context(project, key)
-    place(project, cell)
+    if dimensions is None:
+        place(project, cell)
+        return
+    from .student_cell_specs import apply_design
+    if cell['shapes'] and not replace:
+        raise ValueError('Confirm before replacing the routed layout.')
+    pitch = apply_design(cell,key,dimensions)
+    for field in ('shapes','layout_pins','layout_ports','layout_texts','layout_instances','pdk_layouts'):
+        cell[field] = []
+    cell.pop('student_cell_layout',None)
+    place(project,cell,pitch)
 
 
 def prepare(project, lesson, tools):
@@ -354,10 +398,11 @@ def read_samples(result, key):
 def run(project, job, directory, progress):
     from .engines import run_ngspice
     from .student_cell_layout import check_routing, estimate
+    from .student_cell_specs import measure
     key = job['settings']['cell']
     cell, _ = context(project, key)
     check_wiring(project, key)
-    check_routing(project, cell)
+    geometry = check_routing(project, cell)
     fixture = check_fixture(project, key)
     if fixture['id'] != job['cell'] or job['settings']['analysis'] != analysis_settings(key):
         raise ValueError('Use the Standard Cells lesson fixture and its analysis settings.')
@@ -373,6 +418,7 @@ def run(project, job, directory, progress):
     result.update(settings=job['settings'], design_hash=design_digest(project),
                   student_cell_layout=dict(
                       schematic={name:nominal[name] for name in ('x','traces','x_label','settings')},
+                      targets=measure(result,cell,geometry,course()[key]),
                       capacitors=caps, artifacts={name:file_digest(directory/name) for name in ARTIFACTS}))
     result['warnings'].append('Layout metal load uses the lesson’s lumped ground-capacitance estimate.')
     return result
@@ -393,6 +439,13 @@ def validate_result(result, job, directory):
         raise ValueError('The layout-loaded simulation is missing its metal capacitance estimate.')
     readings(record.get('schematic', {}), key)
     readings(result, key)
+    if course()[key].get('specs'):
+        from .student_cell_layout import check_routing
+        from .student_cell_specs import measure
+        project = job['project']
+        cell, _ = context(project,key)
+        if record.get('targets') != measure(result,cell,check_routing(project,cell),course()[key]):
+            raise ValueError('The target readings do not match the captured layout and waveforms.')
 
 
 def check(project, lesson, step, rows):
@@ -411,6 +464,12 @@ def check(project, lesson, step, rows):
               and row['job']['settings']['type']==RUN_TYPE and row['job']['cell'] == fixture['id']]
     result, evidence = current_result(project, tagged)
     layout = result['student_cell_layout']
-    return dict(**evidence, **geometry, logic_samples=read_samples(result, key),
-                schematic_samples=read_samples(layout['schematic'], key),
-                capacitance_estimate=layout['capacitors'])
+    drawn = read_samples(result,key)
+    schematic = read_samples(layout['schematic'],key)
+    targets = layout.get('targets', [])
+    for row in targets:
+        if not row['passed']:
+            value = 'missing transition' if row['value'] is None else f'{row["value"]:.3g} {row["unit"]}'
+            raise ValueError(f'{row["metric"]} measured {value}. Target ≤ {row["maximum"]:g} {row["unit"]}.')
+    return dict(**evidence, **geometry, logic_samples=drawn, schematic_samples=schematic,
+                capacitance_estimate=layout['capacitors'], targets=targets)

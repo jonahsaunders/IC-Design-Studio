@@ -36,15 +36,15 @@ def path(layer, net, start, end, width):
                 width=width, device_id='')
 
 
-def place(project, cell):
+def place(project, cell, pitch=PITCH):
     """Place real model-linked devices and leave two Metal 3 routes open."""
     if cell['shapes'] or cell.get('layout_instances'):
         raise ValueError('The lesson already has layout geometry. Open it to continue routing.')
     names = layers(project['pdk'])
-    width = 8000 + PITCH * (len(cell['devices']) - 1)
+    width = 8000 + pitch * (len(cell['devices']) - 1)
     expected = {part['id']: part for part in cell['devices']}
     for index, part in enumerate(cell['devices']):
-        sky130_layout.install_mos(project, cell['id'], part['id'], 4000 + PITCH * index,
+        sky130_layout.install_mos(project, cell['id'], part['id'], 4000 + pitch * index,
                                   5000 if part['kind'] == 'PMOS' else 16500)
     config = project['pdk']['connectivity']
     if names['m3'] not in config['conductors']:
@@ -94,7 +94,7 @@ def place(project, cell):
         if net in cell['ports']:
             assign_port(project, cell['id'], net, names['m3'], [600,track])
     cell['shapes'].append(rect(names['boundary'], 0, 0, width, ROW_HEIGHT))
-    cell['student_cell_layout'] = dict(version=1, width=width, height=ROW_HEIGHT, breaks=breaks)
+    cell['student_cell_layout'] = dict(version=1, width=width, height=ROW_HEIGHT, pitch=pitch, breaks=breaks)
     validate(project)
 
 

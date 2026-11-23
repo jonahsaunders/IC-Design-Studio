@@ -128,6 +128,14 @@ class StudentHubMenuTests(unittest.TestCase):
         hub.select_lesson('f-first')
         self.assertEqual(hub.selected()['id'], 'f-first')
         self.assertEqual(hub.status_filter.currentIndex(), 0)
+        hub.difficulty_filter.setCurrentText('Medium')
+        self.assertEqual(set(hub.trail.rows), {'f-portfolio'})
+        self.assertIn('Medium', hub.trail.rows['f-portfolio'].accessibleDescription())
+        hub.mode_buttons['list'].click()
+        self.assertEqual(hub.lessons.count(), 1)
+        self.assertIn('Medium', hub.lessons.item(0).text())
+        hub.clear_filters()
+        self.assertEqual(hub.difficulty_filter.currentIndex(), 0)
 
     def test_world_map_uses_earned_progress_and_shares_selection_with_list(self):
         from icstudio.model import clone

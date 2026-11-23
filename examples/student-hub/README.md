@@ -1,7 +1,7 @@
 # Student Hub projects
 
 Open **View → Student Hub** for eleven worlds. The
-[illustrated course guide](../../docs/STUDENT_HUB.md) lists 112 distinct
+[illustrated course guide](../../docs/STUDENT_HUB.md) lists 115 distinct
 lessons, including the advanced sensor-acquisition project and the eight-stage
 [PDK inverter course](../../docs/STUDENT_INVERTER.md) available for each
 supported revision.

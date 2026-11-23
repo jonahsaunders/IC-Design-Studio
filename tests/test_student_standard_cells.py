@@ -9,13 +9,15 @@ from contextlib import redirect_stdout
 from pathlib import Path
 
 from icstudio import student_cell_layout as geometry, student_standard_cells as cells
-from icstudio.model import atomic_write
+from icstudio.model import atomic_write, clone
 from icstudio.student_hub import curriculum, evaluate
 from icstudio.student_projects import create, lesson_workspace
 from icstudio.worker import main
 
 
 NGSPICE = os.environ.get('ICSTUDIO_TEST_NGSPICE', '')
+SOLUTIONS = {'inv-compact': {'pitch':'4.8'}, 'nand-drive': {'stack':'2'},
+             'dff-clock': {'q_n':'2', 'q_p':'3.5'}}
 
 
 def route(project, cell):
@@ -30,12 +32,14 @@ class StandardCellLessons(unittest.TestCase):
                        if lesson.get('standard_cell')}
 
     def test_all_layout_starters_have_two_measurable_gaps(self):
-        self.assertEqual(set(self.lessons), {'inv', 'nand2', 'nor2', 'aoi21', 'mux2', 'dff'})
+        self.assertEqual(set(self.lessons), {'inv', 'nand2', 'nor2', 'aoi21', 'mux2', 'dff', *SOLUTIONS})
         for key, lesson in self.lessons.items():
             with self.subTest(key=key):
                 project = create(lesson['starter'])
                 place, routing = lesson['steps'][1:3]
-                cell, _ = cells.context(project, key)
+                cell, fixture = cells.context(project, key)
+                self.assertEqual(cell['name'], key.replace('-', '_'))
+                self.assertEqual(fixture['name'], cell['name'] + '_characterization')
                 self.assertEqual(lesson_workspace(project, lesson, 'place'), (cell['id'], 'layout'))
                 self.assertEqual(lesson_workspace(project, lesson, 'verify'), (cell['id'], 'layout'))
                 with self.assertRaisesRegex(ValueError, 'Place cell rows'):
@@ -64,13 +68,33 @@ class StandardCellLessons(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'minimum width'):
             evaluate(step, lesson, project)
 
+    def test_inverter_replacement_restores_two_open_gaps_and_reduces_width(self):
+        from icstudio.student_cell_specs import measure
+
+        key = 'inv-compact'
+        project = create(self.lessons[key]['starter'])
+        cells.build_layout(project,key)
+        cell, _ = cells.context(project,key)
+        route(project,cell)
+        baseline = measure({},cell,geometry.check_routing(project,cell),cells.course()[key])
+        self.assertEqual(baseline[0]['value'],13.8)
+        self.assertFalse(baseline[0]['passed'])
+        with self.assertRaisesRegex(ValueError, 'Confirm'):
+            cells.build_layout(project,key,SOLUTIONS[key])
+        cells.build_layout(project,key,SOLUTIONS[key],replace=True)
+        self.assertEqual(geometry.open_nets(project,cell),{'Y','VPWR'})
+        route(project,cell)
+        tuned = measure({},cell,geometry.check_routing(project,cell),cells.course()[key])
+        self.assertEqual(tuned[0]['value'],12.8)
+        self.assertTrue(tuned[0]['passed'])
+
     @unittest.skipUnless(Path(NGSPICE).is_file(), 'Set ICSTUDIO_TEST_NGSPICE for native SKY130 simulation')
     def test_real_truth_tables_capture_hold_and_stale_evidence(self):
         with tempfile.TemporaryDirectory(prefix='sc-') as folder:
             for key, lesson in self.lessons.items():
                 with self.subTest(key=key):
                     project = create(lesson['starter'])
-                    cells.build_layout(project, key)
+                    cells.build_layout(project, key, SOLUTIONS.get(key))
                     cell, _ = cells.context(project, key)
                     route(project, cell)
                     step = next(s for s in lesson['steps'] if s['id'] == 'verify')
@@ -88,6 +112,15 @@ class StandardCellLessons(unittest.TestCase):
                     self.assertEqual(len(evidence['logic_samples']), len(cells.samples(key)))
                     self.assertEqual(len(evidence['schematic_samples']), len(cells.samples(key)))
                     self.assertTrue(evidence['capacitance_estimate'])
+                    if key in SOLUTIONS:
+                        self.assertTrue(evidence['targets'])
+                        self.assertTrue(all(row['passed'] for row in evidence['targets']))
+                        altered=clone(result)
+                        altered['student_cell_layout']['targets'][0]['value'] = 0
+                        atomic_write(out,json.dumps(altered))
+                        with self.assertRaisesRegex(ValueError,'target readings'):
+                            evaluate(step,lesson,project,[row])
+                        atomic_write(out,json.dumps(result))
                     shape = cell['shapes'][-1]
                     width = shape['width']
                     shape['width'] += 10

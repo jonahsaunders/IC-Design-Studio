@@ -293,6 +293,11 @@ def step_images(guide):
         if dialog:
             bench_images.append(StepImage('Add route', 'Enter the two endpoints and width for the selected Metal 3 gap.',
                                           _capture(dialog, guide, 600, 405)))
+    if lesson.get('goal') and lesson.get('standard_cell') and step['id']=='place':
+        from .student_cell_layout_ui import design_editor
+        dialog = design_editor(guide, preview=True)
+        bench_images.append(StepImage('Design dimensions', 'Set the dimensions before placing the physical cell.',
+                                      _capture(dialog, guide, 640, 345)))
     return [image for image in (rtl, *canvas, fields, *bench_images, _control_image(guide), results) if image is not None]
 
 

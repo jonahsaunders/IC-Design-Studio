@@ -102,13 +102,21 @@ class StudentProgressTests(unittest.TestCase):
 
     def test_curriculum_has_executable_starters_and_valid_prerequisites(self):
         data=curriculum()
-        self.assertEqual([sum(l['path']==p['id'] for l in data['lessons']) for p in data['paths']],[6,14,9,7,23,2,23,9,6])
+        self.assertEqual([sum(l['path']==p['id'] for l in data['lessons']) for p in data['paths']],[6,14,9,7,23,2,23,9,9])
         self.assertEqual(sum(l['path']=='capstone' for l in data['lessons']),5)
         for l in data['lessons']:validate(create(l['starter']))
         bad=clone(data);bad['lessons'][0]['requires']=['c-qualify']
         with self.assertRaisesRegex(ValueError,'Cyclic'):validate_curriculum(bad)
         bad=clone(data);bad['lessons'][0]['requires']=['missing']
         with self.assertRaisesRegex(ValueError,'Unknown prerequisite'):validate_curriculum(bad)
+
+    def test_lesson_difficulty_preserves_earned_progress(self):
+        from icstudio.student_hub import DIFFICULTIES, lesson_stamp
+        lessons=curriculum()['lessons']
+        self.assertEqual({lesson['difficulty'] for lesson in lessons},set(DIFFICULTIES))
+        original=clone(lessons[0])
+        original.pop('difficulty')
+        self.assertEqual(lesson_stamp(original),lesson_stamp(lessons[0]))
 
     def test_resume_prerequisites_conflicts_and_curriculum_revisions(self):
         data=curriculum();first,second=data['lessons'][:2]

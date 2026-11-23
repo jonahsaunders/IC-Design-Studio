@@ -1,0 +1,37 @@
+{
+  "Easy": [
+    "f-first", "f-connect", "f-edit", "f-hierarchy", "f-debug",
+    "a-load", "a-bandwidth", "d-logic", "d-counter", "d-pulse",
+    "m-bridge", "m-hold", "l-width", "l-spacing", "l-via", "p-spec",
+    "tb-divider-bias", "tb-divider-sweep", "tb-divider-transient",
+    "sc-inv", "sc-inv-compact", "inverter-process", "inverter-schematic"
+  ],
+  "Medium": [
+    "f-portfolio", "a-bias", "a-differential", "a-amplifier", "a-layout",
+    "a-gmid-bias", "a-gmid-size", "a-gmid-headroom", "a-lc-bode", "a-degeneration",
+    "d-pwm", "d-average", "d-serial", "d-latch", "d-saturation",
+    "m-codes", "m-weight", "m-repeat",
+    "l-centroid", "l-fold", "l-body", "l-match", "l-dac", "l-noise",
+    "l-floorplan", "l-access", "l-pad-ring", "l-density", "l-via-current",
+    "p-review", "project-miller", "project-bias-reference", "project-cascode",
+    "interview-differential", "interview-input-pairs", "interview-gain",
+    "project-relaxation", "project-pga",
+    "tb-tia-bias", "tb-tia-ac", "tb-tia-step", "tb-opamp-bias", "tb-opamp-step",
+    "sc-nand2", "sc-nor2", "sc-aoi21", "sc-mux2", "sc-nand-drive",
+    "c-filter", "c-average",
+    "inverter-dc", "inverter-transient", "inverter-layout"
+  ],
+  "Hard": [
+    "a-gmid-tradeoff", "a-rejection", "a-drive", "d-pipeline",
+    "m-settling", "m-ramp",
+    "l-layout-decisions", "l-lvs", "l-eco", "l-settle", "l-supply",
+    "l-antenna", "l-isolation", "l-spiral", "l-handoff",
+    "project-opamp", "project-tia", "project-ahuja", "project-bandgap-widlar",
+    "project-bandgap-brokaw", "project-bandgap-kuijk", "project-bandgap-banba",
+    "interview-slew", "interview-noise", "interview-mismatch", "interview-comparator",
+    "interview-sar", "interview-ldo", "interview-post-layout-debug", "project-chopper",
+    "tb-opamp-ac", "sc-dff", "sc-dff-clock",
+    "c-sar", "c-qualify", "c-temperature",
+    "inverter-drc", "inverter-lvs", "inverter-handoff"
+  ]
+}
