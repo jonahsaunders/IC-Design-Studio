@@ -1162,7 +1162,7 @@ class LessonGuide(QDockWidget):
             feedback(self.feedback,'Checkpoint passed. '+evidence['explanation'],role='correct')
         elif 'logic_samples' in evidence:
             count=len(evidence['logic_samples'])
-            feedback(self.feedback,f'{count} measured logic samples passed. Evidence saved.',role='correct')
+            feedback(self.feedback,f'{count} samples passed in both the schematic and layout-loaded cases.',role='correct')
         elif 'bench_reading' in evidence:
             from .student_testbench import WORKFLOWS
             workflow=WORKFLOWS[evidence['bench_workflow']]
@@ -1274,11 +1274,15 @@ class LessonGuide(QDockWidget):
     def analog_project_action(self):
         self.flush();self.require_idle();s=self.studio
         if self.lesson.get('standard_cell'):
+            if self.active_step['id']=='route':
+                from .student_cell_layout_ui import route_editor
+                return route_editor(self)
             from .student_standard_cells import build_layout
-            s.commit(build_layout,'Generate lesson inverter layout')
+            key=self.lesson['standard_cell']
+            s.commit(lambda p:build_layout(p,key),'Place standard-cell rows')
             self.workspace()
             self.update_run_state()
-            feedback(self.feedback,'Layout generated. Locate A, Y, VPWR and VGND before checking this step.')
+            feedback(self.feedback,'Rows placed. Inspect the footprint, rails, and ports before checking this step.')
             return
         if self.lesson.get('bench_project'):
             from .student_testbench_ui import editor
@@ -1480,11 +1484,16 @@ class LessonGuide(QDockWidget):
         if self.lesson.get('standard_cell'):
             step=self.active_step['id'] if self.active_step else None
             run_button.setVisible(step=='verify')
-            if step=='physical':
-                self.analog_action.setText('Generate inverter layout')
+            if step in ('place','route'):
                 cell=next((c for c in project['cells'] if c['id']==project.get('student_standard_cell',{}).get('cell')),None)
-                self.analog_action.setEnabled(can_run and bool(cell) and not cell['shapes'])
-                self.analog_action.show()
+                if step=='place':
+                    self.analog_action.setText('Place cell rows')
+                    self.analog_action.setEnabled(can_run and bool(cell) and not cell['shapes'])
+                    self.analog_action.show()
+                elif cell and cell.get('student_cell_layout'):
+                    self.analog_action.setText('Add route…')
+                    self.analog_action.setEnabled(can_run)
+                    self.analog_action.show()
         elif bench_path:
             run_button.setVisible(is_check)
             self.analog_action.setText('Edit SPICE program…' if self.bench_workflow.currentData()=='spice'
@@ -1593,6 +1602,11 @@ class LessonGuide(QDockWidget):
                 selected=stages[names.index(name)]
                 rows=[r for r in rows if lesson_run_step(r['job'])==selected]
         latest=rows[-1]
+        if latest['result'].get('student_cell_layout'):
+            from .student_cell_layout_ui import CellResults
+            self.cell_results=CellResults(s,latest['result'])
+            self.cell_results.show()
+            return self.cell_results
         if self.lesson.get('bench_project'):
             from .student_testbench_ui import BenchResults
             self.bench_result=BenchResults(s,rows,self.bench_workflow.currentData())

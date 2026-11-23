@@ -3,16 +3,20 @@
 import itertools
 import json
 from functools import lru_cache
+from pathlib import Path
 
-from .model import clone, device, example, scalar, uid, validate
+from .model import clone, design_digest, device, example, file_digest, scalar, uid, validate
 
 
 STARTER = 'standard-cell-'
 PATH = dict(id='standard-cells', title='Standard Cells',
-            subtitle='Build reusable CMOS gates and storage cells with measured test fixtures.')
+            subtitle='Place CMOS devices, finish the routing, and test the physical cell.')
 SUPPLY = 1.8
 LOAD = '10f'
 VECTOR_NS = 12
+RUN_TYPE = 'student_cell_layout_lab'
+ARTIFACTS = tuple(model+'/'+name for model in ('schematic','layout')
+                  for name in ('input.cir','result.raw','engine.log'))
 
 
 @lru_cache(maxsize=1)
@@ -26,26 +30,25 @@ def lessons():
     result = []
     for key, unit in course().items():
         steps = [
-            dict(id='predict', kind='quiz', title='Predict how the cell switches',
+            dict(id='predict', kind='quiz', title='Plan the cell layout',
                  instructions=unit['question'], options=unit['options'], answer=unit['answer'],
                  explanation=unit['explanation']),
-            dict(id='wire', kind='check', title='Complete the transistor network',
-                 instructions=f'Complete {unit["cell"]} and preserve its signal pins, VPWR and VGND.',
-                 rule={'type': 'standard_cell', 'devices': unit['focus']}),
-            dict(id='verify', kind='check', title='Verify the loaded cell',
-                 instructions='Measure rising-edge capture and hold on Q.' if key == 'dff'
-                 else 'Measure Y for each input combination with the supplied load.',
+            dict(id='place', kind='check', title='Place devices and inspect the footprint',
+                 instructions='Build two device rows and locate the boundary, power rails, and signal pins.',
+                 rule={'type': 'standard_cell'}),
+            dict(id='route', kind='check', title='Complete and check the layout',
+                 instructions=f'Close the gaps on VPWR and {output_pin(key)}. Verify layer, width, and connectivity.',
+                 rule={'type': 'standard_cell'}),
+            dict(id='verify', kind='check', title='Test the routed cell',
+                 instructions='Compare schematic and layout-loaded capture and hold on Q.' if key == 'dff'
+                 else 'Compare schematic and layout-loaded output levels for all input vectors.',
                  rule={'type': 'standard_cell'}),
         ]
-        if key == 'inv':
-            steps.append(dict(id='physical', kind='check', title='Make the first cell layout',
-                              instructions='Generate the SKY130 inverter layout and verify its four physical ports.',
-                              rule={'type': 'standard_cell'}))
         steps.append(dict(id='reflect', kind='reflection', title='Record the design trade-off',
                           instructions=unit['reflection']))
         starter = STARTER + key
         result.append(dict(id='sc-' + key, title=unit['title'], path=PATH['id'], topic=unit['topic'],
-                           starter=starter, workspace=starter, standard_cell=key,
+                           starter=starter, workspace=starter+'-layout', standard_cell=key,
                            requires=[] if key == 'inv' else ['sc-inv'], minutes=30,
                            summary=unit['concept'], skills=['CMOS', 'standard cells', 'ngspice', unit['cell']],
                            doc='STUDENT_STANDARD_CELLS.md', steps=steps))
@@ -55,25 +58,24 @@ def lessons():
 def teaching(key):
     unit = course()[key]
     return dict(concept=unit['concept'], worked_example=unit['explanation'],
-                try_next='After the checkpoint, duplicate the project and repeat the run with twice the load. Compare the edge shape.',
+                try_next='After the checkpoint, make a copy and use taller or wider routing, then compare the estimated shunt capacitance.',
                 interview=unit['reflection'],
-                artifact='Keep the reusable cell, its pin list, and the captured output waveform with your verification notes.')
+                artifact='Keep the routed cell, its physical ports, and the paired waveforms and test table.')
 
 
 def hints(key):
     unit = course()[key]
     return {'predict': [
-        ['Which signal should I trace first?', 'Start at the output and trace the devices named in the schematic task.'],
-        ['How do I tell when a MOSFET conducts?', 'A high gate turns on an NMOS with a low source. A low gate turns on a PMOS with a high source.'],
-        ['What should I write down for a test vector?', 'Record the input levels, the conducting path, and the resulting output level. Include the clock edge for a storage cell.'],
-        ['How can I verify my prediction?', unit['explanation']],
+        ['Where are the power rails?', 'Find VPWR and VGND on the upper and lower Metal 3 tracks. Trace the via stacks down to the device contacts.'],
+        ['How can I tell two crossing routes apart?', 'Trace each conductor on its own layer. A Metal 2 drop only joins a Metal 3 track where a via connects them.'],
+        ['Which net should I inspect for this cell?', unit['focus']],
+        ['What should I look for when the cell runs?', unit['explanation']],
     ]}
 
 
 def practice(key):
     unit = course()[key]
-    output = 'Q' if key == 'dff' else 'Y'
-    signal_pins = ', '.join([*unit['inputs'], output])
+    output = output_pin(key)
     count = len(samples(key))
     verify = ('At 30, 42, and 56 ns Q is high. At 79 and 99 ns Q is low. '
               'The 42 and 99 ns samples show hold after D changes.' if key == 'dff'
@@ -83,29 +85,39 @@ def practice(key):
         f'{"".join(str(bit) for bit in bits)} → {y}' for _, bits, y in samples(key)
     )
     tasks = {
-        'wire': [f'Complete the CMOS network. Keep pins {signal_pins}, VPWR and VGND.',
-                 ['Choose Open workspace to see the reusable cell.', unit['repair'],
-                  'Choose Check this step to validate the interface and wiring.'],
-                 unit['repair']],
-        'verify': ['Use the 1.8 V, 10 fF fixture to verify the output. ' + verify,
-                   ['Choose Open workspace to inspect the input sources, XDUT and CL.',
-                    f'Choose Run lesson to simulate the cell with CL = {LOAD}.',
-                    f'Open Results and inspect the input and out traces. {verify}',
-                    'Choose Check this step to record the measured levels.'],
-                   verify + (f' In pin order {", ".join(unit["inputs"])}, the expected output is {table}.'
-                             if key != 'dff' else '')],
+        'place': [
+            'Place the model-linked transistors in two device rows. Preserve the common 24.5 µm footprint height.',
+            ['Choose Place cell rows to create the device geometry, outline, contacts, and unfinished routes.',
+             'Open workspace and find the PMOS row above the NMOS row. The width depends on the number of devices.',
+             'Check where the upper and lower rails meet the side boundaries for an adjacent cell.',
+             unit['focus'], 'Choose Check this step to verify the footprint and physical port inventory.'],
+            'The PMOS row is above the NMOS row. VPWR and VGND share the same track heights across all six cells. '
+            + unit['focus'],
+        ],
+        'route': [
+            f'Complete the Metal 3 gaps on VPWR and {output}. Match each track width and stay inside the footprint.',
+            ['Choose Open workspace. Find the gap in the upper VPWR rail and the gap in the '+output+' signal track.',
+             'Choose Add route and select one open net. Select Metal 3 and enter the two endpoints and the width shown for that track.',
+             f'Add a 0.9 µm path for VPWR and a 0.64 µm path for {output}. Connect the existing Metal 3 ends.',
+             'Choose Check this step to verify the connected pins, routing geometry, and spacing.'],
+            f'Bridge the two straight Metal 3 gaps in the Add route form. VPWR uses 0.9 µm width and {output} uses 0.64 µm. '
+            'Each path lands on both existing track ends. In Step by Step, the form shows the exact coordinates.',
+        ],
+        'verify': [
+            'Compare the schematic with the routed cell under a 1.8 V, 10 fF fixture. '+verify,
+            ['Fix any layout connectivity findings before testing.',
+             f'Choose Run lesson to test both models with CL = {LOAD}. The layout case adds the estimated metal capacitance.',
+             f'Open Results. Compare the waveforms and use the Samples tab to check the voltages. {verify}',
+             'Compare the added output capacitance and record the result with Check this step.'],
+            verify + (f' In pin order {", ".join(unit["inputs"])}, the expected output is {table}.'
+                      if key != 'dff' else '') + ' Both models should reach the same logic levels at the sample times.',
+        ],
     }
-    if key == 'inv':
-        tasks['physical'] = [
-            'Create a native SKY130 inverter layout with A, Y, VPWR and VGND physical ports.',
-            ['Choose Open workspace to switch to Layout.',
-             'Choose Generate inverter layout. Locate the two device rows and the supply contacts.',
-             'Find the A and Y signal ports and the VPWR and VGND supply ports.',
-             'Choose Check this step to check device bindings and port coverage.'],
-            'The generated layout has two model-linked devices and physical ports A, Y, VPWR and VGND. '
-            'The NMOS body goes to VGND and the PMOS body goes to VPWR.',
-        ]
     return dict(tasks=tasks, questions={})
+
+
+def output_pin(key):
+    return 'Q' if key == 'dff' else 'Y'
 
 
 def network(key):
@@ -190,10 +202,9 @@ def create(key):
     from .example_schematics import arrange
     from .project_templates import defaults
     from .student_analog import bundled_technology
-    from .wiring import set_label
 
     unit = course()[key]
-    output = 'Q' if key == 'dff' else 'Y'
+    output = output_pin(key)
     ports = [*unit['inputs'], output, 'VPWR', 'VGND']
     p = example('empty')
     link_technology(p, bundled_technology())
@@ -202,9 +213,6 @@ def create(key):
     bench['name'] = key + '_characterization'
     cell = dict(id=uid(), name=key, ports=ports, shapes=[], devices=[])
     p['cells'].append(cell)
-    # Give each repair terminal its own label before routing. Its starter
-    # label can then be corrected in Properties without renaming another wire.
-    isolated = {(name, pin): 'REPAIR_' + name for name, pin, _ in unit['faults']}
     positions = {'P': 0, 'N': 0}
     for polarity, name, gate, drain, source in network(key):
         kind = 'PMOS' if polarity == 'P' else 'NMOS'
@@ -213,8 +221,7 @@ def create(key):
         part = create_device(p['pdk'], models[kind], name, 220+240*(column%4),
                              (200 if polarity == 'P' else 385)+395*(column//4))
         part['params'].update(w='2u' if polarity == 'P' else '1u', l='.15u', nf='1', m='1')
-        nets = terminals(polarity, gate, drain, source)
-        part['nets'] = {pin: isolated.get((name, pin), net) for pin, net in nets.items()}
+        part['nets'] = terminals(polarity, gate, drain, source)
         cell['devices'].append(part)
     configure_component(p, cell['id'], key, ports, {})
     nets = {pin: pin.lower() for pin in unit['inputs']}
@@ -224,9 +231,6 @@ def create(key):
     p['student_standard_cell'] = dict(kind=key, cell=cell['id'], fixture=bench['id'])
     p['analysis'].update(analysis_settings(key))
     arrange(p)
-    parts = {part['name']: part for part in cell['devices']}
-    for name, pin, bad_net in unit['faults']:
-        set_label(cell, parts[name]['id'], pin, bad_net, p)
     return validate(p)
 
 
@@ -244,10 +248,8 @@ def context(project, key):
 
 
 def focus(project, key, step):
-    cell, fixture = context(project, key)
-    if step in ('verify', 'reflect'):
-        return fixture['id'], 'schematic'
-    return cell['id'], 'layout' if step == 'physical' else 'schematic'
+    cell, _ = context(project, key)
+    return cell['id'], 'layout'
 
 
 def check_fixture(project, key):
@@ -255,7 +257,7 @@ def check_fixture(project, key):
     actual = {part['name']: part for part in fixture['devices']}
     inputs = course()[key]['inputs']
     expected_nets = {pin: pin.lower() for pin in inputs}
-    expected_nets.update({'Q' if key == 'dff' else 'Y': 'out', 'VPWR': 'vdd', 'VGND': '0'})
+    expected_nets.update({output_pin(key): 'out', 'VPWR': 'vdd', 'VGND': '0'})
     instance = actual.get('XDUT', {})
     if (len(fixture['devices']) != len(inputs) + 3 or instance.get('kind') != 'X'
             or instance.get('cell') != cell['id'] or instance.get('nets') != expected_nets):
@@ -271,7 +273,7 @@ def check_fixture(project, key):
 
 def check_wiring(project, key):
     cell, _ = context(project, key)
-    output = 'Q' if key == 'dff' else 'Y'
+    output = output_pin(key)
     expected_ports = [*course()[key]['inputs'], output, 'VPWR', 'VGND']
     if cell['ports'] != expected_ports:
         raise ValueError('Preserve the cell pins and their order: ' + ', '.join(expected_ports) + '.')
@@ -290,28 +292,32 @@ def check_wiring(project, key):
     return dict(standard_cell=key, ports=expected_ports, transistors=len(definition))
 
 
-def build_layout(project):
-    from .sky130_layout import generate_inverter
-    check_wiring(project, 'inv')
-    cell, _ = context(project, 'inv')
-    generate_inverter(project, cell['id'])
+def build_layout(project, key):
+    from .student_cell_layout import place
+    check_wiring(project, key)
+    cell, _ = context(project, key)
+    place(project, cell)
 
 
 def prepare(project, lesson, tools):
     from .run_environment import stamp
     from .spice_program import find_ngspice
+    from .student_cell_layout import check_routing
     key = lesson['standard_cell']
+    cell, _ = context(project, key)
+    check_routing(project, cell)
     fixture = check_fixture(project, key)
     exe = find_ngspice(tools.get('ngspice', ''))
     if not exe:
         raise ValueError('Choose ngspice in Student Hub Engine setup.')
     job = dict(project=clone(project), cell=fixture['id'], engine='ngspice', executable=exe,
-               settings=analysis_settings(key), student_lesson=lesson['id'], student_cell_step='verify')
+               settings=dict(type=RUN_TYPE, cell=key, analysis=analysis_settings(key)),
+               student_lesson=lesson['id'], student_cell_step='verify')
     job['environment'] = stamp(job)
     return job
 
 
-def read_samples(result, key):
+def readings(result, key):
     from .student_hub import at
 
     def level(voltage):
@@ -330,36 +336,81 @@ def read_samples(result, key):
         vector = ', '.join(f'{pin}={bit}' for pin, bit in zip(pins, bits))
         if actual != bits:
             raise ValueError(f'At {ns} ns the fixture did not apply {vector}.')
-        if level(voltage) != output:
-            raise ValueError(f'At {ns} ns with {vector}, measured {voltage:.3g} V. Expected logic {output}.')
-        readings.append(dict(time_ns=ns, inputs=dict(zip(pins, bits)), expected=output, output_V=voltage))
+        readings.append(dict(time_ns=ns, inputs=dict(zip(pins, bits)), expected=output, output_V=voltage,
+                             passed=level(voltage)==output))
     return readings
+
+
+def read_samples(result, key):
+    measured = readings(result, key)
+    for row in measured:
+        if not row['passed']:
+            vector = ', '.join(f'{pin}={bit}' for pin,bit in row['inputs'].items())
+            raise ValueError(f'At {row["time_ns"]} ns with {vector}, measured {row["output_V"]:.3g} V. '
+                             f'Expected logic {row["expected"]}.')
+    return measured
+
+
+def run(project, job, directory, progress):
+    from .engines import run_ngspice
+    from .student_cell_layout import check_routing, estimate
+    key = job['settings']['cell']
+    cell, _ = context(project, key)
+    check_wiring(project, key)
+    check_routing(project, cell)
+    fixture = check_fixture(project, key)
+    if fixture['id'] != job['cell'] or job['settings']['analysis'] != analysis_settings(key):
+        raise ValueError('Use the Standard Cells lesson fixture and its analysis settings.')
+    loaded, caps = estimate(project, cell)
+    directory = Path(directory)
+    def simulate(model, project, offset):
+        target = directory/model
+        target.mkdir(parents=True, exist_ok=True)
+        return run_ngspice(project, fixture['id'], analysis_settings(key), job['executable'], target,
+                           lambda fraction,message: progress(offset+fraction/2, model.title()+ ' · '+message))
+    nominal = simulate('schematic', project, 0)
+    result = simulate('layout', loaded, .5)
+    result.update(settings=job['settings'], design_hash=design_digest(project),
+                  student_cell_layout=dict(
+                      schematic={name:nominal[name] for name in ('x','traces','x_label','settings')},
+                      capacitors=caps, artifacts={name:file_digest(directory/name) for name in ARTIFACTS}))
+    result['warnings'].append('Layout metal load uses the lesson’s lumped ground-capacitance estimate.')
+    return result
+
+
+def validate_result(result, job, directory):
+    key = job['settings'].get('cell')
+    record = result.get('student_cell_layout', {})
+    if key not in course() or result['settings'] != job['settings'] or job.get('student_lesson') != 'sc-'+key:
+        raise ValueError('The captured layout experiment does not match this lesson.')
+    try:
+        hashes = {name:file_digest(directory/name) for name in ARTIFACTS}
+    except OSError as exc:
+        raise ValueError('A captured standard-cell simulation artifact is missing.') from exc
+    if record.get('artifacts') != hashes:
+        raise ValueError('A captured standard-cell simulation artifact has changed.')
+    if not record.get('capacitors'):
+        raise ValueError('The layout-loaded simulation is missing its metal capacitance estimate.')
+    readings(record.get('schematic', {}), key)
+    readings(result, key)
 
 
 def check(project, lesson, step, rows):
     from .student_hub import current_result
+    from .student_cell_layout import check_placement, check_routing
     key = lesson['standard_cell']
-    if step == 'wire':
-        return check_wiring(project, key)
-    if step == 'physical':
-        from .physical import connectivity
-        from .sky130_layout import audit
-        check_wiring(project, key)
-        cell, _ = context(project, key)
-        ports = {port['name'] for port in cell.get('layout_ports', [])}
-        devices = {e['device_id'] for e in cell.get('pdk_layouts', [])}
-        if (not cell.get('inverter_layout') or devices != {d['id'] for d in cell['devices']}
-                or ports != set(cell['ports']) or audit(project, cell['id'])):
-            raise ValueError('Generate the current inverter layout and keep all four physical ports.')
-        issues = connectivity(project, cell['id'])['issues']
-        if issues:
-            raise ValueError(issues[0]['message'])
-        return dict(physical_ports=sorted(ports), physical_devices=len(devices))
+    cell, _ = context(project, key)
+    check_wiring(project, key)
+    if step == 'place':
+        return check_placement(project, cell)
+    geometry = check_routing(project, cell)
+    if step == 'route':
+        return geometry
     fixture = check_fixture(project, key)
     tagged = [row for row in rows if row['job'].get('student_lesson') == lesson['id']
-              and row['job'].get('student_cell_step') == 'verify' and row['job']['cell'] == fixture['id']]
+              and row['job']['settings']['type']==RUN_TYPE and row['job']['cell'] == fixture['id']]
     result, evidence = current_result(project, tagged)
-    if result['settings'] != analysis_settings(key):
-        raise ValueError('Run the supplied characterization analysis from the lesson guide.')
-    readings = read_samples(result, key)
-    return dict(**evidence, **check_wiring(project, key), logic_samples=readings)
+    layout = result['student_cell_layout']
+    return dict(**evidence, **geometry, logic_samples=read_samples(result, key),
+                schematic_samples=read_samples(layout['schematic'], key),
+                capacitance_estimate=layout['capacitors'])

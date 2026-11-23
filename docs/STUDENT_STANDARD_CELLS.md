@@ -1,54 +1,57 @@
 # Standard Cells
 
-Open **Student Hub → Standard Cells** in IC Design Studio. Begin with the
-inverter. It introduces the reusable cell and its separate test fixture.
-The other lessons reuse that workflow for combinational logic and storage.
+Open **Student Hub → Standard Cells** in IC Design Studio. Each lesson starts
+with a working transistor schematic and an empty physical view. Place the
+devices, finish two Metal 3 connections, check the layout, and test the
+result against the schematic.
 
-A cell library gives each circuit a stable pin interface and a layout that
-fits its row height, power rails, and routing grid. These lessons begin
-with the reusable electrical interface and a measured load, then use the
-inverter to connect that interface to real process geometry. Library
-integration also uses an abstract physical view and timing and power data
-for downstream tools. See the [digital flow guide](DIGITAL_FLOW.md).
-
-| Cell | What you build | What you verify |
+| Cell | What to trace in layout | What to test |
 | --- | --- | --- |
-| INV | One PMOS pull-up and one NMOS pull-down with named signal and power pins | Inversion at both input levels, then a native SKY130 layout with four connected physical ports |
-| NAND2 | Parallel PMOS devices and a series NMOS stack | All four input vectors, including the only pull-down case at 11 |
-| NOR2 | A series PMOS stack and parallel NMOS devices | All four input vectors, including the only pull-up case at 00 |
-| AOI21 | A complementary network implementing `Y = NOT((A AND B) OR C)` | All eight input vectors and the direct pull-down path controlled by C |
-| MUX2 | Two complementary transmission gates, a select inverter, and an output buffer | All eight input vectors, with Y following A for S=0 and B for S=1 |
-| DFF | Master and slave transmission-gate latches on complementary clock phases | Capture on rising clock edges and hold when D changes between edges |
+| INV | A reaches both gates and Y joins both drains | Both input levels |
+| NAND2 | N_STACK joins the two series NMOS devices | All four vectors, including the 11 pull-down |
+| NOR2 | P_STACK joins the two series PMOS devices | All four vectors, including the 00 pull-up |
+| AOI21 | C reaches the direct pull-down and its complementary pull-up device | All eight vectors, including C overriding A and B |
+| MUX2 | Separate S and S_B routing controls both transmission gates | All eight select and data combinations |
+| DFF | CLK and CLK_B reach the latch switches. Q reaches the output pin and slave feedback. | Rising-edge capture and hold between edges |
 
-## Work through a cell
+## Place and route
 
-1. Predict the output and identify which path conducts. **Hints** offers
-   four questions for the prediction.
-2. In **Complete the transistor network**, open the cell schematic. Use
-   **Properties** to correct the indicated terminal nets and apply changes.
-   **Check this step** verifies the model-linked transistors and pin interface,
-   including the VPWR and VGND body connections.
-3. In **Verify the loaded cell**, open the fixture. It instantiates your cell
-   as XDUT and drives it at 1.8 V with a 10 fF output load. **Run lesson** starts
-   ngspice. **Results** shows the applied inputs and the output trace named
-   `out`. Use **Check this step** to record the settled measurements.
-4. For the inverter, **Generate inverter layout** opens the native process
-   geometry. Inspect A, Y, VPWR, and VGND in Layout. The physical checkpoint
-   checks the ports, model bindings, and conductor connectivity.
-5. Record how the circuit works and what the waveform evidence says.
+1. Choose **Place cell rows**. Studio places the model-linked SKY130 devices,
+   terminal contacts, via stacks, and an unfinished set of metal tracks. Look
+   for the PMOS row above the NMOS row. All six exercises use a 24.5 µm
+   teaching row, with the upper VPWR and lower VGND centers at Y = 1.5 µm and 23 µm.
+   Both rails reach the side boundaries so adjacent cells can share the rail heights.
+2. Inspect the footprint and physical pins. Signal ports reach the left edge
+   on Metal 3. Follow the Metal 2 drops and vias to the terminals. Internal
+   tracks such as N_STACK and CLK_B stop inside the boundary.
+3. In **Complete and check the layout**, find the two gaps. Use **Add route**
+   to enter a Metal 3 path's endpoints and width. In **Step by Step**, the
+   route form shows the measurements for the selected track. Bridge VPWR
+   at 0.9 µm width and the Y or Q signal at 0.64 µm.
+4. Choose **Check this step** to confirm physical pin connectivity and the
+   exercise widths and spacing. An open or short blocks the layout test.
 
-In **Step by Step**, choose **Show step images** for the actual workspace
-and edit targets. **Do It Yourself** gives the goal and test conditions.
-**Show solution** gives the terminal edits and reference measurements.
+![Inverter layout with the VPWR and Y tracks connected](images/student-hub/sc-inverter-layout.jpg)
 
-![SKY130 inverter layout with the model-linked NMOS and PMOS and their physical ports](images/student-hub/sc-inverter-layout.jpg)
+![The native route form with endpoint and width fields for the VPWR gap](images/student-hub/sc-route-editor.jpg)
 
-## Read the fixture
+## Test the routed cell
 
-The combinational fixture applies binary-count input vectors in the listed
-pin order, with a new vector every 12 ns. The grader reads the output 8 ns
-into each slot. Logic low is at most 0.36 V and logic high is at least 1.44 V.
-The flip-flop uses separate data and clock sources.
+Choose **Run lesson** for two native ngspice transients using the same 1.8 V
+stimulus and 10 fF fixture load. The layout-loaded case adds a lumped
+metal-to-ground capacitance estimate from the current connected polygons.
+The **Results** window shows the added output capacitance, overlaid voltages,
+and a **Samples** table with the expected logic and both measured voltages.
+Rerun the pair after editing the layout so the checkpoint can use the current design.
+
+![Overlaid inverter output waveforms with estimated output capacitance](images/student-hub/sc-waveform-results.jpg)
+
+![Schematic and layout-loaded test voltages at the inverter's two input samples](images/student-hub/sc-sample-results.jpg)
+
+The combinational fixture applies binary-count vectors in the listed pin order.
+The grader reads the output 8 ns into each 12 ns slot. Logic low is at most
+0.36 V and logic high is at least 1.44 V. The flip-flop uses separate data and
+clock sources.
 
 | Time | D | CLK | Expected Q | What the sample shows |
 | --- | --- | --- | --- | --- |
@@ -58,7 +61,11 @@ The flip-flop uses separate data and clock sources.
 | 79 ns | 0 | 1 | 0 | Second rising edge captured a 0 |
 | 99 ns | 1 | 0 | 0 | Q held after D rose again |
 
-These electrical checks use the bundled nominal SKY130A models and specific
-fixture conditions. The [CMOS inverter course](STUDENT_INVERTER.md) continues
-with process DRC, LVS, and handoff. The [Testbenches world](STUDENT_TESTBENCHES.md)
-shows how to set up graphical and text experiments yourself.
+**Show step images** shows the active layout and route form. **Do It Yourself**
+gives the layout and test targets. **Show solution** explains both missing
+routes and the expected test samples. The new layout lessons use their own
+workspace, so earlier schematic projects are still saved.
+
+The capacitance model uses declared teaching coefficients for area and perimeter.
+The same bundled SKY130A transistor models drive both runs. The [CMOS inverter
+course](STUDENT_INVERTER.md) covers process-deck DRC, LVS, and handoff.

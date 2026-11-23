@@ -41,6 +41,9 @@ def read_result(path,project_id,require_complete=True):
     if job.get('settings',{}).get('type')=='student_bench_lab':
         from .student_testbench import validate_result
         validate_result(job,result,original_path.parent)
+    elif job.get('settings',{}).get('type')=='student_cell_layout_lab':
+        from .student_standard_cells import validate_result
+        validate_result(result,job,original_path.parent)
     if result.get('xschem_cases') or result.get('analysis_cases'):
         # Raw captures travel with their saved job; do not retain a previous
         # computer's absolute run directory when reopening copied results.

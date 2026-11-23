@@ -155,16 +155,16 @@ Jump to a world to see every lesson in it. Select an image to open the full-size
 
 ### Standard Cells
 
-Build reusable transistor-level logic with named signal and power pins. The [standard-cell guide](STUDENT_STANDARD_CELLS.md) covers the projects, fixtures, and inverter layout.
+Place model-linked devices, finish the supply and output routes, and compare schematic and layout-loaded results. See the [standard-cell guide](STUDENT_STANDARD_CELLS.md).
 
 | Screenshot | Lesson |
 | --- | --- |
-| [![CMOS inverter schematic with the PMOS gate highlighted](images/student-hub/sc-inv.jpg)](images/student-hub/sc-inv.jpg) | **Build a CMOS inverter**. Inspect the pull-up and pull-down, measure inversion, and generate a connected SKY130 layout. |
-| [![NAND2 schematic with the NMOS stack](images/student-hub/sc-nand2.jpg)](images/student-hub/sc-nand2.jpg) | **Build a two-input NAND**. Complete the series NMOS path and test all four input combinations. |
-| [![NOR2 schematic with the PMOS pull-up stack](images/student-hub/sc-nor2.jpg)](images/student-hub/sc-nor2.jpg) | **Build a two-input NOR**. Trace the series PMOS path and measure the all-zero pull-up case. |
-| [![AOI21 schematic with the C-controlled transistor highlighted](images/student-hub/sc-aoi21.jpg)](images/student-hub/sc-aoi21.jpg) | **Build an AND-OR-invert cell**. Combine two pull-down paths and verify the output for all eight vectors. |
-| [![MUX2 schematic showing data transmission gates and the two-stage output buffer](images/student-hub/sc-mux2.jpg)](images/student-hub/sc-mux2.jpg) | **Build a transmission-gate multiplexer**. Wire the select controls and verify both data paths. |
-| [![D flip-flop schematic with the two slave input transistors highlighted](images/student-hub/sc-dff.jpg)](images/student-hub/sc-dff.jpg) | **Build a rising-edge D flip-flop**. Connect the master to the slave and verify capture and hold. |
+| [![Routed CMOS inverter layout](images/student-hub/sc-inv.jpg)](images/student-hub/sc-inv.jpg) | **Lay out and test a CMOS inverter**. Place the device pair, close the rail and output gaps, and compare loaded waveforms. |
+| [![Routed NAND2 layout with shared tracks](images/student-hub/sc-nand2.jpg)](images/student-hub/sc-nand2.jpg) | **Lay out and test a two-input NAND**. Trace the NMOS stack and test all four vectors after routing. |
+| [![Routed NOR2 layout with the PMOS stack](images/student-hub/sc-nor2.jpg)](images/student-hub/sc-nor2.jpg) | **Lay out and test a two-input NOR**. Trace P_STACK and test the four loaded pull-up and pull-down cases. |
+| [![Routed AOI21 layout with the C-controlled branch](images/student-hub/sc-aoi21.jpg)](images/student-hub/sc-aoi21.jpg) | **Lay out and test an AND-OR-invert cell**. Finish the rail and output routes, then verify all eight vectors. |
+| [![Routed transmission-gate multiplexer layout](images/student-hub/sc-mux2.jpg)](images/student-hub/sc-mux2.jpg) | **Lay out and test a transmission-gate multiplexer**. Inspect S and S_B routing and measure both input paths. |
+| [![Routed D flip-flop layout with separate tracks for data and clock](images/student-hub/sc-dff.jpg)](images/student-hub/sc-dff.jpg) | **Lay out and test a rising-edge D flip-flop**. Close the Q path and compare capture and hold in both models. |
 
 ### CMOS inverter · PDK to LVS
 

@@ -268,10 +268,17 @@ def step_images(guide):
     instructions = ' '.join(record[1]) + ' ' + step['instructions']
     cid, mode = lesson_workspace(p, lesson, step['id'])
     cell = next(c for c in p['cells'] if c['id'] == cid)
+    canvas_project = p
+    if lesson.get('standard_cell') and not cell['shapes']:
+        from .model import clone
+        from .student_standard_cells import build_layout
+        canvas_project = clone(p)
+        build_layout(canvas_project, lesson['standard_cell'])
+        cell = next(c for c in canvas_project['cells'] if c['id'] == cid)
     if mode == 'layout' and not (cell['shapes'] or cell.get('layout_instances')):
         mode = 'schematic'
     targets = _targets(cell, mode, lesson, step, instructions)
-    canvas = _workspace_images(guide, p, cell, mode, targets)
+    canvas = _workspace_images(guide, canvas_project, cell, mode, targets)
     rtl = _rtl_image(guide, p, instructions) if lesson['path'] == 'digital' or 'Open RTL' in instructions else None
     fields = _fields_image(guide, p, cell, mode, targets)
     results = _result_image(guide, p, instructions)
@@ -280,6 +287,12 @@ def step_images(guide):
         from .student_testbench_ui import previews
         bench_images = [StepImage(title, caption, _capture(dialog, guide, 990, height))
                         for title, caption, dialog, height in previews(guide)]
+    if lesson.get('standard_cell') and step['id']=='route' and canvas_project is p:
+        from .student_cell_layout_ui import route_editor
+        dialog = route_editor(guide, preview=True)
+        if dialog:
+            bench_images.append(StepImage('Add route', 'Enter the two endpoints and width for the selected Metal 3 gap.',
+                                          _capture(dialog, guide, 600, 405)))
     return [image for image in (rtl, *canvas, fields, *bench_images, _control_image(guide), results) if image is not None]
 
 

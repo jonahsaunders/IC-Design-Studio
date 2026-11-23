@@ -75,6 +75,9 @@ def main(input_path,output_path):
         elif kind=='student_bench_lab':
             from .student_testbench import run
             result=run(job,Path(output_path).parent,progress)
+        elif kind=='student_cell_layout_lab':
+            from .student_standard_cells import run
+            result=run(p,job,Path(output_path).parent,progress)
         elif kind=='study':
             from .studies import run_study
             result=run_study(p,job['cell'],job['settings']['analysis'],job['settings']['study'],job.get('engine','builtin'),job.get('executable',''),Path(output_path).parent,progress)

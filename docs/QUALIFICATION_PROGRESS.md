@@ -1,5 +1,16 @@
 # Chunks 1–12: progress and forecast
 
+**November 23, 2026 — Standard Cells layout and testing (UX-02, SCH-19,
+EXP-01).** On experimental base `90cefd3`, all six lessons now start
+with model-linked SKY130 placement and two intentional routing gaps.
+The exercises align both supply rails to a common row height and check
+physical signal ports, rail continuity, width and spacing. All six layouts
+were exercised through the Windows Qt placement and route controls.
+The paired ngspice fixtures check 31 vectors or capture and hold samples
+in each model. The layout case uses ground capacitance from the current
+metal polygons and declared teaching coefficients. See the
+[illustrated Standard Cells guide](STUDENT_STANDARD_CELLS.md).
+
 **November 23, 2026 — Standard Cells lessons (UX-02, SCH-19, EXP-01).** On
 experimental base `adc84d63`, the Student Hub adds INV, NAND2, NOR2, AOI21,
 MUX2 and DFF lessons. Windows Qt offscreen exercised all six terminal repairs
