@@ -79,7 +79,7 @@ def inventory(registry, current=None):
 def expand(data, material, profiles):
     from .getting_started import resource_root
     from .student_hub import validate_curriculum
-    from .student_learning import lesson_hints
+    from .student_learning import lesson_hints, lesson_practice
     source = json.loads((resource_root()/'examples/student-hub/inverter-course.json').read_text(encoding='utf-8'))
     data = clone(data); material = clone(material)
     data['paths'].append(dict(id='inverter', title='CMOS inverter · PDK to LVS',
@@ -93,6 +93,7 @@ def expand(data, material, profiles):
                           inverter_profile=item['token'], inverter_stage=stage, doc='STUDENT_INVERTER.md')
             data['lessons'].append(lesson); material['lessons'][lesson['id']] = clone(unit['teaching'])
             material['hints'][lesson['id']] = lesson_hints(lesson, 'inverter-'+stage)
+            material['practice'][lesson['id']] = lesson_practice(lesson, 'inverter-'+stage)
             previous = lesson['id']
     validate_curriculum(data)
     return data, material

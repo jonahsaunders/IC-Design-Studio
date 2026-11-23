@@ -6,7 +6,8 @@ from pathlib import Path
 
 from icstudio.model import clone, save_project
 from icstudio.student_hub import curriculum, evaluate, Portfolio, lesson_stamp, earned
-from icstudio.student_learning import hint_source, study_guide, portfolio_html, export_portfolio
+from icstudio.student_learning import (hint_source, mode_source, study_guide, task_html,
+                                       solution_html, portfolio_html, export_portfolio)
 from icstudio.student_projects import create
 from icstudio.student_design_labs import check_layout, DIGITAL_LABS
 from test_student_hub import repaired, execute, engines
@@ -26,6 +27,41 @@ def repaired_layout(kind):
 
 
 class StudentDesignTests(unittest.TestCase):
+    def test_modes_and_solutions_cover_every_checkpoint(self):
+        from html import escape
+        from icstudio.student_inverter import expand
+
+        base = curriculum()
+        data, guide = expand(base, study_guide(base), [{'token': 'example-profile'}])
+        tasks, overrides = set(), set()
+        for lesson in data['lessons']:
+            key = lesson['id']
+            practice, note = guide['practice'][key], guide['lessons'][key]
+            author = 'inverter-' + lesson['inverter_stage'] if lesson['path'] == 'inverter' else key
+            for step in lesson['steps']:
+                stage = step['id']
+                route = f'{author}/{stage}'
+                with self.subTest(checkpoint=route):
+                    diy, guided = (task_html(step, practice, mode) for mode in (False, True))
+                    answer = solution_html(step, practice, note)
+                    self.assertNotIn('<ol>', diy)
+                    self.assertIn('<ol>', guided)
+                    self.assertIn(escape(step['title']), answer)
+                    if stage in practice['questions']:
+                        overrides.add(route)
+                    if step['kind'] == 'check':
+                        tasks.add(route)
+                        goal, actions, example = practice['tasks'][stage]
+                        self.assertEqual(diy, f'<p>{escape(goal)}</p>')
+                        self.assertIn(escape(example), answer)
+                        self.assertTrue(all(escape(action) in guided for action in actions))
+                    elif step['kind'] == 'quiz':
+                        self.assertIn(escape(step['options'][step['answer']]), answer)
+                    else:
+                        self.assertIn('Example reasoning', answer)
+        self.assertEqual(tasks, set(mode_source()['tasks']))
+        self.assertEqual(overrides, set(mode_source()['challenge_questions']))
+
     def test_every_knowledge_check_has_four_authored_hints(self):
         from icstudio.student_inverter import expand
 

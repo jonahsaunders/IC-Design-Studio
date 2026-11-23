@@ -1,0 +1,1059 @@
+{
+  "tasks": {
+    "f-first/build": [
+      "Identify the input, resistor, capacitor and ground in the RC circuit.",
+      ["Choose Open workspace and locate V1, R1 and C1 in the Design tree.", "Select each part and read its terminal nets in Properties. Trace the path from the source through R1 to the output and down through C1."],
+      "The supplied circuit needs no edits. V1 drives vin, R1 connects vin to vout, and C1 connects vout to net 0."
+    ],
+    "f-first/measure": [
+      "Capture the RC transient and verify vout at 12 µs.",
+      ["Choose Run lesson and wait for it to finish. Open Results and show vin and vout.", "Find the input edge at 2 µs. Place a cursor at 12 µs and read vout against the 1.08–1.20 V target."],
+      "R1 = 10 kΩ and C1 = 1 nF give τ = 10 µs. One τ after the input steps to 1.8 V, vout ≈ 1.8(1−e⁻¹) = 1.14 V."
+    ],
+    "f-connect/build": [
+      "Complete the lower leg of the 1.8 V divider so it divides the voltage equally.",
+      ["Choose Open workspace, then Component → Resistor, and click below R1 to place the part.", "Select the new part. Set its name to R2 and set its value to match R1. Set terminals p to out and n to 0. Apply the change."],
+      "R2 = 10k with p = out and n = 0. R1 remains 10k between vin and out."
+    ],
+    "f-connect/measure": [
+      "Verify the completed divider at DC to within 1 mV of half the input.",
+      ["Choose Run lesson and wait for the operating-point result.", "Open Results and read out. Compare it with the input source and the divider prediction."],
+      "With equal 10 kΩ legs, out = 1.8 × 10/(10+10) = 0.900 V. Accept 0.899–0.901 V."
+    ],
+    "f-edit/build": [
+      "Double the RC time constant by changing only R1. Try Undo and Redo.",
+      ["Open workspace and select R1. In Properties, double its Value and apply.", "Choose Edit → Undo and verify the original value. Choose Redo and verify the edited value."],
+      "Set R1 = 20k and keep C1 = 1n. Undo returns R1 to 10k. Redo restores 20k."
+    ],
+    "f-edit/measure": [
+      "Verify the revised step response against the doubled time constant.",
+      ["Run the edited circuit and open Results. Locate the input edge and add the new RC time constant.", "Read vout 20 µs after that edge and check the 1.08–1.20 V target."],
+      "Use the fresh 20k run. At 22 µs, one time constant after the 2 µs edge, vout ≈ 1.14 V."
+    ],
+    "f-hierarchy/build": [
+      "Identify the divider cell, its ports and the nets connected through its instance.",
+      ["Open workspace. Select the divider cell in the Design tree and read its three ports.", "Open the top cell again, select XDIV, and read each port mapping in Properties."],
+      "The child exposes IN, OUT and GND. The top-level XDIV maps them to vin, out and 0."
+    ],
+    "f-hierarchy/measure": [
+      "Confirm the hierarchical divider produces 0.9 V at its top-level output.",
+      ["Return to the top circuit with the input source attached.", "Choose Run lesson, open Results, and read out instead of a child-cell node in isolation."],
+      "The top-level operating point is 0.900 V at out. It is the same divider ratio as the flat circuit."
+    ],
+    "f-debug/build": [
+      "Reduce the loading enough to keep out above 0.89 V without changing either divider resistor.",
+      ["Open workspace and trace Rload between out and ground.", "Estimate the equivalent lower resistance with the load in parallel. Increase Rload in Properties so the equivalent moves close to the unloaded lower leg."],
+      "Set Rload = 1Meg. The two 10k divider resistors remain fixed. The parallel lower leg is about 9.901 kΩ."
+    ],
+    "f-debug/measure": [
+      "Prove the updated circuit meets 0.89–0.91 V at out.",
+      ["Run lesson and open Results for the current project revision.", "Read out and compare it with the requirement and the original heavily loaded case."],
+      "A 1 MΩ load gives out ≈ 0.896 V. The original equal 10 kΩ load pulled it to 0.600 V."
+    ],
+    "f-portfolio/build": [
+      "Inspect the physical arrangement and distinguish geometry findings from circuit connectivity.",
+      ["Choose Open workspace, switch to Layout and fit the view.", "Find the repeated units and check Analysis → Geometry DRC. Read each finding’s rule and location."],
+      "Use the supplied layout with four or more shapes. Generic geometry checks report their declared rule scope. Electrical extraction and foundry checks are separate."
+    ],
+    "f-portfolio/measure": [
+      "Save a version of the layout that can be opened again from Student Hub.",
+      ["Choose Save work. Confirm the lesson remains associated with the project file.", "Return to Student Hub and reopen the lesson with Resume lesson. Verify that your layout is present."],
+      "The layout exercise earns its saved-project checkpoint when the actual lesson project is saved. Reopen that same file to reproduce it."
+    ],
+    "a-load/build": [
+      "Add a 10 kΩ load across the divider output while keeping both fixed legs at 10 kΩ.",
+      ["Choose Open workspace, then Component → Resistor, and place the load.", "Select it, name it Rload, fill the value and both terminal nets and apply. Trace the shared endpoints with the lower divider resistor."],
+      "Rload = 10k between out and 0. R2 is also across out and 0, so their equivalent is 5 kΩ."
+    ],
+    "a-load/measure": [
+      "Verify the loaded divider output and explain why it changed.",
+      ["Run lesson and open the operating-point Results.", "Read out and compare it with the parallel-divider estimate."],
+      "With R1 = 10 kΩ and R2 ∥ Rload = 5 kΩ, out = 1.8 × 5/15 = 0.600 V. Accept 0.599–0.601 V."
+    ],
+    "a-bandwidth/build": [
+      "Adjust the RC pole to approximately 8 kHz at fixed resistance.",
+      ["Open workspace and identify C1 and the fixed 10 kΩ resistor.", "Estimate C with C = 1/(2πRf). Select C1, enter a value in farads using the n suffix if helpful, and apply."],
+      "Set C1 = 2n. The resulting pole is 7.96 kHz. The AC input remains 1 V."
+    ],
+    "a-bandwidth/measure": [
+      "Verify the expected magnitude around the 8 kHz pole.",
+      ["Choose Run lesson and open the AC Results.", "Cursor vout at 8 kHz. Compare the magnitude with its low-frequency value and the 0.68–0.73 V band."],
+      "For a first-order pole at 7.96 kHz, magnitude near 8 kHz is about 0.706, roughly −3 dB relative to the DC gain."
+    ],
+    "a-bias/build": [
+      "Configure the mirror for nominally twice the reference current without changing MREF.",
+      ["Open the current_mirror cell and select MREF. Read its width and length.", "Select MOUT. Set its width to twice MREF’s and keep the same length and gate connection."],
+      "MOUT W = 4u, MREF W = 2u. At matched bias this gives a 2:1 current ratio."
+    ],
+    "a-bias/measure": [
+      "Verify 18–23 µA output current with the 10 µA reference.",
+      ["Choose Run lesson and open Results for the present circuit.", "View current through VOUT and use its magnitude. Compare with twice the reference current."],
+      "Expect approximately 20 µA in magnitude. The voltage-source current can show a negative sign when it supplies the output branch."
+    ],
+    "a-differential/build": [
+      "Apply +5 mV differential input while keeping the existing common-mode setting.",
+      ["Open differential_pair_testbench and identify the source wired between inp and inn.", "Set the differential source Value and apply. Compare terminal nets to confirm only the differential stimulus changed."],
+      "Set VIN = 5m across inp and inn. Leave the separate common-mode source untouched."
+    ],
+    "a-differential/measure": [
+      "Prove the expected direction of current steering using the two output voltages.",
+      ["Run lesson and open both outp and outn in Results.", "Subtract outp from outn. Compare the sign and magnitude against the 1–100 mV band."],
+      "A positive differential input increases the inp branch current. The associated drain outp falls, so outn − outp is positive."
+    ],
+    "a-amplifier/build": [
+      "Trace the differential pair, active load and bias device in the five-transistor amplifier.",
+      ["Open workspace and select the amplifier child cell.", "Follow the M1/M2 input branches, M3/M4 load and M5 tail path. Return to the amplifier_testbench cell."],
+      "M1/M2 steer current, M3/M4 form the active load, and M5 sets the tail current. The supplied topology is the solution."
+    ],
+    "a-amplifier/measure": [
+      "Capture low-frequency small-signal gain for the assembled amplifier.",
+      ["Run lesson using the supplied AC bench and open Results.", "Read out at 10 Hz. Use the supplied normalized stimulus to interpret output magnitude as gain."],
+      "Use a current run of the supplied fixture. The exercise requires 5–10,000 V/V at 10 Hz. Preserve the measured value from your run."
+    ],
+    "a-layout/build": [
+      "Inspect the repeated units and describe how placement addresses gradients.",
+      ["Choose Open workspace, switch to Layout and fit the drawing.", "Locate both groups of resistor units. Compare their positions, size, layers and local surroundings."],
+      "The supplied common-centroid example satisfies the geometry checkpoint. The two groups sample comparable positions. Nearby routes still merit electrical review."
+    ],
+    "a-layout/measure": [
+      "Save the matching example as reproducible layout evidence.",
+      ["Use Save work and return to Student Hub.", "Reopen the saved lesson. Record which geometry or connectivity checks you actually ran."],
+      "The saved exercise contains the existing matched-unit geometry. State the verified check scope when you report it."
+    ],
+    "a-gmid-bias/build": [
+      "Choose a bias that yields approximately 20 µA in the model NMOS.",
+      ["Open workspace. Keep M1 at W = 10u, L = 1u and VD = 1 V.", "Use the model threshold of 0.45 V with about 0.20 V overdrive. Edit VG in Properties and apply."],
+      "Set VG = .65. The teaching model then gives gm/ID near 10 V⁻¹ at approximately 20.4 µA."
+    ],
+    "a-gmid-bias/measure": [
+      "Verify gm/ID, current and saturation headroom on a saved operating-point run.",
+      ["Run lesson. Open Results and locate the M1 operating-point data.", "Check gm/ID against 9.8–10.2 V⁻¹, ID against 20–21 µA and headroom against the 0.70 V minimum."],
+      "At VG = 0.65 V, VOV ≈ 0.20 V and headroom is about 0.80 V. The nominal sample is about 20.4 µA and 10 V⁻¹."
+    ],
+    "a-gmid-size/build": [
+      "Choose the transistor width for roughly 200 µS and 20 µA at the fixed bias.",
+      ["Keep sources VG = .65 and VD = 1 and channel length 1u.", "Compute width from target current and the pilot current density. Edit M1 Width, then apply."],
+      "Use M1 Width = 9.804u. A 10 µm pilot with about 20.4 µA scales to approximately 20 µA at this width."
+    ],
+    "a-gmid-size/measure": [
+      "Verify current, gm and gm/ID of the resized NMOS.",
+      ["Run lesson and inspect the M1 operating-point values in Results.", "Compare 19.8–20.2 µA, 198–202 µS and 9.8–10.2 V⁻¹ with your current run."],
+      "At 9.804 µm, the nominal targets are about 20 µA, 200 µS and 10 V⁻¹."
+    ],
+    "a-gmid-headroom/build": [
+      "Set positive saturation headroom near 0.20 V at the original gate bias.",
+      ["Open workspace and compute VOV from the supplied gate bias and threshold.", "Choose a VD that provides that overdrive plus the required margin. Edit VD and keep device geometry unchanged."],
+      "Set VD = .4 V at VG = .65 V. VDS − VOV = .40 − .20 = .20 V."
+    ],
+    "a-gmid-headroom/measure": [
+      "Verify 0.19–0.21 V headroom at the revised operating point.",
+      ["Choose Run lesson and inspect the M1 bias data in Results.", "Check ID is 19.8–20.5 µA and gm/ID is 9.8–10.2 V⁻¹ alongside headroom. Compare with the original low-VD case."],
+      "At VD = .4 V the nominal margin is .20 V. The original .1 V is below the .20 V overdrive. The revised current is about 20 µA."
+    ],
+    "a-gmid-tradeoff/build": [
+      "Keep gm near 200 µS while halving the current relative to the first sizing case.",
+      ["Use gm/ID near 20 V⁻¹ to estimate the current budget and reduce overdrive.", "Edit VG and use the pilot current density at that bias to adjust M1 Width. Keep L and VD fixed."],
+      "Set VG = .55 V and M1 Width = 19.608u. The lower overdrive needs more width at the same gm."
+    ],
+    "a-gmid-tradeoff/measure": [
+      "Verify the higher-efficiency bias meets the same gm target at roughly 10 µA.",
+      ["Run lesson. Inspect gm, ID and gm/ID for M1.", "Compare the new width and operating point with the 9.804 µm, 20 µA case."],
+      "Read approximately 200 µS, 10 µA and 20 V⁻¹ at 19.608 µm width. The required width grew while bias current fell."
+    ],
+    "d-logic/build": [
+      "Explain the parity and multiplexer outputs for all eight input combinations.",
+      ["Choose Open RTL and read the two assign statements in the design file.", "Open lab_tb.sv and map its input combinations to expected parity and selected output."],
+      "The supplied RTL implements XOR parity and a select-controlled mux. Equal input bits yield XOR output 0."
+    ],
+    "d-logic/measure": [
+      "Pass the fixed reference simulation for all parity and mux combinations.",
+      ["Choose Run lesson. If the engines are missing, configure the included or custom digital tools in Engine setup.", "Open Results for the current revision. Inspect the clock or input combinations and confirm the reference testbench reports PASS."],
+      "The supplied gates module should pass all eight input combinations and every reference assertion."
+    ],
+    "d-counter/build": [
+      "Trace reset, enable, normal increments and wraparound in the counter RTL.",
+      ["Open RTL, find the positive-edge always block and read reset priority.", "Follow the enable branch and calculate what a four-bit register does at maximum count."],
+      "Reset clears count. Enable increments by one, holding when disabled. The four-bit count wraps from 15 to 0."
+    ],
+    "d-counter/measure": [
+      "Pass the fixed reference simulation for reset, hold and wraparound.",
+      ["Choose Run lesson. If the engines are missing, configure the included or custom digital tools in Engine setup.", "Open Results for the current revision. Inspect the clock or input combinations and confirm the reference testbench reports PASS."],
+      "The supplied four-bit counter must clear at reset, hold when disabled, and wrap from 15 to 0 when enabled."
+    ],
+    "d-pulse/build": [
+      "Trace how the supplied detector generates one cycle per rising request.",
+      ["Open RTL and inspect the previous request register and pulse assignment.", "Sketch three clock edges with request low, then high for two cycles."],
+      "The pulse condition is request && !previous. A high request with a high previous value produces no repeat pulse."
+    ],
+    "d-pulse/measure": [
+      "Pass the fixed reference simulation for one pulse per rising request.",
+      ["Choose Run lesson. If the engines are missing, configure the included or custom digital tools in Engine setup.", "Open Results for the current revision. Inspect the clock or input combinations and confirm the reference testbench reports PASS."],
+      "The supplied detector pulses once at the low-to-high request transition and stays low on the later high cycles."
+    ],
+    "d-pwm/build": [
+      "Relate the duty setting to one entire PWM frame.",
+      ["Open RTL and inspect phase and its wrap condition.", "List phase values from 0 through 7, then count those below the duty setting."],
+      "With phase < duty, duty = 3 holds output high for phases 0, 1 and 2. Duty = 0 holds it low throughout."
+    ],
+    "d-pwm/measure": [
+      "Pass the fixed reference simulation for every duty setting.",
+      ["Choose Run lesson. If the engines are missing, configure the included or custom digital tools in Engine setup.", "Open Results for the current revision. Inspect the clock or input combinations and confirm the reference testbench reports PASS."],
+      "Count phase < duty over each eight-clock frame. A setting of three gives three high clocks, and zero gives none."
+    ],
+    "d-average/build": [
+      "Trace the wide sum, sample count, averaging and valid behavior.",
+      ["Open RTL and identify count, sum and total.", "Follow an invalid cycle and the fourth valid sample. Check arithmetic width before division."],
+      "Four 4-bit samples require a 6-bit sum. The fourth valid sample completes the block. Invalid cycles do not enter the sum."
+    ],
+    "d-average/measure": [
+      "Pass the fixed reference simulation for rounded averages, valid gaps and maximum codes.",
+      ["Choose Run lesson. If the engines are missing, configure the included or custom digital tools in Engine setup.", "Open Results for the current revision. Inspect the clock or input combinations and confirm the reference testbench reports PASS."],
+      "Keep a six-bit sum for four four-bit values and read one ready pulse per four valid input samples."
+    ],
+    "d-serial/build": [
+      "Trace when input data is captured and how the serial frame advances.",
+      ["Open RTL and find the frame register, bit_index and busy signal.", "Open the bench and compare inputs 00, FF, A5 and 3C. Trace a mid-frame reset separately."],
+      "The accepted byte is captured into the frame register. Each lab clock moves one bit period. Changes to live input do not alter that frame."
+    ],
+    "d-serial/measure": [
+      "Pass the fixed reference simulation for all four serial bytes and reset cases.",
+      ["Choose Run lesson. If the engines are missing, configure the included or custom digital tools in Engine setup.", "Open Results for the current revision. Inspect the clock or input combinations and confirm the reference testbench reports PASS."],
+      "The captured bytes 00, FF, A5 and 3C must transmit correctly. Mid-frame reset clears the active send."
+    ],
+    "d-latch/build": [
+      "Repair the mux so its output follows the selected input in every state.",
+      ["Open RTL, open mux_repair.sv and find the combinational block.", "Trace every select branch and assign y on every path. Apply changes to the design file."],
+      "Inside always @* use if (select) y = b; else y = a; to assign both branches. Keep lab_tb.sv fixed."
+    ],
+    "d-latch/measure": [
+      "Pass the fixed reference simulation for the formerly missing mux branch.",
+      ["Choose Run lesson. If the engines are missing, configure the included or custom digital tools in Engine setup.", "Open Results for the current revision. Inspect the clock or input combinations and confirm the reference testbench reports PASS."],
+      "With y assigned for both select values, the reference must pass transitions into either selection regardless of the previous output."
+    ],
+    "d-saturation/build": [
+      "Make the four-bit accumulator saturate at 15 and hold on invalid cycles.",
+      ["Open RTL and locate the five-bit total and registered update.", "Compare total to the highest representable value before truncating. Keep the reset and valid conditions around the update."],
+      "On a valid cycle, use the condition total > 5'd15 to select 4'd15. Otherwise assign total[3:0]. Keep the five-bit total, reset priority and hold on invalid cycles."
+    ],
+    "d-saturation/measure": [
+      "Pass the fixed reference simulation for saturation, ordinary additions and invalid holds.",
+      ["Choose Run lesson. If the engines are missing, configure the included or custom digital tools in Engine setup.", "Open Results for the current revision. Inspect the clock or input combinations and confirm the reference testbench reports PASS."],
+      "A sum such as 13 + 5 clips to 15. Ordinary sums and invalid-cycle hold still pass the fixed reference."
+    ],
+    "d-pipeline/build": [
+      "Align valid_out with the data leaving the second pipeline register.",
+      ["Open RTL and mark which sample enters stage and result at each clock.", "Trace the validity signal through the same stages as the data. Apply your RTL edit and leave both reset assignments."],
+      "Use valid_out <= stage_valid while stage_valid <= valid_in. Both valid registers clear on reset."
+    ],
+    "d-pipeline/measure": [
+      "Pass the fixed reference simulation for data and valid alignment through the pipeline.",
+      ["Choose Run lesson. If the engines are missing, configure the included or custom digital tools in Engine setup.", "Open Results for the current revision. Inspect the clock or input combinations and confirm the reference testbench reports PASS."],
+      "A valid input sampled at edge k becomes valid output with its data at edge k+1. Bench bubbles stay aligned."
+    ],
+    "m-bridge/build": [
+      "Locate the sample-and-hold, DAC, comparator and controller boundary.",
+      ["Choose Open workspace. Locate Ssample, Chold, the DAC bits and Bcompare.", "Open RTL to find sar_controller, then open the bridge configuration and inspect the signal mapping."],
+      "The sampler holds vin, the DAC produces each trial level, Bcompare supplies the decision, and the controller advances the trial code."
+    ],
+    "m-bridge/measure": [
+      "Verify the expected code and completion edge for the 0.93 V bridge example.",
+      ["Choose Run lesson with the configured mixed-signal engines.", "Open Results and inspect the edge table together with the comparator and held-node traces."],
+      "At 0.93 V the reference result is code 8 at edge 7."
+    ],
+    "m-hold/build": [
+      "Confirm the input changes after a sample is acquired and that the storage capacitor matches the fixture.",
+      ["Choose Open workspace and read Chold in Properties.", "Open the bridge configuration and inspect the timing of the input transition against the hold edge."],
+      "Chold is 20p. vin starts at 0.93 V and drops to 0.2 V at 3.5 µs, after acquisition."
+    ],
+    "m-hold/measure": [
+      "Determine the result of converting the held sample after the later vin change.",
+      ["Run lesson and view vin and the held node in the mixed-signal Results.", "Read the completed code in the edge table and compare it with the held voltage."],
+      "The held sample is still near 0.93 V. The result is code 8 at edge 7."
+    ],
+    "m-codes/build": [
+      "Configure a static input of 1.2 V for the code-transition experiment.",
+      ["Open Mixed-signal experiment and locate the Input voltage field.", "Enter the required voltage and choose Apply configuration. Return to the lesson guide."],
+      "Use a single vin stimulus at time zero with value 1.2 V."
+    ],
+    "m-codes/measure": [
+      "Verify the sampled code and its completion edge at 1.2 V.",
+      ["Run lesson, open Results and inspect the trial-code sequence.", "Locate the output row that marks completion and compare with the ideal bin calculation."],
+      "floor(16 × 1.2/1.8) = 10. The expected code is 10 at edge 7."
+    ],
+    "m-settling/build": [
+      "Repair ADC timing so the DAC settles before each bit decision.",
+      ["Run the starter once and inspect the DAC voltage at the decision edges.", "Open Mixed-signal experiment. Increase Clock period, apply configuration and leave the fine analog resolution in place."],
+      "Set Clock period to 1u instead of 10 ns. A longer interval gives the DAC time to settle."
+    ],
+    "m-settling/measure": [
+      "Verify a correct 0.3 V conversion through the repaired timing bench.",
+      ["Run lesson again and open the new edge table.", "Check the committed code and compare the DAC voltage just before each decision with the earlier fast run."],
+      "The repaired run gives code 2 at edge 7 for 0.3 V."
+    ],
+    "m-weight/build": [
+      "Find and repair the DAC branch that misweights the most significant bit.",
+      ["Run the faulty starter and inspect the DAC steps in Results.", "Open workspace. Compare DAC branch conductances and adjust the MSB resistor in Properties."],
+      "Set Rbit3 = 10k instead of 20k. Leave the other ladder values and the input stimulus fixed."
+    ],
+    "m-weight/measure": [
+      "Verify the corrected DAC gives the expected answer for 0.93 V.",
+      ["Run lesson on the edited circuit and open Results.", "Compare the MSB trial with the held voltage and read the committed code."],
+      "The corrected most-significant branch yields code 8 at edge 7."
+    ],
+    "m-repeat/build": [
+      "Inspect the two-transaction schedule and input change in the supplied configuration.",
+      ["Open Mixed-signal experiment and inspect the edge count and start stimulus.", "Read the vin stimulus times and locate the change between the two acquisitions."],
+      "Use 18 edges, start asserted at edges 2 and 9, and vin changing from 0.4 V to 1.2 V at 8 µs."
+    ],
+    "m-repeat/measure": [
+      "Verify each transaction produces the code for its own sample and completes on time.",
+      ["Run lesson. Open Results and follow the acquisition and completion markers.", "Read both committed codes and match each to the earlier sample in that transaction."],
+      "The bench expects code 3 at edge 7 and code 10 at edge 14."
+    ],
+    "l-width/build": [
+      "Repair the narrow metal-1 route while preserving both labels and rectangles.",
+      ["Open workspace in Layout, select the thin rectangle on net a, and open Geometry (µm) in Properties.", "Adjust its Height to the minimum width while keeping the other dimensions and position. Apply the edit."],
+      "Net a rectangle has Left 0, Top 0, Width 2 µm and Height 0.20 µm. Keep both original labelled shapes."
+    ],
+    "l-width/measure": [
+      "Verify the repaired width without deleting either route.",
+      ["Open the edited layout and confirm the original shapes and labels are still present.", "Choose Check this step. It measures the repaired geometry using the fixed exercise rules."],
+      "The lower width is 200 nm on net a. Both original rectangles are present and the exercise’s fixed width, spacing and grid checks pass."
+    ],
+    "l-spacing/build": [
+      "Separate neighboring metal-1 routes by at least 0.20 µm of edge clearance.",
+      ["Open Layout and read net a’s top and height in Properties.", "Select net b and adjust Top to place its nearest edge beyond the required gap, keeping its other dimensions."],
+      "Use net b Left 0, Top 0.40 µm, Width 2 µm and Height 0.20 µm. The edge gap is 0.20 µm."
+    ],
+    "l-spacing/measure": [
+      "Verify that the facing metal-1 edges have at least 200 nm spacing.",
+      ["Open the edited layout and confirm the original shapes and labels are still present.", "Choose Check this step. It measures the repaired geometry using the fixed exercise rules."],
+      "Net a ends at 0.20 µm and net b begins at 0.40 µm. The gap is 200 nm, with both rectangles retained."
+    ],
+    "l-via/build": [
+      "Center the via cut so it has adequate enclosure on both landing metals.",
+      ["Open Layout. Use layer visibility if necessary to select the via1 cut.", "Subtract half the 0.15 µm cut width from the center of the 0.50 µm pads in both axes. Enter Left and Top and apply."],
+      "Set via Left = Top = 0.175 µm and Width = Height = 0.15 µm. Both original metal pads remain in place."
+    ],
+    "l-via/measure": [
+      "Verify enclosure of the original cut on both metals.",
+      ["Open the edited layout and confirm the original shapes and labels are still present.", "Choose Check this step. It measures the repaired geometry using the fixed exercise rules."],
+      "The centered 150 nm cut has 175 nm enclosure on each side within each 500 nm pad."
+    ],
+    "l-centroid/build": [
+      "Give groups A and B a common centroid with the same four legal unit sites.",
+      ["Open Layout and read each unit’s left coordinate and net label.", "Move one interior unit temporarily to a free space. Swap the needed pair, keeping Top and unit size fixed."],
+      "Move A from Left 0.8 to 3.2 µm, B from 2.4 to 0.8 µm and A from 3.2 to 2.4 µm. ABBA results with centers averaging 1.4 µm."
+    ],
+    "l-centroid/measure": [
+      "Verify that both groups retain their units and share a centroid.",
+      ["Open the edited layout and confirm the original shapes and labels are still present.", "Choose Check this step. It measures the repaired geometry using the fixed exercise rules."],
+      "ABBA gives both groups a 1.4 µm centroid. Keep all four 0.40 µm units at their verified sites."
+    ],
+    "p-spec/build": [
+      "Draft a current-mirror requirement with a target, operating range and error tolerance.",
+      ["Open workspace and trace IREF, MREF and MOUT.", "Write a measurable target current, permitted error and output-voltage range for the case study."],
+      "A usable example brief targets 10 µA ±10% from 0.8–1.2 V at nominal temperature. This is a proposed acceptance requirement to measure."
+    ],
+    "p-spec/measure": [
+      "Save the design-brief case study under its lesson project.",
+      ["Choose Save work and check that the project path appears in Student Hub.", "Reopen the lesson to verify the case-study schematic can be reproduced."],
+      "Save the current-mirror project with IREF, MREF and MOUT. Keep the written target and measurement conditions with it."
+    ],
+    "p-review/build": [
+      "Collect a reproducible before-and-after result and explain one failure.",
+      ["Resume the saved current-mirror case and inspect its fixture and settings.", "Revisit a completed lab. Record the revision, what you changed, the checker’s limit and the measured difference."],
+      "For example, in the loading lab compare approximately 0.600 V with a 10 kΩ load and 0.896 V with 1 MΩ under the same source."
+    ],
+    "p-review/measure": [
+      "Save the review project and export a portfolio that another learner can follow.",
+      ["Return to the review lesson and choose Save work. Record your evidence summary in the reflection.", "In Student Hub use More → Export portfolio report. Use Export learning record if you need the saved projects and evidence references."],
+      "Include the exact task, initial result, design change, repeated conditions and final measurement. Preserve the saved project and referenced run."
+    ],
+    "c-filter/build": [
+      "Repair the analog input filter so the SAR can acquire within 2 mV.",
+      ["Open workspace and locate Cfilter at the input filter.", "Compare the RC time constant with the acquisition window. Reduce Cfilter and retain the controller RTL for later milestones."],
+      "Change Cfilter from 1n to 100p. With 1 kΩ this gives a 100 ns filter time constant."
+    ],
+    "c-filter/measure": [
+      "Prove that all eight input samples meet the acquisition error target.",
+      ["Run lesson on the filter repair. In Results, locate the acquisition error checks.", "Inspect the held voltage at every acquisition edge and compare with the 2 mV criterion."],
+      "Cfilter = 100p meets the acquisition check with the prescribed input. The digital polarity and averaging repairs are covered in later milestones."
+    ],
+    "c-sar/build": [
+      "Repair the SAR comparator interpretation while preserving the analog filter change.",
+      ["Choose Open RTL and open sar_controller.sv.", "Trace the meaning of cmp on the decision edge. Invert the condition that clears the trial bit, then apply."],
+      "Replace if (cmp) with if (!cmp) in the trial decision. Keep the other logic and reference checks fixed."
+    ],
+    "c-sar/measure": [
+      "Verify all eight conversion codes, cadence and comparator decisions.",
+      ["Run lesson and open the bridge Results for the repaired controller.", "Trace the committed rows and compare the cadence with the expected sequence."],
+      "The codes are 1, 3, 5, 7, 8, 10, 12, 14 at edges 7, 15, 23, 31, 39, 47, 55, 63, with 32 decisions."
+    ],
+    "c-average/build": [
+      "Correct the four-sample rounded average without changing threshold or valid timing.",
+      ["Open RTL and select sensor_controller.sv. Locate the wide total and rounded_average.", "Divide the four-sample rounding expression by four with a two-bit right shift, then apply the edit."],
+      "Use (total + 6'd2) >> 2. The offset rounds halves upward before the shift."
+    ],
+    "c-average/measure": [
+      "Verify the reference average, valid and alarm outputs on the nominal run.",
+      ["Run lesson and open Results. Find the block average events.", "Match each average and alarm state to its output-valid edge and check the full nominal result."],
+      "Averages are 4 and 11. Valid pulses are at edges 32 and 64. Alarm is 0 then 1. All nominal requirements pass."
+    ],
+    "c-qualify/build": [
+      "Save the complete three-repair sensor design to use as the qualification candidate.",
+      ["Inspect Cfilter, the SAR comparator condition and the average expression.", "Choose Save work and verify that the campaign will use the saved lesson project."],
+      "The candidate uses 100p Cfilter, if (!cmp), and (total + 6'd2) >> 2."
+    ],
+    "c-qualify/measure": [
+      "Pass the four independent sensor qualification cases with one design.",
+      ["Choose Run qualification in the guide and wait for all four cases.", "Open each report. Compare acquisitions, conversion cadence, averages, valid pulses and alarms under the case’s inputs."],
+      "Use the candidate from the previous step in nominal, low-rail, high-rail and input-change-during-hold cases. Each case must report PASS for its stated requirements."
+    ],
+    "project-opamp/fixture": [
+      "Set up a 1 pF amplifier loop-gain fixture with a bias-preserving injection path.",
+      ["Choose Open workspace on this step. Select CL and enter the specified load in Properties.", "Trace VDD, common-mode bias and current source, then open Edit testbench to inspect the loop ratio and limits."],
+      "Use CL = 1p, 0.9 V input bias and 5 µA bias current. Keep the DC loop closed through the fixture’s inductor and the existing AC injection direction."
+    ],
+    "project-opamp/sizing": [
+      "Demonstrate an input-pair bias of 25–150 µS gm, 6–28 V⁻¹ efficiency and at least 15 mV saturation margin.",
+      ["Open the Miller core. Trace M1/M2, their tail and the compensation capacitors.", "Estimate gm from 2πfuCc, then divide by a chosen gm/ID and measure current density for an initial width.", "Keep M1/M2 equal. Run testbenches, open the device-bias result, and use Analog design workspace → Optimize to compare two widths."],
+      "For fu = 1 MHz and Cc = 4 pF, gm ≈ 25 µS and the 12 V⁻¹ estimate is 2.1 µA per branch. In the supplied SKY130 fixture, M1 and M2 at W = 10u and L = 1u measure about 101.3 µS, 20.2 V⁻¹ and 463 mV margin."
+    ],
+    "project-opamp/bias": [
+      "Size the separate PMOS reference for 4–6 µA at every clamp voltage from 0.45 to 0.85 V.",
+      ["Open the PMOS mirror. Trace MPREF gate-to-drain and both PMOS source/body ties to VDD.", "Estimate RSET = (1.8 V − measured SET gate-to-source magnitude)/5 µA. Change RSET in the clamp fixture.", "Run the compliance sweep. Use Results to check both endpoint currents. If current is high across the range, increase RSET and rerun."],
+      "Use RSET = 130k. The nominal sweep from 0.45 to 0.85 V gives approximately 4.81–4.86 µA. The amplifier benches retain their separate 5 µA ideal bias."
+    ],
+    "project-opamp/schematic": [
+      "Meet the saved op-amp bias, gain, stability, power, noise and startup requirements at a 1 pF load.",
+      ["Confirm CL = 1 pF. Choose Run testbenches for operating point, AC, noise and startup.", "Open the named runs. Check OUT bias, static power, gain, unity crossing, phase margin, integrated noise and startup settling.", "Keep limit definitions fixed. If a metric fails, change one sizing or compensation value and repeat the same measurements."],
+      "With the supplied Miller core and CL = 1p, the nominal runs give 0.901 V output bias, 57.9 µW static power, 81.1 dB gain, a 4.66 MHz unity crossing, 59.0° phase margin and 16.6 µs startup settling. The 10 Hz–10 MHz input and output integrated noise are each about 145 µV RMS."
+    ],
+    "project-opamp/layout": [
+      "Produce a linked SKY130 core layout with physical pins and matching intent.",
+      ["Choose Generate core layout and apply the preview. Open the resulting cell in Layout.", "Cross-probe M1/M2 and M3/M4, both compensation capacitors, source/body ties, guard and supply straps.", "Use Linked view to compare terminal routes and verify all ports. Apply a schematic-driven layout update if you have changed device sizes."],
+      "Apply the generated core, keep matching constraints, body ties and the linked physical ports. This earns the linked-geometry checkpoint before process DRC and LVS."
+    ],
+    "project-opamp/bias-layout": [
+      "Lay out the separate PMOS reference and verify that SET, OUT, and supply are connected.",
+      ["Choose Generate bias mirror layout and review both device footprints before applying.", "Trace common gates and source/body ties in Layout. Locate the diode-connected SET pin and MPOUT’s separate OUT pin."],
+      "Use the generated matched PMOS pair, its shared VDD well ties and SET/OUT ports. RSET is external to this layout."
+    ],
+    "project-opamp/post-layout": [
+      "Run process DRC, extracted LVS and electrical comparisons on both the amplifier and bias mirror.",
+      ["Link a complete SKY130A revision and configure Magic and Netgen in Physical tools setup.", "If necessary, choose Migrate PDK revision, confirm device mappings, and run the schematic benches again.", "Choose Run post-layout checks. In Results review DRC/LVS, extraction mode and the same electrical tests for each named bench."],
+      "Generate both linked layouts and keep the accepted schematic fixtures. Require a clean DRC and LVS result and passing schematic/extracted metrics under unchanged limits. Keep the board load and bias programming components in their testbench."
+    ],
+    "project-tia/fixture": [
+      "Match the AC and pulse feedback networks for a nominal 100 kΩ photodiode TIA.",
+      ["Choose Open workspace for the AC fixture. Trace the 0.9 V VCM, VSENSE, 2 pF CPD, 1.8 V supply, and 1 pF load.", "Inspect the parallel RF/CF path from OUT to SENSE. Change AC RF to match the saved pulse fixture and review Edit testbench."],
+      "Set RF = 100k and CF = 2p in both fixtures. Keep VSENSE as the series zero-volt probe and the 5 µA bias source."
+    ],
+    "project-tia/sizing": [
+      "Demonstrate an input-pair bias of 25–150 µS gm, 6–28 V⁻¹ efficiency and at least 15 mV saturation margin.",
+      ["Open the Miller core. Trace M1/M2, their tail and the compensation capacitors.", "Estimate gm from 2πfuCc, then divide by a chosen gm/ID and measure current density for an initial width.", "Keep M1/M2 equal. Run testbenches, open the device-bias result, and use Analog design workspace → Optimize to compare two widths."],
+      "For fu = 1 MHz and Cc = 4 pF, gm ≈ 25 µS and the 12 V⁻¹ estimate is 2.1 µA per branch. In the supplied SKY130 fixture, M1 and M2 at W = 10u and L = 1u measure about 101.3 µS, 20.2 V⁻¹ and 463 mV margin."
+    ],
+    "project-tia/bias": [
+      "Size the separate PMOS reference for 4–6 µA at every clamp voltage from 0.45 to 0.85 V.",
+      ["Open the PMOS mirror. Trace MPREF gate-to-drain and both PMOS source/body ties to VDD.", "Estimate RSET = (1.8 V − measured SET gate-to-source magnitude)/5 µA. Change RSET in the clamp fixture.", "Run the compliance sweep. Use Results to check both endpoint currents. If current is high across the range, increase RSET and rerun."],
+      "Use RSET = 130k. The nominal sweep from 0.45 to 0.85 V gives approximately 4.81–4.86 µA. The amplifier benches retain their separate 5 µA ideal bias."
+    ],
+    "project-tia/schematic": [
+      "Meet the saved TIA gain, bandwidth, peaking and 1 µA photocurrent step requirements.",
+      ["Confirm both fixtures have matching RF and CF, then choose Run testbenches.", "In AC Results inspect Vout/I(VSENSE) at 100 Hz, the −3 dB point and peak. In pulse Results measure the output drop and 2% settling."],
+      "Use RF = 100k and CF = 2p in both fixtures. The nominal result is about 100 kΩ at 100 Hz, 977 kHz bandwidth, 0 dB normalized peaking, and a 100 mV drop settling in 0.58 µs."
+    ],
+    "project-tia/layout": [
+      "Produce a linked SKY130 core layout with physical pins and matching intent.",
+      ["Choose Generate core layout and apply the preview. Open the resulting cell in Layout.", "Cross-probe M1/M2 and M3/M4, both compensation capacitors, source/body ties, guard and supply straps.", "Use Linked view to compare terminal routes and verify all ports. Apply a schematic-driven layout update if you have changed device sizes."],
+      "Apply the generated core, keep matching constraints, body ties and the linked physical ports. This earns the linked-geometry checkpoint before process DRC and LVS."
+    ],
+    "project-tia/bias-layout": [
+      "Lay out the separate PMOS reference and verify that SET, OUT, and supply are connected.",
+      ["Choose Generate bias mirror layout and review both device footprints before applying.", "Trace common gates and source/body ties in Layout. Locate the diode-connected SET pin and MPOUT’s separate OUT pin."],
+      "Use the generated matched PMOS pair, its shared VDD well ties and SET/OUT ports. RSET is external to this layout."
+    ],
+    "project-tia/post-layout": [
+      "Run process DRC, extracted LVS and electrical comparisons on both the amplifier and bias mirror.",
+      ["Link a complete SKY130A revision and configure Magic and Netgen in Physical tools setup.", "If necessary, choose Migrate PDK revision, confirm device mappings, and run the schematic benches again.", "Choose Run post-layout checks. In Results review DRC/LVS, extraction mode and the same electrical tests for each named bench."],
+      "Generate both linked layouts and keep the accepted schematic fixtures. Require a clean DRC and LVS result and passing schematic/extracted metrics under unchanged limits. Keep the board load and bias programming components in their testbench."
+    ],
+    "l-layout-decisions/via": [
+      "Repair the offset via so both landing layers provide at least 75 nm of enclosure.",
+      ["Open workspace and select the via in Layout. Read its rectangle in Properties → Geometry (µm).", "Find the shared pad center and place the via center on it. Inspect the four side margins on both layers."],
+      "For 0.50 µm pads and a 0.15 µm cut, set Left = Top = 0.175 µm. Each edge has 0.175 µm nominal enclosure."
+    ],
+    "l-layout-decisions/matching": [
+      "Give the four equal units a common centroid while retaining size and spacing.",
+      ["Open workspace and calculate the current A and B mean X coordinates.", "Swap the required inner/outer units to make both means equal. Keep the four sites and the ≥0.20 µm spacing."],
+      "At centers 0.2, 1.0, 1.8 and 2.6 µm, ABBA and BAAB both give group centroids of 1.4 µm."
+    ],
+    "l-layout-decisions/connectivity": [
+      "Demonstrate why clean width and spacing do not prove that vout is connected.",
+      ["Open the routing cell in Layout. Select only the metal-1 vout path between the resistor and capacitor.", "Delete it. Compare Geometry DRC with the linked connectivity check, then undo the deletion before checking."],
+      "The disconnected pads can be DRC-clean. Restore the original vout path so the two physical terminals share the intended net."
+    ],
+    "l-layout-decisions/baseline": [
+      "Capture the original vout interconnect and determine whether it meets the 12.5 GHz limit.",
+      ["Preserve the original thin path. Calculate 1/(2πRC) for the schematic and sheet resistance times length/width for the route.", "Choose Compare route RC. Open Results and read the schematic and extracted bandwidths and modeled route resistance."],
+      "The schematic 1 kΩ/10 fF pole is about 15.9 GHz. The 0.20 µm route is about 226.65 Ω and misses 12.5 GHz with extraction."
+    ],
+    "l-layout-decisions/optimize": [
+      "Meet 12.5 GHz after interconnect extraction without changing the schematic or route endpoints.",
+      ["Select only the vout path in Layout and edit the width. Re-run Compare route RC at each candidate width.", "Use Results to compare added capacitance, route resistance and bandwidth. Finish on a passing width and rerun if necessary."],
+      "Use width 0.40 µm. It clears 12.5 GHz in this model; 0.80 µm adds enough capacitance to miss the target."
+    ],
+    "a-lc-bode/slopes": [
+      "Identify low-pass, high-pass, band-pass and notch slopes and phase on the shared AC sweep.",
+      ["Trace the four output taps across C, L, R and the LC pair. Calculate f₀ and use frequencies a decade apart.", "Choose Run AC sweep, then Results. Select each response and compare the dashed hand sketch to the measured plot."],
+      "The low-pass goes 0 to −40 dB/decade, high-pass +40 to 0, band-pass +20 to −20. The notch tends to 0 dB at both ends, with undefined phase at an exact null."
+    ],
+    "a-lc-bode/damping": [
+      "Reduce low-pass peaking while keeping the same natural frequency.",
+      ["Record the baseline RLP and response. Calculate Q = √(L/C)/R and increase only RLP.", "Run the new AC sweep. Compare Q, peak and the magnitude near the −90° crossing."],
+      "Use RLP = 470 Ω with 10 mH and 100 nF. Q ≈ 0.673 and gain at f₀ is about −3.44 dB."
+    ],
+    "a-lc-bode/tune": [
+      "Move the low-pass natural frequency to about 10 kHz while leaving the three comparison branches unchanged.",
+      ["Keep LLP at 10 mH and solve C = 1/[(2πf₀)²L]. Change CLP only.", "Run AC sweep. In Results use the low-pass phase crossing near −90° and read f₀ in the sample table."],
+      "Set CLP = 25.33n for 10 kHz. Keeping RLP = 470 Ω gives a different Q at the new frequency."
+    ],
+    "project-bias-reference/reference": [
+      "Set the simple mirror to 4.5–5.5 µA at the 1.4 V clamp with at least 50 mV margin.",
+      ["Open simple_bias_fixture and run the baseline. In Results read VSET and the two source currents.", "Compute a starting RSET from (1.8−VSET)/5 µA. Edit RSET, rerun, and inspect ID, ID/W, gm/ID and saturation margin."],
+      "With the original matched devices, use RSET = 240k. The nominal simple mirror sinks about 5.34 µA."
+    ],
+    "project-cascode/compare": [
+      "Compare simple and cascode output resistance and compliance with both sinks near 5 µA.",
+      ["Open cascode_bias_fixture. Use its diode-stack voltage to choose RSET at the 1.4 V clamp.", "Choose Run testbenches. In Results read both branch currents and estimate ΔV/ΔI from 1.20 to 1.50 V.", "Read the 5% flatness knees separately from the nominal saturation-floor estimates."],
+      "Use 240k for the simple reference and 82k for the cascode. Nominal currents are about 5.34/5.46 µA, output resistances about 2.21/395 MΩ, and 5% knees 0.85/0.25 V."
+    ],
+    "project-cascode/corners": [
+      "Meet 3–7 µA and at least 50 mV stack margin across nine process and temperature cases.",
+      ["Keep the clamp at 1.4 V and supply at 1.8 V. Choose Run nine PVT cases.", "Open Results and compare nominal, SS and FF across −40, 27 and 85 °C. Inspect the worst current and smallest margin before revising anything."],
+      "With RSET = 82k, about 4.05–6.70 µA spans the nine cases. The minimum stack margin is about 475 mV. Use one resistor and geometry for all cases."
+    ],
+    "project-bandgap-widlar/accuracy": [
+      "Hold Widlar VREF at 1.29–1.55 V with ≤180 µA supply current and ≤160 mV temperature span.",
+      ["Open workspace. Identify RFEED and R2, and trace the detector and Q3 shunt.", "Run the temperature sweep and inspect six nominal points from −40 to 125 °C in Results. Compare a longer RFEED trial, then restore the working setting."],
+      "Start with 1 µm wide poly and lengths RFEED = 22 µm, R1/R2/R3 = 9/100/9 µm. The shorter feed sustains the hot shunt current better than 44 µm."
+    ],
+    "project-bandgap-widlar/startup": [
+      "Demonstrate Widlar startup by 350 µs for both supply ramps, with 1.29–1.55 V final VREF, peak ≤1.62 V and ripple ≤4 mV.",
+      ["Choose Run startup cases with the current trim. This runs 100 ns and 100 µs ramps from zero.", "Open Results and inspect the nominal, SS and FF cases at −40, 27 and 125 °C and the two extra rail cases.", "Compare first sustained entry into the band, peak and the ripple over the last 100 µs. If a case fails, revise one component and rerun the matrix."],
+      "Start with the 22 µm RFEED and 9/100/9 µm R1/R2/R3. Use both ramps and include the 3.2/3.4 V extra rail conditions. A passing capture enters 1.29–1.55 V by 350 µs, stays below 1.62 V peak and meets the 4 mV ripple limit."
+    ],
+    "project-bandgap-widlar/layout": [
+      "Verify linked terminals and local layout geometry for the Widlar reference.",
+      ["Open Layout and choose Generate layout to create the native device placements and buses.", "Trace VDD, VSS and VREF. Inspect device dimensions, contacted wells/substrate and every metal layer change.", "Use Check this step. As a comparison, remove a via, read the connection failure, then undo and verify the restored layout."],
+      "Use the generated Widlar layout with all three named ports and every device terminal connected. A missing via opens a bus. Undo that experiment before the graded layout check."
+    ],
+    "project-bandgap-widlar/post-layout": [
+      "Pass the schematic/extracted comparison with at most 25 mV final VREF shift for Widlar.",
+      ["Configure Magic and ngspice, then choose Run extracted comparison for the current layout.", "In Results compare the six temperature points and both ramps for nominal, cold SS and hot FF. Check extracted geometry and terminal equivalence as well as electrical limits.", "Select the worst shift and compare the dashed extracted and solid schematic traces under the same conditions."],
+      "Keep the reference sizing and valid connected layout. The fresh extraction must preserve the declared ports and device dimensions and meet the same electrical limits. Require every matched result to stay within 25 mV shift."
+    ],
+    "project-bandgap-brokaw/accuracy": [
+      "Hold Brokaw VREF at 1.14–1.26 V with ≤180 µA supply current and ≤30 mV temperature span.",
+      ["Open workspace and trace both branch currents into shared R1. Keep R2 fixed and predict the effect of R1 trim.", "Choose Run temperature sweep. Compare all six temperatures and the full voltage span."],
+      "Use 1 µm wide poly, R1 length 46 µm and R2 length 10 µm as the reference. R1 sees both branch currents, so its weighting includes the factor of two."
+    ],
+    "project-bandgap-brokaw/startup": [
+      "Demonstrate Brokaw startup by 350 µs for both supply ramps, with 1.14–1.26 V final VREF, peak ≤1.40 V and ripple ≤4 mV.",
+      ["Choose Run startup cases with the current trim. This runs 100 ns and 100 µs ramps from zero.", "Open Results and inspect the nominal, SS and FF cases at −40, 27 and 125 °C and the two extra rail cases.", "Compare first sustained entry into the band, peak and the ripple over the last 100 µs. If a case fails, revise one component and rerun the matrix."],
+      "Start with the 46/10 µm R1/R2 and supplied MDRIVE and CSTAB. Use both ramps and include the 3.0/3.6 V extra rail conditions. A passing capture enters 1.14–1.26 V by 350 µs, stays below 1.40 V peak and meets the 4 mV ripple limit."
+    ],
+    "project-bandgap-brokaw/layout": [
+      "Verify linked terminals and local layout geometry for the Brokaw reference.",
+      ["Open Layout and choose Generate layout to create the native device placements and buses.", "Trace VDD, VSS and VREF. Inspect device dimensions, contacted wells/substrate and every metal layer change.", "Use Check this step. As a comparison, remove a via, read the connection failure, then undo and verify the restored layout."],
+      "Use the generated Brokaw layout with all three named ports and every device terminal connected. A missing via opens a bus. Undo that experiment before the graded layout check."
+    ],
+    "project-bandgap-brokaw/post-layout": [
+      "Pass the schematic/extracted comparison with at most 25 mV final VREF shift for Brokaw.",
+      ["Configure Magic and ngspice, then choose Run extracted comparison for the current layout.", "In Results compare the six temperature points and both ramps for nominal, cold SS and hot FF. Check extracted geometry and terminal equivalence as well as electrical limits.", "Select the worst shift and compare the dashed extracted and solid schematic traces under the same conditions."],
+      "Keep the reference sizing and valid connected layout. The fresh extraction must preserve the declared ports and device dimensions and meet the same electrical limits. Require every matched result to stay within 25 mV shift."
+    ],
+    "project-bandgap-kuijk/accuracy": [
+      "Hold Kuijk VREF at 1.14–1.26 V with ≤180 µA supply current and ≤30 mV temperature span.",
+      ["Open workspace and identify the two sense inputs and R1/R2/R3. Predict the effect of changing R2 on both current ratio and weighting.", "Run temperature sweep. In Results, compare all six points and restore the candidate that meets voltage, current and span limits."],
+      "Use 1 µm wide poly with lengths 100/95/10 µm for R1/R2/R3. The ratios set the current-density difference and PTAT weighting."
+    ],
+    "project-bandgap-kuijk/startup": [
+      "Demonstrate Kuijk startup by 350 µs for both supply ramps, with 1.14–1.26 V final VREF, peak ≤1.80 V and ripple ≤4 mV.",
+      ["Choose Run startup cases with the current trim. This runs 100 ns and 100 µs ramps from zero.", "Open Results and inspect the nominal, SS and FF cases at −40, 27 and 125 °C and the two extra rail cases.", "Compare first sustained entry into the band, peak and the ripple over the last 100 µs. If a case fails, revise one component and rerun the matrix."],
+      "Start with the 100/95/10 µm R1/R2/R3 and supply-tracking capacitors. Use both ramps and include the 3.0/3.6 V extra rail conditions. A passing capture enters 1.14–1.26 V by 350 µs, stays below 1.80 V peak and meets the 4 mV ripple limit."
+    ],
+    "project-bandgap-kuijk/layout": [
+      "Verify linked terminals and local layout geometry for the Kuijk reference.",
+      ["Open Layout and choose Generate layout to create the native device placements and buses.", "Trace VDD, VSS and VREF. Inspect device dimensions, contacted wells/substrate and every metal layer change.", "Use Check this step. As a comparison, remove a via, read the connection failure, then undo and verify the restored layout."],
+      "Use the generated Kuijk layout with all three named ports and every device terminal connected. A missing via opens a bus. Undo that experiment before the graded layout check."
+    ],
+    "project-bandgap-kuijk/post-layout": [
+      "Pass the schematic/extracted comparison with at most 25 mV final VREF shift for Kuijk.",
+      ["Configure Magic and ngspice, then choose Run extracted comparison for the current layout.", "In Results compare the six temperature points and both ramps for nominal, cold SS and hot FF. Check extracted geometry and terminal equivalence as well as electrical limits.", "Select the worst shift and compare the dashed extracted and solid schematic traces under the same conditions."],
+      "Keep the reference sizing and valid connected layout. The fresh extraction must preserve the declared ports and device dimensions and meet the same electrical limits. Require every matched result to stay within 25 mV shift."
+    ],
+    "project-bandgap-banba/accuracy": [
+      "Hold Banba VREF at 0.57–0.63 V with ≤80 µA supply current and ≤12 mV temperature span.",
+      ["Open workspace. Verify RCA and RCB match and inspect the PTAT and output scaling resistors.", "Run temperature sweep and compare the ROUT trial and nominal setting. Use RPTAT to adjust slope, with the output capacitors fixed."],
+      "Use the supplied 50.15 µm ROUT and matched RCA/RCB. A 60 µm trial raises VREF. Restore 50.15 µm and use the saved RPTAT trim as the reference."
+    ],
+    "project-bandgap-banba/startup": [
+      "Demonstrate Banba startup by 350 µs for both supply ramps, with 0.57–0.63 V final VREF, peak ≤0.75 V and ripple ≤2 mV.",
+      ["Choose Run startup cases with the current trim. This runs 100 ns and 100 µs ramps from zero.", "Open Results and inspect the nominal, SS and FF cases at −40, 27 and 125 °C and the two extra rail cases.", "Compare first sustained entry into the band, peak and the ripple over the last 100 µs. If a case fails, revise one component and rerun the matrix."],
+      "Start with the 50.15 µm ROUT, the saved RPTAT and the tracking capacitors. Use both ramps and include the 3.0/3.6 V extra rail conditions. A passing capture enters 0.57–0.63 V by 350 µs, stays below 0.75 V peak and meets the 2 mV ripple limit."
+    ],
+    "project-bandgap-banba/layout": [
+      "Verify linked terminals and local layout geometry for the Banba reference.",
+      ["Open the supplied routed Banba layout. Use Regenerate layout only if you choose to replace that geometry.", "Trace VDD, VSS and VREF. Inspect device dimensions, contacted wells/substrate and every metal layer change.", "Use Check this step. As a comparison, remove a via, read the connection failure, then undo and verify the restored layout."],
+      "Use the supplied routed Banba reference with all three named ports and every device terminal connected. A missing via opens a bus. Undo that experiment before the graded layout check."
+    ],
+    "project-bandgap-banba/post-layout": [
+      "Pass the schematic/extracted comparison with at most 12 mV final VREF shift for Banba.",
+      ["Configure Magic and ngspice, then choose Run extracted comparison for the current layout.", "In Results compare the six temperature points and both ramps for nominal, cold SS and hot FF. Check extracted geometry and terminal equivalence as well as electrical limits.", "Select the worst shift and compare the dashed extracted and solid schematic traces under the same conditions."],
+      "Keep the reference sizing and valid connected layout. The fresh extraction must preserve the declared ports and device dimensions and meet the same electrical limits. Require every matched result to stay within 12 mV shift."
+    ],
+    "interview-differential/differential": [
+      "Measure differential current steering and identify the common-mode headroom limit.",
+      ["Choose Run testbenches for differential and common-mode sweeps. Open Results and compare the left current share at each end and at zero.", "In the fixed 10 mV difference sweep, locate the first usable common-mode point and compare V(TAIL) with the tail device margin."],
+      "The matched pair splits current approximately 50:50 at zero. Positive input difference pulls the left drain down. Low common mode reduces tail headroom. Use the recorded usable interval."
+    ],
+    "interview-input-pairs/input-pairs": [
+      "Compare NMOS and PMOS input common-mode range at roughly matched nominal bias.",
+      ["Run both common-mode sweeps and compare tail currents at 0.70 V. Trim VBIAS only if currents differ by more than 20%.", "Read the usable range from Results under the stated gain/current limits. Compare each range against the low- and high-rail sensor conditions."],
+      "The saved fixtures give 2.66 and 2.62 µA at 0.70 V. Their usable ranges are 0.62–1.80 V for NMOS and 0–0.78 V for PMOS, favoring opposite rails."
+    ],
+    "interview-gain/gain": [
+      "Use measured gm and output conductance to explain the effect of bias and a 50 kΩ load.",
+      ["Run the VG = .64, .65 and .66 V drain sweeps. Open Results and read the magnitude of I(VD).", "Compare computed gm, ro and gain at VDS = 0.08 and 0.80 V. Replace ro with ro ∥ 50 kΩ for the loaded estimate."],
+      "Use gm ≈ ΔID/ΔVG, ro ≈ ΔVD/ΔID, and Av ≈ −gm(ro ∥ 50 kΩ). Near the low drain voltage, larger gds lowers gain."
+    ],
+    "interview-slew/slew": [
+      "Distinguish small-signal response, large-signal slew and final tracking error across both loads.",
+      ["Run the small-step and four large-step cases. In Results select out and compare rising and falling edges from 2 µs.", "Read 10–90% time, 2% dynamic settling and DC command error separately. Calculate a slope from the nearly linear portion."],
+      "The example 500 mV fall takes about 141 ns at 2 pF and 384 ns at 8 pF. A larger load needs more charge. Settling accuracy and final error remain separate measurements."
+    ],
+    "interview-noise/noise": [
+      "Compare integrated input and output noise and identify the largest source terms.",
+      ["Run the 1 kΩ and 100 kΩ noise fixtures. Open Results and compare the same 10 Hz–1 MHz band.", "Read input-referred RMS, output RMS and the largest named contributors. Inspect the spectrum and resistor value together."],
+      "The ideal source resistor has about 4.1 versus 40.7 nV/√Hz at room temperature. Compare the captured integrated noise and contributors separately. Square and sum independent terms."
+    ],
+    "interview-mismatch/mismatch": [
+      "Quantify the effect of device area on offset spread and of unequal loads on offset mean.",
+      ["Run the 64 seeded trials per area and open both histograms. Read mean, sigma and count within ±8 mV.", "Compare whose distribution narrows. As a separate trial, match RL to RR in both cells and rerun the same seed."],
+      "Quadrupling area roughly halves input-referred sigma. Changing RL from 15.3 kΩ to match RR at 15 kΩ targets the systematic mean rather than the random width."
+    ],
+    "interview-comparator/comparator": [
+      "Compare regeneration delay and input kickback at two overdrive levels.",
+      ["Run the 3 mV and 40 mV cases at 0.90 V common mode and open Results.", "From the 20 ns clock edge, measure the output crossing for OUTN−OUTP = 0.9 V. Separately plot either input against its source to inspect kickback."],
+      "The 3 mV case starts closer to metastability and decides more slowly. Input kickback is read on INP/INN relative to the source, not from the output edge."
+    ],
+    "interview-sar/sar-fault": [
+      "Measure the MSB error and distinguish it from acquisition error and hold pedestal.",
+      ["Keep the faulty C3 unchanged and run both driver cases. Plot hold around 50 ns and around the 75 ns MSB event.", "Read settled acquisition error, pedestal and MSB step. Compare fast and slow cases before inferring the code."],
+      "With C3 = 650 fF the MSB step is too small. Compare it to the 0.80 V target. Diagnose using the fast driver so slow acquisition is not mistaken for bad bit weight."
+    ],
+    "interview-sar/sar-repair": [
+      "Restore the MSB step to within 25 mV of 0.80 V while preserving the other capacitor values.",
+      ["Choose Open circuit and locate C3. Set it to the sum of the three smaller binary capacitors plus the dummy unit.", "Run the same two acquisition cases. In Results check MSB step and fast-driver acquisition, then compare the code at 0.76 V."],
+      "Set C3 to 800 fF. The corrected MSB step is approximately 0.80 V and the fast-driver acquisition error is within 15 mV."
+    ],
+    "interview-ldo/ldo": [
+      "Measure DC dropout, load/ESR response, rail-step rejection and startup under the saved LDO fixtures.",
+      ["Run all saved LDO testbenches. Compare the two 25–100 µA load-step cases at 120 pF in Results.", "Find the last exit from the 2% band around 1.20 V, compare damping at both ESRs, then inspect the gate and output in the VIN sweep."],
+      "Read dropout from the DC input sweep when gate drive saturates. Compare ESR using the same load step, the line-step at fixed load, and startup from the supply ramp as separate evidence."
+    ],
+    "interview-post-layout-debug/route-baseline": [
+      "Capture a schematic pass and an extracted timing miss on the supplied interconnect.",
+      ["Open workspace in Layout and leave vout at 0.20 µm. Run Compare extracted interconnect.", "Open Results and compare the schematic and extracted 2% settling times against 50 ps."],
+      "The schematic settles within 50 ps and the extracted 0.20 µm case exceeds 50 ps under the same stimulus."
+    ],
+    "interview-post-layout-debug/route-repair": [
+      "Restore extracted precision settling to 50 ps or less while preserving connectivity.",
+      ["Select the vout path in Layout and increase its width while keeping the endpoints.", "Re-run the same interconnect comparison. Check both settling times and geometry before picking the final width."],
+      "Set the route width to 0.40 µm. The schematic waveform stays the same and measured extracted settling drops below 50 ps."
+    ],
+    "l-fold/single": [
+      "Verify the original single-finger GF180 NMOS through process DRC and LVS.",
+      ["Choose Open workspace and locate the gate, source, drain and body access in single_finger.", "Set up Magic and Netgen if prompted. Run process DRC/LVS and open Results for the original layout."],
+      "Use the supplied one-finger, 2 µm total-width device with its linked body tie and ports. Require actual process DRC and matching extraction."
+    ],
+    "l-fold/folded": [
+      "Generate and verify four fingers at the same total width and channel length.",
+      ["Choose Open workspace, switch to Schematic and select MN1. Set its PDK finger-count field to four.", "Keep W and L fixed. Choose Generate device layout, inspect the alternating diffusions, then run process DRC/LVS."],
+      "Set nf = 4, W = 2 µm total and L = 0.28 µm. Each finger is 0.50 µm wide. Read both process results."
+    ],
+    "l-body/tie": [
+      "Connect the floating body to SOURCE without joining gate or drain.",
+      ["Open Layout. Find the left body contact and source landing on metal1.", "Draw a metal-1 path between them on SOURCE. Run process DRC/LVS and confirm the removed open."],
+      "Connect (−2.50, 1.00) to (−0.50, 1.00) µm with a 0.40 µm metal1 path labelled SOURCE."
+    ],
+    "l-match/balance": [
+      "Match the active placement centroid and bring the two input route resistances within 5%.",
+      ["Open workspace. Keep the two end dummies and compare the positions of the middle four devices.", "Move the inner units to equalize centroids. Inspect the routes at Y = +4 and −4 µm, then adjust the narrower path."],
+      "Use dummy–A–B–B–A–dummy. Widen inp to 0.40 µm to match inn. The model gives 60 Ω on each input."
+    ],
+    "l-dac/array": [
+      "Place seven identical tiles in the three bit groups so the intended capacitance ratio is 1:2:4.",
+      ["Open workspace and show the unit_capacitor layer. Count the tiles on each rail.", "Select the outlying upper tile and move it onto the upper row alongside the existing three. Preserve size and y coordinate."],
+      "Move C23 so its center is X = 8.5 µm. The rows then have 1, 2 and 4 ten-femtofarad units."
+    ],
+    "l-dac/baseline": [
+      "Measure the original routed DAC code levels and isolate the disturbed bit weight.",
+      ["Open workspace and identify the three bit rails and the common top plate.", "Trace the long bit2 stub close to the top plate. Use Check this step and record the effective weights and endpoint-normalized INL."],
+      "Leave bit2_stub in place for the baseline. The nearby top plate increases the effective MSB weight and the baseline peak INL exceeds 0.23 LSB."
+    ],
+    "l-dac/repair": [
+      "Reduce peak endpoint INL below 0.16 LSB without disconnecting any capacitor units.",
+      ["Select the extra bit2 stub, identify where the four active tiles join the main rail, and remove only the unused branch.", "Check connectivity and read the new bit weights and eight code levels."],
+      "Delete bit2_stub with the seven unit tiles and top plate intact. Effective weights return to 10, 20 and 40 fF."
+    ],
+    "l-lvs/open": [
+      "Repair the open so inp reaches the correct far terminal.",
+      ["Choose Open workspace on the open case and use Check this step to read the failure.", "Trace the upper input conductor and bridge the gap to its far pad on metal1. Check the same case again."],
+      "Extend the inp route along Y = 4 µm to X = 12 µm, or bridge that open with a legal metal1 path. Keep inn separate."
+    ],
+    "l-lvs/short": [
+      "Isolate inp from inn while preserving both intended routes.",
+      ["Open workspace on the short case. Zoom to the two horizontal routes and identify their joining segment.", "Remove the unintended bridge, leaving both routes and pads. Check connectivity again."],
+      "Delete the vertical metal1 bridge at X = 6 µm. Both horizontal routes remain continuous individually."
+    ],
+    "l-lvs/swap": [
+      "Correct the swapped extraction port names without moving the physical input routes.",
+      ["Open workspace on the swapped case and read the mismatched pin from Check this step.", "Choose Edit input ports and assign the physical upper and lower terminals to the intended signals."],
+      "Assign inp to the upper terminal at Y = +4 µm and inn to the lower at Y = −4 µm."
+    ],
+    "l-eco/update": [
+      "Increase the shared transistor width to 3 µm and update its linked layout safely.",
+      ["Open shared_device in Schematic. Set MN1 total width to 3 µm.", "Choose Review device layout update. Inspect the new device dimensions and attached routes, then apply."],
+      "Use W = 3u in the schematic and the accepted linked-device update. The child ports and attached routes stay connected."
+    ],
+    "l-eco/parent": [
+      "Verify both parent placements adopt the update while retaining their connections.",
+      ["Open shared_parent and select X1 and X2. Read the referenced master in each inspector.", "Trace clk through both GATE ports. Review the child and parent connectivity."],
+      "Both X1 and X2 reference shared_device and both GATE ports remain on clk. The updated master is shared."
+    ],
+    "l-settle/baseline": [
+      "Record the original schematic and extracted differential errors at the 1.4 ns sample point.",
+      ["Open workspace and leave both outp/outn stubs. Choose Compare schematic and layout.", "Open Results. Compare the 1.4 ns differential output with the settled 2.5 ns schematic reference."],
+      "The original extracted differential error exceeds 12 mV. The stubs load the outputs even though they carry little DC current."
+    ],
+    "l-settle/repair": [
+      "Reduce extracted differential error to at most 12 mV while keeping balanced output routing.",
+      ["Open Layout and select only the two wide open-ended branches from outp and outn.", "Delete both stubs, leaving the horizontal routes and pads. Run the same comparison and read the error."],
+      "Remove the two open-ended output stubs symmetrically. The teaching run gives extracted error below 2 mV."
+    ],
+    "l-noise/close": [
+      "Capture victim disturbance for the original close same-layer clock route.",
+      ["Open noise_close and run the comparison with the original spacing.", "In Results select sense. Inspect the disturbance near the clock edge and read its peak."],
+      "Use the supplied 1.40 µm centerline spacing as the baseline. The high-impedance victim glitches when the nearby clock switches."
+    ],
+    "l-noise/space": [
+      "Reduce the measured victim glitch below 85 mV by increasing clock spacing.",
+      ["Open noise_space and choose Set clock spacing.", "Increase the separation, then run the same clock comparison and read the peak on sense."],
+      "Set the clock centerline separation to 3.60 µm. Keep the stimulus and victim wiring fixed."
+    ],
+    "l-noise/layer": [
+      "Compare the supplied metal2 clock with the same-layer baseline and state the model limit.",
+      ["Open noise_layer and verify the clock path’s layer.", "Run the comparison and read peak disturbance on sense with the same stimulus."],
+      "The included extractor reports zero coupling for this cross-layer case. The teaching model omits cross-layer coupling."
+    ],
+    "l-noise/shield": [
+      "Record the shielded layout result and describe the modeled ground return.",
+      ["Open noise_shield and trace the shield to its ground tie and far-end return.", "Run the original clock stimulus and compare the peak and loading in Results."],
+      "Use the supplied shield with the ideal tie and 1 Ω return. The model includes shield loading. Electrostatic screening needs a field model."
+    ],
+    "l-supply/baseline": [
+      "Measure the original supply drop under the fixed 1 mA load.",
+      ["Open workspace and inspect the route length, width and endpoints.", "Run the schematic/layout comparison. Read the difference between the source and load-side supply."],
+      "The 50 µm × 0.25 µm route gives 400 mV drop in the teaching interconnect model."
+    ],
+    "l-supply/repair": [
+      "Reduce load-side supply drop to at most 150 mV with the same endpoints and load.",
+      ["Select the long supply path, and adjust its Width in Properties.", "Run the same comparison. Read the load supply and verify that the route still joins both endpoints."],
+      "Set the width to 0.80 µm. With the original 1 mA load the modeled drop becomes 125 mV."
+    ],
+    "l-floorplan/loose": [
+      "Measure the initial macro footprint and distance from X1.OUT to X2.SOURCE.",
+      ["Open workspace and locate the two placements and all five physical ports.", "Find the metal1 obstacle and use Check this step to read area and pin-to-pin distance."],
+      "Use the original loose placement for this baseline. The exercise footprint exceeds 700 µm²."
+    ],
+    "l-floorplan/compact": [
+      "Fit both devices within 345 µm² and keep the signal pins within 12 µm before routing.",
+      ["Choose Adjust macro placement. Move X2 closer while checking the obstacle remains in place.", "Apply the new pitch and offset, then check footprint and pin distance. Leave the signal unrouted for the next lesson."],
+      "Set X2 pitch to 16 µm and row offset to 0 µm. Both device placements and ports remain intact."
+    ],
+    "l-access/access": [
+      "Measure a legal metal1-only detour on the compact macro before adding any route.",
+      ["Resume the compact macro from the floorplan lesson or compact it there first.", "Open workspace and use Check this step to read the estimated metal1-only path around the obstruction."],
+      "Use 16 µm pitch and 0 offset. The metal1 detour is about 14.57 µm and slightly exceeds the short-route target."
+    ],
+    "l-access/route": [
+      "Connect X1.OUT to X2.SOURCE within 14 µm and two vias, preserving the footprint and VSS.",
+      ["Choose Plan pin route. Check that compact pitch and offset are still in place.", "Permit a second metal layer if the metal1 detour is too long. Apply, then check length, via count and ports."],
+      "At 16 µm pitch and zero offset choose Metal1 and metal2. The 8.5 µm route uses two vias and retains the required ports."
+    ],
+    "l-pad-ring/trace": [
+      "Find all incorrect or missing assignments in the starting pad map.",
+      ["Open workspace and follow each perimeter route to its interior landing.", "Use Check this step to record the unassigned and mismatched port names."],
+      "PWR and GND are unassigned. INA and INB are exchanged. Y already reaches its intended landing."
+    ],
+    "l-pad-ring/repair": [
+      "Connect all five named ports to their correct perimeter pads.",
+      ["Choose Assign perimeter pad and select a schematic port and landing. Apply each assignment separately.", "Trace all five routes after assigning them and check the complete map."],
+      "PWR north, GND south, INA west upper, INB west lower and Y east. Keep the five underlying routes."
+    ],
+    "l-density/scan": [
+      "Find the density window that fails and identify the sensitive line next to fill.",
+      ["Open workspace and locate the two 20 × 20 µm measurement windows.", "Use Check this step to record current metal1 coverage and inspect the right-side sensitive line."],
+      "The right window starts below 22%. The left window serves as the unchanged comparison."
+    ],
+    "l-density/close-fill": [
+      "Capture a density-improving fill arrangement close enough to create a loading penalty.",
+      ["Choose Configure window fill. Enter a small keepout and apply.", "Use Check this step to measure coverage and estimated loading before trying a wider gap."],
+      "Use a 0.50 µm keepout for the close-fill reference. Density improves, but its loading exceeds the final limit."
+    ],
+    "l-density/repair": [
+      "Meet 22–65% coverage with estimated added loading at or below 1.4 fF.",
+      ["Reopen Configure window fill and increase the keepout from the sensitive net.", "Regenerate fill and check both windows. Compare estimated capacitance with the close-fill reference."],
+      "Set a 2.50 µm keepout. The right window exceeds 22% and the modeled loading passes 1.4 fF."
+    ],
+    "l-antenna/fault": [
+      "Identify the original conductor-to-gate area ratio at the early fabrication stage.",
+      ["Open workspace and trace the metal1 conductor attached to the 1 µm² gate.", "Use Check this step to read the connected metal area and compare the ratio with 12."],
+      "Keep the original long metal1 path for the baseline. Its area ratio exceeds the teaching limit of 12."
+    ],
+    "l-antenna/jumper": [
+      "Meet the early-metal ratio of 12 while keeping the signal connected.",
+      ["Open the jumper case and choose Add antenna repair.", "Apply a layer transition and verify continuity and early-layer area in the checkpoint."],
+      "Choose Jump to metal2. The downstream segment remains connected while less early metal is attached to the gate at that stage."
+    ],
+    "l-antenna/diode": [
+      "Meet the protected ratio of 32 using the exercise diode and the original early wire.",
+      ["Open the diode case and choose Add antenna repair.", "Attach the teaching diode and check the path and protected area ratio."],
+      "Choose Connect protection diode. Keep the long wire. The declared protected threshold is 32 in this lesson."
+    ],
+    "l-via-current/diagnose": [
+      "Find the via current bottleneck with 1.2 mA total load and a 10 mV rail limit.",
+      ["Open workspace and trace the supply current across the metal transition.", "Use Check this step to read total drop and current per cut. Compare against both budgets."],
+      "The original total drop is below 10 mV, but each cut in the starting transition exceeds the 0.45 mA budget."
+    ],
+    "l-via-current/repair": [
+      "Bring current per cut to at most 0.45 mA while preserving coverage and continuity.",
+      ["Choose Configure via array. Estimate the number of cuts from 1.2/0.45 and select a viable rectangle.", "Apply the array and check spacing/enclosure, supply connection and current per cut."],
+      "Use 2 rows × 2 columns. The equal-share current is 0.30 mA per cut."
+    ],
+    "l-isolation/ring": [
+      "Close the guard’s active and metal paths and tie it only to quiet ground.",
+      ["Open workspace, trace the existing guard perimeter and find the missing side.", "Choose Add guard segment and restore that side. Check continuity to quiet and separation from the switching net."],
+      "Add the Top segment. The closed guard is verified on the quiet net."
+    ],
+    "l-isolation/taps": [
+      "Attach enough covered guard contacts to leave no perimeter gap over 12 µm.",
+      ["Choose Place guard contacts after closing the ring.", "Increase the count and recheck cut coverage, quiet connectivity and maximum gap."],
+      "Choose 4 contacts. The largest verified gap is 11.4 µm."
+    ],
+    "l-spiral/reference": [
+      "Capture the original spiral’s estimated inductance, resistance, Q and resonance.",
+      ["Open spiral_reference. Trace the three-turn winding, underpass and matching contacts.", "Use Check this step and write down the inductance, resistance, Q at 1 GHz and self-resonance."],
+      "Keep the supplied three-turn reference. Its values are the comparison for the candidate using the same lumped model."
+    ],
+    "l-spiral/candidate": [
+      "Improve modeled Q at 1 GHz by over 5%, retain ≥1.8 nH and keep self-resonance above 3 GHz.",
+      ["Open spiral_candidate and use Tune candidate coil.", "Change one geometry field and check modeled Q, inductance and resonance against the reference."],
+      "Tune Turns to 4 with the original width and spacing. This candidate meets all three teaching limits."
+    ],
+    "l-handoff/fault": [
+      "Identify the missing exported interface label while confirming geometry and hierarchy survive writing.",
+      ["Resume the routed pass_macro project. Choose Export and inspect GDS.", "Open Results and read the independently opened stream’s top cell, placed instances, layers and missing labels."],
+      "The actual stream has top pass_macro and two children, but lacks OUT. Judge the written bytes rather than the project sidecar."
+    ],
+    "l-handoff/verify": [
+      "Export all expected pin-purpose labels with the same geometry and hierarchy.",
+      ["Choose Assign stream pin label and pick the missing port on its original landing.", "Export and inspect again. Check label layer and placement, the missing/extra lists and the reported checksum."],
+      "Assign OUT. Re-export with all five expected labels and unchanged mask geometry and hierarchy."
+    ],
+    "a-degeneration/baseline": [
+      "Measure 10 kHz gain, THD and drain bias on the original common-source stage.",
+      ["Choose Open workspace and trace RD, RS and the series VBIAS/VIN sources.", "Run experiment, then Results. Record drain current and fundamental gain next to THD across harmonics 2–5."],
+      "The original bias is about 46.1 µA, gain 3.65 V/V and THD 5.98%."
+    ],
+    "a-degeneration/repair": [
+      "Fit 43–49 µA bias, 1.25–2.8 V/V gain and ≤3% THD with the original load and sine.",
+      ["Choose Edit source degeneration to increase RS and raise VBIAS enough to retain drain bias.", "Run again and inspect Results. Compare THD only after verifying the bias and unchanged stimulus."],
+      "Use RS = 4k and VBIAS = .934 V. The measured result is about 46.0 µA, 1.64 V/V and 1.22% THD."
+    ],
+    "a-rejection/baseline": [
+      "Record differential gain, CMRR and positive-rail PSRR for the original design at 10 kHz.",
+      ["Run the three AC excitations and open Results. Read out at 10 kHz for the differential, common-mode and supply cases.", "Use 20 log₁₀(Ad/Acm) and 20 log₁₀(Ad/As) with normalized positive magnitudes."],
+      "The original differential gain is about 1.12 V/V, CMRR −0.68 dB and input-referred PSRR+ 1.03 dB."
+    ],
+    "a-rejection/repair": [
+      "Meet ≥28 dB CMRR, ≥30 dB PSRR+ and ≥1 V/V differential gain at 10 kHz.",
+      ["Use Edit rejection circuit to raise tail resistance and add supply decoupling while preserving the bias and sources.", "Run all three AC excitations. Compare the ratios only after checking Ad remains above 1 V/V."],
+      "Use RTAIL = 100k and CDEC = 1u. The result is about 30.2 dB CMRR, 33.6 dB PSRR+ and 1.27 V/V differential gain."
+    ],
+    "a-drive/baseline": [
+      "Distinguish command error, own-final settling and bias current for 100 pF and 500 pF.",
+      ["Open the source_follower reference. Run experiment for both loads.", "In Results select command and out. Compare plateau error with the time to settle near the circuit’s own final voltage."],
+      "The follower misses the command by about 35.4 mV at both loads. Settling about its own final point slows from about 0.30 to 1.46 µs."
+    ],
+    "a-drive/repair": [
+      "Meet 10 mV DC error, 4 µs settling and 35 mV peak overshoot on both feedback-buffer loads.",
+      ["Open feedback_buffer and choose Edit compensation. Adjust CDOM while preserving the specified output stage.", "Run experiment. In Results compare DC error, settling, overshoot and the original bias-current limit under both loads."],
+      "Use CDOM = 330p. DC error is about 6.22 mV, and settling is about 2.46 µs at 100 pF and 2.90 µs at 500 pF."
+    ],
+    "m-ramp/baseline": [
+      "Locate the missing or nearly missing code in the 0–1 V ramp captures.",
+      ["Choose Capture and measure ramp, then Results. Select Code density and display Code counts and DNL.", "Compare adjacent comparator thresholds around the narrow bin. Confirm full code span and a monotonic input ramp."],
+      "Code 3 is missing in the supplied case. DNL there is −1 LSB because the neighboring thresholds nearly coincide."
+    ],
+    "m-ramp/repair": [
+      "Recover all eight ramp codes with peak absolute DNL and INL no greater than 0.05 LSB.",
+      ["Compare the resistors around the collapsed threshold bin and choose Edit ladder section.", "Correct R4 while preserving the reference and ramp. Recapture and compare counts, transitions and both linearity plots."],
+      "Use R4 = 1k. The reference run gives 512 samples per code and zero sampled DNL and INL at the bench’s resolution."
+    ],
+    "project-chopper/baseline": [
+      "Identify why the chopper fails to recover gain and compare ripple with the bypassed amplifier.",
+      ["Open workspace and trace BMOD, BAMP, BDEMOD and the output filter.", "Run experiment. Plot both 20 kHz clocks and compare recovered gain, offset and ripple across chopped and bypassed cases."],
+      "The starter VDEMOD delay is 12.5 µs, a quarter of the 50 µs period. It nearly cancels the recovered gain. Bypass offset is about 80 mV."
+    ],
+    "project-chopper/repair": [
+      "Recover 19–21 V/V with <5 mV offset, ≤30 mV ripple and ≤700 µs average settling.",
+      ["Use Edit demodulator and filter to align both clocks and tune CLP.", "Run both cases. In Results verify the recovered gain, residual offset, ripple and settling together."],
+      "Use VDEMOD delay 0 and CLP = 10n. The measured gain is about 20 V/V, ripple 19 mV p-p and settling 350 µs."
+    ],
+    "project-relaxation/baseline": [
+      "Measure nominal oscillator frequency, duty cycle and first rising edge.",
+      ["Run the nominal experiment. In Results look at out, cap and trip around several crossings.", "Use late cycles for period and duty. Read the first rising edge separately from the steady oscillation."],
+      "With original RT = 12k and CT = 10n, frequency is about 3.94 kHz, duty near 50%, and the first rise near 284 µs."
+    ],
+    "project-relaxation/corners": [
+      "Fit 1.8–2.5 kHz, 46–54% duty, ≤850 µs startup and <15% frequency spread across corners.",
+      ["Use Edit timing components. Increase the RC product to lower the frequency while retaining the Schmitt network.", "Run all three conditions. Check frequency spread relative to nominal, duty and first edge in Results."],
+      "Use RT = 22k and CT = 10n. Frequencies are about 2174 Hz nominal, 2253 Hz cold/low rail and 2070 Hz hot/high rail."
+    ],
+    "project-pga/baseline": [
+      "Identify the original programmable gain errors using AC and switching results for each code.",
+      ["Run Measure gain codes and switching. Read each steady AC gain and −3 dB bandwidth.", "Inspect gain-switching output plateaus and separate them from the AC measurements."],
+      "The starter gains are about 1.66, 2.99 and 5.96 V/V. The three states are below the 2×, 4× and 8× targets."
+    ],
+    "project-pga/repair": [
+      "Meet the 2×, 4× and 8× gains within 3.5%, bandwidth ≥1 MHz and switching settling ≤12 µs.",
+      ["Use 1 + RFB/RG as the starting equation and keep RFB and the switches fixed.", "Choose Edit gain resistors. Run all gain states plus switching, then inspect low-frequency gain, bandwidth and settling."],
+      "Use RG1 = 20k, RG2 = 6.665k and RG3 = 2.856k. Measured gains are roughly 1.99, 3.98 and 7.92 V/V."
+    ],
+    "c-temperature/baseline": [
+      "Capture the original ADC code span at 0 °C and 80 °C.",
+      ["Open workspace and trace the shared reference and RTEMP/RFIX divider.", "Choose Measure reference points. In Results read both ADC codes and subtract cold from hot."],
+      "Keep RFIX = 56k for this baseline. The original span is less than 55 counts over the anchors."
+    ],
+    "c-temperature/anchor": [
+      "Get at least 55 counts of anchor span within codes 120–900 and calculate the calibration coefficients.",
+      ["Use Edit sensor divider to shift the operating point and increase sensor-code span.", "Measure both anchors again. Round 80,000 divided by span to the nearest integer, then multiply the cold code by the negative gain."],
+      "RFIX = 6.8k gives codes 588 and 646. Gain is 1379 m°C/count and offset is −810852 m°C."
+    ],
+    "c-temperature/validate": [
+      "Meet ±0.8 °C at both anchors and ±2.5 °C across every held-out temperature and supply case.",
+      ["Choose Edit calibration registers and enter the signed integer coefficients from the two anchors.", "Run Validate held-out conditions and inspect the error plots at all three supplies, keeping validation separate from the anchor fit."],
+      "With RFIX = 6.8k, gain 1379 and offset −810852, all 15 held-out trials pass. Worst modeled error is about 2.23 °C."
+    ],
+    "inverter-process/build": [
+      "Identify the selected process revision and bind the correct four-terminal inverter models.",
+      ["Select the process in Student Hub, check its setup status and start the lesson.", "Open workspace and inspect the linked PDK and each NMOS/PMOS model binding."],
+      "Use the two rated core models from the selected revision. Record the linked package, model names and supported analysis engine."
+    ],
+    "inverter-process/measure": [
+      "Verify the selected process’s nominal inverter supply and record the revision.",
+      ["Open the top testbench and select VDD. Read Value and compare it with the selected device class.", "Record the actual process revision and nominal teaching operating point."],
+      "The provided supplies are 1.8 V for SKY130, 3.3 V for GF180 core and 1.2 V for IHP low-voltage devices."
+    ],
+    "inverter-schematic/build": [
+      "Trace the inverter input, output, load, supply and four-terminal devices.",
+      ["Open the testbench. Trace VIN to A, CL at Y and VDD through the supply port.", "Choose Open inverter and read gate, drain, source and body labels in the child cell."],
+      "VIN drives A, CL loads Y, and the child receives power at VPWR and VGND."
+    ],
+    "inverter-schematic/measure": [
+      "Verify the four-terminal CMOS inverter topology.",
+      ["Open the inverter child. Select each transistor and read its terminal nets.", "Trace each body with its source supply, then compare the joined input gates and output drains."],
+      "Both gates go to A and both drains to Y. NMOS source/body are VGND. PMOS source/body are VPWR."
+    ],
+    "inverter-dc/build": [
+      "Capture the selected process’s DC transfer characteristic over its full supply range.",
+      ["Verify the inverter wiring and configured ngspice runtime.", "Choose Run lesson to sweep the input under the linked process models."],
+      "Use the provided DC sweep from 0 to the selected VDD with 200 intervals. Keep the process models and fixture fixed."
+    ],
+    "inverter-dc/measure": [
+      "Verify DC endpoints and locate the switching threshold in the process-model sweep.",
+      ["Open Results, plot VIN and VOUT and read high and low endpoints.", "Find where VOUT crosses VIN and compare the threshold with the taught limits."],
+      "VOH must reach at least 90% VDD and VOL at most 10% VDD. VM is where VOUT = VIN and should fall at 20–80% VDD."
+    ],
+    "inverter-transient/build": [
+      "Capture three transitions of the inverter under the normal 5 fF load.",
+      ["Inspect the input pulse and load in the testbench.", "Choose Run lesson and wait for the transient to finish under the linked process models."],
+      "Use the 20 ns input period, 5 fF load and supplied 62 ns run with requested 20 ps sample step."
+    ],
+    "inverter-transient/measure": [
+      "Measure tPHL and tPLH using corresponding input/output 50% crossings.",
+      ["Open Results to show both input and output. Mark their 50%-of-VDD thresholds.", "Pair input rise with output fall and input fall with output rise. Confirm settled levels and three complete cycles."],
+      "Compute tPHL and tPLH from those crossing time differences. Use the measured load and process to report the delays."
+    ],
+    "inverter-layout/build": [
+      "Create or open the inverter’s process layout for the selected cell.",
+      ["Choose Build layout when the selected adapter supports native generation. For an imported cell, open its linked geometry.", "Choose Open inverter in Layout and locate gates, diffusion, contacts and both supply rails."],
+      "The native generator builds one linked inverter layout for an empty cell. An imported geometry must correspond to the same process and schematic."
+    ],
+    "inverter-layout/measure": [
+      "Verify all four physical ports and trace gate, output and supply conductors.",
+      ["Open inverter in Layout. Select each physical port and view its corresponding terminal.", "Follow the body/source return, shared gate and joined drains. Check the four assigned labels."],
+      "A is the input, Y the output, and VPWR/VGND the supplies with corresponding body ties. Verify all four physical ports."
+    ],
+    "inverter-drc/build": [
+      "Capture an actual process-rule failure from a deliberate layout fault.",
+      ["After building the supported layout, choose Add DRC fault. On imported geometry make a documented reversible width error.", "Run lesson. Open Results and confirm the reported process rule and offending geometry before checking."],
+      "The native fault is an isolated undersized metal1 rectangle. An actual rule finding is the expected baseline evidence."
+    ],
+    "inverter-drc/measure": [
+      "Repair the geometry fault and obtain a clean process DRC report.",
+      ["Choose Repair lesson fault, or undo the documented manual geometry edit.", "Run the same DRC again and verify the full report has zero violations."],
+      "Delete only the injected undersized rectangle. The scored result is a fresh process report with zero violations."
+    ],
+    "inverter-lvs/build": [
+      "Capture an actual LVS mismatch with the layout intact.",
+      ["Choose Add LVS fault for the supported layout, leaving physical geometry fixed.", "Run the process verification. Open Results and identify the extracted device or parameter mismatch."],
+      "The native practice fault multiplies NMOS schematic width by 1.30. The extracted physical width remains original."
+    ],
+    "inverter-lvs/measure": [
+      "Restore strict unique LVS equivalence between the schematic and extracted layout.",
+      ["Choose Repair lesson fault to restore the recorded schematic width, or undo the imported-layout exercise edit.", "Rerun extraction and LVS on the same intended cell. Review the strict comparison before checking."],
+      "Restore the original NMOS width. The fresh process comparison must uniquely match devices, parameters and nets."
+    ],
+    "inverter-handoff/build": [
+      "Save the inverter and prepare reproducible evidence for the final review.",
+      ["Choose Save work. Record the package revision, nominal supply and measured DC and transient observations.", "Collect the corrected DRC and LVS findings and retain the matching saved run folders."],
+      "Keep the exact schematic/layout, four checked ports, VM and propagation delays, and repair evidence tied to the same process revision."
+    ],
+    "inverter-handoff/measure": [
+      "Capture both clean process DRC and strict LVS for the final saved inverter.",
+      ["Run lesson one last time on the final design. Verify both results refer to its saved revision.", "Open Student Hub → More → Export portfolio report and keep the referenced run folders available."],
+      "The final evidence is zero process DRC violations plus strict unique LVS on the same revision. Record remaining conditions for any broader qualification."
+    ]
+  },
+  "challenge_questions": {
+    "project-miller/miller-effect": "A 2 pF capacitor connects the first-stage node to the output of an inverting gain stage with Av ≈ −100. What input-side equivalent capacitance does the branch present?",
+    "project-miller/pole-splitting": "At a 20 pF output load, how does adding 2 pF of Miller compensation change the first loop unity crossing and phase margin versus the uncompensated case?",
+    "project-miller/feedforward-zero": "The inverting stage and the direct compensation path contribute a loop numerator gm₂ − sCc. For gm₂ = 1 mS and Cc = 2 pF, give the zero’s frequency and half-plane.",
+    "project-miller/null": "A series resistor Rz is added to Miller capacitor Cc. For the amplifier with gm₂ = 1 mS, what resistance cancels the finite feedforward zero?",
+    "project-miller/sweep": "Use the 20 pF load, 2 pF compensation, and gm₂ = 1 mS. At Rz = 2 kΩ, where does the compensation zero lie?",
+    "project-ahuja/miller-path": "In a two-stage inverting amplifier, first-stage motion reaches OUT through both the output stage and a direct compensation capacitor. How do the signs of these two contributions compare?",
+    "project-ahuja/load": "With a 20 pF load and a 50 MHz buffer pole, which idealized compensation response meets a 60° phase margin?",
+    "project-ahuja/finite": "With a 20 pF output load, what does changing the finite buffer pole from 50 MHz to 10 MHz reveal about its effect on stability?",
+    "project-bandgap-widlar/ratio": "For a junction slope of −1.8 mV/°C at density ratio J1/J2 = 10, which R2/R3 first-order weighting cancels the slope? Use k/q ≈ 86.17 µV/K.",
+    "project-bandgap-widlar/sweep": "For a 10:1 density ratio and R2/R3 = 9.07, what residual behavior appears from −40 to 125 °C?",
+    "project-bandgap-brokaw/offset": "With an 8:1 emitter area ratio, which R1/R2 gives the Brokaw reference a near-zero 27 °C slope?",
+    "project-bandgap-kuijk/tune": "With area ratio 8 and R2/R1 = 2, which R2/R3 gives a near-zero room-temperature slope in the Kuijk reference?",
+    "project-bandgap-banba/tune": "With R2/R3 and emitter area ratio fixed, what changes when the Banba output scale R4/R2 goes from 0.50 to 0.40?"
+  }
+}

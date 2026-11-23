@@ -269,6 +269,66 @@ class StudentHubMenuTests(unittest.TestCase):
         panel.close()
         self.assertIs(hub.preview.currentWidget(), hub.prediction)
 
+    def test_lesson_modes_share_the_workspace_and_hide_solutions_until_opened(self):
+        from icstudio.model import digest
+
+        hub, studio = self.hub, self.studio
+        hub.select_lesson('f-connect')
+        self.assertEqual(hub.preview_mode.currentText(), 'Step by Step')
+        hub.preview_mode.setCurrentIndex(hub.preview_mode.findData('independent'))
+        self.assertIsNone(hub.solution_dialog)
+        before = digest(studio.project), digest(hub.portfolio.state)
+        hub.preview.setCurrentWidget(hub.prediction)
+        quiz = hub.prediction.step
+        wrong = (quiz['answer'] + 1) % len(quiz['options'])
+        hub.prediction.answers.button(wrong).click()
+        self.assertIn('Try again', hub.prediction.result.text())
+        self.assertNotIn(quiz['explanation'], hub.prediction.result.text())
+        hub.preview_solution.click()
+        answer = hub.solution_dialog
+        self.assertTrue(answer.isVisible())
+        self.assertIn(quiz['options'][quiz['answer']], answer.body.toPlainText())
+        answer.steps.setCurrentIndex(answer.steps.findData('build'))
+        self.assertIn('R2 = 10k', answer.body.toPlainText())
+        self.assertEqual(before, (digest(studio.project), digest(hub.portfolio.state)))
+        answer.close()
+
+        hub.start_selected()
+        guide = hub.guide
+        self.assertEqual(guide.mode_picker.currentText(), 'Do It Yourself')
+        self.assertIs(guide.lesson_tabs.currentWidget(), guide.instructions)
+        guide.answer.setCurrentIndex(guide.answer.findData(wrong))
+        guide.check_button.click()
+        self.assertIn('Try again', guide.feedback.text())
+        self.assertNotIn(quiz['explanation'], guide.feedback.text())
+        guide.steps.setCurrentIndex(next(i for i, step in enumerate(guide.lesson['steps']) if step['id']=='build'))
+        self.assertIn('Complete the lower leg', guide.instructions.toPlainText())
+        self.assertNotIn('Component → Resistor', guide.instructions.toPlainText())
+        self.assertFalse(answer.isVisible())
+        identity = studio.project['id']
+        studio.commit(lambda p:p.update(name='My divider attempt'), 'Rename exercise')
+        before = digest(studio.project), digest(hub.portfolio.state)
+        guide.mode_picker.setCurrentIndex(guide.mode_picker.findData('guided'))
+        self.assertEqual(hub.preview_mode.currentText(), 'Step by Step')
+        self.assertIn('Component → Resistor', guide.instructions.toPlainText())
+        self.assertIn('<ol', guide.instructions.toHtml())
+        guide.solution_button.click()
+        self.assertEqual(answer.steps.currentData(), 'build')
+        self.assertIn('R2 = 10k', answer.body.toPlainText())
+        answer.close()
+        guide.mode_picker.setCurrentIndex(guide.mode_picker.findData('independent'))
+        self.assertEqual(before, (digest(studio.project), digest(hub.portfolio.state)))
+        self.assertTrue(guide.save_work())
+
+        self.spaces.tabs.setCurrentIndex(1)
+        hub.select_lesson('f-first')
+        self.assertEqual(hub.preview_mode.currentText(), 'Step by Step')
+        hub.select_lesson('f-connect')
+        self.assertEqual(hub.preview_mode.currentText(), 'Do It Yourself')
+        hub.start_selected()
+        self.assertEqual(studio.project['id'], identity)
+        self.assertEqual(studio.project['name'], 'My divider attempt')
+
     def test_layout_topics_open_and_resume_the_shared_amplifier(self):
         hub, studio = self.hub, self.studio
         hub.world_map.cards['layout'].click()

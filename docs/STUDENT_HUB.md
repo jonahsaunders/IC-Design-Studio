@@ -65,6 +65,18 @@ When a lesson has several knowledge checks, use the selector to switch between
 them. The guided lesson records earned steps in your portfolio. Reading hints
 and trying Quick check leaves your learning record unchanged.
 
+Choose a **Learning mode** in the lesson preview or the Lesson Guide.
+**Do It Yourself** shows the question or design goal and lets you choose
+how to reach it. **Step by Step** gives an ordered walkthrough for each
+checkpoint, including which controls to open and which results to inspect.
+Student Hub remembers your choice for each lesson.
+
+**Show solution…** opens a worked reference for the selected checkpoint.
+Use its checkpoint selector to see the rest of the lesson, including
+knowledge-check answers, example circuit edits or expected measurements,
+and a model for the written reflection. The solution is available in either
+mode. Use **Check this step** with your own workspace to earn credit.
+
 Use **Ask Resisty…** in Quick check or the Lesson Guide to ask about the selected
 question or task. Resisty is Studio's AI lesson helper, marked with a waving
 resistor mascot. The panel opens beside the lesson and suggests

@@ -63,6 +63,15 @@ The avatar was checked at compact width in light and dark appearance. Next,
 verify the review commit in the hosted desktop workflow. See the
 [lesson assistant guide](AI_ASSISTANT.md#ask-about-a-lesson).
 
+**November 23, 2026 — Student Hub learning modes and solutions (UX-02).**
+On review base `ff763e0`, all 97 authored lessons have independent and guided
+modes, with separate worked references for their checkpoints. The course
+contains walkthroughs and solutions for 208 workspace checks. Windows Qt
+checks verified the per-lesson preference, reveal controls, answer feedback,
+and shared project and learning record. Nominal ngspice runs also verified the
+op-amp and TIA examples and the 130 kΩ bias reference choice. Next, verify the
+review commit in the hosted desktop workflow. See the [Student Hub guide](STUDENT_HUB.md#learn-beside-the-real-editor).
+
 **November 20, 2026 — Measured width and spacing reviews (LAY-12, UX-02).**
 Extending the via review at `14368c3`, the assistant can preview and apply
 single-shape repairs against Studio's geometry rules. Both Student Hub fixtures

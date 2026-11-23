@@ -14,7 +14,8 @@ from .model import digest, load_project, save_project, uid
 from .student_hub import (Portfolio,curriculum,earned,complete,missing_prerequisites,next_lesson,
                          prepare_lesson,campaign_jobs,evaluate)
 from .ui_style import icon, palette, stylesheet
-from .student_learning import study_guide, notes_html, overview_html, export_portfolio
+from .student_learning import (study_guide, notes_html, overview_html, export_portfolio,
+                               challenge_text, question_text, task_html, solution_html)
 from .student_world_map import LessonTrail, WorldMap
 
 
@@ -95,6 +96,59 @@ def quiz_selector(combo, steps):
         for index, step in enumerate(steps, 1):
             combo.addItem(f'{index}. {step["title"]}', step['id'])
     combo.setVisible(len(steps) > 1)
+
+
+LESSON_MODES = {'independent': 'Do It Yourself', 'guided': 'Step by Step'}
+
+
+def learning_mode_picker():
+    combo = QComboBox()
+    combo.setAccessibleName('Learning mode')
+    for key, caption in LESSON_MODES.items():
+        combo.addItem(caption, key)
+    combo.setCurrentIndex(combo.findData('guided'))
+    caption = label('Learning mode')
+    caption.setBuddy(combo)
+    return caption, combo
+
+
+class LessonSolution(QDialog):
+    def __init__(self, studio):
+        super().__init__(studio)
+        self.resize(620, 445)
+        layout = QVBoxLayout(self)
+        form = QFormLayout()
+        self.steps = QComboBox()
+        self.steps.setMinimumContentsLength(14)
+        self.steps.setSizeAdjustPolicy(QComboBox.AdjustToMinimumContentsLengthWithIcon)
+        self.steps.setAccessibleName('Checkpoint solution')
+        form.addRow('Checkpoint', self.steps)
+        layout.addLayout(form)
+        self.body = QTextBrowser()
+        self.body.setAccessibleName('Worked solution for the selected checkpoint')
+        layout.addWidget(self.body, 1)
+        buttons = QDialogButtonBox(QDialogButtonBox.Close)
+        buttons.rejected.connect(self.close)
+        layout.addWidget(buttons)
+        self.steps.currentIndexChanged.connect(self.render)
+
+    def open_lesson(self, lesson, practice, notes, step=None):
+        self.lesson, self.practice, self.notes = lesson, practice, notes
+        self.setWindowTitle('Solution · '+lesson['title'])
+        with QSignalBlocker(self.steps):
+            self.steps.clear()
+            for index, item in enumerate(lesson['steps'], 1):
+                self.steps.addItem(f'{index}. {item["title"]}', item['id'])
+            self.steps.setCurrentIndex(max(0, self.steps.findData((step or {}).get('id'))))
+        self.render(self.steps.currentIndex())
+        self.show()
+        self.raise_()
+        self.activateWindow()
+        self.steps.setFocus()
+
+    def render(self, index):
+        if index >= 0:
+            self.body.setHtml(solution_html(self.lesson['steps'][index], self.practice, self.notes))
 
 
 class QuestionHints(QWidget):
@@ -192,6 +246,8 @@ class PredictionPreview(QScrollArea):
         self.lesson = None
         self.steps = []
         self.advice = {}
+        self.practice = {}
+        self.mode = 'guided'
         self.questions.currentIndexChanged.connect(self.select_question)
         self.hints.hide()
 
@@ -200,15 +256,20 @@ class PredictionPreview(QScrollArea):
             self.hints.collapse()
         self.hints.setVisible(visible)
 
-    def set_lesson(self, lesson, advice):
+    def set_lesson(self, lesson, advice, practice):
         if lesson is self.lesson:
             return bool(self.steps)
         self.lesson = lesson
         self.advice = advice
+        self.practice = practice
         self.steps = [step for step in (lesson or {}).get('steps', []) if step['kind'] == 'quiz']
         quiz_selector(self.questions, self.steps)
         self.select_question(self.questions.currentIndex())
         return bool(self.steps)
+
+    def set_learning_mode(self, mode):
+        self.mode = mode
+        self.question.setText(question_text(self.step, self.practice, mode == 'guided') if self.step else '')
 
     def select_question(self, index):
         step = self.steps[index] if index >= 0 else None
@@ -223,7 +284,7 @@ class PredictionPreview(QScrollArea):
             choice.hide()
             choice.deleteLater()
         self.title.setText(step['title'] if step else '')
-        self.question.setText(step['instructions'] if step else '')
+        self.set_learning_mode(self.mode)
         self.result.clear()
         if step is None:
             return
@@ -250,7 +311,9 @@ class PredictionPreview(QScrollArea):
     def answer(self, index):
         correct = index == self.step['answer']
         verdict = 'Correct.' if correct else 'Try again.'
-        feedback(self.result, f'{verdict} {self.step["explanation"]}', role='correct' if correct else 'error')
+        message = (f'{verdict} {self.step["explanation"]}' if correct or self.mode == 'guided'
+                   else 'Try again. Open Hints for a clue.')
+        feedback(self.result, message, role='correct' if correct else 'error')
         self.ensureWidgetVisible(self.result)
 
 
@@ -378,6 +441,16 @@ class StudentHub(QWidget):
         self.details.setAccessibleName('Lesson overview');self.details.setMinimumWidth(240)
         self.progress_text=label('','muted');rv.addWidget(self.progress_text)
         self.progress=QProgressBar();self.progress.setTextVisible(False);self.progress.setAccessibleName('Lesson completion');rv.addWidget(self.progress)
+        from .analog_widgets import FlowActions
+        self.preview_mode_label,self.preview_mode=learning_mode_picker()
+        self.preview_mode.currentIndexChanged.connect(
+            lambda _:self.set_learning_mode(self.selected(),self.preview_mode.currentData()))
+        self.preview_solution=button('Show solution…',lambda:self.call(self.preview_answer),'secondary')
+        self.solution_dialog=None
+        choices=FlowActions()
+        for widget in (self.preview_mode_label,self.preview_mode,self.preview_solution):
+            choices.addWidget(widget)
+        rv.addLayout(choices)
         self.start=button('Start lesson',lambda:self.call(self.start_selected),'primary');rv.addWidget(self.start)
         self.reset_filters=button('Clear filters',self.clear_filters,'secondary');rv.addWidget(self.reset_filters)
         self.split.addWidget(right);self.split.setSizes([320,600]);self.lessons.currentRowChanged.connect(self.detail)
@@ -389,6 +462,8 @@ class StudentHub(QWidget):
     def apply_theme(self):
         style=student_style(self.studio.dark,self.text_scale)
         self.setStyleSheet(style);self.guide.setStyleSheet(style)
+        if self.solution_dialog:
+            self.solution_dialog.setStyleSheet(style)
         self.world_map.set_theme(self.studio.dark,self.text_scale)
         self.guide.arrange_actions()
         link_style=f'a {{color:{palette(self.studio.dark)["accent"]};}} li {{margin-bottom:8px;}}'
@@ -565,12 +640,17 @@ class StudentHub(QWidget):
         filtered=bool(self.search.text().strip() or self.status_filter.currentIndex())
         self.reset_filters.setVisible(not l and filtered)
         self.preview.setTabEnabled(1,bool(l))
-        self.preview.setTabEnabled(2,self.prediction.set_lesson(l,self.material['hints'].get(l['id'],{}) if l else {}))
+        key=l['id'] if l else ''
+        self.preview.setTabEnabled(2,self.prediction.set_lesson(l,self.material['hints'].get(key,{}),
+                                                               self.material['practice'].get(key,{})))
+        for widget in (self.preview_mode_label,self.preview_mode,self.preview_solution):
+            widget.setVisible(bool(l))
         if not l:
             self.preview.setCurrentIndex(0);self.study_notes.clear()
             self.details.setPlainText('No matching lessons. Clear the filters to see this learning path.' if filtered else
                                       'No lessons are available for this selection.')
             self.progress.setValue(0);self.progress_text.setText('');self.start.setText('Start lesson');return
+        self.sync_preview_mode(self.learning_mode(l))
         state=self.portfolio.state;missing=missing_prerequisites(state,l,self.data);done=earned(state,l)
         esc=html.escape
         direct=[k for k in l['requires'] if k in missing] or missing[:1]
@@ -592,7 +672,43 @@ class StudentHub(QWidget):
 
     def ask_ai(self,lesson,step):
         if lesson and step:
+            if self.learning_mode(lesson)=='independent':
+                practice=self.material['practice'][lesson['id']]
+                step={**step,'instructions':challenge_text(step,practice)}
             return self.call(lambda:self.studio.ask_lesson(lesson,step))
+
+    def learning_mode(self,lesson):
+        mode=self.studio.settings.value('student/learningMode/'+lesson['id'],'guided',str)
+        return mode if mode in LESSON_MODES else 'guided'
+
+    def sync_preview_mode(self,mode):
+        with QSignalBlocker(self.preview_mode):
+            self.preview_mode.setCurrentIndex(self.preview_mode.findData(mode))
+        self.prediction.set_learning_mode(mode)
+
+    def set_learning_mode(self,lesson,mode):
+        if not lesson or mode not in LESSON_MODES:
+            return
+        self.studio.settings.setValue('student/learningMode/'+lesson['id'],mode)
+        current=self.selected()
+        if current and current['id']==lesson['id']:
+            self.sync_preview_mode(mode)
+        if self.guide.lesson and self.guide.lesson['id']==lesson['id']:
+            self.guide.sync_learning_mode(mode)
+            self.guide.lesson_tabs.setCurrentWidget(self.guide.instructions)
+
+    def preview_answer(self):
+        if lesson:=self.selected():
+            step=self.prediction.step if self.preview.currentWidget() is self.prediction else None
+            return self.show_solution(lesson,step)
+
+    def show_solution(self,lesson,step=None):
+        if self.solution_dialog is None:
+            self.solution_dialog=LessonSolution(self.studio)
+            self.solution_dialog.setStyleSheet(student_style(self.studio.dark,self.text_scale))
+        key=lesson['id']
+        self.solution_dialog.open_lesson(lesson,self.material['practice'][key],self.material['lessons'][key],step)
+        return self.solution_dialog
 
     def select_lesson(self,key):
         if key not in self.by_id:return
@@ -776,6 +892,12 @@ class LessonGuide(QDockWidget):
         self.title=label('','subtitle');v.addWidget(self.title)
         self.steps=QComboBox();self.steps.setAccessibleName('Guided lesson step');self.steps.setMinimumContentsLength(10)
         self.steps.setSizeAdjustPolicy(QComboBox.AdjustToMinimumContentsLengthWithIcon);v.addWidget(self.steps)
+        from .analog_widgets import FlowActions
+        mode_label,self.mode_picker=learning_mode_picker()
+        modes=FlowActions()
+        modes.addWidget(mode_label);modes.addWidget(self.mode_picker);v.addLayout(modes)
+        self.mode_picker.currentIndexChanged.connect(
+            lambda _:hub.set_learning_mode(self.lesson,self.mode_picker.currentData()))
         self.lesson_tabs=QTabWidget();self.lesson_tabs.setAccessibleName('Lesson teaching and task');v.addWidget(self.lesson_tabs,1)
         self.design_notes=QTextBrowser();self.design_notes.setAccessibleName('Concept, worked example and interview preparation')
         self.instructions=QTextBrowser();self.instructions.setAccessibleName('Step instructions')
@@ -797,7 +919,11 @@ class LessonGuide(QDockWidget):
         self.check_button=button('Check this step',lambda:self.call(self.check),'primary');v.addWidget(self.check_button)
         self.feedback=label('');self.feedback.setTextInteractionFlags(Qt.TextSelectableByMouse);v.addWidget(self.feedback)
         self.ask_button=resisty_button(lambda:self.call(self.ask_ai),'this lesson step')
-        self.ask_button.hide();v.addWidget(self.ask_button)
+        self.solution_button=button('Show solution…',lambda:self.call(self.show_solution),'secondary')
+        self.ask_button.hide();self.solution_button.hide()
+        help_actions=FlowActions()
+        help_actions.addWidget(self.ask_button);help_actions.addWidget(self.solution_button)
+        v.addLayout(help_actions)
         self.next_button=button('Next step',lambda:self.call(self.advance),'secondary');v.addWidget(self.next_button);self.next_button.hide()
         self.run_status=label('','muted');v.addWidget(self.run_status)
         self.run_progress=QProgressBar();self.run_progress.setTextVisible(False);self.run_progress.setAccessibleName('Lesson run progress');v.addWidget(self.run_progress);self.run_progress.hide()
@@ -866,7 +992,8 @@ class LessonGuide(QDockWidget):
 
     def open_lesson(self,lesson):
         self.save_note();self.lesson=lesson;self.title.setText(lesson['title']);self.active_step=None
-        self.ask_button.show()
+        self.ask_button.show();self.solution_button.show()
+        self.sync_learning_mode(self.hub.learning_mode(lesson))
         self.design_notes.setHtml(notes_html(self.hub.material['lessons'][lesson['id']]))
         questions=[step for step in lesson['steps'] if step['kind']=='quiz']
         quiz_selector(self.hint_question,questions)
@@ -876,7 +1003,6 @@ class LessonGuide(QDockWidget):
         for i,step in enumerate(lesson['steps']):self.steps.addItem(f'{i+1}. '+step['title']+(' ✓' if step['id'] in done else ''))
         index=next((i for i,s in enumerate(lesson['steps']) if s['id'] not in done),len(lesson['steps'])-1)
         self.steps.setCurrentIndex(index);self.steps.blockSignals(False);self.step_changed(index)
-        self.lesson_tabs.setCurrentIndex(0 if not done else 1)
         self.qualify.setVisible(lesson['id']=='c-qualify')
         self.inverter_actions.setVisible(lesson['path']=='inverter')
         self.controls['Open RTL'].setEnabled(lesson['path'] in ('digital','mixed','capstone'))
@@ -890,7 +1016,7 @@ class LessonGuide(QDockWidget):
             self.steps.setCurrentIndex(self.lesson['steps'].index(self.active_step) if self.active_step else -1)
             self.steps.blockSignals(False);feedback(self.feedback,str(exc),True);return
         step=self.lesson['steps'][index];self.active_step=step;self.filling=True
-        self.instructions.setPlainText(step['instructions'])
+        self.update_task()
         self.lesson_tabs.setCurrentIndex(1)
         preceding=next((s['id'] for s in reversed(self.lesson['steps'][:index+1]) if s['kind']=='quiz'),None)
         with QSignalBlocker(self.hint_question):
@@ -910,18 +1036,34 @@ class LessonGuide(QDockWidget):
         self.update_next()
         self.update_run_state()
 
+    def sync_learning_mode(self,mode):
+        with QSignalBlocker(self.mode_picker):
+            self.mode_picker.setCurrentIndex(self.mode_picker.findData(mode))
+        self.update_task()
+
+    def update_task(self):
+        if self.active_step:
+            practice=self.hub.material['practice'][self.lesson['id']]
+            self.instructions.setHtml(task_html(self.active_step,practice,self.mode_picker.currentData()=='guided'))
+
     def show_question_hints(self,*_):
         hints=self.hub.material['hints'].get(self.lesson['id'],{}) if self.lesson else {}
         self.hints.set_entries(hints.get(self.hint_question.currentData(),()))
 
-    def ask_ai(self):
-        if not self.active_step:
-            return
+    def help_step(self):
         step = self.active_step
-        if self.lesson_tabs.currentIndex() == self.hints_index:
+        if step and self.lesson_tabs.currentIndex() == self.hints_index:
             selected = self.hint_question.currentData()
             step = next((s for s in self.lesson['steps'] if s['id'] == selected), step)
-        return self.studio.ask_lesson(self.lesson,step)
+        return step
+
+    def ask_ai(self):
+        if step:=self.help_step():
+            return self.hub.ask_ai(self.lesson,step)
+
+    def show_solution(self):
+        if step:=self.help_step():
+            return self.hub.show_solution(self.lesson,step)
 
     def note_changed(self):
         if not self.filling:
@@ -937,6 +1079,9 @@ class LessonGuide(QDockWidget):
 
     def check(self):
         self.flush();self.save_note();s=self.studio
+        if (self.mode_picker.currentData()=='independent' and self.active_step['kind']=='quiz'
+                and self.answer.currentData()!=self.active_step['answer']):
+            raise ValueError('Try again. Open Hints for a clue.')
         evidence=evaluate(self.active_step,self.lesson,s.project,s.run_manager.rows,s.path,self.answer.currentData(),self.notes.toPlainText())
         self.hub.portfolio.award(self.lesson,self.active_step,evidence,self.hub.data)
         index=self.steps.currentIndex();self.hub.fill()

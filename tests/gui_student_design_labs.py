@@ -35,7 +35,7 @@ def main():
     assert h.lessons.count()==sum(lesson['path']=='analog' for lesson in h.data['lessons'])
     assert 'sizing worksheet' in h.details.toPlainText()
     h.grab().save(str(out/'student-hub-design-paths.png'))
-    h.start_selected();assert g.lesson_tabs.currentIndex()==0
+    h.start_selected();assert g.lesson_tabs.currentWidget() is g.instructions
     assert '9.804' in g.design_notes.toPlainText() and 'Worked example' in g.design_notes.toPlainText()
     g.setFloating(True);g.resize(560,880);QTest.qWait(50);g.grab().save(str(out/'student-gmid-guide.png'))
     # Use the real inspector, including its pending-edit flush, to repair width.
