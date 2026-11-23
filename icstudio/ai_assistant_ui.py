@@ -297,8 +297,9 @@ class Assistant(ReviewTools, QDockWidget):
 
     def controls(self):
         busy = self.reply is not None
+        action = self.action.currentData()
         self.layout_tools.setEnabled(not busy)
-        bench = self.action.currentData() == 'bench'
+        bench = action == 'bench'
         for w in (self.connection, self.action, self.note, self.run):
             w.setEnabled(not busy)
         self.cancel_button.setVisible(busy)
@@ -314,13 +315,39 @@ class Assistant(ReviewTools, QDockWidget):
         self.draft_button.setEnabled(self.add_button.isEnabled())
         self.pins_widget.setEnabled(not busy)
         self.tabs.setTabVisible(2, bench)
-        self.tabs.setTabVisible(self.layout_tab,self.action.currentData()=='layout')
-        editing = self.action.currentData() == 'edit'
+        self.tabs.setTabVisible(self.layout_tab,action=='layout')
+        editing = action == 'edit'
         self.review_change.setVisible(editing and self.change is not None)
         self.review_change.setEnabled(self.change is not None and not busy)
-        self.note.setPlaceholderText('Describe the schematic change…' if editing else 'Ask a question or set a goal…')
-        if editing and not self.note.text().strip():
+        self.note.setPlaceholderText({'edit': 'Describe the schematic change…',
+                                      'lesson': 'Ask about this lesson step…'}.get(action, 'Ask a question or set a goal…'))
+        if action in ('edit', 'lesson') and not self.note.text().strip():
             self.send_button.setEnabled(False)
+
+    def open_lesson(self, lesson, step):
+        context = ai_context.lesson_data(lesson, step)
+        key = lesson['id'], step['id']
+        if self.action.currentData() == 'lesson' and self.lesson_key == key and self.lesson_context == context:
+            self.note.setFocus()
+            return
+        if self.reply is not None:
+            self.status.setText('Finish or cancel the current request before asking about another step.')
+            return
+        self.reset_context()
+        self.lesson_key = key
+        self.lesson_context = context
+        self.action.blockSignals(True)
+        self.action.setCurrentIndex(self.action.findData('lesson'))
+        self.action.blockSignals(False)
+        self.note.setText({
+            'quiz': 'Could you give me a hint for this question?',
+            'check': 'What should I check first for this step?',
+            'reflection': 'How can I explain what I observed?',
+        }[step['kind']])
+        self.refresh()
+        self.disclosure.setChecked(True)
+        self.note.setFocus()
+        self.note.selectAll()
 
     def refresh_request(self):
         if self.action.currentData() in ('edit','layout'):
@@ -376,6 +403,10 @@ class Assistant(ReviewTools, QDockWidget):
         layout.setStretch(layout.count()-1, 0 if expanded else 1)
 
     def describe_scope(self):
+        if self.action.currentData() == 'lesson':
+            self.scope_title.setText(self.lesson_context['lesson'])
+            self.scope_detail.setText(self.lesson_context['step'] + '\nLesson instructions and this conversation')
+            return
         if self.action.currentData()=='layout':
             scope = self.layout_tools.scope
             self.scope_title.setText(f"{scope.cell['name']} · revision {scope.project['revision']}")
@@ -432,6 +463,8 @@ class Assistant(ReviewTools, QDockWidget):
                 self.status.setText('Set up a connection to send a request.')
             elif self.action.currentData() == 'edit' and not self.note.text().strip():
                 self.status.setText('Describe the change you want to preview.')
+            elif self.action.currentData() == 'lesson' and not self.note.text().strip():
+                self.status.setText('Enter a question about this lesson step.')
             else:
                 self.status.setText('Ready to send to ' + providers.PROVIDERS[self.provider].name + '.')
         except ValueError as exc:
@@ -447,10 +480,12 @@ class Assistant(ReviewTools, QDockWidget):
         return self.prompt_text()
 
     def send(self):
-        if self.reply is not None or not self.studio.flush_inspector():
+        action = self.action.currentData()
+        if self.reply is not None or (action != 'lesson' and not self.studio.flush_inspector()):
             return
-        if self.action.currentData()=='edit' and not self.note.text().strip():
-            self.status.setText('Describe the change you want to preview.')
+        if action in ('edit', 'lesson') and not self.note.text().strip():
+            self.status.setText('Enter a question about this lesson step.' if action == 'lesson'
+                                else 'Describe the change you want to preview.')
             return
         try:
             prompt = self.current_prompt()
@@ -682,15 +717,16 @@ class Assistant(ReviewTools, QDockWidget):
 
 
 def install(studio):
-    def show():
-        studio.show_design_workspace()
+    def show(design=True):
+        if design:
+            studio.show_design_workspace()
         panel = getattr(studio, '_ai_assistant', None)
         if panel is None:
             panel = Assistant(studio)
             studio._ai_assistant = panel
             studio.addDockWidget(Qt.RightDockWidgetArea, panel)
             studio.tabifyDockWidget(studio.inspector, panel)
-        elif panel.reply is None and not panel.answer.toPlainText():
+        elif design and panel.reply is None and not panel.answer.toPlainText():
             panel.refresh()
         panel.show()
         panel.raise_()
@@ -699,6 +735,11 @@ def install(studio):
         if studio.current_mode=='layout' and getattr(studio,'_ai_assistant',None) is None:
             return studio.ask_layout()
         return show()
+    def ask_lesson(lesson, step):
+        panel = show(design=False)
+        panel.open_lesson(lesson, step)
+        return panel
+    studio.ask_lesson = ask_lesson
     studio.action(studio.task_menus['Tools'], 'AI Assistant…', open_assistant)
     from . import ai_entry_points
     ai_entry_points.install(studio,show)

@@ -249,6 +249,24 @@ class StudentHubMenuTests(unittest.TestCase):
         finally:
             area.close()
 
+    def test_ask_ai_can_open_an_unconfigured_assistant_from_quick_check(self):
+        hub, studio = self.hub, self.studio
+        self.assertIsNone(getattr(studio, '_ai_assistant', None))
+        hub.select_lesson('f-first')
+        hub.preview.setCurrentWidget(hub.prediction)
+        hub.prediction.ask_button.click()
+        self.app.processEvents()
+        panel = studio._ai_assistant
+        self.assertTrue(panel.isVisible())
+        self.assertFalse(panel.setup_button.isHidden())
+        self.assertFalse(panel.send_button.isEnabled())
+        self.assertIsNone(panel.reply)
+        self.assertEqual(self.spaces.currentIndex(), 1)
+        self.assertEqual(panel.scope_title.text(), hub.selected()['title'])
+        self.assertIn('Predict the response', panel.preview.toPlainText())
+        panel.close()
+        self.assertIs(hub.preview.currentWidget(), hub.prediction)
+
     def test_layout_topics_open_and_resume_the_shared_amplifier(self):
         hub, studio = self.hub, self.studio
         hub.world_map.cards['layout'].click()

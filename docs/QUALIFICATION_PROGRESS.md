@@ -46,6 +46,15 @@ Source coverage checked every question against the authored content. Next,
 verify the review commit in the hosted desktop workflow. See the
 [Student Hub guide](STUDENT_HUB.md#learn-beside-the-real-editor).
 
+**November 23, 2026 — Student Hub Ask AI (UX-02, UX-10).** On review base
+`2687541`, Quick check and the Lesson Guide open the existing assistant beside
+the selected question or task. Its request preview shows the authored context
+and conversation. Windows Qt tests covered first-use setup, keyboard access,
+explicit send and follow-ups through a local HTTP fixture. They also verified
+the separation of authored context from project state and reflection drafts.
+Next, verify the review commit in the hosted desktop workflow. See the
+[lesson assistant guide](AI_ASSISTANT.md#ask-about-a-lesson).
+
 **November 20, 2026 — Measured width and spacing reviews (LAY-12, UX-02).**
 Extending the via review at `14368c3`, the assistant can preview and apply
 single-shape repairs against Studio's geometry rules. Both Student Hub fixtures

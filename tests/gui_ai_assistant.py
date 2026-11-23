@@ -8,7 +8,7 @@ import time
 import unittest
 from unittest.mock import patch
 
-from PySide6.QtCore import QSettings, Qt, QTimer
+from PySide6.QtCore import QSettings, Qt, QSignalBlocker, QTimer
 from PySide6.QtTest import QTest
 from PySide6.QtWidgets import QApplication
 from icstudio.gui import Studio
@@ -102,6 +102,88 @@ class AssistantDesktop(unittest.TestCase):
         self.assertIn('Studio context',panel.preview.toPlainText())
         QTest.keyClick(panel.disclosure, Qt.Key_Space)
         self.assertTrue(panel.preview.isHidden())
+
+    def test_ask_ai_from_student_hub_and_lesson_guide(self):
+        from icstudio.model import digest
+
+        studio, panel = self.studio, self.panel
+        studio.show()
+        studio.project['name'] = 'Private open project marker'
+        spaces = studio.app_workspaces
+        spaces.tabs.setCurrentIndex(1)
+        hub = spaces.hub()
+        hub.select_lesson('project-miller')
+        quick = hub.prediction
+        hub.preview.setCurrentWidget(quick)
+        quick.questions.setCurrentIndex(quick.questions.findData('null'))
+        before = digest(studio.project), digest(hub.portfolio.state)
+        base = panel.profile('custom')[0]
+        panel.configure('custom', base, '', 'session-secret')
+        count = len(self.server.requests)
+        quick.ask_button.setFocus()
+        QTest.keyClick(quick.ask_button, Qt.Key_Space)
+        self.app.processEvents()
+        self.assertEqual(spaces.currentIndex(), 1)
+        self.assertTrue(panel.isVisible())
+        self.assertTrue(panel.note.hasFocus())
+        self.assertEqual(panel.action.currentData(), 'lesson')
+        self.assertEqual(panel.lesson_context['step'], quick.step['title'])
+        self.assertIn(quick.step['instructions'], panel.preview.toPlainText())
+        self.assertNotIn('Private open project marker', panel.preview.toPlainText())
+        self.assertNotIn('session-secret', panel.preview.toPlainText())
+        self.assertEqual(set(panel.lesson_context), {'lesson', 'overview', 'step', 'type', 'instructions'})
+        self.assertTrue(panel.disclosure.isChecked())
+        self.assertFalse(panel.setup_button.isHidden())
+        self.assertFalse(panel.send_button.isEnabled())
+        self.assertEqual(len(self.server.requests), count)
+
+        panel.configure('custom', base, 'local-test', 'session-secret')
+        panel.note.clear()
+        self.assertFalse(panel.send_button.isEnabled())
+        panel.send()
+        self.assertEqual(len(self.server.requests), count)
+        first_question = 'Which coefficient should I inspect?'
+        panel.note.setText(first_question)
+        with patch.object(studio, 'flush_inspector', side_effect=AssertionError('Lesson help reads authored text only')):
+            self.ask('Look for the term that multiplies s.')
+        self.assertEqual(panel.answer.toPlainText(), 'Look for the term that multiplies s.')
+        self.assertEqual(len(self.server.requests), count + 1)
+        self.assertIsNone(panel.pinned)
+        self.assertEqual(before, (digest(studio.project), digest(hub.portfolio.state)))
+
+        quick.ask_button.click()
+        self.assertIn('multiplies s', panel.answer.toPlainText())
+        panel.note.setText('What should I compare with the units of that coefficient?')
+        self.assertIn(first_question, panel.preview.toPlainText())
+        self.ask('Compare with the resistance on the second-stage branch.')
+        self.assertEqual(len(self.server.requests), count + 2)
+        quick.questions.setCurrentIndex(0)
+        quick.ask_button.click()
+        self.assertNotIn(first_question, panel.preview.toPlainText())
+        self.assertEqual(panel.lesson_context['step'], quick.step['title'])
+        self.assertEqual(len(self.server.requests), count + 2)
+
+        hub.select_lesson('c-temperature')
+        hub.start_selected()
+        guide = hub.guide
+        anchor = next(i for i, step in enumerate(guide.lesson['steps']) if step['id'] == 'anchor')
+        guide.steps.setCurrentIndex(anchor)
+        guide.ask_button.click()
+        self.assertEqual(spaces.currentIndex(), 0)
+        self.assertEqual(panel.lesson_context['step'], guide.active_step['title'])
+        self.assertIn('RFIX', panel.preview.toPlainText())
+        guide.lesson_tabs.setCurrentIndex(guide.hints_index)
+        guide.ask_button.click()
+        self.assertEqual(panel.lesson_context['type'], 'quiz')
+        self.assertIn('two-point calibration', panel.preview.toPlainText())
+
+        guide.steps.setCurrentIndex(len(guide.lesson['steps'])-1)
+        with QSignalBlocker(guide.notes):
+            guide.notes.setPlainText('Private student reflection marker')
+        guide.ask_button.click()
+        self.assertEqual(panel.lesson_context['type'], 'reflection')
+        self.assertNotIn('Private student reflection marker', panel.preview.toPlainText())
+        self.assertEqual(len(self.server.requests), count + 2)
 
     def test_compact_workspace_commands_and_view_picker(self):
         studio = self.studio

@@ -144,7 +144,7 @@ class QuestionHints(QWidget):
 
 class PredictionPreview(QScrollArea):
     """Try a curriculum question before opening the lesson project."""
-    def __init__(self):
+    def __init__(self, ask_ai):
         super().__init__()
         self.setWidgetResizable(True)
         self.setAccessibleName('Practice prediction')
@@ -164,9 +164,15 @@ class PredictionPreview(QScrollArea):
         self.hint_button.setCheckable(True)
         self.hint_button.setAutoDefault(False)
         self.hint_button.setAccessibleDescription('Reveal or collapse student questions and advice')
+        self.ask_button = button('Ask AI…', lambda:ask_ai(self.lesson,self.step), 'secondary')
+        self.ask_button.setAccessibleName('Ask AI about this knowledge check')
         self.hints = QuestionHints()
         self.hint_button.toggled.connect(self.toggle_hints)
-        layout.addWidget(self.hint_button, alignment=Qt.AlignLeft)
+        from .analog_widgets import FlowActions
+        actions = FlowActions()
+        actions.addWidget(self.hint_button)
+        actions.addWidget(self.ask_button)
+        layout.addLayout(actions)
         layout.addWidget(self.hints)
         self.choices = QVBoxLayout()
         layout.addLayout(self.choices)
@@ -202,6 +208,7 @@ class PredictionPreview(QScrollArea):
         self.step = step
         self.hint_button.setChecked(False)
         self.hint_button.setVisible(step is not None)
+        self.ask_button.setVisible(step is not None)
         self.hints.set_entries(self.advice.get(step['id'], ()) if step else ())
         for choice in self.answers.buttons():
             self.answers.removeButton(choice)
@@ -359,7 +366,7 @@ class StudentHub(QWidget):
         self.preview.addTab(self.details,'Overview')
         self.study_notes=QTextBrowser();self.study_notes.setAccessibleName('Lesson study notes')
         self.preview.addTab(self.study_notes,'Study notes')
-        self.prediction=PredictionPreview()
+        self.prediction=PredictionPreview(self.ask_ai)
         self.preview.addTab(self.prediction,'Quick check')
         self.details.setAccessibleName('Lesson overview');self.details.setMinimumWidth(240)
         self.progress_text=label('','muted');rv.addWidget(self.progress_text)
@@ -576,6 +583,10 @@ class StudentHub(QWidget):
             self.start.setEnabled(False);self.start.setText('Set up this PDK to start')
             self.details.setHtml(self.details.toHtml()+notes_html(teaching))
 
+    def ask_ai(self,lesson,step):
+        if lesson and step:
+            return self.call(lambda:self.studio.ask_lesson(lesson,step))
+
     def select_lesson(self,key):
         if key not in self.by_id:return
         if self.by_id[key].get('inverter_profile'):
@@ -778,6 +789,9 @@ class LessonGuide(QDockWidget):
         self.note_status=label('','muted');v.addWidget(self.note_status)
         self.check_button=button('Check this step',lambda:self.call(self.check),'primary');v.addWidget(self.check_button)
         self.feedback=label('');self.feedback.setTextInteractionFlags(Qt.TextSelectableByMouse);v.addWidget(self.feedback)
+        self.ask_button=button('Ask AI…',lambda:self.call(self.ask_ai),'secondary')
+        self.ask_button.setAccessibleName('Ask AI about this lesson step')
+        self.ask_button.hide();v.addWidget(self.ask_button)
         self.next_button=button('Next step',lambda:self.call(self.advance),'secondary');v.addWidget(self.next_button);self.next_button.hide()
         self.run_status=label('','muted');v.addWidget(self.run_status)
         self.run_progress=QProgressBar();self.run_progress.setTextVisible(False);self.run_progress.setAccessibleName('Lesson run progress');v.addWidget(self.run_progress);self.run_progress.hide()
@@ -846,6 +860,7 @@ class LessonGuide(QDockWidget):
 
     def open_lesson(self,lesson):
         self.save_note();self.lesson=lesson;self.title.setText(lesson['title']);self.active_step=None
+        self.ask_button.show()
         self.design_notes.setHtml(notes_html(self.hub.material['lessons'][lesson['id']]))
         questions=[step for step in lesson['steps'] if step['kind']=='quiz']
         quiz_selector(self.hint_question,questions)
@@ -892,6 +907,15 @@ class LessonGuide(QDockWidget):
     def show_question_hints(self,*_):
         hints=self.hub.material['hints'].get(self.lesson['id'],{}) if self.lesson else {}
         self.hints.set_entries(hints.get(self.hint_question.currentData(),()))
+
+    def ask_ai(self):
+        if not self.active_step:
+            return
+        step = self.active_step
+        if self.lesson_tabs.currentIndex() == self.hints_index:
+            selected = self.hint_question.currentData()
+            step = next((s for s in self.lesson['steps'] if s['id'] == selected), step)
+        return self.studio.ask_lesson(self.lesson,step)
 
     def note_changed(self):
         if not self.filling:

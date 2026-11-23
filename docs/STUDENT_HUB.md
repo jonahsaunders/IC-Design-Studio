@@ -65,6 +65,13 @@ When a lesson has several knowledge checks, use the selector to switch between
 them. The guided lesson records earned steps in your portfolio. Reading hints
 and trying Quick check leaves your learning record unchanged.
 
+Use **Ask AI…** in Quick check or the Lesson Guide to ask about the selected
+question or task. Studio opens its AI Assistant beside the lesson and suggests
+an editable first question. Choose **Set Up…** if you need to connect a
+provider. **Full request** shows the lesson text, your question and any
+recent messages in this conversation. Choose **Send** to request an answer,
+then use the same field for follow-up questions.
+
 The workspace tabs keep each editor in place, and practice answers give feedback
 beside the question. [Apple tab bars](https://developer.apple.com/design/human-interface-guidelines/tab-bars) ·
 [Apple feedback](https://developer.apple.com/design/human-interface-guidelines/feedback)
