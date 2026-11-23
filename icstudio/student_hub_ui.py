@@ -1160,6 +1160,9 @@ class LessonGuide(QDockWidget):
         feedback(self.feedback,'Reflection recorded.' if self.active_step['kind']=='reflection' else 'Checkpoint passed. Evidence saved.')
         if quiz:
             feedback(self.feedback,'Checkpoint passed. '+evidence['explanation'],role='correct')
+        elif 'logic_samples' in evidence:
+            count=len(evidence['logic_samples'])
+            feedback(self.feedback,f'{count} measured logic samples passed. Evidence saved.',role='correct')
         elif 'bench_reading' in evidence:
             from .student_testbench import WORKFLOWS
             workflow=WORKFLOWS[evidence['bench_workflow']]
@@ -1270,6 +1273,13 @@ class LessonGuide(QDockWidget):
 
     def analog_project_action(self):
         self.flush();self.require_idle();s=self.studio
+        if self.lesson.get('standard_cell'):
+            from .student_standard_cells import build_layout
+            s.commit(build_layout,'Generate lesson inverter layout')
+            self.workspace()
+            self.update_run_state()
+            feedback(self.feedback,'Layout generated. Locate A, Y, VPWR and VGND before checking this step.')
+            return
         if self.lesson.get('bench_project'):
             from .student_testbench_ui import editor
             return editor(self)
@@ -1359,7 +1369,10 @@ class LessonGuide(QDockWidget):
 
     def run(self):
         self.flush();self.require_idle();s=self.studio
-        if self.lesson.get('bench_project'):
+        if self.lesson.get('standard_cell'):
+            from .student_standard_cells import prepare
+            job=prepare(s.project,self.lesson,self.hub.tools())
+        elif self.lesson.get('bench_project'):
             from .student_testbench import prepare
             job=prepare(s.project,self.lesson,self.bench_workflow.currentData(),self.hub.tools())
         elif self.lesson.get('signal_lab'):
@@ -1464,7 +1477,15 @@ class LessonGuide(QDockWidget):
                 control.setEnabled(bound and (control.text()=='Open inverter' or not active))
         run_button=self.controls['Run lesson']
         self.controls['Run lesson'].setText('Run lesson')
-        if bench_path:
+        if self.lesson.get('standard_cell'):
+            step=self.active_step['id'] if self.active_step else None
+            run_button.setVisible(step=='verify')
+            if step=='physical':
+                self.analog_action.setText('Generate inverter layout')
+                cell=next((c for c in project['cells'] if c['id']==project.get('student_standard_cell',{}).get('cell')),None)
+                self.analog_action.setEnabled(can_run and bool(cell) and not cell['shapes'])
+                self.analog_action.show()
+        elif bench_path:
             run_button.setVisible(is_check)
             self.analog_action.setText('Edit SPICE program…' if self.bench_workflow.currentData()=='spice'
                                        else 'Edit testbench…')

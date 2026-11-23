@@ -1,0 +1,68 @@
+[
+  {
+    "key": "inv", "cell": "INV", "title": "Build a CMOS inverter",
+    "topic": "Basic gates", "inputs": ["A"],
+    "concept": "A single input selects either the PMOS pull-up or NMOS pull-down. A standard-cell interface exposes signal pins separately from VPWR and VGND.",
+    "question": "Which transistor charges Y when A is low?",
+    "options": ["The PMOS pull-up", "The NMOS pull-down", "Both transistors"], "answer": 0,
+    "explanation": "A low gate voltage turns on the PMOS and turns off the NMOS.",
+    "repair": "Select MP_A in the schematic. In Properties, change its gate terminal net to A and apply the edit. Confirm both drains meet at Y and the body pins go to their supply rails.",
+    "focus": ["MP_A"], "faults": [["MP_A", "g", "VGND"]],
+    "reflection": "Describe the pull-up and pull-down paths, then explain why a library cell needs named power pins and accessible signal pins."
+  },
+  {
+    "key": "nand2", "cell": "NAND2", "title": "Build a two-input NAND",
+    "topic": "Basic gates", "inputs": ["A", "B"],
+    "concept": "A NAND uses two series NMOS devices to pull down and two parallel PMOS devices to pull up. A series stack adds resistance when it conducts.",
+    "question": "At which input combination does the NAND discharge Y?",
+    "options": ["A=0, B=0", "A=1, B=0", "A=1, B=1"], "answer": 2,
+    "explanation": "Both gates must be high to turn on the full series NMOS path.",
+    "repair": "Select MN_B and change its gate terminal net to B. Trace the NMOS stack from Y through N_STACK to VGND. Confirm the two PMOS sources both connect to VPWR.",
+    "focus": ["MN_B"], "faults": [["MN_B", "g", "A"]],
+    "reflection": "Use the waveform to explain which vector turns on the NMOS stack. Describe how extra stack resistance could affect a falling output edge."
+  },
+  {
+    "key": "nor2", "cell": "NOR2", "title": "Build a two-input NOR",
+    "topic": "Basic gates", "inputs": ["A", "B"],
+    "concept": "NOR swaps the series and parallel networks of NAND. Its series PMOS path must charge the output through both devices at the all-zero vector.",
+    "question": "Which network contains the series stack in a two-input NOR?",
+    "options": ["The PMOS pull-up", "The NMOS pull-down", "The output load"], "answer": 0,
+    "explanation": "Both PMOS devices conduct together only when A and B are low.",
+    "repair": "Select MN_B and change its gate terminal net to B. Follow the pull-up from VPWR through P_STACK to Y. Confirm either NMOS can connect Y directly to VGND.",
+    "focus": ["MN_B"], "faults": [["MN_B", "g", "A"]],
+    "reflection": "Compare the PMOS series stack in NOR with the NMOS series stack in NAND. Which edge charges the output capacitor through two devices?"
+  },
+  {
+    "key": "aoi21", "cell": "AOI21", "title": "Build an AND-OR-invert cell",
+    "topic": "Complex gates", "inputs": ["A", "B", "C"],
+    "concept": "AOI21 implements Y = NOT((A AND B) OR C) in one complementary network. An NMOS on C bypasses the A/B series path.",
+    "question": "What is Y when C is high, for any values of A and B?",
+    "options": ["High", "Low", "Floating"], "answer": 1,
+    "explanation": "C alone enables a pull-down path, and its complementary PMOS blocks the pull-up.",
+    "repair": "Select MN_C and change its gate terminal net to C. Trace its direct path from Y to VGND, then trace the other path through MN_A and MN_B.",
+    "focus": ["MN_C"], "faults": [["MN_C", "g", "A"]],
+    "reflection": "Name the vectors where C overrides the A/B network. Explain why the A and B inputs can have different timing from C."
+  },
+  {
+    "key": "mux2", "cell": "MUX2", "title": "Build a transmission-gate multiplexer",
+    "topic": "Complex gates", "inputs": ["S", "A", "B"],
+    "concept": "Complementary transmission gates pass both logic levels. The selected data path drives an internal node, and a two-inverter buffer restores the output.",
+    "question": "What should the output follow when S is high?",
+    "options": ["A", "B", "The previous output"], "answer": 1,
+    "explanation": "The S-controlled transmission gate selects B, while the A gate is disabled.",
+    "repair": "Select MN_B and change its gate terminal net to S. Select MP_B and set its gate terminal net to S_B. Trace A and B to SELECTED and then through the two restoring inverters to Y.",
+    "focus": ["MN_B", "MP_B"], "faults": [["MN_B", "g", "VGND"], ["MP_B", "g", "VPWR"]],
+    "reflection": "Compare vectors with different A and B levels. Explain why the PMOS and NMOS use opposite control signals and why the output is buffered."
+  },
+  {
+    "key": "dff", "cell": "DFF", "title": "Build a rising-edge D flip-flop",
+    "topic": "Sequential cells", "inputs": ["D", "CLK"],
+    "concept": "Two level-sensitive transmission-gate latches form a rising-edge storage cell. The master tracks D when CLK is low and the slave updates from the master when CLK rises.",
+    "question": "What happens if D falls while CLK stays high after a rising edge?",
+    "options": ["Q immediately falls", "Q holds the sampled value", "Q becomes high impedance"], "answer": 1,
+    "explanation": "The master latch has closed, so the slave still sees the value captured at the edge.",
+    "repair": "Select MN_S_IN and MP_S_IN. Change the s terminal net of both devices from M1 to M2. M1 is the inverted master node, while M2 carries the stored data that should enter the slave.",
+    "focus": ["MN_S_IN", "MP_S_IN"], "faults": [["MN_S_IN", "s", "M1"], ["MP_S_IN", "s", "M1"]],
+    "reflection": "Compare Q before and after the second rising clock edge, then explain why Q holds when D changes between edges."
+  }
+]

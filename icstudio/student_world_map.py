@@ -18,6 +18,7 @@ WORLDS = {
     'career': ('#c1973f', 'Design briefs & interviews', 'portfolio'),
     'analog-projects': ('#3e9cbc', 'Amplifiers, references & debug', 'amp'),
     'testbenches': ('#578f79', 'Fixtures, simulation & measurements', 'wave'),
+    'standard-cells': ('#537ac8', 'CMOS gates, multiplexers & storage', 'pulse'),
     'inverter': ('#779d45', 'Process models, DRC & LVS', 'inverter'),
     'capstone': ('#5b86c5', 'Sensor acquisition & calibration', 'system'),
 }

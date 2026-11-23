@@ -1,5 +1,15 @@
 # Chunks 1–12: progress and forecast
 
+**November 23, 2026 — Standard Cells lessons (UX-02, SCH-19, EXP-01).** On
+experimental base `adc84d63`, the Student Hub adds INV, NAND2, NOR2, AOI21,
+MUX2 and DFF lessons. Windows Qt offscreen exercised all six terminal repairs
+through Properties, switched to each characterization fixture, and generated
+the native SKY130 inverter layout. Its four ports and conductor connectivity
+passed the physical checkpoint. Native ngspice 46 checked 26 combinational
+input vectors and five rising-edge capture and hold samples. The illustrated
+Hub catalog now has 112 distinct lessons. See the
+[Standard Cells guide](STUDENT_STANDARD_CELLS.md).
+
 **November 23, 2026 — Illustrated Student Hub catalog (UX-02).** The
 [Student Hub guide](STUDENT_HUB.md) now covers all 106 authored lessons across
 ten worlds. Windows Qt captured one actual lesson screenshot per row and

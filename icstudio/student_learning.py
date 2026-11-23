@@ -13,6 +13,9 @@ def hint_source():
 
 
 def lesson_hints(lesson, author_id=None):
+    if lesson.get('standard_cell'):
+        from .student_standard_cells import hints
+        return hints(lesson['standard_cell'])
     if lesson.get('bench_project'):
         from .student_testbench import hints
         return hints(lesson['id'])
@@ -40,6 +43,9 @@ def mode_source():
 
 
 def lesson_practice(lesson, author_id=None):
+    if lesson.get('standard_cell'):
+        from .student_standard_cells import practice
+        return practice(lesson['standard_cell'])
     if lesson.get('bench_project'):
         from .student_testbench import practice
         return practice(lesson['id'])
@@ -69,13 +75,15 @@ def study_guide(data):
     from .getting_started import resource_root
     from .student_layout_labs import course
     from .student_signal_labs import course as signal_course
-    from . import student_testbench
+    from . import student_standard_cells, student_testbench
     content = json.loads((resource_root()/'examples/student-hub/study-guide.json').read_text(encoding='utf-8'))
     ids = {lesson['id'] for lesson in data['lessons']}
     content['lessons'].update({'l-' + unit['id']: unit['teaching'] for unit in course() if 'l-' + unit['id'] in ids})
     content['lessons'].update({unit['id']: unit['teaching'] for unit in signal_course() if unit['id'] in ids})
     bench_ids = {lesson['id'] for lesson in data['lessons'] if lesson.get('bench_project')}
     content['lessons'].update({key: student_testbench.teaching(key) for key in bench_ids})
+    content['lessons'].update({lesson['id']: student_standard_cells.teaching(lesson['standard_cell'])
+                               for lesson in data['lessons'] if lesson.get('standard_cell')})
     if set(content['lessons']) != ids:
         raise ValueError('Every lesson needs teaching material in the study guide.')
     for note in content['lessons'].values():
@@ -133,7 +141,7 @@ def task_html(step, practice, guided, workflow='graphical'):
 
 def lesson_run_step(job):
     return (job.get('student_layout_step') or job.get('student_signal_step')
-            or job.get('student_bench_step')
+            or job.get('student_bench_step') or job.get('student_cell_step')
             or job.get('student_analog', {}).get('stage'))
 
 

@@ -1,8 +1,8 @@
 # Student Hub
 
-Open the **Student Hub** tab beside **Design** in IC Design Studio. The Hub has **106 distinct lessons across ten worlds**, including eight CMOS inverter stages that repeat for each supported PDK revision. Choose **Map** to explore the worlds or **List** to browse them. Both views share your progress, search, and lesson prerequisites.
+Open the **Student Hub** tab beside **Design** in IC Design Studio. The Hub has **112 distinct lessons across eleven worlds**, including eight CMOS inverter stages that repeat for each supported PDK revision. Choose **Map** to explore the worlds or **List** to browse them. Both views share your progress, search, and lesson prerequisites.
 
-![Student Hub in Map view with all ten worlds, including the Testbenches world](images/student-hub/world-map.jpg)
+![Student Hub in Map view with eleven worlds, including Standard Cells and Testbenches](images/student-hub/world-map.jpg)
 
 [Browse the lessons](#learning-paths) · [Work through a lesson](#learn-beside-the-real-editor) · [Get unstuck](#help-and-solutions) · [Set up simulation engines](#engines-and-models)
 
@@ -10,7 +10,7 @@ Open the **Student Hub** tab beside **Design** in IC Design Studio. The Hub has 
 
 Jump to a world to see every lesson in it. Select an image to open the full-size screenshot. The pictures show Studio's real schematics, layout views, RTL editors, and lesson controls at representative checkpoints.
 
-[Foundations](#foundations) · [Analog](#analog) · [Digital](#digital) · [Mixed Signal](#mixed-signal) · [Layout](#layout) · [Portfolio & interviews](#portfolio--interviews) · [Analog design projects](#analog-design-projects) · [Testbenches](#testbenches) · [CMOS inverter](#cmos-inverter--pdk-to-lvs) · [Advanced project](#advanced-project)
+[Foundations](#foundations) · [Analog](#analog) · [Digital](#digital) · [Mixed Signal](#mixed-signal) · [Layout](#layout) · [Portfolio & interviews](#portfolio--interviews) · [Analog design projects](#analog-design-projects) · [Testbenches](#testbenches) · [Standard Cells](#standard-cells) · [CMOS inverter](#cmos-inverter--pdk-to-lvs) · [Advanced project](#advanced-project)
 
 ### Foundations
 
@@ -152,6 +152,19 @@ Jump to a world to see every lesson in it. Select an image to open the full-size
 | [![Schematic for Build the amplifier AC loop bench](images/student-hub/tb-opamp-ac.jpg)](images/student-hub/tb-opamp-ac.jpg) | **Build the amplifier AC loop bench**. The large inductor keeps the feedback path closed at DC. The capacitor holds the feedback node near AC ground, letting the 1 V small-signal stimulus expose the amplifier’s gain. [Guide](STUDENT_TESTBENCHES.md). |
 | [![Schematic for Check follower step response under load](images/student-hub/tb-opamp-step.jpg)](images/student-hub/tb-opamp-step.jpg) | **Check follower step response under load**. The unity-gain step fixture checks whether the feedback loop can move the output with its load connected. A late output sample is a check on the final level, alongside the full waveform. [Guide](STUDENT_TESTBENCHES.md). |
 
+
+### Standard Cells
+
+Build reusable transistor-level logic with named signal and power pins. The [standard-cell guide](STUDENT_STANDARD_CELLS.md) covers the projects, fixtures, and inverter layout.
+
+| Screenshot | Lesson |
+| --- | --- |
+| [![CMOS inverter schematic with the PMOS gate highlighted](images/student-hub/sc-inv.jpg)](images/student-hub/sc-inv.jpg) | **Build a CMOS inverter**. Inspect the pull-up and pull-down, measure inversion, and generate a connected SKY130 layout. |
+| [![NAND2 schematic with the NMOS stack](images/student-hub/sc-nand2.jpg)](images/student-hub/sc-nand2.jpg) | **Build a two-input NAND**. Complete the series NMOS path and test all four input combinations. |
+| [![NOR2 schematic with the PMOS pull-up stack](images/student-hub/sc-nor2.jpg)](images/student-hub/sc-nor2.jpg) | **Build a two-input NOR**. Trace the series PMOS path and measure the all-zero pull-up case. |
+| [![AOI21 schematic with the C-controlled transistor highlighted](images/student-hub/sc-aoi21.jpg)](images/student-hub/sc-aoi21.jpg) | **Build an AND-OR-invert cell**. Combine two pull-down paths and verify the output for all eight vectors. |
+| [![MUX2 schematic showing data transmission gates and the two-stage output buffer](images/student-hub/sc-mux2.jpg)](images/student-hub/sc-mux2.jpg) | **Build a transmission-gate multiplexer**. Wire the select controls and verify both data paths. |
+| [![D flip-flop schematic with the two slave input transistors highlighted](images/student-hub/sc-dff.jpg)](images/student-hub/sc-dff.jpg) | **Build a rising-edge D flip-flop**. Connect the master to the slave and verify capture and hold. |
 
 ### CMOS inverter · PDK to LVS
 
