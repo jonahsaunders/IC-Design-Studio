@@ -18,6 +18,15 @@ def main(input_path,output_path):
         elif kind=='mixed_signal':
             from .mixed_signal import run
             result=run(job,Path(output_path).parent,progress)
+        elif kind=='rf_network':
+            from .rf_network import run
+            result=run(job,Path(output_path).parent,progress)
+        elif kind=='periodic_steady_state':
+            from .periodic_steady_state import run
+            result=run(job,Path(output_path).parent,progress)
+        elif kind=='external_simulator':
+            from .external_simulation import run
+            result=run(job,Path(output_path).parent,progress)
         elif kind=='digital':
             from .digital_flow import run
             result=run(job,Path(output_path).parent,progress)
@@ -88,7 +97,8 @@ def main(input_path,output_path):
             from .analog_diagnostics import bias_report
             result['diagnostics']=bias_report(result)
         from .specifications import attach
-        attach(job,result)
+        if kind not in ('rf_network', 'periodic_steady_state', 'external_simulator'):
+            attach(job,result)
         atomic_write(output_path,json.dumps(result,allow_nan=False)); print(json.dumps({'complete':True}),flush=True);return 0
     except Exception as e:
         print(json.dumps({'error':str(e)}),flush=True);traceback.print_exc(file=sys.stderr);return 1

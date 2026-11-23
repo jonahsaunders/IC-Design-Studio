@@ -1,5 +1,23 @@
 # Chunks 1–12: progress and forecast
 
+**November 23, 2026 — Illustrated Student Hub catalog (UX-02).** The
+[Student Hub guide](STUDENT_HUB.md) now covers all 106 authored lessons across
+ten worlds. Windows Qt captured one actual lesson screenshot per row and
+ten workflow screenshots. The help reader rendered all lesson entries and
+image links. The eight inverter stages use SKY130A illustrations and are
+available again for each supported PDK revision. Geometry and numerical
+acceptance continue to use the evidence recorded for each individual lesson.
+
+**November 23, 2026 — RF network and external simulation (RF-02, RF-03, RF-09,
+SIM-21).** On experimental base `fb8fb58`, Studio queues one- to eight-port
+small-signal sweeps, inspects S/Y/Z where defined and exports Touchstone.
+Native Windows ngspice 46 matched analytical one-, two- and three-port
+fixtures. The experimental ngspice PSS solver matched the driven RC
+fundamental and output amplitude. The desktop also queued a captured external
+ngspice deck and recovered the divider output from its archived dependency.
+The next reference check is harmonic balance on a working Xyce installation.
+Periodic AC/noise and general AMS need dedicated workflows and reference runs. See the [advanced simulation guide](ADVANCED_SIMULATION.md).
+
 **November 23, 2026 — Student Hub world map (UX-02).** On experimental base
 `fb8fb58`, the curriculum opens as illustrated worlds with topic routes and a
 saved Map/List preference. Windows Qt offscreen checks covered keyboard focus,

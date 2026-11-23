@@ -719,6 +719,8 @@ class Studio(DigitalMixin,LiveCollaborationMixin,CollaborationMixin,Interoperabi
         install_digital(self)
         from .mixed_signal_ui import install as install_mixed_signal
         install_mixed_signal(self)
+        from .advanced_simulation_ui import install as install_advanced_simulation
+        install_advanced_simulation(self)
         from .student_hub_ui import install as install_student_hub
         install_student_hub(self)
         from .app_workspaces import install as install_app_workspaces
