@@ -72,7 +72,7 @@
     ],
     "a-bandwidth/build": [
       "Adjust the RC pole to approximately 8 kHz at fixed resistance.",
-      ["Open workspace and identify C1 and the fixed 10 kΩ resistor.", "Estimate C with C = 1/(2πRf). Select C1, enter a value in farads using the n suffix if helpful, and apply."],
+      ["Open workspace and identify C1 and the fixed 10 kΩ resistor.", "Estimate C with C = 1/(2πRf) for a corner near 8 kHz. Select C1, enter the capacitance in Value, and choose Apply changes."],
       "Set C1 = 2n. The resulting pole is 7.96 kHz. The AC input remains 1 V."
     ],
     "a-bandwidth/measure": [
@@ -252,7 +252,7 @@
     ],
     "m-bridge/build": [
       "Locate the sample-and-hold, DAC, comparator and controller boundary.",
-      ["Choose Open workspace. Locate Ssample, Chold, the DAC bits and Bcompare.", "Open RTL to find sar_controller, then open the bridge configuration and inspect the signal mapping."],
+      ["Choose Open workspace. Locate Ssample, Chold, the DAC bits and Bcompare.", "Choose Open RTL to find sar_controller. Choose Mixed-signal experiment, then Bridge configuration, and inspect the signal mapping."],
       "The sampler holds vin, the DAC produces each trial level, Bcompare supplies the decision, and the controller advances the trial code."
     ],
     "m-bridge/measure": [
@@ -262,7 +262,7 @@
     ],
     "m-hold/build": [
       "Confirm the input changes after a sample is acquired and that the storage capacitor matches the fixture.",
-      ["Choose Open workspace and read Chold in Properties.", "Open the bridge configuration and inspect the timing of the input transition against the hold edge."],
+      ["Choose Open workspace and read Chold in Properties.", "Choose Mixed-signal experiment, then Bridge configuration. Compare the time of the input transition against the hold edge."],
       "Chold is 20p. vin starts at 0.93 V and drops to 0.2 V at 3.5 µs, after acquisition."
     ],
     "m-hold/measure": [
@@ -272,7 +272,7 @@
     ],
     "m-codes/build": [
       "Configure a static input of 1.2 V for the code-transition experiment.",
-      ["Open Mixed-signal experiment and locate the Input voltage field.", "Enter the required voltage and choose Apply configuration. Return to the lesson guide."],
+      ["Choose Mixed-signal experiment in the Lesson Guide. In Experiment, locate Input voltage (V).", "Enter 1.2 and choose Apply configuration. Close the dialog and return to the Lesson Guide."],
       "Use a single vin stimulus at time zero with value 1.2 V."
     ],
     "m-codes/measure": [
@@ -282,7 +282,7 @@
     ],
     "m-settling/build": [
       "Repair ADC timing so the DAC settles before each bit decision.",
-      ["Run the starter once and inspect the DAC voltage at the decision edges.", "Open Mixed-signal experiment. Increase Clock period, apply configuration and leave the fine analog resolution in place."],
+      ["Choose Run lesson on the 10 ns starter and open Results. Inspect the DAC voltage at the decision edges.", "Choose Mixed-signal experiment. Set Clock period to 1u and choose Apply configuration. Keep the smaller analog step."],
       "Set Clock period to 1u instead of 10 ns. A longer interval gives the DAC time to settle."
     ],
     "m-settling/measure": [
@@ -292,7 +292,7 @@
     ],
     "m-weight/build": [
       "Find and repair the DAC branch that misweights the most significant bit.",
-      ["Run the faulty starter and inspect the DAC steps in Results.", "Open workspace. Compare DAC branch conductances and adjust the MSB resistor in Properties."],
+      ["Choose Run lesson on the faulty starter and inspect the DAC steps in Results.", "Choose Open workspace. Compare DAC branch conductances, adjust the MSB resistor in Properties, and choose Apply changes."],
       "Set Rbit3 = 10k instead of 20k. Leave the other ladder values and the input stimulus fixed."
     ],
     "m-weight/measure": [
@@ -302,7 +302,7 @@
     ],
     "m-repeat/build": [
       "Inspect the two-transaction schedule and input change in the supplied configuration.",
-      ["Open Mixed-signal experiment and inspect the edge count and start stimulus.", "Read the vin stimulus times and locate the change between the two acquisitions."],
+      ["Choose Mixed-signal experiment, then Bridge configuration. Inspect the edge count and start stimulus.", "Read the vin stimulus times and locate the change between the two acquisitions."],
       "Use 18 edges, start asserted at edges 2 and 9, and vin changing from 0.4 V to 1.2 V at 8 µs."
     ],
     "m-repeat/measure": [
@@ -367,7 +367,7 @@
     ],
     "p-review/measure": [
       "Save the review project and export a portfolio that another learner can follow.",
-      ["Return to the review lesson and choose Save work. Record your evidence summary in the reflection.", "In Student Hub use More → Export portfolio report. Use Export learning record if you need the saved projects and evidence references."],
+      ["Return to the review lesson, choose Save work, and check this step.", "After recording your reflection, open the Student Hub menu and choose Export portfolio report. Use Export learning record for saved projects and evidence references."],
       "Include the exact task, initial result, design change, repeated conditions and final measurement. Preserve the saved project and referenced run."
     ],
     "c-filter/build": [
@@ -407,7 +407,7 @@
     ],
     "c-qualify/measure": [
       "Pass the four independent sensor qualification cases with one design.",
-      ["Choose Run qualification in the guide and wait for all four cases.", "Open each report. Compare acquisitions, conversion cadence, averages, valid pulses and alarms under the case’s inputs."],
+      ["Choose Run qualification in the Lesson Guide and wait for all four cases.", "Choose Results and use the run selector to review each of the four acceptance cases. Compare acquisitions, conversion cadence, averages, valid pulses and alarms."],
       "Use the candidate from the previous step in nominal, low-rail, high-rail and input-change-during-hold cases. Each case must report PASS for its stated requirements."
     ],
     "project-opamp/fixture": [
@@ -682,7 +682,7 @@
     ],
     "l-fold/folded": [
       "Generate and verify four fingers at the same total width and channel length.",
-      ["Choose Open workspace, switch to Schematic and select MN1. Set its PDK finger-count field to four.", "Keep W and L fixed. Choose Generate device layout, inspect the alternating diffusions, then run process DRC/LVS."],
+      ["Choose Open workspace, switch to Schematic and select MN1. Note its starting finger count, W and L.", "Choose Generate device layout to set four fingers at the same W and L. In Layout inspect the alternating diffusions, then choose Run process DRC/LVS."],
       "Set nf = 4, W = 2 µm total and L = 0.28 µm. Each finger is 0.50 µm wide. Read both process results."
     ],
     "l-body/tie": [
@@ -1037,7 +1037,7 @@
     ],
     "inverter-handoff/measure": [
       "Capture both clean process DRC and strict LVS for the final saved inverter.",
-      ["Run lesson one last time on the final design. Verify both results refer to its saved revision.", "Open Student Hub → More → Export portfolio report and keep the referenced run folders available."],
+      ["Choose Run lesson one last time on the final design. Verify both results refer to its saved revision.", "Open the Student Hub menu and choose Export portfolio report. Keep the referenced run folders available."],
       "The final evidence is zero process DRC violations plus strict unique LVS on the same revision. Record remaining conditions for any broader qualification."
     ]
   },

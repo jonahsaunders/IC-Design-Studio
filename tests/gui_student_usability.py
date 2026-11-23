@@ -72,6 +72,9 @@ def main():
     before = digest(w.project)
     h.search.setFocus();QTest.keyClick(h.search, Qt.Key_Return);app.processEvents()
     assert digest(w.project) == before and g.lesson is None
+    assert h.trail.rows['f-first'].hasFocus()
+    h.mode_buttons['list'].click()
+    h.search.setFocus();QTest.keyClick(h.search, Qt.Key_Return);app.processEvents()
     assert h.lessons.hasFocus()
     assert not any(b.autoDefault() or b.isDefault() for b in h.findChildren(QPushButton))
     h.search.setText('no-such-lesson');assert not h.start.isEnabled()

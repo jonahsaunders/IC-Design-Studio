@@ -39,9 +39,10 @@ def main():
     assert '9.804' in g.design_notes.toPlainText() and 'Worked example' in g.design_notes.toPlainText()
     g.setFloating(True);g.resize(560,880);QTest.qWait(50);g.grab().save(str(out/'student-gmid-guide.png'))
     # Use the real inspector, including its pending-edit flush, to repair width.
+    g.steps.setCurrentIndex(2)
     m=next(d for d in w.project['cells'][0]['devices'] if d['name']=='M1')
     w.select([m['id']],'schematic');w.form_fields['param:w'].setText('9.804u')
-    g.run();deadline=time.monotonic()+40
+    g.controls['Run lesson'].click();deadline=time.monotonic()+40
     while w.run_manager.busy and time.monotonic()<deadline:QTest.qWait(20)
     assert not w.run_manager.busy and w.run_manager.rows[-1]['state']=='Complete'
     evidence=evaluate(g.lesson['steps'][2],g.lesson,w.project,w.run_manager.rows)

@@ -15,7 +15,7 @@ from .student_hub import (Portfolio,curriculum,earned,complete,missing_prerequis
                          prepare_lesson,campaign_jobs,evaluate)
 from .ui_style import icon, palette, stylesheet
 from .student_learning import (study_guide, notes_html, overview_html, export_portfolio,
-                               challenge_text, question_text, task_html, solution_html)
+                               challenge_text, lesson_run_step, question_text, task_html, solution_html)
 from .student_world_map import LessonTrail, WorldMap
 
 
@@ -933,7 +933,8 @@ class LessonGuide(QDockWidget):
         self.run_progress=QProgressBar();self.run_progress.setTextVisible(False);self.run_progress.setAccessibleName('Lesson run progress');v.addWidget(self.run_progress);self.run_progress.hide()
         self.controls_layout=QGridLayout();v.addLayout(self.controls_layout);self.controls={}
         for i,(title,fn) in enumerate([('Open workspace',self.workspace),('Open RTL',self.rtl),('Run lesson',self.run),('Results',self.results),
-                                     ('Save work',self.save_work),('Cancel lesson runs',self.cancel),('Student Hub',self.show_hub),('Engine setup',hub.setup)]):
+                                     ('Save work',self.save_work),('Cancel lesson runs',self.cancel),('Student Hub',self.show_hub),('Engine setup',hub.setup),
+                                     ('Mixed-signal experiment…',self.mixed_signal_setup)]):
             b=button(title,lambda fn=fn:self.call(fn));self.controls_layout.addWidget(b,i//2,i%2);self.controls[title]=b
         self.inverter_actions=QWidget();iv=QGridLayout(self.inverter_actions);iv.setContentsMargins(0,0,0,0);v.addWidget(self.inverter_actions)
         self.inverter_controls_layout=iv;self.inverter_buttons=[]
@@ -948,11 +949,11 @@ class LessonGuide(QDockWidget):
         self.layout_action.hide();v.addWidget(self.layout_action)
         self.signal_action=button('Edit experiment…',lambda:self.call(self.signal_study_action))
         self.signal_action.hide();v.addWidget(self.signal_action)
-        self.qualify=button('Run four acceptance cases',lambda:self.call(self.qualification));v.addWidget(self.qualify)
+        self.qualify=button('Run qualification',lambda:self.call(self.qualification));v.addWidget(self.qualify)
         self.steps.currentIndexChanged.connect(self.step_changed)
         self.note_timer=QTimer(self);self.note_timer.setSingleShot(True);self.note_timer.setInterval(600)
         self.note_timer.timeout.connect(lambda:self.call(self.save_note));self.notes.textChanged.connect(self.note_changed)
-        self.active_step=None;self.note_dirty=False
+        self.active_step=None;self.note_dirty=False;self.practice_passed=False
         self.studio.run_manager.completed.connect(self.finished)
         self.studio.run_manager.changed.connect(self.update_run_state)
         self.control_columns=None
@@ -1007,9 +1008,7 @@ class LessonGuide(QDockWidget):
         for i,step in enumerate(lesson['steps']):self.steps.addItem(f'{i+1}. '+step['title']+(' ✓' if step['id'] in done else ''))
         index=next((i for i,s in enumerate(lesson['steps']) if s['id'] not in done),len(lesson['steps'])-1)
         self.steps.setCurrentIndex(index);self.steps.blockSignals(False);self.step_changed(index)
-        self.qualify.setVisible(lesson['id']=='c-qualify')
         self.inverter_actions.setVisible(lesson['path']=='inverter')
-        self.controls['Open RTL'].setEnabled(lesson['path'] in ('digital','mixed','capstone'))
         self.update_run_state()
 
     def step_changed(self,index):
@@ -1019,7 +1018,7 @@ class LessonGuide(QDockWidget):
             self.steps.blockSignals(True)
             self.steps.setCurrentIndex(self.lesson['steps'].index(self.active_step) if self.active_step else -1)
             self.steps.blockSignals(False);feedback(self.feedback,str(exc),True);return
-        step=self.lesson['steps'][index];self.active_step=step;self.filling=True
+        step=self.lesson['steps'][index];self.active_step=step;self.filling=True;self.practice_passed=False
         self.update_task()
         self.lesson_tabs.setCurrentIndex(1)
         preceding=next((s['id'] for s in reversed(self.lesson['steps'][:index+1]) if s['kind']=='quiz'),None)
@@ -1109,15 +1108,24 @@ class LessonGuide(QDockWidget):
 
     def check(self):
         self.flush();self.save_note();s=self.studio
-        if (self.mode_picker.currentData()=='independent' and self.active_step['kind']=='quiz'
-                and self.answer.currentData()!=self.active_step['answer']):
-            raise ValueError('Try again. Open Hints for a clue.')
+        quiz=self.active_step['kind']=='quiz'
+        if quiz:
+            if self.answer.currentData() is None:
+                raise ValueError('Choose an answer before checking this step.')
+            if self.mode_picker.currentData()=='independent' and self.answer.currentData()!=self.active_step['answer']:
+                raise ValueError('Try again. Open Hints for a clue.')
         evidence=evaluate(self.active_step,self.lesson,s.project,s.run_manager.rows,s.path,self.answer.currentData(),self.notes.toPlainText())
+        if missing_prerequisites(self.hub.portfolio.state,self.lesson,self.hub.data):
+            detail=' '+evidence['explanation'] if quiz else ''
+            feedback(self.feedback,'Practice check passed. Complete the listed prerequisites to earn progression credit.'+detail,role='correct')
+            self.practice_passed=True;self.update_next();return
         self.hub.portfolio.award(self.lesson,self.active_step,evidence,self.hub.data)
         index=self.steps.currentIndex();self.hub.fill()
         self.steps.setItemText(index,f'{index+1}. '+self.active_step['title']+' ✓')
         feedback(self.feedback,'Reflection recorded.' if self.active_step['kind']=='reflection' else 'Checkpoint passed. Evidence saved.')
-        if 'device_metrics' in evidence:
+        if quiz:
+            feedback(self.feedback,'Checkpoint passed. '+evidence['explanation'],role='correct')
+        elif 'device_metrics' in evidence:
             point=evidence['device_metrics']
             feedback(self.feedback,f'Checkpoint passed. ID = {point["id"]*1e6:.3g} µA; gm = {point["gm"]*1e6:.3g} µS; gm/ID = {point["gmid"]:.3g} V⁻¹; headroom = {point.get("headroom",0):.3g} V. Evidence saved.')
         elif 'bias_readings' in evidence:
@@ -1166,10 +1174,15 @@ class LessonGuide(QDockWidget):
 
     def update_next(self):
         done=earned(self.hub.portfolio.state,self.lesson)
-        self.next_button.setVisible(bool(self.active_step and self.active_step['id'] in done))
+        practice_next=self.practice_passed and self.steps.currentIndex()+1<self.steps.count()
+        self.next_button.setVisible(bool(self.active_step and (self.active_step['id'] in done or practice_next)))
         self.next_button.setText('Continue learning' if complete(self.hub.portfolio.state,self.lesson) else 'Next step')
 
     def advance(self):
+        if self.practice_passed:
+            if self.steps.currentIndex()+1<self.steps.count():
+                self.steps.setCurrentIndex(self.steps.currentIndex()+1);self.steps.setFocus()
+            return
         if complete(self.hub.portfolio.state,self.lesson):self.hub.continue_learning();return
         done=earned(self.hub.portfolio.state,self.lesson)
         index=next((i for i,s in enumerate(self.lesson['steps']) if s['id'] not in done),None)
@@ -1296,6 +1309,12 @@ class LessonGuide(QDockWidget):
         if not config(s.project,cid):raise ValueError('This lesson has no RTL cell.')
         s.cid=cid;s.digital_window().workspace.switch_cell(cid);self.show();self.raise_()
 
+    def mixed_signal_setup(self):
+        from .mixed_signal_ui import show
+        self.require_project();dialog=show(self.studio)
+        dialog.tabs.setCurrentIndex(0)
+        return dialog
+
     def run(self):
         self.flush();self.require_idle();s=self.studio
         if self.lesson.get('signal_lab'):
@@ -1307,6 +1326,7 @@ class LessonGuide(QDockWidget):
         elif self.lesson['starter']=='layout-decisions':
             from .student_layout_decisions import prepare
             job=prepare(s.project,self.active_step['id'])
+            job['student_layout_step']=self.active_step['id']
         elif self.lesson.get('analog_project'):
             from .student_analog import prepare
             jobs=prepare(s.project,self.lesson['analog_project'],self.active_step['id'],self.hub.tools())
@@ -1349,6 +1369,11 @@ class LessonGuide(QDockWidget):
         return [r for r in self.studio.run_manager.rows if r['job'].get('student_lesson') and
                 r['job']['project']['id']==record['project_id']]
 
+    def step_run_rows(self,rows):
+        if not self.active_step or self.active_step['kind']=='quiz':return []
+        return [r for r in rows if r['job'].get('student_lesson')==self.lesson['id'] and (
+            self.active_step['kind']=='reflection' or lesson_run_step(r['job']) in (None,self.active_step['id']))]
+
     def require_idle(self):
         if any(r['state'] in ('Queued','Running','Stopping') for r in self.lesson_rows()):
             raise ValueError('This lesson project already has an active run. Wait for it to finish or cancel it first.')
@@ -1358,8 +1383,10 @@ class LessonGuide(QDockWidget):
         record=self.hub.portfolio.workspace(self.lesson)
         bound=bool(record and record['project_id']==self.studio.project['id'])
         rows=self.lesson_rows();active=[r for r in rows if r['state'] in ('Queued','Running','Stopping')]
-        is_layout=self.lesson['starter'].startswith('layout')
-        can_run=bound and not active and not is_layout
+        from .digital_design import config
+        project=self.studio.project
+        is_check=bool(self.active_step and self.active_step['kind']=='check')
+        can_run=bound and not active
         starter=self.lesson['starter']
         kind=self.lesson.get('analog_project')
         self.analog_action.hide()
@@ -1368,12 +1395,28 @@ class LessonGuide(QDockWidget):
         bandgap=self.lesson.get('bandgap')
         lab=self.lesson.get('layout_lab')
         signal=self.lesson.get('signal_lab')
-        self.controls['Open RTL'].setVisible(not kind and not bandgap and not lab and not signal and starter not in ('layout-decisions','lc-bode','ahuja-study','miller-study'))
+        mixed=project.get('mixed_signal',{}) if bound else {}
+        rtl=bool(bound and config(project,mixed.get('digital_cell',project['top'])))
+        self.controls['Open RTL'].setVisible(rtl)
+        self.controls['Open RTL'].setEnabled(rtl)
+        self.controls['Open workspace'].setVisible(not rtl or bool(mixed))
+        self.controls['Mixed-signal experiment…'].setVisible(bool(mixed))
+        self.controls['Mixed-signal experiment…'].setEnabled(bool(mixed))
+        stage=self.lesson.get('inverter_stage')
+        if stage:
+            check=self.active_step.get('rule',{}).get('check') if is_check else None
+            buttons=('Open inverter', 'Build layout' if is_check and stage=='layout' else None,
+                     'Add DRC fault' if check=='drc-failure' else None,
+                     'Add LVS fault' if check=='lvs-failure' else None,
+                     'Repair lesson fault' if check in ('drc','lvs') else None)
+            for control in self.inverter_buttons:
+                control.setVisible(control.text() in buttons)
+                control.setEnabled(bound and (control.text()=='Open inverter' or not active))
+        run_button=self.controls['Run lesson']
         self.controls['Run lesson'].setText('Run lesson')
         if kind and self.active_step:
             from .student_analog import run_names
             step=self.active_step['id'];names=run_names(kind,step)
-            can_run=can_run and bool(names)
             self.controls['Run lesson'].setVisible(bool(names))
             self.controls['Run lesson'].setText('Run post-layout checks' if step=='post-layout' else 'Run testbenches')
             if kind=='bias' and step=='corners':
@@ -1393,7 +1436,7 @@ class LessonGuide(QDockWidget):
                     self.analog_action.setText('Regenerate layout…' if existing else 'Generate layout')
                 elif step in ('accuracy','startup'):self.analog_action.setText('Open bandgap circuit')
                 else:self.analog_action.setText('Open temperature model…')
-                self.analog_action.setEnabled(bound and not active);self.analog_action.show()
+                self.analog_action.setEnabled(bound and not active);self.analog_action.setVisible(is_check)
             elif step in ('fixture','bias','layout','bias-layout','schematic') or needs_full_pdk:
                 self.analog_action.setText({'layout':'Generate core layout…','bias-layout':'Generate bias mirror layout…',
                                             'post-layout':'Migrate PDK revision…'}.get(step,'Edit testbench…'))
@@ -1402,7 +1445,6 @@ class LessonGuide(QDockWidget):
             from .student_signal_labs import run_name
             from .student_signal_ui import ACTIONS
             step=self.active_step['id'];title=run_name(signal,step)
-            can_run=bound and not active and bool(title)
             self.controls['Run lesson'].setVisible(bool(title));self.controls['Run lesson'].setText(title)
             if (signal,step) in ACTIONS:
                 self.signal_action.setText(ACTIONS[signal,step]+'…')
@@ -1411,7 +1453,6 @@ class LessonGuide(QDockWidget):
             from .student_layout_labs import run_name
             from .student_layout_signoff_ui import ACTIONS
             step=self.active_step['id'];title=run_name(lab,step)
-            can_run=bound and not active and bool(title)
             self.controls['Run lesson'].setVisible(bool(title));self.controls['Run lesson'].setText(title)
             action={('fold','folded'):'Generate device layout',('lvs','swap'):'Edit input ports…',
                     ('eco','update'):'Review device layout update…',('noise','space'):'Set clock spacing…'}.get((lab,step))
@@ -1421,54 +1462,56 @@ class LessonGuide(QDockWidget):
         elif starter=='layout-decisions' and self.active_step:
             from .student_layout_decisions import EXTRACTION_STEPS
             run_step=self.active_step['id'] in EXTRACTION_STEPS
-            can_run=bound and not active and run_step
             self.controls['Run lesson'].setVisible(run_step)
             self.controls['Run lesson'].setText('Compare route RC')
         elif starter in ('ahuja-study','miller-study') or bandgap:
-            can_run=False
             self.controls['Run lesson'].hide()
             self.analog_action.setText('Open temperature study…' if bandgap else 'Open loop comparison…')
             self.analog_action.setEnabled(bound)
             self.analog_action.show()
         else:
-            self.controls['Run lesson'].show()
+            run_types={'digital','sar','capstone','lc_bode','result','current','difference','device_metrics'}
+            has_run=any(s.get('rule',{}).get('type') in run_types for s in self.lesson['steps'])
+            if stage:
+                has_run=stage in ('dc','transient','drc','lvs') or (stage=='handoff' and is_check and self.active_step['id']=='measure')
+            run_button.setVisible(is_check and has_run)
             if starter=='lc-bode':
                 self.controls['Run lesson'].setText('Run AC sweep')
-        self.controls['Run lesson'].setEnabled(can_run);self.qualify.setEnabled(can_run)
+        can_run=can_run and not run_button.isHidden()
+        run_button.setEnabled(can_run)
+        campaign=is_check and self.active_step.get('rule',{}).get('type')=='campaign'
+        self.qualify.setVisible(campaign);self.qualify.setEnabled(campaign and bound and not active)
         self.controls['Cancel lesson runs'].setEnabled(bool(active));self.controls['Cancel lesson runs'].setVisible(bool(active))
-        result_rows=[r for r in rows if r.get('result') and r['job'].get('student_lesson')==self.lesson['id']]
-        if kind and self.active_step:
-            result_rows=[r for r in result_rows if r['job'].get('student_analog',{}).get('stage')==self.active_step['id']]
-        if lab and self.active_step:
-            result_rows=[r for r in result_rows if r['job'].get('student_layout_step')==self.active_step['id']]
-        if signal and self.active_step:
-            result_rows=[r for r in result_rows if r['job'].get('student_signal_step')==self.active_step['id']]
+        result_rows=[r for r in self.step_run_rows(rows) if r.get('result')]
         self.controls['Results'].setEnabled(bound and bool(result_rows) and (kind!='interview' or not active))
         for name in ('Open workspace','Save work'):self.controls[name].setEnabled(bound)
-        self.controls['Open RTL'].setEnabled(bound and self.lesson['path'] in ('digital','mixed','capstone'))
         self.check_button.setEnabled(bound)
         self.run_progress.setVisible(bool(active))
         if active:
             self.run_progress.setRange(0,100);self.run_progress.setValue(round(sum(r.get('progress',0) for r in active)/len(active)))
             self.run_status.setText(' · '.join(f'{sum(r["state"]==state for r in active)} {state.lower()}' for state in ('Running','Queued','Stopping') if any(r['state']==state for r in active)))
         elif not bound:self.run_status.setText('Resume this lesson from Student Hub to use its workspace.')
-        elif rows:self.run_status.setText('Latest run: '+rows[-1]['state'])
-        elif kind or bandgap or lab or signal or starter in ('layout-decisions','ahuja-study','miller-study'):self.run_status.setText('Ready to run.' if can_run else '')
-        else:self.run_status.setText('Ready to run.' if not is_layout else 'This lesson checks the layout without simulation.')
+        elif visible_rows:=self.step_run_rows(rows):self.run_status.setText('Latest run: '+visible_rows[-1]['state'])
+        else:self.run_status.setText('Ready to run.' if can_run or campaign else '')
 
     def finished(self,row,result):
-        if self.lesson and row in self.lesson_rows() and row['job'].get('student_lesson')==self.lesson['id']:
+        if self.active_step and self.active_step['kind']=='check' and row in self.step_run_rows(self.lesson_rows()):
             feedback(self.feedback,row['name']+' · '+row['state']+'. '+('Open Results or check this step.' if result else row.get('log','')[-350:]),row['state']=='Failed')
         self.update_run_state()
 
     def results(self):
         self.require_project();s=self.studio
-        rows=[r for r in self.lesson_rows() if r.get('result') and r['job'].get('student_lesson')==self.lesson['id']]
-        if self.lesson.get('layout_lab'):
-            rows=[r for r in rows if r['job'].get('student_layout_step')==self.active_step['id']]
-        if self.lesson.get('signal_lab'):
-            rows=[r for r in rows if r['job'].get('student_signal_step')==self.active_step['id']]
-        if not rows:raise ValueError('Run this lesson first.')
+        rows=[r for r in self.step_run_rows(self.lesson_rows()) if r.get('result')]
+        if not rows:raise ValueError('There is no saved result for this checkpoint yet.')
+        if self.active_step['kind']=='reflection':
+            titles={step['id']:step['title'] for step in self.lesson['steps']}
+            stages=list(dict.fromkeys(lesson_run_step(r['job']) for r in rows))
+            if len(stages)>1:
+                names=[titles.get(stage,'Lesson runs') for stage in stages]
+                name,ok=QInputDialog.getItem(self,'Review saved results','Checkpoint',names,len(names)-1,False)
+                if not ok:return
+                selected=stages[names.index(name)]
+                rows=[r for r in rows if lesson_run_step(r['job'])==selected]
         latest=rows[-1]
         if self.lesson.get('signal_lab'):
             from .student_signal_ui import SignalResults
@@ -1489,8 +1532,8 @@ class LessonGuide(QDockWidget):
             return
         if self.lesson.get('analog_project'):
             from .analog_run_ui import RunInspector
-            step=self.active_step['id']
-            by_bench={r['job']['student_analog']['bench']:r for r in rows if r['job']['student_analog']['stage']==step}
+            step=lesson_run_step(latest['job'])
+            by_bench={r['job']['student_analog']['bench']:r for r in rows if 'student_analog' in r['job'] and lesson_run_step(r['job'])==step}
             if not by_bench:raise ValueError('Run this step’s testbenches first.')
             if self.lesson['analog_project']=='interview':
                 from .student_interview_ui import InterviewResults

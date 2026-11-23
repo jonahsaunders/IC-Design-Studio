@@ -171,6 +171,11 @@ def create(starter, technology=None):
 def lesson_workspace(project, lesson, step):
     """Resolve the same circuit and editor used by the lesson guide."""
     starter = lesson['starter']
+    stage = lesson.get('inverter_stage')
+    if stage in ('layout', 'drc', 'lvs', 'handoff') or (stage == 'schematic' and step != 'build'):
+        return project['student_inverter']['cell'], 'schematic' if stage == 'schematic' else 'layout'
+    if any(item['id'] == step and item['kind'] == 'reflection' for item in lesson['steps']):
+        step = next((item['id'] for item in reversed(lesson['steps']) if item['kind'] == 'check'), step)
     if lesson.get('signal_lab'):
         from .student_signal_labs import focus
         return focus(project, lesson['signal_lab'], step), 'schematic'

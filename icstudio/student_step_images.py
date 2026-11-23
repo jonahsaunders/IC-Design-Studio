@@ -11,6 +11,7 @@ from PySide6.QtWidgets import (QComboBox, QDialog, QDialogButtonBox, QFormLayout
 
 from .canvas import Canvas
 from .model import design_digest
+from .student_learning import lesson_run_step
 from .student_projects import lesson_workspace
 
 
@@ -50,10 +51,11 @@ def _control_image(guide):
         controls = [guide.answer, *actions, guide.check_button]
         caption = 'Choose a response in Your answer, then use Check this step.'
     elif step == 'reflection':
-        controls = [guide.notes, guide.check_button]
-        caption = 'Write your observations in Your reflection, then use Record reflection.'
+        sources = [keys['Results']] if keys['Results'].isEnabled() else [keys['Open workspace'], keys['Open RTL']]
+        controls = [*sources, *actions, guide.notes, guide.check_button]
+        caption = 'Revisit your evidence, write your observations in Your reflection, then use Record reflection.'
     else:
-        controls = [keys['Open workspace'], keys['Open RTL'], *actions, keys['Run lesson'],
+        controls = [keys['Open workspace'], keys['Open RTL'], keys['Mixed-signal experiment…'], *actions, keys['Run lesson'],
                     guide.qualify, keys['Results'], keys['Save work'], guide.check_button]
         caption = 'These are the Lesson Guide controls for this checkpoint. Use the numbered instructions to see when to open the editor, run, or check.'
     panel = QWidget()
@@ -212,16 +214,10 @@ def _fields_image(guide, project, cell, mode, selected):
 def _result_image(guide, project, instructions):
     from .plot import WavePlot
 
-    step = guide.active_step['id']
     checksum = design_digest(project)
-    for row in reversed(guide.lesson_rows()):
+    for row in reversed(guide.step_run_rows(guide.lesson_rows())):
         job, result = row['job'], row.get('result')
-        if (row['state'] != 'Complete' or not result or result.get('design_hash') != checksum
-                or job.get('student_lesson') != guide.lesson['id']):
-            continue
-        captured_step = (job.get('student_layout_step') or job.get('student_signal_step')
-                         or job.get('student_analog', {}).get('stage'))
-        if captured_step and captured_step != step:
+        if row['state'] != 'Complete' or not result or result.get('design_hash') != checksum:
             continue
         digital = result.get('digital_result', {}).get('artifacts', {}).get('waveform')
         if digital:
@@ -242,8 +238,8 @@ def _result_image(guide, project, instructions):
         if guide.lesson.get('signal_lab') == 'adc-ramp' and data.get('Code counts'):
             from .student_signal_ui import adc_wave
             result = adc_wave(data, 'Code counts')
-            caption = 'Saved Code counts plot for this ADC step. In Results select Code density and Code counts to inspect the bins.'
-        elif guide.lesson.get('signal_lab') == 'temperature' and step == 'validate' and data:
+            caption = 'Saved ADC Code counts plot. In Results select Code density and Code counts to inspect the bins.'
+        elif guide.lesson.get('signal_lab') == 'temperature' and lesson_run_step(job) == 'validate' and data:
             from .student_signal_ui import temperature_wave
             result = temperature_wave(data, 1.6, 'Error (°C)')
             caption = 'Saved temperature error at 1.6 V. In Results select a calibration plot to compare across supplies.'
@@ -266,13 +262,11 @@ def step_images(guide):
     guide.require_project()
     p, lesson, step = guide.studio.project, guide.lesson, guide.active_step
     if step['kind'] != 'check':
-        return [_control_image(guide)]
+        plot = _result_image(guide, p, step['instructions']) if step['kind'] == 'reflection' else None
+        return [image for image in (_control_image(guide), plot) if image is not None]
     record = guide.hub.material['practice'][lesson['id']]['tasks'][step['id']]
     instructions = ' '.join(record[1]) + ' ' + step['instructions']
     cid, mode = lesson_workspace(p, lesson, step['id'])
-    if lesson['path'] == 'inverter' and lesson.get('inverter_stage') in ('schematic', 'layout', 'drc', 'lvs'):
-        cid = p['student_inverter']['cell']
-        mode = 'schematic' if lesson['inverter_stage'] == 'schematic' else 'layout'
     cell = next(c for c in p['cells'] if c['id'] == cid)
     if mode == 'layout' and not (cell['shapes'] or cell.get('layout_instances')):
         mode = 'schematic'

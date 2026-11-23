@@ -51,12 +51,13 @@ def main():
                 except ValueError as exc:assert 'included physical tools' in str(exc)
                 else:raise AssertionError('Missing runtime accepted')
             g.save_work();continue
-        g.run();deadline=time.monotonic()+300
+        g.steps.setCurrentIndex(1)
+        g.controls['Run lesson'].click();deadline=time.monotonic()+300
         while w.run_manager.busy and time.monotonic()<deadline:QTest.qWait(25)
         assert not w.run_manager.busy and w.run_manager.rows[-1]['state']=='Complete',w.run_manager.rows[-1]
         result=evaluate(g.lesson['steps'][2],g.lesson,w.project,w.run_manager.rows)
         assert result['inverter_measurements']['switching_threshold']>0
-        g.results();g.save_work()
+        g.steps.setCurrentIndex(2);g.controls['Results'].click();g.save_work()
         h.select_lesson('i-'+token+'-transient');h.start_selected();assert w.project['id']==original
         from icstudio.process_adapters import capabilities
         if 'inverter' in capabilities(item['technology'])['native_layout'] and capabilities(item['technology'])['external_verification']:
@@ -66,7 +67,8 @@ def main():
             g.inverter_edit('repair');assert w.project['cells']==before
             h.select_lesson('i-'+token+'-drc');h.start_selected();g.open_inverter();g.lesson_tabs.setCurrentIndex(0)
             if os.environ.get('ICSTUDIO_TEST_MANAGED'):
-                g.run();deadline=time.monotonic()+600
+                g.steps.setCurrentIndex(2)
+                g.controls['Run lesson'].click();deadline=time.monotonic()+600
                 while w.run_manager.busy and time.monotonic()<deadline:QTest.qWait(25)
                 assert not w.run_manager.busy and w.run_manager.rows[-1]['state']=='Complete',w.run_manager.rows[-1]
                 evaluate(g.lesson['steps'][2],g.lesson,w.project,w.run_manager.rows)

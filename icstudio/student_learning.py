@@ -106,7 +106,7 @@ def task_html(step, practice, guided):
     if step['kind'] == 'reflection':
         prompt = _paragraph(step['instructions'])
         return prompt + (_numbered([
-            'Open Results for the relevant saved run, or reopen the edited workspace for a geometry or source check.',
+            'If this lesson has a saved run, open Results to revisit it. For a geometry, source, or study exercise, reopen the workspace or study you used.',
             'Write what you predicted, what you observed and how your evidence answers the question above. Include units and test conditions where relevant.',
             'Enter at least 40 characters in Your reflection and choose Record reflection.',
         ]) if guided else '')
@@ -117,6 +117,11 @@ def task_html(step, practice, guided):
     if not any('Check this step' in action for action in checklist):
         checklist.append('Choose Check this step and read the checkpoint result.')
     return _paragraph(goal) + _numbered(checklist)
+
+
+def lesson_run_step(job):
+    return (job.get('student_layout_step') or job.get('student_signal_step')
+            or job.get('student_analog', {}).get('stage'))
 
 
 def solution_html(step, practice, note):

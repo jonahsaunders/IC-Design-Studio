@@ -111,7 +111,9 @@ beside the question. [Apple tab bars](https://developer.apple.com/design/human-i
    **Check this step** evaluates the current design and captured evidence. Read
    the result, then choose **Next step** when ready.
 5. Write your reasoning in the reflection field. Draft notes save automatically;
-   **Record reflection** adds the note to the learning record.
+   **Record reflection** adds the note to the learning record. **Results** in a
+   reflection lets you choose an earlier checkpoint when the lesson has runs
+   from multiple checkpoints. You can compare a saved baseline with a repair.
 6. **Save work** preserves circuit/RTL edits. **Resume lesson** reopens that file
    next time. The four sensor-acquisition milestones share a project and retain
    earlier repairs. The temperature monitor uses its own project.
@@ -120,6 +122,10 @@ The guide can be reopened from **View → Lesson guide**. **Student Hub**
 returns to the progression map. Use **Cancel lesson runs** to stop only the jobs
 launched for that lesson project. Duplicate submissions are blocked while a run
 is queued, running or stopping. A failed simulator run does not earn credit.
+The clocked SAR and sensor-acquisition projects have a **Mixed-signal
+experiment** button in the guide. Use it to edit bridge inputs and clock timing
+before running the lesson. **Run qualification** is the campaign action for
+the final sensor-acquisition checkpoint.
 
 The Hub adapts to a narrow window. **Student Hub menu → Text size** enlarges text up to 200%
 in both the Hub and guide; scrolling keeps controls reachable. Use **Cmd+F** on
@@ -133,8 +139,8 @@ or cancel to preserve the unsaved draft. A failed draft save blocks dismissal or
 app exit until the draft can be preserved. **Export learning record** saves the
 current lesson's circuit/RTL edits before exporting; cancelling Save cancels export.
 
-See the [two-pass interface audit](STUDENT_HUB_AUDIT.md) for findings, validation,
-and the remaining native macOS acceptance work.
+See the [Student Hub workflow audit](STUDENT_HUB_AUDIT.md) for findings and
+verification scope.
 
 ![The lesson guide beside the editable schematic and real waveforms](images/student-lesson.png)
 

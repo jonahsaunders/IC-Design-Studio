@@ -8,6 +8,32 @@ observations retain their original scope; use [Student Hub](STUDENT_HUB.md) for
 current behavior and engine setup, and [release status](RELEASE_STATUS.md) for
 package identities. A later passing build does not rewrite this original audit.
 
+## November 23, 2026 workflow audit
+
+The review of `75fd687` covered the game map, list and search; Quick check,
+hints, learning modes, solutions and Resisty; workspace and step-image routing;
+simulation, results and grading; and reflection, resume and export. The
+catalog traversal used 97 authored lessons across nine worlds. It exercised
+114 knowledge checks, 208 practical checkpoints and 97 reflections. The eight
+shared inverter lessons used the bundled SKY130A starter.
+
+| Workflow | Finding and correction |
+| --- | --- |
+| Find a lesson | The desktop probe now checks keyboard focus in both the map route and the list. Existing UI checks cover progress filters and shared selection. |
+| Answer and practice | The guide prompts for an answer before grading, explains a successful prediction, and gives positive practice feedback with a next step. The portfolio still enforces prerequisites for earned credit. |
+| Open the right workspace | RTL-only lessons show Open RTL. Clocked mixed-signal lessons offer Mixed-signal experiment in the guide. Inverter workspace images use the same testbench or child-cell routing as Open workspace. |
+| Run the right operation | The guide hides simulation on questions, reflections and geometry-only lessons. The sensor capstone exposes Run qualification at the campaign checkpoint. The inverter guide presents the build or fault controls for the appropriate step. |
+| Read evidence and reflect | Practical steps with stage-specific captures open their own results. Reflections can reopen an earlier checkpoint for comparison, with saved plots available in the image viewer for the current design. |
+| Follow the written steps | The audited walkthroughs name the actual editor controls for bridge inputs, clock period, finger generation, portfolio export and the four-case acceptance campaign. |
+
+The Windows Qt traversal checked workspace routing and nonempty, read-only
+step images throughout the catalog. The desktop regressions cover the guided
+controls, bridge-input edit and saved calibration results, including access to
+the earlier anchor run from the reflection. Source tests exercise numerical
+and geometry checks. Full engine runs depend on the installed simulator and
+process decks. This audit leaves native macOS accessibility and full external
+process verification for their existing acceptance lanes.
+
 ## Review criteria
 
 This is a cross-platform Qt desktop implementation informed by Apple's Human

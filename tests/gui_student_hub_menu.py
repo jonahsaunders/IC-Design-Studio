@@ -406,6 +406,50 @@ class StudentHubMenuTests(unittest.TestCase):
         self.assertNotIn('Saved results', {image.title for image in gallery.images})
         gallery.close()
 
+    def test_guide_shows_only_relevant_run_and_workspace_controls(self):
+        from icstudio.student_hub import earned, evaluate
+
+        hub, studio, guide = self.hub, self.studio, self.hub.guide
+        hub.select_lesson('f-first')
+        hub.start_selected()
+        self.assertTrue(guide.controls['Run lesson'].isHidden())
+        guide.check_button.click()
+        self.assertIn('Choose an answer', guide.feedback.text())
+        guide.answer.setCurrentIndex(guide.answer.findData(guide.active_step['answer']))
+        guide.check_button.click()
+        self.assertIn(guide.active_step['explanation'], guide.feedback.text())
+
+        hub.select_lesson('l-width')
+        hub.start_selected()
+        guide.answer.setCurrentIndex(guide.answer.findData(guide.active_step['answer']))
+        guide.check_button.click()
+        self.assertEqual(guide.feedback.property('role'), 'correct')
+        self.assertIn('Practice check passed', guide.feedback.text())
+        self.assertEqual(earned(hub.portfolio.state, guide.lesson), {})
+        guide.next_button.click()
+        self.assertEqual(guide.active_step['id'], 'build')
+        self.assertTrue(guide.controls['Run lesson'].isHidden())
+
+        hub.select_lesson('m-codes')
+        hub.start_selected()
+        guide.steps.setCurrentIndex(1)
+        guide.controls['Mixed-signal experiment…'].click()
+        dialog = studio._mixed_signal_dialog
+        self.assertTrue(dialog.isVisible())
+        dialog.voltage.setText('1.2')
+        dialog.controls['Apply configuration'].click()
+        self.assertEqual(studio.project['mixed_signal']['stimuli']['vin'], [[0, 1.2]])
+        evaluate(guide.active_step, guide.lesson, studio.project)
+        dialog.close()
+
+        hub.select_lesson('c-qualify')
+        hub.start_selected()
+        self.assertTrue(guide.qualify.isHidden())
+        guide.steps.setCurrentIndex(2)
+        self.assertFalse(guide.qualify.isHidden())
+        self.assertEqual(guide.qualify.text(), 'Run qualification')
+        self.assertTrue(guide.controls['Run lesson'].isHidden())
+
     def test_layout_topics_open_and_resume_the_shared_amplifier(self):
         hub, studio = self.hub, self.studio
         hub.world_map.cards['layout'].click()
@@ -552,6 +596,16 @@ class StudentHubMenuTests(unittest.TestCase):
         self.assertIn('Error (°C)', dialog.plot.result['traces'])
         self.assertEqual(dialog.plot.result['x'], [5, 20, 35, 55, 75])
         dialog.close()
+        select('reflect')
+        self.assertTrue(guide.controls['Run lesson'].isHidden())
+        self.assertTrue(guide.controls['Results'].isEnabled())
+        gallery = guide.show_step_images()
+        self.assertIn('Saved temperature error', next(im.caption for im in gallery.images if im.title=='Saved results'))
+        gallery.close()
+        with patch('icstudio.student_hub_ui.QInputDialog.getItem', side_effect=lambda *args: (args[3][1], True)):
+            guide.controls['Results'].click()
+        self.assertNotIn('Calibration at 1.6 V', [guide.signal_results.case.itemText(i) for i in range(guide.signal_results.case.count())])
+        guide.signal_results.close()
         self.assertTrue(guide.save_work())
         self.assertEqual(calibration(load_project(studio.path)), (gain, -gain*cold))
         self.spaces.tabs.setCurrentIndex(1)
