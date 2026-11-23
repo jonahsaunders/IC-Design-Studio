@@ -18,15 +18,17 @@ COEFFICIENTS = dict(sheet_ohm=2, cap_f_per_um2=2e-16,
 
 def course():
     from .getting_started import resource_root
-    path = resource_root() / 'examples/student-hub/layout-course.json'
-    return json.loads(path.read_text(encoding='utf-8'))
+    root = resource_root() / 'examples/student-hub'
+    return [unit for name in ('layout-course.json', 'layout-signoff-course.json')
+            for unit in json.loads((root / name).read_text(encoding='utf-8'))]
 
 
 def lessons(source):
+    from . import student_layout_signoff as signoff
     result = []
     for unit in source:
         key = unit['id']
-        workspace = STARTER + ('amplifier' if key in AMPLIFIER else key)
+        workspace = STARTER + ('amplifier' if key in AMPLIFIER else signoff.fixture(key))
         steps = [dict(id='predict', kind='quiz', title='Predict what changes',
                       **unit['quiz'])]
         steps.extend(dict(id=step['id'], kind='check', title=step['title'],
@@ -38,7 +40,7 @@ def lessons(source):
                            summary=unit['summary'], skills=unit['skills'], minutes=unit['minutes'],
                            requires=unit['requires'], workspace=workspace, starter=workspace,
                            layout_lab=key, layout_topic=unit['topic'], steps=steps,
-                           doc='STUDENT_LAYOUT_LABS.md'))
+                           doc='STUDENT_LAYOUT_SIGNOFF.md' if key in signoff.LABS else 'STUDENT_LAYOUT_LABS.md'))
     return result
 
 
@@ -323,6 +325,9 @@ def _hierarchy(p, c):
 
 
 def project(key):
+    from . import student_layout_signoff as signoff
+    if key in signoff.FIXTURES:
+        return signoff.project(key)
     p = example('empty')
     c = _cell({'amplifier': 'matched_amplifier', 'fold': 'folded_device',
                'eco': 'shared_parent', 'noise': 'noise_close'}.get(key, key))
@@ -352,6 +357,9 @@ def project(key):
 
 
 def focus(p, lab, step):
+    from . import student_layout_signoff as signoff
+    if lab in signoff.LABS:
+        return signoff.focus(p, lab, step)
     record = p.get('student_layout_study', {})
     fixture = 'amplifier' if lab in AMPLIFIER else lab
     if record.get('version') != 1 or record.get('fixture') != fixture:
@@ -367,6 +375,9 @@ def focus(p, lab, step):
 
 
 def run_name(lab, step):
+    from . import student_layout_signoff as signoff
+    if lab in signoff.LABS:
+        return signoff.run_name(lab, step)
     if lab in PROCESS and step in ('single', 'folded', 'tie'):
         return 'Run process DRC/LVS'
     if lab in RC and step in ('baseline', 'repair', 'close', 'space', 'layer', 'shield'):
@@ -375,8 +386,11 @@ def run_name(lab, step):
 
 
 def prepare(p, lesson, step, tools):
+    from . import student_layout_signoff as signoff
     from .run_environment import stamp
     lab = lesson['layout_lab']
+    if lab in signoff.LABS:
+        return signoff.prepare(p, lesson, step)
     cid = focus(p, lab, step)
     if not run_name(lab, step):
         raise ValueError('Use Check this step for this task.')
@@ -609,7 +623,10 @@ def _rc_result(p, lesson, step, rows):
 
 
 def check(p, lesson, step, rows):
+    from . import student_layout_signoff as signoff
     lab = lesson['layout_lab']
+    if lab in signoff.LABS:
+        return signoff.check(p, lesson, step, rows)
     cid = focus(p, lab, step)
     c = _find(p, cid)
     captured = {}

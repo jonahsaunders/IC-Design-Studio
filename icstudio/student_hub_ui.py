@@ -880,10 +880,13 @@ class LessonGuide(QDockWidget):
 
     def layout_study_action(self):
         from .student_layout_labs import build_fold, focus, set_clock_spacing, set_input_ports
+        from .student_layout_signoff_ui import ACTIONS, open_form
         self.flush();self.require_idle();s=self.studio
         lab=self.lesson['layout_lab'];step=self.active_step['id']
         cid=focus(s.project,lab,step)
-        if lab=='fold' and step=='folded':
+        if (lab,step) in ACTIONS:
+            open_form(self,lab,step,cid)
+        elif lab=='fold' and step=='folded':
             s.commit(lambda p:build_fold(p,cid,4),'Generate device layout');self.workspace()
         elif lab=='lvs' and step=='swap':
             choice,ok=QInputDialog.getItem(self,'Edit input ports','Physical position of inp',
@@ -1081,11 +1084,13 @@ class LessonGuide(QDockWidget):
                 self.analog_action.setEnabled(bound and not active);self.analog_action.show()
         elif lab and self.active_step:
             from .student_layout_labs import run_name
+            from .student_layout_signoff_ui import ACTIONS
             step=self.active_step['id'];title=run_name(lab,step)
             can_run=bound and not active and bool(title)
             self.controls['Run lesson'].setVisible(bool(title));self.controls['Run lesson'].setText(title)
             action={('fold','folded'):'Generate device layout',('lvs','swap'):'Edit input ports…',
                     ('eco','update'):'Review device layout update…',('noise','space'):'Set clock spacing…'}.get((lab,step))
+            if (lab,step) in ACTIONS:action=ACTIONS[lab,step]+'…'
             if action:
                 self.layout_action.setText(action);self.layout_action.setEnabled(bound and not active);self.layout_action.show()
         elif starter=='layout-decisions' and self.active_step:
@@ -1136,6 +1141,10 @@ class LessonGuide(QDockWidget):
             rows=[r for r in rows if r['job'].get('student_layout_step')==self.active_step['id']]
         if not rows:raise ValueError('Run this lesson first.')
         latest=rows[-1]
+        if self.lesson.get('layout_lab') and latest['result'].get('student_stream'):
+            from .student_layout_signoff_ui import show_report
+            self.layout_results=show_report(s,latest)
+            return
         if self.lesson.get('layout_lab') and latest['result'].get('rc_comparison'):
             from .analog_run_ui import RunInspector
             self.layout_results=RunInspector(s,latest);self.layout_results.show()

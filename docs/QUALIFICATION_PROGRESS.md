@@ -16,6 +16,17 @@ handoff. The GF180 process DRC/LVS checkpoints were prepared locally. Their
 full execution requires Magic/Netgen in the physical runtime, which was
 unavailable on this host. See the [Layout lab guide](STUDENT_LAYOUT_LABS.md).
 
+**November 23, 2026 — Layout integration and signoff labs (UX-02).** On
+world-map review base `9edb163`, nine new Layout labs cover floorplanning, pin
+access, pad mapping, density, antenna, via current, isolation, spiral tuning
+and GDS handoff. The shared GF180 macro reduced the measured route from a
+14.57 µm metal-1 detour to an 8.5 µm two-layer route. Independent KLayout
+readback detected the missing OUT label and verified its correction with the
+same mask geometry and hierarchy. Windows source and Qt offscreen checks
+exercised the labs and saved-project handoff. The teaching thresholds and
+stream comparison provide separate evidence from process DRC, LVS and foundry
+acceptance. See the [integration lab guide](STUDENT_LAYOUT_SIGNOFF.md).
+
 **November 20, 2026 — Measured width and spacing reviews (LAY-12, UX-02).**
 Extending the via review at `14368c3`, the assistant can preview and apply
 single-shape repairs against Studio's geometry rules. Both Student Hub fixtures

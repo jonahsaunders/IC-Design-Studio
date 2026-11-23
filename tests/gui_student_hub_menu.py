@@ -1,6 +1,7 @@
 """Exercise Student Hub navigation, progression and interactive previews."""
 import os
 import tempfile
+import time
 import unittest
 from contextlib import ExitStack
 from pathlib import Path
@@ -9,7 +10,7 @@ from unittest.mock import patch
 try:
     from PySide6.QtCore import QSettings, Qt, QTimer
     from PySide6.QtTest import QTest
-    from PySide6.QtWidgets import QApplication, QLabel
+    from PySide6.QtWidgets import QApplication, QDialogButtonBox, QLabel, QPlainTextEdit
 except ImportError:
     QApplication = None
 
@@ -177,7 +178,7 @@ class StudentHubMenuTests(unittest.TestCase):
     def test_layout_topics_open_and_resume_the_shared_amplifier(self):
         hub, studio = self.hub, self.studio
         hub.world_map.cards['layout'].click()
-        self.assertEqual(hub.lessons.count(), 14)
+        self.assertEqual(hub.lessons.count(), 23)
         topics = {label.text().split('  ·', 1)[0] for label in hub.trail.widget().findChildren(QLabel)}
         self.assertTrue({'Device layout', 'Precision layout', 'Connectivity debug',
                          'Post-layout lab', 'Power & reliability'} <= topics)
@@ -199,6 +200,66 @@ class StudentHubMenuTests(unittest.TestCase):
             guide.layout_action.click()
         case = next(c for c in studio.project['cells'] if c['id']==studio.cid)
         self.assertEqual(next(p['point'] for p in case['layout_ports'] if p['name']=='inp'), [12000, 4000])
+
+    def test_macro_workflow_reuses_saved_project_and_reads_stream(self):
+        from icstudio.student_layout_signoff import current_placement
+
+        hub, studio = self.hub, self.studio
+        hub.world_map.cards['layout'].click()
+        topics = {label.text().split('  ·', 1)[0] for label in hub.trail.widget().findChildren(QLabel)}
+        self.assertTrue({'Floorplanning', 'Chip integration', 'Process signoff',
+                         'Isolation', 'RF & passives', 'Tapeout handoff'} <= topics)
+
+        def open_step(key, step):
+            self.spaces.tabs.setCurrentIndex(1)
+            hub.select_lesson(key)
+            hub.start_selected()
+            guide = hub.guide
+            guide.steps.setCurrentIndex(next(i for i, unit in enumerate(guide.lesson['steps']) if unit['id'] == step))
+            self.assertEqual(guide.lesson['id'], key)
+            return guide
+
+        def submit(guide, values):
+            guide.layout_action.click()
+            dialog = studio._workflow_dialog
+            self.assertTrue(dialog.isVisible())
+            for field, value in values.items():
+                widget = dialog.fields[field]
+                if hasattr(widget, 'setCurrentText'):
+                    widget.setCurrentText(value)
+                else:
+                    widget.setText(value)
+            dialog.findChild(QDialogButtonBox).button(QDialogButtonBox.Ok).click()
+            self.assertFalse(dialog.isVisible(), dialog.error.text())
+
+        guide = open_step('l-floorplan', 'compact')
+        identity = studio.project['id']
+        submit(guide, {'pitch': '16', 'offset': '0'})
+        self.assertEqual(current_placement(studio.project), (16000, 0))
+        guide = open_step('l-access', 'route')
+        self.assertEqual(studio.project['id'], identity)
+        submit(guide, {'layers': 'Metal1 and metal2'})
+        self.assertTrue(any(s.get('net') == 'mid' for s in studio.cell['shapes']))
+        guide = open_step('l-handoff', 'fault')
+        self.assertEqual(studio.project['id'], identity)
+
+        def stream():
+            guide.controls['Run lesson'].click()
+            deadline = time.monotonic() + 12
+            while studio.run_manager.busy and time.monotonic() < deadline:
+                QTest.qWait(20)
+            row = studio.run_manager.rows[-1]
+            self.assertEqual(row['state'], 'Complete', row.get('log', ''))
+            return row['result']['student_stream']['inspection']
+
+        self.assertEqual(stream()['Missing labels'], ['OUT'])
+        guide.controls['Results'].click()
+        report = guide.layout_results.findChild(QPlainTextEdit)
+        self.assertIn('Missing labels  OUT', report.toPlainText())
+        guide.layout_results.close()
+        guide.steps.setCurrentIndex(2)
+        submit(guide, {'port': 'OUT'})
+        self.assertEqual(stream()['Missing labels'], [])
 
 
 if __name__ == '__main__':

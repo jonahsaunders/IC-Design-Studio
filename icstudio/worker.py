@@ -56,6 +56,10 @@ def main(input_path,output_path):
         elif kind=='student_bandgap_lab':
             from .student_bandgap_lab import run_job
             result=run_job(p,job,Path(output_path).parent/'bandgap',progress)
+        elif kind=='student_layout_stream':
+            from .student_layout_signoff import stream_run
+            progress(.2,'Exporting and independently reading the GDS stream')
+            result=stream_run(p,job,Path(output_path).parent)
         elif kind=='study':
             from .studies import run_study
             result=run_study(p,job['cell'],job['settings']['analysis'],job['settings']['study'],job.get('engine','builtin'),job.get('executable',''),Path(output_path).parent,progress)

@@ -1,0 +1,112 @@
+[
+  {
+    "id": "floorplan", "topic": "Floorplanning", "title": "Plan a block before routing",
+    "summary": "Floorplan a two-device GF180 macro and compare footprint and pin distances before routing.",
+    "skills": ["floorplan", "channel reservation", "placement area", "Manhattan distance"], "minutes": 35, "requires": ["l-via"],
+    "quiz": {"instructions": "Two placed pins are 6 µm apart horizontally and 2.5 µm vertically. What is the shortest Manhattan distance before obstacles?", "options": ["6 µm", "6.5 µm", "8.5 µm"], "answer": 2, "explanation": "Add the absolute horizontal and vertical differences. An obstacle or layer change can make the legal route longer."},
+    "tasks": [
+      {"id": "loose", "title": "Measure the loose placement", "instructions": "Open workspace. Identify the two pass-device placements, the five external ports, and the fixed metal-1 channel obstacle. Check this step to record the original bounding-box area and distance between X1.OUT and X2.SOURCE."},
+      {"id": "compact", "title": "Fit within the floorplan budget", "instructions": "Choose Adjust macro placement and change X2’s horizontal pitch and vertical offset. Keep the route channel and both devices. Check for an area of at most 345 µm² and a pin-to-pin distance of at most 12 µm. Leave the signal unrouted for the pin-access lesson."}
+    ],
+    "reflection": "Compare both placements. Explain why the shorter pin distance is only a lower bound and identify the blockage that could change your decision.",
+    "teaching": {"concept": "A floorplan reserves space for ports, obstructions and routing before details are fixed.", "worked_example": "A shorter pitch reduces the bounding box until footprints or keepouts collide. Compare both area and the terminal distance while the routing channel is still reserved.", "try_next": "Try shifting the second device vertically in a copy and see which port becomes harder to reach.", "interview": "What would make you prefer a slightly larger floorplan?", "artifact": "The loose and compact measurements and the saved GF180 macro used by the next two lessons."}
+  },
+  {
+    "id": "access", "topic": "Floorplanning", "title": "Fix a pin-access bottleneck",
+    "summary": "Route a congested internal connection without expanding the compact macro or exceeding its via budget.",
+    "skills": ["pin access", "routing channels", "multilayer routing", "via budget"], "minutes": 40, "requires": ["l-floorplan"],
+    "quiz": {"instructions": "An obstacle blocks the shortest route on metal1. What should you compare before making the macro larger?", "options": ["A legal detour and a layer change", "Only the net label spelling", "The layout background color"], "answer": 0, "explanation": "Compare the legal lengths, via access and occupied area. The strongest option depends on what each route consumes."},
+    "tasks": [
+      {"id": "access", "title": "Measure the metal-1 detour", "instructions": "Open the compact macro from the floorplan lesson. Check this step to measure the metal-1-only path around the obstruction without adding geometry. In practice, open the floorplan lesson first to compact the shared starter."},
+      {"id": "route", "title": "Route the blocked pins", "instructions": "Choose Plan pin route. You can vary the second device’s placement and allow metal2. Connect X1.OUT to X2.SOURCE while preserving the five external ports and the VSS connection. The route must be at most 14 µm with at most two vias, and the total footprint must remain within 345 µm². Use Undo to try another plan."}
+    ],
+    "reflection": "Compare the restricted detour and the accepted route. Explain where you would leave additional via access if the block were used in a larger system.",
+    "teaching": {"concept": "Pins need a reachable landing and a route that respects nearby geometry and layer transitions.", "worked_example": "A detour can stay on one layer but consume extra length. A two-via path can cross a blockage on another layer while preserving area.", "try_next": "Try a different device offset in a copy and measure whether it reduces the detour.", "interview": "How do you diagnose pin access before committing to a routing topology?", "artifact": "The measured metal-1 detour and the compact routed macro for stream handoff."}
+  },
+  {
+    "id": "pad-ring", "topic": "Chip integration", "title": "Build a pad ring",
+    "summary": "Assign perimeter supply and signal pads and trace each landing to the correct core-side terminal.",
+    "skills": ["pad ring", "boundary interface", "port tracing", "pin assignment"], "minutes": 35, "requires": ["l-lvs"],
+    "quiz": {"instructions": "Two signal pads have legal shapes but exchanged names. What check finds the error?", "options": ["Count the metal layers", "Trace each named perimeter pin to its intended core net", "Measure the bounding box"], "answer": 1, "explanation": "Physical labels establish the exported interface. Trace each label through real conducting geometry to the schematic net."},
+    "tasks": [
+      {"id": "trace", "title": "Trace the incomplete interface", "instructions": "Open workspace. Follow each perimeter conductor to the inner landing. Check the original pad map and identify the unassigned supply pads and two crossed input labels."},
+      {"id": "repair", "title": "Assign all five perimeter pads", "instructions": "Use Assign perimeter pad for one port at a time. Assign power to the north pad, ground to the south, inputs to the two west pads in schematic order, and output to the east. Trace the nets after assignment and check the full map."}
+    ],
+    "reflection": "Explain what existing geometric checks could miss in the pad map and identify the next review you would do before choosing real pad cells.",
+    "teaching": {"concept": "A perimeter pad-to-core map is an interface contract. This fixture checks the physical routes and port names on a teaching coupon.", "worked_example": "PWR and GND can be physically routed yet omitted from the exported interface. An INA label on the INB conductor makes a separate signal mapping error.", "try_next": "Draw a package pin table for the repaired map and review it from the package perspective.", "interview": "How would you catch a mismatch between a package pinout and the IC floorplan?", "artifact": "A verified five-pad interface and a correction record for the missing and crossed assignments."}
+  },
+  {
+    "id": "density", "topic": "Process signoff", "title": "Repair a metal-density violation",
+    "summary": "Fill an underdense window and manage estimated capacitive loading on a nearby sensitive line.",
+    "skills": ["local density", "dummy fill", "keepout", "capacitive loading"], "minutes": 35, "requires": ["l-layout-decisions"],
+    "quiz": {"instructions": "The overall metal coverage looks acceptable, but one small window fails. Which view is most useful?", "options": ["Only chip-wide coverage", "The local density windows and neighboring nets", "Only the schematic device list"], "answer": 1, "explanation": "A local window can fail even when the overall total looks acceptable. Check the nearby nets before increasing fill."},
+    "tasks": [
+      {"id": "scan", "title": "Find the underfilled window", "instructions": "Open workspace and check the two 20 × 20 µm windows on metal1. Record the original coverage and identify the sensitive line in the right window."},
+      {"id": "close-fill", "title": "Try fill close to the signal", "instructions": "Use Configure window fill. Start with a small keepout, such as 0.50 µm. Check that density improves, then record the loading estimate for the close-fill layout."},
+      {"id": "repair", "title": "Keep density and reduce loading", "instructions": "Increase the fill keepout and regenerate the lesson fill. Keep each window between 22% and 65% and the added loading estimate at or below 1.4 fF. Compare the new density with the close-fill result."}
+    ],
+    "reflection": "Record both density and loading before and after. Explain how real floating fill and a coupled extraction deck could change the result.",
+    "teaching": {"concept": "Density fill solves a geometry requirement but can add electrical loading. The exercise applies an explicit side-coupling estimate assuming AC-grounded fill.", "worked_example": "Compare two versions with identical square size and pitch. Increasing the keepout removes the closest squares, typically reducing the coupling estimate while sacrificing some coverage.", "try_next": "In a copy, compare fill at a different pitch using the existing Layout density tool.", "interview": "How would you decide where to request a larger fill keepout?", "artifact": "Window measurements and two audited fill proposals with a stated coupling-model assumption."}
+  },
+  {
+    "id": "antenna", "topic": "Process signoff", "title": "Fix an antenna violation",
+    "summary": "Trace a gate-connected route and compare a layer jump with a protection diode on a staged area-ratio coupon.",
+    "skills": ["antenna", "process sequence", "layer jump", "diode protection"], "minutes": 40, "requires": ["l-lvs"],
+    "quiz": {"instructions": "Why could moving much of a long gate wire to a later metal layer help in a staged antenna check?", "options": ["The earlier fabrication stage sees less connected metal", "The transistor gate area becomes larger", "The wire always has zero resistance"], "answer": 0, "explanation": "A later-layer connection does not contribute the same early metal area. A real process deck applies its own layer-by-layer rules and diode credit."},
+    "tasks": [
+      {"id": "fault", "title": "Measure the offending early metal", "instructions": "Open workspace. Follow the long metal-1 route from the 1 µm² gate. Check the original metal area and area ratio against the exercise limit of 12."},
+      {"id": "jumper", "title": "Try a layer jump", "instructions": "Open workspace in antenna_jumper, choose Add antenna repair and try a metal-2 layer jump. Check that both terminals still connect and that the early metal ratio falls to 12 or below."},
+      {"id": "diode", "title": "Try the protection-diode option", "instructions": "Open workspace in antenna_diode and compare the second permitted teaching repair. Keep the long early wire and connect the exercise diode. Check the protected ratio against the limit of 32. A real process requires its authorized devices and deck."}
+    ],
+    "reflection": "Compare geometry, the measured early-area ratios and the two teaching limits. Explain how you would verify diode eligibility on an actual project.",
+    "teaching": {"concept": "Some antenna rules are assessed at intermediate fabrication stages. A routing jump changes the stage when the gate sees the longer metal, while a recognized diode can change the allowable limit.", "worked_example": "With a 1 µm² gate, 24.8 µm² of connected early metal gives 24.8 in this area-only model. The stage rule and diode credit here are fixed teaching values.", "try_next": "Find the documented antenna stages and protected-device rules for a process you use.", "interview": "What extra costs would make you choose one antenna repair over the other?", "artifact": "Three measured layouts and a comparison of the early-area and protected-limit tradeoffs."}
+  },
+  {
+    "id": "via-current", "topic": "Power & reliability", "title": "Find the via current bottleneck",
+    "summary": "Diagnose an overloaded transition that already meets the teaching voltage-drop target.",
+    "skills": ["via arrays", "current sharing", "enclosure", "IR drop"], "minutes": 30, "requires": ["l-supply"],
+    "quiz": {"instructions": "The rail reaches its voltage target, but one cut exceeds its exercise current limit. What is the relevant next change?", "options": ["Add legal parallel cuts at the transition", "Rename the supply net", "Reduce the load for the comparison"], "answer": 0, "explanation": "Additional legal cuts reduce the simple equal-share estimate. Real design also requires current distribution and process-specific reliability checks."},
+    "tasks": [
+      {"id": "diagnose", "title": "Separate rail drop from cut current", "instructions": "Open workspace and trace the source-to-load path through the two metal layers. Check the original 1.2 mA load against 10 mV total drop and 0.45 mA per cut."},
+      {"id": "repair", "title": "Build an enclosed via array", "instructions": "Choose Configure via array and vary the rows and columns. Keep the load fixed. Every cut needs adequate enclosure on both metals, the array must remain connected, and each equal-share cut must carry at most 0.45 mA."}
+    ],
+    "reflection": "Compare the improvements in total drop and current per cut. State when the equal-share assumption would be inadequate.",
+    "teaching": {"concept": "The whole route’s voltage drop and the local transition’s current limit constrain different things.", "worked_example": "At 1.2 mA, one cut carries all the current. Four equal cuts nominally carry 0.30 mA each. Use the same load for both comparisons.", "try_next": "Compare another array shape and discuss why identical counts can have different current spreading.", "interview": "Why can an IR-drop check pass while a via reliability check fails?", "artifact": "The repaired via geometry and measured enclosure, drop and equal-share current."}
+  },
+  {
+    "id": "isolation", "topic": "Isolation", "title": "Place taps and guard rings",
+    "summary": "Close a guard around an analog region, place contacts and verify its separate quiet return.",
+    "skills": ["guard rings", "substrate contacts", "tap pitch", "quiet return"], "minutes": 35, "requires": ["l-body"],
+    "quiz": {"instructions": "A guard looks closed in the drawing. What must you still verify?", "options": ["Its outline color", "Only its nominal area", "Contact coverage and connection to the intended quiet return"], "answer": 2, "explanation": "A visible outline does not establish well contact or the intended electrical connection. Check the actual masks and net."},
+    "tasks": [
+      {"id": "ring", "title": "Close and trace the guard ring", "instructions": "Open workspace. Find the missing perimeter side. Use Add guard segment to close the active and metal guard. Trace the ring to the quiet return on the left and check that it stays separate from the switching conductor on the right."},
+      {"id": "taps", "title": "Place contacts within the spacing limit", "instructions": "Choose Place guard contacts and vary the number of contact sites. Check that all cuts are covered by active and metal, connect to the quiet return, and leave no perimeter gap greater than 12 µm."}
+    ],
+    "reflection": "Explain why enclosure, contact continuity and tap pitch are separate checks. Identify the process evidence needed for latch-up and noise isolation.",
+    "teaching": {"concept": "Ring geometry and taps work together. The teaching fixture checks enclosure, masks, connectivity and spacing.", "worked_example": "Four contacts at the side midpoints of this ring leave an 11.4 µm path between adjacent sites. Both masks must cover each cut.", "try_next": "Compare four and eight sites and explain the area and routing costs of denser contacts.", "interview": "What might go wrong if a guard is tied to a noisy return?", "artifact": "A closed guard with measured contact pitch and a traced quiet connection."}
+  },
+  {
+    "id": "spiral", "topic": "RF & passives", "title": "Tune an on-chip spiral",
+    "summary": "Compare two generated coils at identical material assumptions and improve Q while preserving inductance and resonance margin.",
+    "skills": ["spiral inductors", "series loss", "quality factor", "self-resonance"], "minutes": 45, "requires": ["l-layout-decisions"],
+    "quiz": {"instructions": "What can change alongside inductance when you add a turn to a spiral?", "options": ["Series resistance and parasitic capacitance", "Only the layout cell name", "Only the direction of current"], "answer": 0, "explanation": "The added length changes losses and capacitance as well as inductance. Compare metrics under identical model assumptions."},
+    "tasks": [
+      {"id": "reference", "title": "Measure the reference coil", "instructions": "Open workspace in spiral_reference. Inspect the three-turn winding, underpass and contacts. Check estimated inductance and series resistance, model Q at 1 GHz and estimated self-resonance."},
+      {"id": "candidate", "title": "Improve the candidate coil", "instructions": "Open workspace in spiral_candidate. Use Tune candidate coil to change turns, metal width or spacing. Improve Q at 1 GHz by more than 5%, retain at least 1.8 nH, and keep estimated self-resonance above 3 GHz. Both coils use the same declared loss and capacitance models."}
+    ],
+    "reflection": "Compare the two coils and explain how the lumped capacitance and DC resistance assumptions limit a prediction of RF performance.",
+    "teaching": {"concept": "Inductance, Q and self-resonance constrain different aspects of a passive. This lab uses Studio’s geometry and DC estimates with an explicit lumped capacitance model.", "worked_example": "Calculate model Q from the imaginary and real parts of impedance at the same frequency. Locate self-resonance in the series RL branch shunted by the modeled parasitic capacitance.", "try_next": "In a copy, compare another width at fixed turns. Decide which comparison would be worth an EM run.", "interview": "Why is increasing nominal inductance not always an improvement?", "artifact": "Two generated coil layouts and a consistent model-based comparison of L, Q and resonance."}
+  },
+  {
+    "id": "handoff", "topic": "Tapeout handoff", "title": "Catch a bad GDS export",
+    "summary": "Export and independently reopen the routed macro, diagnose a missing pin label and verify a corrected stream.",
+    "skills": ["GDS", "stream readback", "hierarchy verification", "pin-purpose labels"], "minutes": 35, "requires": ["l-access"],
+    "quiz": {"instructions": "All metal polygons survived export. What could still make the receiving tool see the wrong interface?", "options": ["An absent or misplaced pin-purpose label", "The color of the schematic", "A shorter file name"], "answer": 0, "explanation": "Stream geometry, hierarchy and pin labels are separate evidence. Reopen the actual GDS and check them independently."},
+    "tasks": [
+      {"id": "fault", "title": "Find the missing export label", "instructions": "Resume the routed pass_macro. Choose Export and inspect GDS, then open Results. Check the actual top, placed instances, mask layers and reported missing pin label. The inspection reads the GDS bytes directly without the editor sidecar."},
+      {"id": "verify", "title": "Export and recheck the corrected stream", "instructions": "Use Assign stream pin label and choose the missing signal. Export and inspect again. Confirm that the written geometry and hierarchy match, all expected labels lie on their pin-purpose layer, and no labels are missing or extra. Results shows the verified GDS path and checksum."}
+    ],
+    "reflection": "Describe the mismatch and the evidence you would retain with the corrected file. Identify the process DRC, LVS and foundry preflight steps still required for a real handoff.",
+    "teaching": {"concept": "An editable source project and a stream file have different contracts. The independent check reads what was written, including hierarchy and label positions.", "worked_example": "A physical port can still land on a valid conductor while its pin-purpose text is absent in GDS. Restoring the label should change the readback report while preserving the mask geometry.", "try_next": "Inspect the GDS with a standalone viewer and compare its visible layers and top cell to the report.", "interview": "What artifacts let a reviewer reproduce and trust your handoff?", "artifact": "The failing and corrected GDS captures, SHA-256 checksums and independent readback reports."}
+  }
+]

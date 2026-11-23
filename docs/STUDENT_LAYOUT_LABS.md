@@ -48,3 +48,5 @@ after a captured run requires a new comparison for the edited design.
   Current density and via reliability require separate process evidence.
 
 The recorded work is available in an exported Student Hub learning record.
+Continue with the [layout integration and signoff labs](STUDENT_LAYOUT_SIGNOFF.md)
+to floorplan, route and independently read back a GF180 macro.

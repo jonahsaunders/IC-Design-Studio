@@ -70,7 +70,8 @@ def checker_stamp():
                    file_digest(Path(__file__).with_name('student_analog.py')),
                    file_digest(Path(__file__).with_name('student_filters.py')),
                    file_digest(Path(__file__).with_name('student_layout_decisions.py')),
-                   file_digest(Path(__file__).with_name('student_layout_labs.py'))])
+                   file_digest(Path(__file__).with_name('student_layout_labs.py')),
+                   file_digest(Path(__file__).with_name('student_layout_signoff.py'))])
 
 
 def lesson_stamp(lesson):
