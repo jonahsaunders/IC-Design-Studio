@@ -39,6 +39,7 @@ class StudentHubMenuTests(unittest.TestCase):
                 'icstudio.gui.QStandardPaths.writableLocation', return_value=str(root/'data')):
             self.studio = Studio(recover=False)
         self.studio.maybe_save = lambda: True
+        self.continue_learning = StudentHub.continue_learning
         self.callbacks = ExitStack()
         self.invoked = {name: self.callbacks.enter_context(patch.object(StudentHub, name))
                         for name in ('continue_learning', 'setup', 'export', 'locate', 'reload_progress')}
@@ -143,7 +144,7 @@ class StudentHubMenuTests(unittest.TestCase):
         QTest.keyClick(card, Qt.Key_Space)
         self.app.processEvents()
         self.assertTrue(hub.trail.isVisible())
-        self.assertTrue(hub.back.hasFocus())
+        self.assertTrue(hub.trail.rows['f-first'].hasFocus())
         next_lesson = hub.trail.rows['f-connect']
         next_lesson.click()
         self.assertIn('Prerequisites needed', next_lesson.accessibleDescription())
@@ -180,6 +181,52 @@ class StudentHubMenuTests(unittest.TestCase):
         self.assertEqual(hub.selected()['id'], 'a-lc-bode')
         hub.search.clear()
         self.assertTrue(hub.world_map.isVisible())
+
+    def test_map_keyboard_focus_and_search_return_to_context(self):
+        hub = self.hub
+        self.studio.resize(1440, 960)
+        self.studio.activateWindow()
+        self.app.processEvents()
+        cards = list(hub.world_map.cards.values())
+        self.assertGreater(hub.world_map.columns, 1)
+        cards[0].setFocus()
+        QTest.keyClick(cards[0], Qt.Key_Right)
+        self.assertTrue(cards[1].hasFocus())
+        self.assertTrue(hub.world_map.isVisible())
+        QTest.keyClick(cards[1], Qt.Key_End)
+        self.assertTrue(cards[-1].hasFocus())
+        QTest.keyClick(cards[-1], Qt.Key_Home)
+        QTest.keyClick(cards[0], Qt.Key_Return)
+        self.assertTrue(hub.trail.rows['f-first'].hasFocus())
+        hub.trail.rows['f-connect'].click()
+        hub.search.setFocus()
+        hub.search.setText('LC filters')
+        QTest.keyClick(hub.search, Qt.Key_Return)
+        self.assertTrue(hub.lessons.hasFocus())
+        self.assertEqual(hub.selected()['id'], 'a-lc-bode')
+        hub.search.setFocus()
+        QTest.keyClick(hub.search, Qt.Key_Escape)
+        self.assertEqual(hub.search.text(), '')
+        self.assertEqual(hub.selected()['id'], 'f-connect')
+        self.assertTrue(hub.search.hasFocus())
+        self.assertTrue(hub.trail.rows['f-connect'].isChecked())
+
+    def test_continue_learning_reopens_the_last_unfinished_lesson(self):
+        from icstudio.student_projects import create
+
+        hub, studio = self.hub, self.studio
+        hub.select_lesson('a-lc-bode')
+        hub.start_selected()
+        guide = hub.guide
+        project_id = studio.project['id']
+        guide.answer.setCurrentIndex(guide.answer.findData(guide.active_step['answer']))
+        guide.check_button.click()
+        self.assertEqual(studio.settings.value('student/lastLesson'), 'a-lc-bode')
+        studio.set_project(create('divider'))
+        self.continue_learning(hub)
+        self.assertEqual(studio.project['id'], project_id)
+        self.assertEqual(guide.lesson['id'], 'a-lc-bode')
+        self.assertEqual(guide.steps.currentIndex(), 1)
 
     def test_hints_reveal_per_question_in_preview_and_guide(self):
         from icstudio.model import digest
@@ -405,6 +452,48 @@ class StudentHubMenuTests(unittest.TestCase):
         gallery = guide.show_step_images()
         self.assertNotIn('Saved results', {image.title for image in gallery.images})
         gallery.close()
+
+    def test_step_images_fit_a_compact_window_and_support_keyboard_zoom(self):
+        hub = self.hub
+        hub.select_lesson('m-ramp')
+        hub.start_selected()
+        guide = hub.guide
+        guide.steps.setCurrentIndex(2)
+        hub.set_text_scale(200)
+        gallery = guide.show_step_images()
+        gallery.resize(620, 470)
+        self.app.processEvents()
+        self.assertTrue(gallery.picker.hasFocus())
+        self.assertEqual(gallery.zoom.currentText(), 'Fit to window')
+        view = gallery.scroller
+        self.assertLessEqual(gallery.figure.width(), view.viewport().width())
+        self.assertLessEqual(gallery.figure.height(), view.viewport().height())
+        self.assertEqual(view.horizontalScrollBar().maximum(), 0)
+        gallery.zoom.setFocus()
+        QTest.keyClick(gallery.zoom, Qt.Key_Down)
+        self.app.processEvents()
+        self.assertEqual(gallery.zoom.currentText(), 'Actual size')
+        self.assertGreater(view.horizontalScrollBar().maximum(), 0)
+        view.setFocus()
+        QTest.keyClick(view, Qt.Key_Right)
+        self.assertGreater(view.horizontalScrollBar().value(), 0)
+        QTest.keyClick(view, Qt.Key_Escape)
+        self.assertIsNone(guide.step_images_dialog)
+
+    def test_practical_actions_fit_at_two_hundred_percent_text_size(self):
+        hub, guide = self.hub, self.hub.guide
+        hub.set_text_scale(200)
+        for lesson, step in [('interview-post-layout-debug', 'route-baseline'), ('l-eco', 'update'),
+                             ('l-settle', 'baseline'), ('project-pga', 'baseline')]:
+            with self.subTest(lesson=lesson):
+                hub.select_lesson(lesson)
+                hub.start_selected()
+                guide.steps.setCurrentIndex(next(i for i, item in enumerate(guide.lesson['steps']) if item['id']==step))
+                guide.setFloating(True)
+                guide.resize(420, 700)
+                self.app.processEvents()
+                self.assertLessEqual(guide.width(), 420)
+                self.assertEqual(guide.scroll.horizontalScrollBar().maximum(), 0)
 
     def test_guide_shows_only_relevant_run_and_workspace_controls(self):
         from icstudio.student_hub import earned, evaluate

@@ -667,7 +667,7 @@
     ],
     "interview-post-layout-debug/route-baseline": [
       "Capture a schematic pass and an extracted timing miss on the supplied interconnect.",
-      ["Open workspace in Layout and leave vout at 0.20 µm. Run Compare extracted interconnect.", "Open Results and compare the schematic and extracted 2% settling times against 50 ps."],
+      ["Open workspace in Layout and leave vout at 0.20 µm. Choose Compare interconnect.", "Open Results and compare the schematic and extracted 2% settling times against 50 ps."],
       "The schematic settles within 50 ps and the extracted 0.20 µm case exceeds 50 ps under the same stimulus."
     ],
     "interview-post-layout-debug/route-repair": [
@@ -727,7 +727,7 @@
     ],
     "l-eco/update": [
       "Increase the shared transistor width to 3 µm and update its linked layout safely.",
-      ["Open shared_device in Schematic. Set MN1 total width to 3 µm.", "Choose Review device layout update. Inspect the new device dimensions and attached routes, then apply."],
+      ["Open shared_device in Schematic. Set MN1 total width to 3 µm.", "Choose Review layout update. Inspect the new device dimensions and attached routes, then apply."],
       "Use W = 3u in the schematic and the accepted linked-device update. The child ports and attached routes stay connected."
     ],
     "l-eco/parent": [
@@ -737,7 +737,7 @@
     ],
     "l-settle/baseline": [
       "Record the original schematic and extracted differential errors at the 1.4 ns sample point.",
-      ["Open workspace and leave both outp/outn stubs. Choose Compare schematic and layout.", "Open Results. Compare the 1.4 ns differential output with the settled 2.5 ns schematic reference."],
+      ["Open workspace and leave both outp/outn stubs. Choose Run RC comparison.", "Open Results. Compare the 1.4 ns differential output with the settled 2.5 ns schematic reference."],
       "The original extracted differential error exceeds 12 mV. The stubs load the outputs even though they carry little DC current."
     ],
     "l-settle/repair": [
@@ -937,7 +937,7 @@
     ],
     "project-pga/baseline": [
       "Identify the original programmable gain errors using AC and switching results for each code.",
-      ["Run Measure gain codes and switching. Read each steady AC gain and −3 dB bandwidth.", "Inspect gain-switching output plateaus and separate them from the AC measurements."],
+      ["Choose Measure PGA response. Read each steady AC gain and −3 dB bandwidth.", "Inspect gain-switching output plateaus and separate them from the AC measurements."],
       "The starter gains are about 1.66, 2.99 and 5.96 V/V. The three states are below the 2×, 4× and 8× targets."
     ],
     "project-pga/repair": [

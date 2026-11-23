@@ -8,6 +8,29 @@ observations retain their original scope; use [Student Hub](STUDENT_HUB.md) for
 current behavior and engine setup, and [release status](RELEASE_STATUS.md) for
 package identities. A later passing build does not rewrite this original audit.
 
+## November 23, 2026 Apple HIG review
+
+On review base `0fa0dd0`, the desktop audit followed the Student Hub from the
+world map and list through lesson help, editor actions, evidence review,
+reflection, resuming work and export.
+
+| Workflow | Finding and change | Apple guidance |
+| --- | --- | --- |
+| Browse and search | The world grid responds to arrow keys. Opening a world focuses its selected lesson, and going back restores the world's tile. Search sits at the trailing edge in wide windows. Clearing the query returns to the previous lesson, with Escape available from the search field. | [Focus and selection](https://developer.apple.com/design/human-interface-guidelines/focus-and-selection/), [Search fields](https://developer.apple.com/design/human-interface-guidelines/search-fields) |
+| Choose and get help | Map and List share progress, textual status and selection. The lesson guide keeps hints, worked solutions and Resisty within reach of the instructions. | [Segmented controls](https://developer.apple.com/design/human-interface-guidelines/segmented-controls), [Accessibility](https://developer.apple.com/design/human-interface-guidelines/accessibility) |
+| Work and check | Workspace, edit and run controls appear before Check this step. Feedback and Next step sit together. Save, return and setup actions sit below the task. Run status shows a percentage when the engine reports one. | [Buttons](https://developer.apple.com/design/human-interface-guidelines/buttons), [Feedback](https://developer.apple.com/design/human-interface-guidelines/feedback) |
+| Inspect images and solutions | The image viewer fits the screenshot at opening and offers actual size and 200% zoom with keyboard scrolling. The selectors and captions reflow in compact windows. | [Layout](https://developer.apple.com/design/human-interface-guidelines/layout), [Accessibility](https://developer.apple.com/design/human-interface-guidelines/accessibility) |
+| Resume, reflect and export | Continue learning prefers the last unfinished lesson available for credit. Saved-run comparison, reflection recovery and save-before-export were exercised in the desktop probes. | [Designing for macOS](https://developer.apple.com/design/human-interface-guidelines/designing-for-macos), [Feedback](https://developer.apple.com/design/human-interface-guidelines/feedback) |
+
+Windows Qt tests exercised keyboard focus, narrow windows, 100–200% text,
+light and dark appearance, project recovery and simulator feedback. The
+catalog sweep verified all 419 checkpoints in a 420-pixel guide at 200%
+text size without horizontal scrolling. Four shorter action labels resolved
+the overflow seen at 13 checkpoints. The audited text pairings measured
+4.93:1 to 14.42:1. macOS acceptance still requires
+Full Keyboard Access, VoiceOver, Increase Contrast, Retina scaling and native
+window behavior on a Mac.
+
 ## November 23, 2026 workflow audit
 
 The review of `75fd687` covered the game map, list and search; Quick check,

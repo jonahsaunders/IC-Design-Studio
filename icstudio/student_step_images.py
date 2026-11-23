@@ -4,7 +4,7 @@ import re
 from dataclasses import dataclass
 from pathlib import Path
 
-from PySide6.QtCore import QPointF, Qt
+from PySide6.QtCore import QEvent, QPointF, QSize, Qt
 from PySide6.QtGui import QFontDatabase, QPixmap
 from PySide6.QtWidgets import (QComboBox, QDialog, QDialogButtonBox, QFormLayout, QLabel, QPlainTextEdit,
                                QScrollArea, QVBoxLayout, QWidget)
@@ -288,34 +288,73 @@ class StepImages(QDialog):
         self.images = step_images(guide)
         layout = QVBoxLayout(self)
         form = QFormLayout()
+        form.setRowWrapPolicy(QFormLayout.WrapLongRows)
         self.picker = QComboBox()
         self.picker.addItems([image.title for image in self.images])
+        self.picker.setMinimumContentsLength(12)
+        self.picker.setSizeAdjustPolicy(QComboBox.AdjustToMinimumContentsLengthWithIcon)
         self.picker.setAccessibleName('Step image to display')
         form.addRow('Image', self.picker)
+        self.zoom = QComboBox()
+        self.zoom.setAccessibleName('Step image zoom')
+        self.zoom.addItem('Fit to window', 0)
+        self.zoom.addItem('Actual size', 1)
+        self.zoom.addItem('200%', 2)
+        form.addRow('Zoom', self.zoom)
         layout.addLayout(form)
         self.caption = QLabel()
         self.caption.setWordWrap(True)
         self.caption.setTextFormat(Qt.PlainText)
         layout.addWidget(self.caption)
-        scroller = QScrollArea()
-        scroller.setAlignment(Qt.AlignCenter)
-        scroller.setFocusPolicy(Qt.StrongFocus)
+        self.scroller = QScrollArea()
+        self.scroller.setAlignment(Qt.AlignCenter)
+        self.scroller.setFocusPolicy(Qt.StrongFocus)
+        self.scroller.setAccessibleName('Step image canvas. Use arrow keys to scroll when zoomed.')
         self.figure = QLabel()
         self.figure.setAlignment(Qt.AlignCenter)
-        scroller.setWidget(self.figure)
-        layout.addWidget(scroller, 1)
+        self.scroller.setWidget(self.figure)
+        layout.addWidget(self.scroller, 1)
         buttons = QDialogButtonBox(QDialogButtonBox.Close)
         buttons.rejected.connect(self.close)
         layout.addWidget(buttons)
         self.picker.currentIndexChanged.connect(self.show_image)
+        self.zoom.currentIndexChanged.connect(self.update_image_size)
+        self.scroller.viewport().installEventFilter(self)
         self.show_image(0)
+        self.picker.setFocus()
 
     def show_image(self, index):
         if index < 0:
             return
         image = self.images[index]
         self.caption.setText(image.caption)
+        self.picker.setToolTip(image.title)
         self.figure.setAccessibleName(image.title)
         self.figure.setAccessibleDescription(image.caption)
-        self.figure.setPixmap(image.pixels)
-        self.figure.adjustSize()
+        self.update_image_size()
+
+    def eventFilter(self, watched, event):
+        if watched is self.scroller.viewport() and event.type() == QEvent.Resize and not self.zoom.currentData():
+            self.update_image_size()
+        return super().eventFilter(watched, event)
+
+    def update_image_size(self):
+        index = self.picker.currentIndex()
+        if index < 0:
+            return
+        zoom = self.zoom.currentData()
+        policy = Qt.ScrollBarAsNeeded if zoom else Qt.ScrollBarAlwaysOff
+        self.scroller.setHorizontalScrollBarPolicy(policy)
+        self.scroller.setVerticalScrollBarPolicy(policy)
+        pixels = self.images[index].pixels
+        if not zoom:
+            viewport = self.scroller.viewport().size()
+            natural = pixels.deviceIndependentSize()
+            zoom = min(1, viewport.width() / natural.width(), viewport.height() / natural.height())
+        if zoom != 1:
+            target = QSize(max(1, int(pixels.width() * zoom)), max(1, int(pixels.height() * zoom)))
+            dpr = pixels.devicePixelRatio()
+            pixels = pixels.scaled(target, Qt.KeepAspectRatio, Qt.SmoothTransformation)
+            pixels.setDevicePixelRatio(dpr)
+        self.figure.setPixmap(pixels)
+        self.figure.setFixedSize(pixels.deviceIndependentSize().toSize())

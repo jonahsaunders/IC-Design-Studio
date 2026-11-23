@@ -323,7 +323,7 @@ def main():
     g.answer.setCurrentIndex(g.answer.findData(g.active_step['answer']));g.check()
     g.steps.setCurrentIndex(1)
     g.workspace()
-    assert w.mode_combo.currentIndex()==1 and g.controls['Run lesson'].text()=='Compare extracted interconnect'
+    assert w.mode_combo.currentIndex()==1 and g.controls['Run lesson'].text()=='Compare interconnect'
     g.run();deadline=time.monotonic()+30
     while w.run_manager.busy and time.monotonic()<deadline:QTest.qWait(20)
     assert not w.run_manager.busy and g.controls['Results'].isEnabled()
@@ -345,8 +345,9 @@ def main():
     g.grab().save(str(out/'guide-reflection.png'))
     # A wider font must reflow even when the saved text-size preference is 100%.
     g.setStyleSheet(g.styleSheet()+'\nQPushButton {font-size:24px;}')
-    g.resize(360,700);QTest.qWait(40);g.arrange_actions();QTest.qWait(40)
-    assert g.control_columns==1 and g.scroll.horizontalScrollBar().maximum()==0
+    g.resize(360,700);QTest.qWait(40)
+    assert g.scroll.horizontalScrollBar().maximum()==0
+    assert g.controls['Engine setup'].y()>g.controls['Save work'].y()
     h.apply_theme()
     for scale in (100,200):
         h.set_text_scale(scale);g.resize(420,700);QTest.qWait(40)

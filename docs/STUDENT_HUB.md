@@ -46,14 +46,16 @@ with earned progress shown on the world, topic and lesson. Select a world to
 see its lesson route, then select a lesson to preview it. **World map** returns
 to the overview. **List** opens the conventional path and lesson browser. The
 Hub remembers your view preference. Both views use the same learning record
-and prerequisites, so you can switch any time. Tab reaches the map controls
-and Space selects a focused world or lesson.
+and prerequisites, so you can switch any time. Tab reaches the map controls.
+Use the arrow keys to move between worlds and Return or Space to enter a
+focused world. The World map button returns focus to that world's tile.
 [Apple segmented controls](https://developer.apple.com/design/human-interface-guidelines/segmented-controls) ·
 [Apple focus and selection](https://developer.apple.com/design/human-interface-guidelines/focus-and-selection)
 
 Use **Search all lessons** or **Ctrl+F** to find a topic across learning paths.
-Results show their learning path. Clear the search to return to the map or
-selected path. Use the arrow keys to browse list results and **Enter** on a
+Results show their learning path. Clear the search with **Esc** in the search
+field or use its clear button to return to the lesson you were browsing.
+Use the arrow keys to browse list results and **Enter** on a
 result to open the lesson. Use the progress filter to find lessons by readiness
 or completion. **Clear filters** restores the previous view when a search has
 no matches. Select **Study notes** to
@@ -74,7 +76,9 @@ Student Hub remembers your choice for each lesson.
 In **Step by Step**, choose **Show step images…** to see the current
 checkpoint's visual guide. It uses the lesson's schematic, layout or RTL,
 with highlights and close-ups where available. The image selector
-also shows lesson controls and the fields for applicable edits. Once a
+also shows lesson controls and the fields for applicable edits. The viewer opens
+in **Fit to window**. Choose **Actual size** or **200%** to inspect a detail,
+then tab to the image and use the arrow keys to scroll. Once a
 current result is saved, supported waveform images appear in the same
 viewer. For the ADC repair, select **Schematic** to find R4, **Edit ladder
 section** to see its resistance field, and **Saved results** to view code
@@ -101,7 +105,10 @@ The workspace tabs keep each editor in place, and practice answers give feedback
 beside the question. [Apple tab bars](https://developer.apple.com/design/human-interface-guidelines/tab-bars) ·
 [Apple feedback](https://developer.apple.com/design/human-interface-guidelines/feedback)
 
-1. Choose **Continue learning**, or select a path and a lesson.
+1. Choose **Continue learning** to reopen your most recent unfinished lesson
+   when it can earn credit, or select a path and a lesson. If that recent lesson
+   is complete or still needs prerequisites, Continue learning opens the next
+   ready lesson.
 2. **Start lesson** creates an independent, saved project. Existing work goes
    through the normal save/discard/cancel flow before another document opens.
 3. The **Student lesson guide** stays beside the schematic, layout or RTL editor.

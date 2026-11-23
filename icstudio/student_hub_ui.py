@@ -3,9 +3,9 @@ import html
 from collections import Counter
 from pathlib import Path
 
-from PySide6.QtCore import Qt, QTimer, QEvent, QSize, QSignalBlocker
+from PySide6.QtCore import Qt, QTimer, QSize, QSignalBlocker
 from PySide6.QtGui import QActionGroup, QIcon, QKeySequence, QShortcut, QFontDatabase
-from PySide6.QtWidgets import (QDialog,QWidget,QVBoxLayout,QHBoxLayout,QGridLayout,QLabel,QPushButton,QButtonGroup,QSizePolicy,
+from PySide6.QtWidgets import (QDialog,QWidget,QVBoxLayout,QHBoxLayout,QLabel,QPushButton,QButtonGroup,QSizePolicy,
     QListWidget,QListWidgetItem,QListView,QTextBrowser,QPlainTextEdit,QComboBox,QProgressBar,QDockWidget,
     QLineEdit,QFileDialog,QFormLayout,QDialogButtonBox,QSplitter,QMenu,QScrollArea,QMessageBox,QTabWidget,QInputDialog,
     QBoxLayout)
@@ -118,6 +118,7 @@ class LessonSolution(QDialog):
         self.resize(620, 445)
         layout = QVBoxLayout(self)
         form = QFormLayout()
+        form.setRowWrapPolicy(QFormLayout.WrapLongRows)
         self.steps = QComboBox()
         self.steps.setMinimumContentsLength(14)
         self.steps.setSizeAdjustPolicy(QComboBox.AdjustToMinimumContentsLengthWithIcon)
@@ -329,6 +330,7 @@ class StudentHub(QWidget):
         self.mode=studio.settings.value('student/viewMode','map')
         if self.mode not in ('map','list'):self.mode='map'
         self.map_overview=True
+        self.search_origin=None
         self.setWindowTitle('Student Hub · IC Design Studio');self.resize(1180,780)
         self.text_scale=int(studio.settings.value('student/textScale',100))
         if self.text_scale not in (100,125,150,200):self.text_scale=100
@@ -374,11 +376,12 @@ class StudentHub(QWidget):
             self.modes.addButton(control);self.mode_buttons[key]=control;segments.addWidget(control,1)
         self.controls.addWidget(modes)
         self.search=QLineEdit();self.search.setPlaceholderText('Search all lessons…');self.search.setAccessibleName('Search all learning paths')
-        self.search.setClearButtonEnabled(True);self.controls.addWidget(self.search,1)
+        self.search.setClearButtonEnabled(True)
         self.status_filter=QComboBox();self.status_filter.setAccessibleName('Filter lessons by progress')
         self.status_filter.addItems(['All statuses','Ready to start','In progress','Completed',
                                      'Prerequisites needed','PDK setup needed'])
         self.controls.addWidget(self.status_filter)
+        self.controls.addWidget(self.search,1)
         self.map_heading=label('World map','title');root.addWidget(self.map_heading)
         self.world_header=QWidget();world_row=QHBoxLayout(self.world_header);world_row.setContentsMargins(0,0,0,0)
         self.back=button('‹  World map',self.show_map,'hubBack');self.back.setAccessibleName('Back to world map')
@@ -391,6 +394,7 @@ class StudentHub(QWidget):
         self.path_titles={p['id']:p['title'] for p in self.data['paths']}
         self.path_titles['capstone']='Advanced project'
         self.world_map=WorldMap(self.path_titles);self.world_map.world_opened.connect(self.open_world)
+        self.world_map.card_focused.connect(lambda card:self.scroll.ensureWidgetVisible(card,0,12))
         root.addWidget(self.world_map)
         self.process_panel=QWidget();pv=QVBoxLayout(self.process_panel);pv.setContentsMargins(0,0,0,0)
         pr=QHBoxLayout();pv.addLayout(pr);pr.addWidget(label('Inverter process'))
@@ -424,6 +428,10 @@ class StudentHub(QWidget):
         self.heading=label('','muted');lv.addWidget(self.heading)
         self.search.returnPressed.connect(self.focus_results)
         self.find_shortcut=QShortcut(QKeySequence.Find,self);self.find_shortcut.activated.connect(self.search.setFocus)
+        self.clear_search_shortcut=QShortcut(QKeySequence(Qt.Key_Escape),self.search)
+        self.clear_search_shortcut.setContext(Qt.WidgetShortcut)
+        self.clear_search_shortcut.setEnabled(False)
+        self.clear_search_shortcut.activated.connect(self.search.clear)
         self.lessons=QListWidget();self.lessons.setWordWrap(True);self.lessons.setObjectName('studentLessons');self.lessons.setAccessibleName('Learning progression');lv.addWidget(self.lessons,1)
         self.lessons.setResizeMode(QListView.Adjust);self.lessons.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.lessons.setMinimumHeight(120)
@@ -454,7 +462,7 @@ class StudentHub(QWidget):
         self.start=button('Start lesson',lambda:self.call(self.start_selected),'primary');rv.addWidget(self.start)
         self.reset_filters=button('Clear filters',self.clear_filters,'secondary');rv.addWidget(self.reset_filters)
         self.split.addWidget(right);self.split.setSizes([320,600]);self.lessons.currentRowChanged.connect(self.detail)
-        self.search.textChanged.connect(self.fill);self.status_filter.currentIndexChanged.connect(self.fill)
+        self.search.textChanged.connect(self.search_changed);self.status_filter.currentIndexChanged.connect(self.fill)
         self.status=label('Progress is saved on this computer. Simulation checks and written reflections are recorded separately.','muted');root.addWidget(self.status)
         self.guide=LessonGuide(self);studio.addDockWidget(Qt.RightDockWidgetArea,self.guide);self.guide.hide()
         self.apply_theme();self.fill();self.search.setFocus()
@@ -464,8 +472,9 @@ class StudentHub(QWidget):
         self.setStyleSheet(style);self.guide.setStyleSheet(style)
         if self.solution_dialog:
             self.solution_dialog.setStyleSheet(style)
+        if self.guide.step_images_dialog:
+            self.guide.step_images_dialog.setStyleSheet(style)
         self.world_map.set_theme(self.studio.dark,self.text_scale)
-        self.guide.arrange_actions()
         link_style=f'a {{color:{palette(self.studio.dark)["accent"]};}} li {{margin-bottom:8px;}}'
         self.details.document().setDefaultStyleSheet(link_style)
         self.guide.instructions.document().setDefaultStyleSheet(link_style)
@@ -499,6 +508,7 @@ class StudentHub(QWidget):
         if key is None:return
         self.map_overview=False
         self.path_id=key
+        self.search_origin=None
         if self.search.text():self.search.clear()
         else:self.fill()
 
@@ -510,7 +520,7 @@ class StudentHub(QWidget):
 
     def open_world(self,key):
         self.choose_path(key)
-        self.back.setFocus()
+        self.focus_results()
 
     def show_map(self):
         self.map_overview=True
@@ -547,11 +557,23 @@ class StudentHub(QWidget):
     def selected(self):
         item=self.lessons.currentItem();return self.by_id.get(item.data(Qt.UserRole)) if item else None
 
+    def search_changed(self,text):
+        self.clear_search_shortcut.setEnabled(bool(text))
+        if text.strip():
+            if self.search_origin is None:
+                self.search_origin=(self.selected() or {}).get('id','')
+            self.fill()
+        else:
+            origin,self.search_origin=self.search_origin,None
+            self.fill(lesson_id=origin)
+
     def clear_filters(self):
+        origin,self.search_origin=self.search_origin,None
         with QSignalBlocker(self.status_filter), QSignalBlocker(self.search):
             self.status_filter.setCurrentIndex(0)
             self.search.clear()
-        self.fill()
+        self.clear_search_shortcut.setEnabled(False)
+        self.fill(lesson_id=origin)
         self.search.setFocus()
 
     def fill(self,*_,lesson_id=None):
@@ -720,6 +742,7 @@ class StudentHub(QWidget):
         if self.mode=='map':self.map_overview=False
         with QSignalBlocker(self.status_filter), QSignalBlocker(self.search):
             self.status_filter.setCurrentIndex(0);self.search.clear()
+        self.search_origin=None;self.clear_search_shortcut.setEnabled(False)
         self.fill(lesson_id=key)
 
     def set_current_lesson(self,key):
@@ -730,7 +753,11 @@ class StudentHub(QWidget):
         data=self.data
         if self.path_id=='inverter':data={**data,'lessons':[l for l in data['lessons'] if l.get('inverter_profile')==self.process_picker.currentData()]}
         else:data={**data,'lessons':[l for l in data['lessons'] if not l.get('inverter_profile') or self.inverter_profiles[l['inverter_profile']]['ready']]}
-        lesson=next_lesson(self.portfolio.state,data)
+        state=self.portfolio.state
+        recent=self.studio.settings.value('student/lastLesson','',str)
+        lesson=next((item for item in data['lessons'] if item['id']==recent and
+                     not complete(state,item) and not missing_prerequisites(state,item,data)),None)
+        if lesson is None:lesson=next_lesson(state,data)
         if lesson:self.select_lesson(lesson['id']);self.start_selected()
         else:self.status.setText('This process course is complete. Choose another PDK or continue with the other learning paths.' if self.path_id=='inverter' else
                                 'All learning paths and the advanced project are complete. Revisit any lesson or export your portfolio report.')
@@ -768,6 +795,7 @@ class StudentHub(QWidget):
         from .digital_design import config
         if not s.project.get('mixed_signal') and config(s.project,s.project['top']):self.guide.rtl()
         else:self.guide.workspace()
+        s.settings.setValue('student/lastLesson',l['id'])
         self.guide.steps.setFocus()
 
     def locate(self):
@@ -914,34 +942,33 @@ class LessonGuide(QDockWidget):
         self.hints_index=self.lesson_tabs.addTab(hints_page,'Hints')
         self.hint_question.currentIndexChanged.connect(self.show_question_hints)
         self.lesson_tabs.setMinimumHeight(220)
-        self.answer_label=label('Your answer');v.addWidget(self.answer_label)
-        self.answer=QComboBox();self.answer.setAccessibleName('Knowledge check answer');self.answer.setMinimumContentsLength(10)
-        self.answer.setSizeAdjustPolicy(QComboBox.AdjustToMinimumContentsLengthWithIcon);v.addWidget(self.answer);self.answer_label.setBuddy(self.answer)
-        self.notes_label=label('Your reflection');v.addWidget(self.notes_label)
-        self.notes=QPlainTextEdit();self.notes.setPlaceholderText('Record your observations and reasoning…');self.notes.setAccessibleName('Lesson reflection');self.notes.setMinimumHeight(100);self.notes.setMaximumHeight(220);v.addWidget(self.notes);self.notes_label.setBuddy(self.notes)
-        self.note_status=label('','muted');v.addWidget(self.note_status)
-        self.check_button=button('Check this step',lambda:self.call(self.check),'primary');v.addWidget(self.check_button)
-        self.feedback=label('');self.feedback.setTextInteractionFlags(Qt.TextSelectableByMouse);v.addWidget(self.feedback)
         self.ask_button=resisty_button(lambda:self.call(self.ask_ai),'this lesson step')
         self.solution_button=button('Show solution…',lambda:self.call(self.show_solution),'secondary')
         self.ask_button.hide();self.solution_button.hide()
         help_actions=FlowActions()
         help_actions.addWidget(self.ask_button);help_actions.addWidget(self.solution_button)
         v.addLayout(help_actions)
-        self.next_button=button('Next step',lambda:self.call(self.advance),'secondary');v.addWidget(self.next_button);self.next_button.hide()
-        self.run_status=label('','muted');v.addWidget(self.run_status)
-        self.run_progress=QProgressBar();self.run_progress.setTextVisible(False);self.run_progress.setAccessibleName('Lesson run progress');v.addWidget(self.run_progress);self.run_progress.hide()
-        self.controls_layout=QGridLayout();v.addLayout(self.controls_layout);self.controls={}
-        for i,(title,fn) in enumerate([('Open workspace',self.workspace),('Open RTL',self.rtl),('Run lesson',self.run),('Results',self.results),
-                                     ('Save work',self.save_work),('Cancel lesson runs',self.cancel),('Student Hub',self.show_hub),('Engine setup',hub.setup),
-                                     ('Mixed-signal experiment…',self.mixed_signal_setup)]):
-            b=button(title,lambda fn=fn:self.call(fn));self.controls_layout.addWidget(b,i//2,i%2);self.controls[title]=b
-        self.inverter_actions=QWidget();iv=QGridLayout(self.inverter_actions);iv.setContentsMargins(0,0,0,0);v.addWidget(self.inverter_actions)
-        self.inverter_controls_layout=iv;self.inverter_buttons=[]
-        for i,(title,fn) in enumerate([('Open inverter',self.open_inverter),('Build layout',self.build_inverter),
-                                     ('Add DRC fault',lambda:self.inverter_edit('drc')),('Add LVS fault',lambda:self.inverter_edit('lvs')),
-                                     ('Repair lesson fault',lambda:self.inverter_edit('repair'))]):
-            control=button(title,lambda fn=fn:self.call(fn));iv.addWidget(control,i//2,i%2);self.inverter_buttons.append(control)
+        self.answer_label=label('Your answer');v.addWidget(self.answer_label)
+        self.answer=QComboBox();self.answer.setAccessibleName('Knowledge check answer');self.answer.setMinimumContentsLength(10)
+        self.answer.setSizeAdjustPolicy(QComboBox.AdjustToMinimumContentsLengthWithIcon);v.addWidget(self.answer);self.answer_label.setBuddy(self.answer)
+        self.notes_label=label('Your reflection');v.addWidget(self.notes_label)
+        self.notes=QPlainTextEdit();self.notes.setPlaceholderText('Record your observations and reasoning…');self.notes.setAccessibleName('Lesson reflection');self.notes.setMinimumHeight(100);self.notes.setMaximumHeight(220);v.addWidget(self.notes);self.notes_label.setBuddy(self.notes)
+        self.note_status=label('','muted');v.addWidget(self.note_status)
+        self.controls={}
+        for title,fn in [('Open workspace',self.workspace),('Open RTL',self.rtl),
+                         ('Mixed-signal experiment…',self.mixed_signal_setup),('Run lesson',self.run),
+                         ('Results',self.results),('Cancel lesson runs',self.cancel),('Save work',self.save_work),
+                         ('Student Hub',self.show_hub),('Engine setup',hub.setup)]:
+            self.controls[title]=button(title,lambda fn=fn:self.call(fn))
+        editors=FlowActions();v.addLayout(editors)
+        for name in ('Open workspace','Open RTL','Mixed-signal experiment…'):
+            editors.addWidget(self.controls[name])
+        self.inverter_actions=QWidget();iv=FlowActions(self.inverter_actions);v.addWidget(self.inverter_actions)
+        self.inverter_buttons=[]
+        for title,fn in [('Open inverter',self.open_inverter),('Build layout',self.build_inverter),
+                         ('Add DRC fault',lambda:self.inverter_edit('drc')),('Add LVS fault',lambda:self.inverter_edit('lvs')),
+                         ('Repair lesson fault',lambda:self.inverter_edit('repair'))]:
+            control=button(title,lambda fn=fn:self.call(fn));iv.addWidget(control);self.inverter_buttons.append(control)
         self.inverter_actions.hide()
         self.analog_action=button('Edit testbench…',lambda:self.call(self.analog_project_action))
         self.analog_action.hide();v.addWidget(self.analog_action)
@@ -950,35 +977,23 @@ class LessonGuide(QDockWidget):
         self.signal_action=button('Edit experiment…',lambda:self.call(self.signal_study_action))
         self.signal_action.hide();v.addWidget(self.signal_action)
         self.qualify=button('Run qualification',lambda:self.call(self.qualification));v.addWidget(self.qualify)
+        runs=FlowActions();v.addLayout(runs)
+        for name in ('Run lesson','Results','Cancel lesson runs'):
+            runs.addWidget(self.controls[name])
+        self.run_status=label('','muted');v.addWidget(self.run_status)
+        self.run_progress=QProgressBar();self.run_progress.setTextVisible(False);self.run_progress.setAccessibleName('Lesson run progress');v.addWidget(self.run_progress);self.run_progress.hide()
+        self.check_button=button('Check this step',lambda:self.call(self.check),'primary');v.addWidget(self.check_button)
+        self.feedback=label('');self.feedback.setTextInteractionFlags(Qt.TextSelectableByMouse);v.addWidget(self.feedback)
+        self.next_button=button('Next step',lambda:self.call(self.advance),'secondary');v.addWidget(self.next_button);self.next_button.hide()
+        footer=FlowActions();v.addLayout(footer)
+        for name in ('Save work','Student Hub','Engine setup'):
+            footer.addWidget(self.controls[name])
         self.steps.currentIndexChanged.connect(self.step_changed)
         self.note_timer=QTimer(self);self.note_timer.setSingleShot(True);self.note_timer.setInterval(600)
         self.note_timer.timeout.connect(lambda:self.call(self.save_note));self.notes.textChanged.connect(self.note_changed)
         self.active_step=None;self.note_dirty=False;self.practice_passed=False
         self.studio.run_manager.completed.connect(self.finished)
         self.studio.run_manager.changed.connect(self.update_run_state)
-        self.control_columns=None
-        self.scroll.viewport().installEventFilter(self)
-
-    def arrange_actions(self):
-        # Font metrics vary by OS, fallback font and accessibility settings.
-        # Reflow from actual control widths, not a particular zoom threshold.
-        if not hasattr(self,'control_columns'):return
-        width=self.scroll.viewport().width()-28
-        buttons=list(self.controls.values())
-        needed=sum(max(b.sizeHint().width() for b in buttons[col::2]) for col in (0,1))+self.controls_layout.horizontalSpacing()
-        columns=2 if needed<=width else 1
-        inv=self.inverter_buttons
-        inv_columns=2 if sum(max(b.sizeHint().width() for b in inv[col::2]) for col in (0,1))+self.inverter_controls_layout.horizontalSpacing()<=width else 1
-        while self.inverter_controls_layout.count():self.inverter_controls_layout.takeAt(0)
-        for i,control in enumerate(inv):self.inverter_controls_layout.addWidget(control,i//inv_columns,i%inv_columns)
-        if columns==self.control_columns:return
-        self.control_columns=columns
-        while self.controls_layout.count():self.controls_layout.takeAt(0)
-        for i,control in enumerate(buttons):self.controls_layout.addWidget(control,i//columns,i%columns)
-
-    def eventFilter(self,watched,event):
-        if watched is self.scroll.viewport() and event.type()==QEvent.Resize:self.arrange_actions()
-        return super().eventFilter(watched,event)
 
     def call(self,fn):
         try:return fn()
@@ -1070,6 +1085,7 @@ class LessonGuide(QDockWidget):
         self.step_images_dialog.finished.connect(self.clear_step_images)
         self.step_images_dialog.show()
         self.step_images_dialog.raise_()
+        self.step_images_dialog.activateWindow()
         return self.step_images_dialog
 
     def clear_step_images(self,*_):
@@ -1224,7 +1240,7 @@ class LessonGuide(QDockWidget):
             cell=next(c for c in s.project['cells'] if c['id']==cid)
             candidate,report=propose(s.project,cid,[cell['devices'][0]['id']],s.layout.locked_layers)
             moves=len(report['adjusted_routes'])
-            choice=QMessageBox.question(self,'Review device layout update',
+            choice=QMessageBox.question(self,'Review layout update',
                   f'Regenerate the shared NMOS and adjust {moves} attached route(s). The two parent instances retain their placements. Apply the update?')
             if choice==QMessageBox.Yes:
                 s.commit(lambda p:apply(p,candidate,report),'Update shared transistor layout');self.workspace()
@@ -1424,7 +1440,7 @@ class LessonGuide(QDockWidget):
             from .process_adapters import capabilities
             needs_full_pdk=step=='post-layout' and not capabilities(self.studio.project['pdk'])['external_verification']
             if kind=='interview':
-                self.controls['Run lesson'].setText('Compare extracted interconnect' if step.startswith('route-') else 'Run experiment')
+                self.controls['Run lesson'].setText('Compare interconnect' if step.startswith('route-') else 'Run experiment')
                 self.analog_action.setText('Open circuit')
                 self.analog_action.setEnabled(bound and not active);self.analog_action.setVisible(bool(names))
             elif kind=='bandgap':
@@ -1455,7 +1471,7 @@ class LessonGuide(QDockWidget):
             step=self.active_step['id'];title=run_name(lab,step)
             self.controls['Run lesson'].setVisible(bool(title));self.controls['Run lesson'].setText(title)
             action={('fold','folded'):'Generate device layout',('lvs','swap'):'Edit input ports…',
-                    ('eco','update'):'Review device layout update…',('noise','space'):'Set clock spacing…'}.get((lab,step))
+                    ('eco','update'):'Review layout update…',('noise','space'):'Set clock spacing…'}.get((lab,step))
             if (lab,step) in ACTIONS:action=ACTIONS[lab,step]+'…'
             if action:
                 self.layout_action.setText(action);self.layout_action.setEnabled(bound and not active);self.layout_action.show()
@@ -1483,16 +1499,20 @@ class LessonGuide(QDockWidget):
         self.qualify.setVisible(campaign);self.qualify.setEnabled(campaign and bound and not active)
         self.controls['Cancel lesson runs'].setEnabled(bool(active));self.controls['Cancel lesson runs'].setVisible(bool(active))
         result_rows=[r for r in self.step_run_rows(rows) if r.get('result')]
+        self.controls['Results'].setVisible(bool(result_rows) or not run_button.isHidden() or campaign)
         self.controls['Results'].setEnabled(bound and bool(result_rows) and (kind!='interview' or not active))
         for name in ('Open workspace','Save work'):self.controls[name].setEnabled(bound)
         self.check_button.setEnabled(bound)
         self.run_progress.setVisible(bool(active))
         if active:
-            self.run_progress.setRange(0,100);self.run_progress.setValue(round(sum(r.get('progress',0) for r in active)/len(active)))
-            self.run_status.setText(' · '.join(f'{sum(r["state"]==state for r in active)} {state.lower()}' for state in ('Running','Queued','Stopping') if any(r['state']==state for r in active)))
+            progress=round(sum(r.get('progress',0) for r in active)/len(active))
+            self.run_progress.setRange(0,100);self.run_progress.setValue(progress)
+            status=' · '.join(f'{sum(r["state"]==state for r in active)} {state.lower()}' for state in ('Running','Queued','Stopping') if any(r['state']==state for r in active))
+            self.run_status.setText(status+(f' · {progress}%' if progress else ''))
         elif not bound:self.run_status.setText('Resume this lesson from Student Hub to use its workspace.')
         elif visible_rows:=self.step_run_rows(rows):self.run_status.setText('Latest run: '+visible_rows[-1]['state'])
         else:self.run_status.setText('Ready to run.' if can_run or campaign else '')
+        self.run_status.setVisible(bool(self.run_status.text()))
 
     def finished(self,row,result):
         if self.active_step and self.active_step['kind']=='check' and row in self.step_run_rows(self.lesson_rows()):

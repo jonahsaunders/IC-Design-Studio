@@ -381,7 +381,7 @@ def run_name(lab, step):
     if lab in PROCESS and step in ('single', 'folded', 'tie'):
         return 'Run process DRC/LVS'
     if lab in RC and step in ('baseline', 'repair', 'close', 'space', 'layer', 'shield'):
-        return 'Compare schematic and layout'
+        return 'Run RC comparison'
     return ''
 
 

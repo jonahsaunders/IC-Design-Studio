@@ -1,5 +1,5 @@
 """The Student Hub's illustrated world map and playable lesson routes."""
-from PySide6.QtCore import QPointF, QRectF, Qt, Signal
+from PySide6.QtCore import QEvent, QPointF, QRectF, Qt, Signal
 from PySide6.QtGui import QColor, QLinearGradient, QPainter, QPen, QPolygonF
 from PySide6.QtWidgets import (QButtonGroup, QGridLayout, QHBoxLayout, QLabel,
                                QProgressBar, QPushButton, QScrollArea, QSizePolicy,
@@ -230,6 +230,7 @@ class WorldCard(_Tile):
 
 class WorldMap(QWidget):
     world_opened = Signal(str)
+    card_focused = Signal(QWidget)
 
     def __init__(self, titles):
         super().__init__()
@@ -242,6 +243,7 @@ class WorldMap(QWidget):
         for key, title in titles.items():
             card = WorldCard(key, title)
             card.clicked.connect(lambda checked=False, key=key: self.world_opened.emit(key))
+            card.installEventFilter(self)
             self.cards[key] = card
         self.columns = 0
         self.set_theme(False, 100)
@@ -269,6 +271,35 @@ class WorldMap(QWidget):
     def resizeEvent(self, event):
         super().resizeEvent(event)
         self.reflow()
+
+    def eventFilter(self, card, event):
+        if event.type() == QEvent.FocusIn:
+            self.card_focused.emit(card)
+        if event.type() != QEvent.KeyPress or event.modifiers() & ~Qt.KeypadModifier:
+            return super().eventFilter(card, event)
+        key = event.key()
+        if key in (Qt.Key_Return, Qt.Key_Enter):
+            card.click()
+            return True
+        if key not in (Qt.Key_Left, Qt.Key_Right, Qt.Key_Up, Qt.Key_Down, Qt.Key_Home, Qt.Key_End):
+            return super().eventFilter(card, event)
+        cards = list(self.cards.values())
+        index = cards.index(card)
+        column = index % self.columns
+        if key == Qt.Key_Home:
+            target = 0
+        elif key == Qt.Key_End:
+            target = len(cards) - 1
+        elif key in (Qt.Key_Up, Qt.Key_Down):
+            target = index + (self.columns if key == Qt.Key_Down else -self.columns)
+        else:
+            move = 1 if key == Qt.Key_Right else -1
+            if self.layoutDirection() == Qt.RightToLeft:
+                move = -move
+            target = index + move if 0 <= column + move < self.columns else index
+        if 0 <= target < len(cards):
+            cards[target].setFocus(Qt.ShortcutFocusReason)
+        return True
 
     def paintEvent(self, event):
         p = QPainter(self)

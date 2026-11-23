@@ -89,6 +89,15 @@ passed with native ngspice where used. Hosted desktop checks and the existing
 process verification lanes remain the next acceptance evidence. See the
 [workflow audit](STUDENT_HUB_AUDIT.md#november-23-2026-workflow-audit).
 
+**November 23, 2026 — Student Hub Apple HIG review (UX-02).** On review base
+`0fa0dd0`, the map supports directional keyboard navigation, clearing search
+restores the prior lesson, Continue learning reopens eligible unfinished work,
+and step images fit the window with explicit zoom. Guide actions follow the
+lesson sequence. Windows Qt verified 419 checkpoints at 200% text in a
+420-pixel guide and audited light and dark text contrast. Native macOS
+accessibility and window checks remain pending. See the
+[Apple HIG review](STUDENT_HUB_AUDIT.md#november-23-2026-apple-hig-review).
+
 **November 20, 2026 — Measured width and spacing reviews (LAY-12, UX-02).**
 Extending the via review at `14368c3`, the assistant can preview and apply
 single-shape repairs against Studio's geometry rules. Both Student Hub fixtures

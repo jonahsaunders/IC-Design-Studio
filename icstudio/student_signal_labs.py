@@ -63,7 +63,7 @@ def run_name(lab, step):
         return ''
     return {'rejection': 'Run three AC excitations', 'adc-ramp': 'Capture and measure ramp',
             'temperature': 'Validate held-out conditions' if step == 'validate' else 'Measure reference points',
-            'pga': 'Measure gain codes and switching'}.get(lab, 'Run experiment')
+            'pga': 'Measure PGA response'}.get(lab, 'Run experiment')
 
 
 def _case(p, name, settings, update=None, cid=None):
