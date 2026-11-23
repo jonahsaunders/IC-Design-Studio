@@ -1,21 +1,165 @@
 """Teaching material and a readable, honest portfolio, separate from grading."""
 import html
 import json
+from functools import lru_cache
 
 from .model import atomic_write, now
 
 
+@lru_cache(maxsize=1)
+def hint_source():
+    from .getting_started import resource_root
+    return json.loads((resource_root()/'examples/student-hub/study-hints.json').read_text(encoding='utf-8'))
+
+
+def lesson_hints(lesson, author_id=None):
+    if lesson.get('bench_project'):
+        from .student_testbench import hints
+        return hints(lesson['id'])
+    source = hint_source()
+    result = {}
+    for step in lesson['steps']:
+        if step['kind'] != 'quiz':
+            continue
+        key = f'{author_id or lesson["id"]}/{step["id"]}'
+        entries = source.get(key, [])
+        if not isinstance(entries, list) or len(entries) != 4 or any(
+            not isinstance(pair, list) or len(pair) != 2
+            or any(not isinstance(text, str) or not text.strip() for text in pair)
+            or not pair[0].endswith('?') for pair in entries
+        ) or len({pair[0].casefold() for pair in entries}) != 4:
+            raise ValueError('Add four distinct student questions with answers for '+key)
+        result[step['id']] = entries
+    return result
+
+
+@lru_cache(maxsize=1)
+def mode_source():
+    from .getting_started import resource_root
+    return json.loads((resource_root()/'examples/student-hub/lesson-modes.json').read_text(encoding='utf-8'))
+
+
+def lesson_practice(lesson, author_id=None):
+    if lesson.get('bench_project'):
+        from .student_testbench import practice
+        return practice(lesson['id'])
+    source = mode_source()
+    tasks, questions = {}, {}
+    for step in lesson['steps']:
+        key = f'{author_id or lesson["id"]}/{step["id"]}'
+        if step['kind'] == 'quiz' and key in source['challenge_questions']:
+            prompt = source['challenge_questions'][key]
+            if not isinstance(prompt, str) or not prompt.strip():
+                raise ValueError('Add a question for ' + key)
+            questions[step['id']] = prompt
+        if step['kind'] != 'check':
+            continue
+        record = source['tasks'].get(key)
+        if not isinstance(record, list) or len(record) != 3:
+            raise ValueError('Add a challenge, walkthrough and solution for ' + key)
+        goal, actions, solution = record
+        if (not isinstance(actions, list) or len(actions) < 2
+                or not all(isinstance(line, str) and line.strip() for line in [goal, *actions, solution])):
+            raise ValueError('Incomplete practice material for ' + key)
+        tasks[step['id']] = record
+    return dict(tasks=tasks, questions=questions)
+
+
 def study_guide(data):
     from .getting_started import resource_root
+    from .student_layout_labs import course
+    from .student_signal_labs import course as signal_course
+    from . import student_testbench
     content = json.loads((resource_root()/'examples/student-hub/study-guide.json').read_text(encoding='utf-8'))
     ids = {lesson['id'] for lesson in data['lessons']}
+    content['lessons'].update({'l-' + unit['id']: unit['teaching'] for unit in course() if 'l-' + unit['id'] in ids})
+    content['lessons'].update({unit['id']: unit['teaching'] for unit in signal_course() if unit['id'] in ids})
+    bench_ids = {lesson['id'] for lesson in data['lessons'] if lesson.get('bench_project')}
+    content['lessons'].update({key: student_testbench.teaching(key) for key in bench_ids})
     if set(content['lessons']) != ids:
         raise ValueError('Every lesson needs teaching material in the study guide.')
     for note in content['lessons'].values():
         for field in ('concept','worked_example','try_next','interview','artifact'):
             if not isinstance(note.get(field),str) or not note[field].strip():
                 raise ValueError('Incomplete lesson teaching material: '+field)
+    content['hints'] = {lesson['id']: lesson_hints(lesson) for lesson in data['lessons']}
+    content['practice'] = {lesson['id']: lesson_practice(lesson) for lesson in data['lessons']}
     return content
+
+
+def question_text(step, practice, guided):
+    return step['instructions'] if guided else practice['questions'].get(step['id'], step['instructions'])
+
+
+def challenge_text(step, practice):
+    if step['kind'] == 'check':
+        return practice['tasks'][step['id']][0]
+    return question_text(step, practice, False)
+
+def _paragraph(text):
+    return '<p>' + html.escape(text).replace('\n', '<br>') + '</p>'
+
+
+def _numbered(actions):
+    return '<ol>' + ''.join('<li>' + html.escape(action) + '</li>' for action in actions) + '</ol>'
+
+
+def task_html(step, practice, guided, workflow='graphical'):
+    if step['kind'] == 'quiz':
+        question = _paragraph(question_text(step, practice, guided))
+        return question + (_numbered([
+            'Read the conditions in the question and make a prediction.',
+            'Choose your answer from the list below.',
+            'Choose Check this step and read the explanation.',
+        ]) if guided else '')
+    if step['kind'] == 'reflection':
+        prompt = _paragraph(step['instructions'])
+        return prompt + (_numbered([
+            'If this lesson has a saved run, open Results to revisit it. For a geometry, source, or study exercise, reopen the workspace or study you used.',
+            'Write what you predicted, what you observed and how your evidence answers the question above. Include units and test conditions where relevant.',
+            'Enter at least 40 characters in Your reflection and choose Record reflection.',
+        ]) if guided else '')
+    goal, actions, _ = practice['tasks'][step['id']]
+    if not guided:
+        return _paragraph(goal)
+    bench = practice.get('bench_workflows', {}).get(step['id'])
+    if bench:
+        return _paragraph(step['instructions']) + _bench_walkthrough(bench, workflow)
+    checklist = list(actions)
+    if not any('Check this step' in action for action in checklist):
+        checklist.append('Choose Check this step and read the checkpoint result.')
+    return _paragraph(goal) + _numbered(checklist)
+
+
+def lesson_run_step(job):
+    return (job.get('student_layout_step') or job.get('student_signal_step')
+            or job.get('student_bench_step')
+            or job.get('student_analog', {}).get('stage'))
+
+
+def _bench_walkthrough(bench, workflow):
+    steps = _numbered(bench[workflow])
+    if workflow == 'spice':
+        steps += '<pre>' + html.escape(bench['program']) + '</pre>'
+    return steps
+
+
+def solution_html(step, practice, note):
+    title = '<h2>' + html.escape(step['title']) + '</h2>'
+    if step['kind'] == 'quiz':
+        answer = html.escape(step['options'][step['answer']])
+        return title + '<p><b>' + answer + '</b></p>' + _paragraph(step['explanation'])
+    if step['kind'] == 'reflection':
+        return (title + '<h3>Example reasoning</h3>' + _paragraph(note['worked_example'])
+                + _paragraph('Use your own observed values, test conditions and reasoning for this prompt.')
+                + _paragraph(step['instructions']))
+    _, actions, solution = practice['tasks'][step['id']]
+    bench = practice.get('bench_workflows', {}).get(step['id'])
+    if bench:
+        return (title + _paragraph(solution)
+                + '<h3>Graphical testbench</h3>' + _bench_walkthrough(bench, 'graphical')
+                + '<h3>SPICE program</h3>' + _bench_walkthrough(bench, 'spice'))
+    return title + _paragraph(solution) + '<h3>In Studio</h3>' + _numbered(actions)
 
 
 def notes_html(note):

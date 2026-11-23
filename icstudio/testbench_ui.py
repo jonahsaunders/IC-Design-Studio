@@ -36,11 +36,13 @@ def extraction_editor(seed):
     return page
 
 
-def editor(studio,original=None):
+def editor(studio,original=None,*,fixture_id=None,preview=False):
     p=studio.project;choices=[c for c in p['cells'] if len([d for d in c['devices'] if d['kind']=='X'])==1]
+    if fixture_id:
+        choices=[c for c in choices if c['id']==fixture_id]
     if not choices:raise ValueError('Create a bench schematic containing one circuit instance, supplies and loads first.')
     selected=next((c for c in choices if c['id']==(original or {}).get('bench_cell',studio.cid)),choices[0]);seed=clone(original) if original else create(p,selected['id'],'bench'+str(len(p.get('testbenches',[]))+1))
-    dlg=QDialog(studio);dlg.setWindowTitle('Edit saved testbench' if original else 'Save testbench');dlg.resize(1020,760);dlg.setWindowModality(Qt.WindowModal);v=QVBoxLayout(dlg);tabs=QTabWidget();v.addWidget(tabs);general=QWidget();g=QVBoxLayout(general);form=QFormLayout();g.addLayout(form);dlg.fields={}
+    dlg=QDialog(studio);dlg.setWindowTitle('Edit saved testbench' if original else 'Save testbench');dlg.resize(1020,760);dlg.setWindowModality(Qt.WindowModal);v=QVBoxLayout(dlg);tabs=QTabWidget();dlg.pages=tabs;v.addWidget(tabs);general=QWidget();g=QVBoxLayout(general);form=QFormLayout();g.addLayout(form);dlg.fields={}
     def field(key,label,value):
         w=QLineEdit(str(value));w.setAccessibleName(label);dlg.fields[key]=w;form.addRow(label,w);return w
     field('name','Name',seed['name']);bench=QComboBox();dlg.bench=bench
@@ -115,6 +117,8 @@ def editor(studio,original=None):
             def install(p):
                 p['testbenches']=q['testbenches']
                 if 'implementation_views' in q:p['implementation_views']=q['implementation_views']
-            studio._selected_testbench=t['id'];studio.commit(install,'Save testbench');dlg.accept();studio.open_testbenches()
+            studio._selected_testbench=t['id'];studio.commit(install,'Save testbench');dlg.accept()
+            if not fixture_id:studio.open_testbenches()
         except Exception as e:error.setText(str(e))
+    if preview:return dlg
     buttons.accepted.connect(save);buttons.rejected.connect(dlg.reject);studio._testbench_dialog=dlg;dlg.show();return dlg

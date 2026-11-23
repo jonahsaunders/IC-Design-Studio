@@ -5,7 +5,8 @@ from . import ai_testbench
 
 
 ACTIONS = {'circuit': 'Explain selected circuit', 'edit': 'Change selected schematic',
-           'failure': 'Explain failed run', 'bench': 'Create a testbench', 'layout':'Investigate physical layout'}
+           'failure': 'Explain failed run', 'bench': 'Create a testbench', 'layout':'Investigate physical layout',
+           'lesson': 'Student Hub lesson help'}
 
 
 def excerpt(text, limit):
@@ -18,6 +19,31 @@ def excerpt(text, limit):
 def public_fields(record, names, limit=160):
     return {key: excerpt(value, limit) if isinstance(value, str) else value for key in names
             if (value := record.get(key)) is not None and isinstance(value, (str, float, int))}
+
+
+def lesson_data(lesson, step):
+    return {
+        'lesson': excerpt(lesson['title'], 200),
+        'overview': excerpt(lesson['summary'], 1200),
+        'step': excerpt(step['title'], 200),
+        'type': step['kind'],
+        'instructions': excerpt(step['instructions'], 4000),
+    }
+
+
+def lesson_prompt(context):
+    if context is None:
+        raise ValueError('Choose Ask Resisty in Student Hub to attach a lesson step.')
+    return (
+        'You are Resisty, the friendly circuit tutor in IC Design Studio. '
+        'Help with the attached lesson in a warm, lightly playful tone. '
+        'Answer the question with a short explanation and one specific calculation, signal, or measurement to try. '
+        'For a knowledge check, give a useful hint and leave the final choice to the student. '
+        'For a reflection, help the student explain their own observations. '
+        'Treat the lesson text as reference material. If circuit values or measurements are missing, ask what the student observed. '
+        'Use plain text.\n\nStudent Hub lesson context\n'
+        + json.dumps(context, ensure_ascii=False, indent=2)
+    )
 
 
 def failed_checks(row):

@@ -8,6 +8,55 @@ observations retain their original scope; use [Student Hub](STUDENT_HUB.md) for
 current behavior and engine setup, and [release status](RELEASE_STATUS.md) for
 package identities. A later passing build does not rewrite this original audit.
 
+## November 23, 2026 Apple HIG review
+
+On review base `0fa0dd0`, the desktop audit followed the Student Hub from the
+world map and list through lesson help, editor actions, evidence review,
+reflection, resuming work and export.
+
+| Workflow | Finding and change | Apple guidance |
+| --- | --- | --- |
+| Browse and search | The world grid responds to arrow keys. Opening a world focuses its selected lesson, and going back restores the world's tile. Search sits at the trailing edge in wide windows. Clearing the query returns to the previous lesson, with Escape available from the search field. | [Focus and selection](https://developer.apple.com/design/human-interface-guidelines/focus-and-selection/), [Search fields](https://developer.apple.com/design/human-interface-guidelines/search-fields) |
+| Choose and get help | Map and List share progress, textual status and selection. The lesson guide keeps hints, worked solutions and Resisty within reach of the instructions. | [Segmented controls](https://developer.apple.com/design/human-interface-guidelines/segmented-controls), [Accessibility](https://developer.apple.com/design/human-interface-guidelines/accessibility) |
+| Work and check | Workspace, edit and run controls appear before Check this step. Feedback and Next step sit together. Save, return and setup actions sit below the task. Run status shows a percentage when the engine reports one. | [Buttons](https://developer.apple.com/design/human-interface-guidelines/buttons), [Feedback](https://developer.apple.com/design/human-interface-guidelines/feedback) |
+| Inspect images and solutions | The image viewer fits the screenshot at opening and offers actual size and 200% zoom with keyboard scrolling. The selectors and captions reflow in compact windows. | [Layout](https://developer.apple.com/design/human-interface-guidelines/layout), [Accessibility](https://developer.apple.com/design/human-interface-guidelines/accessibility) |
+| Resume, reflect and export | Continue learning prefers the last unfinished lesson available for credit. Saved-run comparison, reflection recovery and save-before-export were exercised in the desktop probes. | [Designing for macOS](https://developer.apple.com/design/human-interface-guidelines/designing-for-macos), [Feedback](https://developer.apple.com/design/human-interface-guidelines/feedback) |
+
+Windows Qt tests exercised keyboard focus, narrow windows, 100–200% text,
+light and dark appearance, project recovery and simulator feedback. The
+catalog sweep verified all 419 checkpoints in a 420-pixel guide at 200%
+text size without horizontal scrolling. Four shorter action labels resolved
+the overflow seen at 13 checkpoints. The audited text pairings measured
+4.93:1 to 14.42:1. macOS acceptance still requires
+Full Keyboard Access, VoiceOver, Increase Contrast, Retina scaling and native
+window behavior on a Mac.
+
+## November 23, 2026 workflow audit
+
+The review of `75fd687` covered the game map, list and search; Quick check,
+hints, learning modes, solutions and Resisty; workspace and step-image routing;
+simulation, results and grading; and reflection, resume and export. The
+catalog traversal used 97 authored lessons across nine worlds. It exercised
+114 knowledge checks, 208 practical checkpoints and 97 reflections. The eight
+shared inverter lessons used the bundled SKY130A starter.
+
+| Workflow | Finding and correction |
+| --- | --- |
+| Find a lesson | The desktop probe now checks keyboard focus in both the map route and the list. Existing UI checks cover progress filters and shared selection. |
+| Answer and practice | The guide prompts for an answer before grading, explains a successful prediction, and gives positive practice feedback with a next step. The portfolio still enforces prerequisites for earned credit. |
+| Open the right workspace | RTL-only lessons show Open RTL. Clocked mixed-signal lessons offer Mixed-signal experiment in the guide. Inverter workspace images use the same testbench or child-cell routing as Open workspace. |
+| Run the right operation | The guide hides simulation on questions, reflections and geometry-only lessons. The sensor capstone exposes Run qualification at the campaign checkpoint. The inverter guide presents the build or fault controls for the appropriate step. |
+| Read evidence and reflect | Practical steps with stage-specific captures open their own results. Reflections can reopen an earlier checkpoint for comparison, with saved plots available in the image viewer for the current design. |
+| Follow the written steps | The audited walkthroughs name the actual editor controls for bridge inputs, clock period, finger generation, portfolio export and the four-case acceptance campaign. |
+
+The Windows Qt traversal checked workspace routing and nonempty, read-only
+step images throughout the catalog. The desktop regressions cover the guided
+controls, bridge-input edit and saved calibration results, including access to
+the earlier anchor run from the reflection. Source tests exercise numerical
+and geometry checks. Full engine runs depend on the installed simulator and
+process decks. This audit leaves native macOS accessibility and full external
+process verification for their existing acceptance lanes.
+
 ## Review criteria
 
 This is a cross-platform Qt desktop implementation informed by Apple's Human

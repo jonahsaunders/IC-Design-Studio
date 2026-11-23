@@ -314,12 +314,12 @@ def ensure_lesson(guide, continuation):
     studio=guide.studio
     if selection(studio.settings)['toolchain']=='custom' or digital_runtime.status()['state']=='ready':
         return True
-    project=clone(studio.project); lesson_id=guide.lesson['id']
+    project=clone(studio.project); lesson_id=guide.lesson['id'];step=guide.active_step
     def current():
         from shiboken6 import isValid
         return (isValid(studio) and isValid(guide) and studio.isVisible()
                 and studio.project['id']==project['id'] and guide.lesson
-                and guide.lesson['id']==lesson_id)
+                  and guide.lesson['id']==lesson_id and guide.active_step==step)
     def cancelled():
         if current(): feedback(guide.feedback,'Digital setup cancelled. The lesson was not run. Click Run lesson when you are ready.')
     def resume():

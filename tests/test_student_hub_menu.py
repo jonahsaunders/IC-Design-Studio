@@ -15,7 +15,7 @@ class StudentHubMenuRegressionTests(unittest.TestCase):
         result = subprocess.run([sys.executable, '-m', 'tests.gui_student_hub_menu', '-v'],
                                 cwd=root, env=env, capture_output=True, text=True, timeout=30)
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
-        self.assertIn('Ran 3 tests', result.stderr)
+        self.assertIn('test_world_map_uses_earned_progress_and_shares_selection_with_list', result.stderr)
 
 
 if __name__ == '__main__':

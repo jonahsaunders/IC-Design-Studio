@@ -1,0 +1,686 @@
+{
+  "f-first/predict": [
+    ["Which formula should I start with?", "Use τ = RC for this one-resistor, one-capacitor bench."],
+    ["How do kilo and nano combine?", "Kilo contributes 10³ and nano contributes 10⁻⁹. Their product contributes 10⁻⁶."],
+    ["How can I check the answer on a plot?", "Mark the point at 63.2% of the final voltage change and read the elapsed time since the step."],
+    ["Does the source voltage change τ?", "In this linear RC, changing only the step height rescales the curve. The time to the same fraction stays the same."]
+  ],
+  "f-connect/predict": [
+    ["Which voltage is the output measured against?", "Measure the middle node relative to ground at the bottom of the divider."],
+    ["Which resistor goes in the numerator?", "Use the resistance from the output node to ground over the sum of the two series resistors."],
+    ["Why can I reason without calculating currents?", "The same current flows through both equal resistors, so they drop the same voltage."],
+    ["How do I confirm it in Studio?", "Run an operating point and read the middle-node voltage. Check the ground connection if it floats."]
+  ],
+  "f-edit/predict": [
+    ["Which variables affect the time constant?", "For the fixed topology, multiply the effective resistance seen by the capacitor by its capacitance."],
+    ["How should I compare the two curves?", "Use the same step and mark the time to 63.2% of the final change on each run."],
+    ["Will the final value double too?", "With an unloaded RC and an ideal source, the capacitor ultimately reaches the same DC level."],
+    ["What should I capture before editing?", "Save the baseline run or write down R, C and the cursor measurement before making the edit."]
+  ],
+  "f-hierarchy/predict": [
+    ["What is a cell master?", "It is the reusable definition that contains the actual circuit and its ports."],
+    ["What is an instance?", "It is one placement of that definition with its own external connections."],
+    ["What if I only want to change one placement?", "Use an instance parameter where the cell supports one, or make a separate cell definition for that variant."],
+    ["How do I verify what changed?", "Open the parent and inspect both instances. Compare the referenced cell and their pin mappings."]
+  ],
+  "f-debug/predict": [
+    ["Where does the load connect?", "Place it between the divider’s output and ground. It shares the lower resistor’s two endpoints."],
+    ["What resistance should I substitute?", "Compute the parallel combination of the lower resistor and the new load."],
+    ["How can I predict the direction quickly?", "Keep the upper resistor fixed and consider what a smaller lower resistance does to the divider ratio."],
+    ["What if my voltage barely moves?", "Check both load terminals in the schematic. A single attached terminal leaves the load open."]
+  ],
+  "f-portfolio/predict": [
+    ["What does DRC inspect here?", "Look at the exercise’s geometry checks for declared rules such as width or spacing."],
+    ["Can clean geometry include an open connection?", "Two separate shapes can each meet their geometry limits. Inspect connectivity for the gap."],
+    ["How do I tell which rules actually ran?", "Read the check’s engine or rule-deck label along with the selected cell and report."],
+    ["What evidence should I save?", "Keep the exact layout revision and report, including which process or teaching rules were used."]
+  ],
+  "a-load/predict": [
+    ["Which resistors are in parallel?", "R2 and Rload share out and ground. Replace them with their equivalent before calculating the divider."],
+    ["How do two equal resistors combine in parallel?", "The equivalent resistance is half either resistor, since their conductances add."],
+    ["Where does the 1.8 V enter?", "Multiply the supply by the effective lower-leg resistance divided by R1 plus that lower-leg value."],
+    ["How can I catch a wiring error quickly?", "Compare unloaded and loaded operating points and inspect the net names at both load terminals."]
+  ],
+  "a-bandwidth/predict": [
+    ["Which formula gives the pole in hertz?", "Use 1/(2πRC). The reciprocal 1/(RC) is the angular frequency in rad/s."],
+    ["What does −3 dB mean on the plot?", "Find where voltage gain is about 0.707 times its low-frequency value."],
+    ["How can I estimate the units first?", "The product of ohms and farads is seconds. The reciprocal is a frequency."],
+    ["Why might my cursor miss exactly −3 dB?", "A sampled sweep can land on either side. Increase points or interpolate near the crossing."]
+  ],
+  "a-bias/predict": [
+    ["What must match between the two devices?", "Compare length, gate-to-source voltage and drain-to-source voltage before applying a width ratio."],
+    ["Why is width the scaling knob?", "With the same channel conditions, a wider channel supplies more current at the same gate voltage."],
+    ["Why might I get less current than expected?", "Check that the output device has enough VDS for its intended operating region."],
+    ["How should I test the approximation?", "Record both branch currents with one width, then change MOUT alone and compare the current ratio."]
+  ],
+  "a-differential/predict": [
+    ["Where does the tail current go?", "Apply current conservation where the two source branches meet the tail source."],
+    ["Why are the branches comparable?", "The matched devices see the same input and source voltage, so their first-order branch currents are symmetric."],
+    ["What if I add a small input difference?", "Watch one branch gain current as the other loses it while the tail current remains roughly fixed."],
+    ["How can I tell why a nominal run is unequal?", "Inspect transistor parameters, drain loading and the differential input DC values."]
+  ],
+  "a-amplifier/predict": [
+    ["What does “small signal” mean?", "It is a local response to a small perturbation around the circuit’s DC bias point."],
+    ["Which analysis linearizes the devices?", "Start with the analysis that solves a bias point and sweeps a small AC stimulus."],
+    ["How should I excite a differential input?", "Use opposite input phases with a known voltage difference, then divide output by that difference."],
+    ["When would a transient be more useful?", "Use a time-domain step or sine when checking slew, clipping or distortion at a finite amplitude."]
+  ],
+  "a-layout/predict": [
+    ["What does centroid mean here?", "It is the average unit position for a device group. Match the groups’ weighted centers in both axes."],
+    ["Which spatial error can cancel to first order?", "If a process quantity changes roughly linearly over the array, groups sampling the same center see the same average."],
+    ["What can still cause mismatch?", "Random device variation, unequal surroundings or asymmetric wiring can remain."],
+    ["How can I check the pattern?", "List each unit coordinate and compute each group’s mean. Then compare routing and edge surroundings."]
+  ],
+  "a-gmid-bias/predict": [
+    ["Which two readings do I divide?", "Use the operating point’s transconductance gm and drain current magnitude ID for the same device."],
+    ["What happens to the micro prefixes?", "They cancel when both readings use micro-units. Siemens divided by amperes gives inverse volts."],
+    ["Why look at this ratio?", "It gives the transconductance obtained per unit drain current at the operating point."],
+    ["What if ID is almost zero?", "Check that the device has a valid bias point. A very small denominator makes the ratio a poor sizing guide."]
+  ],
+  "a-gmid-size/predict": [
+    ["How do I rearrange gm/ID?", "Divide the target gm by the chosen gm/ID to find the drain-current budget."],
+    ["How do I check the dimensions?", "Microsiemens divided by inverse volts gives microamperes."],
+    ["Does that immediately give the width?", "Use current density ID/W from a comparable bias and model, then divide the current by that density."],
+    ["What should I remeasure after sizing?", "Record gm, ID, gm/ID and the drain voltage at the intended bias."]
+  ],
+  "a-gmid-headroom/predict": [
+    ["How do I find the overdrive?", "Subtract the teaching model’s threshold from the gate-to-source voltage."],
+    ["Which two quantities should I compare?", "Check VDS against VOV for this long-channel teaching approximation."],
+    ["What happens if VDS is too low?", "The channel is closer to its linear region and output current becomes more sensitive to drain voltage."],
+    ["Where are the relevant measurements?", "Read the terminal voltages at the operating point, then compute VGS and VDS relative to the source."]
+  ],
+  "a-gmid-tradeoff/predict": [
+    ["What stays fixed in the comparison?", "Hold the transconductance target fixed and recalculate ID for each gm/ID choice."],
+    ["What does higher gm/ID buy here?", "It gives more transconductance per ampere, so the current budget can fall for the same target."],
+    ["Does the lower-current device always use less area?", "Check the pilot current density. A lower density can require a larger width even with less total current."],
+    ["What other measurements should I compare?", "Compare width, headroom and capacitance or bandwidth for both solved bias points."]
+  ],
+  "d-logic/predict": [
+    ["How should I read XOR?", "Ask whether exactly one of the two input bits is high."],
+    ["How is it different from OR?", "OR accepts either input or both. XOR distinguishes unequal inputs."],
+    ["How can I see all cases quickly?", "Write the four input combinations, then match each one to the truth table or waveform."],
+    ["What if the waveform shows X?", "Check that the testbench drives both inputs and that the output has a complete assignment."]
+  ],
+  "d-counter/predict": [
+    ["How many states fit in four bits?", "Count 2⁴ distinct values starting at zero."],
+    ["What happens to the carry bit?", "A four-bit register retains the low four bits when the wider sum produces a carry."],
+    ["Which edge should I inspect?", "Find the active clock edge with enable asserted and reset inactive. Compare the samples just before and after."],
+    ["How do I distinguish wrap from reset?", "Plot reset and enable with count. Wrap follows the maximum even while reset stays inactive."]
+  ],
+  "d-pulse/predict": [
+    ["How do I describe a rising edge using two values?", "Compare the input sampled now with the saved input from the previous edge."],
+    ["What if the request stays high?", "After the first sample high, the saved value also becomes high. The detector should stop pulsing."],
+    ["Where does the previous value come from?", "Use a clocked register and initialize it through reset so the first observation has a known reference."],
+    ["Which traces confirm a one-cycle result?", "Plot clock, request, previous request and pulse. Hold request high for several cycles."]
+  ],
+  "d-pwm/predict": [
+    ["What is the denominator of duty cycle?", "Use the full frame length in clock cycles."],
+    ["Which samples are high in a threshold PWM?", "With count starting at zero, count the samples that satisfy count < duty."],
+    ["How can I check a possible off-by-one?", "Count high clocks in one complete frame, including the sample at zero and the last sample."],
+    ["What happens at the end of the frame?", "The counter wraps and the threshold comparison starts again from zero."]
+  ],
+  "d-average/predict": [
+    ["What is the largest input sample?", "An unsigned four-bit value ranges from 0 through 15."],
+    ["How do I find the required sum width?", "Add four maximum samples, then find the smallest unsigned width that can represent that total."],
+    ["Can I use the output average width for the sum?", "The final average can fit in four bits. The intermediate sum needs enough range before division."],
+    ["How should I test the accumulator?", "Use four maximum samples and inspect the wider intermediate sum before the shift."]
+  ],
+  "d-serial/predict": [
+    ["When does the transmitter take ownership of the byte?", "Locate the accepting clock edge in the handshake and inspect the register that captures data there."],
+    ["What should drive bits while busy?", "Use the captured shift register and the bit counter for the current frame."],
+    ["How can I expose a live-input bug?", "Change data immediately after acceptance and compare every transmitted bit with the original byte."],
+    ["What should I inspect near the end of the frame?", "Check the stop bit and when busy releases so a new request cannot corrupt the active frame."]
+  ],
+  "d-latch/predict": [
+    ["Why would an output need memory?", "If a branch leaves the output unassigned, the previous value must persist when that branch executes."],
+    ["Where should I look first?", "Check each conditional path, including the else or default path and any nested condition."],
+    ["Can I give the output a default?", "Assign a valid default at the start of the combinational block, then override it where needed."],
+    ["How do I expose the bug in simulation?", "Enter an omitted branch after setting the output to each possible prior value and compare the results."]
+  ],
+  "d-saturation/predict": [
+    ["Which sum should I compute first?", "Add the operands in a wider unsigned value before applying the maximum limit."],
+    ["What is the four-bit maximum?", "Four ones in binary represent 2⁴−1. Compare the wider sum with that limit."],
+    ["How is saturation visible in a waveform?", "When the wider sum exceeds the limit, the next state remains at the highest representable value."],
+    ["What other test catches a threshold error?", "Try one sum exactly at the maximum and another one count above it."]
+  ],
+  "d-pipeline/predict": [
+    ["Which cycle owns the input data?", "The sample captured into the first stage on edge k is the one presented to the result stage at k+1."],
+    ["Where should valid travel?", "Register valid through the same stages as its data so bubbles advance with the pipeline."],
+    ["How can I expose a cycle mismatch?", "Send distinctive values separated by an invalid cycle and inspect both result and valid at clock edges."],
+    ["What should reset clear?", "Clear or initialize the valid stages so old or unknown values cannot appear as accepted output."]
+  ],
+  "m-bridge/predict": [
+    ["How many bins does four bits give?", "Four binary decisions allow 2⁴ distinct codes across the full span."],
+    ["Why divide by 16 here?", "This exercise asks for one ideal bin width across the full-scale voltage interval."],
+    ["How do I convert a voltage step to millivolts?", "Multiply the value in volts by 1,000 once the division is done."],
+    ["What should I compare in the bench?", "Look at adjacent ideal thresholds and the voltage range represented by each code."]
+  ],
+  "m-hold/predict": [
+    ["What changes when the switch closes?", "The capacitor can follow the input through the switch during acquisition."],
+    ["What changes when the switch opens?", "The capacitor stores the voltage present at the end of acquisition, subject to real hold errors."],
+    ["Which two traces should I compare?", "Look at input and hold across the sampling edge. Compare hold with the voltage the converter actually uses."],
+    ["What if hold slowly moves afterward?", "Check leakage, the time spent holding and any load attached to the capacitor."]
+  ],
+  "m-codes/predict": [
+    ["What does the floor operation do?", "Keep the integer code just below the exact normalized result, following this bench’s bin convention."],
+    ["Which voltage do I normalize by?", "Divide the input by the reference before multiplying by the number of bins."],
+    ["How can I check my result with a bin interval?", "Compute the lower and upper transition voltages around your proposed code and see which contains VIN."],
+    ["What happens at the top rail?", "The output is limited to the largest valid four-bit code."]
+  ],
+  "m-settling/predict": [
+    ["Which event starts DAC settling?", "Look for a change in the trial code and follow the DAC voltage from that edge."],
+    ["When is the decision made?", "Find the comparator sampling event. Measure the elapsed time since the DAC trial changed."],
+    ["What should I plot together?", "Plot the trial code, DAC voltage and decision clock to check whether the analog error is small at sampling time."],
+    ["What if the delay cannot be increased?", "Explore reducing the DAC time constant and rerun with the same decision timing and target."]
+  ],
+  "m-weight/predict": [
+    ["How do resistance and conductance relate?", "Conductance is 1/R, so start with the smallest branch resistor when looking for the strongest weight."],
+    ["Which branch usually has the largest effect?", "In this weighted network, compare the branch conductances to identify the MSB."],
+    ["How can I isolate the suspect weight?", "Change one bit at a time with the others fixed and read the DAC voltage step for that branch."],
+    ["What if only the top half of codes looks wrong?", "Compare the step where the MSB first turns on with the expected code boundary."]
+  ],
+  "m-repeat/predict": [
+    ["Which signal tells me the result is ready?", "Use the completion or result-valid indication specified by the bench, then check that busy has released."],
+    ["Why can an early start cause trouble?", "A new request can arrive while the previous sample or decision state is still in use."],
+    ["What should I check for a repeated conversion?", "Give consecutive transactions distinct input values and verify each result uses its own held sample."],
+    ["How can I spot a lost request?", "Count accepted starts and completed results, and align them with busy in the waveform."]
+  ],
+  "l-width/predict": [
+    ["Which units should I use first?", "Convert the current and required width to the same unit before subtracting."],
+    ["How many nanometres are in a micrometre?", "Use 1 µm = 1,000 nm, then compare the edited shape with the stated limit."],
+    ["Does widening one edge change the spacing?", "It can reduce the gap on that side. Inspect neighboring routes before applying the edit."],
+    ["How do I verify the repair?", "Rerun the width check and read the marker’s measured value or confirm the marker clears."]
+  ],
+  "l-spacing/predict": [
+    ["What distance is given in the prompt?", "It is centerline separation. The rule checks the empty distance between facing edges."],
+    ["How do I reach the edge from a centerline?", "Subtract half the width of each route from the centerline difference."],
+    ["What if the wires have different widths?", "Use each wire’s own half-width. The same calculation still applies."],
+    ["How can I check on screen?", "Select the spacing marker and inspect the two measured edges, then rerun after moving a route."]
+  ],
+  "l-via/predict": [
+    ["Where is enclosure measured?", "Measure from each cut edge to the corresponding metal landing edge."],
+    ["Why add the enclosure twice?", "A centered square needs the minimum margin on both opposite sides in each dimension."],
+    ["Do both metals need the same check?", "Inspect both landing layers. A cut can be centered on one metal and overhang the other."],
+    ["What if the landing has the expected total size and still fails?", "Check the cut’s position and the smallest individual margin on each side."]
+  ],
+  "l-centroid/predict": [
+    ["How do I compute the center of a group?", "Add the x coordinates of its equal units and divide by the number of units."],
+    ["What relation am I looking for?", "Try pairing the two positions whose average equals the center of the full array."],
+    ["Is symmetry in one direction enough in a real layout?", "Compute both x and y centroids, then check edge surroundings and routing symmetry."],
+    ["How should I check an unequal unit pattern?", "Use area or unit count as the weighting when computing the center."]
+  ],
+  "p-spec/predict": [
+    ["How can I tell if my requirement is testable?", "State a measurable quantity, an acceptance limit, and the conditions under which it must hold."],
+    ["What is missing from “good output current”?", "Give the target current and tolerance, then specify the voltage and temperature ranges."],
+    ["Should I prescribe the topology?", "Start with the behavior a testbench must verify. Record genuine constraints separately."],
+    ["How can I check for ambiguity?", "Ask whether a classmate could set up a bench and reach the same pass or fail conclusion."]
+  ],
+  "p-review/predict": [
+    ["What identifies the result I’m claiming?", "Name the saved design revision, test model, operating conditions and metric."],
+    ["How should I use a single passing run?", "Quote the measured value and target for that run. State the conditions that were exercised."],
+    ["What new evidence supports a wider claim?", "Add the missing simulations or checks, such as process corners, extraction or independent physical verification."],
+    ["What should I share with another reviewer?", "Give the project, settings, script or documented procedure, and exact saved result."]
+  ],
+  "c-filter/predict": [
+    ["Which time constant sets the first estimate?", "Multiply the filter resistance by its capacitance for this first-order bench."],
+    ["How do kilo and pico combine?", "Kilo is 10³ and pico is 10⁻¹². Their product is 10⁻⁹, or nanoseconds for RC."],
+    ["How much acquisition time should I compare?", "Choose the required residual error and check how many time constants the acquisition window allows."],
+    ["What if the actual acquisition looks slower?", "Plot the input and sampled node together. Check source and switch resistance plus the sampling load."]
+  ],
+  "c-sar/predict": [
+    ["What is the DAC doing during a SAR trial?", "It proposes a comparison voltage with the current trial bit provisionally set."],
+    ["Which voltage is the target?", "Use the held sample, whose voltage should stay constant during the sequence."],
+    ["How do I know the trial value is too high?", "Compare the DAC voltage to the held voltage at the decision edge, then review the comparator polarity."],
+    ["What waveform exposes a polarity reversal?", "Use an input safely between two thresholds and look at held, DAC, trial code and comparator decision together."]
+  ],
+  "c-average/predict": [
+    ["When should I add the rounding term?", "Apply it to the wide sum before dividing, using the rounding convention in the task."],
+    ["Why keep the running sum wide?", "A correct average can fit the output width even though its intermediate sum is larger."],
+    ["What if I average after each input?", "Repeated integer rounding can lose low bits. Compare with one division after summing all four valid codes."],
+    ["How do I test the rounding path?", "Use four codes whose sum is not divisible by four and compare the bench result with the stated rounding rule."]
+  ],
+  "c-qualify/predict": [
+    ["Why vary the inputs for qualification?", "A fixed happy-path stimulus misses boundary mistakes, stale results and accumulated state errors."],
+    ["What makes a result independent?", "Use a reference expectation outside the block being tested, and check output values against it."],
+    ["Which cases exercise the threshold?", "Choose cases below and above the threshold and include the equality rule specified by the design."],
+    ["What evidence should I present?", "Keep the design revision, planned inputs, independent expected outcomes and the actual report for each case."]
+  ],
+  "project-opamp/brief": [
+    ["Which plot is needed for margin?", "Open the loop-gain response with the specified load and preserve the intended DC bias."],
+    ["Where do I read the phase?", "Find the unity-magnitude crossing of the loop gain and read phase at that same frequency."],
+    ["Can I use the closed-loop −3 dB point?", "It measures closed-loop bandwidth. Use a loop-gain crossing to calculate phase margin."],
+    ["What if there is more than one crossing?", "Inspect the phase and direction at each crossing and report the one used by the bench along with any additional crossings."]
+  ],
+  "project-tia/brief": [
+    ["Where is the summing node held?", "With negative feedback it is near the 0.9 V common-mode target as long as the amplifier can drive the required output."],
+    ["Which way does the injected current flow?", "Trace the incoming current through the feedback resistor toward the output."],
+    ["How much does the output shift?", "Use the magnitude I·RF to find the shift and use the resistor current direction to assign its sign."],
+    ["What if my result hits a rail?", "Check the source polarity, summing-node voltage and amplifier output swing at the expected bias."]
+  ],
+  "l-layout-decisions/intent": [
+    ["What do width and spacing tell me?", "They check geometric limits on drawn shapes. A circuit can still have a wrong terminal or a missing path."],
+    ["Where does the electrical comparison start?", "Extract devices and nets from the layout, then compare against the intended schematic cell."],
+    ["What does a wrong terminal look like in the report?", "Look for a pin, open, short, device or parameter discrepancy and cross-check the corresponding net names."],
+    ["What should stay fixed while I debug?", "Use the same intended schematic and process settings, changing the suspect layout one edit at a time."]
+  ],
+  "a-lc-bode/axes": [
+    ["How long is one decade on this scale?", "A decade is a tenfold frequency ratio. Use log₁₀(f₂/f₁) if the ratio spans more than one decade."],
+    ["Which graph values should I subtract?", "Subtract the starting gain in dB from the ending gain in dB and keep the sign."],
+    ["Do I use degrees for slope?", "Use the magnitude trace here. Phase has a separate vertical scale in degrees."],
+    ["How can I pick a meaningful interval?", "Use two frequencies in the same roll-off region, clear of the corner if you want the asymptotic slope."]
+  ],
+  "a-lc-bode/factors": [
+    ["What does each low-pass pole contribute?", "Far beyond its corner, each pole contributes roughly −20 dB per decade to the magnitude slope."],
+    ["Why look above the break?", "Near the break the slope is changing. The high-frequency denominator behavior becomes clearer farther away."],
+    ["Can I ignore the numerator in this exercise?", "The numerator is constant here. If it contains zeros, their slopes can change the total."],
+    ["What plot check should I make?", "Pick two high frequencies one decade apart and compare their gain values."]
+  ],
+  "project-miller/miller-effect": [
+    ["Which voltage is across the capacitor?", "Use the difference between the first-stage node voltage and the output voltage."],
+    ["Why does the sign of Av matter?", "With inverting gain, the output moves opposite to the first-stage node. The capacitor sees a larger voltage change."],
+    ["How do I find the equivalent capacitance?", "Factor the coefficient multiplying dv₁/dt in the first-stage capacitor current."],
+    ["Does the physical capacitor change size?", "The equivalent describes the input-side current under the assumed gain. The drawn capacitor retains its value."]
+  ],
+  "project-miller/pole-splitting": [
+    ["Which curve isolates what Cc does?", "Compare uncompensated and capacitor-only loop curves with load and other conditions fixed."],
+    ["Where is the crossing I should use?", "Find the first falling crossing of 0 dB in this bench and record its frequency."],
+    ["How do I compute phase margin?", "Use the phase on that same curve at the crossing and add 180 degrees."],
+    ["What tradeoff should I record?", "Compare crossing frequency and margin together so the improvement or loss in either metric is visible."]
+  ],
+  "project-miller/feedforward-zero": [
+    ["Why look at the numerator?", "A zero occurs where the inverting stage and capacitor feedforward contributions cancel in the numerator expression."],
+    ["How do I determine the half-plane?", "Solve the signed value of s. A positive real s is in the right half-plane."],
+    ["How do I convert the result to MHz?", "Take the magnitude in rad/s and divide by 2π, then divide hertz by one million."],
+    ["Why care about the sign on an AC plot?", "Left- and right-half-plane zeros can have similar magnitude effects but different phase effects."]
+  ],
+  "project-miller/null": [
+    ["Which term needs to vanish?", "Set the coefficient multiplying s in the stated numerator to zero."],
+    ["What is the unit of 1/gm₂?", "Transconductance is measured in siemens. Its reciprocal is a resistance in ohms."],
+    ["What does nulling mean here?", "When the coefficient is zero there is no finite zero from that numerator factor in this model."],
+    ["How do I verify the choice?", "Enter the resistor in Open loop comparison and check how the zero and phase plots change near that value."]
+  ],
+  "project-miller/sweep": [
+    ["How should I decide which half-plane each value gives?", "Look at the sign of 1/gm₂ − Rz before taking the zero’s frequency magnitude."],
+    ["What happens at the middle resistance?", "The denominator factor goes to zero, sending the model zero to infinity at the null."],
+    ["Do 500 Ω and 2 kΩ give equal magnitudes?", "Compute how far each is from 1/gm₂. The larger distance gives the lower frequency magnitude."],
+    ["How can I compare the three runs accurately?", "Keep load and compensation capacitance fixed, then compare zero location and phase margin from the same table."]
+  ],
+  "project-ahuja/miller-path": [
+    ["Where are the two paths?", "Trace from the first-stage node through the inverting output stage and directly through the bridging capacitor."],
+    ["How do I reason about their relative signs?", "Imagine a rising first-stage voltage. Follow the stage’s inversion and the direction of the capacitor’s displacement current separately."],
+    ["Why does a capacitor path matter at high frequency?", "Its admittance increases with frequency, so the direct path can compete with the forward stage."],
+    ["Which result shows the competition?", "Use the Miller reference loop plot and compare magnitude and phase in the region around the feedforward zero."]
+  ],
+  "project-ahuja/buffer": [
+    ["What does low AC impedance mean here?", "The buffer’s input node moves little for the compensation capacitor current in the ideal model."],
+    ["How do I follow the current?", "Trace from the capacitor into the buffer, then from the buffer output to the first-stage high-impedance node."],
+    ["What is different about a real buffer?", "Finite bandwidth and loading change how faithfully it transfers current at higher frequencies."],
+    ["Where do I compare the models?", "Open the loop comparison and use the ideal and finite-buffer curves under the same load."]
+  ],
+  "project-ahuja/load": [
+    ["Which number should I compare to the spec?", "Compare phase margin at the first 0 dB crossing with 60 degrees for each requested curve."],
+    ["What should stay the same?", "Keep the 20 pF load and specified buffer pole settings fixed while comparing topologies."],
+    ["Can I infer the answer from the lower crossing alone?", "Read phase as well as crossing frequency. A lower crossing alone does not determine the margin."],
+    ["What should I record from the plot?", "Keep the curve name, crossing frequency, phase and margin so the comparison can be reproduced."]
+  ],
+  "project-ahuja/finite": [
+    ["What changes when I lower the buffer pole?", "Its phase lag becomes appreciable at lower frequency."],
+    ["Which result row should I follow?", "Use the finite-buffer row for both pole settings under the same 20 pF load."],
+    ["Why keep the ideal row on screen?", "It is a reference for isolating the effect of finite buffer speed at the same load."],
+    ["What if the gain curve still looks close?", "Check phase at each curve’s own crossing. Small magnitude changes can coexist with a margin loss."]
+  ],
+  "project-bias-reference/brief": [
+    ["Which formula gives the bias current?", "Use ID = gm/(gm/ID) with the stated gm target and chosen efficiency."],
+    ["How do I handle the units?", "Dividing microsiemens by inverse volts gives microamperes."],
+    ["Is that current guaranteed once I draw the device?", "Treat it as a budget. Check the solved bias and current density for the selected model and geometry."],
+    ["Where does the current reference help?", "It provides a current to mirror under stated headroom conditions. Verify the actual output current across its voltage range."]
+  ],
+  "project-bias-reference/density": [
+    ["How do I turn current density into width?", "Divide the target current by ID/W from the pilot sweep."],
+    ["What does the result represent?", "It is the total effective channel width. If you use fingers, account for the model’s width convention."],
+    ["Why use the same bias conditions?", "Current density depends on length, terminal voltages, temperature and process model."],
+    ["What should I verify after resizing?", "Rerun the operating point and record actual current, gm/ID and available headroom."]
+  ],
+  "project-cascode/headroom": [
+    ["What node should I watch in a cascode?", "Plot the internal connection between the lower output transistor and its upper common-gate transistor."],
+    ["How does a steadier drain help?", "It reduces the change in lower-device current as the external output voltage moves."],
+    ["What is the cost of stacking the transistor?", "Both devices need voltage headroom. Check where regulating current first meets its tolerance across the output sweep."],
+    ["How can I see the improvement?", "Compare the slope of output current versus output voltage for the simple and cascode mirrors in their valid regions."]
+  ],
+  "project-bandgap-widlar/sign": [
+    ["Which junction is forward biased here?", "Use the BJT base-emitter voltage VBE at its defined branch current."],
+    ["Where does ΔVBE come from?", "Compare junctions at different current densities. The ideal difference has the factor kT/q times the log of their ratio."],
+    ["Which quantity depends on the density ratio?", "In this approximation the ratio sets the proportional-to-temperature slope of the difference."],
+    ["What should I plot first?", "Plot VBE, ΔVBE and the weighted sum versus temperature to see the opposing slopes."]
+  ],
+  "project-bandgap-widlar/ratio": [
+    ["Which logarithm should I use?", "Use the natural logarithm of the 10:1 density ratio in the slope expression."],
+    ["How do I keep the units consistent?", "Convert both slopes to µV per degree before taking the ratio."],
+    ["What should the scaled PTAT slope do?", "Choose a positive multiplier so its slope cancels the negative junction slope near the reference point."],
+    ["What if my multiplier seems a factor of ten too small?", "Check whether you used log₁₀, mixed mV with µV, or omitted the current-density ratio."]
+  ],
+  "project-bandgap-widlar/sweep": [
+    ["What does the tuning cancel?", "The chosen ratio targets the first-order temperature slope around the design point."],
+    ["Why can the ends still drift?", "A junction’s voltage varies nonlinearly with temperature, so one linear correction leaves higher-order error."],
+    ["How do I quantify the residual?", "Read the minimum and maximum over the full sweep and compute their difference."],
+    ["What is a good follow-up experiment?", "Compare two nearby ratios and record both the room-temperature slope and the full-range span."]
+  ],
+  "project-bandgap-brokaw/density": [
+    ["How is current density defined?", "Divide the collector current in each branch by that transistor’s emitter area."],
+    ["What cancels with equal currents?", "The currents cancel in the ratio. Keep track of which emitter area appears in the numerator after dividing."],
+    ["Which device has higher density?", "At equal current, the device with smaller emitter area carries more current per unit area."],
+    ["Where does the ratio enter the voltage?", "Put the current-density ratio inside the natural log in the ΔVBE equation."]
+  ],
+  "project-bandgap-brokaw/sum": [
+    ["Which current flows through R2?", "In the ideal branch, ΔVBE is across R2, setting a current of ΔVBE/R2."],
+    ["Why does shared R1 see more current?", "Use current conservation where both equal branch currents join."],
+    ["How do I get a voltage from that sum?", "Multiply the total branch current through R1 by R1."],
+    ["What assumption makes the factor exact here?", "The model assumes equal branch currents and neglects base current. Check those approximations in a transistor simulation."]
+  ],
+  "project-bandgap-brokaw/offset": [
+    ["How should I judge a flat curve near 27 °C?", "Compare nearby points on both sides of 27 °C to estimate the local slope."],
+    ["Where does the two-branch factor enter?", "The PTAT term has the multiplier 2R1/R2 because both equal branch currents contribute."],
+    ["What should stay fixed when I tune?", "Keep emitter-area ratio and temperature conditions unchanged while varying R1/R2."],
+    ["Is the flattest local slope the smallest full-range span?", "Compare both metrics. Curvature can make the preferred trim depend on the specification."]
+  ],
+  "project-bandgap-kuijk/feedback": [
+    ["What does the feedback loop equalize?", "Trace the amplifier inputs to the two sense voltages and set them equal in the ideal analysis."],
+    ["How do sense voltages relate to current?", "Apply V = IR across each sense resistor using that branch’s current."],
+    ["Which ratio is inverted?", "For equal voltage drops the branch with smaller resistance carries more current. Use that check to orient the ratio."],
+    ["How can I verify the assumption in a simulation?", "Read both sense voltages and branch currents at the same operating point."]
+  ],
+  "project-bandgap-kuijk/ratio": [
+    ["How is current density affected by two separate ratios?", "Use J₁/J₂ = (I₁/I₂)(A₂/A₁). Multiply the current ratio by the inverse area ratio."],
+    ["What does changing R2/R1 do?", "With equal sense drops it changes the current ratio while the emitter areas stay fixed."],
+    ["Does doubling the argument double ΔVBE?", "The ratio is inside a natural logarithm. Doubling the ratio adds ln(2) to the logarithm."],
+    ["What should I watch in the temperature plot?", "Compare the PTAT slope before and after the current ratio changes."]
+  ],
+  "project-bandgap-kuijk/tune": [
+    ["Why retune after changing the sense ratio?", "The new density ratio changes the slope of ΔVBE, so the original multiplier can over- or under-correct."],
+    ["Which sign should I aim for?", "Scale the positive PTAT slope to balance the negative junction slope near room temperature."],
+    ["What between-run measurements matter?", "Record the density ratio, trim value, local temperature slope and full-range variation."],
+    ["What if several values seem close?", "Use a small ratio sweep and estimate the slope around 27 °C from adjacent samples."]
+  ],
+  "project-bandgap-banba/currents": [
+    ["What are the two voltage terms?", "One term uses the forward junction voltage Vf. The other uses the forward-voltage difference ΔVf."],
+    ["How does each become a current?", "Use the resistor carrying the corresponding voltage drop and apply Ohm’s law."],
+    ["Why use a current sum?", "The topology combines opposing temperature coefficients in branches and mirrors the total to the output."],
+    ["Where do I verify the sum?", "Trace both currents into the summing mirror and compare their sum with the output branch current."]
+  ],
+  "project-bandgap-banba/scale": [
+    ["Which law gives the output voltage?", "Apply V = IR to the summed current flowing through the output resistor."],
+    ["How do microamps and kilo-ohms combine?", "The product is millivolts. Convert to volts after multiplying."],
+    ["What if the simulated voltage is lower?", "Check the mirror current and whether the required output swing leaves enough headroom."],
+    ["What stays fixed in this calculation?", "Use the specified summed current while selecting the output scaling resistor."]
+  ],
+  "project-bandgap-banba/tune": [
+    ["Which knob sets the output scale?", "With the input branch ratios fixed, R4 turns the same ideal summed current into a different voltage."],
+    ["What happens to absolute voltage drift?", "Multiplying the whole voltage curve by a factor also multiplies its drift in volts by that factor."],
+    ["How can I check normalized drift?", "Compare drift relative to nominal voltage for both settings and report the normalization you use."],
+    ["What if measured scaling departs from the estimate?", "Check output mirror compliance and loading at both resistor values."]
+  ],
+  "interview-differential/predict": [
+    ["Which side sees the larger gate voltage?", "Trace INP and INN to the transistor gates. A positive input difference raises the INP gate relative to the other."],
+    ["Why might a drain voltage fall when current rises?", "More branch current creates a larger drop through that side’s load."],
+    ["What is the tail source doing?", "It constrains the total current, so the pair mainly steers current from one branch to the other."],
+    ["What should I plot for a tiny differential step?", "Compare each drain and its branch current against the corresponding input."]
+  ],
+  "interview-input-pairs/predict": [
+    ["Which rail matters for a low common-mode input?", "Work out each input transistor’s gate-to-source voltage and the headroom its tail device needs near the lower rail."],
+    ["Why can a top-biased pair help?", "Its source node sits above the input gates, giving room for the needed PMOS source-to-gate voltage."],
+    ["What can still limit the range?", "Check the tail device voltage and input-pair drain voltages for the intended region."],
+    ["How should I compare topologies?", "Sweep both at matched differential stimulus and bias. Record the range where the differential stage stays functional."]
+  ],
+  "interview-gain/predict": [
+    ["What is gds measuring?", "It is the local slope of drain current versus drain voltage at fixed gate bias."],
+    ["How is resistance related to that slope?", "Use the reciprocal of gds for the device’s local output resistance."],
+    ["What happens to gain near the limit?", "Estimate gain as gm times the effective output resistance. A larger output conductance usually reduces that resistance."],
+    ["How can I confirm the operating region changed?", "Plot device terminal voltages, gm and gds as output bias moves toward the source."]
+  ],
+  "interview-slew/predict": [
+    ["What does phase margin tell me?", "It is a small-signal loop metric around the operating point."],
+    ["What limits the initial slope for a big step?", "Use available charge or discharge current divided by load capacitance to estimate a slew limit."],
+    ["Which stages of settling should I separate?", "Look for an initial near-linear ramp, then a smaller-signal tail approaching the final error band."],
+    ["How do I distinguish slew from ringing?", "Run small and large steps. Look for a slope that saturates as the step size grows, and inspect any oscillations separately."]
+  ],
+  "interview-noise/predict": [
+    ["Can I add the RMS voltages directly?", "For independent sources referred to the same node and band, first square the RMS values to get variances."],
+    ["What should I do after adding variances?", "Take the square root to convert the total back to an RMS voltage."],
+    ["Does the frequency range matter?", "Use the same integration band and reference node for both noise contributions."],
+    ["What if the sources are correlated?", "The sum can depend on correlation. The root-sum-square calculation assumes independence here."]
+  ],
+  "interview-mismatch/predict": [
+    ["What does the standard deviation tell me?", "It measures the spread across trials. Check the mean separately to see a consistent offset."],
+    ["What should I inspect for a shifted mean?", "Look for fixed differences between the nominal branch loads, device bias or routing."],
+    ["How do I isolate area’s effect?", "Keep bias, geometry symmetry and random seed policy fixed while comparing device sizes."],
+    ["What should go in the results summary?", "Record mean, spread, trial count and model assumptions. Include a histogram when the distribution shape matters."]
+  ],
+  "interview-comparator/predict": [
+    ["What starts the comparator decision?", "Locate the regeneration clock edge and the initial difference between the comparator inputs."],
+    ["Why does overdrive affect delay?", "A larger initial differential signal starts the regenerative decision farther from the undecided state."],
+    ["Where should I measure the delay?", "Use the same clock threshold and output decision threshold in every comparison."],
+    ["What else should I inspect besides delay?", "Plot the input nodes just after the clock edge and measure the disturbance from kickback."]
+  ],
+  "interview-sar/predict": [
+    ["Which expression gives sampled voltage variance?", "Use kT/C for the ideal sampled thermal noise variance."],
+    ["How do I turn variance into RMS voltage?", "Take the square root, so voltage scales with the reciprocal square root of capacitance."],
+    ["What cost might a larger capacitor introduce?", "It can take longer to acquire the input through the same source and switch resistance."],
+    ["What should I compare in the bench?", "Check held-voltage error and acquisition time alongside the ideal noise estimate."]
+  ],
+  "interview-ldo/predict": [
+    ["How do I recognize dropout?", "Sweep VIN at fixed load and find where VOUT leaves its regulated tolerance as gate drive reaches its limit."],
+    ["Should I change load during the sweep?", "Use a fixed load for one curve. Repeat separately at other loads to see how the limit changes."],
+    ["How is this different from load-step recovery?", "Dropout is a DC operating limit. Sweep first, then use time-domain steps for recovery and undershoot."],
+    ["Which internal signal helps confirm it?", "Read the pass-device gate and current near the VIN point where OUT starts falling."]
+  ],
+  "interview-post-layout-debug/predict": [
+    ["What should stay identical across the comparison?", "Use the same stimulus, saved measurement node, error band, and bias conditions."],
+    ["Where do I look for an added load?", "Inspect extraction contributions on the measured node and along its driving path."],
+    ["How can I localize the change?", "Compare internal nodes in order from the stimulus to the output. Look for the first materially different response."],
+    ["What should I do before attributing it to one parasitic?", "Check for connectivity or load differences, then isolate the suspected parasitic and rerun the same measurement."]
+  ],
+  "l-fold/predict": [
+    ["Is the 2 µm value per finger or total?", "The prompt gives total channel width. Divide it among the stated number of equal fingers."],
+    ["What should remain the same for electrical comparison?", "Preserve total width, channel length and intended terminal connectivity."],
+    ["How could folding change physical behavior?", "Source and drain diffusion can be shared. Geometry, perimeter and terminal routing may change."],
+    ["Which evidence confirms the split?", "Inspect the gate count and each individual width. Verify the extracted device and terminals against the intended schematic."]
+  ],
+  "l-body/predict": [
+    ["Why is legal geometry only part of the check?", "A tap and a source shape can each be legal while remaining electrically separate."],
+    ["Which layers should I trace?", "Follow the body region through its tap and contacts to metal, then through the intended source net."],
+    ["What can a missing contact look like?", "Two shapes overlap in the drawing but the layer change has no conductive cut."],
+    ["How do I prove the repair?", "Run connectivity or extraction after editing and confirm the body and source terminals share the intended net."]
+  ],
+  "l-match/predict": [
+    ["What does a shared centroid address?", "It can reduce first-order spatial gradients for matched units."],
+    ["What should I compare after placing the pair?", "Trace both input or drain routes and compare path lengths, widths, via counts and loading."],
+    ["Why can equal lengths still give unequal resistance?", "Widths, layers and layer transitions can differ despite equal route length."],
+    ["What evidence would support my repair?", "Compare extracted route resistance or node behavior before and after correcting the asymmetry."]
+  ],
+  "l-dac/predict": [
+    ["Which electrical connection does the route add?", "Identify the bit terminal and common top-plate node that the added capacitance links."],
+    ["How do I isolate one bit’s weight?", "Hold the other bits fixed and compare the top-plate step when only that bit toggles."],
+    ["Can I tell from the array geometry alone?", "Check parasitics and extracted code levels, since wiring can change effective capacitance."],
+    ["What additional code transition is worth checking?", "Inspect the major carry around the MSB boundary, where smaller weights change together."]
+  ],
+  "l-lvs/predict": [
+    ["What is the difference between the two checks?", "DRC tests geometry rules. LVS compares extracted circuit connectivity, devices and parameters with the schematic."],
+    ["How can a gap be legal?", "A gap can satisfy spacing while separating two conductors that were intended to form one net."],
+    ["Where should I start with the report?", "Read the mismatched terminal or open net, then follow it on both schematic and layout."],
+    ["What should I do after reconnecting it?", "Rerun LVS and DRC. Verify the open clears and the added route introduces no new markers."]
+  ],
+  "l-eco/predict": [
+    ["What do both instances share?", "They reference the same cell definition. A master edit propagates wherever that cell is placed."],
+    ["Where do I make an electrical width change?", "Edit the device in the intended schematic master, then update the linked physical master."],
+    ["What if only one instance should change?", "Create a separate variant or supported instance parameter and check both references before editing."],
+    ["How do I verify the change reached both placements?", "Inspect the master and both instances. Rerun the relevant connectivity or extracted comparison for the shared change."]
+  ],
+  "l-settle/predict": [
+    ["Why can a stub matter with little DC current?", "Its area still couples to nearby layers. Charging that capacitance takes current during a transition."],
+    ["Which measurements should I compare?", "Check output capacitance and settling time for the same command, load and error band before and after the repair."],
+    ["Why might simply narrowing the stub be risky?", "Narrowing can increase route resistance or violate a width rule. Check its purpose and whether it can be removed."],
+    ["How do I isolate the effect?", "Edit only the suspect stub and repeat the same extraction and transient settings."]
+  ],
+  "l-noise/predict": [
+    ["What changes during a clock edge?", "A rapid clock voltage change drives displacement current through the coupling capacitance."],
+    ["Why does the quiet node move?", "A high-impedance node has a limited path for that current, so its voltage is easier to disturb."],
+    ["How should I compare layouts?", "Hold clock amplitude and edge speed fixed. Measure the victim excursion while changing spacing or shielding."],
+    ["Which waveform timing supports the diagnosis?", "Align victim excursions with the clock transitions and inspect whether opposite edges cause opposite disturbances."]
+  ],
+  "l-supply/predict": [
+    ["What is sheet resistance measuring?", "Multiply sheet resistance by the route’s length-to-width ratio to estimate wire resistance."],
+    ["How does width enter voltage drop?", "For fixed current use V = IR. Increasing width reduces the number of squares in this model."],
+    ["What can dominate after widening the wire?", "Check vias or narrow necks separately, plus the worst supply path in the actual route."],
+    ["How do I verify a useful improvement?", "Measure the supplied node under the same load before and after the geometry edit."]
+  ],
+  "l-floorplan/predict": [
+    ["Can the shortest Manhattan route go diagonally?", "This exercise allows horizontal and vertical motion. Add the absolute changes in x and y."],
+    ["Does order change the unobstructed length?", "Horizontal-first and vertical-first paths have the same unobstructed length if both are legal."],
+    ["How do obstacles affect my estimate?", "Use the unobstructed result as a lower bound. A detour or layer change can add cost."],
+    ["What should I record while planning placement?", "Compare pin access, total route length and whether tracks remain for neighboring connections."]
+  ],
+  "l-access/predict": [
+    ["What exactly is blocked?", "Inspect the pin landing, preferred track and obstacle keepout on metal1."],
+    ["When does a detour make sense?", "Try an alternate legal path on the same layer and record its length and clearance."],
+    ["What should I check before changing layers?", "Verify via access, enclosure and available routing space on the second layer."],
+    ["How should I compare the options?", "Compare legal route length, number of vias and remaining access before changing the floorplan."]
+  ],
+  "l-pad-ring/predict": [
+    ["Why can a pad pass a geometry check with the wrong name?", "Width and spacing apply to its shapes. Pin identity is a separate connection and labeling question."],
+    ["What should I trace from a perimeter pad?", "Follow the named external pin through the pad connection to its intended core net."],
+    ["Where is the expected assignment listed?", "Use the exercise’s schematic ports or pad map as the reference before editing."],
+    ["How do I catch another swapped pair?", "Check all named inputs, outputs and supplies one at a time against the map."]
+  ],
+  "l-density/predict": [
+    ["Why can the chip average hide a violation?", "Each rule window covers its own region. Dense areas elsewhere can mask a sparse neighborhood in the overall average."],
+    ["Which window should I look at first?", "Open the failing window and inspect its available fill area, signal routes and keepouts."],
+    ["What makes a fill change acceptable?", "Recheck local density and clearance, then compare any modeled loading near sensitive nets."],
+    ["How do I avoid moving the problem?", "Rerun neighboring windows too, especially those that overlap the changed area."]
+  ],
+  "l-antenna/predict": [
+    ["What does the antenna check compare?", "At a fabrication stage, compare exposed conductor connected to sensitive gates with the deck’s allowed gate-area-normalized ratio."],
+    ["Why does sequence matter?", "Only the conducting paths built by a particular stage contribute to that stage’s connected area."],
+    ["What does a layer jump change?", "Place the transition so less early-layer metal stays connected to the gate before the next layer is formed."],
+    ["How do I choose between a jumper and a diode?", "Rerun the staged rule with each option and compare added routing, diode loading and clearance for the actual process."]
+  ],
+  "l-via-current/predict": [
+    ["How can one via fail with acceptable rail voltage?", "The rail drop is a path measurement. A single cut can still carry more current than its exercise limit."],
+    ["How do parallel cuts help?", "A legal array provides additional paths for the transition. Check current sharing under the exercise model."],
+    ["What needs checking besides cut count?", "Check spacing, enclosure on both metals and current through the narrow sections around the array."],
+    ["What proves the edit helped?", "Rerun the original load and compare current per cut and rail voltage with their respective limits."]
+  ],
+  "l-isolation/predict": [
+    ["Why look beyond the shape outline?", "A visually closed loop can still have gaps on its conducting layer or lack enough contacts to reach the return."],
+    ["How do I check contact coverage?", "Trace active and metal around the ring and compare contact spacing against the exercise requirement."],
+    ["Which net should the guard use?", "Check the intended quiet substrate return and trace the guard connection all the way to that node."],
+    ["What if the guard connects to a switching return?", "Inspect the topology and measurements before assuming it will reduce coupling to the protected circuit."]
+  ],
+  "l-spiral/predict": [
+    ["Why does another turn affect more than inductance?", "It adds conductor length and changes spacing between nearby turns, which affects resistance and capacitance."],
+    ["Which metrics should I compare?", "Track inductance, series resistance, quality factor and self-resonant frequency at the stated conditions."],
+    ["What if the new coil meets inductance but loses too much Q?", "Compare width and spacing alternatives with the same required inductance and footprint limits."],
+    ["How far can I trust this experiment?", "Use the lumped model to explore trends. An RF design review would need extraction or an EM model for the chosen geometry."]
+  ],
+  "l-handoff/predict": [
+    ["Where should I look after writing GDS?", "Open the actual written file with the stream inspector and compare the top cell, hierarchy, layers and labels."],
+    ["Can a label exist on the wrong layer?", "Check the pin-purpose layer and whether the label lands on the intended geometry."],
+    ["Which names need comparison?", "Match every required export port with its label, including supplies and outputs."],
+    ["How do I verify the corrected handoff?", "Write a fresh stream and independently read it back. Compare the interface alongside geometry and hierarchy."]
+  ],
+  "a-degeneration/predict": [
+    ["Why does the source voltage move?", "More drain current drops more voltage across RS. The source rises, reducing the increase in VGS."],
+    ["What should I hold constant?", "Match the drain current with VBIAS and keep the input amplitude, frequency and load fixed."],
+    ["Why measure gain and THD separately?", "Gain measures the fundamental. THD measures harmonics relative to it. Track both to see the tradeoff."],
+    ["What if my THD improves but gain barely moves?", "Check the saved drain current and that RS is in the signal path. Compare the two settled periods at the same input amplitude."]
+  ],
+  "a-rejection/predict": [
+    ["What do the two inputs see?", "For common-mode excitation, check that their AC voltages have equal amplitude and phase."],
+    ["How do I normalize the differential run?", "Use +0.5 V and −0.5 V AC at the two inputs for a 1 V differential stimulus."],
+    ["Which gain is the numerator of CMRR?", "Use differential gain in the numerator and common-mode gain in the denominator. Compare both at 10 kHz."],
+    ["Why run the supply separately?", "That case holds the signal inputs at zero AC so the output measures rail feedthrough. Use it for input-referred PSRR+."]
+  ],
+  "a-drive/predict": [
+    ["Which voltage defines the DC error?", "Compare the final high output plateau with the high command."],
+    ["What does settling about the final value tell me?", "It measures transient recovery toward the circuit’s own plateau. A fast response can still have a static offset."],
+    ["Why does the 500 pF case matter?", "The same stage must move more charge. Compare how each load changes the peak and the time inside the error band."],
+    ["Which Results signals should I put side by side?", "Look at command and out. Read the steady gap, then see when out enters and stays in the command band."]
+  ],
+  "m-ramp/predict": [
+    ["Why use a linear ramp?", "Equal time intervals cover equal voltage intervals, so the number of samples in a bin estimates its width."],
+    ["Could one empty bin be a sampling problem?", "Check that the ramp spans the full converter range and that the sample interval resolves a normal bin before blaming the ladder."],
+    ["What is the difference between DNL and INL?", "DNL compares a bin width with one ideal LSB. INL compares each measured transition with its ideal position."],
+    ["Where should I look after finding a narrow bin?", "Compare the two adjacent thresholds with their neighbors. A narrow bin means those two transitions are unusually close."]
+  ],
+  "project-chopper/predict": [
+    ["Where is the offset introduced?", "Trace the input modulator and locate the offset at the amplifier input after that modulator."],
+    ["Why use the same clock twice?", "Multiplying by the same ±1 waveform twice recovers the original signal. The internal offset experiences only the second multiplication."],
+    ["Why is there ripple after chopping?", "The demodulated offset changes sign with the clock. The output filter attenuates that alternating component."],
+    ["What should I check before changing the filter?", "Overlay the modulator and demodulator clocks. Check edge alignment and recovered gain before evaluating residual ripple."]
+  ],
+  "project-relaxation/predict": [
+    ["What makes the capacitor reverse direction?", "The output changes state when the capacitor crosses the active threshold. Feedback then selects the other threshold."],
+    ["What does the startup pulse do?", "It nudges the circuit away from equilibrium. Measure the period well after that one disturbance."],
+    ["Which waveform gives the frequency?", "Measure the time between several like edges on out, average the periods, then take the reciprocal."],
+    ["Where can I see the thresholds?", "Plot cap and trip around a transition. Their crossing shows where the comparator reverses the output drive."]
+  ],
+  "project-pga/predict": [
+    ["Which resistor stays fixed?", "RFB connects the output to feedback. The selected return resistor completes the divider to ground."],
+    ["How do I relate gain to the return resistor?", "Start with 1 + RFB/RG and check the result for each single enabled branch."],
+    ["Why measure DC and AC gain?", "The plateau checks the programmed level. Low-frequency AC and the −3 dB point reveal gain and bandwidth around that state."],
+    ["What if the final levels are right but code changes fail?", "Inspect the transient at each selector edge. Measure how long the output takes to enter and stay in the new level’s band."]
+  ],
+  "c-temperature/predict": [
+    ["What do the two anchors tell me?", "They give the code at two known temperatures. The change in temperature divided by the code span gives a slope."],
+    ["Why do I need a signed offset?", "The ADC usually reads a nonzero code at 0 °C. The offset shifts the estimate so that measured code maps to the cold anchor."],
+    ["Why keep middle temperatures out of the fit?", "Using those points only for validation reveals errors from curvature and quantization between the anchors."],
+    ["What if the anchors look good but the middle fails?", "Plot error versus temperature for each supply. Check for a bowed trend, uneven code steps or supply-dependent changes."]
+  ],
+  "inverter-process/predict": [
+    ["Where is the device voltage rating?", "Look up the exact core model in the selected process documentation and compare it with the workspace supply."],
+    ["Can I reuse a voltage from another revision?", "Read the chosen device class and nominal conditions anew, especially when switching between process families."],
+    ["What should I inspect before running?", "Check both model bindings and the supply in the testbench. Make sure the correct package revision appears in the Hub."],
+    ["What if the model is missing?", "Open the selected PDK setup or simulation runtime details. The course uses the recorded process model throughout."]
+  ],
+  "inverter-schematic/predict": [
+    ["Which transistor connects the output to the supply?", "Trace the upper device from VDD to OUT and check the gate shared by the two transistors."],
+    ["How do I decide which device conducts at ground input?", "Evaluate each gate voltage relative to its own source, including the PMOS source at VDD."],
+    ["Where do I check body connections?", "Inspect all four terminals. In this inverter the upper body goes to VDD and the lower body goes to ground."],
+    ["How can I confirm the prediction?", "Hold the input at ground and inspect the settled OUT voltage. Then try the other rail and compare."]
+  ],
+  "inverter-dc/predict": [
+    ["Which curves do I compare?", "Plot VOUT against the input DC sweep. Think of the VIN = VOUT diagonal on the same voltage scale."],
+    ["Is the switching point one-half the supply by definition?", "Read the crossing in the actual sweep. Device strength and sizing can move it away from mid-supply."],
+    ["How do I find it between two samples?", "Find adjacent samples where VOUT − VIN changes sign, then interpolate or use a finer sweep."],
+    ["Is this how I find noise margins?", "Find the two points with slope approximately −1 for the valid input limits. The crossing measures a different feature."]
+  ],
+  "inverter-transient/predict": [
+    ["Which two crossings define one delay?", "Use the corresponding input edge and output edge at the same reference, such as half of VDD."],
+    ["How should I pair edges in an inverter?", "An input rise corresponds to an output fall. Measure the opposite pair separately."],
+    ["Why does more capacitance matter?", "A larger load needs more charge for the same voltage move. Think about how much current the active device can supply."],
+    ["What should I hold fixed for the comparison?", "Keep supply, input edge rate, device sizes and measurement thresholds fixed. Then change only the load."]
+  ],
+  "inverter-layout/predict": [
+    ["How do I locate the channel?", "Find where the drawn gate conductor crosses the active region in the selected process view."],
+    ["What distinguishes source and drain from the gate?", "Source and drain occupy active regions on opposite sides of the crossing. Contacts bring the terminals out to wiring."],
+    ["Why look at wells and taps too?", "They determine body connections. Trace each return to the expected supply net before extracting."],
+    ["How do I check the drawn intent?", "Compare device count, gate crossings and named terminals against the four-terminal schematic."]
+  ],
+  "inverter-drc/predict": [
+    ["Where do I start with many markers?", "Select a marker and read its rule name, location, measured geometry and required limit."],
+    ["Which check covers electrical connections?", "Use LVS with the matching schematic after the geometry check."],
+    ["Why record the deck and cell?", "They tell reviewers which rules and geometry the report actually covered."],
+    ["What should I do after a repair?", "Rerun the same deck on the edited layout. Verify the original marker cleared and check for new ones."]
+  ],
+  "inverter-lvs/predict": [
+    ["Where should I read an LVS failure?", "Start with the report’s device, pin, net or parameter mismatch. Use the first concrete discrepancy to pick a location."],
+    ["What if both sides have the same device count?", "Compare the terminal nets and device dimensions. Counts alone cannot establish equivalence."],
+    ["What can make a correct route look wrong in LVS?", "Check the pin name, purpose layer, extraction setup and the schematic revision being compared."],
+    ["How do I confirm a repair?", "Rerun against the same intended schematic. Verify the report resolves the particular mismatch you changed."]
+  ],
+  "inverter-handoff/predict": [
+    ["Which files should I send with the handoff?", "Include the exact schematic and layout plus the measured runs, rule reports, process revision and conditions."],
+    ["How should I describe a nominal pass?", "Name the simulated stimulus, supply, load, temperature and revision, then state the measured result."],
+    ["What remains after DRC and LVS?", "Review corners, extraction, reliability and submission-specific checks for the intended use."],
+    ["How can another student reproduce my result?", "Identify the saved design revision, models, settings and analysis commands that produced the report."]
+  ]
+}

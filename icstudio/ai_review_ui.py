@@ -20,6 +20,7 @@ class ReviewTools:
             self.layout_tools.reset()
         self.pinned = self.row = self.check = self.probe_ref = self.device_ref = self.suggestion = None
         self.context_prompt = None
+        self.lesson_key = self.lesson_context = None
         self.needs_attachment = False
         self.turns = []
 
@@ -158,6 +159,8 @@ class ReviewTools:
         if self.needs_attachment:
             raise ValueError('Choose Ask About This on another item, or select New Investigation.')
         action = self.action.currentData()
+        if action == 'lesson':
+            return ai_context.lesson_prompt(self.lesson_context)
         if action == 'layout':
             return self.layout_tools.prompt()
         if action == 'edit':
@@ -206,7 +209,7 @@ class ReviewTools:
         return prompt
 
     def remember_send(self):
-        if self.action.currentData() == 'layout':
+        if self.action.currentData() in ('layout', 'lesson'):
             self.pending_question = self.note.text().strip() or self.action.currentText()
             return
         if self.action.currentData() == 'bench':

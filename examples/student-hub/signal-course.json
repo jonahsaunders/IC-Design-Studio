@@ -1,0 +1,99 @@
+[
+  {
+    "id": "a-degeneration", "path": "analog", "topic": "Amplifier performance", "lab": "linearity", "title": "Trade gain for linearity",
+    "summary": "Add source degeneration to a MOS stage, restore its bias and compare measured gain and distortion.",
+    "skills": ["source degeneration", "bias", "coherent harmonics", "gain and THD"], "minutes": 35, "requires": ["a-amplifier"],
+    "quiz": {"instructions": "At the same drain current, what does an unbypassed source resistor normally trade for greater linearity?", "options": ["Small-signal gain", "The input sine frequency", "The existence of a DC operating point"], "answer": 0, "explanation": "When drain current rises, the source voltage rises and reduces the change in VGS. This local feedback can reduce both distortion and gain."},
+    "tasks": [
+      {"id": "baseline", "title": "Measure the original transistor stage", "instructions": "Open workspace. Identify RD, RS and the series VBIAS and VIN sources. Run the 10 kHz sine bench and open Results. Record drain bias, fundamental gain and THD from harmonics two through five over two settled periods."},
+      {"id": "repair", "title": "Add degeneration at the same bias", "instructions": "Increase RS and raise the DC VBIAS to keep the same drain current. Keep VIN and RD fixed. Run again. Target 43–49 µA drain bias, gain from 1.25 to 2.8 V/V, and THD at or below 3%. Compare the two output traces at the same input amplitude."}
+    ],
+    "reflection": "Explain what the circuit gained and what it gave up. Compare the two bias currents and explain why matching the bias matters.",
+    "teaching": {"concept": "Source degeneration feeds part of the current change back into the gate-source voltage. Keep bias and stimulus controlled to isolate the tradeoff.", "worked_example": "At about 46 µA, a 4 kΩ source resistor drops around 0.18 V. Adding that amount to gate bias is a useful first estimate for restoring the same operating point.", "try_next": "In a copy, vary input amplitude and see when higher harmonics or clipping become dominant.", "interview": "How would you compare distortion fairly when the two stages have different gain?", "artifact": "Two saved sine runs with drain bias, fundamental gain and measured harmonic distortion."}
+  },
+  {
+    "id": "a-rejection", "path": "analog", "topic": "Amplifier performance", "lab": "rejection", "title": "Measure PSRR and CMRR",
+    "summary": "Use separate differential, common-mode and supply excitations to find and fix two disturbance paths.",
+    "skills": ["supply rejection", "common-mode rejection", "AC normalization", "tail impedance", "decoupling"], "minutes": 40, "requires": ["a-differential"],
+    "quiz": {"instructions": "How do you excite a differential pair to measure its common-mode gain?", "options": ["Drive both inputs with the same AC signal", "Drive only the positive input", "Drive opposite signals and remove the supply"], "answer": 0, "explanation": "Equal in-phase excitation moves the input common mode while leaving the differential waveform at zero."},
+    "tasks": [
+      {"id": "baseline", "title": "Separate the three AC responses", "instructions": "Run three AC excitations. Inspect out in the differential, common-mode and supply cases. Each test uses a 1 V normalized stimulus. At 10 kHz, record differential gain Ad, common-mode gain Acm and the gain from the positive rail As. This lesson reports 20 log10(|Ad/Acm|) and input-referred PSRR+ as 20 log10(|Ad/As|)."},
+      {"id": "repair", "title": "Improve both rejection ratios", "instructions": "Increase the tail impedance with RTAIL. Use CDEC with the existing supply isolation resistor to reduce rail feedthrough. Keep the input sources and bias current fixed. Rerun all three cases and meet at least 28 dB CMRR, 30 dB input-referred PSRR+ and 1 V/V differential gain at 10 kHz."}
+    ],
+    "reflection": "State which edit improved each path. Explain how changing observation frequency or using a differential output would affect the comparison.",
+    "teaching": {"concept": "Common-mode and supply disturbances enter through different circuit paths. Measure them separately under a consistent output and normalization convention.", "worked_example": "If differential gain is 2 V/V and supply-to-output gain is 0.02 V/V, their ratio is 100 and the input-referred result is 40 dB.", "try_next": "Compare the three responses at a decade above and below 10 kHz in the saved waveforms.", "interview": "How would you explain a CMRR improvement that leaves PSRR unchanged?", "artifact": "Six captured AC responses with documented rejection definitions and a before-and-after measurement."}
+  },
+  {
+    "id": "a-drive", "path": "analog", "topic": "Amplifier performance", "lab": "load", "title": "Drive a difficult load",
+    "summary": "Compare a simple source follower and a feedback buffer under identical capacitive loads.",
+    "skills": ["capacitive load", "buffer feedback", "settling", "overshoot", "bias current"], "minutes": 45, "requires": ["a-load", "a-bandwidth"],
+    "quiz": {"instructions": "A source follower settles quickly near its own final voltage but misses the commanded output. Which measurements distinguish those symptoms?", "options": ["Transient settling and final DC error", "Only supply voltage", "Only the waveform duration"], "answer": 0, "explanation": "The response can reach its own final level quickly and still miss the commanded level. The two measurements answer separate requirements."},
+    "tasks": [
+      {"id": "baseline", "title": "Compare two loads on the follower", "instructions": "Open the source_follower cell and run the 100 pF and 500 pF comparisons. Record DC command error, settling about its own final value, and average supply current during the high plateau."},
+      {"id": "repair", "title": "Tune the feedback buffer", "instructions": "Open feedback_buffer. Tune CDOM while keeping the output device, bias, and command fixed. Run both circuits with 100 pF and 500 pF. At each load, the feedback buffer must meet 10 mV DC error, settle within ±10 mV of the command in at most 4 µs, and overshoot by at most 35 mV."}
+    ],
+    "reflection": "Compare at least two waveforms. Explain why the reported drain current excludes any power a transistor implementation of the error amplifier would consume.",
+    "teaching": {"concept": "Feedback can improve DC accuracy while changing overshoot and settling. Judge the design at its intended loads.", "worked_example": "When a pole capacitor is too large, the feedback loop may reach the correct final voltage but miss the deadline. Too small a pole capacitor can increase ringing.", "try_next": "Try a much lower pole capacitor in a copy and inspect the heavy-load response.", "interview": "How can a circuit with the right steady-state gain fail to drive a capacitive load?", "artifact": "Measured follower and feedback-buffer comparison at both loads, including output-stage supply current."}
+  },
+  {
+    "id": "m-ramp", "path": "mixed", "topic": "ADC characterization", "lab": "adc-ramp", "title": "Characterize an ADC with a ramp",
+    "summary": "Sample an actual flash ADC ramp response, measure DNL and INL and recover a collapsed code bin.",
+    "skills": ["flash ADC", "code density", "DNL", "INL", "monotonicity"], "minutes": 40, "requires": ["m-codes"],
+    "quiz": {"instructions": "On a linear ramp with uniform sampling, what does an empty bin normally indicate after adequate sampling?", "options": ["A wide code", "A code with no observed input span", "A doubled reference voltage"], "answer": 1, "explanation": "Each count represents the same input increment. An absent bin indicates no observed span at the chosen resolution; a nearly empty bin indicates a very narrow code."},
+    "tasks": [
+      {"id": "baseline", "title": "Capture the collapsed code", "instructions": "Run the 0–1 V ramp and open the code-density results. The checker takes 4,096 uniform samples, decodes the seven captured comparator outputs, and counts eight bins. Identify the missing or nearly missing code and trace its adjacent thresholds on the ladder."},
+      {"id": "repair", "title": "Restore all eight code widths", "instructions": "Repair the faulty R4 ladder section. Keep the reference and ramp fixed. Rerun the characterization and meet peak absolute DNL and full-scale-referenced INL of at most 0.05 LSB, with all eight codes observed."}
+    ],
+    "reflection": "Record your original and repaired code counts. Explain what the sample resolution can establish about a missing or extremely narrow code.",
+    "teaching": {"concept": "Uniform time samples on a linear voltage ramp give a code-density estimate. DNL describes each bin width; INL compares observed transition locations to an ideal full-scale ruler.", "worked_example": "With 4,096 samples and eight ideal bins, each bin gets 512. A bin with 256 counts has −0.5 LSB DNL. Cumulative counts locate the transitions.", "try_next": "Use a copy to introduce a different ladder error. Predict how the signed DNL moves before simulating.", "interview": "Why does a nonuniform ramp distort a code-density measurement?", "artifact": "The original and restored histograms, transition voltages, DNL and INL traces."}
+  },
+  {
+    "id": "project-chopper", "path": "analog-projects", "topic": "Signal-conditioning projects", "lab": "chopper", "title": "Build a chopper amplifier",
+    "summary": "Align input and output commutation and design the output filter for low offset, ripple and settling.",
+    "skills": ["modulation", "demodulation", "offset", "ripple", "low-pass filtering"], "minutes": 50, "requires": ["a-rejection", "a-bandwidth"],
+    "quiz": {"instructions": "What happens to an amplifier's static input offset after ideal synchronous output demodulation?", "options": ["It moves to the chopping band", "It becomes part of the input reference", "It always equals zero at every instant"], "answer": 0, "explanation": "The offset is introduced between the two commutators. The second commutator moves it out of baseband, where a low-pass filter can attenuate it."},
+    "tasks": [
+      {"id": "baseline", "title": "Find the broken demodulation", "instructions": "Trace BMOD, BAMP, BDEMOD and the output filter. Run the bypassed and chopped benches. Compare recovered gain and ripple. Inspect the two 20 kHz clock traces to find their phase mismatch."},
+      {"id": "repair", "title": "Align the clocks and filter the ripple", "instructions": "Set VDEMOD pulse delay to align with VCHOP and select CLP. Rerun both cases. Recover 19–21 V/V with less than 5 mV output offset, at most 30 mV p-p ripple and average settling within 700 µs."}
+    ],
+    "reflection": "Compare bypassed and chopped offset at the same nominal gain. Explain the settling penalty of a larger output filter capacitor and which switching imperfections a transistor implementation would add.",
+    "teaching": {"concept": "Synchronous commutation restores the desired low-frequency signal while translating offset injected inside the amplifier. Finite filtering leaves ripple and settling tradeoffs.", "worked_example": "A 4 mV input offset at 20 V/V gives 80 mV of DC offset without chopping. With matched ideal commutation, the filter sees the offset as an alternating component.", "try_next": "In a copy, introduce a small clock mismatch and compare its effect at two filter settings.", "interview": "Why can the output offset look small even when the clock phase is wrong?", "artifact": "Bypassed, faulty and repaired comparisons showing recovered gain, offset, ripple and settling."}
+  },
+  {
+    "id": "project-relaxation", "path": "analog-projects", "topic": "Signal-conditioning projects", "lab": "relaxation", "title": "Design a relaxation oscillator",
+    "summary": "Tune a Schmitt-trigger RC oscillator and verify startup, duty cycle and frequency at three rail and temperature conditions.",
+    "skills": ["hysteresis", "RC timing", "oscillator startup", "temperature drift"], "minutes": 45, "requires": ["a-bandwidth"],
+    "quiz": {"instructions": "What sets the steady oscillation frequency in this feedback circuit once the startup disturbance ends?", "options": ["The startup source's period", "The RC charge and discharge times between thresholds", "Only the peak supply voltage"], "answer": 1, "explanation": "The comparator reverses the direction of the RC ramp at each threshold. The startup disturbance only breaks the initial symmetry."},
+    "tasks": [
+      {"id": "baseline", "title": "Measure the original oscillator", "instructions": "Run the nominal transient. Trace the output, comparator reference and timing capacitor. Record the first rising edge, late-period frequency and duty cycle. The startup pulse makes one transition during the measurement window."},
+      {"id": "corners", "title": "Tune the timer and verify three conditions", "instructions": "Change RT or CT, or use Edit timing components. Aim for about 2.2 kHz. Compare nominal, cold at 1.62 V and hot at 1.98 V. All runs must produce 1.8–2.5 kHz and 46–54% duty, start within 850 µs, and stay within a 15% frequency spread relative to nominal."}
+    ],
+    "reflection": "Compare your RC estimate to the measured frequency. Explain how the three measurements distinguish nominal tuning from startup and environmental sensitivity.",
+    "teaching": {"concept": "Positive feedback creates two switching thresholds. The output toggles when the capacitor crosses a threshold, producing a repeating charge-discharge cycle.", "worked_example": "For thresholds near one-quarter and three-quarters of the rail, an ideal symmetric oscillator has period roughly 2RC ln(3). Compare that estimate with the finite bench.", "try_next": "In a copy, change the threshold divider and compare both capacitor excursion and frequency.", "interview": "How would you prove a saved waveform is self-oscillation rather than a response to a periodic input?", "artifact": "The tuned oscillator with measured startup, frequency and duty cycle at all three simulated conditions."}
+  },
+  {
+    "id": "project-pga", "path": "analog-projects", "topic": "Signal-conditioning projects", "lab": "pga", "title": "Build a programmable-gain amplifier",
+    "summary": "Size a switched feedback ladder for three gain codes and verify static gain, bandwidth and switching recovery.",
+    "skills": ["feedback ladders", "gain codes", "switch resistance", "bandwidth", "step recovery"], "minutes": 50, "requires": ["a-drive"],
+    "quiz": {"instructions": "For a non-inverting amplifier with a fixed feedback resistor, which return resistor gives the highest gain?", "options": ["The smallest return resistor", "The largest return resistor", "All give the same gain"], "answer": 0, "explanation": "The ideal gain is 1 + RF/RG. A smaller selected return resistance produces more gain."},
+    "tasks": [
+      {"id": "baseline", "title": "Read the original gain codes", "instructions": "Run the code measurements. Compare the low-frequency gain, −3 dB bandwidth, and output plateaus for all three selectors. AC holds the selected switches at their declared on or off resistance; the transient uses the actual switching model."},
+      {"id": "repair", "title": "Build the 2×, 4× and 8× ladder", "instructions": "Set RG1, RG2 and RG3 while keeping the 20 kΩ feedback resistor and existing switch model. Rerun the three gain codes and the switching sequence. Meet gains within 3.5%, bandwidth at least 1 MHz and settling within 12 µs after each code change."}
+    ],
+    "reflection": "Compare your calculated resistor values with the measured gains and transient outputs. Explain how switch resistance and finite amplifier gain appear in this experiment.",
+    "teaching": {"concept": "A switch-selected resistor ladder makes gain programmable. Check both the steady-state modes and the steps between them.", "worked_example": "For 4× gain and a 20 kΩ feedback resistor, the effective return is about 6.67 kΩ. Subtract the nominal on-resistance when choosing the physical resistor.", "try_next": "In a copy, increase one switch resistance and identify which gain setting becomes most sensitive.", "interview": "Why can a gain code meet static accuracy and still be unsuitable for a sampled signal?", "artifact": "Three verified gain curves and the recorded gain-code switching waveform."}
+  },
+  {
+    "id": "c-temperature", "path": "capstone", "topic": "Sensor calibration", "lab": "temperature", "title": "Build a calibrated temperature monitor",
+    "summary": "Set sensor span, convert against a shared reference, program two-point integer calibration and validate held-out temperatures and supplies.",
+    "skills": ["temperature sensing", "ratiometric conversion", "10-bit ADC", "fixed-point calibration", "held-out validation"], "minutes": 75, "requires": ["m-ramp"],
+    "quiz": {"instructions": "What is the purpose of holding back intermediate temperatures during a two-point calibration?", "options": ["Measure accuracy away from the fitted points", "Change the ADC reference", "Hide the worst input"], "answer": 0, "explanation": "The anchors determine gain and offset. Independent points show the residual curvature, quantization and supply sensitivity."},
+    "tasks": [
+      {"id": "baseline", "title": "Measure the compressed sensor span", "instructions": "Open workspace and trace VDD, the reference network and RTEMP/RFIX. Measure the 0 °C and 80 °C reference points. The solved sensor and reference voltages feed an ideal 10-bit ADC. Record the original code span before editing the divider."},
+      {"id": "anchor", "title": "Set span and record calibration anchors", "instructions": "Change RFIX so the two anchor codes stay between 120 and 900 and span at least 55 counts. Simulate again. Compute integer gain in m°C/count as 80,000 divided by the hot-minus-cold code difference, rounded to the nearest integer. Offset equals negative gain times the cold code."},
+      {"id": "validate", "title": "Program and validate the correction", "instructions": "Choose Edit calibration registers and enter the signed integer values. Run the two anchors and 15 held-out cases. The digital arithmetic is estimate = gain × code + offset in millidegrees. Meet ±0.8 °C at both anchors and ±2.5 °C on every held-out temperature and supply combination."}
+    ],
+    "reflection": "Record the worst held-out error and which test produced it. Explain how the shared reference influences supply sensitivity and why linear calibration leaves curvature and quantization error.",
+    "teaching": {"concept": "The sensor divider and ADC share a reference, so their ratio is the useful input. A two-point fixed-point fit corrects gain and offset. Verify it on independent conditions.", "worked_example": "If codes 580 and 640 represent 0 °C and 80 °C, integer gain rounds to 1,333 m°C/count and offset is −773,140 m°C. A code of 610 yields approximately 40 °C.", "try_next": "Compare a different divider setting or try a piecewise fit in a separate copy to see whether the worst error improves.", "interview": "How would you distinguish fixed-point quantization error from sensor curvature in the verification data?", "artifact": "Measured sensor voltages and ADC codes, signed calibration settings, and a held-out error report."}
+  }
+]

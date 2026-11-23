@@ -6,10 +6,13 @@ from pathlib import Path
 
 from icstudio.model import clone, save_project
 from icstudio.student_hub import curriculum, evaluate, Portfolio, lesson_stamp, earned
-from icstudio.student_learning import study_guide, portfolio_html, export_portfolio
+from icstudio.student_learning import (hint_source, mode_source, study_guide, task_html,
+                                       solution_html, portfolio_html, export_portfolio)
 from icstudio.student_projects import create
 from icstudio.student_design_labs import check_layout, DIGITAL_LABS
 from test_student_hub import repaired, execute, engines
+
+INTRO_LAYOUT = ('layout-width', 'layout-spacing', 'layout-via', 'layout-centroid')
 
 
 def repaired_layout(kind):
@@ -24,8 +27,65 @@ def repaired_layout(kind):
 
 
 class StudentDesignTests(unittest.TestCase):
+    def test_modes_and_solutions_cover_every_checkpoint(self):
+        from html import escape
+        from icstudio.student_inverter import expand
+
+        base = curriculum()
+        data, guide = expand(base, study_guide(base), [{'token': 'example-profile'}])
+        tasks, overrides = set(), set()
+        for lesson in data['lessons']:
+            key = lesson['id']
+            practice, note = guide['practice'][key], guide['lessons'][key]
+            author = 'inverter-' + lesson['inverter_stage'] if lesson['path'] == 'inverter' else key
+            for step in lesson['steps']:
+                stage = step['id']
+                route = f'{author}/{stage}'
+                with self.subTest(checkpoint=route):
+                    diy, guided = (task_html(step, practice, mode) for mode in (False, True))
+                    answer = solution_html(step, practice, note)
+                    self.assertNotIn('<ol>', diy)
+                    self.assertIn('<ol>', guided)
+                    self.assertIn(escape(step['title']), answer)
+                    if stage in practice['questions']:
+                        overrides.add(route)
+                    if step['kind'] == 'check':
+                        if not lesson.get('bench_project'):
+                            tasks.add(route)
+                        goal, actions, example = practice['tasks'][stage]
+                        self.assertEqual(diy, f'<p>{escape(goal)}</p>')
+                        self.assertIn(escape(example), answer)
+                        self.assertTrue(all(escape(action) in guided for action in actions))
+                    elif step['kind'] == 'quiz':
+                        self.assertIn(escape(step['options'][step['answer']]), answer)
+                    else:
+                        self.assertIn('Example reasoning', answer)
+        self.assertEqual(tasks, set(mode_source()['tasks']))
+        self.assertEqual(overrides, set(mode_source()['challenge_questions']))
+
+    def test_every_knowledge_check_has_four_authored_hints(self):
+        from icstudio.student_inverter import expand
+
+        base = curriculum()
+        profiles = [{'token': 'example-profile'}]
+        data, material = expand(base, study_guide(base), profiles)
+        covered = set()
+        for lesson in data['lessons']:
+            quizzes = {s['id'] for s in lesson['steps'] if s['kind'] == 'quiz'}
+            hints = material['hints'][lesson['id']]
+            self.assertEqual(set(hints), quizzes, lesson['id'])
+            author = 'inverter-' + lesson['inverter_stage'] if lesson['path'] == 'inverter' else lesson['id']
+            for step, entries in hints.items():
+                key = f'{author}/{step}'
+                if not lesson.get('bench_project'):
+                    covered.add(key)
+                self.assertEqual(len(entries), 4, key)
+                self.assertEqual(len({q for q, _ in entries}), 4, key)
+                self.assertTrue(all(q.endswith('?') and a.strip() for q, a in entries), key)
+        self.assertEqual(set(hint_source()), covered)
+
     def test_layout_faults_repairs_and_deletion_or_rule_bypass(self):
-        for kind in ('layout-width','layout-spacing','layout-via','layout-centroid'):
+        for kind in INTRO_LAYOUT:
             with self.subTest(kind=kind):
                 with self.assertRaises(ValueError):check_layout(create(kind),kind)
                 p=repaired_layout(kind)
@@ -46,10 +106,10 @@ class StudentDesignTests(unittest.TestCase):
         for s in p['cells'][0]['shapes']:s['points']=[[0,0],[400,400]]
         with self.assertRaisesRegex(ValueError,'separation'):check_layout(p,'layout-centroid')
 
-    def test_every_new_layout_and_career_checkpoint_is_reachable(self):
+    def test_intro_layout_and_career_checkpoints_are_reachable(self):
         with tempfile.TemporaryDirectory() as td:
             for lesson in curriculum()['lessons']:
-                if lesson['path'] not in ('layout','career') or lesson['starter']=='layout-decisions':continue
+                if lesson['path']!='career' and lesson['starter'] not in INTRO_LAYOUT:continue
                 p=repaired_layout(lesson['starter']) if lesson['path']=='layout' else create(lesson['starter'])
                 path=Path(td)/(lesson['id']+'.icproj');save_project(p,path)
                 for step in lesson['steps']:
@@ -70,12 +130,13 @@ class StudentDesignTests(unittest.TestCase):
                 self.assertIn('result_sha256',evidence)
 
     def test_teaching_edits_do_not_revoke_credit_and_html_escapes_drafts(self):
-        data=curriculum();guide=study_guide(data);lesson=data['lessons'][0];step=lesson['steps'][-1]
+        data=curriculum();guide=clone(study_guide(data));lesson=data['lessons'][0];step=lesson['steps'][-1]
         with tempfile.TemporaryDirectory() as td:
             portfolio=Portfolio(td)
             portfolio.state['lessons'][lesson['id']]=dict(stamp=lesson_stamp(lesson),steps={
                 step['id']:dict(kind='reflection',evidence={'note':'Original captured observation'})},notes={step['id']:'<script>alert("draft")</script>'})
             before=clone(earned(portfolio.state,lesson));guide['lessons'][lesson['id']]['concept']+=' New teaching explanation.'
+            guide['hints'][lesson['id']]['predict'][0] = ['How do I start?', 'Use the formula from Learn.']
             self.assertEqual(earned(portfolio.state,lesson),before)
             rendered=portfolio_html(portfolio,data,guide)
             self.assertNotIn('<script>',rendered);self.assertIn('&lt;script&gt;',rendered)

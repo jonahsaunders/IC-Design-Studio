@@ -4,6 +4,15 @@ Open **Tools → AI Assistant…** and choose **Set Up…**. Choose a provider a
 
 The **Request** tab summarizes the selected components, connections or saved run. Expand **Full request** to read the exact text, including any follow-up history. **Send** shares that text with the selected provider.
 
+## Ask about a lesson
+
+In Student Hub, choose **Ask Resisty…** in **Quick check** or the **Lesson Guide**.
+Resisty uses the same assistant with the selected knowledge check or task.
+Edit the suggested question, review **Full request**, then choose **Send**.
+The lesson request contains the authored lesson text, your question and recent
+messages about that step. Ask for a hint, an explanation, or a measurement to
+try. Open **Ask Resisty…** on another step to start a conversation about that step.
+
 ## Investigate a layout
 
 Choose **Tools → AI Assistant… → Investigate physical layout**. The **Layout** tab also opens from a layout selection or a check result. Use it to inspect geometry, follow a signal, or review a repair locally. To ask your configured provider for an explanation, enter a question, inspect **Full request**, and choose **Send**.

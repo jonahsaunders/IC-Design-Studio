@@ -102,8 +102,8 @@ class StudentProgressTests(unittest.TestCase):
 
     def test_curriculum_has_executable_starters_and_valid_prerequisites(self):
         data=curriculum()
-        self.assertEqual([sum(l['path']==p['id'] for l in data['lessons']) for p in data['paths']],[6,11,9,6,5,2,20])
-        self.assertEqual(sum(l['path']=='capstone' for l in data['lessons']),4)
+        self.assertEqual([sum(l['path']==p['id'] for l in data['lessons']) for p in data['paths']],[6,14,9,7,23,2,23,9])
+        self.assertEqual(sum(l['path']=='capstone' for l in data['lessons']),5)
         for l in data['lessons']:validate(create(l['starter']))
         bad=clone(data);bad['lessons'][0]['requires']=['c-qualify']
         with self.assertRaisesRegex(ValueError,'Cyclic'):validate_curriculum(bad)
@@ -159,7 +159,7 @@ class StudentProgressTests(unittest.TestCase):
     def test_every_foundation_and_analog_checkpoint_has_a_reachable_target(self):
         with tempfile.TemporaryDirectory() as td:
             for lesson in curriculum()['lessons']:
-                if lesson['path'] not in ('foundations','analog') or lesson['starter']=='lc-bode':continue
+                if lesson['path'] not in ('foundations','analog') or lesson['starter']=='lc-bode' or lesson.get('signal_lab'):continue
                 p=repaired(lesson,create(lesson['starter']));root=Path(td)/lesson['id'];root.mkdir()
                 path=root/'project.icproj';save_project(p,path)
                 rows=[] if lesson['starter']=='layout' else [execute(p,root/'run')]
@@ -191,7 +191,7 @@ class StudentCapstoneTests(unittest.TestCase):
     def test_all_mixed_lessons_accept_the_documented_repairs(self):
         with tempfile.TemporaryDirectory() as td:
             for l in curriculum()['lessons']:
-                if l['path']!='mixed':continue
+                if l['path']!='mixed' or l.get('signal_lab'):continue
                 p=repaired(l,create(l['starter']));row=execute(p,Path(td)/l['id'],engines())
                 evaluate(l['steps'][1],l,p);evaluate(l['steps'][2],l,p,[row])
 

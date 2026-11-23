@@ -6,6 +6,44 @@ from PySide6.QtCore import Qt,QPointF
 from PySide6.QtWidgets import (QWidget,QDialog,QVBoxLayout,QHBoxLayout,QFormLayout,QLineEdit,QPlainTextEdit,QComboBox,QLabel,QDialogButtonBox,QFileDialog,QTableWidget,QTableWidgetItem,QPushButton,QHeaderView,QAbstractItemView,QListWidget,QMessageBox)
 from .model import clone,digest,scalar,uid,atomic_write,validate,design_digest
 
+
+def build_workflow_form(parent, title, fields, note=''):
+    dialog = QDialog(parent)
+    dialog.setWindowTitle(title)
+    dialog.resize(520, 300)
+    outer = QVBoxLayout(dialog)
+    form = QFormLayout()
+    form.setVerticalSpacing(12)
+    dialog.fields = {}
+    if note:
+        description = QLabel(note)
+        description.setWordWrap(True)
+        description.setProperty('role', 'muted')
+        outer.addWidget(description)
+    for key, name, default in fields:
+        if isinstance(default, list):
+            widget = QComboBox()
+            widget.addItems(default)
+        elif isinstance(default, tuple):
+            widget = QPlainTextEdit(default[0])
+            widget.setMaximumHeight(140)
+        else:
+            widget = QLineEdit(str(default))
+        if key == 'layer' and isinstance(widget, QComboBox):
+            widget.setCurrentText('metal1')
+        widget.setAccessibleName(name)
+        form.addRow(name, widget)
+        dialog.fields[key] = widget
+    outer.addLayout(form)
+    dialog.error = QLabel()
+    dialog.error.setWordWrap(True)
+    dialog.error.setProperty('role', 'error')
+    outer.addWidget(dialog.error)
+    buttons = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
+    outer.addWidget(buttons)
+    return dialog, buttons
+
+
 class FeatureMixin:
     def make_ui(self):
         super().make_ui();self.study_table=QTableWidget();self.study_table.setEditTriggers(QAbstractItemView.NoEditTriggers);self.study_table.setSelectionBehavior(QAbstractItemView.SelectRows);self.study_table.verticalHeader().hide();self.study_table.setShowGrid(False);self.study_table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents);self.study_table.horizontalHeader().setDefaultAlignment(Qt.AlignLeft|Qt.AlignVCenter)
@@ -44,16 +82,7 @@ class FeatureMixin:
         self.console.appendPlainText('Evidence will be written to '+str(Path(vals['Output directory'])/'report.json')+'; open inverter.icproj to inspect the generated native schematic and layout.')
 
     def workflow_form(self,title,fields,submit,note='',*,context_guard=None):
-        dlg=QDialog(self);dlg.setWindowTitle(title);dlg.resize(520,300);v=QVBoxLayout(dlg);form=QFormLayout();form.setVerticalSpacing(12);dlg.fields={}
-        if note:
-            label=QLabel(note);label.setWordWrap(True);label.setProperty('role','muted');v.addWidget(label)
-        for key,label,default in fields:
-            if isinstance(default,list):w=QComboBox();w.addItems(default)
-            elif isinstance(default,tuple):w=QPlainTextEdit(default[0]);w.setMaximumHeight(140)
-            else:w=QLineEdit(str(default))
-            if key=='layer' and isinstance(w,QComboBox):w.setCurrentText('metal1')
-            w.setAccessibleName(label);form.addRow(label,w);dlg.fields[key]=w
-        v.addLayout(form);dlg.error=QLabel();dlg.error.setWordWrap(True);dlg.error.setProperty('role','error');v.addWidget(dlg.error);buttons=QDialogButtonBox(QDialogButtonBox.Ok|QDialogButtonBox.Cancel);v.addWidget(buttons)
+        dlg,buttons=build_workflow_form(self,title,fields,note)
         def accept():
             try:
                 if context_guard:context_guard()

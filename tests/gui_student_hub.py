@@ -68,7 +68,8 @@ def main():
     # Practice can open later topics without granting progression credit.
     h.select_lesson('d-counter');h.start_selected();assert w._digital_window.isVisible()
     g.answer.setCurrentIndex(1);g.call(g.check);assert 'prerequisites' in g.feedback.text()
-    g.run();wait();assert w.run_manager.rows[-1]['state']=='Complete',w.run_manager.rows[-1]['log']
+    g.steps.setCurrentIndex(2);g.controls['Run lesson'].click();wait()
+    assert w.run_manager.rows[-1]['state']=='Complete',w.run_manager.rows[-1]['log']
     g.steps.setCurrentIndex(2);g.call(g.check);assert 'prerequisites' in g.feedback.text()
     # Capstone milestones share one editable project; no reset when advancing.
     h.select_lesson('c-filter');h.start_selected();pid=w.project['id'];w.commit(lambda p:p.update(name='My sensor system'),'Rename capstone');g.save_work()
@@ -76,7 +77,8 @@ def main():
     # Run complete real-engine acceptance on a reviewed reference design.
     p=sensor_project();path=out/'reviewed-sensor.icproj';save_project(p,path);w.set_project(p,path)
     lesson=h.by_id['c-qualify'];h.portfolio.attach(lesson,p,path);g.open_lesson(lesson)
-    before=digest(w.project);g.qualification();wait();assert digest(w.project)==before
+    g.steps.setCurrentIndex(2)
+    before=digest(w.project);g.qualify.click();wait();assert digest(w.project)==before
     from icstudio.student_hub import evaluate
     evidence=evaluate(lesson['steps'][2],lesson,w.project,w.run_manager.rows,path)
     assert len(evidence['cases'])==4

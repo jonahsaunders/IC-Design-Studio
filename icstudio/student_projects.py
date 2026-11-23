@@ -129,6 +129,17 @@ def divider(loaded=False, hierarchy=False):
 
 def create(starter, technology=None):
     from .example_schematics import arrange
+    from . import student_testbench
+    from .student_layout_labs import STARTER
+    from .student_signal_labs import STARTER as SIGNAL_STARTER
+    if starter.startswith(student_testbench.STARTER):
+        return arrange(student_testbench.create(starter.removeprefix(student_testbench.STARTER)))
+    if starter.startswith(SIGNAL_STARTER):
+        from .student_signal_circuits import project
+        return arrange(project(starter.removeprefix(SIGNAL_STARTER)))
+    if starter.startswith(STARTER):
+        from .student_layout_labs import project
+        return arrange(project(starter.removeprefix(STARTER)))
     if starter == 'bias-cascode':
         from .student_bias import project
         return arrange(project(technology))
@@ -158,6 +169,36 @@ def create(starter, technology=None):
         from .student_analog import project
         return arrange(project(starter.removeprefix('analog-'), technology))
     return arrange(_create(starter))
+
+
+def lesson_workspace(project, lesson, step):
+    """Resolve the same circuit and editor used by the lesson guide."""
+    starter = lesson['starter']
+    if lesson.get('bench_project'):
+        from .student_testbench import fixture
+        return fixture(project, lesson['id']), 'schematic'
+    stage = lesson.get('inverter_stage')
+    if stage in ('layout', 'drc', 'lvs', 'handoff') or (stage == 'schematic' and step != 'build'):
+        return project['student_inverter']['cell'], 'schematic' if stage == 'schematic' else 'layout'
+    if any(item['id'] == step and item['kind'] == 'reflection' for item in lesson['steps']):
+        step = next((item['id'] for item in reversed(lesson['steps']) if item['kind'] == 'check'), step)
+    if lesson.get('signal_lab'):
+        from .student_signal_labs import focus
+        return focus(project, lesson['signal_lab'], step), 'schematic'
+    if lesson.get('layout_lab'):
+        from .student_layout_labs import focus
+        return focus(project, lesson['layout_lab'], step), 'layout'
+    if starter == 'layout-decisions':
+        from .student_layout_decisions import focus
+        return focus(project, step), 'layout'
+    if starter in ('ahuja-study', 'miller-study'):
+        return next(c['id'] for c in project['cells'] if c['name'] == 'two_stage_opamp'), 'schematic'
+    if lesson.get('analog_project'):
+        from .student_analog import focus_cell
+        layout = step in ('layout', 'bias-layout', 'post-layout') or step.startswith('route-')
+        return focus_cell(project, lesson['analog_project'], step), 'layout' if layout else 'schematic'
+    return (project.get('mixed_signal', {}).get('analog_cell', project['top']),
+            'layout' if starter.startswith('layout') else 'schematic')
 
 
 def _create(starter):

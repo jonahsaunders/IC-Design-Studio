@@ -1,0 +1,112 @@
+[
+  {
+    "id": "fold", "topic": "Device layout", "title": "Fold a MOSFET",
+    "summary": "Compare one and four fingers at fixed total width using real GF180 geometry and process verification.",
+    "skills": ["device folding", "shared diffusion", "pin access", "process LVS"], "minutes": 45, "requires": ["l-via"],
+    "quiz": {"instructions": "A 2 µm NMOS is split into four equal fingers. What is the drawn width of each finger?", "options": ["2 µm", "0.50 µm", "8 µm"], "answer": 1, "explanation": "A 2 µm total width divided into four fingers gives 0.50 µm per finger. Confirm whether your PDK expects total width or per-finger width."},
+    "tasks": [
+      {"id": "single", "title": "Verify the single-finger reference", "instructions": "Open workspace to inspect single_finger. Identify the gate, source, drain and body access. Run process DRC/LVS and review Results. Set up Magic and Netgen under Tools → Physical tools setup if prompted."},
+      {"id": "folded", "title": "Build and verify four fingers", "instructions": "Open workspace, switch the Design view from Layout to Schematic, select MN1 and set the PDK parameter nf to 4. Keep the total W at 2 µm and L at 0.28 µm. Choose Generate device layout in the guide. Locate the alternating source and drain diffusion and compare pin access. Run process DRC/LVS and check the result."}
+    ],
+    "reflection": "Compare diffusion sharing and access to the gate and drains. Explain which parasitics might change and how you would measure them.",
+    "teaching": {"concept": "Fingers partition one total channel width. Adjacent gates can share source or drain diffusion, changing the footprint and junction geometry.", "worked_example": "A 2 µm GF180 device with four gates of 0.50 µm each retains the same total channel width and 0.28 µm length. LVS tests the process deck’s interpretation of the physical device.", "try_next": "Try two fingers in a separate copy and compare footprint and pin access.", "interview": "When could extra fingers improve gate access but leave drain routing harder?", "artifact": "Two captured process verification reports and a comparison of the device geometries."}
+  },
+  {
+    "id": "body", "topic": "Device layout", "title": "Fix a floating body",
+    "summary": "Connect a real GF180 body tap to the source rail and verify the extracted four-terminal device.",
+    "skills": ["substrate taps", "body net", "device extraction", "process LVS"], "minutes": 45, "requires": ["l-fold"],
+    "quiz": {"instructions": "The tap rectangle and source metal are separately legal. What establishes the body-to-source connection?", "options": ["Their shared net label", "A continuous legal conducting path", "A larger gate"], "answer": 1, "explanation": "A label communicates intent. The extraction deck needs the tap and source connected through actual geometry."},
+    "tasks": [
+      {"id": "tie", "title": "Connect the body to SOURCE", "instructions": "Open workspace and find the left body contact at (−2.50, 1.00) µm and the source at (−0.50, 1.00) µm. Connect their metal-1 landing pads with a 0.40 µm path on the layer used by both pads. Use SOURCE as the net. Keep the gate and drain isolated. Run process DRC/LVS, then check the repaired layout."}
+    ],
+    "reflection": "Explain how you found the body contact, how you verified the connection and when a circuit might intentionally bias the body independently.",
+    "teaching": {"concept": "A four-terminal transistor has a body connection distinct from its source. The schematic specifies which net should reach the physical well or substrate contact.", "worked_example": "In this GF180 cell the NMOS source and body both belong to SOURCE. A short metal link between landing pads completes the intended physical path.", "try_next": "In a copy, inspect the separate BODY port in the single-finger lesson.", "interview": "Why can a legal-looking tap still leave the wrong body connection?", "artifact": "An annotated body connection with captured GF180 DRC and LVS evidence."}
+  },
+  {
+    "id": "match", "topic": "Precision layout", "title": "Match a differential pair",
+    "summary": "Arrange matched active tiles and edge dummies, then match the input and output interconnect on two sides of an amplifier.",
+    "skills": ["common centroid", "edge dummies", "matched routing", "parasitic balance"], "minutes": 40, "requires": ["l-centroid"],
+    "quiz": {"instructions": "Two groups share a centroid. What can still unbalance the response?", "options": ["Unequal route resistance or loading", "The shared center itself", "Only the color of the layer"], "answer": 0, "explanation": "A common centroid addresses first-order spatial gradients. It does not equalize route resistance or capacitive loading."},
+    "tasks": [
+      {"id": "balance", "title": "Balance placement and routes", "instructions": "Open workspace. The active tiles start as dummy–A–A–B–B–dummy, from left to right. Move the interior tiles into ABBA or BAAB, keeping the outer dummies and original 0.90 µm tiles. The two input routes are at Y = +4 and −4 µm. Compare path widths in the inspector and balance them. Keep the output routes and their long stubs for the settling experiment. Check that both sides match within 5% in the teaching interconnect model."}
+    ],
+    "reflection": "Record both route resistance and capacitance comparisons. Explain which mismatch mechanisms a centroid and symmetrical routing can address.",
+    "teaching": {"concept": "Match the physical environments as well as the schematic parameters. Fixed-size active tiles illustrate unit placement while the loaded amplifier provides an electrical routing fixture.", "worked_example": "A 12 µm route with 2 Ω per square is 120 Ω at 0.20 µm width and 60 Ω at 0.40 µm. Both resistance and capacitance must be compared after matching.", "try_next": "Change the relative placement of one edge dummy in a copy and explain why the centroid result alone is insufficient.", "interview": "When could equal-length routes have unequal parasitics?", "artifact": "A saved pair placement with measured input and output interconnect balance."}
+  },
+  {
+    "id": "dac", "topic": "Precision layout", "title": "Lay out a capacitor DAC",
+    "summary": "Compare the extracted weights of a three-bit unit-capacitor array before and after reducing routing coupling.",
+    "skills": ["binary weighting", "unit capacitors", "charge redistribution", "endpoint INL"], "minutes": 40, "requires": ["l-centroid"],
+    "quiz": {"instructions": "The MSB route adds capacitance between its bottom plate and the top-plate rail. Which weight changes first?", "options": ["Only the least significant bit", "The most significant bit", "None of the weights"], "answer": 1, "explanation": "The extracted cross-coupling adds a capacitance in parallel with the MSB group in the ideal charge-sharing model."},
+    "tasks": [
+      {"id": "array", "title": "Complete the 1:2:4 unit array", "instructions": "Open workspace and show the unit_capacitor layer. The lower, middle and upper rails take 1, 2 and 4 identical 10 fF unit tiles. Bring the detached fourth upper tile left until its center is at X = 8.5 µm. Keep its existing row and size. The tiles represent declared ideal units beside their terminal landings."},
+      {"id": "baseline", "title": "Measure the original code levels", "instructions": "Open workspace. Identify the three bit rails and the top-plate rail. The long bit2 stub comes around the far right and runs close to the top plate at Y = 0.8 µm. Check the original geometry and record effective weights and all eight endpoint-normalized code levels."},
+      {"id": "repair", "title": "Reduce the MSB coupling", "instructions": "Remove or shorten the unused long bit2 stub without disconnecting the four active units on the main bit2 rail. Check again. Peak endpoint INL must be less than 0.16 LSB. Keep the seven unit capacitors and source settings."}
+    ],
+    "reflection": "Compare the levels around codes 3 and 4 before and after. Explain what a real SAR comparator or extracted device model would add to this experiment.",
+    "teaching": {"concept": "A binary capacitor DAC uses parallel groups of nominally identical units. Plate-to-plate layout coupling can add to a switched group’s effective capacitance.", "worked_example": "With ideal 10, 20 and 40 fF groups, code 4 is 40/70 of endpoint full scale. Add coupling to the MSB and compare the eight code levels to code/7.", "try_next": "Move excess coupling to the middle bit in a copy and compare the most affected code boundary.", "interview": "Why does endpoint normalization hide gain error from a non-switched top-plate capacitance?", "artifact": "Before-and-after effective bit weights, code levels and endpoint INL from the ideal charge-sharing model."}
+  },
+  {
+    "id": "lvs", "topic": "Connectivity debug", "title": "Find a DRC-clean LVS failure",
+    "summary": "Repair an open, a short and swapped physical ports in three copies of the differential amplifier layout.",
+    "skills": ["opens", "shorts", "port mapping", "layout connectivity comparison"], "minutes": 45, "requires": ["l-match"],
+    "quiz": {"instructions": "Why might a missing connection leave geometry DRC clean?", "options": ["DRC compares every device terminal", "Two separated legal metal shapes can still leave a circuit net open", "An open always violates minimum width"], "answer": 1, "explanation": "Geometry rules constrain the individual shapes and their spacing. Compare the extracted connections and port locations to discover electrical faults."},
+    "tasks": [
+      {"id": "open", "title": "Reconnect an open", "instructions": "Open workspace for this case. Use Check this step to read the first finding. Trace inp at Y = 4 µm from (0, 4) to the far pad at (12, 4). Extend the route or add a metal-1 bridge to reconnect the pad, then check again."},
+      {"id": "short", "title": "Separate the shorted inputs", "instructions": "Open workspace to switch to the short case. Compare the two input paths. Remove the extra vertical bridge at X = 6 µm without removing either input route. Check the repaired terminal connectivity."},
+      {"id": "swap", "title": "Reassign the swapped ports", "instructions": "Open workspace to switch to the swapped-port case. Check to identify the mismatch. In the guide, choose Edit input ports and assign inp and inn to their correct physical signals. The routes themselves should stay in place."}
+    ],
+    "reflection": "Describe the evidence that distinguished the open, short and port swap, and state what a process-device LVS check would add.",
+    "teaching": {"concept": "Geometry DRC and layout-versus-schematic answer different questions. This teaching exercise compares conductor connectivity and declared terminal and port assignments. The process device recognition exercises are in Device Layout.", "worked_example": "Two distinct input nets may each remain well formed while a reversed port assignment presents the wrong signal to the parent schematic.", "try_next": "Practice repairing the open with the layout router instead of extending a vertex.", "interview": "How would you distinguish a physical short from a mislabeled port?", "artifact": "Three repaired cases with recorded geometry and port/terminal connectivity checks."}
+  },
+  {
+    "id": "eco", "topic": "Connectivity debug", "title": "Change a shared cell safely",
+    "summary": "Resize a GF180 transistor in one child master, regenerate its footprint and verify both placed parent instances.",
+    "skills": ["hierarchy", "schematic-driven changes", "stable ports", "regeneration"], "minutes": 45, "requires": ["l-fold", "l-lvs"],
+    "quiz": {"instructions": "Two physical instances share one cell master. Where should a width change that applies to both be made?", "options": ["On one parent metal pin", "On both instanced copies of the GDS independently", "In the shared schematic device and its linked physical master"], "answer": 2, "explanation": "A master edit updates both instances. Verify terminal connectivity in the master and the parents afterward."},
+    "tasks": [
+      {"id": "update", "title": "Resize and update the shared master", "instructions": "Open workspace for shared_device. Switch to Schematic and change MN1 total width from 2 µm to 3 µm. Choose Review device layout update in the guide. Inspect the affected footprint and attached route count, then apply the update. Check this step."},
+      {"id": "parent", "title": "Verify both placed copies", "instructions": "Open workspace in shared_parent. Confirm that X1 and X2 still use shared_device, and trace the shared clk connection through both GATE ports. Check geometry and linked connectivity in both cells."}
+    ],
+    "reflection": "Explain why fixed port locations helped the parent routes survive and when an independent cell variant would be required.",
+    "teaching": {"concept": "A hierarchical ECO tries to preserve a cell’s external contract even when internal device geometry changes.", "worked_example": "Increasing W from 2 to 3 µm shifts the native pin centers. Breakout routes retarget internally to fixed physical ports, leaving the parent clock connection in place.", "try_next": "In a separate copy, explore a different width for one instance and compare the resulting need for a physical variant.", "interview": "Which checks belong in the edited master and which belong in affected ancestors?", "artifact": "The updated master and both parent instances with retained physical connectivity."}
+  },
+  {
+    "id": "settle", "topic": "Post-layout lab", "title": "Recover amplifier settling time",
+    "summary": "Compare transient responses from the same matched amplifier schematic and RC-estimated layout, then recover the settling margin.",
+    "skills": ["distributed RC", "transient settling", "route stubs", "before-and-after evidence"], "minutes": 45, "requires": ["l-lvs"],
+    "quiz": {"instructions": "A wide open-ended output stub carries little DC current. What can it still add?", "options": ["Capacitive load that slows settling", "Only a change to the ground label", "A shorter input clock period"], "answer": 0, "explanation": "A conducting stub can charge and discharge even when it carries no steady load current."},
+    "tasks": [
+      {"id": "baseline", "title": "Capture the failed settling target", "instructions": "Open workspace in the same matched amplifier. Leave both long output stubs. Compare schematic and layout, then use Results to inspect both transients. Measure differential error at 1.4 ns against the settled schematic value at 2.5 ns. The limit is 12 mV."},
+      {"id": "repair", "title": "Remove excess output loading", "instructions": "In Layout, remove the two wide open-ended stubs extending away from the outp and outn routes. Keep both horizontal routes and their end pads. Rerun the comparison and meet the same 12 mV limit. Preserve the balance of the two outputs."}
+    ],
+    "reflection": "Record before-and-after settling error. Explain why keeping the same stimulus and deadline matters and what a foundry extractor would improve.",
+    "teaching": {"concept": "A design can meet linked connectivity checks and still fail a transient requirement when long conductors add load.", "worked_example": "Compare the differential output at the same deadline with and without distributed interconnect. Long branches add area and edge capacitance even when they terminate without a load.", "try_next": "In a copy, shorten only one stub and see which output changes its transient response.", "interview": "How would you isolate which parasitic is responsible for a settling miss?", "artifact": "Two captured schematic/layout transient comparisons showing the failing and repaired design."}
+  },
+  {
+    "id": "noise", "topic": "Post-layout lab", "title": "Quiet a noisy neighbor",
+    "summary": "Compare the same clock edge across close, spaced, other-layer and grounded-shield routing configurations.",
+    "skills": ["capacitive coupling", "aggressor and victim", "spacing", "shielding"], "minutes": 40, "requires": ["l-layout-decisions"],
+    "quiz": {"instructions": "A quiet high-impedance node moves when a nearby clock edge switches. What is the most likely mechanism in this lab?", "options": ["A change in schematic naming", "Capacitive displacement current from the clock edge", "A lower simulation temperature"], "answer": 1, "explanation": "A changing aggressor voltage transfers charge through mutual capacitance, producing a transient on the high-impedance victim."},
+    "tasks": [
+      {"id": "close", "title": "Capture the close parallel routes", "instructions": "Open workspace in noise_close. Run the comparison and inspect the sense waveform around the clock edge. Record the peak disturbance."},
+      {"id": "space", "title": "Move the clock farther away", "instructions": "Open workspace in noise_space. Choose Set clock spacing and increase the centerline separation from 1.40 µm to at least 3.60 µm. Compare again and bring the peak disturbance below 85 mV."},
+      {"id": "layer", "title": "Compare a different routing layer", "instructions": "Open workspace in noise_layer and compare the same clock on metal2. Inspect the result. This teaching model omits cross-layer coupling, so its zero modeled coupling is a model limitation."},
+      {"id": "shield", "title": "Inspect a grounded shield", "instructions": "Open workspace in noise_shield. Trace the shield to the ideal ground tie and the 1 Ω return at the far end. Compare the traces. The model includes shield loading but does not compute electrostatic field screening. Record both the measured result and that limitation."}
+    ],
+    "reflection": "Compare all four peak readings. Explain where a field solver or a process-aware coupling extractor is necessary to decide between the variants.",
+    "teaching": {"concept": "Long close parallel runs tend to couple, especially when an aggressor switches beside a high-impedance victim. A shield can add load and needs a quiet return.", "worked_example": "Hold the clock edge, source and victim load fixed across all four arrangements. Compare peak sense voltage, then decide which model assumptions prevent a signoff conclusion.", "try_next": "Change the victim impedance in a separate copy and compare its response to the same clock edge.", "interview": "When could an added shield make a circuit slower even if it reduces pickup?", "artifact": "Four recorded comparison runs with a discussion of same-layer, cross-layer and shielding assumptions."}
+  },
+  {
+    "id": "supply", "topic": "Power & reliability", "title": "Repair a weak supply route",
+    "summary": "Measure supply drop at a fixed load and widen a resistive route until the delivered voltage meets its requirement.",
+    "skills": ["IR drop", "sheet resistance", "load current", "metal sizing"], "minutes": 30, "requires": ["l-layout-decisions"],
+    "quiz": {"instructions": "For equal length, material and current, what happens if the route width doubles?", "options": ["Its ideal sheet-resistance voltage drop halves", "Its voltage drop doubles", "Its voltage drop stays constant"], "answer": 0, "explanation": "Resistance is sheet resistance times length divided by width. With a fixed current the voltage drop follows the resistance."},
+    "tasks": [
+      {"id": "baseline", "title": "Measure voltage at the load", "instructions": "Open workspace. Compare the schematic and layout with the original 50 µm supply route, 0.25 µm width and 1 mA load. Inspect the load-side supply voltage and record the drop."},
+      {"id": "repair", "title": "Bring the drop within budget", "instructions": "Select the long supply path and use its geometry inspector to widen it. Keep the two endpoints and the same 1 mA load. Rerun the comparison. The measured drop must be at most 150 mV."}
+    ],
+    "reflection": "Compare predicted and measured voltage drop. Explain why current-density limits and via resistance still need separate evidence.",
+    "teaching": {"concept": "Supply drop changes the voltage available to a circuit at its load. Wider or shorter routes reduce the geometry-dependent contribution to series resistance.", "worked_example": "With 2 Ω per square, a 50 µm path at 0.25 µm is 400 Ω. A 1 mA load gives about 400 mV drop. At 0.80 µm, the estimate falls to 125 mV.", "try_next": "Compare two different currents in a separate copy and then identify a real PDK’s current-density and via limits.", "interview": "Why does a wider metal segment not necessarily solve a via bottleneck?", "artifact": "Before-and-after load voltage and drop evidence from the same fixed-current testbench."}
+  }
+]

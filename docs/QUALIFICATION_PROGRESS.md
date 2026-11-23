@@ -1,5 +1,13 @@
 # Chunks 1–12: progress and forecast
 
+**November 23, 2026 — Illustrated Student Hub catalog (UX-02).** The
+[Student Hub guide](STUDENT_HUB.md) now covers all 106 authored lessons across
+ten worlds. Windows Qt captured one actual lesson screenshot per row and
+ten workflow screenshots. The help reader rendered all lesson entries and
+image links. The eight inverter stages use SKY130A illustrations and are
+available again for each supported PDK revision. Geometry and numerical
+acceptance continue to use the evidence recorded for each individual lesson.
+
 **November 23, 2026 — RF network and external simulation (RF-02, RF-03, RF-09,
 SIM-21).** On experimental base `fb8fb58`, Studio queues one- to eight-port
 small-signal sweeps, inspects S/Y/Z where defined and exports Touchstone.
@@ -9,6 +17,117 @@ fundamental and output amplitude. The desktop also queued a captured external
 ngspice deck and recovered the divider output from its archived dependency.
 The next reference check is harmonic balance on a working Xyce installation.
 Periodic AC/noise and general AMS need dedicated workflows and reference runs. See the [advanced simulation guide](ADVANCED_SIMULATION.md).
+
+**November 23, 2026 — Student Hub world map (UX-02).** On experimental base
+`fb8fb58`, the curriculum opens as illustrated worlds with topic routes and a
+saved Map/List preference. Windows Qt offscreen checks covered keyboard focus,
+lesson selection, earned progression, filtering and text scaling. The
+installed Icarus compiler crashed on a standalone Verilog file, blocking the
+engine-dependent Hub probe in this environment. See the [Student Hub guide](STUDENT_HUB.md).
+
+**November 23, 2026 — Nine Student Hub Layout labs (UX-02).** On the
+world-map review branch at `755855d`, the Layout curriculum now covers device
+folding, body ties, matching, DAC code levels, connectivity faults, hierarchical
+updates, settling, coupling and supply drop. Windows source checks exercised
+the repairs and measurements, and Qt offscreen verified the shared amplifier
+handoff. The GF180 process DRC/LVS checkpoints were prepared locally. Their
+full execution requires Magic/Netgen in the physical runtime, which was
+unavailable on this host. See the [Layout lab guide](STUDENT_LAYOUT_LABS.md).
+
+**November 23, 2026 — Layout integration and signoff labs (UX-02).** On
+world-map review base `9edb163`, nine new Layout labs cover floorplanning, pin
+access, pad mapping, density, antenna, via current, isolation, spiral tuning
+and GDS handoff. The shared GF180 macro reduced the measured route from a
+14.57 µm metal-1 detour to an 8.5 µm two-layer route. Independent KLayout
+readback detected the missing OUT label and verified its correction with the
+same mask geometry and hierarchy. Windows source and Qt offscreen checks
+exercised the labs and saved-project handoff. The teaching thresholds and
+stream comparison provide separate evidence from process DRC, LVS and foundry
+acceptance. See the [integration lab guide](STUDENT_LAYOUT_SIGNOFF.md).
+
+**November 23, 2026 — Student Hub signal experiments (UX-02).** On review
+base `6c69f3d`, eight editable lessons extend the Analog, Mixed Signal, Analog
+design projects and Advanced project worlds. Windows source checks ran the
+built-in solver and native ngspice, exercised starter and corrected cases, and
+rejected stale or altered waveform evidence. The ramp repair recovered all
+eight bins. The temperature monitor passed 15 held-out cases, with 2.23 °C
+maximum error in the teaching model. Qt offscreen exercised the lesson form,
+results and saved calibration. Next, run the hosted checks for the review
+commit. See the [signal experiment guide](STUDENT_SIGNAL_LABS.md).
+
+**November 23, 2026 — Student Hub knowledge-check hints (UX-02).** On
+review base `b5a73f4`, all 114 authored knowledge checks, including the eight
+CMOS inverter questions shared across process revisions, have four contextual
+student questions and answers. Windows Qt offscreen covered keyboard reveal,
+question switching and the learning record in Quick check and the Lesson Guide.
+Source coverage checked every question against the authored content. Next,
+verify the review commit in the hosted desktop workflow. See the
+[Student Hub guide](STUDENT_HUB.md#learn-beside-the-real-editor).
+
+**November 23, 2026 — Student Hub Ask AI (UX-02, UX-10).** On review base
+`2687541`, Quick check and the Lesson Guide open the existing assistant beside
+the selected question or task. Its request preview shows the authored context
+and conversation. Windows Qt tests covered first-use setup, keyboard access,
+explicit send and follow-ups through a local HTTP fixture. They also verified
+the separation of authored context from project state and reflection drafts.
+Next, verify the review commit in the hosted desktop workflow. See the
+[lesson assistant guide](AI_ASSISTANT.md#ask-about-a-lesson).
+
+**November 23, 2026 — Resisty lesson helper (UX-02).** On review base
+`df9af13`, Student Hub labels its assistant entry points Ask Resisty and shows
+the original waving resistor in the lesson assistant. Windows Qt offscreen
+checks verified the icon, lesson title, provider setup and follow-up requests.
+The avatar was checked at compact width in light and dark appearance. Next,
+verify the review commit in the hosted desktop workflow. See the
+[lesson assistant guide](AI_ASSISTANT.md#ask-about-a-lesson).
+
+**November 23, 2026 — Student Hub learning modes and solutions (UX-02).**
+On review base `ff763e0`, all 97 authored lessons have independent and guided
+modes, with separate worked references for their checkpoints. The course
+contains walkthroughs and solutions for 208 workspace checks. Windows Qt
+checks verified the per-lesson preference, reveal controls, answer feedback,
+and shared project and learning record. Nominal ngspice runs also verified the
+op-amp and TIA examples and the 130 kΩ bias reference choice. Next, verify the
+review commit in the hosted desktop workflow. See the [Student Hub guide](STUDENT_HUB.md#learn-beside-the-real-editor).
+
+**November 23, 2026 — Student Hub step images (UX-02).** On review base
+`07cb0ca`, Step by Step renders the current circuit, layout or RTL alongside
+relevant editor fields, Lesson Guide controls and supported saved results.
+Windows Qt offscreen rendered images for all 419 checkpoints across 97 authored
+lessons using the SKY130A inverter profile for the shared inverter lessons.
+A native ngspice ramp capture verified the saved ADC code-count image. The
+hosted desktop run is the next check. See the [Student Hub guide](STUDENT_HUB.md#learn-beside-the-real-editor).
+
+**November 23, 2026 — Student Hub workflow audit (UX-02).** On review base
+`75fd687`, the guide now routes students to the relevant editor and run controls,
+supports reviewing earlier captures from reflections, and advances successful
+practice without awarding credit. Windows Qt traversed 419 checkpoints across
+97 authored lessons. The usability, design-lab and inverter desktop probes
+passed with native ngspice where used. Hosted desktop checks and the existing
+process verification lanes remain the next acceptance evidence. See the
+[workflow audit](STUDENT_HUB_AUDIT.md#november-23-2026-workflow-audit).
+
+**November 23, 2026 — Student Hub Apple HIG review (UX-02).** On review base
+`0fa0dd0`, the map supports directional keyboard navigation, clearing search
+restores the prior lesson, Continue learning reopens eligible unfinished work,
+and step images fit the window with explicit zoom. Guide actions follow the
+lesson sequence. Windows Qt verified 419 checkpoints at 200% text in a
+420-pixel guide and audited light and dark text contrast. Native macOS
+accessibility and window checks remain pending. See the
+[Apple HIG review](STUDENT_HUB_AUDIT.md#november-23-2026-apple-hig-review).
+
+**November 23, 2026 — Student Hub testbench course (UX-02, EXP-01).** On
+review base `c4560be`, the Testbenches world includes nine lessons across a
+resistor divider, photodiode TIA, and two-stage op amp. Each lesson uses the
+same editable fixture and measurement limits in the saved graphical editor
+and an editable ngspice program. All 18 fixture/workflow combinations were
+run with native ngspice 46 on Windows. The two workflows agreed at each
+required sample. The measured checks include 0.5 V divider bias, about
+99.96 kΩ TIA transimpedance at 100 Hz, and about 11,319 V/V op-amp gain at
+10 Hz. Windows Qt offscreen exercised map entry, both editors, saved
+commands, visual steps, and the two solutions. The nine-lesson implementation
+is complete within this scope. Packaged desktop and native macOS acceptance
+remain open. See the [testbench course guide](STUDENT_TESTBENCHES.md).
 
 **November 20, 2026 — Measured width and spacing reviews (LAY-12, UX-02).**
 Extending the via review at `14368c3`, the assistant can preview and apply

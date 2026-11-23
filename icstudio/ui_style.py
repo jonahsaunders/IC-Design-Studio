@@ -9,6 +9,8 @@ DARK = dict(bg='#1a1f27', panel='#21262f', canvas='#131820', text='#e8edf5', mut
 def palette(dark=False): return DARK if dark else LIGHT
 
 def icon(name, color='#606c7e', size=20):
+    if name == 'resisty':
+        return QIcon(str(Path(__file__).with_name('assets') / 'resisty.png'))
     pix = QPixmap(size*2, size*2); pix.fill(Qt.transparent)
     p = QPainter(pix); p.setRenderHint(QPainter.Antialiasing); p.scale(size/12, size/12)
     pen = QPen(QColor(color), 1.25 if name in ('resistor','capacitor','voltage','current','inductor') else 1.65); pen.setCapStyle(Qt.RoundCap); pen.setJoinStyle(Qt.RoundJoin)

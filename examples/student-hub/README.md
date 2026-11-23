@@ -1,10 +1,10 @@
 # Student Hub projects
 
-Open **View → Student Hub** for six learning paths and the advanced sensor
-acquisition project. The [course guide](../../docs/STUDENT_HUB.md) explains all
-41 core lessons, progression, evidence and model limits. The additional
-[PDK inverter course](../../docs/STUDENT_INVERTER.md) adds eight lessons per
-revision, from schematic and simulation to layout, DRC/LVS repairs and review.
+Open **View → Student Hub** for ten worlds. The
+[illustrated course guide](../../docs/STUDENT_HUB.md) lists 106 distinct
+lessons, including the advanced sensor-acquisition project and the eight-stage
+[PDK inverter course](../../docs/STUDENT_INVERTER.md) available for each
+supported revision.
 `inverter-course.json` contains its teaching material and checkpoints;
 `icstudio.student_inverter` binds separate course instances to exact PDK content.
 
