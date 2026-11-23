@@ -13,8 +13,9 @@ and a design-review handoff. Every lesson includes a concept,
 worked example, follow-up experiment, interview prompt and portfolio outcome,
 plus a prediction, practical task, evidence checkpoint and written reflection.
 
-For deeper practice, try [Why layout choices matter](STUDENT_LAYOUT_DECISIONS.md)
-in Layout, [LC filters and Bode plots](STUDENT_LC_BODE.md) in Analog, or
+For deeper practice, try the nine [Layout world labs](STUDENT_LAYOUT_LABS.md),
+[Why layout choices matter](STUDENT_LAYOUT_DECISIONS.md) in Layout,
+[LC filters and Bode plots](STUDENT_LC_BODE.md) in Analog, or
 [Miller compensation](STUDENT_MILLER.md) and [Ahuja compensation](STUDENT_AHUJA.md)
 in Analog design projects. The [current-reference and cascode lessons](STUDENT_BIAS_CASCODE.md)
 walk through bias current, current density, output headroom, and process and temperature sweeps.
@@ -105,7 +106,7 @@ and the remaining native macOS acceptance work.
 | Analog design projects | Photodiode TIA or Miller op amp from testbench to extracted layout, Miller and Ahuja compensation, and a cascode bias and corner study | Specification reviews, loop-stability comparisons, and measured bias points |
 | Digital (9 lessons) | Truth tables → counter → handshake → PWM → averaging → serial transmitter; latch repair → saturating arithmetic → pipeline validity | Repaired RTL, failing cases and independent reference simulations |
 | Mixed Signal | Bridge thresholds → acquisition/hold → quantization → timing repair → DAC-weight repair → repeated conversions | A working SAR converter with explicit analog/digital timing |
-| Layout (5 lessons) | Minimum width, spacing, via enclosure, matching, connectivity and extracted RC tradeoffs | Repaired geometry, measured rule checks and an optimized route |
+| Layout (14 lessons) | Geometry and routing, device layout, precision layout, connectivity debug, post-layout analysis, and power and reliability | Repaired layouts, matched routes, verified devices, and measured electrical improvements |
 | Portfolio & interviews (2 lessons) | Requirements and verification plan → reproducible design story | A design brief, interview narrative and readable portfolio report |
 
 The first three Foundations lessons unlock Analog and Digital. Mixed Signal

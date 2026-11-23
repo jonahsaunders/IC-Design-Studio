@@ -174,6 +174,32 @@ class StudentHubMenuTests(unittest.TestCase):
         hub.search.clear()
         self.assertTrue(hub.world_map.isVisible())
 
+    def test_layout_topics_open_and_resume_the_shared_amplifier(self):
+        hub, studio = self.hub, self.studio
+        hub.world_map.cards['layout'].click()
+        self.assertEqual(hub.lessons.count(), 14)
+        topics = {label.text().split('  ·', 1)[0] for label in hub.trail.widget().findChildren(QLabel)}
+        self.assertTrue({'Device layout', 'Precision layout', 'Connectivity debug',
+                         'Post-layout lab', 'Power & reliability'} <= topics)
+        hub.select_lesson('l-match')
+        hub.start_selected()
+        self.assertEqual(hub.guide.lesson['id'], 'l-match')
+        self.assertEqual(studio.mode_combo.currentIndex(), 1)
+        saved_project = studio.project['id']
+        self.spaces.tabs.setCurrentIndex(1)
+        hub.select_lesson('l-lvs')
+        hub.start_selected()
+        self.assertEqual(studio.project['id'], saved_project)
+        guide = hub.guide
+        guide.steps.setCurrentIndex(next(i for i, s in enumerate(guide.lesson['steps']) if s['id']=='swap'))
+        guide.workspace()
+        case = next(c for c in studio.project['cells'] if c['id']==studio.cid)
+        self.assertEqual(case['name'], 'lvs_swap')
+        with patch('icstudio.student_hub_ui.QInputDialog.getItem', side_effect=lambda *args: (args[3][0], True)):
+            guide.layout_action.click()
+        case = next(c for c in studio.project['cells'] if c['id']==studio.cid)
+        self.assertEqual(next(p['point'] for p in case['layout_ports'] if p['name']=='inp'), [12000, 4000])
+
 
 if __name__ == '__main__':
     unittest.main()

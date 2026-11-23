@@ -334,7 +334,8 @@ class LessonTrail(QScrollArea):
         groups = {title: [] for title, _ in topics}
         names = {key: title for title, ids in topics for key in ids.split()}
         for lesson, status, count in lessons:
-            topic = names.get(lesson.get('inverter_stage', lesson['id']), 'More lessons' if topics else 'Lessons')
+            topic = lesson.get('layout_topic') or names.get(lesson.get('inverter_stage', lesson['id']),
+                                                            'More lessons' if topics else 'Lessons')
             groups.setdefault(topic, []).append((lesson, status, count))
         for topic, items in groups.items():
             visible = [item for item in items if not status_filter or item[1] == status_filter]

@@ -693,6 +693,8 @@ class LessonGuide(QDockWidget):
         self.inverter_actions.hide()
         self.analog_action=button('Edit testbench…',lambda:self.call(self.analog_project_action))
         self.analog_action.hide();v.addWidget(self.analog_action)
+        self.layout_action=button('Edit lesson layout…',lambda:self.call(self.layout_study_action))
+        self.layout_action.hide();v.addWidget(self.layout_action)
         self.qualify=button('Run four acceptance cases',lambda:self.call(self.qualification));v.addWidget(self.qualify)
         self.steps.currentIndexChanged.connect(self.step_changed)
         self.note_timer=QTimer(self);self.note_timer.setSingleShot(True);self.note_timer.setInterval(600)
@@ -821,6 +823,9 @@ class LessonGuide(QDockWidget):
                 feedback(self.feedback,f'M2 measured {point["gm_S"]*1e6:.3g} µS gm, {point["current_A"]*1e6:.3g} µA ID and {point["gm_over_id"]:.3g} V⁻¹ gm/ID. Evidence saved.')
             else:
                 feedback(self.feedback,f'All {len(evidence["analog_runs"])} testbenches meet the targets. Measurements saved to your learning record.')
+        elif 'layout_study' in evidence:
+            measurements=evidence['layout_study']
+            feedback(self.feedback,'Checkpoint passed. '+' · '.join(f'{key}: {value}' for key,value in measurements.items())+'. Saved.')
         elif 'lesson_measurements' in evidence:
             measured=evidence['lesson_measurements']
             if 'after_Hz' in measured:
@@ -855,7 +860,10 @@ class LessonGuide(QDockWidget):
         self.require_project();s=self.studio
         if not s.leave_digital_workspace():return
         show_layout=self.lesson['starter'].startswith('layout')
-        if self.lesson['starter']=='layout-decisions':
+        if self.lesson.get('layout_lab'):
+            from .student_layout_labs import focus
+            s.cid=focus(s.project,self.lesson['layout_lab'],self.active_step['id'])
+        elif self.lesson['starter']=='layout-decisions':
             from .student_layout_decisions import focus
             s.cid=focus(s.project,self.active_step['id'])
         elif self.lesson['starter'] in ('ahuja-study','miller-study'):
@@ -869,6 +877,30 @@ class LessonGuide(QDockWidget):
             s.cid=s.project.get('mixed_signal',{}).get('analog_cell',s.project['top'])
         s.mode_combo.setCurrentIndex(1 if show_layout else 0);s.refresh(True)
         self.show();self.raise_()
+
+    def layout_study_action(self):
+        from .student_layout_labs import build_fold, focus, set_clock_spacing, set_input_ports
+        self.flush();self.require_idle();s=self.studio
+        lab=self.lesson['layout_lab'];step=self.active_step['id']
+        cid=focus(s.project,lab,step)
+        if lab=='fold' and step=='folded':
+            s.commit(lambda p:build_fold(p,cid,4),'Generate device layout');self.workspace()
+        elif lab=='lvs' and step=='swap':
+            choice,ok=QInputDialog.getItem(self,'Edit input ports','Physical position of inp',
+                                           ['Upper · Y = +4 µm','Lower · Y = −4 µm'],1,False)
+            if ok:s.commit(lambda p:set_input_ports(p,cid,choice.startswith('Upper')),'Reassign input ports')
+        elif lab=='noise' and step=='space':
+            distance,ok=QInputDialog.getDouble(self,'Set clock spacing','Centerline separation (µm)',1.4,1.4,8,3)
+            if ok:s.commit(lambda p:set_clock_spacing(p,cid,round(distance*200)*5),'Move clock route')
+        elif lab=='eco' and step=='update':
+            from .layout_eco import apply, propose
+            cell=next(c for c in s.project['cells'] if c['id']==cid)
+            candidate,report=propose(s.project,cid,[cell['devices'][0]['id']],s.layout.locked_layers)
+            moves=len(report['adjusted_routes'])
+            choice=QMessageBox.question(self,'Review device layout update',
+                  f'Regenerate the shared NMOS and adjust {moves} attached route(s). The two parent instances retain their placements. Apply the update?')
+            if choice==QMessageBox.Yes:
+                s.commit(lambda p:apply(p,candidate,report),'Update shared transistor layout');self.workspace()
 
     def analog_project_action(self):
         self.flush();self.require_idle();s=self.studio
@@ -952,7 +984,10 @@ class LessonGuide(QDockWidget):
 
     def run(self):
         self.flush();self.require_idle();s=self.studio
-        if self.lesson['starter']=='layout-decisions':
+        if self.lesson.get('layout_lab'):
+            from .student_layout_labs import prepare
+            job=prepare(s.project,self.lesson,self.active_step['id'],self.hub.tools())
+        elif self.lesson['starter']=='layout-decisions':
             from .student_layout_decisions import prepare
             job=prepare(s.project,self.active_step['id'])
         elif self.lesson.get('analog_project'):
@@ -1011,8 +1046,10 @@ class LessonGuide(QDockWidget):
         starter=self.lesson['starter']
         kind=self.lesson.get('analog_project')
         self.analog_action.hide()
+        self.layout_action.hide()
         bandgap=self.lesson.get('bandgap')
-        self.controls['Open RTL'].setVisible(not kind and not bandgap and starter not in ('layout-decisions','lc-bode','ahuja-study','miller-study'))
+        lab=self.lesson.get('layout_lab')
+        self.controls['Open RTL'].setVisible(not kind and not bandgap and not lab and starter not in ('layout-decisions','lc-bode','ahuja-study','miller-study'))
         self.controls['Run lesson'].setText('Run lesson')
         if kind and self.active_step:
             from .student_analog import run_names
@@ -1042,6 +1079,15 @@ class LessonGuide(QDockWidget):
                 self.analog_action.setText({'layout':'Generate core layout…','bias-layout':'Generate bias mirror layout…',
                                             'post-layout':'Migrate PDK revision…'}.get(step,'Edit testbench…'))
                 self.analog_action.setEnabled(bound and not active);self.analog_action.show()
+        elif lab and self.active_step:
+            from .student_layout_labs import run_name
+            step=self.active_step['id'];title=run_name(lab,step)
+            can_run=bound and not active and bool(title)
+            self.controls['Run lesson'].setVisible(bool(title));self.controls['Run lesson'].setText(title)
+            action={('fold','folded'):'Generate device layout',('lvs','swap'):'Edit input ports…',
+                    ('eco','update'):'Review device layout update…',('noise','space'):'Set clock spacing…'}.get((lab,step))
+            if action:
+                self.layout_action.setText(action);self.layout_action.setEnabled(bound and not active);self.layout_action.show()
         elif starter=='layout-decisions' and self.active_step:
             from .student_layout_decisions import EXTRACTION_STEPS
             run_step=self.active_step['id'] in EXTRACTION_STEPS
@@ -1063,6 +1109,8 @@ class LessonGuide(QDockWidget):
         result_rows=[r for r in rows if r.get('result') and r['job'].get('student_lesson')==self.lesson['id']]
         if kind and self.active_step:
             result_rows=[r for r in result_rows if r['job'].get('student_analog',{}).get('stage')==self.active_step['id']]
+        if lab and self.active_step:
+            result_rows=[r for r in result_rows if r['job'].get('student_layout_step')==self.active_step['id']]
         self.controls['Results'].setEnabled(bound and bool(result_rows) and (kind!='interview' or not active))
         for name in ('Open workspace','Save work'):self.controls[name].setEnabled(bound)
         self.controls['Open RTL'].setEnabled(bound and self.lesson['path'] in ('digital','mixed','capstone'))
@@ -1073,7 +1121,7 @@ class LessonGuide(QDockWidget):
             self.run_status.setText(' · '.join(f'{sum(r["state"]==state for r in active)} {state.lower()}' for state in ('Running','Queued','Stopping') if any(r['state']==state for r in active)))
         elif not bound:self.run_status.setText('Resume this lesson from Student Hub to use its workspace.')
         elif rows:self.run_status.setText('Latest run: '+rows[-1]['state'])
-        elif kind or bandgap or starter in ('layout-decisions','ahuja-study','miller-study'):self.run_status.setText('Ready to run.' if can_run else '')
+        elif kind or bandgap or lab or starter in ('layout-decisions','ahuja-study','miller-study'):self.run_status.setText('Ready to run.' if can_run else '')
         else:self.run_status.setText('Ready to run.' if not is_layout else 'This lesson checks the layout without simulation.')
 
     def finished(self,row,result):
@@ -1084,8 +1132,14 @@ class LessonGuide(QDockWidget):
     def results(self):
         self.require_project();s=self.studio
         rows=[r for r in self.lesson_rows() if r.get('result') and r['job'].get('student_lesson')==self.lesson['id']]
+        if self.lesson.get('layout_lab'):
+            rows=[r for r in rows if r['job'].get('student_layout_step')==self.active_step['id']]
         if not rows:raise ValueError('Run this lesson first.')
         latest=rows[-1]
+        if self.lesson.get('layout_lab') and latest['result'].get('rc_comparison'):
+            from .analog_run_ui import RunInspector
+            self.layout_results=RunInspector(s,latest);self.layout_results.show()
+            return
         if self.lesson['starter']=='lc-bode':
             from .student_frequency_ui import FilterDialog
             self.frequency_dialog=FilterDialog(s,latest['job']['project'],latest['result'])

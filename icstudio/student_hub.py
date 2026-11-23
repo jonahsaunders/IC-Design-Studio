@@ -10,7 +10,7 @@ from .model import atomic_write, clone, design_digest, digest, file_digest, load
 
 RULES = {'structure','nets','value','hierarchy','layout','saved','result','current','difference',
          'digital_sources','digital','sar','config','config_number','rtl_contains','capstone','campaign',
-         'device_metrics','layout_exercise','inverter','analog_project','layout_decisions','lc_bode'}
+         'device_metrics','layout_exercise','inverter','analog_project','layout_decisions','layout_study','lc_bode'}
 # Increment for a change to grading semantics. Unrelated application releases
 # must not erase a student's earned progression; exact grader identity is also
 # retained on each newly awarded evidence record.
@@ -19,7 +19,9 @@ CHECKER_REVISION = 1
 
 def curriculum():
     from .getting_started import resource_root
+    from .student_layout_labs import course, lessons
     data = json.loads((resource_root()/'examples/student-hub/curriculum.json').read_text(encoding='utf-8'))
+    data['lessons'].extend(lessons(course()))
     validate_curriculum(data)
     return data
 
@@ -67,7 +69,8 @@ def checker_stamp():
                    file_digest(Path(__file__).with_name('student_inverter.py')),
                    file_digest(Path(__file__).with_name('student_analog.py')),
                    file_digest(Path(__file__).with_name('student_filters.py')),
-                   file_digest(Path(__file__).with_name('student_layout_decisions.py'))])
+                   file_digest(Path(__file__).with_name('student_layout_decisions.py')),
+                   file_digest(Path(__file__).with_name('student_layout_labs.py'))])
 
 
 def lesson_stamp(lesson):
@@ -235,6 +238,9 @@ def evaluate(step, lesson, project, rows=(), path=None, answer=None, note=''):
     if kind=='analog_project':
         from .student_analog import check
         return dict(**evidence, **check(project, lesson['analog_project'], step['id'], rows))
+    if kind=='layout_study':
+        from .student_layout_labs import check
+        return dict(**evidence, **check(project, lesson, step['id'], rows))
     if kind in ('layout_decisions','lc_bode'):
         if kind=='layout_decisions':
             from .student_layout_decisions import EXTRACTION_STEPS, check_geometry, check_run

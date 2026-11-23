@@ -129,6 +129,10 @@ def divider(loaded=False, hierarchy=False):
 
 def create(starter, technology=None):
     from .example_schematics import arrange
+    from .student_layout_labs import STARTER
+    if starter.startswith(STARTER):
+        from .student_layout_labs import project
+        return arrange(project(starter.removeprefix(STARTER)))
     if starter == 'bias-cascode':
         from .student_bias import project
         return arrange(project(technology))

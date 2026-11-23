@@ -7,6 +7,15 @@ lesson selection, earned progression, filtering and text scaling. The
 installed Icarus compiler crashed on a standalone Verilog file, blocking the
 engine-dependent Hub probe in this environment. See the [Student Hub guide](STUDENT_HUB.md).
 
+**November 23, 2026 — Nine Student Hub Layout labs (UX-02).** On the
+world-map review branch at `755855d`, the Layout curriculum now covers device
+folding, body ties, matching, DAC code levels, connectivity faults, hierarchical
+updates, settling, coupling and supply drop. Windows source checks exercised
+the repairs and measurements, and Qt offscreen verified the shared amplifier
+handoff. The GF180 process DRC/LVS checkpoints were prepared locally. Their
+full execution requires Magic/Netgen in the physical runtime, which was
+unavailable on this host. See the [Layout lab guide](STUDENT_LAYOUT_LABS.md).
+
 **November 20, 2026 — Measured width and spacing reviews (LAY-12, UX-02).**
 Extending the via review at `14368c3`, the assistant can preview and apply
 single-shape repairs against Studio's geometry rules. Both Student Hub fixtures
