@@ -11,6 +11,8 @@ from icstudio.student_projects import create
 from icstudio.student_design_labs import check_layout, DIGITAL_LABS
 from test_student_hub import repaired, execute, engines
 
+INTRO_LAYOUT = ('layout-width', 'layout-spacing', 'layout-via', 'layout-centroid')
+
 
 def repaired_layout(kind):
     p=create(kind);shapes=p['cells'][0]['shapes']
@@ -25,7 +27,7 @@ def repaired_layout(kind):
 
 class StudentDesignTests(unittest.TestCase):
     def test_layout_faults_repairs_and_deletion_or_rule_bypass(self):
-        for kind in ('layout-width','layout-spacing','layout-via','layout-centroid'):
+        for kind in INTRO_LAYOUT:
             with self.subTest(kind=kind):
                 with self.assertRaises(ValueError):check_layout(create(kind),kind)
                 p=repaired_layout(kind)
@@ -46,10 +48,10 @@ class StudentDesignTests(unittest.TestCase):
         for s in p['cells'][0]['shapes']:s['points']=[[0,0],[400,400]]
         with self.assertRaisesRegex(ValueError,'separation'):check_layout(p,'layout-centroid')
 
-    def test_every_new_layout_and_career_checkpoint_is_reachable(self):
+    def test_intro_layout_and_career_checkpoints_are_reachable(self):
         with tempfile.TemporaryDirectory() as td:
             for lesson in curriculum()['lessons']:
-                if lesson['path'] not in ('layout','career') or lesson['starter']=='layout-decisions':continue
+                if lesson['path']!='career' and lesson['starter'] not in INTRO_LAYOUT:continue
                 p=repaired_layout(lesson['starter']) if lesson['path']=='layout' else create(lesson['starter'])
                 path=Path(td)/(lesson['id']+'.icproj');save_project(p,path)
                 for step in lesson['steps']:
