@@ -27,6 +27,16 @@ exercised the labs and saved-project handoff. The teaching thresholds and
 stream comparison provide separate evidence from process DRC, LVS and foundry
 acceptance. See the [integration lab guide](STUDENT_LAYOUT_SIGNOFF.md).
 
+**November 23, 2026 — Student Hub signal experiments (UX-02).** On review
+base `6c69f3d`, eight editable lessons extend the Analog, Mixed Signal, Analog
+design projects and Advanced project worlds. Windows source checks ran the
+built-in solver and native ngspice, exercised starter and corrected cases, and
+rejected stale or altered waveform evidence. The ramp repair recovered all
+eight bins. The temperature monitor passed 15 held-out cases, with 2.23 °C
+maximum error in the teaching model. Qt offscreen exercised the lesson form,
+results and saved calibration. Next, run the hosted checks for the review
+commit. See the [signal experiment guide](STUDENT_SIGNAL_LABS.md).
+
 **November 20, 2026 — Measured width and spacing reviews (LAY-12, UX-02).**
 Extending the via review at `14368c3`, the assistant can preview and apply
 single-shape repairs against Studio's geometry rules. Both Student Hub fixtures

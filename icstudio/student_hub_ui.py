@@ -468,7 +468,7 @@ class StudentHub(QWidget):
         direct=[k for k in l['requires'] if k in missing] or missing[:1]
         pre='<br>'.join(f'<a href="{k}">{esc(self.by_id[k]["path"].title()+" · "+self.by_id[k]["title"])}</a>' for k in direct)
         rows=''.join(f'<li><b>{esc(s["title"])}</b> · {"Earned" if s["id"] in done else {"quiz":"Knowledge check","check":"Workspace check","reflection":"Written reflection"}[s["kind"]]}</li>' for s in l['steps'])
-        cap='<p>This milestone continues the same sensor project. Earlier repairs are preserved.</p>' if l['path']=='capstone' else ''
+        cap='<p>This milestone continues the same sensor project. Earlier repairs are preserved.</p>' if l['path']=='capstone' and not l.get('signal_lab') else ''
         teaching=self.material['lessons'][l['id']]
         self.study_notes.setHtml(f'<h2>{esc(l["title"])}</h2>'+notes_html(teaching))
         self.details.setHtml(f'<h2>{esc(l["title"])}</h2><p>{esc(l["summary"])}</p>{cap}<p><b>Skills</b><br>{esc(" · ".join(l["skills"]))}</p>'+
@@ -599,7 +599,7 @@ class StudentHub(QWidget):
             if missing: old.paths[missing[0]].setFocus()
             return old
         dialog=QDialog(self);dialog.setWindowTitle('Student simulation engines');v=QVBoxLayout(dialog)
-        v.addWidget(label('Foundations and Analog use the included teaching solver. Digital lessons use the Included or Custom selection in Digital tools. Mixed Signal and the advanced project require native local ngspice and Icarus (iverilog and vvp).'))
+        v.addWidget(label('Many lessons use the included teaching solver. Signal experiments that use native SPICE need ngspice. Digital lessons use the Included or Custom selection in Digital tools. The SAR and sensor-acquisition benches use ngspice and Icarus (iverilog and vvp).'))
         from .digital_setup_ui import show as digital_setup
         v.addWidget(button('Digital tools setup…',lambda:digital_setup(self.studio)))
         v.addWidget(label('Choose native local executables for simulation, or leave them blank to search PATH. IHP lessons automatically use the included simulator and compiled models. Leave Magic and Netgen blank to use the included physical tools. Prepare them with Set up physical tools in the Hub. Custom paths must point to native executables.'))
@@ -695,6 +695,8 @@ class LessonGuide(QDockWidget):
         self.analog_action.hide();v.addWidget(self.analog_action)
         self.layout_action=button('Edit lesson layout…',lambda:self.call(self.layout_study_action))
         self.layout_action.hide();v.addWidget(self.layout_action)
+        self.signal_action=button('Edit experiment…',lambda:self.call(self.signal_study_action))
+        self.signal_action.hide();v.addWidget(self.signal_action)
         self.qualify=button('Run four acceptance cases',lambda:self.call(self.qualification));v.addWidget(self.qualify)
         self.steps.currentIndexChanged.connect(self.step_changed)
         self.note_timer=QTimer(self);self.note_timer.setSingleShot(True);self.note_timer.setInterval(600)
@@ -860,7 +862,10 @@ class LessonGuide(QDockWidget):
         self.require_project();s=self.studio
         if not s.leave_digital_workspace():return
         show_layout=self.lesson['starter'].startswith('layout')
-        if self.lesson.get('layout_lab'):
+        if self.lesson.get('signal_lab'):
+            from .student_signal_labs import focus
+            s.cid=focus(s.project,self.lesson['signal_lab'],self.active_step['id'])
+        elif self.lesson.get('layout_lab'):
             from .student_layout_labs import focus
             s.cid=focus(s.project,self.lesson['layout_lab'],self.active_step['id'])
         elif self.lesson['starter']=='layout-decisions':
@@ -877,6 +882,11 @@ class LessonGuide(QDockWidget):
             s.cid=s.project.get('mixed_signal',{}).get('analog_cell',s.project['top'])
         s.mode_combo.setCurrentIndex(1 if show_layout else 0);s.refresh(True)
         self.show();self.raise_()
+
+    def signal_study_action(self):
+        from .student_signal_ui import open_form
+        self.flush();self.require_idle()
+        open_form(self,self.lesson['signal_lab'],self.active_step['id'])
 
     def layout_study_action(self):
         from .student_layout_labs import build_fold, focus, set_clock_spacing, set_input_ports
@@ -987,7 +997,10 @@ class LessonGuide(QDockWidget):
 
     def run(self):
         self.flush();self.require_idle();s=self.studio
-        if self.lesson.get('layout_lab'):
+        if self.lesson.get('signal_lab'):
+            from .student_signal_labs import prepare
+            job=prepare(s.project,self.lesson,self.active_step['id'],self.hub.tools())
+        elif self.lesson.get('layout_lab'):
             from .student_layout_labs import prepare
             job=prepare(s.project,self.lesson,self.active_step['id'],self.hub.tools())
         elif self.lesson['starter']=='layout-decisions':
@@ -1050,9 +1063,11 @@ class LessonGuide(QDockWidget):
         kind=self.lesson.get('analog_project')
         self.analog_action.hide()
         self.layout_action.hide()
+        self.signal_action.hide()
         bandgap=self.lesson.get('bandgap')
         lab=self.lesson.get('layout_lab')
-        self.controls['Open RTL'].setVisible(not kind and not bandgap and not lab and starter not in ('layout-decisions','lc-bode','ahuja-study','miller-study'))
+        signal=self.lesson.get('signal_lab')
+        self.controls['Open RTL'].setVisible(not kind and not bandgap and not lab and not signal and starter not in ('layout-decisions','lc-bode','ahuja-study','miller-study'))
         self.controls['Run lesson'].setText('Run lesson')
         if kind and self.active_step:
             from .student_analog import run_names
@@ -1082,6 +1097,15 @@ class LessonGuide(QDockWidget):
                 self.analog_action.setText({'layout':'Generate core layout…','bias-layout':'Generate bias mirror layout…',
                                             'post-layout':'Migrate PDK revision…'}.get(step,'Edit testbench…'))
                 self.analog_action.setEnabled(bound and not active);self.analog_action.show()
+        elif signal and self.active_step:
+            from .student_signal_labs import run_name
+            from .student_signal_ui import ACTIONS
+            step=self.active_step['id'];title=run_name(signal,step)
+            can_run=bound and not active and bool(title)
+            self.controls['Run lesson'].setVisible(bool(title));self.controls['Run lesson'].setText(title)
+            if (signal,step) in ACTIONS:
+                self.signal_action.setText(ACTIONS[signal,step]+'…')
+                self.signal_action.setEnabled(bound and not active);self.signal_action.show()
         elif lab and self.active_step:
             from .student_layout_labs import run_name
             from .student_layout_signoff_ui import ACTIONS
@@ -1116,6 +1140,8 @@ class LessonGuide(QDockWidget):
             result_rows=[r for r in result_rows if r['job'].get('student_analog',{}).get('stage')==self.active_step['id']]
         if lab and self.active_step:
             result_rows=[r for r in result_rows if r['job'].get('student_layout_step')==self.active_step['id']]
+        if signal and self.active_step:
+            result_rows=[r for r in result_rows if r['job'].get('student_signal_step')==self.active_step['id']]
         self.controls['Results'].setEnabled(bound and bool(result_rows) and (kind!='interview' or not active))
         for name in ('Open workspace','Save work'):self.controls[name].setEnabled(bound)
         self.controls['Open RTL'].setEnabled(bound and self.lesson['path'] in ('digital','mixed','capstone'))
@@ -1126,7 +1152,7 @@ class LessonGuide(QDockWidget):
             self.run_status.setText(' · '.join(f'{sum(r["state"]==state for r in active)} {state.lower()}' for state in ('Running','Queued','Stopping') if any(r['state']==state for r in active)))
         elif not bound:self.run_status.setText('Resume this lesson from Student Hub to use its workspace.')
         elif rows:self.run_status.setText('Latest run: '+rows[-1]['state'])
-        elif kind or bandgap or lab or starter in ('layout-decisions','ahuja-study','miller-study'):self.run_status.setText('Ready to run.' if can_run else '')
+        elif kind or bandgap or lab or signal or starter in ('layout-decisions','ahuja-study','miller-study'):self.run_status.setText('Ready to run.' if can_run else '')
         else:self.run_status.setText('Ready to run.' if not is_layout else 'This lesson checks the layout without simulation.')
 
     def finished(self,row,result):
@@ -1139,8 +1165,14 @@ class LessonGuide(QDockWidget):
         rows=[r for r in self.lesson_rows() if r.get('result') and r['job'].get('student_lesson')==self.lesson['id']]
         if self.lesson.get('layout_lab'):
             rows=[r for r in rows if r['job'].get('student_layout_step')==self.active_step['id']]
+        if self.lesson.get('signal_lab'):
+            rows=[r for r in rows if r['job'].get('student_signal_step')==self.active_step['id']]
         if not rows:raise ValueError('Run this lesson first.')
         latest=rows[-1]
+        if self.lesson.get('signal_lab'):
+            from .student_signal_ui import SignalResults
+            self.signal_results=SignalResults(s,latest);self.signal_results.show()
+            return
         if self.lesson.get('layout_lab') and latest['result'].get('student_stream'):
             from .student_layout_signoff_ui import show_report
             self.layout_results=show_report(s,latest)

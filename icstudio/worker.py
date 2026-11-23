@@ -60,6 +60,9 @@ def main(input_path,output_path):
             from .student_layout_signoff import stream_run
             progress(.2,'Exporting and independently reading the GDS stream')
             result=stream_run(p,job,Path(output_path).parent)
+        elif kind=='student_signal_lab':
+            from .student_signal_labs import run_job
+            result=run_job(p,job,Path(output_path).parent,progress)
         elif kind=='study':
             from .studies import run_study
             result=run_study(p,job['cell'],job['settings']['analysis'],job['settings']['study'],job.get('engine','builtin'),job.get('executable',''),Path(output_path).parent,progress)

@@ -52,7 +52,7 @@
   ],
   "capstone": {
     "title": "Sensor acquisition system",
-    "subtitle": "Filter → sample → convert → average → alarm",
+    "subtitle": "Build a sensor acquisition chain or calibrate a temperature monitor.",
     "description": "Four milestones build one shared project. Repair three deliberate faults, then qualify the complete system with real ngspice and Icarus."
   },
   "lessons": [

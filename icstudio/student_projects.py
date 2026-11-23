@@ -130,6 +130,10 @@ def divider(loaded=False, hierarchy=False):
 def create(starter, technology=None):
     from .example_schematics import arrange
     from .student_layout_labs import STARTER
+    from .student_signal_labs import STARTER as SIGNAL_STARTER
+    if starter.startswith(SIGNAL_STARTER):
+        from .student_signal_circuits import project
+        return arrange(project(starter.removeprefix(SIGNAL_STARTER)))
     if starter.startswith(STARTER):
         from .student_layout_labs import project
         return arrange(project(starter.removeprefix(STARTER)))

@@ -24,6 +24,10 @@ Ten [analog interview labs](STUDENT_INTERVIEW_LABS.md) cover input pairs,
 gain and swing, settling, noise, mismatch, comparator kickback, SAR
 sampling, LDO behavior, and extracted-settling debug. Each combines a
 whiteboard prediction, measured experiment, and interview follow-up.
+Eight [signal experiments](STUDENT_SIGNAL_LABS.md) cover amplifier linearity,
+rejection, difficult loads, ramp ADC characterization, chopping, oscillation,
+programmable gain and temperature calibration. Each has an editable starter,
+simulation-based checkpoints and a measurement view.
 Four separate [bandgap reference lessons](STUDENT_BANDGAPS.md) cover Widlar,
 Brokaw, Kuijk, and Banba. Each starts with a first-order prediction, then uses a
 GF180 transistor schematic, startup corner matrix, editable layout and a
@@ -73,8 +77,8 @@ beside the question. [Apple tab bars](https://developer.apple.com/design/human-i
 5. Write your reasoning in the reflection field. Draft notes save automatically;
    **Record reflection** adds the note to the learning record.
 6. **Save work** preserves circuit/RTL edits. **Resume lesson** reopens that file
-   next time. The four advanced milestones share one project and retain earlier
-   repairs.
+   next time. The four sensor-acquisition milestones share a project and retain
+   earlier repairs. The temperature monitor uses its own project.
 
 The guide can be reopened from **View → Lesson guide**. **Student Hub**
 returns to the progression map. Use **Cancel lesson runs** to stop only the jobs

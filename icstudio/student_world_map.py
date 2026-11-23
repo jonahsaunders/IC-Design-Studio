@@ -18,7 +18,7 @@ WORLDS = {
     'career': ('#c1973f', 'Design briefs & interviews', 'portfolio'),
     'analog-projects': ('#3e9cbc', 'Amplifiers, references & debug', 'amp'),
     'inverter': ('#779d45', 'Process models, DRC & LVS', 'inverter'),
-    'capstone': ('#5b86c5', 'A complete sensor system', 'system'),
+    'capstone': ('#5b86c5', 'Sensor acquisition & calibration', 'system'),
 }
 
 TOPICS = {
@@ -334,7 +334,7 @@ class LessonTrail(QScrollArea):
         groups = {title: [] for title, _ in topics}
         names = {key: title for title, ids in topics for key in ids.split()}
         for lesson, status, count in lessons:
-            topic = lesson.get('layout_topic') or names.get(lesson.get('inverter_stage', lesson['id']),
+            topic = lesson.get('layout_topic') or lesson.get('topic') or names.get(lesson.get('inverter_stage', lesson['id']),
                                                             'More lessons' if topics else 'Lessons')
             groups.setdefault(topic, []).append((lesson, status, count))
         for topic, items in groups.items():

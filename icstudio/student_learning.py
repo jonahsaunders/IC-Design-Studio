@@ -8,9 +8,11 @@ from .model import atomic_write, now
 def study_guide(data):
     from .getting_started import resource_root
     from .student_layout_labs import course
+    from .student_signal_labs import course as signal_course
     content = json.loads((resource_root()/'examples/student-hub/study-guide.json').read_text(encoding='utf-8'))
     ids = {lesson['id'] for lesson in data['lessons']}
     content['lessons'].update({'l-' + unit['id']: unit['teaching'] for unit in course() if 'l-' + unit['id'] in ids})
+    content['lessons'].update({unit['id']: unit['teaching'] for unit in signal_course() if unit['id'] in ids})
     if set(content['lessons']) != ids:
         raise ValueError('Every lesson needs teaching material in the study guide.')
     for note in content['lessons'].values():

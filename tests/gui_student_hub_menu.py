@@ -261,6 +261,73 @@ class StudentHubMenuTests(unittest.TestCase):
         submit(guide, {'port': 'OUT'})
         self.assertEqual(stream()['Missing labels'], [])
 
+    def test_temperature_monitor_navigation_calibration_and_results(self):
+        from icstudio.model import load_project
+        from icstudio.student_signal_labs import calibration
+
+        hub, studio = self.hub, self.studio
+        hub.world_map.cards['capstone'].click()
+        topics = {label.text().split('  ·', 1)[0] for label in hub.trail.widget().findChildren(QLabel)}
+        self.assertIn('Sensor calibration', topics)
+        hub.mode_buttons['list'].click()
+        hub.select_lesson('c-temperature')
+        hub.start_selected()
+        guide = hub.guide
+        self.assertEqual(guide.lesson['id'], 'c-temperature')
+        self.assertTrue(guide.controls['Open RTL'].isHidden())
+        project_id = studio.project['id']
+
+        def select(step):
+            index = next(i for i, item in enumerate(guide.lesson['steps']) if item['id'] == step)
+            guide.steps.setCurrentIndex(index)
+
+        def edit(values):
+            self.assertTrue(guide.signal_action.isEnabled())
+            guide.signal_action.click()
+            dialog = studio._workflow_dialog
+            self.assertTrue(dialog.isVisible())
+            for field, value in values.items():
+                dialog.fields[field].setText(value)
+            dialog.findChild(QDialogButtonBox).button(QDialogButtonBox.Ok).click()
+            self.assertFalse(dialog.isVisible(), dialog.error.text())
+
+        def run():
+            self.assertTrue(guide.controls['Run lesson'].isEnabled())
+            guide.controls['Run lesson'].click()
+            deadline = time.monotonic() + 8
+            while studio.run_manager.busy and time.monotonic() < deadline:
+                QTest.qWait(20)
+            row = studio.run_manager.rows[-1]
+            self.assertEqual(row['state'], 'Complete', row.get('log', ''))
+            self.assertEqual(studio.result['settings'], row['job']['settings'])
+            self.assertTrue(guide.controls['Results'].isEnabled())
+            return row['result']['student_signal']['measurements']
+
+        select('baseline')
+        run()
+        select('anchor')
+        self.assertFalse(guide.controls['Results'].isEnabled())
+        edit({'RFIX': '6.8k'})
+        cold, hot = (r['ADC code'] for r in run().values())
+        select('validate')
+        gain = round(80_000/(hot-cold))
+        edit({'gain': str(gain), 'offset': str(-gain*cold)})
+        self.assertEqual(calibration(studio.project), (gain, -gain*cold))
+        run()
+        guide.controls['Results'].click()
+        dialog = guide.signal_results
+        self.assertEqual(dialog.case.currentText(), 'Calibration at 1.6 V')
+        self.assertIn('Error (°C)', dialog.plot.result['traces'])
+        self.assertEqual(dialog.plot.result['x'], [5, 20, 35, 55, 75])
+        dialog.close()
+        self.assertTrue(guide.save_work())
+        self.assertEqual(calibration(load_project(studio.path)), (gain, -gain*cold))
+        self.spaces.tabs.setCurrentIndex(1)
+        hub.select_lesson('c-temperature')
+        hub.start_selected()
+        self.assertEqual(studio.project['id'], project_id)
+        self.assertEqual(calibration(studio.project), (gain, -gain*cold))
+
 
 if __name__ == '__main__':
     unittest.main()
