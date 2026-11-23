@@ -1,5 +1,12 @@
 # Chunks 1–12: progress and forecast
 
+**November 23, 2026 — Student Hub world map (UX-02).** On experimental base
+`fb8fb58`, the curriculum opens as illustrated worlds with topic routes and a
+saved Map/List preference. Windows Qt offscreen checks covered keyboard focus,
+lesson selection, earned progression, filtering and text scaling. The
+installed Icarus compiler crashed on a standalone Verilog file, blocking the
+engine-dependent Hub probe in this environment. See the [Student Hub guide](STUDENT_HUB.md).
+
 **November 20, 2026 — Measured width and spacing reviews (LAY-12, UX-02).**
 Extending the via review at `14368c3`, the assistant can preview and apply
 single-shape repairs against Studio's geometry rules. Both Student Hub fixtures

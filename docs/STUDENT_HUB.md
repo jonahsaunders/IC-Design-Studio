@@ -31,15 +31,26 @@ together. The layout guide shows comparison controls when the task uses
 them. [Apple layout](https://developer.apple.com/design/human-interface-guidelines/layout) ·
 [Apple accessibility](https://developer.apple.com/design/human-interface-guidelines/accessibility)
 
-![The Student Hub tab and a quick check explaining the RC time constant](images/student-hub-quick-check.png)
+![The Student Hub world map with sample progress across the curriculum](images/student-world-map.png)
 
 ## Learn beside the real editor
 
+**Map** opens the circuit design worlds. Each world groups lessons into topics,
+with earned progress shown on the world, topic and lesson. Select a world to
+see its lesson route, then select a lesson to preview it. **World map** returns
+to the overview. **List** opens the conventional path and lesson browser. The
+Hub remembers your view preference. Both views use the same learning record
+and prerequisites, so you can switch any time. Tab reaches the map controls
+and Space selects a focused world or lesson.
+[Apple segmented controls](https://developer.apple.com/design/human-interface-guidelines/segmented-controls) ·
+[Apple focus and selection](https://developer.apple.com/design/human-interface-guidelines/focus-and-selection)
+
 Use **Search all lessons** or **Ctrl+F** to find a topic across learning paths.
-Results show their learning path. Clear the search to return to the selected
-path. Use the arrow keys to browse lessons and **Enter** on a lesson to open it.
-Use the progress filter to narrow the list by readiness or completion. **Clear filters**
-restores the current path when a search has no matches. Select **Study notes** to
+Results show their learning path. Clear the search to return to the map or
+selected path. Use the arrow keys to browse list results and **Enter** on a
+result to open the lesson. Use the progress filter to find lessons by readiness
+or completion. **Clear filters** restores the previous view when a search has
+no matches. Select **Study notes** to
 read the worked example, or **Quick check** to try the lesson prediction and see
 its explanation before opening a project. Quick checks are practice. The guided
 lesson records earned steps in your portfolio.
@@ -70,8 +81,8 @@ is queued, running or stopping. A failed simulator run does not earn credit.
 
 The Hub adapts to a narrow window. **Student Hub menu → Text size** enlarges text up to 200%
 in both the Hub and guide; scrolling keeps controls reachable. Use **Cmd+F** on
-macOS or **Ctrl+F** on Windows/Linux to search the current path. Return in search
-focuses the lesson list; Return on a lesson opens it. Tab navigates controls.
+macOS or **Ctrl+F** on Windows/Linux to search all learning paths. Return in
+search moves focus to the results. Tab navigates controls.
 
 **Student Hub menu → Locate lesson project** reconnects a moved file after checking its
 project identity. **Student Hub menu → Reload progress** recovers changes saved by another

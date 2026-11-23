@@ -1,4 +1,4 @@
-"""Exercise the top workspace menu and interactive lesson previews."""
+"""Exercise Student Hub navigation, progression and interactive previews."""
 import os
 import tempfile
 import unittest
@@ -9,7 +9,7 @@ from unittest.mock import patch
 try:
     from PySide6.QtCore import QSettings, Qt, QTimer
     from PySide6.QtTest import QTest
-    from PySide6.QtWidgets import QApplication
+    from PySide6.QtWidgets import QApplication, QLabel
 except ImportError:
     QApplication = None
 
@@ -87,6 +87,7 @@ class StudentHubMenuTests(unittest.TestCase):
         from icstudio.model import digest
         hub = self.hub
         before = digest(self.studio.project), digest(hub.portfolio.state)
+        hub.world_map.cards['foundations'].click()
         hub.status_filter.setCurrentText('Ready to start')
         self.assertEqual(hub.selected()['id'], 'f-first')
         self.assertEqual(hub.lessons.count(), 1)
@@ -119,6 +120,59 @@ class StudentHubMenuTests(unittest.TestCase):
         hub.select_lesson('f-first')
         self.assertEqual(hub.selected()['id'], 'f-first')
         self.assertEqual(hub.status_filter.currentIndex(), 0)
+
+    def test_world_map_uses_earned_progress_and_shares_selection_with_list(self):
+        from icstudio.model import clone
+        from icstudio.student_hub import lesson_stamp
+
+        hub = self.hub
+        self.assertTrue(hub.world_map.isVisible())
+        self.assertEqual(set(hub.world_map.cards), set(hub.path_titles))
+        card = hub.world_map.cards['foundations']
+        self.assertGreaterEqual(card.height(), 100)
+        self.studio.activateWindow()
+        self.app.processEvents()
+        card.setFocus()
+        QTest.keyClick(card, Qt.Key_Space)
+        self.app.processEvents()
+        self.assertTrue(hub.trail.isVisible())
+        self.assertTrue(hub.back.hasFocus())
+        next_lesson = hub.trail.rows['f-connect']
+        next_lesson.click()
+        self.assertIn('Prerequisites needed', next_lesson.accessibleDescription())
+        self.assertEqual(hub.start.text(), 'Practice lesson')
+
+        state = clone(hub.portfolio.state)
+        lesson = hub.by_id['f-first']
+        state['lessons'][lesson['id']] = {
+            'stamp': lesson_stamp(lesson),
+            'steps': {step['id']: {'kind': step['kind'], 'evidence': {}} for step in lesson['steps']},
+        }
+        hub.portfolio.write(state)
+        hub.fill()
+        self.assertIn('Completed', hub.trail.rows['f-first'].accessibleDescription())
+        self.assertIn('Ready to start', hub.trail.rows['f-connect'].accessibleDescription())
+        self.assertEqual(card.progress.value(), 1)
+        self.assertEqual(hub.selected()['id'], 'f-connect')
+
+        hub.mode_buttons['list'].click()
+        self.assertTrue(hub.lessons.isVisible())
+        self.assertEqual(self.studio.settings.value('student/viewMode'), 'list')
+        self.assertEqual(hub.selected()['id'], 'f-connect')
+        hub.mode_buttons['map'].click()
+        self.assertTrue(hub.trail.rows['f-connect'].isChecked())
+        hub.status_filter.setCurrentText('Completed')
+        self.assertEqual(set(hub.trail.rows), {'f-first'})
+        self.assertIn('First circuits  ·  1/3',
+                      [label.text() for label in hub.trail.widget().findChildren(QLabel)])
+        hub.back.click()
+        self.app.processEvents()
+        self.assertTrue(card.hasFocus())
+        hub.search.setText('LC filters')
+        self.assertTrue(hub.lessons.isVisible())
+        self.assertEqual(hub.selected()['id'], 'a-lc-bode')
+        hub.search.clear()
+        self.assertTrue(hub.world_map.isVisible())
 
 
 if __name__ == '__main__':

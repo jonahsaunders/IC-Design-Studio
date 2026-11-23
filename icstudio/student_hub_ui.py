@@ -3,17 +3,19 @@ import html
 from collections import Counter
 from pathlib import Path
 
-from PySide6.QtCore import Qt, QTimer, QEvent, QSize
+from PySide6.QtCore import Qt, QTimer, QEvent, QSize, QSignalBlocker
 from PySide6.QtGui import QActionGroup, QIcon, QKeySequence, QShortcut, QFontDatabase
 from PySide6.QtWidgets import (QDialog,QWidget,QVBoxLayout,QHBoxLayout,QGridLayout,QLabel,QPushButton,QButtonGroup,QSizePolicy,
     QListWidget,QListWidgetItem,QListView,QTextBrowser,QPlainTextEdit,QComboBox,QProgressBar,QDockWidget,
-    QLineEdit,QFileDialog,QFormLayout,QDialogButtonBox,QSplitter,QMenu,QScrollArea,QMessageBox,QTabWidget,QInputDialog)
+    QLineEdit,QFileDialog,QFormLayout,QDialogButtonBox,QSplitter,QMenu,QScrollArea,QMessageBox,QTabWidget,QInputDialog,
+    QBoxLayout)
 
 from .model import digest, load_project, save_project, uid
 from .student_hub import (Portfolio,curriculum,earned,complete,missing_prerequisites,next_lesson,
                          prepare_lesson,campaign_jobs,evaluate)
 from .ui_style import palette, stylesheet
 from .student_learning import study_guide, notes_html, overview_html, export_portfolio
+from .student_world_map import LessonTrail, WorldMap
 
 
 def label(text='',role=None):
@@ -57,6 +59,22 @@ def student_style(dark,scale):
     QPushButton[role="answer"]:focus {{border:2px solid {t['accent']};}}
     QLabel[role="answerText"] {{background:transparent;}}
     QProgressBar {{max-height:8px;}}
+    QWidget#studentViewModes {{background:{t['bg']};border:1px solid {t['line']};border-radius:10px;}}
+    QPushButton[role="hubMode"] {{min-height:42px;min-width:60px;padding:0 14px;border:2px solid transparent;border-radius:7px;}}
+    QPushButton[role="hubMode"]:checked {{background:{t['panel']};color:{t['text']};border-color:{t['line']};font-weight:600;}}
+    QLabel[role="worldTitle"] {{font-size:{round(17*scale/100)}px;font-weight:600;}}
+    QLabel[role="worldCount"] {{font-weight:600;}}
+    QPushButton[role="worldCard"] {{border:2px solid {t['line']};border-radius:12px;padding:0;}}
+    QPushButton[role="hubBack"] {{min-height:32px;}}
+    QWidget[role="lessonRoute"] {{border-left:2px solid {t['line']};}}
+    QPushButton[role="trailLesson"] {{background:{t['field']};border:2px solid {t['line']};border-radius:9px;padding:0;}}
+    QPushButton[role="trailLesson"]:hover {{background:{t['hover']};}}
+    QPushButton[role="trailLesson"]:checked {{background:{t['tint']};border-color:{t['accent']};}}
+    QLabel[role="trailTitle"] {{font-weight:600;}}
+    QLabel[role="trailMark"] {{color:{t['muted']};background:{t['bg']};border-radius:8px;min-width:29px;min-height:28px;font-weight:600;}}
+    QLabel[role="trailMark"][done="true"] {{color:{'#a0e8d2' if dark else '#11644d'};}}
+    QPushButton[role="hubMode"]:focus, QPushButton[role="worldCard"]:focus,
+    QPushButton[role="trailLesson"]:focus, QPushButton[role="hubBack"]:focus {{border:2px solid {t['text']};}}
     '''
 
 
@@ -137,6 +155,9 @@ class StudentHub(QWidget):
         self.inverter_profiles={p['token']:p for p in profiles}
         self.data,self.material=expand(self.data,self.material,profiles)
         self.portfolio=Portfolio(studio.data_dir/'student-hub');self.path_id='foundations'
+        self.mode=studio.settings.value('student/viewMode','map')
+        if self.mode not in ('map','list'):self.mode='map'
+        self.map_overview=True
         self.setWindowTitle('Student Hub · IC Design Studio');self.resize(1180,780)
         self.text_scale=int(studio.settings.value('student/textScale',100))
         if self.text_scale not in (100,125,150,200):self.text_scale=100
@@ -172,7 +193,34 @@ class StudentHub(QWidget):
             action.setCheckable(True);action.setData(scale);size_group.addAction(action)
             action.setChecked(scale==self.text_scale)
         root.addLayout(head)
+        self.controls=QBoxLayout(QBoxLayout.LeftToRight);self.controls.setSpacing(8);root.addLayout(self.controls)
+        modes=QWidget();modes.setObjectName('studentViewModes')
+        segments=QHBoxLayout(modes);segments.setContentsMargins(3,3,3,3);segments.setSpacing(1)
+        self.modes=QButtonGroup(self);self.mode_buttons={}
+        for key,title in [('map','Map'),('list','List')]:
+            control=button(title,lambda key=key:self.set_mode(key),'hubMode');control.setCheckable(True)
+            control.setAccessibleName(f'{title} view');control.setChecked(key==self.mode)
+            self.modes.addButton(control);self.mode_buttons[key]=control;segments.addWidget(control,1)
+        self.controls.addWidget(modes)
+        self.search=QLineEdit();self.search.setPlaceholderText('Search all lessons…');self.search.setAccessibleName('Search all learning paths')
+        self.search.setClearButtonEnabled(True);self.controls.addWidget(self.search,1)
+        self.status_filter=QComboBox();self.status_filter.setAccessibleName('Filter lessons by progress')
+        self.status_filter.addItems(['All statuses','Ready to start','In progress','Completed',
+                                     'Prerequisites needed','PDK setup needed'])
+        self.controls.addWidget(self.status_filter)
+        self.map_heading=label('World map','title');root.addWidget(self.map_heading)
+        self.world_header=QWidget();world_row=QHBoxLayout(self.world_header);world_row.setContentsMargins(0,0,0,0)
+        self.back=button('‹  World map',self.show_map,'hubBack');self.back.setAccessibleName('Back to world map')
+        world_row.addWidget(self.back,0,Qt.AlignTop)
+        world_intro=QVBoxLayout();world_intro.setSpacing(2);world_row.addLayout(world_intro,1)
+        self.world_title=label('','title');world_intro.addWidget(self.world_title)
+        self.world_progress=label('','muted');world_intro.addWidget(self.world_progress)
+        root.addWidget(self.world_header)
         self.path_picker=QComboBox();self.path_picker.setAccessibleName('Learning path');root.addWidget(self.path_picker)
+        self.path_titles={p['id']:p['title'] for p in self.data['paths']}
+        self.path_titles['capstone']='Advanced project'
+        self.world_map=WorldMap(self.path_titles);self.world_map.world_opened.connect(self.open_world)
+        root.addWidget(self.world_map)
         self.process_panel=QWidget();pv=QVBoxLayout(self.process_panel);pv.setContentsMargins(0,0,0,0)
         pr=QHBoxLayout();pv.addLayout(pr);pr.addWidget(label('Inverter process'))
         self.process_picker=QComboBox();self.process_picker.setAccessibleName('Inverter PDK revision');pr.addWidget(self.process_picker,1)
@@ -180,43 +228,36 @@ class StudentHub(QWidget):
         for item in profiles:self.process_picker.addItem(item['name'],item['token'])
         saved=studio.settings.value('student/inverterProfile','');index=self.process_picker.findData(saved)
         if index>=0:self.process_picker.setCurrentIndex(index)
-        actions=QHBoxLayout();pv.addLayout(actions);actions.addWidget(button('PDK setup',studio.pdk_manager))
+        actions=QBoxLayout(QBoxLayout.LeftToRight);self.process_actions=actions
+        pv.addLayout(actions);actions.addWidget(button('PDK setup',studio.pdk_manager))
         actions.addWidget(button('Set up physical tools',studio.physical_setup))
         actions.addWidget(button('Reload PDKs',lambda:self.call(self.reload_pdks)));actions.addStretch()
         self.process_status=label('','muted');pv.addWidget(self.process_status);root.addWidget(self.process_panel)
         self.process_picker.currentIndexChanged.connect(self.process_changed)
         self.path_list=QListWidget();self.path_list.setAccessibleName('Learning paths');self.path_list.setMinimumWidth(175)
         self.path_list.setMaximumWidth(250);self.path_list.setWordWrap(True)
-        self.path_titles={p['id']:p['title'] for p in self.data['paths']}
-        self.path_titles['capstone']='Advanced project'
         for key,title in self.path_titles.items():
             item=QListWidgetItem(title);item.setData(Qt.UserRole,key);self.path_list.addItem(item)
             self.path_picker.addItem(title,key)
         self.path_list.currentRowChanged.connect(lambda i:self.choose_path(self.path_list.item(i).data(Qt.UserRole)) if i>=0 else None)
         self.path_picker.currentIndexChanged.connect(lambda i:self.choose_path(self.path_picker.itemData(i)))
-        panes=QHBoxLayout();root.addLayout(panes,1)
+        self.lesson_panel=QWidget();root.addWidget(self.lesson_panel,1)
+        panes=QHBoxLayout(self.lesson_panel);panes.setContentsMargins(0,0,0,0)
         self.path_sidebar=QWidget()
         sidebar=QVBoxLayout(self.path_sidebar);sidebar.setContentsMargins(0,0,0,0)
         sidebar.addWidget(label('Learning paths','subtitle'));sidebar.addWidget(self.path_list,1)
         panes.addWidget(self.path_sidebar)
         self.split=QSplitter();self.split.setChildrenCollapsible(False);panes.addWidget(self.split,1)
         left=QWidget();lv=QVBoxLayout(left);lv.setContentsMargins(0,0,0,0);self.split.addWidget(left)
-        lv.addWidget(label('Lessons','subtitle'))
-        self.search=QLineEdit();self.search.setPlaceholderText('Search all lessons…');self.search.setAccessibleName('Search all learning paths');self.search.textChanged.connect(self.fill)
-        lv.addWidget(self.search);self.search.setClearButtonEnabled(True)
-        self.status_filter=QComboBox()
-        self.status_filter.setAccessibleName('Filter lessons by progress')
-        self.status_filter.addItems(['All statuses','Ready to start','In progress','Completed',
-                                     'Prerequisites needed','PDK setup needed'])
-        self.status_filter.currentIndexChanged.connect(self.fill)
-        lv.addWidget(self.status_filter)
+        self.lesson_title=label('Lessons','subtitle');lv.addWidget(self.lesson_title)
         self.heading=label('','muted');lv.addWidget(self.heading)
-        self.search.returnPressed.connect(lambda:self.lessons.setFocus())
+        self.search.returnPressed.connect(self.focus_results)
         self.find_shortcut=QShortcut(QKeySequence.Find,self);self.find_shortcut.activated.connect(self.search.setFocus)
         self.lessons=QListWidget();self.lessons.setWordWrap(True);self.lessons.setObjectName('studentLessons');self.lessons.setAccessibleName('Learning progression');lv.addWidget(self.lessons,1)
         self.lessons.setResizeMode(QListView.Adjust);self.lessons.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.lessons.setMinimumHeight(120)
         self.lessons.itemActivated.connect(lambda _:self.call(self.start_selected))
+        self.trail=LessonTrail();self.trail.lesson_selected.connect(self.set_current_lesson);lv.addWidget(self.trail,1)
         right=QWidget();rv=QVBoxLayout(right);rv.setContentsMargins(18,0,0,0)
         self.preview=QTabWidget();self.preview.setDocumentMode(True);self.preview.tabBar().setDrawBase(False)
         self.preview.setAccessibleName('Lesson preview');rv.addWidget(self.preview,1)
@@ -232,6 +273,7 @@ class StudentHub(QWidget):
         self.start=button('Start lesson',lambda:self.call(self.start_selected),'primary');rv.addWidget(self.start)
         self.reset_filters=button('Clear filters',self.clear_filters,'secondary');rv.addWidget(self.reset_filters)
         self.split.addWidget(right);self.split.setSizes([320,600]);self.lessons.currentRowChanged.connect(self.detail)
+        self.search.textChanged.connect(self.fill);self.status_filter.currentIndexChanged.connect(self.fill)
         self.status=label('Progress is saved on this computer. Simulation checks and written reflections are recorded separately.','muted');root.addWidget(self.status)
         self.guide=LessonGuide(self);studio.addDockWidget(Qt.RightDockWidgetArea,self.guide);self.guide.hide()
         self.apply_theme();self.fill();self.search.setFocus()
@@ -239,6 +281,7 @@ class StudentHub(QWidget):
     def apply_theme(self):
         style=student_style(self.studio.dark,self.text_scale)
         self.setStyleSheet(style);self.guide.setStyleSheet(style)
+        self.world_map.set_theme(self.studio.dark,self.text_scale)
         self.guide.arrange_actions()
         link_style=f'a {{color:{palette(self.studio.dark)["accent"]};}} li {{margin-bottom:8px;}}'
         self.details.document().setDefaultStyleSheet(link_style)
@@ -252,8 +295,9 @@ class StudentHub(QWidget):
 
     def adapt_layout(self):
         compact=self.width()<1050 or self.text_scale>125
-        self.path_sidebar.setVisible(not compact);self.path_picker.setVisible(compact)
-        self.resume.setVisible(self.width()>=850 and self.text_scale<=125)
+        self.path_sidebar.setVisible(self.mode=='list' and not compact);self.path_picker.setVisible(self.mode=='list' and compact)
+        self.controls.setDirection(QBoxLayout.TopToBottom if self.width()<760 or self.text_scale>=150 else QBoxLayout.LeftToRight)
+        self.process_actions.setDirection(QBoxLayout.TopToBottom if self.text_scale>=150 and self.width()<1050 else QBoxLayout.LeftToRight)
         vertical=self.width()<850 or self.text_scale>=150
         orientation=Qt.Vertical if vertical else Qt.Horizontal
         if self.split.orientation()!=orientation:
@@ -269,9 +313,35 @@ class StudentHub(QWidget):
 
     def choose_path(self,key):
         if key is None:return
+        self.map_overview=False
         self.path_id=key
         if self.search.text():self.search.clear()
         else:self.fill()
+
+    def set_mode(self,mode):
+        self.mode=mode
+        self.mode_buttons[mode].setChecked(True)
+        self.studio.settings.setValue('student/viewMode',mode)
+        self.fill()
+
+    def open_world(self,key):
+        self.choose_path(key)
+        self.back.setFocus()
+
+    def show_map(self):
+        self.map_overview=True
+        self.clear_filters()
+        self.world_map.cards[self.path_id].setFocus()
+
+    def focus_results(self):
+        if not self.world_map.isHidden():
+            self.world_map.cards[self.path_id].setFocus()
+        elif not self.trail.isHidden() and self.selected():
+            self.trail.rows[self.selected()['id']].setFocus()
+        elif self.reset_filters.isVisible():
+            self.reset_filters.setFocus()
+        elif not self.lessons.isHidden():
+            self.lessons.setFocus()
 
     def process_changed(self,*_):
         self.studio.settings.setValue('student/inverterProfile',self.process_picker.currentData())
@@ -294,70 +364,95 @@ class StudentHub(QWidget):
         item=self.lessons.currentItem();return self.by_id.get(item.data(Qt.UserRole)) if item else None
 
     def clear_filters(self):
-        self.status_filter.setCurrentIndex(0)
-        self.search.clear()
+        with QSignalBlocker(self.status_filter), QSignalBlocker(self.search):
+            self.status_filter.setCurrentIndex(0)
+            self.search.clear()
+        self.fill()
         self.search.setFocus()
 
-    def fill(self,*_):
-        previous=self.selected();key=previous['id'] if previous else None;state=self.portfolio.state
+    def fill(self,*_,lesson_id=None):
+        previous=self.selected();key=lesson_id or (previous['id'] if previous else None);state=self.portfolio.state
         from .student_inverter import readiness
-        self.process_panel.setVisible(self.path_id=='inverter')
-        item=self.inverter_profiles.get(self.process_picker.currentData())
+        profile=self.process_picker.currentData()
+        words=self.search.text().casefold().split()
+        filter_status=self.status_filter.currentText() if self.status_filter.currentIndex() else None
+        all_worlds=bool(words or (self.mode=='map' and self.map_overview and filter_status))
+        overview=self.mode=='map' and self.map_overview and not all_worlds
+        route=self.mode=='map' and not self.map_overview and not words
+        self.world_map.setVisible(overview);self.map_heading.setVisible(overview)
+        self.world_header.setVisible(self.mode=='map' and not self.map_overview)
+        self.lesson_panel.setVisible(not overview)
+        self.trail.setVisible(route);self.lessons.setVisible(not route)
+        self.lesson_title.setText('Topics & lessons' if route else 'Lessons')
+        self.process_panel.setVisible(not overview and self.path_id=='inverter')
+        self.adapt_layout()
+        item=self.inverter_profiles.get(profile)
         self.process_status.setText((readiness(item) if item else 'Register a PDK to start.')+
                                    ('\n'+ '\n'.join(self.pdk_errors) if self.pdk_errors else ''))
         self.lessons.blockSignals(True);self.lessons.clear()
         available=[l for l in self.data['lessons'] if not l.get('inverter_profile') or self.inverter_profiles[l['inverter_profile']]['ready']]
-        selected_available=[l for l in available if not l.get('inverter_profile') or l['inverter_profile']==self.process_picker.currentData()]
-        summary=f'{sum(complete(state,l) for l in selected_available)} of {len(selected_available)} lessons complete · selected inverter PDK'
-        if len(available)!=len(selected_available):
-            summary+=f'\n{sum(complete(state,l) for l in available)} of {len(available)} across all available PDK revisions'
+        selected_available=[l for l in available if not l.get('inverter_profile') or l['inverter_profile']==profile]
+        summary=f'{sum(complete(state,l) for l in selected_available)} of {len(selected_available)} lessons complete'
         self.total.setText(summary)
         self.total.setToolTip('The learning-path counts use the selected inverter PDK. Inverter progress is separate for each revision; the overall count includes every available revision.')
+        workspace_uses=Counter(lesson['workspace'] for lesson in self.data['lessons'])
+        world_rows={path:[] for path in self.path_titles}
+        all_rows=[]
+        for lesson in self.data['lessons']:
+            if lesson.get('inverter_profile',profile)!=profile:continue
+            count=len(earned(state,lesson))
+            if lesson.get('inverter_profile') and not self.inverter_profiles[lesson['inverter_profile']]['ready']:
+                status='PDK setup needed'
+            elif count==len(lesson['steps']):
+                status='Completed'
+            elif missing_prerequisites(state,lesson,self.data):
+                status='Prerequisites needed'
+            elif (count or any(state['lessons'].get(lesson['id'],{}).get('notes',{}).values())
+                  or (workspace_uses[lesson['workspace']]==1 and self.portfolio.workspace(lesson))):
+                status='In progress'
+            else:
+                status='Ready to start'
+            row=(lesson,status,count)
+            world_rows[lesson['path']].append(row);all_rows.append(row)
         self.path_list.blockSignals(True);self.path_picker.blockSignals(True)
         for i in range(self.path_list.count()):
             item=self.path_list.item(i);path_key=item.data(Qt.UserRole)
-            ls=[l for l in self.data['lessons'] if l['path']==path_key and (path_key!='inverter' or l['inverter_profile']==self.process_picker.currentData())];n=sum(complete(state,l) for l in ls)
+            rows=world_rows[path_key];n=sum(status=='Completed' for _,status,_ in rows)
             title=self.path_titles[path_key]
-            item.setText(title+f'\n{n} of {len(ls)} complete');self.path_picker.setItemText(i,title+f' · {n}/{len(ls)}')
-            if path_key==self.path_id:self.path_list.setCurrentRow(i);self.path_picker.setCurrentIndex(i)
+            statuses={status for _,status,_ in rows}
+            world_status=next(iter(statuses)) if len(statuses)==1 else ''
+            if not rows:world_status='PDK setup needed' if path_key=='inverter' else 'No lessons yet'
+            self.world_map.cards[path_key].set_progress(n,len(rows),world_status)
+            item.setText(title+f'\n{n} of {len(rows)} complete');self.path_picker.setItemText(i,title+f' · {n}/{len(rows)}')
+            if path_key==self.path_id:
+                self.path_list.setCurrentRow(i);self.path_picker.setCurrentIndex(i)
+                self.world_title.setText(title);self.world_progress.setText(f'{n} of {len(rows)} lessons complete')
         self.path_list.blockSignals(False);self.path_picker.blockSignals(False)
+        self.world_map.update()
         if self.path_id=='capstone':self.heading.setText(self.data['capstone']['subtitle'])
         else:self.heading.setText(next(p['subtitle'] for p in self.data['paths'] if p['id']==self.path_id))
-        words=self.search.text().casefold().split()
-        workspace_uses = Counter(lesson['workspace'] for lesson in self.data['lessons'])
-        for l in self.data['lessons']:
+        rows=all_rows if all_worlds else world_rows[self.path_id]
+        for l,status,count in rows:
             path_title=self.path_titles[l['path']]
             if words:
                 search_text=' '.join([l['title'],l['summary'],path_title,*l['skills']]).casefold()
                 if not all(word in search_text for word in words):continue
-            elif l['path']!=self.path_id:continue
-            if l['path']=='inverter' and l['inverter_profile']!=self.process_picker.currentData():continue
-            count=len(earned(state,l));missing=missing_prerequisites(state,l,self.data)
-            if l.get('inverter_profile') and not self.inverter_profiles[l['inverter_profile']]['ready']:
-                status='PDK setup needed'
-            elif complete(state,l):
-                status='Completed'
-            elif missing:
-                status='Prerequisites needed'
-            elif (count or any(state['lessons'].get(l['id'],{}).get('notes',{}).values())
-                  or (workspace_uses[l['workspace']] == 1 and self.portfolio.workspace(l))):
-                status='In progress'
-            else:
-                status='Ready to start'
-            if self.status_filter.currentIndex() and self.status_filter.currentText()!=status:continue
-            title=f'{l["title"]}\n{path_title}' if words else l['title']
+            if filter_status and filter_status!=status:continue
+            title=f'{l["title"]}\n{path_title}' if all_worlds else l['title']
             item=QListWidgetItem(f'{title}\n{status} · {count}/{len(l["steps"])} steps · {l["minutes"]} min')
             item.setToolTip(item.text())
             item.setData(Qt.UserRole,l['id']);self.lessons.addItem(item)
             if key==l['id']:self.lessons.setCurrentItem(item)
-        if words or self.status_filter.currentIndex():
+        if all_worlds or filter_status:
             matches=self.lessons.count()
             self.heading.setText(f'{matches} matching '+('lesson' if matches==1 else 'lessons'))
+        if route:self.trail.set_lessons(self.path_id,world_rows[self.path_id],filter_status)
         if self.lessons.currentRow()<0:self.lessons.setCurrentRow(0)
         self.lessons.blockSignals(False);self.detail()
 
     def detail(self,*_):
         l=self.selected();self.start.setEnabled(bool(l))
+        if l and not self.trail.isHidden():self.trail.select(l['id'])
         self.progress.setVisible(bool(l))
         filtered=bool(self.search.text().strip() or self.status_filter.currentIndex())
         self.reset_filters.setVisible(not l and filtered)
@@ -390,11 +485,15 @@ class StudentHub(QWidget):
     def select_lesson(self,key):
         if key not in self.by_id:return
         if self.by_id[key].get('inverter_profile'):
-            self.process_picker.blockSignals(True)
-            self.process_picker.setCurrentIndex(self.process_picker.findData(self.by_id[key]['inverter_profile']))
-            self.process_picker.blockSignals(False)
+            with QSignalBlocker(self.process_picker):
+                self.process_picker.setCurrentIndex(self.process_picker.findData(self.by_id[key]['inverter_profile']))
         self.path_id=self.by_id[key]['path']
-        self.status_filter.setCurrentIndex(0);self.search.clear();self.fill()
+        if self.mode=='map':self.map_overview=False
+        with QSignalBlocker(self.status_filter), QSignalBlocker(self.search):
+            self.status_filter.setCurrentIndex(0);self.search.clear()
+        self.fill(lesson_id=key)
+
+    def set_current_lesson(self,key):
         for i in range(self.lessons.count()):
             if self.lessons.item(i).data(Qt.UserRole)==key:self.lessons.setCurrentRow(i);break
 
@@ -431,6 +530,8 @@ class StudentHub(QWidget):
                 path=self.portfolio.root/'projects'/(l['workspace']+'-'+uid()+'.icproj')
                 path.parent.mkdir(parents=True,exist_ok=True);save_project(project,path);self.portfolio.attach(l,project,path)
             if s.set_project(project,path) is False:return
+        if self.mode=='map' and (self.map_overview or self.search.text().strip()):
+            self.select_lesson(l['id'])
         s.show_design_workspace()
         self.guide.open_lesson(l);self.guide.show();self.guide.raise_()
         s.resizeDocks([self.guide],[390],Qt.Horizontal)

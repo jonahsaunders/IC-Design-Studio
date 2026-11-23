@@ -32,7 +32,8 @@ def main():
         w=Studio(recover=False)
     errors=[];w.error=errors.append;w.maybe_save=lambda:True;w.jobs_dir=out/'runs';w.resize(1500,1000);w.show()
     h=show(w);g=h.guide;h.select_lesson('a-gmid-size');QTest.qWait(50)
-    assert h.lessons.count()==10 and 'sizing worksheet' in h.details.toPlainText()
+    assert h.lessons.count()==sum(lesson['path']=='analog' for lesson in h.data['lessons'])
+    assert 'sizing worksheet' in h.details.toPlainText()
     h.grab().save(str(out/'student-hub-design-paths.png'))
     h.start_selected();assert g.lesson_tabs.currentIndex()==0
     assert '9.804' in g.design_notes.toPlainText() and 'Worked example' in g.design_notes.toPlainText()
