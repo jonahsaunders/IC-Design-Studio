@@ -11,7 +11,7 @@ try:
     from PySide6.QtCore import QSettings, Qt, QTimer, QUrl
     from PySide6.QtGui import QFont, QFontDatabase
     from PySide6.QtTest import QTest
-    from PySide6.QtWidgets import QApplication, QDialogButtonBox, QLabel, QPlainTextEdit, QScrollArea
+    from PySide6.QtWidgets import QApplication, QDialogButtonBox, QLabel, QPlainTextEdit, QPushButton, QScrollArea
 except ImportError:
     QApplication = None
 
@@ -181,6 +181,61 @@ class StudentHubMenuTests(unittest.TestCase):
         self.assertEqual(hub.selected()['id'], 'a-lc-bode')
         hub.search.clear()
         self.assertTrue(hub.world_map.isVisible())
+
+    def test_testbench_lesson_switches_editors_and_visual_instructions(self):
+        from icstudio.model import design_digest
+        from icstudio.student_learning import solution_html
+        from icstudio.student_testbench import course, fixture, program, saved_bench, validate_bench
+
+        hub = self.hub
+        hub.world_map.cards['testbenches'].click()
+        self.assertEqual(len(hub.trail.rows), 9)
+        hub.select_lesson('tb-divider-bias')
+        self.assertEqual(hub.selected()['id'], 'tb-divider-bias')
+        hub.start_selected()
+        guide = hub.guide
+        guide.mode_picker.setCurrentIndex(guide.mode_picker.findData('guided'))
+        guide.steps.setCurrentIndex(1)
+        project = self.studio.project
+        self.assertEqual(guide.bench_workflow.currentData(), 'graphical')
+        self.assertFalse(guide.bench_workflow.isHidden())
+        self.assertIn('Probes and startup', guide.instructions.toPlainText())
+        graphical = guide.analog_project_action()
+        key = guide.lesson['id']
+        self.assertEqual(graphical.bench.currentData(), fixture(project, key))
+        graphical.analysis_type.setCurrentText('op')
+        graphical.fields['temperature'].setText('27')
+        add = next(widget for widget in graphical.findChildren(QPushButton) if widget.text()=='Add measurement')
+        add.click()
+        table = graphical.measurements
+        for header, value in (('Output net','out'), ('Minimum','0.49'), ('Maximum','0.51')):
+            column = next(i for i in range(table.columnCount()) if table.horizontalHeaderItem(i).text()==header)
+            table.item(0, column).setText(value)
+        graphical.buttons.button(QDialogButtonBox.Save).click()
+        self.assertEqual(graphical.error.text(), '')
+        validate_bench(saved_bench(self.studio.project, key), course()[key])
+        original = design_digest(self.studio.project)
+        images = guide.show_step_images()
+        self.assertIn('Measurements', [item.title for item in images.images])
+        images.close()
+
+        guide.bench_workflow.setCurrentIndex(guide.bench_workflow.findData('spice'))
+        self.assertIn('print lesson_value', guide.instructions.toPlainText())
+        self.assertEqual(original, design_digest(self.studio.project))
+        images = guide.show_step_images()
+        self.assertIn('SPICE program', [item.title for item in images.images])
+        images.close()
+        dialog = guide.analog_project_action()
+        self.assertEqual(dialog.code.toPlainText(), '')
+        commands = program(course()[key])
+        dialog.code.setPlainText(commands)
+        dialog.buttons.button(QDialogButtonBox.Save).click()
+        self.assertEqual(self.studio.project['student_bench']['programs'][key], commands)
+        self.assertEqual(fixture(self.studio.project, key), fixture(project, key))
+        material = hub.material
+        solution = solution_html(guide.active_step, material['practice'][key], material['lessons'][key])
+        self.assertIn('Graphical testbench', solution)
+        self.assertIn('SPICE program', solution)
 
     def test_map_keyboard_focus_and_search_return_to_context(self):
         hub = self.hub

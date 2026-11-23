@@ -98,6 +98,19 @@ lesson sequence. Windows Qt verified 419 checkpoints at 200% text in a
 accessibility and window checks remain pending. See the
 [Apple HIG review](STUDENT_HUB_AUDIT.md#november-23-2026-apple-hig-review).
 
+**November 23, 2026 — Student Hub testbench course (UX-02, EXP-01).** On
+review base `c4560be`, the Testbenches world includes nine lessons across a
+resistor divider, photodiode TIA, and two-stage op amp. Each lesson uses the
+same editable fixture and measurement limits in the saved graphical editor
+and an editable ngspice program. All 18 fixture/workflow combinations were
+run with native ngspice 46 on Windows. The two workflows agreed at each
+required sample. The measured checks include 0.5 V divider bias, about
+99.96 kΩ TIA transimpedance at 100 Hz, and about 11,319 V/V op-amp gain at
+10 Hz. Windows Qt offscreen exercised map entry, both editors, saved
+commands, visual steps, and the two solutions. The nine-lesson implementation
+is complete within this scope. Packaged desktop and native macOS acceptance
+remain open. See the [testbench course guide](STUDENT_TESTBENCHES.md).
+
 **November 20, 2026 — Measured width and spacing reviews (LAY-12, UX-02).**
 Extending the via review at `14368c3`, the assistant can preview and apply
 single-shape repairs against Studio's geometry rules. Both Student Hub fixtures

@@ -1,8 +1,12 @@
 # Student Hub
 
 Open the **Student Hub** tab at the top of the window, beside **Design**, or choose **View → Student Hub**. The arrow on the tab opens the Student Hub menu from either workspace. Design is the primary workspace; the Hub is an optional learning area. Starting a lesson or opening an example returns to Design. Switching tabs preserves the current editor and its drafts.
-Seven learning paths cover foundations, analog, digital, mixed signal, layout,
-portfolio preparation, and [analog design projects](STUDENT_ANALOG_PROJECTS.md).
+Eight learning paths cover foundations, analog, digital, mixed signal, layout,
+portfolio preparation, [analog design projects](STUDENT_ANALOG_PROJECTS.md),
+and [testbenches](STUDENT_TESTBENCHES.md).
+The Testbenches world includes nine lessons across a resistor divider,
+photodiode TIA, and two-stage op amp. Every project offers a graphical
+testbench editor and an editable ngspice program on the same circuit fixtures.
 The photodiode TIA and two-stage op amp take an editable SKY130 circuit from a
 specification through gm/ID sizing, current reference, layout and extracted
 simulation. Four milestones build a sensor-acquisition project. The Hub also

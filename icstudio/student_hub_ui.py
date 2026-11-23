@@ -927,6 +927,14 @@ class LessonGuide(QDockWidget):
         modes.addWidget(mode_label);modes.addWidget(self.mode_picker);v.addLayout(modes)
         self.mode_picker.currentIndexChanged.connect(
             lambda _:hub.set_learning_mode(self.lesson,self.mode_picker.currentData()))
+        from .student_testbench import WORKFLOWS
+        self.bench_workflow_label=label('Testbench workflow')
+        self.bench_workflow=QComboBox();self.bench_workflow.setAccessibleName('Testbench workflow')
+        for key,name in WORKFLOWS.items():self.bench_workflow.addItem(name,key)
+        self.bench_workflow_label.setBuddy(self.bench_workflow)
+        v.addWidget(self.bench_workflow_label);v.addWidget(self.bench_workflow)
+        self.bench_workflow_label.hide();self.bench_workflow.hide()
+        self.bench_workflow.currentIndexChanged.connect(self.change_bench_workflow)
         self.lesson_tabs=QTabWidget();self.lesson_tabs.setAccessibleName('Lesson teaching and task');v.addWidget(self.lesson_tabs,1)
         self.design_notes=QTextBrowser();self.design_notes.setAccessibleName('Concept, worked example and interview preparation')
         self.instructions=QTextBrowser();self.instructions.setAccessibleName('Step instructions')
@@ -1014,6 +1022,10 @@ class LessonGuide(QDockWidget):
         self.save_note();self.lesson=lesson;self.title.setText(lesson['title']);self.active_step=None
         self.ask_button.show();self.solution_button.show()
         self.sync_learning_mode(self.hub.learning_mode(lesson))
+        if lesson.get('bench_project'):
+            choice=self.studio.settings.value('student/benchWorkflow/'+lesson['bench_project'],'graphical')
+            with QSignalBlocker(self.bench_workflow):
+                self.bench_workflow.setCurrentIndex(max(0,self.bench_workflow.findData(choice)))
         self.design_notes.setHtml(notes_html(self.hub.material['lessons'][lesson['id']]))
         questions=[step for step in lesson['steps'] if step['kind']=='quiz']
         quiz_selector(self.hint_question,questions)
@@ -1065,10 +1077,17 @@ class LessonGuide(QDockWidget):
         if self.active_step:
             practice=self.hub.material['practice'][self.lesson['id']]
             guided=self.mode_picker.currentData()=='guided'
-            content=task_html(self.active_step,practice,guided)
+            content=task_html(self.active_step,practice,guided,workflow=self.bench_workflow.currentData())
             if guided:
                 content='<p><a href="step-images">Show step images…</a></p>'+content
             self.instructions.setHtml(content)
+
+    def change_bench_workflow(self,*_):
+        if self.lesson and self.lesson.get('bench_project'):
+            self.studio.settings.setValue('student/benchWorkflow/'+self.lesson['bench_project'],
+                                          self.bench_workflow.currentData())
+            self.update_task()
+            self.update_run_state()
 
     def step_image_link(self,url):
         if url.toString()=='step-images' and self.mode_picker.currentData()=='guided':
@@ -1141,6 +1160,10 @@ class LessonGuide(QDockWidget):
         feedback(self.feedback,'Reflection recorded.' if self.active_step['kind']=='reflection' else 'Checkpoint passed. Evidence saved.')
         if quiz:
             feedback(self.feedback,'Checkpoint passed. '+evidence['explanation'],role='correct')
+        elif 'bench_reading' in evidence:
+            from .student_testbench import WORKFLOWS
+            workflow=WORKFLOWS[evidence['bench_workflow']]
+            feedback(self.feedback,f'{workflow} passed at {evidence["bench_reading"]:.5g} V. Evidence saved.',role='correct')
         elif 'device_metrics' in evidence:
             point=evidence['device_metrics']
             feedback(self.feedback,f'Checkpoint passed. ID = {point["id"]*1e6:.3g} µA; gm = {point["gm"]*1e6:.3g} µS; gm/ID = {point["gmid"]:.3g} V⁻¹; headroom = {point.get("headroom",0):.3g} V. Evidence saved.')
@@ -1247,6 +1270,9 @@ class LessonGuide(QDockWidget):
 
     def analog_project_action(self):
         self.flush();self.require_idle();s=self.studio
+        if self.lesson.get('bench_project'):
+            from .student_testbench_ui import editor
+            return editor(self)
         if self.lesson.get('analog_project')=='interview':
             from .student_interview import focus
             if not s.leave_digital_workspace():return
@@ -1333,7 +1359,10 @@ class LessonGuide(QDockWidget):
 
     def run(self):
         self.flush();self.require_idle();s=self.studio
-        if self.lesson.get('signal_lab'):
+        if self.lesson.get('bench_project'):
+            from .student_testbench import prepare
+            job=prepare(s.project,self.lesson,self.bench_workflow.currentData(),self.hub.tools())
+        elif self.lesson.get('signal_lab'):
             from .student_signal_labs import prepare
             job=prepare(s.project,self.lesson,self.active_step['id'],self.hub.tools())
         elif self.lesson.get('layout_lab'):
@@ -1403,6 +1432,11 @@ class LessonGuide(QDockWidget):
         project=self.studio.project
         is_check=bool(self.active_step and self.active_step['kind']=='check')
         can_run=bound and not active
+        bench_path=bool(self.lesson.get('bench_project'))
+        show_workflow=bench_path and bool(self.active_step) and self.active_step['kind']!='quiz'
+        self.bench_workflow_label.setVisible(show_workflow)
+        self.bench_workflow.setVisible(show_workflow)
+        self.bench_workflow.setEnabled(can_run)
         starter=self.lesson['starter']
         kind=self.lesson.get('analog_project')
         self.analog_action.hide()
@@ -1430,7 +1464,12 @@ class LessonGuide(QDockWidget):
                 control.setEnabled(bound and (control.text()=='Open inverter' or not active))
         run_button=self.controls['Run lesson']
         self.controls['Run lesson'].setText('Run lesson')
-        if kind and self.active_step:
+        if bench_path:
+            run_button.setVisible(is_check)
+            self.analog_action.setText('Edit SPICE program…' if self.bench_workflow.currentData()=='spice'
+                                       else 'Edit testbench…')
+            self.analog_action.setEnabled(can_run);self.analog_action.setVisible(is_check)
+        elif kind and self.active_step:
             from .student_analog import run_names
             step=self.active_step['id'];names=run_names(kind,step)
             self.controls['Run lesson'].setVisible(bool(names))
@@ -1533,6 +1572,11 @@ class LessonGuide(QDockWidget):
                 selected=stages[names.index(name)]
                 rows=[r for r in rows if lesson_run_step(r['job'])==selected]
         latest=rows[-1]
+        if self.lesson.get('bench_project'):
+            from .student_testbench_ui import BenchResults
+            self.bench_result=BenchResults(s,rows,self.bench_workflow.currentData())
+            self.bench_result.show()
+            return self.bench_result
         if self.lesson.get('signal_lab'):
             from .student_signal_ui import SignalResults
             self.signal_results=SignalResults(s,latest);self.signal_results.show()

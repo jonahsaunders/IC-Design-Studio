@@ -1,0 +1,83 @@
+[
+  {
+    "id": "tb-divider-bias", "project": "divider", "topic": "Resistor divider", "title": "Build a divider bias bench", "requires": [],
+    "concept": "An operating point solves the steady voltages and currents of the fixture. Put the resistor divider in its own cell and apply 1 V from the parent fixture.",
+    "question": "With equal resistors and no additional output load, where does a 1 V input put the divider output?", "options": ["0 V", "0.5 V", "1 V"], "answer": 1,
+    "explanation": "The two equal resistors split the applied voltage equally.",
+    "work": "Select XDUT and choose Schematic → Enter schematic. Select R2 and change Value to 1k in its properties so it matches R1. Choose Schematic → Return to parent and trace VIN, out and return net 0.",
+    "analysis": {"type": "op"}, "limits": [0.49, 0.51],
+    "reflection": "Explain where you set the 1 V input, where you set R2, and where you told the solver to check the output."
+  },
+  {
+    "id": "tb-divider-sweep", "project": "divider", "topic": "Resistor divider", "title": "Sweep the divider input", "requires": ["tb-divider-bias"],
+    "concept": "A DC sweep solves a series of operating points. Each point reuses the same fixture with a different value on the selected independent source.",
+    "question": "What slope does the ideal equal-resistor divider have when you plot output voltage against input voltage?", "options": ["0.5 V/V", "1 V/V", "2 V/V"], "answer": 0,
+    "explanation": "The output stays at half the input throughout the sweep.",
+    "work": "Open the DC fixture. Identify VIN as the swept voltage source and confirm it drives the same XDUT divider you repaired in the previous lesson.",
+    "analysis": {"type": "dc", "source": "VIN", "dc_start": "0", "dc_stop": "1", "dc_step": ".1"}, "at": "0.8", "limits": [0.39, 0.41],
+    "reflection": "Use two points from the sweep to explain the slope. What physical input quantity does the horizontal axis represent?"
+  },
+  {
+    "id": "tb-divider-transient", "project": "divider", "topic": "Resistor divider", "title": "Measure a loaded divider step", "requires": ["tb-divider-sweep"],
+    "concept": "A capacitor on the output makes the response time-dependent. The capacitor sees the two 1 kΩ resistors in parallel, so its 2 nF load gives a time constant of 1 µs.",
+    "question": "What does adding the output capacitor change for this ideal step?", "options": ["The final divider ratio", "The time needed to reach the final voltage", "The input DC voltage"], "answer": 1,
+    "explanation": "The capacitor draws charging current during the transition and no current after the DC output settles.",
+    "work": "Open the step fixture. Locate CLOAD on out and inspect VIN’s 0–1 V pulse. Its leading edge starts at 2 µs.",
+    "analysis": {"type": "tran", "step": "20n", "stop": "10u"}, "at": "3u", "limits": [0.30, 0.33],
+    "reflection": "Compare your 3 µs reading with the final voltage. Explain why replacing CLOAD would change one of those readings more than the other."
+  },
+  {
+    "id": "tb-tia-bias", "project": "tia", "topic": "Photodiode TIA", "title": "Set the TIA bias and photocurrent", "requires": [],
+    "concept": "The feedback resistor converts current into voltage. With the input held near a 0.9 V reference, 1 µA through 100 kΩ moves the output down by about 0.1 V for this current direction.",
+    "question": "Increasing the photocurrent in the supplied fixture moves the output in which direction?", "options": ["Up", "Down", "Neither way"], "answer": 1,
+    "explanation": "The output moves down to conduct the injected current through the feedback resistor.",
+    "work": "Trace IPHOTO through VSENSE to the summing node, then trace RF back from out. Select IPHOTO and set its DC value to 1u in its properties. Keep RF at 100k.",
+    "analysis": {"type": "op"}, "limits": [0.78, 0.82],
+    "reflection": "Explain the sign of the output change and calculate the ideal voltage shift from the photocurrent and feedback resistance."
+  },
+  {
+    "id": "tb-tia-ac", "project": "tia", "topic": "Photodiode TIA", "title": "Measure TIA transimpedance", "requires": ["tb-tia-bias"],
+    "concept": "An AC analysis linearizes around the bias point. For a 1 µA AC input, an output magnitude of 0.1 V corresponds to 100 kΩ of transimpedance.",
+    "question": "Which unit describes the ratio of TIA output voltage to input current?", "options": ["V/V", "A/V", "Ω"], "answer": 2,
+    "explanation": "Voltage divided by current has units of ohms.",
+    "work": "Select RF and set Value to 100k. Select IPHOTO and confirm its AC amplitude is 1u. Keep CPD between sense and ground and CF between out and sense.",
+    "analysis": {"type": "ac", "start": "100", "end": "100Meg", "points": 60}, "at": "100", "limits": [0.09, 0.11],
+    "reflection": "Convert your 100 Hz voltage to ohms using the AC current. Explain what the high-frequency rolloff would imply for a fast optical signal."
+  },
+  {
+    "id": "tb-tia-step", "project": "tia", "topic": "Photodiode TIA", "title": "Test a photodiode current step", "requires": ["tb-tia-ac"],
+    "concept": "The pulse fixture models a change in light as a current step. Observing both the settling waveform and the final output checks the feedback network under a time-domain stimulus.",
+    "question": "Which result shows whether the TIA rings immediately after a current step?", "options": ["The operating-point readout", "The transient waveform", "The DC sweep at its last point"], "answer": 1,
+    "explanation": "The transient waveform preserves the time history around the edge.",
+    "work": "Open the pulse fixture. Confirm RF is 100k and IPHOTO rises from 0 to 1 µA at 10 µs. Identify the output node and both feedback components.",
+    "analysis": {"type": "tran", "step": "20n", "stop": "40u"}, "at": "30u", "limits": [0.78, 0.82],
+    "reflection": "Compare the output before and after the current edge. What does the transition tell you that the final 30 µs reading alone cannot show?"
+  },
+  {
+    "id": "tb-opamp-bias", "project": "opamp", "topic": "Two-stage op amp", "title": "Bias a two-stage amplifier as a follower", "requires": [],
+    "concept": "A practical amplifier bench supplies power, common-mode input, a bias current and a load. Unity feedback gives a useful operating-point check before more involved tests.",
+    "question": "Where do you connect the inverting input to make a unity-gain follower?", "options": ["To the output", "To the supply", "To the same input source"], "answer": 0,
+    "explanation": "Connecting the output to the inverting input closes the negative-feedback loop.",
+    "work": "Open the follower fixture. Confirm XDUT’s INN and OUT share out. Verify VIN is 0.9 V, VDD is 1.8 V and IREF supplies 5 µA.",
+    "analysis": {"type": "op"}, "limits": [0.88, 0.92],
+    "reflection": "Describe why the output sits near the input when the loop is closed. Record the input, supply and bias-current settings."
+  },
+  {
+    "id": "tb-opamp-ac", "project": "opamp", "topic": "Two-stage op amp", "title": "Build the amplifier AC loop bench", "requires": ["tb-opamp-bias"],
+    "concept": "The large inductor keeps the feedback path closed at DC. The capacitor holds the feedback node near AC ground, letting the 1 V small-signal stimulus expose the amplifier’s gain.",
+    "question": "Why keep a path for DC feedback in the AC loop fixture?", "options": ["To preserve the intended operating point", "To remove the output load", "To make the supply part of the input signal"], "answer": 0,
+    "explanation": "AC analysis uses the circuit’s DC bias point before it evaluates the small-signal response.",
+    "work": "Select CL and change Value to 1p. Trace LDC from out to feedback and CAC from feedback to ground. Select VIN and verify its AC amplitude is 1.",
+    "analysis": {"type": "ac", "start": "10", "end": "100Meg", "points": 40}, "at": "10", "limits": [10000, 12500],
+    "reflection": "Use the output magnitude and AC input to report low-frequency gain. Explain why the AC plot can show more than 1.8 V of magnitude while the circuit still operates from a 1.8 V supply."
+  },
+  {
+    "id": "tb-opamp-step", "project": "opamp", "topic": "Two-stage op amp", "title": "Check follower step response under load", "requires": ["tb-opamp-ac"],
+    "concept": "The unity-gain step fixture checks whether the feedback loop can move the output with its load connected. A late output sample is a check on the final level, alongside the full waveform.",
+    "question": "Why inspect the waveform as well as measuring the final level?", "options": ["The waveform shows overshoot and ringing", "The final voltage sets the process corner", "The waveform changes the load capacitor"], "answer": 0,
+    "explanation": "Different transient responses can have the same settled output.",
+    "work": "Open the follower step fixture. Check that VIN rises from 0.85 to 0.95 V at 5 µs and that CL is 1p. Verify that INN remains tied to out.",
+    "analysis": {"type": "tran", "step": "20n", "stop": "20u"}, "at": "15u", "limits": [0.93, 0.97],
+    "reflection": "Describe the shape of the step and compare the before and after voltage. If you saw overshoot, explain how the settled sample could still pass."
+  }
+]

@@ -17,7 +17,7 @@ def unit_scale(value):
     return 1,''
 def analysis_kind(result):
     s=result['settings'];kind=s['type']
-    if kind in ('xschem','program','student_signal_lab'):return result.get('plot_kind','op')
+    if kind in ('xschem','program','student_signal_lab','student_bench_lab'):return result.get('plot_kind','op')
     if kind in ('post_layout','rc_compare'):return s['analysis']['type']
     if kind=='deck':return {'frequency':'ac','time':'tran'}.get(result['x_label'],'op')
     return kind

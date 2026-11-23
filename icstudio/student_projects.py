@@ -129,8 +129,11 @@ def divider(loaded=False, hierarchy=False):
 
 def create(starter, technology=None):
     from .example_schematics import arrange
+    from . import student_testbench
     from .student_layout_labs import STARTER
     from .student_signal_labs import STARTER as SIGNAL_STARTER
+    if starter.startswith(student_testbench.STARTER):
+        return arrange(student_testbench.create(starter.removeprefix(student_testbench.STARTER)))
     if starter.startswith(SIGNAL_STARTER):
         from .student_signal_circuits import project
         return arrange(project(starter.removeprefix(SIGNAL_STARTER)))
@@ -171,6 +174,9 @@ def create(starter, technology=None):
 def lesson_workspace(project, lesson, step):
     """Resolve the same circuit and editor used by the lesson guide."""
     starter = lesson['starter']
+    if lesson.get('bench_project'):
+        from .student_testbench import fixture
+        return fixture(project, lesson['id']), 'schematic'
     stage = lesson.get('inverter_stage')
     if stage in ('layout', 'drc', 'lvs', 'handoff') or (stage == 'schematic' and step != 'build'):
         return project['student_inverter']['cell'], 'schematic' if stage == 'schematic' else 'layout'

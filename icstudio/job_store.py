@@ -25,6 +25,9 @@ def read_result(path,project_id,require_complete=True):
         from .mixed_signal import validate_result
         validate_result(result,job,path.parent)
     elif not isinstance(result.get('traces'),dict) or not isinstance(result.get('x'),list):raise ValueError('Invalid result structure.')
+    if job.get('settings',{}).get('type')=='student_bench_lab':
+        from .student_testbench import validate_result
+        validate_result(job,result,original_path.parent)
     if result.get('xschem_cases') or result.get('analysis_cases'):
         # Raw captures travel with their saved job; do not retain a previous
         # computer's absolute run directory when reopening copied results.

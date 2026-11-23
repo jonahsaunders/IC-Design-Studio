@@ -17,6 +17,7 @@ WORLDS = {
     'layout': ('#d86a94', 'Geometry, matching & verification', 'layout'),
     'career': ('#c1973f', 'Design briefs & interviews', 'portfolio'),
     'analog-projects': ('#3e9cbc', 'Amplifiers, references & debug', 'amp'),
+    'testbenches': ('#578f79', 'Fixtures, simulation & measurements', 'wave'),
     'inverter': ('#779d45', 'Process models, DRC & LVS', 'inverter'),
     'capstone': ('#5b86c5', 'Sensor acquisition & calibration', 'system'),
 }

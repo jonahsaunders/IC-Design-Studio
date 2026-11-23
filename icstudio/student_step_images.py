@@ -275,7 +275,12 @@ def step_images(guide):
     rtl = _rtl_image(guide, p, instructions) if lesson['path'] == 'digital' or 'Open RTL' in instructions else None
     fields = _fields_image(guide, p, cell, mode, targets)
     results = _result_image(guide, p, instructions)
-    return [image for image in (rtl, *canvas, fields, _control_image(guide), results) if image is not None]
+    bench_images = []
+    if lesson.get('bench_project'):
+        from .student_testbench_ui import previews
+        bench_images = [StepImage(title, caption, _capture(dialog, guide, 990, height))
+                        for title, caption, dialog, height in previews(guide)]
+    return [image for image in (rtl, *canvas, fields, *bench_images, _control_image(guide), results) if image is not None]
 
 
 class StepImages(QDialog):

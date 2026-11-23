@@ -13,6 +13,9 @@ def hint_source():
 
 
 def lesson_hints(lesson, author_id=None):
+    if lesson.get('bench_project'):
+        from .student_testbench import hints
+        return hints(lesson['id'])
     source = hint_source()
     result = {}
     for step in lesson['steps']:
@@ -37,6 +40,9 @@ def mode_source():
 
 
 def lesson_practice(lesson, author_id=None):
+    if lesson.get('bench_project'):
+        from .student_testbench import practice
+        return practice(lesson['id'])
     source = mode_source()
     tasks, questions = {}, {}
     for step in lesson['steps']:
@@ -63,10 +69,13 @@ def study_guide(data):
     from .getting_started import resource_root
     from .student_layout_labs import course
     from .student_signal_labs import course as signal_course
+    from . import student_testbench
     content = json.loads((resource_root()/'examples/student-hub/study-guide.json').read_text(encoding='utf-8'))
     ids = {lesson['id'] for lesson in data['lessons']}
     content['lessons'].update({'l-' + unit['id']: unit['teaching'] for unit in course() if 'l-' + unit['id'] in ids})
     content['lessons'].update({unit['id']: unit['teaching'] for unit in signal_course() if unit['id'] in ids})
+    bench_ids = {lesson['id'] for lesson in data['lessons'] if lesson.get('bench_project')}
+    content['lessons'].update({key: student_testbench.teaching(key) for key in bench_ids})
     if set(content['lessons']) != ids:
         raise ValueError('Every lesson needs teaching material in the study guide.')
     for note in content['lessons'].values():
@@ -95,7 +104,7 @@ def _numbered(actions):
     return '<ol>' + ''.join('<li>' + html.escape(action) + '</li>' for action in actions) + '</ol>'
 
 
-def task_html(step, practice, guided):
+def task_html(step, practice, guided, workflow='graphical'):
     if step['kind'] == 'quiz':
         question = _paragraph(question_text(step, practice, guided))
         return question + (_numbered([
@@ -113,6 +122,9 @@ def task_html(step, practice, guided):
     goal, actions, _ = practice['tasks'][step['id']]
     if not guided:
         return _paragraph(goal)
+    bench = practice.get('bench_workflows', {}).get(step['id'])
+    if bench:
+        return _paragraph(step['instructions']) + _bench_walkthrough(bench, workflow)
     checklist = list(actions)
     if not any('Check this step' in action for action in checklist):
         checklist.append('Choose Check this step and read the checkpoint result.')
@@ -121,7 +133,15 @@ def task_html(step, practice, guided):
 
 def lesson_run_step(job):
     return (job.get('student_layout_step') or job.get('student_signal_step')
+            or job.get('student_bench_step')
             or job.get('student_analog', {}).get('stage'))
+
+
+def _bench_walkthrough(bench, workflow):
+    steps = _numbered(bench[workflow])
+    if workflow == 'spice':
+        steps += '<pre>' + html.escape(bench['program']) + '</pre>'
+    return steps
 
 
 def solution_html(step, practice, note):
@@ -134,6 +154,11 @@ def solution_html(step, practice, note):
                 + _paragraph('Use your own observed values, test conditions and reasoning for this prompt.')
                 + _paragraph(step['instructions']))
     _, actions, solution = practice['tasks'][step['id']]
+    bench = practice.get('bench_workflows', {}).get(step['id'])
+    if bench:
+        return (title + _paragraph(solution)
+                + '<h3>Graphical testbench</h3>' + _bench_walkthrough(bench, 'graphical')
+                + '<h3>SPICE program</h3>' + _bench_walkthrough(bench, 'spice'))
     return title + _paragraph(solution) + '<h3>In Studio</h3>' + _numbered(actions)
 
 
