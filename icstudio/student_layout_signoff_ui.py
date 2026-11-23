@@ -89,11 +89,11 @@ def open_form(guide, key, step, cid):
         s.commit(lambda p: apply(p, values), title)
         guide.workspace()
 
-    fields, note = _fields(s.project, key, step)
+    fields, note = form_fields(s.project, key, step)
     return s.workflow_form(title, fields, submit, note, context_guard=same_context)
 
 
-def _fields(p, key, step):
+def form_fields(p, key, step):
     if key in ('floorplan', 'access'):
         pitch, offset = lab.current_placement(p)
         fields = [('pitch', 'Second device pitch (µm)', f'{pitch/1000:g}'),

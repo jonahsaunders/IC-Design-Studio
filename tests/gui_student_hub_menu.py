@@ -8,7 +8,8 @@ from pathlib import Path
 from unittest.mock import patch
 
 try:
-    from PySide6.QtCore import QSettings, Qt, QTimer
+    from PySide6.QtCore import QSettings, Qt, QTimer, QUrl
+    from PySide6.QtGui import QFont, QFontDatabase
     from PySide6.QtTest import QTest
     from PySide6.QtWidgets import QApplication, QDialogButtonBox, QLabel, QPlainTextEdit, QScrollArea
 except ImportError:
@@ -21,6 +22,11 @@ class StudentHubMenuTests(unittest.TestCase):
     def setUpClass(cls):
         os.environ.setdefault('QT_QPA_PLATFORM', 'offscreen')
         cls.app = QApplication.instance() or QApplication([])
+        if os.name == 'nt' and cls.app.platformName() == 'offscreen':
+            fonts = Path(os.environ.get('WINDIR', 'C:/Windows'))/'Fonts'
+            for name in ('segoeui.ttf', 'segoeuib.ttf', 'consola.ttf'):
+                QFontDatabase.addApplicationFont(str(fonts/name))
+            QFont.insertSubstitution('Sans Serif', 'Segoe UI')
 
     def setUp(self):
         from icstudio.gui import Studio
@@ -328,6 +334,77 @@ class StudentHubMenuTests(unittest.TestCase):
         hub.start_selected()
         self.assertEqual(studio.project['id'], identity)
         self.assertEqual(studio.project['name'], 'My divider attempt')
+
+    def test_guided_images_show_the_actual_edit_fields_layout_and_rtl(self):
+        from icstudio.model import digest
+
+        hub, studio = self.hub, self.studio
+
+        def open_step(key, step):
+            hub.select_lesson(key)
+            hub.start_selected()
+            guide = hub.guide
+            i = next(i for i, unit in enumerate(guide.lesson['steps']) if unit['id'] == step)
+            guide.steps.setCurrentIndex(i)
+            return guide
+
+        guide = open_step('m-ramp', 'repair')
+        before = digest(studio.project), digest(hub.portfolio.state), studio.cid, tuple(studio.selection)
+        self.assertIn('href="step-images"', guide.instructions.toHtml())
+        guide.instructions.anchorClicked.emit(QUrl('step-images'))
+        gallery = guide.step_images_dialog
+        self.assertTrue(gallery.isVisible())
+        pages = {entry.title: entry for entry in gallery.images}
+        self.assertIn('R4', pages['Schematic'].caption)
+        self.assertIn('R4', pages['Schematic close-up'].caption)
+        self.assertIn('R4 resistance', pages['Edit ladder section'].caption)
+        self.assertTrue(all(not entry.pixels.isNull() for entry in gallery.images))
+        gallery.picker.setCurrentText('Edit ladder section')
+        self.assertIn('R4 resistance', gallery.figure.accessibleDescription())
+        self.assertIsNone(getattr(studio, '_workflow_dialog', None))
+        self.assertEqual(before, (digest(studio.project), digest(hub.portfolio.state), studio.cid, tuple(studio.selection)))
+        guide.mode_picker.setCurrentIndex(guide.mode_picker.findData('independent'))
+        self.assertIsNone(guide.step_images_dialog)
+        self.assertNotIn('Show step images', guide.instructions.toPlainText())
+        self.assertIsNone(guide.show_step_images())
+
+        guide = open_step('l-width', 'build')
+        image = {item.title: item for item in guide.show_step_images().images}
+        self.assertIn('metal1', image['Geometry (µm)'].caption)
+        self.assertIn('Width, Height', image['Geometry (µm)'].caption)
+        self.assertIn('Layout', image)
+        guide.step_images_dialog.close()
+        guide = open_step('d-pipeline', 'build')
+        gallery = guide.show_step_images()
+        self.assertEqual(gallery.picker.currentText(), 'RTL source')
+        self.assertIn('pipeline_valid.sv', gallery.caption.text())
+        gallery.close()
+
+    def test_guided_images_include_a_current_saved_waveform(self):
+        hub, studio = self.hub, self.studio
+        hub.select_lesson('f-first')
+        hub.start_selected()
+        guide = hub.guide
+        i = next(i for i, unit in enumerate(guide.lesson['steps']) if unit['id'] == 'measure')
+        guide.steps.setCurrentIndex(i)
+        gallery = guide.show_step_images()
+        self.assertNotIn('Saved results', {image.title for image in gallery.images})
+        gallery.close()
+        guide.run()
+        deadline = time.monotonic() + 8
+        while studio.run_manager.busy and time.monotonic() < deadline:
+            QTest.qWait(20)
+        row = studio.run_manager.rows[-1]
+        self.assertEqual(row['state'], 'Complete', row.get('log', ''))
+        gallery = guide.show_step_images()
+        gallery.picker.setCurrentText('Saved results')
+        self.assertIn('vout', gallery.caption.text())
+        self.assertFalse(gallery.figure.pixmap().isNull())
+        gallery.close()
+        studio.commit(lambda p: p.update(name='New trial'), 'Rename circuit')
+        gallery = guide.show_step_images()
+        self.assertNotIn('Saved results', {image.title for image in gallery.images})
+        gallery.close()
 
     def test_layout_topics_open_and_resume_the_shared_amplifier(self):
         hub, studio = self.hub, self.studio

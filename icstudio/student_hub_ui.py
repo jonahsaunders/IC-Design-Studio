@@ -468,6 +468,7 @@ class StudentHub(QWidget):
         self.guide.arrange_actions()
         link_style=f'a {{color:{palette(self.studio.dark)["accent"]};}} li {{margin-bottom:8px;}}'
         self.details.document().setDefaultStyleSheet(link_style)
+        self.guide.instructions.document().setDefaultStyleSheet(link_style)
         self.adapt_layout()
         scroll=self.details.verticalScrollBar().value();self.detail();self.details.verticalScrollBar().setValue(scroll)
 
@@ -901,6 +902,9 @@ class LessonGuide(QDockWidget):
         self.lesson_tabs=QTabWidget();self.lesson_tabs.setAccessibleName('Lesson teaching and task');v.addWidget(self.lesson_tabs,1)
         self.design_notes=QTextBrowser();self.design_notes.setAccessibleName('Concept, worked example and interview preparation')
         self.instructions=QTextBrowser();self.instructions.setAccessibleName('Step instructions')
+        self.instructions.setOpenLinks(False)
+        self.instructions.anchorClicked.connect(self.step_image_link)
+        self.step_images_dialog=None
         self.lesson_tabs.addTab(self.design_notes,'Learn');self.lesson_tabs.addTab(self.instructions,'Do this step')
         hints_page=QScrollArea();hints_page.setWidgetResizable(True)
         hints_body=QWidget();hints_layout=QVBoxLayout(hints_body);hints_page.setWidget(hints_body)
@@ -1042,9 +1046,35 @@ class LessonGuide(QDockWidget):
         self.update_task()
 
     def update_task(self):
+        if self.step_images_dialog:
+            self.step_images_dialog.close()
         if self.active_step:
             practice=self.hub.material['practice'][self.lesson['id']]
-            self.instructions.setHtml(task_html(self.active_step,practice,self.mode_picker.currentData()=='guided'))
+            guided=self.mode_picker.currentData()=='guided'
+            content=task_html(self.active_step,practice,guided)
+            if guided:
+                content='<p><a href="step-images">Show step images…</a></p>'+content
+            self.instructions.setHtml(content)
+
+    def step_image_link(self,url):
+        if url.toString()=='step-images' and self.mode_picker.currentData()=='guided':
+            self.call(self.show_step_images)
+
+    def show_step_images(self):
+        from .student_step_images import StepImages
+
+        if not self.active_step or self.mode_picker.currentData()!='guided':
+            return None
+        if self.step_images_dialog:
+            self.step_images_dialog.close()
+        self.step_images_dialog=StepImages(self)
+        self.step_images_dialog.finished.connect(self.clear_step_images)
+        self.step_images_dialog.show()
+        self.step_images_dialog.raise_()
+        return self.step_images_dialog
+
+    def clear_step_images(self,*_):
+        self.step_images_dialog=None
 
     def show_question_hints(self,*_):
         hints=self.hub.material['hints'].get(self.lesson['id'],{}) if self.lesson else {}
@@ -1146,28 +1176,12 @@ class LessonGuide(QDockWidget):
         if index is not None:self.steps.setCurrentIndex(index);self.steps.setFocus()
 
     def workspace(self):
+        from .student_projects import lesson_workspace
+
         self.require_project();s=self.studio
         if not s.leave_digital_workspace():return
-        show_layout=self.lesson['starter'].startswith('layout')
-        if self.lesson.get('signal_lab'):
-            from .student_signal_labs import focus
-            s.cid=focus(s.project,self.lesson['signal_lab'],self.active_step['id'])
-        elif self.lesson.get('layout_lab'):
-            from .student_layout_labs import focus
-            s.cid=focus(s.project,self.lesson['layout_lab'],self.active_step['id'])
-        elif self.lesson['starter']=='layout-decisions':
-            from .student_layout_decisions import focus
-            s.cid=focus(s.project,self.active_step['id'])
-        elif self.lesson['starter'] in ('ahuja-study','miller-study'):
-            s.cid=next(c['id'] for c in s.project['cells'] if c['name']=='two_stage_opamp')
-        elif self.lesson.get('analog_project'):
-            from .student_analog import focus_cell
-            step=self.active_step['id']
-            s.cid=focus_cell(s.project,self.lesson['analog_project'],step)
-            show_layout=step in ('layout','bias-layout','post-layout') or step.startswith('route-')
-        else:
-            s.cid=s.project.get('mixed_signal',{}).get('analog_cell',s.project['top'])
-        s.mode_combo.setCurrentIndex(1 if show_layout else 0);s.refresh(True)
+        s.cid,mode=lesson_workspace(s.project,self.lesson,self.active_step['id'])
+        s.mode_combo.setCurrentIndex(1 if mode=='layout' else 0);s.refresh(True)
         self.show();self.raise_()
 
     def signal_study_action(self):

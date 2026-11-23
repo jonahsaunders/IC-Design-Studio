@@ -72,6 +72,14 @@ and shared project and learning record. Nominal ngspice runs also verified the
 op-amp and TIA examples and the 130 kΩ bias reference choice. Next, verify the
 review commit in the hosted desktop workflow. See the [Student Hub guide](STUDENT_HUB.md#learn-beside-the-real-editor).
 
+**November 23, 2026 — Student Hub step images (UX-02).** On review base
+`07cb0ca`, Step by Step renders the current circuit, layout or RTL alongside
+relevant editor fields, Lesson Guide controls and supported saved results.
+Windows Qt offscreen rendered images for all 419 checkpoints across 97 authored
+lessons using the SKY130A inverter profile for the shared inverter lessons.
+A native ngspice ramp capture verified the saved ADC code-count image. The
+hosted desktop run is the next check. See the [Student Hub guide](STUDENT_HUB.md#learn-beside-the-real-editor).
+
 **November 20, 2026 — Measured width and spacing reviews (LAY-12, UX-02).**
 Extending the via review at `14368c3`, the assistant can preview and apply
 single-shape repairs against Studio's geometry rules. Both Student Hub fixtures

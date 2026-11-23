@@ -71,6 +71,18 @@ how to reach it. **Step by Step** gives an ordered walkthrough for each
 checkpoint, including which controls to open and which results to inspect.
 Student Hub remembers your choice for each lesson.
 
+In **Step by Step**, choose **Show step images…** to see the current
+checkpoint's visual guide. It uses the lesson's schematic, layout or RTL,
+with highlights and close-ups where available. The image selector
+also shows lesson controls and the fields for applicable edits. Once a
+current result is saved, supported waveform images appear in the same
+viewer. For the ADC repair, select **Schematic** to find R4, **Edit ladder
+section** to see its resistance field, and **Saved results** to view code
+counts after running the ramp. Use the editor and Lesson Guide controls
+to make your own changes.
+
+![The ADC repair close-up highlights R4 between R3 and R5.](images/student-adc-step-images.png)
+
 **Show solution…** opens a worked reference for the selected checkpoint.
 Use its checkpoint selector to see the rest of the lesson, including
 knowledge-check answers, example circuit edits or expected measurements,

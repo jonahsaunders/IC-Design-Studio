@@ -168,6 +168,28 @@ def create(starter, technology=None):
     return arrange(_create(starter))
 
 
+def lesson_workspace(project, lesson, step):
+    """Resolve the same circuit and editor used by the lesson guide."""
+    starter = lesson['starter']
+    if lesson.get('signal_lab'):
+        from .student_signal_labs import focus
+        return focus(project, lesson['signal_lab'], step), 'schematic'
+    if lesson.get('layout_lab'):
+        from .student_layout_labs import focus
+        return focus(project, lesson['layout_lab'], step), 'layout'
+    if starter == 'layout-decisions':
+        from .student_layout_decisions import focus
+        return focus(project, step), 'layout'
+    if starter in ('ahuja-study', 'miller-study'):
+        return next(c['id'] for c in project['cells'] if c['name'] == 'two_stage_opamp'), 'schematic'
+    if lesson.get('analog_project'):
+        from .student_analog import focus_cell
+        layout = step in ('layout', 'bias-layout', 'post-layout') or step.startswith('route-')
+        return focus_cell(project, lesson['analog_project'], step), 'layout' if layout else 'schematic'
+    return (project.get('mixed_signal', {}).get('analog_cell', project['top']),
+            'layout' if starter.startswith('layout') else 'schematic')
+
+
 def _create(starter):
     if starter in DIGITAL_LABS:
         from .student_design_labs import faulty_digital

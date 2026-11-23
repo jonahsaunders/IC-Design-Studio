@@ -36,6 +36,18 @@ def _field(p, cid, name, field):
     return device, leaf
 
 
+def form_fields(p, lab, step, cid):
+    if (lab, step) == ('temperature', 'validate'):
+        gain, offset = labs.calibration(p)
+        return ([('gain', 'Gain (m°C/count)', gain), ('offset', 'Signed offset (m°C)', offset)],
+                'Enter the integer coefficients calculated from the cold and hot anchor codes.')
+    fields = []
+    for name, field, label in TUNING[lab, step][1:]:
+        part, key = _field(p, cid, name, field)
+        fields.append((name, label, part[key]))
+    return fields, 'Enter circuit values using SI suffixes such as 4k, 330p and 10n.'
+
+
 def open_form(guide, lab, step):
     studio = guide.studio
     p = studio.project
@@ -52,19 +64,10 @@ def open_form(guide, lab, step):
         guide.require_idle()
 
     if (lab, step) == ('temperature', 'validate'):
-        gain, offset = labs.calibration(p)
-        fields = [('gain', 'Gain (m°C/count)', gain), ('offset', 'Signed offset (m°C)', offset)]
-        note = 'Enter the integer coefficients calculated from the cold and hot anchor codes.'
-
         def apply(project, values):
             labs.set_calibration(project, int(values['gain']), int(values['offset']))
     else:
         _, *specs = TUNING[lab, step]
-        fields = []
-        for name, field, label in specs:
-            part, key = _field(p, cid, name, field)
-            fields.append((name, label, part[key]))
-        note = 'Enter circuit values using SI suffixes such as 4k, 330p and 10n.'
 
         def apply(project, values):
             for name, field, label in specs:
@@ -79,6 +82,7 @@ def open_form(guide, lab, step):
         studio.commit(lambda project: apply(project, values), title)
         guide.workspace()
 
+    fields, note = form_fields(p, lab, step, cid)
     return studio.workflow_form(title, fields, submit, note, context_guard=guard)
 
 
@@ -87,6 +91,22 @@ ADC_CHARTS = {
     'DNL by code (LSB)': (0, 'ADC code', 'LSB'),
     'INL by transition (LSB)': (1, 'Transition index', 'LSB'),
 }
+
+
+def adc_wave(measurements, signal):
+    start, label, unit = ADC_CHARTS[signal]
+    y = measurements[signal]
+    x = list(range(start, start + len(y)))
+    if signal == 'Code counts':
+        x = [i + edge for i in x for edge in (-.45, .45)]
+        y = [count for count in y for _ in range(2)]
+    return dict(settings={'type': 'dc'}, x=x, x_label=label, plot_unit=unit, traces={signal: y})
+
+
+def temperature_wave(measurements, supply, signal):
+    trial = sorted((r['Temperature (°C)'], r[signal]) for r in measurements.values() if r['Supply (V)'] == supply)
+    return dict(settings={'type': 'dc'}, x=[t for t, _ in trial], x_label='Reference temperature (°C)',
+                plot_unit='°C', traces={signal: [value for _, value in trial]})
 
 
 def _format(value):
@@ -190,17 +210,9 @@ class SignalResults(QDialog):
         kind, name = self.case.currentData()
         mode, signal = data
         if kind == 'adc':
-            start, label, unit = ADC_CHARTS[signal]
-            y = self.measurements[signal]
-            x = list(range(start, start + len(y)))
-            if signal == 'Code counts':
-                x = [i + edge for i in x for edge in (-.45, .45)]
-                y = [v for count in y for v in (count, count)]
-            wave = dict(settings={'type': 'dc'}, x=x, x_label=label, plot_unit=unit, traces={signal: y})
+            wave = adc_wave(self.measurements, signal)
         elif kind == 'temperature':
-            trial = sorted((r['Temperature (°C)'], r[signal]) for r in self.measurements.values() if r['Supply (V)'] == name)
-            wave = dict(settings={'type': 'dc'}, x=[t for t, _ in trial], x_label='Reference temperature (°C)',
-                        plot_unit='°C', traces={signal: [v for _, v in trial]})
+            wave = temperature_wave(self.measurements, name, signal)
         else:
             wave = self.waves[name]
             if mode == 'current':
