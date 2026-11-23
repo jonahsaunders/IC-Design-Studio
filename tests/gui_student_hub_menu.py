@@ -10,7 +10,7 @@ from unittest.mock import patch
 try:
     from PySide6.QtCore import QSettings, Qt, QTimer
     from PySide6.QtTest import QTest
-    from PySide6.QtWidgets import QApplication, QDialogButtonBox, QLabel, QPlainTextEdit
+    from PySide6.QtWidgets import QApplication, QDialogButtonBox, QLabel, QPlainTextEdit, QScrollArea
 except ImportError:
     QApplication = None
 
@@ -175,6 +175,80 @@ class StudentHubMenuTests(unittest.TestCase):
         hub.search.clear()
         self.assertTrue(hub.world_map.isVisible())
 
+    def test_hints_reveal_per_question_in_preview_and_guide(self):
+        from icstudio.model import digest
+
+        hub = self.hub
+        hub.select_lesson('project-miller')
+        hub.preview.setCurrentWidget(hub.prediction)
+        preview = hub.prediction
+        self.assertEqual(preview.questions.count(), 5)
+        lesson = hub.selected()
+        content = hub.material['hints'][lesson['id']]
+        self.assertTrue(preview.hints.isHidden())
+        before = digest(self.studio.project), digest(hub.portfolio.state)
+        preview.hint_button.setFocus()
+        QTest.keyClick(preview.hint_button, Qt.Key_Space)
+        first, _, advice = preview.hints.rows[0]
+        self.assertEqual(first.accessibleName(), content['miller-effect'][0][0])
+        self.assertTrue(advice.isHidden())
+        first.setFocus()
+        QTest.keyClick(first, Qt.Key_Space)
+        self.assertTrue(first.isChecked())
+        self.assertTrue(advice.isVisible())
+        self.assertEqual(advice.text(), content['miller-effect'][0][1])
+        self.assertTrue(all(row[2].isHidden() for row in preview.hints.rows[1:]))
+        preview.questions.setCurrentIndex(preview.questions.findData('null'))
+        self.assertTrue(preview.hints.isHidden())
+        self.assertFalse(first.isChecked())
+        self.assertEqual(preview.step['id'], 'null')
+        self.assertEqual(first.accessibleName(), content['null'][0][0])
+        self.assertEqual(before, (digest(self.studio.project), digest(hub.portfolio.state)))
+
+        hub.start_selected()
+        guide = hub.guide
+        index = next(i for i, step in enumerate(lesson['steps']) if step['id'] == 'sweep')
+        guide.steps.setCurrentIndex(index)
+        guide.lesson_tabs.setCurrentIndex(guide.hints_index)
+        self.assertEqual(guide.hint_question.currentData(), 'sweep')
+        first, _, advice = guide.hints.rows[0]
+        self.assertEqual(first.accessibleName(), content['sweep'][0][0])
+        before = digest(self.studio.project), digest(hub.portfolio.state)
+        first.click()
+        self.assertTrue(advice.isVisible())
+        self.assertEqual(advice.text(), content['sweep'][0][1])
+        guide.hint_question.setCurrentIndex(0)
+        self.assertTrue(advice.isHidden())
+        self.assertEqual(first.accessibleName(), content['miller-effect'][0][0])
+        self.assertEqual(guide.active_step['id'], 'sweep')
+        self.assertEqual(before, (digest(self.studio.project), digest(hub.portfolio.state)))
+
+    def test_hints_wrap_at_large_text_sizes(self):
+        from icstudio.student_hub_ui import QuestionHints, student_style
+
+        entries = self.hub.material['hints']['c-temperature']['predict']
+        area = QScrollArea()
+        area.setWidgetResizable(True)
+        panel = QuestionHints()
+        area.setWidget(panel)
+        area.resize(300, 450)
+        panel.set_entries(entries)
+        try:
+            for dark in (False, True):
+                with self.subTest(dark=dark):
+                    area.setStyleSheet(student_style(dark, 200))
+                    area.show()
+                    self.app.processEvents()
+                    for reveal, question, answer in panel.rows:
+                        reveal.setChecked(True)
+                        self.app.processEvents()
+                        for text in (question, answer):
+                            self.assertGreaterEqual(text.height(), text.heightForWidth(text.width()))
+                    self.assertEqual(area.horizontalScrollBar().maximum(), 0)
+                    self.assertGreater(area.verticalScrollBar().maximum(), 0)
+        finally:
+            area.close()
+
     def test_layout_topics_open_and_resume_the_shared_amplifier(self):
         hub, studio = self.hub, self.studio
         hub.world_map.cards['layout'].click()
@@ -250,6 +324,7 @@ class StudentHubMenuTests(unittest.TestCase):
                 QTest.qWait(20)
             row = studio.run_manager.rows[-1]
             self.assertEqual(row['state'], 'Complete', row.get('log', ''))
+            self.assertEqual(studio.result['settings'], row['job']['settings'])
             return row['result']['student_stream']['inspection']
 
         self.assertEqual(stream()['Missing labels'], ['OUT'])

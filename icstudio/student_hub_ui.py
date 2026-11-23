@@ -58,6 +58,7 @@ def student_style(dark,scale):
     QPushButton[role="answer"]:checked {{background:{t['tint']};border-color:{t['accent']};}}
     QPushButton[role="answer"]:focus {{border:2px solid {t['accent']};}}
     QLabel[role="answerText"] {{background:transparent;}}
+    QLabel[role="hintAdvice"]:focus {{outline:0;border:1px solid {t['accent']};}}
     QProgressBar {{max-height:8px;}}
     QWidget#studentViewModes {{background:{t['bg']};border:1px solid {t['line']};border-radius:10px;}}
     QPushButton[role="hubMode"] {{min-height:42px;min-width:60px;padding:0 14px;border:2px solid transparent;border-radius:7px;}}
@@ -78,6 +79,69 @@ def student_style(dark,scale):
     '''
 
 
+def quiz_selector(combo, steps):
+    combo.setMinimumContentsLength(12)
+    combo.setSizeAdjustPolicy(QComboBox.AdjustToMinimumContentsLengthWithIcon)
+    with QSignalBlocker(combo):
+        combo.clear()
+        for index, step in enumerate(steps, 1):
+            combo.addItem(f'{index}. {step["title"]}', step['id'])
+    combo.setVisible(len(steps) > 1)
+
+
+class QuestionHints(QWidget):
+    def __init__(self):
+        super().__init__()
+        layout = QVBoxLayout(self)
+        layout.setContentsMargins(0, 0, 0, 0)
+        self.rows = []
+        for _ in range(4):
+            question = label('', 'answerText')
+            question.setAttribute(Qt.WA_TransparentForMouseEvents)
+            reveal = QPushButton()
+            reveal.setProperty('role', 'answer')
+            reveal.setAutoDefault(False)
+            reveal.setCheckable(True)
+            reveal.setAccessibleDescription('Show or hide the answer')
+            marker = label('▸', 'muted')
+            marker.setAttribute(Qt.WA_TransparentForMouseEvents)
+            button_layout = QHBoxLayout(reveal)
+            button_layout.setContentsMargins(10, 8, 10, 8)
+            button_layout.addWidget(marker, 0, Qt.AlignTop)
+            button_layout.addWidget(question, 1)
+            policy = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
+            policy.setHeightForWidth(True)
+            reveal.setSizePolicy(policy)
+            answer = label('', 'hintAdvice')
+            answer.setTextInteractionFlags(Qt.TextSelectableByMouse | Qt.TextSelectableByKeyboard)
+            answer.setFocusPolicy(Qt.TabFocus)
+            answer.setContentsMargins(10, 2, 10, 6)
+            for text in (question, answer):
+                text_policy = text.sizePolicy()
+                text_policy.setHorizontalPolicy(QSizePolicy.Ignored)
+                text.setSizePolicy(text_policy)
+            reveal.toggled.connect(answer.setVisible)
+            reveal.toggled.connect(lambda expanded, marker=marker:marker.setText('▾' if expanded else '▸'))
+            layout.addWidget(reveal)
+            layout.addWidget(answer)
+            self.rows.append((reveal, question, answer))
+        self.set_entries(())
+
+    def collapse(self):
+        for reveal, _, answer in self.rows:
+            reveal.setChecked(False)
+            answer.hide()
+
+    def set_entries(self, entries):
+        self.collapse()
+        for index, (reveal, question, answer) in enumerate(self.rows):
+            prompt, advice = entries[index] if index < len(entries) else ('', '')
+            question.setText(prompt)
+            reveal.setAccessibleName(prompt)
+            reveal.setVisible(bool(prompt))
+            answer.setText(advice)
+
+
 class PredictionPreview(QScrollArea):
     """Try a curriculum question before opening the lesson project."""
     def __init__(self):
@@ -89,10 +153,21 @@ class PredictionPreview(QScrollArea):
         layout = QVBoxLayout(body)
         layout.setContentsMargins(12, 14, 12, 14)
         layout.setSpacing(10)
+        self.questions = QComboBox()
+        self.questions.setAccessibleName('Knowledge check question')
+        layout.addWidget(self.questions)
         self.title = label('', 'muted')
         self.question = label('', 'question')
         layout.addWidget(self.title)
         layout.addWidget(self.question)
+        self.hint_button = QPushButton('Hints')
+        self.hint_button.setCheckable(True)
+        self.hint_button.setAutoDefault(False)
+        self.hint_button.setAccessibleDescription('Reveal or collapse student questions and advice')
+        self.hints = QuestionHints()
+        self.hint_button.toggled.connect(self.toggle_hints)
+        layout.addWidget(self.hint_button, alignment=Qt.AlignLeft)
+        layout.addWidget(self.hints)
         self.choices = QVBoxLayout()
         layout.addLayout(self.choices)
         self.answers = QButtonGroup(self)
@@ -101,13 +176,33 @@ class PredictionPreview(QScrollArea):
         layout.addWidget(self.result)
         layout.addStretch()
         self.step = None
+        self.lesson = None
+        self.steps = []
+        self.advice = {}
+        self.questions.currentIndexChanged.connect(self.select_question)
+        self.hints.hide()
 
-    def set_lesson(self, lesson):
-        steps = lesson['steps'] if lesson else ()
-        step = next((s for s in steps if s['kind'] == 'quiz'), None)
-        if step is self.step:
-            return step is not None
+    def toggle_hints(self, visible):
+        if not visible:
+            self.hints.collapse()
+        self.hints.setVisible(visible)
+
+    def set_lesson(self, lesson, advice):
+        if lesson is self.lesson:
+            return bool(self.steps)
+        self.lesson = lesson
+        self.advice = advice
+        self.steps = [step for step in (lesson or {}).get('steps', []) if step['kind'] == 'quiz']
+        quiz_selector(self.questions, self.steps)
+        self.select_question(self.questions.currentIndex())
+        return bool(self.steps)
+
+    def select_question(self, index):
+        step = self.steps[index] if index >= 0 else None
         self.step = step
+        self.hint_button.setChecked(False)
+        self.hint_button.setVisible(step is not None)
+        self.hints.set_entries(self.advice.get(step['id'], ()) if step else ())
         for choice in self.answers.buttons():
             self.answers.removeButton(choice)
             self.choices.removeWidget(choice)
@@ -117,7 +212,7 @@ class PredictionPreview(QScrollArea):
         self.question.setText(step['instructions'] if step else '')
         self.result.clear()
         if step is None:
-            return False
+            return
         for index, option in enumerate(step['options']):
             choice = QPushButton()
             choice.setAutoDefault(False)
@@ -137,7 +232,6 @@ class PredictionPreview(QScrollArea):
             self.choices.addWidget(choice)
         feedback(self.result, 'Choose an answer to practice. Start the lesson to earn credit.')
         self.verticalScrollBar().setValue(0)
-        return True
 
     def answer(self, index):
         correct = index == self.step['answer']
@@ -457,7 +551,7 @@ class StudentHub(QWidget):
         filtered=bool(self.search.text().strip() or self.status_filter.currentIndex())
         self.reset_filters.setVisible(not l and filtered)
         self.preview.setTabEnabled(1,bool(l))
-        self.preview.setTabEnabled(2,self.prediction.set_lesson(l))
+        self.preview.setTabEnabled(2,self.prediction.set_lesson(l,self.material['hints'].get(l['id'],{}) if l else {}))
         if not l:
             self.preview.setCurrentIndex(0);self.study_notes.clear()
             self.details.setPlainText('No matching lessons. Clear the filters to see this learning path.' if filtered else
@@ -668,6 +762,13 @@ class LessonGuide(QDockWidget):
         self.design_notes=QTextBrowser();self.design_notes.setAccessibleName('Concept, worked example and interview preparation')
         self.instructions=QTextBrowser();self.instructions.setAccessibleName('Step instructions')
         self.lesson_tabs.addTab(self.design_notes,'Learn');self.lesson_tabs.addTab(self.instructions,'Do this step')
+        hints_page=QScrollArea();hints_page.setWidgetResizable(True)
+        hints_body=QWidget();hints_layout=QVBoxLayout(hints_body);hints_page.setWidget(hints_body)
+        self.hint_question=QComboBox();self.hint_question.setAccessibleName('Knowledge check for hints')
+        self.hints=QuestionHints();hints_layout.addWidget(self.hint_question);hints_layout.addWidget(self.hints)
+        hints_layout.addStretch()
+        self.hints_index=self.lesson_tabs.addTab(hints_page,'Hints')
+        self.hint_question.currentIndexChanged.connect(self.show_question_hints)
         self.lesson_tabs.setMinimumHeight(220)
         self.answer_label=label('Your answer');v.addWidget(self.answer_label)
         self.answer=QComboBox();self.answer.setAccessibleName('Knowledge check answer');self.answer.setMinimumContentsLength(10)
@@ -746,6 +847,9 @@ class LessonGuide(QDockWidget):
     def open_lesson(self,lesson):
         self.save_note();self.lesson=lesson;self.title.setText(lesson['title']);self.active_step=None
         self.design_notes.setHtml(notes_html(self.hub.material['lessons'][lesson['id']]))
+        questions=[step for step in lesson['steps'] if step['kind']=='quiz']
+        quiz_selector(self.hint_question,questions)
+        self.lesson_tabs.setTabEnabled(self.hints_index,bool(questions))
         self.steps.blockSignals(True);self.steps.clear()
         done=earned(self.hub.portfolio.state,lesson)
         for i,step in enumerate(lesson['steps']):self.steps.addItem(f'{i+1}. '+step['title']+(' ✓' if step['id'] in done else ''))
@@ -767,6 +871,10 @@ class LessonGuide(QDockWidget):
         step=self.lesson['steps'][index];self.active_step=step;self.filling=True
         self.instructions.setPlainText(step['instructions'])
         self.lesson_tabs.setCurrentIndex(1)
+        preceding=next((s['id'] for s in reversed(self.lesson['steps'][:index+1]) if s['kind']=='quiz'),None)
+        with QSignalBlocker(self.hint_question):
+            self.hint_question.setCurrentIndex(max(0,self.hint_question.findData(preceding)))
+        self.show_question_hints()
         self.answer.clear();self.answer.addItem('Choose an answer…',None)
         for i,text in enumerate(step.get('options',[])):self.answer.addItem(text,i)
         self.answer.setVisible(step['kind']=='quiz');self.notes.setVisible(step['kind']=='reflection')
@@ -780,6 +888,10 @@ class LessonGuide(QDockWidget):
                  'Previously earned for a captured design.' if step['id'] in earned(self.hub.portfolio.state,self.lesson) else '')
         self.update_next()
         self.update_run_state()
+
+    def show_question_hints(self,*_):
+        hints=self.hub.material['hints'].get(self.lesson['id'],{}) if self.lesson else {}
+        self.hints.set_entries(hints.get(self.hint_question.currentData(),()))
 
     def note_changed(self):
         if not self.filling:

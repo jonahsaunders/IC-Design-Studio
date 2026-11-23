@@ -6,7 +6,7 @@ from pathlib import Path
 
 from icstudio.model import clone, save_project
 from icstudio.student_hub import curriculum, evaluate, Portfolio, lesson_stamp, earned
-from icstudio.student_learning import study_guide, portfolio_html, export_portfolio
+from icstudio.student_learning import hint_source, study_guide, portfolio_html, export_portfolio
 from icstudio.student_projects import create
 from icstudio.student_design_labs import check_layout, DIGITAL_LABS
 from test_student_hub import repaired, execute, engines
@@ -26,6 +26,26 @@ def repaired_layout(kind):
 
 
 class StudentDesignTests(unittest.TestCase):
+    def test_every_knowledge_check_has_four_authored_hints(self):
+        from icstudio.student_inverter import expand
+
+        base = curriculum()
+        profiles = [{'token': 'example-profile'}]
+        data, material = expand(base, study_guide(base), profiles)
+        covered = set()
+        for lesson in data['lessons']:
+            quizzes = {s['id'] for s in lesson['steps'] if s['kind'] == 'quiz'}
+            hints = material['hints'][lesson['id']]
+            self.assertEqual(set(hints), quizzes, lesson['id'])
+            author = 'inverter-' + lesson['inverter_stage'] if lesson['path'] == 'inverter' else lesson['id']
+            for step, entries in hints.items():
+                key = f'{author}/{step}'
+                covered.add(key)
+                self.assertEqual(len(entries), 4, key)
+                self.assertEqual(len({q for q, _ in entries}), 4, key)
+                self.assertTrue(all(q.endswith('?') and a.strip() for q, a in entries), key)
+        self.assertEqual(set(hint_source()), covered)
+
     def test_layout_faults_repairs_and_deletion_or_rule_bypass(self):
         for kind in INTRO_LAYOUT:
             with self.subTest(kind=kind):
@@ -72,12 +92,13 @@ class StudentDesignTests(unittest.TestCase):
                 self.assertIn('result_sha256',evidence)
 
     def test_teaching_edits_do_not_revoke_credit_and_html_escapes_drafts(self):
-        data=curriculum();guide=study_guide(data);lesson=data['lessons'][0];step=lesson['steps'][-1]
+        data=curriculum();guide=clone(study_guide(data));lesson=data['lessons'][0];step=lesson['steps'][-1]
         with tempfile.TemporaryDirectory() as td:
             portfolio=Portfolio(td)
             portfolio.state['lessons'][lesson['id']]=dict(stamp=lesson_stamp(lesson),steps={
                 step['id']:dict(kind='reflection',evidence={'note':'Original captured observation'})},notes={step['id']:'<script>alert("draft")</script>'})
             before=clone(earned(portfolio.state,lesson));guide['lessons'][lesson['id']]['concept']+=' New teaching explanation.'
+            guide['hints'][lesson['id']]['predict'][0] = ['How do I start?', 'Use the formula from Learn.']
             self.assertEqual(earned(portfolio.state,lesson),before)
             rendered=portfolio_html(portfolio,data,guide)
             self.assertNotIn('<script>',rendered);self.assertIn('&lt;script&gt;',rendered)

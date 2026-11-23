@@ -6,7 +6,7 @@ import math
 from pathlib import Path
 
 from .layout import drc, kdb, polygon, rect
-from .model import clone, design_digest, device, example, file_digest, scalar, uid, validate
+from .model import clone, design_digest, device, example, file_digest, now, scalar, uid, validate
 
 
 SHARED = {'floorplan', 'access', 'handoff'}
@@ -669,9 +669,11 @@ def stream_run(p, job, directory):
     path = Path(directory) / 'pass_macro.gds'
     export_layout(p, path)
     inspection = _read_stream(p, path)
-    return dict(project_id=p['id'], cell_id=job['cell'], design_hash=design_digest(p), revision=p['revision'],
+    return dict(schema=1, created=now(), project_id=p['id'], cell_id=job['cell'],
+                design_hash=design_digest(p), revision=p['revision'],
                 settings=clone(job['settings']), engine='Studio layout export + KLayout stream readback',
-                x=[], traces={}, student_stream={'file': path.name, 'sha256': file_digest(path), 'inspection': inspection})
+                x=[], x_label='', y_label='', traces={}, phase={}, operating_point={}, warnings=[],
+                student_stream={'file': path.name, 'sha256': file_digest(path), 'inspection': inspection})
 
 
 def _handoff(p, lesson, step, rows):

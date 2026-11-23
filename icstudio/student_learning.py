@@ -1,8 +1,33 @@
 """Teaching material and a readable, honest portfolio, separate from grading."""
 import html
 import json
+from functools import lru_cache
 
 from .model import atomic_write, now
+
+
+@lru_cache(maxsize=1)
+def hint_source():
+    from .getting_started import resource_root
+    return json.loads((resource_root()/'examples/student-hub/study-hints.json').read_text(encoding='utf-8'))
+
+
+def lesson_hints(lesson, author_id=None):
+    source = hint_source()
+    result = {}
+    for step in lesson['steps']:
+        if step['kind'] != 'quiz':
+            continue
+        key = f'{author_id or lesson["id"]}/{step["id"]}'
+        entries = source.get(key, [])
+        if not isinstance(entries, list) or len(entries) != 4 or any(
+            not isinstance(pair, list) or len(pair) != 2
+            or any(not isinstance(text, str) or not text.strip() for text in pair)
+            or not pair[0].endswith('?') for pair in entries
+        ) or len({pair[0].casefold() for pair in entries}) != 4:
+            raise ValueError('Add four distinct student questions with answers for '+key)
+        result[step['id']] = entries
+    return result
 
 
 def study_guide(data):
@@ -19,6 +44,7 @@ def study_guide(data):
         for field in ('concept','worked_example','try_next','interview','artifact'):
             if not isinstance(note.get(field),str) or not note[field].strip():
                 raise ValueError('Incomplete lesson teaching material: '+field)
+    content['hints'] = {lesson['id']: lesson_hints(lesson) for lesson in data['lessons']}
     return content
 
 

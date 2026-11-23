@@ -57,9 +57,13 @@ selected path. Use the arrow keys to browse list results and **Enter** on a
 result to open the lesson. Use the progress filter to find lessons by readiness
 or completion. **Clear filters** restores the previous view when a search has
 no matches. Select **Study notes** to
-read the worked example, or **Quick check** to try the lesson prediction and see
-its explanation before opening a project. Quick checks are practice. The guided
-lesson records earned steps in your portfolio.
+read the worked example, or **Quick check** to try the lesson predictions and
+read their explanations before opening a project. Use **Hints** in Quick check
+or in the Lesson Guide to see four common student questions for each knowledge
+check. Select a question to reveal its answer or the next measurement to try.
+When a lesson has several knowledge checks, use the selector to switch between
+them. The guided lesson records earned steps in your portfolio. Reading hints
+and trying Quick check leaves your learning record unchanged.
 
 The workspace tabs keep each editor in place, and practice answers give feedback
 beside the question. [Apple tab bars](https://developer.apple.com/design/human-interface-guidelines/tab-bars) ·

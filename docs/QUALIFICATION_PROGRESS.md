@@ -37,6 +37,15 @@ maximum error in the teaching model. Qt offscreen exercised the lesson form,
 results and saved calibration. Next, run the hosted checks for the review
 commit. See the [signal experiment guide](STUDENT_SIGNAL_LABS.md).
 
+**November 23, 2026 — Student Hub knowledge-check hints (UX-02).** On
+review base `b5a73f4`, all 114 authored knowledge checks, including the eight
+CMOS inverter questions shared across process revisions, have four contextual
+student questions and answers. Windows Qt offscreen covered keyboard reveal,
+question switching and the learning record in Quick check and the Lesson Guide.
+Source coverage checked every question against the authored content. Next,
+verify the review commit in the hosted desktop workflow. See the
+[Student Hub guide](STUDENT_HUB.md#learn-beside-the-real-editor).
+
 **November 20, 2026 — Measured width and spacing reviews (LAY-12, UX-02).**
 Extending the via review at `14368c3`, the assistant can preview and apply
 single-shape repairs against Studio's geometry rules. Both Student Hub fixtures
