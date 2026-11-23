@@ -65,8 +65,9 @@ When a lesson has several knowledge checks, use the selector to switch between
 them. The guided lesson records earned steps in your portfolio. Reading hints
 and trying Quick check leaves your learning record unchanged.
 
-Use **Ask AI…** in Quick check or the Lesson Guide to ask about the selected
-question or task. Studio opens its AI Assistant beside the lesson and suggests
+Use **Ask Resisty…** in Quick check or the Lesson Guide to ask about the selected
+question or task. Resisty is Studio's AI lesson helper, marked with a waving
+resistor mascot. The panel opens beside the lesson and suggests
 an editable first question. Choose **Set Up…** if you need to connect a
 provider. **Full request** shows the lesson text, your question and any
 recent messages in this conversation. Choose **Send** to request an answer,

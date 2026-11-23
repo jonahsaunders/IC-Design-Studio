@@ -2,7 +2,7 @@
 import json
 import os
 
-from PySide6.QtCore import Qt, QEvent, QTimer, QUrl
+from PySide6.QtCore import Qt, QEvent, QSize, QTimer, QUrl
 from PySide6.QtNetwork import QNetworkAccessManager, QNetworkReply, QNetworkRequest
 from PySide6.QtWidgets import (QComboBox, QDialog, QDialogButtonBox, QDockWidget, QFormLayout, QHBoxLayout,
                                QLabel, QLineEdit, QMenu, QPlainTextEdit, QPushButton, QTabWidget, QToolButton,
@@ -13,6 +13,7 @@ from .ai_investigation import solver
 from .model import clone, design_digest
 from .ai_review_ui import ReviewTools
 from .analog_widgets import FlowActions, scroll
+from .ui_style import icon
 
 
 def label(text=''):
@@ -110,6 +111,12 @@ class Assistant(ReviewTools, QDockWidget):
         layout.setSpacing(8)
         row = QHBoxLayout()
         layout.addLayout(row)
+        self.resisty_avatar = label()
+        self.resisty_avatar.setPixmap(icon('resisty').pixmap(QSize(58, 58), self.devicePixelRatioF()))
+        self.resisty_avatar.setAccessibleName('Resisty, a smiling resistor waving one lead')
+        self.resisty_avatar.setToolTip('Resisty · One ohm at a time.')
+        row.addWidget(self.resisty_avatar)
+        self.resisty_avatar.hide()
         self.account = label()
         self.account.setProperty('role','subtitle')
         row.addWidget(self.account, 1)
@@ -298,6 +305,9 @@ class Assistant(ReviewTools, QDockWidget):
     def controls(self):
         busy = self.reply is not None
         action = self.action.currentData()
+        lesson = action == 'lesson'
+        self.setWindowTitle('Resisty' if lesson else 'AI Assistant')
+        self.resisty_avatar.setVisible(lesson)
         self.layout_tools.setEnabled(not busy)
         bench = action == 'bench'
         for w in (self.connection, self.action, self.note, self.run):

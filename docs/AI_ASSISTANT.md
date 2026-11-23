@@ -6,12 +6,12 @@ The **Request** tab summarizes the selected components, connections or saved run
 
 ## Ask about a lesson
 
-In Student Hub, choose **Ask AI…** in **Quick check** or the **Lesson Guide**.
-Studio opens the same assistant with the selected knowledge check or task.
+In Student Hub, choose **Ask Resisty…** in **Quick check** or the **Lesson Guide**.
+Resisty uses the same assistant with the selected knowledge check or task.
 Edit the suggested question, review **Full request**, then choose **Send**.
 The lesson request contains the authored lesson text, your question and recent
 messages about that step. Ask for a hint, an explanation, or a measurement to
-try. Open **Ask AI…** on another step to start a conversation about that step.
+try. Open **Ask Resisty…** on another step to start a conversation about that step.
 
 ## Investigate a layout
 

@@ -55,6 +55,14 @@ the separation of authored context from project state and reflection drafts.
 Next, verify the review commit in the hosted desktop workflow. See the
 [lesson assistant guide](AI_ASSISTANT.md#ask-about-a-lesson).
 
+**November 23, 2026 — Resisty lesson helper (UX-02).** On review base
+`df9af13`, Student Hub labels its assistant entry points Ask Resisty and shows
+the original waving resistor in the lesson assistant. Windows Qt offscreen
+checks verified the icon, lesson title, provider setup and follow-up requests.
+The avatar was checked at compact width in light and dark appearance. Next,
+verify the review commit in the hosted desktop workflow. See the
+[lesson assistant guide](AI_ASSISTANT.md#ask-about-a-lesson).
+
 **November 20, 2026 — Measured width and spacing reviews (LAY-12, UX-02).**
 Extending the via review at `14368c3`, the assistant can preview and apply
 single-shape repairs against Studio's geometry rules. Both Student Hub fixtures

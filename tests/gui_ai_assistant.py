@@ -127,8 +127,12 @@ class AssistantDesktop(unittest.TestCase):
         self.assertTrue(panel.isVisible())
         self.assertTrue(panel.note.hasFocus())
         self.assertEqual(panel.action.currentData(), 'lesson')
+        self.assertEqual(panel.windowTitle(), 'Resisty')
+        self.assertTrue(panel.resisty_avatar.isVisible())
+        self.assertTrue(panel.resisty_avatar.pixmap().hasAlphaChannel())
         self.assertEqual(panel.lesson_context['step'], quick.step['title'])
         self.assertIn(quick.step['instructions'], panel.preview.toPlainText())
+        self.assertIn('You are Resisty', panel.preview.toPlainText())
         self.assertNotIn('Private open project marker', panel.preview.toPlainText())
         self.assertNotIn('session-secret', panel.preview.toPlainText())
         self.assertEqual(set(panel.lesson_context), {'lesson', 'overview', 'step', 'type', 'instructions'})
@@ -166,6 +170,8 @@ class AssistantDesktop(unittest.TestCase):
         hub.select_lesson('c-temperature')
         hub.start_selected()
         guide = hub.guide
+        self.assertEqual(guide.ask_button.text(), 'Ask Resisty…')
+        self.assertFalse(guide.ask_button.icon().pixmap(24,24).isNull())
         anchor = next(i for i, step in enumerate(guide.lesson['steps']) if step['id'] == 'anchor')
         guide.steps.setCurrentIndex(anchor)
         guide.ask_button.click()
@@ -184,6 +190,9 @@ class AssistantDesktop(unittest.TestCase):
         self.assertEqual(panel.lesson_context['type'], 'reflection')
         self.assertNotIn('Private student reflection marker', panel.preview.toPlainText())
         self.assertEqual(len(self.server.requests), count + 2)
+        panel.action.setCurrentIndex(panel.action.findData('circuit'))
+        self.assertEqual(panel.windowTitle(), 'AI Assistant')
+        self.assertTrue(panel.resisty_avatar.isHidden())
 
     def test_compact_workspace_commands_and_view_picker(self):
         studio = self.studio

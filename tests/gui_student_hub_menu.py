@@ -254,6 +254,8 @@ class StudentHubMenuTests(unittest.TestCase):
         self.assertIsNone(getattr(studio, '_ai_assistant', None))
         hub.select_lesson('f-first')
         hub.preview.setCurrentWidget(hub.prediction)
+        self.assertEqual(hub.prediction.ask_button.text(), 'Ask Resisty…')
+        self.assertFalse(hub.prediction.ask_button.icon().pixmap(24,24).isNull())
         hub.prediction.ask_button.click()
         self.app.processEvents()
         panel = studio._ai_assistant

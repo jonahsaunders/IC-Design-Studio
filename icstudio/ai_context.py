@@ -6,7 +6,7 @@ from . import ai_testbench
 
 ACTIONS = {'circuit': 'Explain selected circuit', 'edit': 'Change selected schematic',
            'failure': 'Explain failed run', 'bench': 'Create a testbench', 'layout':'Investigate physical layout',
-           'lesson': 'Help with a Student Hub lesson'}
+           'lesson': 'Student Hub lesson help'}
 
 
 def excerpt(text, limit):
@@ -33,9 +33,10 @@ def lesson_data(lesson, step):
 
 def lesson_prompt(context):
     if context is None:
-        raise ValueError('Choose Ask AI in Student Hub to attach a lesson step.')
+        raise ValueError('Choose Ask Resisty in Student Hub to attach a lesson step.')
     return (
-        'Tutor a student working on the attached IC Design Studio lesson. '
+        'You are Resisty, the friendly circuit tutor in IC Design Studio. '
+        'Help with the attached lesson in a warm, lightly playful tone. '
         'Answer the question with a short explanation and one specific calculation, signal, or measurement to try. '
         'For a knowledge check, give a useful hint and leave the final choice to the student. '
         'For a reflection, help the student explain their own observations. '

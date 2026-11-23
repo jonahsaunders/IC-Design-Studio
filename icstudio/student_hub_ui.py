@@ -13,7 +13,7 @@ from PySide6.QtWidgets import (QDialog,QWidget,QVBoxLayout,QHBoxLayout,QGridLayo
 from .model import digest, load_project, save_project, uid
 from .student_hub import (Portfolio,curriculum,earned,complete,missing_prerequisites,next_lesson,
                          prepare_lesson,campaign_jobs,evaluate)
-from .ui_style import palette, stylesheet
+from .ui_style import icon, palette, stylesheet
 from .student_learning import study_guide, notes_html, overview_html, export_portfolio
 from .student_world_map import LessonTrail, WorldMap
 
@@ -30,6 +30,14 @@ def button(text, callback, role=None):
     widget.setAutoDefault(False);widget.setDefault(False)
     if role:widget.setProperty('role',role)
     widget.clicked.connect(lambda _=False:callback())
+    return widget
+
+
+def resisty_button(callback, subject):
+    widget = button('Ask Resisty…', callback, 'secondary')
+    widget.setIcon(icon('resisty'))
+    widget.setIconSize(QSize(24, 24))
+    widget.setAccessibleName('Ask Resisty, the AI helper, about ' + subject)
     return widget
 
 
@@ -164,8 +172,7 @@ class PredictionPreview(QScrollArea):
         self.hint_button.setCheckable(True)
         self.hint_button.setAutoDefault(False)
         self.hint_button.setAccessibleDescription('Reveal or collapse student questions and advice')
-        self.ask_button = button('Ask AI…', lambda:ask_ai(self.lesson,self.step), 'secondary')
-        self.ask_button.setAccessibleName('Ask AI about this knowledge check')
+        self.ask_button = resisty_button(lambda:ask_ai(self.lesson,self.step), 'this knowledge check')
         self.hints = QuestionHints()
         self.hint_button.toggled.connect(self.toggle_hints)
         from .analog_widgets import FlowActions
@@ -789,8 +796,7 @@ class LessonGuide(QDockWidget):
         self.note_status=label('','muted');v.addWidget(self.note_status)
         self.check_button=button('Check this step',lambda:self.call(self.check),'primary');v.addWidget(self.check_button)
         self.feedback=label('');self.feedback.setTextInteractionFlags(Qt.TextSelectableByMouse);v.addWidget(self.feedback)
-        self.ask_button=button('Ask AI…',lambda:self.call(self.ask_ai),'secondary')
-        self.ask_button.setAccessibleName('Ask AI about this lesson step')
+        self.ask_button=resisty_button(lambda:self.call(self.ask_ai),'this lesson step')
         self.ask_button.hide();v.addWidget(self.ask_button)
         self.next_button=button('Next step',lambda:self.call(self.advance),'secondary');v.addWidget(self.next_button);self.next_button.hide()
         self.run_status=label('','muted');v.addWidget(self.run_status)
