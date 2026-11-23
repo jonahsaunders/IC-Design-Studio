@@ -384,6 +384,7 @@ Expand a category for the detailed inventory. Features requiring an external eng
 |---|---|
 | Analyses | Built-in educational solver; native ngspice operating point, transient, DC sweep, AC response, and noise; graphical source/output/temperature configuration |
 | Existing simulation programs | Supported imported SPICE control programs; analysis tables and measurements; saved programs and original source retention; optional first-point DC voltage guesses |
+| Advanced simulation | Small-signal one- to eight-port S-parameters with Y/Z views and Touchstone export; queued execution of captured decks with a configured external simulator. [Setup and scope](ADVANCED_SIMULATION.md) |
 | Run management | Queued and cancellable runs; progress and logs; immutable saved inputs; failed-run inspection; rerun from saved input; revision-aware history |
 | Waveform inspection | Voltage and current traces; pan/zoom and fit; X/Y markers; exact-coordinate and threshold inspection; previous-run comparison |
 | Calculations and export | Saved multi-panel plots; complex AC arithmetic, phase and dB; FFT for uniform time samples; derivatives and integrals; RMS, peaks, crossings, settling, frequency, and delay measurements; schematic readouts; CSV export |

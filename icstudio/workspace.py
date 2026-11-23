@@ -21,6 +21,8 @@ DEVICE_ICONS={'R':'resistor','C':'capacitor','L':'inductor','V':'voltage','I':'c
 ANALYSES={'tran':'Transient','op':'Operating point','dc':'DC sweep','ac':'AC response','noise':'Noise','study':'Study','post_layout':'Post-layout estimate','connectivity':'Physical connectivity','parasitics':'Capacitance estimate','drc':'Geometry DRC','deck':'SPICE testbench'}
 ANALYSES['xschem']='Xschem program'
 ANALYSES['program']='Native simulation program'
+ANALYSES['rf_network']='RF network'
+ANALYSES['external_simulator']='External simulator'
 
 def device_description(d):
     info=d.get('native_spice')
@@ -620,6 +622,9 @@ class WorkspaceMixin:
     @staticmethod
     def comparable_runs(current,other):
         from .plot import analysis_kind
+        if current['settings']['type']=='rf_network' and other['settings']['type']=='rf_network':
+            if any(current['settings'][key]!=other['settings'][key] for key in ('ports','impedance')):
+                return False
         return (current is not other and bool(current.get('x') and other.get('x'))
                 and current['cell_id']==other['cell_id'] and analysis_kind(current)==analysis_kind(other)
                 and current.get('x_label')==other.get('x_label')

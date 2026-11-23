@@ -1,5 +1,15 @@
 # Chunks 1–12: progress and forecast
 
+**November 23, 2026 — RF network and external simulation (RF-02, RF-03,
+SIM-21).** On experimental base `fb8fb58`, Studio queues one- to eight-port
+small-signal sweeps, inspects S/Y/Z where defined and exports Touchstone.
+Native Windows ngspice 46 matched analytical one-, two- and three-port
+fixtures. The desktop also queued a captured external ngspice deck and
+recovered the real divider output from its archived dependency. The next
+reference check is a harmonic-balance deck on a working Xyce installation.
+Periodic analyses and general AMS still require dedicated reference runs and
+native workflows. See the [advanced simulation guide](ADVANCED_SIMULATION.md).
+
 **November 20, 2026 — Measured width and spacing reviews (LAY-12, UX-02).**
 Extending the via review at `14368c3`, the assistant can preview and apply
 single-shape repairs against Studio's geometry rules. Both Student Hub fixtures
