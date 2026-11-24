@@ -1,0 +1,83 @@
+name: Build and test VGA assets
+on:
+  workflow_call:
+    inputs:
+      windows-install-probe:
+        description: Check a fresh per-user Windows installation of the VGA-enabled shell
+        default: false
+        type: boolean
+permissions:
+  contents: read
+jobs:
+  preview:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install Qt desktop dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y iverilog xvfb xauth libegl1 libopengl0 libgl1 libxtst6 libxkbfile1 libnss3 libasound2 libxkbcommon-x11-0 libxcb-cursor0 libxcb-icccm4 libxcb-keysyms1 libxcb-shape0 libxcb-xinerama0
+          python -m pip install -r requirements.txt
+      - uses: ./.github/actions/build-vga-compiler
+      - name: Build and test pinned simulator
+        run: python scripts/build_vga_playground.py --test
+      - name: Test source exchange and local assets
+        run: python -m unittest tests.test_digital_vga -v
+      - name: Verify Beacon Run progression and grading
+        if: hashFiles('tests/test_student_beacon.py') != ''
+        run: python -m unittest tests.test_student_beacon -v
+      - name: Verify live embedded rendering and project lifecycle
+        env:
+          QT_QPA_PLATFORM: xcb
+          QTWEBENGINE_CHROMIUM_FLAGS: --disable-gpu
+          QT_QUICK_BACKEND: software
+        run: xvfb-run -a python tests/gui_digital_vga.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: vga-playground-evidence
+          path: build/digital-vga-ui
+      - uses: actions/upload-artifact@v4
+        if: inputs.windows-install-probe
+        with:
+          name: vga-release-assets
+          path: build/vga-playground/dist
+          if-no-files-found: error
+  windows-install:
+    if: inputs.windows-install-probe
+    needs: preview
+    runs-on: windows-2022
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: vga-release-assets
+          path: build/vga-playground/dist
+      - name: Install desktop build tools
+        shell: pwsh
+        run: |
+          python -m pip install -r requirements-build.txt
+          if ($LASTEXITCODE -ne 0) { throw 'Installing the pinned desktop build tools failed.' }
+          $iscc = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
+          if (-not (Test-Path -LiteralPath $iscc)) {
+            choco install innosetup --yes --no-progress
+            if ($LASTEXITCODE -ne 0) { throw 'Installing Inno Setup on the runner failed.' }
+          }
+      - name: Verify offline VGA from a fresh Windows installation
+        run: python scripts/verify_windows_vga_install.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: windows-vga-install-evidence
+          path: build/windows-vga-install-evidence

@@ -305,7 +305,9 @@ peer or instructor. These exercises are available in both modes.
 
 ### Two native testbench workflows
 
-The ten [Testbenches lessons](STUDENT_TESTBENCHES.md) teach operating points, DC sweeps, AC gain, and transient response. Choose **Graphical testbench** to configure the fixture, probes, and measurements in Studio's saved-testbench editor. Choose **SPICE program** to write the native ngspice analysis and measurement commands. Both use the same editable circuit and pass criteria. **Results** lets you compare the saved measurement, waveform, and log from either workflow.
+The [Testbenches lessons](STUDENT_TESTBENCHES.md) teach operating points, DC sweeps, AC gain, transient response, and noise. Choose **Graphical testbench** to configure the fixture, probes, and measurements in Studio's saved-testbench editor. Choose **SPICE program** to write the native ngspice analysis and measurement commands. Both use the same editable circuit and pass criteria. **Results** lets you compare the saved measurement, waveform, and log from either workflow.
+
+[Build an Op-Amp Verification Suite](STUDENT_TESTBENCHES.md#build-an-op-amp-verification-suite) adds six characterization lessons and a fault-diagnosis challenge to the Testbenches world. The project uses one shared workspace, a working reference amplifier, and editable fixtures for each measurement.
 
 <details><summary>Graphical testbench, SPICE program, and saved results</summary>
 
@@ -316,6 +318,30 @@ The ten [Testbenches lessons](STUDENT_TESTBENCHES.md) teach operating points, DC
 ![Saved op-amp AC testbench results with a run picker and gain waveform](images/student-hub/testbench-results.jpg)
 
 </details>
+
+### Cross-world paths
+
+Choose **Cross-world paths** in the Student Hub to follow a sequence of
+existing lessons built around a shared engineering question. The path shows
+earned checkpoint evidence, and **Continue path** opens the next unfinished
+milestone. Lesson prerequisites appear in its overview.
+
+| Path | Worlds in order | What carries forward |
+| --- | --- | --- |
+| Feedback and compensation | Analog → Testbenches → Analog Projects | Tuned filter frequency, Q, and phase inform the loaded loop study. The measured crossing, phase margin, and follower step inform the Miller comparison. |
+| Sensor signal to bits | Testbenches → Mixed Signal → Digital | Measured TIA settling becomes a pre-settling budget in SAR comparison periods. The observed SAR code becomes the payload for the SPI framing exercise. |
+| RTL to layout evidence | Digital → Standard Cells → Career | The verified mux truth table guides the layout-loaded checks. The observed voltage change and verified samples support the design review. |
+
+The destination guide shows the previous checkpoint's reading and the task that
+uses it. On its reflection step, **Add handoff to reflection** brings the
+reading into the draft so you can explain it alongside your own observations.
+
+### Beacon Run in the VGA Playground
+
+The Digital world includes five [Beacon Run lessons](STUDENT_BEACON_RUN.md).
+Build a test card, draw the board, add frame-based movement, collect beacons,
+and finish the game in one RTL project. Each lesson checks the cumulative
+behavior with the same regression bench.
 
 Use **View → Lesson guide** to reopen the guide while working. **Cancel lesson runs** stops runs from that lesson project. Use **Student Hub menu → Locate lesson project** if you move a saved file, or **Reload progress** to read edits saved by another window. See the [Student Hub workflow audit](STUDENT_HUB_AUDIT.md) for the desktop checks.
 

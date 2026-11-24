@@ -41,6 +41,7 @@ RUN curl -fL --retry 3 -o /tmp/openvaf.tgz https://fides.fe.uni-lj.si/openvaf/do
     && cp -r /tmp/ihp-pdk/libs.tech/verilog-a /opt/icstudio/osdi/ihp-sg13g2/sources \
     && rm -rf /tmp/openvaf /tmp/openvaf.tgz /tmp/ihp-pdk /tmp/compile_ihp_osdi.py
 COPY licenses /opt/icstudio/licenses
+RUN cp /opt/icstudio/licenses/ECL-2.0.txt /opt/icstudio/osdi/ihp-sg13g2/sources/r3_cmc/ECL-2.0.txt
 COPY scripts /tmp/studio/scripts
 COPY docs/qualification /tmp/studio/docs/qualification
 COPY tests/fixtures/sky130-filled-references-v1.zip /tmp/studio/tests/fixtures/sky130-filled-references-v1.zip

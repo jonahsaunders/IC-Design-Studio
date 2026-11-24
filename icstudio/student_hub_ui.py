@@ -386,6 +386,8 @@ class StudentHub(QWidget):
         self.difficulty_filter.addItems(['All difficulties',*DIFFICULTIES])
         self.controls.addWidget(self.difficulty_filter)
         self.controls.addWidget(self.search,1)
+        self.cross_world_button=button('Cross-world paths…',self.open_cross_world_paths,'secondary')
+        root.addWidget(self.cross_world_button,0,Qt.AlignLeft)
         self.map_heading=label('World map','title');root.addWidget(self.map_heading)
         self.world_header=QWidget();world_row=QHBoxLayout(self.world_header);world_row.setContentsMargins(0,0,0,0)
         self.back=button('‹  World map',self.show_map,'hubBack');self.back.setAccessibleName('Back to world map')
@@ -516,6 +518,33 @@ class StudentHub(QWidget):
         self.search_origin=None
         if self.search.text():self.search.clear()
         else:self.fill()
+
+    def open_cross_world_paths(self):
+        from .student_paths_ui import CrossWorldPaths
+        dialog = CrossWorldPaths(self)
+        dialog.setAttribute(Qt.WA_DeleteOnClose)
+        dialog.show()
+        return dialog
+
+    def active_path(self):
+        return self.studio.settings.value('student/crossWorldPath','',str)
+
+    def path_handoff(self,lesson):
+        from .student_paths import ROUTES, handoff
+        route = ROUTES.get(self.active_path())
+        if route and lesson:
+            return handoff(route,lesson['id'],self.portfolio.state,self.by_id)
+        return None
+
+    def next_path_lesson(self,lesson):
+        from .student_paths import ROUTES, milestones
+        route = ROUTES.get(self.active_path())
+        if route:
+            results = milestones(route,self.portfolio.state,self.by_id)
+            for index, (current, following) in enumerate(zip(route.milestones,route.milestones[1:])):
+                if current.lesson==lesson['id'] and all(results[:index+1]):
+                    return following.lesson
+        return None
 
     def set_mode(self,mode):
         self.mode=mode
@@ -690,9 +719,11 @@ class StudentHub(QWidget):
         cap='<p>This milestone continues the same sensor project. Earlier repairs are preserved.</p>' if l['path']=='capstone' and not l.get('signal_lab') else ''
         goal=f'<p><b>{esc(l["goal"])}</b></p>' if l.get('goal') else ''
         teaching=self.material['lessons'][l['id']]
+        from .student_paths_ui import handoff_html
+        handoff=handoff_html(self.path_handoff(l))
         self.study_notes.setHtml(f'<h2>{esc(l["title"])}</h2>'+notes_html(teaching,l)+preparation_html(l))
         self.details.setHtml(f'<h2>{esc(l["title"])}</h2><p><b>{l["difficulty"]}</b> · {l["minutes"]} min</p><p>{esc(l["summary"])}</p>{goal}{cap}<p><b>Skills</b><br>{esc(" · ".join(l["skills"]))}</p>'+
-            overview_html(teaching)+preparation_html(l)+
+            handoff+overview_html(teaching)+preparation_html(l)+
             (f'<p><b>Complete first</b><br>{pre}</p><p>{len(missing)} prerequisite lesson(s) remaining. You can practice now; earn progression credit after the prerequisites.</p>' if missing else '<p>Ready for guided work in the real editor.</p>')+
             f'<ol>{rows}</ol><p>Earlier earned steps remain a record of the design that passed at that time.</p>')
         self.progress.setRange(0,len(l['steps']));self.progress.setValue(len(done));self.progress.setFormat('%v of %m steps earned')
@@ -1012,13 +1043,13 @@ class LessonGuide(QDockWidget):
         self.notes=QPlainTextEdit();self.notes.setPlaceholderText('Record your observations and reasoning…');self.notes.setAccessibleName('Lesson reflection');self.notes.setMinimumHeight(100);self.notes.setMaximumHeight(220);v.addWidget(self.notes);self.notes_label.setBuddy(self.notes)
         self.note_status=label('','muted');v.addWidget(self.note_status)
         self.controls={}
-        for title,fn in [('Open workspace',self.workspace),('Open RTL',self.rtl),
+        for title,fn in [('Open workspace',self.workspace),('Open RTL',self.rtl),('Open VGA Playground',self.open_vga),
                          ('Mixed-signal experiment…',self.mixed_signal_setup),('Run lesson',self.run),
                          ('Results',self.results),('Cancel lesson runs',self.cancel),('Save work',self.save_work),
                          ('Student Hub',self.show_hub),('Engine setup',hub.setup)]:
             self.controls[title]=button(title,lambda fn=fn:self.call(fn))
         editors=FlowActions();v.addLayout(editors)
-        for name in ('Open workspace','Open RTL','Mixed-signal experiment…'):
+        for name in ('Open workspace','Open RTL','Open VGA Playground','Mixed-signal experiment…'):
             editors.addWidget(self.controls[name])
         self.inverter_actions=QWidget();iv=FlowActions(self.inverter_actions);v.addWidget(self.inverter_actions)
         self.inverter_buttons=[]
@@ -1042,6 +1073,8 @@ class LessonGuide(QDockWidget):
         self.check_button=button('Check this step',lambda:self.call(self.check),'primary');v.addWidget(self.check_button)
         self.feedback=label('');self.feedback.setTextInteractionFlags(Qt.TextSelectableByMouse);v.addWidget(self.feedback)
         self.next_button=button('Next step',lambda:self.call(self.advance),'secondary');v.addWidget(self.next_button);self.next_button.hide()
+        self.handoff_button=button('Add handoff to reflection',lambda:self.call(self.add_handoff),'secondary')
+        v.addWidget(self.handoff_button);self.handoff_button.hide()
         footer=FlowActions();v.addLayout(footer)
         for name in ('Save work','Student Hub','Engine setup'):
             footer.addWidget(self.controls[name])
@@ -1130,9 +1163,24 @@ class LessonGuide(QDockWidget):
             practice=self.hub.material['practice'][self.lesson['id']]
             guided=self.mode_picker.currentData()=='guided'
             content=task_html(self.active_step,practice,guided,workflow=self.bench_workflow.currentData())
+            from .student_paths_ui import handoff_html
+            handoff = self.hub.path_handoff(self.lesson)
+            self.handoff_button.setVisible(bool(self.active_step['kind']=='reflection' and handoff and handoff['reading']))
+            content = handoff_html(handoff) + content
             if guided:
                 content='<p><a href="step-images">Show step images…</a></p>'+content
             self.instructions.setHtml(content)
+
+    def add_handoff(self):
+        from .student_paths import handoff_note
+        item = self.hub.path_handoff(self.lesson)
+        if self.active_step['kind']!='reflection' or not item or not item['reading']:
+            return
+        text = handoff_note(item)
+        if text not in self.notes.toPlainText():
+            self.notes.appendPlainText(text)
+            self.save_note()
+        self.notes.setFocus()
 
     def change_bench_workflow(self,*_):
         if self.lesson and self.lesson.get('bench_project'):
@@ -1225,7 +1273,7 @@ class LessonGuide(QDockWidget):
         elif 'bench_reading' in evidence:
             from .student_testbench import WORKFLOWS
             workflow=WORKFLOWS[evidence['bench_workflow']]
-            feedback(self.feedback,f'{workflow} passed at {evidence["bench_reading"]:.5g} V. Evidence saved.',role='correct')
+            feedback(self.feedback,f'{workflow} passed at {evidence["bench_reading"]:.5g} {evidence.get("bench_unit","V")}. Evidence saved.',role='correct')
         elif 'device_metrics' in evidence:
             point=evidence['device_metrics']
             feedback(self.feedback,f'Checkpoint passed. ID = {point["id"]*1e6:.3g} µA; gm = {point["gm"]*1e6:.3g} µS; gm/ID = {point["gmid"]:.3g} V⁻¹; headroom = {point.get("headroom",0):.3g} V. Evidence saved.')
@@ -1277,14 +1325,24 @@ class LessonGuide(QDockWidget):
         done=earned(self.hub.portfolio.state,self.lesson)
         practice_next=self.practice_passed and self.steps.currentIndex()+1<self.steps.count()
         self.next_button.setVisible(bool(self.active_step and (self.active_step['id'] in done or practice_next)))
-        self.next_button.setText('Continue learning' if complete(self.hub.portfolio.state,self.lesson) else 'Next step')
+        if complete(self.hub.portfolio.state,self.lesson):
+            self.next_button.setText('Continue path' if self.hub.next_path_lesson(self.lesson) else 'Continue learning')
+        else:
+            self.next_button.setText('Next step')
 
     def advance(self):
         if self.practice_passed:
             if self.steps.currentIndex()+1<self.steps.count():
                 self.steps.setCurrentIndex(self.steps.currentIndex()+1);self.steps.setFocus()
             return
-        if complete(self.hub.portfolio.state,self.lesson):self.hub.continue_learning();return
+        if complete(self.hub.portfolio.state,self.lesson):
+            next_lesson = self.hub.next_path_lesson(self.lesson)
+            if next_lesson:
+                self.show_hub()
+                self.hub.select_lesson(next_lesson)
+            else:
+                self.hub.continue_learning()
+            return
         done=earned(self.hub.portfolio.state,self.lesson)
         index=next((i for i,s in enumerate(self.lesson['steps']) if s['id'] not in done),None)
         if index is not None:self.steps.setCurrentIndex(index);self.steps.setFocus()
@@ -1440,6 +1498,10 @@ class LessonGuide(QDockWidget):
         if not config(s.project,cid):raise ValueError('This lesson has no RTL cell.')
         s.cid=cid;s.digital_window().workspace.switch_cell(cid);self.show();self.raise_()
 
+    def open_vga(self):
+        self.rtl()
+        self.studio.digital_window().show_vga()
+
     def mixed_signal_setup(self):
         from .mixed_signal_ui import show
         self.require_project();dialog=show(self.studio)
@@ -1453,7 +1515,7 @@ class LessonGuide(QDockWidget):
             job=prepare(s.project,self.lesson,self.hub.tools())
         elif self.lesson.get('bench_project'):
             from .student_testbench import prepare
-            job=prepare(s.project,self.lesson,self.bench_workflow.currentData(),self.hub.tools())
+            job=prepare(s.project,self.lesson,self.bench_workflow.currentData(),self.hub.tools(),self.active_step['id'])
         elif self.lesson.get('signal_lab'):
             from .student_signal_labs import prepare
             job=prepare(s.project,self.lesson,self.active_step['id'],self.hub.tools())
@@ -1541,6 +1603,8 @@ class LessonGuide(QDockWidget):
         rtl=bool(bound and config(project,mixed.get('digital_cell',project['top'])))
         self.controls['Open RTL'].setVisible(rtl)
         self.controls['Open RTL'].setEnabled(rtl)
+        self.controls['Open VGA Playground'].setVisible(bool(self.lesson.get('vga_lesson')))
+        self.controls['Open VGA Playground'].setEnabled(rtl)
         self.controls['Open workspace'].setVisible(not rtl or bool(mixed))
         self.controls['Mixed-signal experiment…'].setVisible(bool(mixed))
         self.controls['Mixed-signal experiment…'].setEnabled(bool(mixed))
@@ -1584,8 +1648,12 @@ class LessonGuide(QDockWidget):
                     self.analog_action.show()
         elif bench_path:
             run_button.setVisible(is_check)
-            self.analog_action.setText('Edit SPICE program…' if self.bench_workflow.currentData()=='spice'
-                                       else 'Edit testbench…')
+            from .student_testbench import checkpoint_key, course
+            reuse = is_check and course()[checkpoint_key(self.lesson,self.active_step['id'])].get('reuse')
+            if reuse:
+                run_button.setText('Compare reference and variant')
+            prefix = 'Edit reference ' if reuse else 'Edit '
+            self.analog_action.setText(prefix+('SPICE program…' if self.bench_workflow.currentData()=='spice' else 'testbench…'))
             self.analog_action.setEnabled(can_run);self.analog_action.setVisible(is_check)
         elif kind and self.active_step:
             from .student_analog import run_names

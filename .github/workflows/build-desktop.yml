@@ -43,8 +43,23 @@ jobs:
   digital-runtime:
     needs: candidate
     uses: ./.github/workflows/digital-runtime.yml
+  vga-compiler:
+    needs: candidate
+    runs-on: ubuntu-22.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: ./.github/actions/build-vga-compiler
+      - uses: actions/upload-artifact@v4
+        with:
+          name: vga-compiler
+          path: build/vga-playground/compiler
+          if-no-files-found: error
   package:
-    needs: [digital-runtime, release-tools]
+    needs: [digital-runtime, release-tools, vga-compiler]
     strategy:
       fail-fast: false
       matrix:
@@ -187,6 +202,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
+      - uses: actions/download-artifact@v4
+        with:
+          name: vga-compiler
+          path: build/vga-playground/compiler
       - name: Build pinned offline VGA Playground
         run: python scripts/build_vga_playground.py --test
       - name: Install Linux desktop and simulator dependency libraries

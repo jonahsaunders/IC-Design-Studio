@@ -1,5 +1,71 @@
 # Chunks 1–12: progress and forecast
 
+**November 24, 2026 — Installed VGA compiler and Student Hub integration
+(EDU-01–08, EXP-01, UX-02).** On experimental base `a5364497`, source revision
+`53d7f3c9` rebuilt the pinned Verilator WebAssembly compiler and passed all 98
+simulator tests, embedded VGA rendering, and grading for all five Beacon Run
+milestones. The Windows check installed a frozen Studio shell into a fresh
+per-user directory with spaces, then ran the offline packaged probe with
+only Windows system directories on PATH. All eight presets passed. The
+installed bundle passed compiler and source archive identity checks and
+included the Educational Community License text.
+
+The requested VGA integration and Student Hub changes are estimated 100%
+complete for experimental engineering. The focused installer isolated the
+VGA path from the separate physical and simulation runtimes. Complete
+release packages still require the [desktop release gates](RELEASING.md).
+The Windows and Ubuntu GUI groups passed. Both contract groups hit the
+retained GF180 density acceptance binding for `mixed_signal.py`, already stale on `a5364497`.
+See the [VGA source and install run](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/45451754338)
+and [source feedback](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/45451754408).
+
+**November 24, 2026 — Beacon Run and VGA distribution sources
+(EDU-01–08, UX-02).** On draft base `6394e6b6`, five Digital world
+milestones share an editable TinyVGA RTL project. The Verilog exercises cover
+sync and blanking, object priority, frame-tick movement, collection, and
+collision/win/restart state. Icarus checked one full 800 × 525 frame and
+verified that each solution advances the corresponding cumulative test.
+The VGA preview receives the same applied RTL without the testbench.
+
+The source adds the full R3_CMC license and explicit PSP/JUNCAP attribution.
+Packaging calls for a pinned source build of the Verilator WASM compiler
+and verifies the compiler and its source archive before bundling. The
+instructional implementation estimate is 100%. Hosted rebuild and installed
+acceptance of the replacement compiler are in progress. See the
+[Beacon Run guide](STUDENT_BEACON_RUN.md).
+
+**November 24, 2026 — Student Hub bench reuse and cross-world paths
+(EDU-01–08, EXP-01, UX-02).** On draft base `82748e91`, the op-amp
+challenge reuses each saved source fixture, analysis, and measurement. A single
+comparison job runs the reference and the assigned variant, with the DUT
+substitution scoped to the second simulation. Results overlays the outputs,
+marks the limits, and exports the labeled plot. Windows ngspice 46 passed all
+18 checkpoints in each workflow, including six paired challenge checks per
+workflow. Offscreen Qt checks covered the comparison, plot export, route picker,
+and destination handoff. The three paths carry earned evidence through feedback
+and compensation, sensor acquisition, and RTL-to-layout review.
+
+Instructional implementation estimate is 100% for this scope. Hosted desktop
+and contract feedback for the follow-up revision is pending. On the previous
+draft revision, both desktop groups passed. Both contract groups stopped
+at the retained GF180 density acceptance binding for `mixed_signal.py`,
+which was already stale on experimental base `a5364497`.
+See the [Student Hub paths](STUDENT_HUB.md#cross-world-paths).
+
+**November 24, 2026 — Student Hub op-amp verification suite (EDU-01–08,
+EXP-01, UX-02).** On experimental base `a5364497`, the Testbenches world adds
+six characterization lessons and a three-variant diagnosis challenge. The
+shared teaching model and fixtures run in either the native saved-testbench
+editor or the ngspice program editor without a PDK. Windows ngspice 46 passed
+all 18 checkpoints in each workflow. The loaded loop crossed unity at 1.46 MHz
+with 66.7° phase margin and the input-referred noise measured 2.23 µV RMS from
+10 Hz to 100 kHz. All three variants passed the nominal DC screen and reproduced
+their assigned signatures. Offscreen Qt checks exercised both editor previews,
+worker grading, and saved results for loop, noise, and challenge cases.
+
+Instructional implementation estimate is 100% for this suite. Hosted source
+feedback and installed application checks are pending. See the [Student testbenches guide](STUDENT_TESTBENCHES.md#build-an-op-amp-verification-suite).
+
 **November 23, 2026 - Student Hub curriculum audit fixes (EDU-01-08,
 EXP-01, UX-02).** On experimental base `22eb975`, all 136 lessons have a
 follow-up practice task and concrete evidence prompts. The guide gives a

@@ -1,4 +1,4 @@
-"""Paired native measurement workflows for three Student Hub bench projects."""
+"""Paired native measurement workflows for Student Hub bench projects."""
 
 import json
 import math
@@ -6,27 +6,45 @@ import re
 from functools import lru_cache
 from pathlib import Path
 
-from .model import clone, device, file_digest, scalar, uid, validate
-from . import testbenches
+from .model import clone, design_digest, device, file_digest, scalar, uid, validate
+from . import student_opamp_verification as verification, testbenches
 
 STARTER = 'testbench-project-'
 PATH = dict(id='testbenches', title='Testbenches', subtitle='Build and measure the same circuit with a saved testbench or a SPICE program.')
 WORKFLOWS = {'graphical': 'Graphical testbench', 'spice': 'SPICE program'}
 ARTIFACTS = {'graphical': ('testbench.cir', 'deck.raw', 'engine.log'),
              'spice': ('input.cir', 'waveforms/case1.raw', 'engine.log')}
-FIELDS = {'op': (), 'dc': ('source','dc_start','dc_stop','dc_step'), 'ac': ('points','start','end'), 'tran': ('step','stop')}
+FIELDS = {'op': (), 'dc': ('source','dc_start','dc_stop','dc_step'), 'ac': ('points','start','end'),
+          'tran': ('step','stop'), 'noise': ('points','start','end','output','noise_source')}
 
 
 @lru_cache(maxsize=1)
 def course():
     from .getting_started import resource_root
     path = resource_root()/'examples/student-hub/testbench-course.json'
-    return {item['id']: item for item in json.loads(path.read_text(encoding='utf-8'))}
+    return {**{item['id']: item for item in json.loads(path.read_text(encoding='utf-8'))}, **verification.units()}
+
+
+def checkpoint_key(lesson, step=None):
+    checkpoints = lesson.get('bench_checkpoints')
+    if not checkpoints:
+        return lesson['id']
+    if step == 'reflect':
+        return list(checkpoints.values())[-1]
+    return checkpoints.get(step, next(iter(checkpoints.values())))
+
+
+def workspace_key(lesson, step=None):
+    key = checkpoint_key(lesson, step)
+    return course()[key].get('reuse', key)
 
 
 def analyses(unit):
     expected = unit['analysis']
     kind = expected['type']
+    if kind == 'noise':
+        return ['noise', f'v({expected["output"]})', expected['noise_source'], 'dec',
+                *[str(expected[key]) for key in ('points','start','end')]]
     args = [str(expected[key]) for key in FIELDS[kind]]
     return [kind, *(['dec'] if kind=='ac' else []), *args]
 
@@ -34,6 +52,10 @@ def analyses(unit):
 def program(unit):
     kind = unit['analysis']['type']
     line = ' '.join(analyses(unit))
+    if kind == 'noise':
+        return line+'\nlet lesson_value = inoise_total\nprint lesson_value'
+    if measurement(unit)['kind'] == 'current':
+        return line+f'\nlet lesson_value = i({measurement(unit)["source"].lower()})\nprint lesson_value'
     if unit.get('reference'):
         return line+'\nlet stimulus = v(inp)-v(inn)\nmeas tran lesson_value FIND stimulus AT='+unit['at']
     if kind=='op':
@@ -44,6 +66,8 @@ def program(unit):
 
 
 def target(unit):
+    if 'goal' in unit:
+        return unit['goal']
     kind = unit['analysis']['type']
     sample = unit.get('at')
     when = {'op':'at the operating point', 'dc':f'at input {sample} V',
@@ -65,6 +89,8 @@ def target(unit):
 def lessons():
     result = []
     for key, unit in course().items():
+        if unit['project'] == verification.PROJECT:
+            continue
         starter = STARTER+unit['project']
         result.append(dict(id=key, title=unit['title'], path=PATH['id'], topic=unit['topic'], starter=starter,
             bench_project=unit['project'], workspace=starter, requires=unit['requires'], minutes=25,
@@ -74,10 +100,31 @@ def lessons():
                      options=unit['options'], answer=unit['answer'], explanation=unit['explanation']),
                 dict(id='measure', kind='check', title='Create and verify the bench', instructions=target(unit), rule={'type':'bench_lesson'}),
                 dict(id='reflect', kind='reflection', title='Record your reasoning', instructions=unit['reflection'])]))
+    prior = []
+    for key, (title, steps, concept, question, options, reflection) in verification.LESSONS.items():
+        identifier = verification.PREFIX+key
+        starter = STARTER+verification.PROJECT
+        checks = {step: verification.PREFIX+step for step in steps}
+        result.append(dict(id=identifier, title=title, path=PATH['id'], topic=verification.TOPIC,
+            starter=starter, workspace=starter, bench_project=verification.PROJECT, bench_checkpoints=checks,
+            requires=prior.copy() if key=='challenge' else prior[-1:], minutes=15+10*len(steps), summary=concept,
+            skills=['testbench creation','ngspice','op-amp characterization'], doc='STUDENT_TESTBENCHES.md', steps=[
+                dict(id='predict', kind='quiz', title='Predict the measurement', instructions=question,
+                     options=list(options), answer=0, explanation=concept),
+                *(dict(id=step, kind='check', title=course()[unit]['title'], instructions=target(course()[unit]),
+                       rule={'type':'bench_lesson'}) for step,unit in checks.items()),
+                dict(id='reflect', kind='reflection', title='Record your evidence', instructions=reflection)]))
+        prior.append(identifier)
     return result
 
 
 def teaching(key):
+    if key.removeprefix(verification.PREFIX) in verification.LESSONS:
+        _, steps, concept, _, _, reflection = verification.LESSONS[key.removeprefix(verification.PREFIX)]
+        return dict(concept=concept, worked_example=target(course()[verification.PREFIX+steps[0]]),
+                    try_next='Repeat a checkpoint in the other workflow and compare the captured reading.',
+                    interview='Explain how the stimulus, load, and observed waveform isolate the specification.',
+                    artifact=reflection)
     unit = course()[key]
     return dict(concept=unit['concept'], worked_example=target(unit),
                 try_next='Run the same fixture using the other testbench workflow and compare the captured readings.',
@@ -86,6 +133,12 @@ def teaching(key):
 
 
 def hints(key):
+    if key.removeprefix(verification.PREFIX) in verification.LESSONS:
+        _, steps, concept, _, _, _ = verification.LESSONS[key.removeprefix(verification.PREFIX)]
+        unit = course()[verification.PREFIX+steps[0]]
+        return {'predict': [('Which relationship applies?', concept), ('What should I inspect?', unit['work']),
+                            ('What is the target?', target(unit)),
+                            ('How do I test it?', 'Run the first fixture in either workflow and compare Results with the target.')]}
     unit = course()[key]
     return {'predict': [('What physical relationship should I use?', unit['concept']),
                         ('What should I look for on the schematic?', unit['work']),
@@ -94,11 +147,29 @@ def hints(key):
 
 
 def practice(key):
-    unit = course()[key]
+    if key.removeprefix(verification.PREFIX) in verification.LESSONS:
+        _, steps, *_ = verification.LESSONS[key.removeprefix(verification.PREFIX)]
+        walkthroughs = {step: walkthrough(course()[verification.PREFIX+step]) for step in steps}
+        return dict(tasks={step: task for step,(task, _) in walkthroughs.items()}, questions={},
+                    bench_workflows={step: workflows for step,(_, workflows) in walkthroughs.items()})
+    task, workflows = walkthrough(course()[key])
+    return dict(tasks={'measure': task}, questions={}, bench_workflows={'measure': workflows})
+
+
+def walkthrough(unit):
+    if source := unit.get('reuse'):
+        title = course()[source]['title']
+        reuse = (f'Reuse your saved bench from “{title}”. Choose the workflow you configured there. '
+                 'Open workspace to inspect the shared fixture. Compare reference and variant runs the same bench twice and substitutes only the DUT on the second run.')
+        compare = 'Open Results to compare traces and measured limits. Choose Check this step to record the comparison.'
+        steps = [reuse, compare]
+        return [unit['goal']+' '+reuse, steps, unit.get('fault') or unit['goal']], dict(
+            graphical=steps, spice=steps, program=program(course()[source]))
     kind = unit['analysis']['type']
     labels = {'source':'DC source name', 'dc_start':'DC start', 'dc_stop':'DC stop',
               'dc_step':'DC step', 'start':'Frequency start (Hz)', 'end':'Frequency end (Hz)',
-              'points':'Frequency points / decade', 'step':'Transient step', 'stop':'Transient stop'}
+              'points':'Frequency points / decade', 'step':'Transient step', 'stop':'Transient stop',
+              'output':'Noise output net', 'noise_source':'Noise input voltage source'}
     settings = ', '.join(f'{labels[field]} = {unit["analysis"][field]}' for field in FIELDS[kind])
     at = f' Set At to {unit["at"]}.' if 'at' in unit else ' Leave At blank.'
     low, high = unit['limits']
@@ -106,6 +177,10 @@ def practice(key):
     ref = f'Set Reference net to {reference}.' if reference else 'Leave Reference net blank.'
     measure = (f'Open Measurements and choose Add measurement. Set Measure to voltage and Output net to {node}.{at} '
                f'Enter Minimum {low:g} and Maximum {high:g}. {ref} Leave Start and Stop blank.')
+    if measurement(unit)['kind'] == 'current':
+        measure = 'In Measurements add current, choose VDD as the voltage source, and set Minimum -105u and Maximum -95u.'
+    elif kind == 'noise':
+        measure = 'In Diagnostics select noise. In Measurements add input_noise and set Minimum 1.8u and Maximum 2.8u.'
     setup = f'Use analysis {kind} at nominal model corner and 27 °C.'
     if settings:
         setup += f' Set {settings}.'
@@ -115,9 +190,10 @@ def practice(key):
     text = ['Choose Open workspace. '+unit['work'],
             'Choose Edit SPICE program. Enter the ngspice commands shown to configure the analysis and capture lesson_value.',
             'Choose Save.', common]
-    goal = ' '.join((unit['work'], setup, target(unit)))
-    return dict(tasks={'measure': [goal, graph, teaching(key)['worked_example']]}, questions={},
-                bench_workflows={'measure': {'graphical':graph,'spice':text,'program':program(unit)}})
+    goal = ' '.join((setup, target(unit))) if unit.get('goal') else ' '.join((unit['work'], setup, target(unit)))
+    if unit.get('goal'):
+        goal += ' Use Open workspace to complete the fixture and configure the matching analysis.'
+    return [goal, graph, unit.get('fault') or target(unit)], {'graphical':graph,'spice':text,'program':program(unit)}
 
 
 def _named(cell, name):
@@ -184,15 +260,20 @@ def _balanced():
 
 
 def create(kind):
-    p = _divider() if kind=='divider' else _balanced() if kind=='balanced' else _analog(kind)
+    if kind == verification.PROJECT:
+        p = verification.project()
+    else:
+        p = _divider() if kind=='divider' else _balanced() if kind=='balanced' else _analog(kind)
     names = {'tb-opamp-bias':'opamp_op_fixture'}
-    fixtures = {key:next(c['id'] for c in p['cells'] if c['name']==names.get(key,key.removeprefix('tb-').replace('-','_')+'_fixture'))
-                for key,unit in course().items() if unit['project']==kind}
+    fixtures = {key:next(c['id'] for c in p['cells'] if c['name']==names.get(key,
+                (key if kind==verification.PROJECT else key.removeprefix('tb-')).replace('-','_')+'_fixture'))
+                for key,unit in course().items() if unit['project']==kind and not unit.get('reuse')}
     p['top'] = next(iter(fixtures.values()))
     p['testbenches'] = []
     p.pop('test_plans',None)
     p['student_bench'] = dict(project=kind, fixtures=fixtures, programs={})
-    p['name'] = 'Student bench · '+next(item['topic'] for item in course().values() if item['project']==kind)
+    topic = verification.TOPIC if kind == verification.PROJECT else next(item['topic'] for item in course().values() if item['project']==kind)
+    p['name'] = 'Student bench · '+topic
     return validate(p)
 
 
@@ -209,11 +290,15 @@ def saved_bench(project, key):
 
 
 def probes(unit):
+    if 'probes' in unit:
+        return unit['probes'].copy()
     node = unit.get('node','out')
     return [node,unit['reference']] if unit.get('reference') else [node]
 
 
 def measurement(unit):
+    if 'measurement' in unit:
+        return dict(unit['measurement'], name='lesson_value')
     low, high = unit['limits']
     out = dict(name='lesson_value',kind='voltage',node=unit.get('node','out'),min=low,max=high)
     if unit.get('reference'):
@@ -232,7 +317,7 @@ def same_fields(actual, wanted):
         found = actual.get(key)
         if found is None:
             return False
-        if key in ('type','source','kind','node','reference'):
+        if key in ('type','source','kind','node','reference','output','noise_source'):
             if str(found).casefold()!=str(value).casefold():return False
         elif not math.isclose(scalar(found),scalar(value),rel_tol=1e-10):return False
     return True
@@ -242,15 +327,21 @@ def validate_bench(bench, unit):
     if not bench:
         raise ValueError('Choose Edit testbench, configure the analysis and save it first.')
     if (bench.get('implementation_view') or bench.get('initial_conditions') or bench['analysis'].get('uic')
-            or bench['analysis'].get('dc_startup') or bench['analysis'].get('diagnostic')
+            or bench['analysis'].get('dc_startup')
             or not same_fields(bench['analysis'], {**unit['analysis'],'temperature':27})
             or bench['analysis'].get('corner','nominal')!='nominal'):
         raise ValueError('Use the specified schematic analysis at nominal corner and 27 °C.')
+    diagnostic = bench['analysis'].get('diagnostic')
+    if unit['analysis']['type']=='noise':
+        if not diagnostic or diagnostic.get('kind')!='noise':
+            raise ValueError('Enable the saved noise diagnostic to capture input and output spectra.')
+    elif diagnostic:
+        raise ValueError('Use the requested analysis without an additional diagnostic.')
     target_fields = {k:v for k,v in measurement(unit).items() if k!='name'}
     matching = [m for m in bench.get('measurements',[]) if not any(m.get(field) for field in ('start','stop'))
                 and (m.get('reference') or None)==unit.get('reference') and same_fields(m,target_fields)]
     if not set(probes(unit)).issubset(bench['probes']) or not matching:
-        raise ValueError('Save the named probes and voltage measurement with the specified reference, sample and limits.')
+        raise ValueError('Save the required probes and measurement with the specified settings and limits.')
 
 
 def validate_program(text, unit):
@@ -262,8 +353,13 @@ def validate_program(text, unit):
     if len(actual)!=len(wanted) or actual[0]!=wanted[0]:
         raise ValueError('Use the analysis command and settings for this checkpoint.')
     for first, second in zip(actual[1:],wanted[1:]):
-        if first!=second and (second in ('dec','vin') or not math.isclose(scalar(first),scalar(second),rel_tol=1e-10)):
-            raise ValueError('Use the analysis command and settings for this checkpoint.')
+        if first!=second:
+            try:
+                same = math.isclose(scalar(first),scalar(second),rel_tol=1e-10)
+            except ValueError:
+                same = False
+            if not same:
+                raise ValueError('Use the analysis command and settings for this checkpoint.')
     for first, second in zip(lines[1:],expected[1:]):
         a,b = first.split('at='),second.split('at=')
         if a[0].replace(' ','')!=b[0].replace(' ','') or len(a)!=len(b) or (
@@ -271,79 +367,159 @@ def validate_program(text, unit):
             raise ValueError('Measure out as lesson_value at the specified point.')
 
 
-def prepare(project, lesson, workflow, tools):
+def prepare(project, lesson, workflow, tools, step='measure'):
     from .spice_program import find_ngspice
     from .run_environment import stamp
-    key = lesson['id']
-    unit = course()[key]
-    cid = fixture(project,key)
-    if workflow=='graphical':validate_bench(saved_bench(project,key),unit)
-    elif workflow=='spice':validate_program(project['student_bench']['programs'].get(key,''),unit)
-    else:raise ValueError('Choose one of the testbench workflows.')
+    key = checkpoint_key(lesson, step)
+    source = workspace_key(lesson,step)
+    cid = fixture(project,source)
+    try:
+        validate_setup(project,cid,source,workflow)
+    except ValueError as exc:
+        if source!=key:
+            raise ValueError(f'Use the saved {WORKFLOWS.get(workflow, "testbench")} from “{course()[source]["title"]}”. {exc}') from exc
+        raise
     exe = find_ngspice(tools.get('ngspice',''))
     if not exe:raise ValueError('Choose ngspice in the Student Hub Engine setup.')
+    settings = dict(type='student_bench_lab',lesson=lesson['id'],workflow=workflow)
+    if lesson.get('bench_checkpoints'):
+        settings['checkpoint'] = key
+    if source!=key:
+        settings['reuse'] = source
     job = dict(project=clone(project),cell=cid,engine='ngspice',executable=exe,
-               settings=dict(type='student_bench_lab',lesson=key,workflow=workflow),student_lesson=key,student_bench_step='measure')
+               settings=settings,student_lesson=lesson['id'],student_bench_step=step)
     job['environment'] = stamp(job)
     return job
 
 
+def validate_setup(project, cid, key, workflow):
+    unit = course()[key]
+    if 'edit' in unit:
+        verification.validate_fixture(project, next(c for c in project['cells'] if c['id']==cid), unit)
+    if workflow=='graphical':
+        validate_bench(saved_bench(project,key),unit)
+    elif workflow=='spice':
+        validate_program(project['student_bench']['programs'].get(key,''),unit)
+    else:
+        raise ValueError('Choose one of the testbench workflows.')
+
+
+def artifact_names(project, workflow):
+    if workflow=='graphical' and project.get('spice',{}).get('version')==1:
+        return 'input.cir', 'result.raw', 'engine.log'
+    return ARTIFACTS[workflow]
+
+
+def solution_bench(project, cid, unit):
+    bench = testbenches.create(project,cid,'lesson_measurement')
+    bench['analysis'].update(unit['analysis'], temperature=27, corner='nominal')
+    bench['measurements'] = [measurement(unit)]
+    if unit.get('reference') or unit.get('probes'):
+        bench['probes'] = probes(unit)
+    if unit['analysis']['type']=='noise':
+        bench['analysis']['diagnostic'] = dict(kind='noise', output=unit['analysis']['output'], source=unit['analysis']['noise_source'])
+    return bench
+
+
 def run(job, directory, progress):
-    from .native_analysis import circuit_text
-    from .pdks import stage_model_deck
-    from .spice_program import run_program
     p = job['project']
     settings = job['settings']
-    key, workflow = settings['lesson'], settings['workflow']
-    unit, cid = course()[key], fixture(p,key)
+    key, workflow = settings.get('checkpoint',settings['lesson']), settings['workflow']
+    unit = course()[key]
+    source = settings.get('reuse')
+    if source != unit.get('reuse'):
+        raise ValueError('Prepare this comparison again with its saved reference fixture.')
+    cid = fixture(p,source or key)
     if workflow not in WORKFLOWS or cid != job['cell']:
         raise ValueError('The saved run does not match this lesson fixture and workflow.')
     directory = Path(directory)
+    if source:
+        validate_setup(p,cid,source,workflow)
+        reference = capture(p,cid,source,settings,job['executable'],directory/'reference',
+                            lambda fraction,message:progress(fraction/2,'Reference · '+message))
+        variant = verification.substitute(p,cid,unit['variant'])
+        result = capture(variant,cid,source,settings,job['executable'],directory,
+                         lambda fraction,message:progress(.5+fraction/2,'Variant · '+message))
+        result['design_hash'] = design_digest(p)
+        result['reference_trace'] = {field:reference[field] for field in ('x','traces','phase','currents') if field in reference}
+        result['student_bench']['reference'] = reference['student_bench']['check']
+        result['student_bench']['artifacts'].update({f'reference/{name}':content_hash
+            for name,content_hash in reference['student_bench']['artifacts'].items()})
+        return result
+    return capture(p,cid,key,settings,job['executable'],directory,progress)
+
+
+def capture(p, cid, key, settings, executable, directory, progress):
+    from .native_analysis import circuit_text
+    from .pdks import stage_model_deck
+    from .spice_program import run_program
+
+    unit, workflow = course()[key], settings['workflow']
     directory.mkdir(parents=True,exist_ok=True)
-    standard = testbenches.create(p,cid,'lesson_measurement')
-    standard['analysis'].update(unit['analysis'])
-    standard['analysis'].update(temperature=27,corner='nominal')
-    standard['measurements'] = [measurement(unit)]
-    if unit.get('reference'):
-        standard['probes'] = probes(unit)
+    standard = solution_bench(p,cid,unit)
+    noise = unit['analysis']['type']=='noise'
     if workflow=='graphical':
         bench = saved_bench(p,key)
         validate_bench(bench,unit)
-        result = testbenches.simulate(p,bench,job['executable'],directory,progress=progress)
+        result = testbenches.simulate(p,bench,executable,directory,progress=progress)
+        if noise:
+            from .engines import parse_raw
+            variables, rows, _ = parse_raw(directory/'result.raw')
+            result['traces'] = {name:[float(row[variables.index(name)]) for row in rows]
+                                for name in ('inoise_spectrum','onoise_spectrum')}
     else:
         text = p['student_bench']['programs'].get(key,'')
         validate_program(text,unit)
         def deck(project, root):
             circuit = circuit_text(testbenches.spice_testbench(project,standard,root))
             return stage_model_deck(project['pdk'], circuit+'.temp 27\n.control\n'+text+'\n.endc\n.end\n',root)
-        probe_directive = ' '.join('v('+node+')' for node in standard['probes'])
-        result = run_program(p,cid,{**settings,'probes':probe_directive,'timeout':90},job['executable'],directory,
+        vectors = ['v('+node+')' for node in standard['probes']]
+        if measurement(unit)['kind']=='current':
+            vectors.append('i('+measurement(unit)['source'].lower()+')')
+        result = run_program(p,cid,{**settings,'probes':' '.join(vectors),'timeout':90,'noise_spectrum':noise},executable,directory,
                              progress,deck,'ngspice · lesson SPICE program',{},'analysis_cases')
         cases = result['analysis_cases']
         if len(cases)!=1 or result['program_status']!='Complete':
             raise ValueError('The program did not complete the requested analysis. See Job log.')
+        if noise:
+            from .analog_diagnostics import noise_report
+            result['diagnostics'] = noise_report(['frequency','inoise_spectrum','onoise_spectrum'],
+                list(zip(result['x'], result['traces']['inoise_spectrum'], result['traces']['onoise_spectrum'])))
+    if measurement(unit)['kind']=='current':
+        result['currents'] = {name.casefold():values for name,values in result['currents'].items()}
     row = read_measurement(result,unit)
     if workflow=='spice':
         readings = [m['value'] for m in cases[0].get('measurements',[]) if m['name'].casefold()=='lesson_value']
-        if (len(readings)!=1 or 'value' not in row or not math.isclose(readings[0],row['value'],rel_tol=.002,abs_tol=.00001)):
+        if (len(readings)!=1 or 'value' not in row or not math.isclose(readings[0],row['value'],
+                rel_tol=.005 if noise else .002,abs_tol=1e-11 if noise else .00001)):
             raise ValueError('SPICE lesson_value is missing or disagrees with the captured waveform.')
     result.update(settings=settings,plot_kind=unit['analysis']['type'],student_bench={
-        'lesson':key,'workflow':workflow,'check':row,
-        'artifacts':{name:file_digest(directory/name) for name in ARTIFACTS[workflow]}})
+        'lesson':settings['lesson'],'workflow':workflow,'check':row,
+        'artifacts':{name:file_digest(directory/name) for name in artifact_names(p,workflow)}})
+    if 'checkpoint' in settings:
+        result['student_bench']['checkpoint'] = settings['checkpoint']
     return result
 
 
 def validate_result(job, result, directory):
     settings = job['settings']
-    workflow, key = settings.get('workflow'), settings.get('lesson')
+    workflow, lesson = settings.get('workflow'), settings.get('lesson')
+    key = settings.get('checkpoint',lesson)
+    source = settings.get('reuse')
     record = result.get('student_bench', {})
     if (key not in course() or workflow not in WORKFLOWS or result.get('settings') != settings
-            or record.get('lesson') != key or record.get('workflow') != workflow
-            or key != job.get('student_lesson') or fixture(job['project'], key) != job['cell']):
+            or record.get('checkpoint',record.get('lesson')) != key or record.get('workflow') != workflow
+            or record.get('lesson') != lesson or lesson != job.get('student_lesson')
+            or course()[key].get('lesson',key) != lesson or course()[key].get('step','measure') != job.get('student_bench_step')
+            or (source and course()[key].get('reuse')!=source)
+            or fixture(job['project'], source or key) != job['cell']):
         raise ValueError('Testbench result does not match its saved lesson and workflow.')
     artifacts = record.get('artifacts', {})
+    names = artifact_names(job['project'],workflow)
+    if source:
+        names += tuple('reference/'+name for name in names)
     try:
-        expected = {name: file_digest(directory/name) for name in ARTIFACTS[workflow]}
+        expected = {name: file_digest(directory/name) for name in names}
     except OSError as exc:
         raise ValueError('A saved testbench artifact is missing.') from exc
     if artifacts != expected:
@@ -351,10 +527,15 @@ def validate_result(job, result, directory):
     measured = read_measurement(result, course()[key])
     if record.get('check') != measured:
         raise ValueError('The saved testbench measurement does not match the waveform.')
+    if source and record.get('reference') != read_measurement(result.get('reference_trace',{}),course()[source]):
+        raise ValueError('The saved reference measurement does not match the reference waveform.')
 
 
 def waveform_figures(key, result, verify=False):
     """Assess timing and balance from the same trace in either bench workflow."""
+    unit = course()[key]
+    if unit.get('metric'):
+        return verification.figures(unit,result,verify)
     from .student_hub import at
     from .testbenches import crossings
     xs, traces = result['x'],result['traces']
@@ -419,20 +600,31 @@ def waveform_figures(key, result, verify=False):
     return {f'{excursion} (mV)':peak*1e3,'Settling within 20 mV (µs)':None if settled is None else settled*1e6}
 
 
-def check(project, lesson, rows):
+def check(project, lesson, rows, step='measure'):
     from .student_hub import current_result
-    key = lesson['id']
-    tagged = [row for row in rows if row['job'].get('student_lesson')==key
-              and row['job'].get('settings',{}).get('type')=='student_bench_lab']
+    key = checkpoint_key(lesson, step)
+    tagged = [row for row in rows if row['job'].get('student_lesson')==lesson['id']
+              and row['job'].get('settings',{}).get('type')=='student_bench_lab'
+              and row['job'].get('student_bench_step','measure')==step]
     result, evidence = current_result(project,tagged)
     captured = result['student_bench']
+    unit = course()[key]
+    comparison = {}
+    if source := unit.get('reuse'):
+        if result['settings'].get('reuse')!=source or 'reference_trace' not in result:
+            raise ValueError('Choose Compare reference and variant to capture both results with the reused bench.')
+        baseline = captured['reference']
+        if baseline['status']!='passed':
+            raise ValueError('The reused bench must pass on the reference amplifier before it can identify the variant.')
+        comparison = dict(reference_checkpoint=source, reference_reading=baseline['value'],
+                          reference_figures=waveform_figures(source,result['reference_trace'],verify=True))
     measured = captured['check']
     if measured['status']!='passed':
         value = measured.get('value')
-        reading = f'Measured {value:.5g} V. ' if value is not None else ''
+        reading = f'Measured {value:.5g} {measured.get("unit","V")}. ' if value is not None else ''
         raise ValueError(reading+target(course()[key]))
     figures = waveform_figures(key,result,verify=True)
-    cell = next(c for c in project['cells'] if c['id']==fixture(project,key))
+    cell = next(c for c in project['cells'] if c['id']==fixture(project,unit.get('reuse',key)))
     parts = {part['name']: part for part in cell['devices']}
     if key=='tb-tia-ac' and not math.isclose(scalar(parts.get('IPHOTO', {}).get('source', {}).get('ac', '0')),1e-6):
         raise ValueError('Set the AC amplitude of IPHOTO to 1u before converting output voltage into transimpedance.')
@@ -441,4 +633,5 @@ def check(project, lesson, rows):
         if (load.get('kind')!='C' or set(load['nets'].values())!={'out','0'}
                 or not math.isclose(scalar(load['value']),1e-12)):
             raise ValueError('Connect the 1 pF load CL from out to ground in the loop fixture.')
-    return dict(**evidence,bench_workflow=captured['workflow'],bench_reading=measured['value'],bench_figures=figures)
+    return dict(**evidence,bench_workflow=captured['workflow'],bench_reading=measured['value'],
+                bench_unit=measured.get('unit','V'),bench_figures=figures, **comparison)

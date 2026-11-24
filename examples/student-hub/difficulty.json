@@ -19,6 +19,8 @@
     "interview-differential", "interview-input-pairs", "interview-gain",
     "project-relaxation", "project-pga",
     "tb-tia-bias", "tb-tia-ac", "tb-tia-step", "tb-opamp-bias", "tb-opamp-step",
+    "tb-verify-dc-bias", "tb-verify-input-output-range", "tb-verify-step-response",
+    "vga-beacon-timing", "vga-beacon-board", "vga-beacon-movement", "vga-beacon-collect",
     "sc-nand2", "sc-nor2", "sc-aoi21", "sc-mux2", "sc-nand-drive", "sc-nand-input", "sc-mux-glitch", "sc-buffer-fo4",
     "c-filter", "c-average",
     "inverter-dc", "inverter-transient", "inverter-layout"
@@ -34,6 +36,8 @@
     "interview-slew", "interview-noise", "interview-mismatch", "interview-comparator",
     "interview-sar", "interview-ldo", "interview-post-layout-debug", "project-chopper",
     "tb-opamp-ac", "sc-dff", "sc-dff-clock", "sc-xor-energy", "sc-dff-aperture",
+    "tb-verify-loop-stability", "tb-verify-rejection", "tb-verify-input-noise", "tb-verify-challenge",
+    "vga-beacon-finish",
     "c-sar", "c-qualify", "c-temperature",
     "inverter-drc", "inverter-lvs", "inverter-handoff"
   ]

@@ -1,0 +1,24 @@
+name: VGA source feedback
+on:
+  pull_request:
+    paths:
+      - '.github/actions/build-vga-compiler/**'
+      - '.github/workflows/vga-*.yml'
+      - 'scripts/build_vga*.py'
+      - 'scripts/verify_windows_vga_install.py'
+      - 'packaging/vga/**'
+      - 'icstudio/digital_vga*.py'
+      - 'icstudio/student_beacon.py'
+      - 'examples/student-hub/beacon-run/**'
+      - 'tests/test_digital_vga.py'
+      - 'tests/test_student_beacon.py'
+permissions:
+  contents: read
+concurrency:
+  group: vga-source-feedback-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+jobs:
+  preview:
+    uses: ./.github/workflows/vga-build-and-test.yml
+    with:
+      windows-install-probe: true

@@ -88,8 +88,13 @@ def prepare_program(text,directory,settings):
             count+=1;case_count+=math.prod(n for _,n in loops)
             context=' '.join(k+'=$'+k.lower() for k,_ in loops if k)
             output+=['let const.studio_case=const.studio_case+1','echo ICSTUDIO_CASE_BEGIN $&const.studio_case '+cmd+' '+context,line,
-                'set filetype=binary','write waveforms/case{$&const.studio_case}.raw '+selected,
-                'echo ICSTUDIO_CASE_END $&const.studio_case '+cmd+' '+context]
+                     'set filetype=binary']
+            if cmd=='noise' and settings.get('noise_spectrum'):
+                # The single noise lesson needs the spectrum and the native integrated reading.
+                output+=['setplot noise1','write waveforms/case{$&const.studio_case}.raw inoise_spectrum onoise_spectrum','setplot noise2']
+            else:
+                output.append('write waveforms/case{$&const.studio_case}.raw '+selected)
+            output.append('echo ICSTUDIO_CASE_END $&const.studio_case '+cmd+' '+context)
         else:output.append(line)
     if not count:raise ValueError('The schematic contains no ngspice control analyses. Add op, tran, dc or ac in a simulation program component.')
     return '\n'.join(output)+'\n',case_count,output_roots
@@ -116,7 +121,7 @@ def read_plot(path,selected=None):
     for name,values in zip(variables[1:],columns[1:]):
         if selected and name not in selected:continue
         name=re.sub(r'^v\((.*)\)$',r'\1',name);is_current=name.endswith('#branch') or name.startswith('i(')
-        key=name.removesuffix('#branch') if is_current else name
+        key=re.sub(r'^i\((.*)\)$',r'\1',name).removesuffix('#branch') if is_current else name
         target=currents if is_current else traces;target[key]=[abs(v) if complex_data else float(v) for v in values]
         if complex_data:(current_phase if is_current else phase)[key]=[math.degrees(cmath.phase(v)) for v in values]
     if not traces and currents:traces={k+' (A)':v for k,v in currents.items()}

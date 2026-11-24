@@ -23,16 +23,17 @@ GPL-3.0-or-later source. Upstream: https://github.com/TinyTapeout/vga-playground
 The preset Verilog retains its Apache-2.0 headers and license texts; common
 modules retain their separate upstream notices.
 
-The build includes adapted upstream sources in `vga-playground-source.zip`,
-the GPL text and dependency notices under the preview's `licenses/` directory.
-It uses the upstream-provided Verilator WebAssembly artifact; Verilator is
-LGPL-3.0 OR Artistic-2.0 (https://github.com/verilator/verilator). Binaryen is
-Apache-2.0 (https://github.com/WebAssembly/binaryen); dependency versions are
-recorded in the included upstream package-lock.json. Qt WebEngine/Chromium
-component licenses and corresponding sources are supplied by the matching Qt
-6.8.3 distribution linked above. The upstream WASM compiler's complete build
-provenance is not established by the Studio adapter; retain the upstream source
-and component notices when redistributing it.
+The preview includes adapted upstream sources in `vga-playground-source.zip`
+and the GPL text and dependency notices in `licenses/`. Studio builds the
+compiler from the [8bitworkshop Verilator fork](https://github.com/8bitworkshop/verilator/tree/6c3efcd5d869ba772e4ed1365727e155fd9210da)
+with pinned Emscripten 2.0.6 and adds the signed-type marker used by the VGA
+simulator’s XML reader. `verilator-source.zip` supplies the pinned source
+archives, their license texts, the modified emitter and the build recipe. `verilator-build.json`
+records the compiler and SDK identities and build-product hashes. The
+Verilator source retains its LGPL-3.0 and Artistic-2.0 license options. Binaryen
+is Apache-2.0 (https://github.com/WebAssembly/binaryen). The bundled package
+lock identifies npm dependency versions. The matching Qt 6.8.3 distribution
+linked above supplies the Qt WebEngine and Chromium component sources and notices.
 
 ## Optional SKY130 reference evidence
 
@@ -238,7 +239,15 @@ GF180 C/D Magic technology and Netgen setup files are generated from unmodified 
 
 The IHP SG13G2 model, symbol, layer-map, Magic, Netgen and Verilog-A subset comes from https://github.com/IHP-GmbH/IHP-Open-PDK/tree/5e6d592e4002946a4616f798c357f0f3c06cf3b6. Its Apache-2.0 license, component-specific model headers, PSP notices and R3_CMC Educational Community License 2.0/NOTICE files are retained under `icstudio/assets/pdks/ihp-sg13g2`. All distributed files are checksummed in `package.json`; `scripts/build_student_pdks.py` reproduces the subset.
 
-The managed runtime compiles the six IHP Verilog-A libraries with the checksum-pinned OpenVAF Reloaded OSDI 0.3 compiler in `packaging/digital/Dockerfile` (https://fides.fe.uni-lj.si/openvaf/). The build compiler is not distributed. Corresponding model sources and their notices accompany the generated libraries under `opt/icstudio/osdi/ihp-sg13g2/sources`; `build.json` records each compiled binary, compiler identity, generic CPU target and complete model-source dependency hashes.
+The R3_CMC resistor model is copyright Silicon Integration Initiative, Inc.
+The complete [Educational Community License 2.0](licenses/ECL-2.0.txt) is
+included with Studio and beside the R3_CMC sources in the managed runtime.
+Studio acknowledges **NXP Semiconductors, Delft University of Technology, and
+CEA (Commissariat à l’énergie atomique et aux énergies alternatives)** for the
+PSP and JUNCAP models distributed with the IHP process. Model-specific
+copyright notices and redistribution terms are retained with those sources.
+
+The managed runtime compiles the six IHP Verilog-A libraries with the checksum-pinned OpenVAF Reloaded OSDI 0.3 compiler in `packaging/digital/Dockerfile` (https://fides.fe.uni-lj.si/openvaf/). Corresponding model sources and their notices accompany the generated libraries under `opt/icstudio/osdi/ihp-sg13g2/sources`. `build.json` records each compiled binary, compiler identity, generic CPU target and model-source dependency hashes.
 
 ## Optional overvoltage qualification source
 

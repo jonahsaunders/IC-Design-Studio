@@ -93,6 +93,9 @@ DIGITAL["spi_register"] = SPI_REGISTER
 
 
 def digital_project(kind):
+    from . import student_beacon
+    if kind == student_beacon.STARTER:
+        return student_beacon.project()
     ports, body, declarations, bindings, checks = DIGITAL[kind]
     p = example('empty'); p['name'] = 'Student lab · '+kind
     top = 'lab_'+kind
@@ -131,7 +134,9 @@ def divider(loaded=False, hierarchy=False):
 
 def create(starter, technology=None):
     from .example_schematics import arrange
-    from . import student_standard_cells, student_testbench
+    from . import student_beacon, student_standard_cells, student_testbench
+    if starter == student_beacon.STARTER:
+        return student_beacon.project()
     from .student_layout_labs import STARTER
     from .student_signal_labs import STARTER as SIGNAL_STARTER
     if starter.startswith(student_standard_cells.STARTER):
@@ -182,8 +187,8 @@ def lesson_workspace(project, lesson, step):
         from .student_standard_cells import focus
         return focus(project, lesson['standard_cell'], step)
     if lesson.get('bench_project'):
-        from .student_testbench import fixture
-        return fixture(project, lesson['id']), 'schematic'
+        from .student_testbench import workspace_key, fixture
+        return fixture(project, workspace_key(lesson, step)), 'schematic'
     stage = lesson.get('inverter_stage')
     if stage in ('layout', 'drc', 'lvs', 'handoff') or (stage == 'schematic' and step != 'build'):
         return project['student_inverter']['cell'], 'schematic' if stage == 'schematic' else 'layout'
