@@ -26,8 +26,9 @@ modules retain their separate upstream notices.
 The preview includes adapted upstream sources in `vga-playground-source.zip`
 and the GPL text and dependency notices in `licenses/`. Studio builds the
 compiler from the [8bitworkshop Verilator fork](https://github.com/8bitworkshop/verilator/tree/6c3efcd5d869ba772e4ed1365727e155fd9210da)
-with pinned Emscripten 2.0.6. `verilator-source.zip` supplies the pinned source
-archives, their license texts and the build recipe. `verilator-build.json`
+with pinned Emscripten 2.0.6 and adds the signed-type marker used by the VGA
+simulator’s XML reader. `verilator-source.zip` supplies the pinned source
+archives, their license texts, the modified emitter and the build recipe. `verilator-build.json`
 records the compiler and SDK identities and build-product hashes. The
 Verilator source retains its LGPL-3.0 and Artistic-2.0 license options. Binaryen
 is Apache-2.0 (https://github.com/WebAssembly/binaryen). The bundled package
