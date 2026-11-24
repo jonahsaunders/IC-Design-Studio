@@ -68,7 +68,7 @@ Uninstallable=no
 CreateUninstallRegKey=no
 OutputDir={temporary}
 OutputBaseFilename=studio-vga-setup
-Compression=fast
+Compression=zip
 [Files]
 Source: "{packaged}\\*"; DestDir: "{{app}}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ''', encoding='utf-8')
