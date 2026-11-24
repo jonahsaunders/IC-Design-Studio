@@ -305,7 +305,9 @@ peer or instructor. These exercises are available in both modes.
 
 ### Two native testbench workflows
 
-The ten [Testbenches lessons](STUDENT_TESTBENCHES.md) teach operating points, DC sweeps, AC gain, and transient response. Choose **Graphical testbench** to configure the fixture, probes, and measurements in Studio's saved-testbench editor. Choose **SPICE program** to write the native ngspice analysis and measurement commands. Both use the same editable circuit and pass criteria. **Results** lets you compare the saved measurement, waveform, and log from either workflow.
+The [Testbenches lessons](STUDENT_TESTBENCHES.md) teach operating points, DC sweeps, AC gain, transient response, and noise. Choose **Graphical testbench** to configure the fixture, probes, and measurements in Studio's saved-testbench editor. Choose **SPICE program** to write the native ngspice analysis and measurement commands. Both use the same editable circuit and pass criteria. **Results** lets you compare the saved measurement, waveform, and log from either workflow.
+
+[Build an Op-Amp Verification Suite](STUDENT_TESTBENCHES.md#build-an-op-amp-verification-suite) adds six characterization lessons and a fault-diagnosis challenge to the Testbenches world. The project uses one shared workspace, a working reference amplifier, and editable fixtures for each measurement.
 
 <details><summary>Graphical testbench, SPICE program, and saved results</summary>
 

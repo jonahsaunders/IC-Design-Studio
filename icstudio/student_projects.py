@@ -182,8 +182,8 @@ def lesson_workspace(project, lesson, step):
         from .student_standard_cells import focus
         return focus(project, lesson['standard_cell'], step)
     if lesson.get('bench_project'):
-        from .student_testbench import fixture
-        return fixture(project, lesson['id']), 'schematic'
+        from .student_testbench import checkpoint_key, fixture
+        return fixture(project, checkpoint_key(lesson, step)), 'schematic'
     stage = lesson.get('inverter_stage')
     if stage in ('layout', 'drc', 'lvs', 'handoff') or (stage == 'schematic' and step != 'build'):
         return project['student_inverter']['cell'], 'schematic' if stage == 'schematic' else 'layout'

@@ -1,5 +1,19 @@
 # Chunks 1–12: progress and forecast
 
+**November 24, 2026 — Student Hub op-amp verification suite (EDU-01–08,
+EXP-01, UX-02).** On experimental base `a5364497`, the Testbenches world adds
+six characterization lessons and a three-variant diagnosis challenge. The
+shared teaching model and fixtures run in either the native saved-testbench
+editor or the ngspice program editor without a PDK. Windows ngspice 46 passed
+all 18 checkpoints in each workflow. The loaded loop crossed unity at 1.46 MHz
+with 66.7° phase margin and the input-referred noise measured 2.23 µV RMS from
+10 Hz to 100 kHz. All three variants passed the nominal DC screen and reproduced
+their assigned signatures. Offscreen Qt checks exercised both editor previews,
+worker grading, and saved results for loop, noise, and challenge cases.
+
+Instructional implementation estimate is 100% for this suite. Hosted source
+feedback and installed application checks are pending. See the [Student testbenches guide](STUDENT_TESTBENCHES.md#build-an-op-amp-verification-suite).
+
 **November 23, 2026 - Student Hub curriculum audit fixes (EDU-01-08,
 EXP-01, UX-02).** On experimental base `22eb975`, all 136 lessons have a
 follow-up practice task and concrete evidence prompts. The guide gives a

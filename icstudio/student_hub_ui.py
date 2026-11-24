@@ -1225,7 +1225,7 @@ class LessonGuide(QDockWidget):
         elif 'bench_reading' in evidence:
             from .student_testbench import WORKFLOWS
             workflow=WORKFLOWS[evidence['bench_workflow']]
-            feedback(self.feedback,f'{workflow} passed at {evidence["bench_reading"]:.5g} V. Evidence saved.',role='correct')
+            feedback(self.feedback,f'{workflow} passed at {evidence["bench_reading"]:.5g} {evidence.get("bench_unit","V")}. Evidence saved.',role='correct')
         elif 'device_metrics' in evidence:
             point=evidence['device_metrics']
             feedback(self.feedback,f'Checkpoint passed. ID = {point["id"]*1e6:.3g} µA; gm = {point["gm"]*1e6:.3g} µS; gm/ID = {point["gmid"]:.3g} V⁻¹; headroom = {point.get("headroom",0):.3g} V. Evidence saved.')
@@ -1453,7 +1453,7 @@ class LessonGuide(QDockWidget):
             job=prepare(s.project,self.lesson,self.hub.tools())
         elif self.lesson.get('bench_project'):
             from .student_testbench import prepare
-            job=prepare(s.project,self.lesson,self.bench_workflow.currentData(),self.hub.tools())
+            job=prepare(s.project,self.lesson,self.bench_workflow.currentData(),self.hub.tools(),self.active_step['id'])
         elif self.lesson.get('signal_lab'):
             from .student_signal_labs import prepare
             job=prepare(s.project,self.lesson,self.active_step['id'],self.hub.tools())

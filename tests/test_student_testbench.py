@@ -31,17 +31,18 @@ class TestbenchLessonsTests(unittest.TestCase):
                 if kind not in projects:
                     projects[kind] = create(lesson['starter'])
                 project = projects[kind]
-                cid, view = lesson_workspace(project, lesson, 'measure')
-                self.assertNotIn(cid, fixtures)
-                fixtures.add(cid)
-                self.assertEqual(view, 'schematic')
-                practice = material['practice'][lesson['id']]['bench_workflows']['measure']
-                self.assertTrue(practice['graphical'])
-                self.assertTrue(practice['spice'])
-                self.assertIn('lesson_value', practice['program'])
+                for step in (step['id'] for step in lesson['steps'] if step['kind']=='check'):
+                    cid, view = lesson_workspace(project, lesson, step)
+                    self.assertNotIn(cid, fixtures)
+                    fixtures.add(cid)
+                    self.assertEqual(view, 'schematic')
+                    practice = material['practice'][lesson['id']]['bench_workflows'][step]
+                    self.assertTrue(practice['graphical'])
+                    self.assertTrue(practice['spice'])
+                    self.assertIn('lesson_value', practice['program'])
                 self.assertEqual(len(material['hints'][lesson['id']]['predict']), 4)
-        self.assertEqual(len(projects), 4)
-        self.assertEqual(len(fixtures), 10)
+        self.assertEqual(len(projects), 5)
+        self.assertEqual(len(fixtures), 28)
 
     def test_phase_skew_and_ringing_fail_despite_correct_late_samples(self):
         wave = dict(x=[0,2e-6,5e-6,8e-6,12e-6],traces={

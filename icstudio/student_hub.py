@@ -118,6 +118,7 @@ def checker_stamp():
                    file_digest(Path(__file__).with_name('student_signal_labs.py')),
                    file_digest(Path(__file__).with_name('student_signal_circuits.py')),
                    file_digest(Path(__file__).with_name('student_testbench.py')),
+                   file_digest(Path(__file__).with_name('student_opamp_verification.py')),
                    file_digest(Path(__file__).with_name('student_standard_cells.py')),
                    file_digest(Path(__file__).with_name('student_cell_layout.py')),
                    file_digest(Path(__file__).with_name('student_cell_specs.py')),
@@ -335,7 +336,7 @@ def evaluate(step, lesson, project, rows=(), path=None, answer=None, note=''):
         return dict(**evidence, **check(project, lesson, step['id'], rows))
     if kind=='bench_lesson':
         from .student_testbench import check
-        return dict(**evidence, **check(project, lesson, rows))
+        return dict(**evidence, **check(project, lesson, rows, step['id']))
     if kind=='loop_study':
         from .student_loop_study import check
         return dict(**evidence, loop_measurements=check(project,lesson['starter']))

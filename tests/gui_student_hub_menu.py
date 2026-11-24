@@ -198,7 +198,7 @@ class StudentHubMenuTests(unittest.TestCase):
 
         hub = self.hub
         hub.world_map.cards['testbenches'].click()
-        self.assertEqual(len(hub.trail.rows), 10)
+        self.assertEqual(len(hub.trail.rows), 17)
         hub.select_lesson('tb-divider-bias')
         self.assertEqual(hub.selected()['id'], 'tb-divider-bias')
         hub.start_selected()
