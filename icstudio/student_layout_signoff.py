@@ -5,12 +5,13 @@ from functools import lru_cache
 import math
 from pathlib import Path
 
+from . import student_layout_passives as passives
 from .layout import drc, kdb, polygon, rect
 from .model import clone, design_digest, device, example, file_digest, now, scalar, uid, validate
 
 
 SHARED = {'floorplan', 'access', 'handoff'}
-LABS = SHARED | {'pad-ring', 'density', 'antenna', 'via-current', 'isolation', 'spiral'}
+LABS = SHARED | {'pad-ring', 'density', 'antenna', 'via-current', 'isolation', 'spiral'} | passives.LABS
 FIXTURES = (LABS - SHARED) | {'macro'}
 MACRO_PORTS = ('IN', 'OUT', 'G1', 'G2', 'VSS')
 DENSITY_BOX = (0, 0, 40000, 20000)
@@ -210,6 +211,8 @@ def project(key):
     p, c = _basic(key)
     if key == 'macro':
         _core(p, c)
+    elif key in passives.LABS:
+        (passives.mim if key=='mim-plate' else passives.decoupling)(p,c)
     else:
         _BUILDERS[key](p, c)
     return validate(p)
@@ -706,6 +709,8 @@ def check(p, lesson, step, rows):
     locked_fields = ('grid', 'layers', 'connectivity', 'routing_vias', 'parasitics', 'via_resistance_ohm', 'package_lock')
     if any(base.get(key) != p['pdk'].get(key) for key in locked_fields):
         raise ValueError('Restore the fixed lesson geometry rules, layers and coefficients.')
+    if lab in passives.LABS:
+        return {'layout_study':passives.measure(p,lab,step)}
     if lab == 'handoff':
         _macro_metrics(p, routed=True)
         return _handoff(p, lesson, step, rows)

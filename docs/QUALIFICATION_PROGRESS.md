@@ -1,5 +1,24 @@
 # Chunks 1–12: progress and forecast
 
+**November 23, 2026 - Fourteen Student Hub engineering labs (EDU-01–08,
+EXP-01, UX-02).** Experimental base `3d6165b7` now has 136 distinct lessons
+across the eleven worlds. Native runs cover floating voltage, an open-drain
+pull-up, two switch loads, the weak-sensor buffer, the window detector,
+switched-capacitor gain, and two gm-C tuning settings. The balanced
+differential fixture captures the same 0.10 V reading in the saved graphical
+bench and SPICE program at 0.90 V common mode. The independent Mode 0 SPI
+bench rejects the seeded short write and passes the repaired design.
+Windows Icarus runs use a closed input pipe after the installed compiler
+crashed with a NUL input handle.
+
+Physical lessons connect three half-adder routes, compare Schmitt thresholds,
+and measure released-bus current and driven timing. The MIM route adds
+0.2727 fF instead of 1.5687 fF under the teaching coefficients. Moving the
+same decoupling capacitor reduces modeled droop from 51.51 to 16.12 mV.
+These are teaching models and fixture checks. The Windows desktop walkthroughs
+and the illustrated catalog cover each of the fourteen added lessons.
+See the [Engineering design labs](STUDENT_ENGINEERING_LABS.md).
+
 **November 23, 2026 - Seven Standard Cells characterization lessons (EDU-01–08,
 EXP-01, UX-02).** On experimental base `c817e026`, the Student Hub now lists
 122 distinct lessons. The added row-integration check rejects a 1 µm gap

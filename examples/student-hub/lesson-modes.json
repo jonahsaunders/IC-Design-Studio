@@ -1,5 +1,183 @@
 {
   "tasks": {
+    "d-spi-register/build": [
+      "Identify which signals sample, shift and commit the transaction.",
+      [
+        "Open the RTL editor and find the synchronized SCLK and chip select.",
+        "Read the eight-bit command decode and the frame_end branch. Compare those branches with the separate reference bench."
+      ],
+      "MOSI is sampled on the rising edge. MISO is updated on the falling edge. frame_end is the only write-commit point."
+    ],
+    "f-floating-voltage/baseline": [
+      "Read hi and lo relative to ground and record the meter’s original reading.",
+      [
+        "Open workspace and trace the source, editable parts and measured nodes.",
+        "Choose Run experiment, then Results. Read hi and lo relative to ground and record the meter’s original reading.",
+        "Choose Check this step to save the observed starter case."
+      ],
+      "Read hi and lo relative to ground and record the meter’s original reading. The starter intentionally misses a target."
+    ],
+    "f-floating-voltage/repair": [
+      "Connect the meter negative terminal to lo. Read 0.30 V within 5 mV.",
+      [
+        "Open Set meter reference and select lo. Leave the positive lead on hi.",
+        "Run experiment again after saving the changes.",
+        "Open Results and check every numeric target. Choose Check this step when they pass."
+      ],
+      "Set the meter reference to lo. The terminal readings are 1.20 V and 0.90 V, so the differential reading is 0.30 V."
+    ],
+    "f-open-drain/baseline": [
+      "Measure the slow release with the supplied 100 kΩ pull-up.",
+      [
+        "Open workspace and trace the source, editable parts and measured nodes.",
+        "Choose Run experiment, then Results. Measure the slow release with the supplied 100 kΩ pull-up.",
+        "Choose Check this step to save the observed starter case."
+      ],
+      "Measure the slow release with the supplied 100 kΩ pull-up. The starter intentionally misses a target."
+    ],
+    "f-open-drain/repair": [
+      "Reach 70% in 0.8 µs, keep low at or below 0.20 V, and sink no more than 0.50 mA.",
+      [
+        "Open Size pull-up. Decrease RPULL in steps and compare release time with sink current.",
+        "Run experiment again after saving the changes.",
+        "Open Results and check every numeric target. Choose Check this step when they pass."
+      ],
+      "Use RPULL = 4.7k. The released bus crosses 70% in about 0.56 µs, and the switch sinks about 0.38 mA."
+    ],
+    "a-switch-drive/baseline": [
+      "Run both loads with the weak gate drive and compare their drain voltages.",
+      [
+        "Open workspace and trace the source, editable parts and measured nodes.",
+        "Choose Run experiment, then Results. Run both loads with the weak gate drive and compare their drain voltages.",
+        "Choose Check this step to save the observed starter case."
+      ],
+      "Run both loads with the weak gate drive and compare their drain voltages. The starter intentionally misses a target."
+    ],
+    "a-switch-drive/repair": [
+      "Keep on-state drop at or below 0.15 V with 1 kΩ and 400 Ω. Keep the gate at or below 1.8 V and the off drain above 1.75 V.",
+      [
+        "Open Size switch and gate drive. Raise gate drive and increase width if the heavy load still misses.",
+        "Run experiment again after saving the changes.",
+        "Open Results and check every numeric target. Choose Check this step when they pass."
+      ],
+      "Try 1.8 V gate drive and 400u width in this teaching model. The heavier load gives about 82 mV drop."
+    ],
+    "a-weak-sensor/baseline": [
+      "Measure the original sensor sag and the buffered output step.",
+      [
+        "Open workspace and trace the source, editable parts and measured nodes.",
+        "Choose Run experiment, then Results. Measure the original sensor sag and the buffered output step.",
+        "Choose Check this step to save the observed starter case."
+      ],
+      "Measure the original sensor sag and the buffered output step. The starter intentionally misses a target."
+    ],
+    "a-weak-sensor/repair": [
+      "Limit sensor loading and output error to 1% each. Settle within 1.5 µs.",
+      [
+        "Open Set buffer parameters. Raise RINPUT to reduce sensor error and reduce RISO to settle the 250 pF load.",
+        "Run experiment again after saving the changes.",
+        "Open Results and check every numeric target. Choose Check this step when they pass."
+      ],
+      "Try RINPUT = 1g and RISO = 1k. The sensor loading is about 0.10%, and the output settles in about 1.04 µs."
+    ],
+    "project-window-detector/baseline": [
+      "Run the input sweep and record the two incorrect window edges.",
+      [
+        "Open workspace and trace the source, editable parts and measured nodes.",
+        "Choose Run experiment, then Results. Run the input sweep and record the two incorrect window edges.",
+        "Choose Check this step to save the observed starter case."
+      ],
+      "Run the input sweep and record the two incorrect window edges. The starter intentionally misses a target."
+    ],
+    "project-window-detector/repair": [
+      "Place lower and upper crossings within 20 mV of 0.55 V and 1.25 V. Produce valid levels inside and outside.",
+      [
+        "Open Set window references. Follow Vin into both comparators and tune each reference independently.",
+        "Run experiment again after saving the changes.",
+        "Open Results and check every numeric target. Choose Check this step when they pass."
+      ],
+      "Set VLOW = .55 and VHIGH = 1.25. Verify both directions of each crossing and an output near 1.8 V in the window."
+    ],
+    "project-swcap-gain/baseline": [
+      "Run the sample and transfer clocks and find the original gain near one.",
+      [
+        "Open workspace and trace the source, editable parts and measured nodes.",
+        "Choose Run experiment, then Results. Run the sample and transfer clocks and find the original gain near one.",
+        "Choose Check this step to save the observed starter case."
+      ],
+      "Run the sample and transfer clocks and find the original gain near one. The starter intentionally misses a target."
+    ],
+    "project-swcap-gain/repair": [
+      "Meet 2.00 V/V within 2%, settle within 5 mV by 0.7 µs into transfer at both levels, and keep hold change within 2 mV.",
+      [
+        "Open Size sample and feedback capacitors. Keep the supplied clocks and common mode. Set a 2:1 ratio and inspect both transfer phases.",
+        "Run experiment again after saving the changes.",
+        "Open Results and check every numeric target. Choose Check this step when they pass."
+      ],
+      "Use CS = 2p and CF = 1p. The two output plateaus should be near 1.10 V and 1.30 V."
+    ],
+    "project-tunable-gmc/baseline": [
+      "Run both tuning conditions and find the original corner frequencies.",
+      [
+        "Open workspace and trace the source, editable parts and measured nodes.",
+        "Choose Run experiment, then Results. Run both tuning conditions and find the original corner frequencies.",
+        "Choose Check this step to save the observed starter case."
+      ],
+      "Run both tuning conditions and find the original corner frequencies. The starter intentionally misses a target."
+    ],
+    "project-tunable-gmc/repair": [
+      "Meet 20 kHz and 60 kHz cutoff within 6%, gain from 0.98 to 1.02, and at most 1% THD on the 5 kHz tone at both settings.",
+      [
+        "Open Size filter capacitor. Estimate C from the low tuning condition. Read both interpolated −3 dB points and the 5 kHz distortion in Results.",
+        "Run experiment again after saving the changes.",
+        "Open Results and check every numeric target. Choose Check this step when they pass."
+      ],
+      "Use about 318p. With the provided OTA model and the two bias levels, the corners should be about 20 kHz and 60 kHz."
+    ],
+    "l-mim-plate/baseline": [
+      "Inspect the original top-plate detour in Layout. Use Check this step to read its added metal capacitance.",
+      [
+        "Open workspace and locate the cap and both access routes.",
+        "Choose Check this step. Record the geometry and measured estimate shown in the feedback."
+      ],
+      "Inspect the original top-plate detour in Layout. Use Check this step to read its added metal capacitance."
+    ],
+    "l-mim-plate/repair": [
+      "Keep the model-linked 10 × 10 µm MIM body and both ports. Reduce added sense-route capacitance to 0.55 fF or less.",
+      [
+        "Choose Route MIM sense plate. Reduce detour height and check the physical connection and added capacitance.",
+        "Inspect both terminals and current route or placement.",
+        "Choose Check this step. Compare the measured value against the baseline."
+      ],
+      "Set sense detour height to 0 µm. The direct path adds about 0.273 fF with the teaching coefficients."
+    ],
+    "l-decoupling/baseline": [
+      "Open the layout and follow the two long branch routes to the original capacitor. Check the predicted droop from the 2 mA pulse.",
+      [
+        "Open workspace and locate the cap and both access routes.",
+        "Choose Check this step. Record the geometry and measured estimate shown in the feedback."
+      ],
+      "Open the layout and follow the two long branch routes to the original capacitor. Check the predicted droop from the 2 mA pulse."
+    ],
+    "l-decoupling/repair": [
+      "Keep the 200 pF capacitor and a valid supply and return. Meet 25 mV of droop or less during the 0.8 ns load pulse.",
+      [
+        "Choose Place decoupling capacitor. Reduce the distance to the load so both branch routes shorten. Check the new loop resistance and droop.",
+        "Inspect both terminals and current route or placement.",
+        "Choose Check this step. Compare the measured value against the baseline."
+      ],
+      "Move the capacitor to 2 µm from the load. Keep both 0.6 µm branches connected; the geometry-derived RC estimate gives about 16.1 mV of droop."
+    ],
+    "d-spi-register/measure": [
+      "Read and write four registers in Mode 0. Discard short, long and invalid-address writes, and release MISO when deselected.",
+      [
+        "Open the RTL editor and read the command decode at bit 8 and the frame_end branch.",
+        "Run the independent bench to reproduce corruption from the short write. Inspect the register readback and bit count.",
+        "Tighten the commit predicate to accept exactly 16 bits. Save RTL and rerun all cases with the original testbench.",
+        "Open Results to inspect cs_n, sclk, mosi and miso. Choose Check this step after the regression passes."
+      ],
+      "Use bits == 16 in the frame_end write condition. Keep selected_read and valid_address checks and leave the reference bench intact."
+    ],
     "f-first/build": [
       "Identify the input, resistor, capacitor and ground in the RC circuit.",
       ["Choose Open workspace and locate V1, R1 and C1 in the Design tree.", "Select each part and read its terminal nets in Properties. Trace the path from the source through R1 to the output and down through C1."],

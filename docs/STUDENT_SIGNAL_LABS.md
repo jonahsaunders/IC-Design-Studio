@@ -1,5 +1,9 @@
 # Student Hub signal experiments
 
+## Circuit design challenges
+
+See the [Engineering design labs](STUDENT_ENGINEERING_LABS.md) for the fixtures, design targets, and measurement scope.
+
 In Student Hub, use **Map** to find the topic in its world, or use **List** and
 search by title. Each lesson opens a saved, editable schematic. Start with the
 prediction and capture the starter measurements. Use the task's edit control

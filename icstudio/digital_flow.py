@@ -289,7 +289,10 @@ def run(job, directory, progress=lambda *_: None):
             def line(text):
                 output.write(text+'\n'); output.flush()
                 progress(fraction, text[:1000])
-            return execute(args, cwd, timeout=config.get('timeout', 60), on_line=line, env=process_env)
+            # Some Windows Icarus builds crash with a NUL stdin handle.
+            # A closed pipe still delivers EOF without requiring a console.
+            options = {'eof_pipe': True} if os.name=='nt' and stage=='simulate' and settings['simulator']=='icarus' else {}
+            return execute(args, cwd, timeout=config.get('timeout', 60), on_line=line, env=process_env, **options)
     for name, path in settings['tools'].items():
         versions[name] = command([path, '--version' if name.startswith('verilator') else '-V'], .02, 'Checking '+name).strip()
     tools = settings['tools']

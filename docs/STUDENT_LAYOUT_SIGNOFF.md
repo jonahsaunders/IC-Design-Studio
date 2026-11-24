@@ -1,5 +1,9 @@
 # Layout integration and signoff labs
 
+## Passive placement and routing
+
+See the [Engineering design labs](STUDENT_ENGINEERING_LABS.md) for the fixtures, design targets, and measurement scope.
+
 Open **Student Hub → Map → Layout** to find the nine advanced labs. They are
 also searchable in **List**. Each opens an editable Studio project with a
 prediction, measurable checkpoints and a reflection.

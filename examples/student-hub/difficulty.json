@@ -1,5 +1,6 @@
 {
   "Easy": [
+    "f-floating-voltage", "a-switch-drive",
     "f-first", "f-connect", "f-edit", "f-hierarchy", "f-debug",
     "a-load", "a-bandwidth", "d-logic", "d-counter", "d-pulse",
     "m-bridge", "m-hold", "l-width", "l-spacing", "l-via", "p-spec",
@@ -7,6 +8,7 @@
     "sc-inv", "sc-inv-compact", "sc-abutment", "sc-nor-rise", "inverter-process", "inverter-schematic"
   ],
   "Medium": [
+    "f-open-drain", "a-weak-sensor", "project-window-detector", "l-mim-plate", "l-decoupling", "d-spi-register", "tb-balanced-stimulus", "sc-schmitt",
     "f-portfolio", "a-bias", "a-differential", "a-amplifier", "a-layout",
     "a-gmid-bias", "a-gmid-size", "a-gmid-headroom", "a-lc-bode", "a-degeneration",
     "d-pwm", "d-average", "d-serial", "d-latch", "d-saturation",
@@ -22,6 +24,7 @@
     "inverter-dc", "inverter-transient", "inverter-layout"
   ],
   "Hard": [
+    "project-swcap-gain", "project-tunable-gmc", "sc-half-adder", "sc-tristate",
     "a-gmid-tradeoff", "a-rejection", "a-drive", "d-pipeline",
     "m-settling", "m-ramp",
     "l-layout-decisions", "l-lvs", "l-eco", "l-settle", "l-supply",

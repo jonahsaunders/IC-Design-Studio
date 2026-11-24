@@ -108,5 +108,95 @@
     ],
     "reflection": "Describe the mismatch and the evidence you would retain with the corrected file. Identify the process DRC, LVS and foundry preflight steps still required for a real handoff.",
     "teaching": {"concept": "An editable source project and a stream file have different contracts. The independent check reads what was written, including hierarchy and label positions.", "worked_example": "A physical port can still land on a valid conductor while its pin-purpose text is absent in GDS. Restoring the label should change the readback report while preserving the mask geometry.", "try_next": "Inspect the GDS with a standalone viewer and compare its visible layers and top cell to the report.", "interview": "What artifacts let a reviewer reproduce and trust your handoff?", "artifact": "The failing and corrected GDS captures, SHA-256 checksums and independent readback reports."}
+  },
+  {
+    "id": "mim-plate",
+    "title": "Route the sensitive plate of a MIM capacitor",
+    "topic": "Passive placement and routing",
+    "summary": "Reroute the top-plate access on a model-linked SKY130 MIM capacitor while preserving both terminal assignments and active plate area.",
+    "skills": [
+      "physical connectivity",
+      "capacitor routing",
+      "parasitic estimates"
+    ],
+    "minutes": 30,
+    "requires": [
+      "l-dac"
+    ],
+    "quiz": {
+      "instructions": "What should stay fixed while comparing the two access routes?",
+      "options": [
+        "The capacitor body and which net lands on each plate",
+        "The added route length",
+        "The added capacitance itself"
+      ],
+      "answer": 0,
+      "explanation": "Holding the active plates fixed isolates the contribution of access metal."
+    },
+    "tasks": [
+      {
+        "id": "baseline",
+        "title": "Inspect the starting layout",
+        "instructions": "Inspect the original top-plate detour in Layout. Use Check this step to read its added metal capacitance."
+      },
+      {
+        "id": "repair",
+        "title": "Meet the placement or route budget",
+        "instructions": "Keep the model-linked 10 × 10 µm MIM body and both ports. Reduce added sense-route capacitance to 0.55 fF or less."
+      }
+    ],
+    "reflection": "Record the original and revised added capacitance. Explain which connection is fixed and which metal changed.",
+    "teaching": {
+      "concept": "Reroute the top-plate access on a model-linked SKY130 MIM capacitor while preserving both terminal assignments and active plate area.",
+      "worked_example": "Set sense detour height to 0 µm. The direct path adds about 0.273 fF with the teaching coefficients.",
+      "try_next": "In a copy, leave the revised design settings in place and change one fixture condition to see which margin disappears first.",
+      "interview": "Record the original and revised added capacitance. Explain which connection is fixed and which metal changed.",
+      "artifact": "Keep the original and repaired geometry and the corresponding estimates."
+    }
+  },
+  {
+    "id": "decoupling",
+    "title": "Place decoupling where it reduces droop",
+    "topic": "Passive placement and routing",
+    "summary": "Move the same capacitor closer to the pulsed load and use the resistance of both drawn branches to measure the effect on supply droop.",
+    "skills": [
+      "physical connectivity",
+      "capacitor routing",
+      "parasitic estimates"
+    ],
+    "minutes": 30,
+    "requires": [
+      "l-supply"
+    ],
+    "quiz": {
+      "instructions": "Why can two locations for the same capacitor produce different droop?",
+      "options": [
+        "The resistance of the supply-and-return loop changes",
+        "The nominal capacitor value changes when moved",
+        "The load pulse disappears near a capacitor"
+      ],
+      "answer": 0,
+      "explanation": "A shorter loop lowers the resistance between stored charge and the load."
+    },
+    "tasks": [
+      {
+        "id": "baseline",
+        "title": "Inspect the starting layout",
+        "instructions": "Open the layout and follow the two long branch routes to the original capacitor. Check the predicted droop from the 2 mA pulse."
+      },
+      {
+        "id": "repair",
+        "title": "Meet the placement or route budget",
+        "instructions": "Keep the 200 pF capacitor and a valid supply and return. Meet 25 mV of droop or less during the 0.8 ns load pulse."
+      }
+    ],
+    "reflection": "Compare loop resistance and droop at the two placements. Explain why the fixed capacitance alone does not predict this improvement.",
+    "teaching": {
+      "concept": "Move the same capacitor closer to the pulsed load and use the resistance of both drawn branches to measure the effect on supply droop.",
+      "worked_example": "Move the capacitor to 2 µm from the load. Keep both 0.6 µm branches connected; the geometry-derived RC estimate gives about 16.1 mV of droop.",
+      "try_next": "In a copy, leave the revised design settings in place and change one fixture condition to see which margin disappears first.",
+      "interview": "Compare loop resistance and droop at the two placements. Explain why the fixed capacitance alone does not predict this improvement.",
+      "artifact": "Keep the original and repaired geometry and the corresponding estimates."
+    }
   }
 ]

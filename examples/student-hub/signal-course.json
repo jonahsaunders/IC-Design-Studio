@@ -95,5 +95,341 @@
     ],
     "reflection": "Record the worst held-out error and which test produced it. Explain how the shared reference influences supply sensitivity and why linear calibration leaves curvature and quantization error.",
     "teaching": {"concept": "The sensor divider and ADC share a reference, so their ratio is the useful input. A two-point fixed-point fit corrects gain and offset. Verify it on independent conditions.", "worked_example": "If codes 580 and 640 represent 0 °C and 80 °C, integer gain rounds to 1,333 m°C/count and offset is −773,140 m°C. A code of 610 yields approximately 40 °C.", "try_next": "Compare a different divider setting or try a piecewise fit in a separate copy to see whether the worst error improves.", "interview": "How would you distinguish fixed-point quantization error from sensor curvature in the verification data?", "artifact": "Measured sensor voltages and ADC codes, signed calibration settings, and a held-out error report."}
+  },
+  {
+    "id": "f-floating-voltage",
+    "path": "foundations",
+    "topic": "voltage reference",
+    "lab": "floating-voltage",
+    "title": "Measure a voltage that isn’t referenced to ground",
+    "summary": "Use a differential meter to measure the 0.30 V across a resistor whose terminals sit at 1.20 V and 0.90 V.",
+    "goal": "Connect the meter negative terminal to lo. Read 0.30 V within 5 mV.",
+    "skills": [
+      "voltage reference",
+      "native measurements",
+      "circuit verification"
+    ],
+    "minutes": 25,
+    "requires": [
+      "f-connect"
+    ],
+    "quiz": {
+      "instructions": "Which two values determine what a meter reads across a floating component?",
+      "options": [
+        "The voltages at its positive and negative leads",
+        "The positive lead voltage and ground",
+        "The two absolute voltages added together"
+      ],
+      "answer": 0,
+      "explanation": "A differential meter subtracts its negative-lead voltage from its positive-lead voltage."
+    },
+    "tasks": [
+      {
+        "id": "baseline",
+        "title": "Measure the starter",
+        "instructions": "Read hi and lo relative to ground and record the meter’s original reading."
+      },
+      {
+        "id": "repair",
+        "title": "Meet the design targets",
+        "instructions": "Connect the meter negative terminal to lo. Read 0.30 V within 5 mV."
+      }
+    ],
+    "reflection": "Explain when 1.20 V is a correct reading and when 0.30 V is the quantity that matters.",
+    "teaching": {
+      "concept": "Use a differential meter to measure the 0.30 V across a resistor whose terminals sit at 1.20 V and 0.90 V.",
+      "worked_example": "Set the meter reference to lo. The terminal readings are 1.20 V and 0.90 V, so the differential reading is 0.30 V.",
+      "try_next": "In a copy, leave the revised design settings in place and change one fixture condition to see which margin disappears first.",
+      "interview": "Explain when 1.20 V is a correct reading and when 0.30 V is the quantity that matters.",
+      "artifact": "Keep the editable circuit and the baseline and passing measurement captures."
+    }
+  },
+  {
+    "id": "f-open-drain",
+    "path": "foundations",
+    "topic": "rise-time budget",
+    "lab": "open-drain",
+    "title": "Turn an open-drain output into a usable signal",
+    "summary": "Select a pull-up that charges a 100 pF bus fast enough while keeping the low level and sink current in range.",
+    "goal": "Reach 70% in 0.8 µs, keep low at or below 0.20 V, and sink no more than 0.50 mA.",
+    "skills": [
+      "rise-time budget",
+      "native measurements",
+      "circuit verification"
+    ],
+    "minutes": 25,
+    "requires": [
+      "f-first"
+    ],
+    "quiz": {
+      "instructions": "Which part charges the bus when the NMOS turns off?",
+      "options": [
+        "The pull-up resistor",
+        "The open NMOS channel",
+        "The output capacitance by itself"
+      ],
+      "answer": 0,
+      "explanation": "The resistor charges the bus capacitance when the output stops sinking current."
+    },
+    "tasks": [
+      {
+        "id": "baseline",
+        "title": "Measure the starter",
+        "instructions": "Measure the slow release with the supplied 100 kΩ pull-up."
+      },
+      {
+        "id": "repair",
+        "title": "Meet the design targets",
+        "instructions": "Reach 70% in 0.8 µs, keep low at or below 0.20 V, and sink no more than 0.50 mA."
+      }
+    ],
+    "reflection": "Record the predicted RC time and the measured rise. Explain why the smallest pull-up is not always the best choice.",
+    "teaching": {
+      "concept": "Select a pull-up that charges a 100 pF bus fast enough while keeping the low level and sink current in range.",
+      "worked_example": "Use RPULL = 4.7k. The released bus crosses 70% in about 0.56 µs, and the switch sinks about 0.38 mA.",
+      "try_next": "In a copy, leave the revised design settings in place and change one fixture condition to see which margin disappears first.",
+      "interview": "Record the predicted RC time and the measured rise. Explain why the smallest pull-up is not always the best choice.",
+      "artifact": "Keep the editable circuit and the baseline and passing measurement captures."
+    }
+  },
+  {
+    "id": "a-switch-drive",
+    "path": "analog",
+    "topic": "switch sizing",
+    "lab": "switch-drive",
+    "title": "Keep a transistor switch fully on",
+    "summary": "Choose gate drive and switch width for a low-side NMOS at two loads. Check on-state drop and off-state isolation.",
+    "goal": "Keep on-state drop at or below 0.15 V with 1 kΩ and 400 Ω. Keep the gate at or below 1.8 V and the off drain above 1.75 V.",
+    "skills": [
+      "switch sizing",
+      "native measurements",
+      "circuit verification"
+    ],
+    "minutes": 25,
+    "requires": [
+      "a-gmid-headroom"
+    ],
+    "quiz": {
+      "instructions": "What voltage drives the channel in this low-side switch?",
+      "options": [
+        "Gate-to-source voltage",
+        "Gate-to-drain voltage alone",
+        "Drain voltage relative to the supply"
+      ],
+      "answer": 0,
+      "explanation": "The channel responds to gate-to-source voltage. Higher overdrive and adequate width lower the on-state drop."
+    },
+    "tasks": [
+      {
+        "id": "baseline",
+        "title": "Measure the starter",
+        "instructions": "Run both loads with the weak gate drive and compare their drain voltages."
+      },
+      {
+        "id": "repair",
+        "title": "Meet the design targets",
+        "instructions": "Keep on-state drop at or below 0.15 V with 1 kΩ and 400 Ω. Keep the gate at or below 1.8 V and the off drain above 1.75 V."
+      }
+    ],
+    "reflection": "Explain why the larger load current makes an inadequate switch easier to spot.",
+    "teaching": {
+      "concept": "Choose gate drive and switch width for a low-side NMOS at two loads. Check on-state drop and off-state isolation.",
+      "worked_example": "Try 1.8 V gate drive and 400u width in this teaching model. The heavier load gives about 82 mV drop.",
+      "try_next": "In a copy, leave the revised design settings in place and change one fixture condition to see which margin disappears first.",
+      "interview": "Explain why the larger load current makes an inadequate switch easier to spot.",
+      "artifact": "Keep the editable circuit and the baseline and passing measurement captures."
+    }
+  },
+  {
+    "id": "a-weak-sensor",
+    "path": "analog",
+    "topic": "sensor loading",
+    "lab": "weak-sensor",
+    "title": "Design a buffer for a weak sensor",
+    "summary": "Choose the input and output resistances of a buffer model between a 1 MΩ sensor and a capacitive load.",
+    "goal": "Limit sensor loading and output error to 1% each. Settle within 1.5 µs.",
+    "skills": [
+      "sensor loading",
+      "native measurements",
+      "circuit verification"
+    ],
+    "minutes": 25,
+    "requires": [
+      "a-load"
+    ],
+    "quiz": {
+      "instructions": "Which two buffer properties are needed to read the sensor and drive the load?",
+      "options": [
+        "High input resistance and low output resistance",
+        "Low input and high output resistance",
+        "Input and output resistances equal to the sensor resistance"
+      ],
+      "answer": 0,
+      "explanation": "High input resistance preserves the sensor voltage, while low output resistance charges the load quickly."
+    },
+    "tasks": [
+      {
+        "id": "baseline",
+        "title": "Measure the starter",
+        "instructions": "Measure the original sensor sag and the buffered output step."
+      },
+      {
+        "id": "repair",
+        "title": "Meet the design targets",
+        "instructions": "Limit sensor loading and output error to 1% each. Settle within 1.5 µs."
+      }
+    ],
+    "reflection": "Compare sense and out. Identify which resistance caused each error.",
+    "teaching": {
+      "concept": "Choose the input and output resistances of a buffer model between a 1 MΩ sensor and a capacitive load.",
+      "worked_example": "Try RINPUT = 1g and RISO = 1k. The sensor loading is about 0.10%, and the output settles in about 1.04 µs.",
+      "try_next": "In a copy, leave the revised design settings in place and change one fixture condition to see which margin disappears first.",
+      "interview": "Compare sense and out. Identify which resistance caused each error.",
+      "artifact": "Keep the editable circuit and the baseline and passing measurement captures."
+    }
+  },
+  {
+    "id": "project-window-detector",
+    "path": "analog-projects",
+    "topic": "comparator window",
+    "lab": "window-detector",
+    "title": "Build a two-threshold window detector",
+    "summary": "Configure two comparator references and detect when a signal enters a specified voltage band on either sweep direction.",
+    "goal": "Place lower and upper crossings within 20 mV of 0.55 V and 1.25 V. Produce valid levels inside and outside.",
+    "skills": [
+      "comparator window",
+      "native measurements",
+      "circuit verification"
+    ],
+    "minutes": 25,
+    "requires": [
+      "a-differential"
+    ],
+    "quiz": {
+      "instructions": "When should the window output be high?",
+      "options": [
+        "When the input is above the lower limit and below the upper limit",
+        "Whenever either comparator is true",
+        "Whenever the two thresholds are equal"
+      ],
+      "answer": 0,
+      "explanation": "The lower comparator checks above the lower bound. The upper comparator checks below the upper bound. Both must be true."
+    },
+    "tasks": [
+      {
+        "id": "baseline",
+        "title": "Measure the starter",
+        "instructions": "Run the input sweep and record the two incorrect window edges."
+      },
+      {
+        "id": "repair",
+        "title": "Meet the design targets",
+        "instructions": "Place lower and upper crossings within 20 mV of 0.55 V and 1.25 V. Produce valid levels inside and outside."
+      }
+    ],
+    "reflection": "Record which comparator causes each edge and what happens when the input leaves either side.",
+    "teaching": {
+      "concept": "Configure two comparator references and detect when a signal enters a specified voltage band on either sweep direction.",
+      "worked_example": "Set VLOW = .55 and VHIGH = 1.25. Verify both directions of each crossing and an output near 1.8 V in the window.",
+      "try_next": "In a copy, leave the revised design settings in place and change one fixture condition to see which margin disappears first.",
+      "interview": "Record which comparator causes each edge and what happens when the input leaves either side.",
+      "artifact": "Keep the editable circuit and the baseline and passing measurement captures."
+    }
+  },
+  {
+    "id": "project-swcap-gain",
+    "path": "analog-projects",
+    "topic": "sampled feedback",
+    "lab": "swcap-gain",
+    "title": "Build a switched-capacitor gain stage",
+    "summary": "Set the sample-to-feedback capacitor ratio in a two-phase gain stage. Verify charge transfer, settling and hold.",
+    "goal": "Meet 2.00 V/V within 2%, settle within 5 mV by 0.7 µs into transfer at both levels, and keep hold change within 2 mV.",
+    "skills": [
+      "sampled feedback",
+      "native measurements",
+      "circuit verification"
+    ],
+    "minutes": 45,
+    "requires": [
+      "m-hold"
+    ],
+    "quiz": {
+      "instructions": "Which ratio determines the ideal positive gain of this switched-capacitor connection?",
+      "options": [
+        "Sampling capacitance divided by feedback capacitance",
+        "Feedback capacitance divided by the output load",
+        "Clock period divided by the phase gap"
+      ],
+      "answer": 0,
+      "explanation": "Sampled charge is transferred into the feedback capacitor. In this connection the output step is CS/CF times the sampled step about common mode."
+    },
+    "tasks": [
+      {
+        "id": "baseline",
+        "title": "Measure the starter",
+        "instructions": "Run the sample and transfer clocks and find the original gain near one."
+      },
+      {
+        "id": "repair",
+        "title": "Meet the design targets",
+        "instructions": "Meet 2.00 V/V within 2%, settle within 5 mV by 0.7 µs into transfer at both levels, and keep hold change within 2 mV."
+      }
+    ],
+    "reflection": "Trace the capacitor connections during each phase and explain why charge from the first sample does not accumulate in the second.",
+    "teaching": {
+      "concept": "Set the sample-to-feedback capacitor ratio in a two-phase gain stage. Verify charge transfer, settling and hold.",
+      "worked_example": "Use CS = 2p and CF = 1p. The two output plateaus should be near 1.10 V and 1.30 V.",
+      "try_next": "In a copy, leave the revised design settings in place and change one fixture condition to see which margin disappears first.",
+      "interview": "Trace the capacitor connections during each phase and explain why charge from the first sample does not accumulate in the second.",
+      "artifact": "Keep the editable circuit and the baseline and passing measurement captures."
+    }
+  },
+  {
+    "id": "project-tunable-gmc",
+    "path": "analog-projects",
+    "topic": "OTA-C filter",
+    "lab": "tunable-gmc",
+    "title": "Design a tunable gm-C filter",
+    "summary": "Size one capacitor for two transconductance settings in an OTA-C low-pass. Measure both pole frequencies and passband gain.",
+    "goal": "Meet 20 kHz and 60 kHz cutoff within 6%, gain from 0.98 to 1.02, and at most 1% THD on the 5 kHz tone at both settings.",
+    "skills": [
+      "OTA-C filter",
+      "native measurements",
+      "circuit verification"
+    ],
+    "minutes": 45,
+    "requires": [
+      "a-bandwidth"
+    ],
+    "quiz": {
+      "instructions": "What moves the pole higher at fixed capacitance?",
+      "options": [
+        "Increasing the OTA transconductance",
+        "Increasing the circuit’s output capacitance",
+        "Lowering the AC stimulus amplitude"
+      ],
+      "answer": 0,
+      "explanation": "The OTA current charges the filter capacitor. Its small-signal pole is gm divided by 2πC."
+    },
+    "tasks": [
+      {
+        "id": "baseline",
+        "title": "Measure the starter",
+        "instructions": "Run both tuning conditions and find the original corner frequencies."
+      },
+      {
+        "id": "repair",
+        "title": "Meet the design targets",
+        "instructions": "Meet 20 kHz and 60 kHz cutoff within 6%, gain from 0.98 to 1.02, and at most 1% THD on the 5 kHz tone at both settings."
+      }
+    ],
+    "reflection": "Compare the calculated and measured cutoffs. Explain what stays fixed and what changes between the two bias cases.",
+    "teaching": {
+      "concept": "Size one capacitor for two transconductance settings in an OTA-C low-pass. Measure both pole frequencies and passband gain.",
+      "worked_example": "Use about 318p. With the provided OTA model and the two bias levels, the corners should be about 20 kHz and 60 kHz.",
+      "try_next": "In a copy, leave the revised design settings in place and change one fixture condition to see which margin disappears first.",
+      "interview": "Compare the calculated and measured cutoffs. Explain what stays fixed and what changes between the two bias cases.",
+      "artifact": "Keep the editable circuit and the baseline and passing measurement captures."
+    }
   }
 ]

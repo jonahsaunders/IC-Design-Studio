@@ -3,7 +3,7 @@
 from PySide6.QtWidgets import QComboBox, QDialog, QDialogButtonBox, QFormLayout, QHeaderView, QLabel, QVBoxLayout
 
 from . import student_signal_circuits as circuits
-from . import student_signal_labs as labs
+from . import student_signal_labs as labs, student_circuit_challenges as challenges
 from .analog_widgets import fill, table
 from .model import design_digest, scalar
 from .plot import WavePlot
@@ -23,6 +23,7 @@ TUNING = {
     ('pga', 'repair'): ('Edit gain resistors', *((f'RG{i}', 'value', f'RG{i} resistance (Ω)') for i in range(1, 4))),
     ('temperature', 'anchor'): ('Edit sensor divider', ('RFIX', 'value', 'RFIX resistance (Ω)')),
 }
+TUNING.update({(lab,'repair'): fields for lab,fields in challenges.CONTROLS.items()})
 ACTIONS = {key: value[0] for key, value in TUNING.items()}
 ACTIONS['temperature', 'validate'] = 'Edit calibration registers'
 
@@ -44,7 +45,7 @@ def form_fields(p, lab, step, cid):
     fields = []
     for name, field, label in TUNING[lab, step][1:]:
         part, key = _field(p, cid, name, field)
-        fields.append((name, label, part[key]))
+        fields.append((name, label, [part[key], 'lo' if part[key]=='0' else '0'] if field=='nets.ref' else part[key]))
     return fields, 'Enter circuit values using SI suffixes such as 4k, 330p and 10n.'
 
 
@@ -72,6 +73,17 @@ def open_form(guide, lab, step):
         def apply(project, values):
             for name, field, label in specs:
                 value = values[name].strip()
+                if field == 'nets.ref':
+                    if value not in {'0','lo'}:
+                        raise ValueError('Choose ground or the measured node lo.')
+                    part, key = _field(project,cid,name,field)
+                    part[key] = value
+                    from .example_schematics import arrange
+                    cell = next(c for c in project['cells'] if c['id']==cid)
+                    for component in ('wires','labels','junctions','example_drawing'):
+                        cell.pop(component,None)
+                    arrange(project)
+                    continue
                 numeric = scalar(value)
                 if numeric < 0 or (numeric == 0 and name != 'VDEMOD'):
                     raise ValueError(f'Enter a valid positive value for {label}. Clock delay can be zero.')

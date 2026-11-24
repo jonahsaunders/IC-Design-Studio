@@ -1,4 +1,184 @@
 {
+  "f-floating-voltage/predict": [
+    [
+      "What should I inspect first?",
+      "Read hi and lo relative to ground and record the meter’s original reading."
+    ],
+    [
+      "Which physical relationship matters?",
+      "A differential meter subtracts its negative-lead voltage from its positive-lead voltage."
+    ],
+    [
+      "What am I allowed to tune?",
+      "Open Set meter reference and select lo. Leave the positive lead on hi."
+    ],
+    [
+      "How will I know it works?",
+      "Connect the meter negative terminal to lo. Read 0.30 V within 5 mV."
+    ]
+  ],
+  "f-open-drain/predict": [
+    [
+      "What should I inspect first?",
+      "Measure the slow release with the supplied 100 kΩ pull-up."
+    ],
+    [
+      "Which physical relationship matters?",
+      "The resistor charges the bus capacitance when the output stops sinking current."
+    ],
+    [
+      "What am I allowed to tune?",
+      "Open Size pull-up. Decrease RPULL in steps and compare release time with sink current."
+    ],
+    [
+      "How will I know it works?",
+      "Reach 70% in 0.8 µs, keep low at or below 0.20 V, and sink no more than 0.50 mA."
+    ]
+  ],
+  "a-switch-drive/predict": [
+    [
+      "What should I inspect first?",
+      "Run both loads with the weak gate drive and compare their drain voltages."
+    ],
+    [
+      "Which physical relationship matters?",
+      "The channel responds to gate-to-source voltage. Higher overdrive and adequate width lower the on-state drop."
+    ],
+    [
+      "What am I allowed to tune?",
+      "Open Size switch and gate drive. Raise gate drive and increase width if the heavy load still misses."
+    ],
+    [
+      "How will I know it works?",
+      "Keep on-state drop at or below 0.15 V with 1 kΩ and 400 Ω. Keep the gate at or below 1.8 V and the off drain above 1.75 V."
+    ]
+  ],
+  "a-weak-sensor/predict": [
+    [
+      "What should I inspect first?",
+      "Measure the original sensor sag and the buffered output step."
+    ],
+    [
+      "Which physical relationship matters?",
+      "High input resistance preserves the sensor voltage, while low output resistance charges the load quickly."
+    ],
+    [
+      "What am I allowed to tune?",
+      "Open Set buffer parameters. Raise RINPUT to reduce sensor error and reduce RISO to settle the 250 pF load."
+    ],
+    [
+      "How will I know it works?",
+      "Limit sensor loading and output error to 1% each. Settle within 1.5 µs."
+    ]
+  ],
+  "project-window-detector/predict": [
+    [
+      "What should I inspect first?",
+      "Run the input sweep and record the two incorrect window edges."
+    ],
+    [
+      "Which physical relationship matters?",
+      "The lower comparator checks above the lower bound. The upper comparator checks below the upper bound. Both must be true."
+    ],
+    [
+      "What am I allowed to tune?",
+      "Open Set window references. Follow Vin into both comparators and tune each reference independently."
+    ],
+    [
+      "How will I know it works?",
+      "Place lower and upper crossings within 20 mV of 0.55 V and 1.25 V. Produce valid levels inside and outside."
+    ]
+  ],
+  "project-swcap-gain/predict": [
+    [
+      "What should I inspect first?",
+      "Run the sample and transfer clocks and find the original gain near one."
+    ],
+    [
+      "Which physical relationship matters?",
+      "Sampled charge is transferred into the feedback capacitor. In this connection the output step is CS/CF times the sampled step about common mode."
+    ],
+    [
+      "What am I allowed to tune?",
+      "Open Size sample and feedback capacitors. Keep the supplied clocks and common mode. Set a 2:1 ratio and inspect both transfer phases."
+    ],
+    [
+      "How will I know it works?",
+      "Meet 2.00 V/V within 2%, settle within 5 mV by 0.7 µs into transfer at both levels, and keep hold change within 2 mV."
+    ]
+  ],
+  "project-tunable-gmc/predict": [
+    [
+      "What should I inspect first?",
+      "Run both tuning conditions and find the original corner frequencies."
+    ],
+    [
+      "Which physical relationship matters?",
+      "The OTA current charges the filter capacitor. Its small-signal pole is gm divided by 2πC."
+    ],
+    [
+      "What am I allowed to tune?",
+      "Open Size filter capacitor. Estimate C from the low tuning condition. Read both interpolated −3 dB points and the 5 kHz distortion in Results."
+    ],
+    [
+      "How will I know it works?",
+      "Meet 20 kHz and 60 kHz cutoff within 6%, gain from 0.98 to 1.02, and at most 1% THD on the 5 kHz tone at both settings."
+    ]
+  ],
+  "l-mim-plate/predict": [
+    [
+      "What should stay fixed in both layouts?",
+      "Holding the active plates fixed isolates the contribution of access metal."
+    ],
+    [
+      "What should I inspect on the starter?",
+      "Inspect the original top-plate detour in Layout. Use Check this step to read its added metal capacitance."
+    ],
+    [
+      "Which layout control changes the result?",
+      "Choose Route MIM sense plate. Reduce detour height and check the physical connection and added capacitance."
+    ],
+    [
+      "What will count as a pass?",
+      "Keep the model-linked 10 × 10 µm MIM body and both ports. Reduce added sense-route capacitance to 0.55 fF or less."
+    ]
+  ],
+  "l-decoupling/predict": [
+    [
+      "What should stay fixed in both layouts?",
+      "A shorter loop lowers the resistance between stored charge and the load."
+    ],
+    [
+      "What should I inspect on the starter?",
+      "Open the layout and follow the two long branch routes to the original capacitor. Check the predicted droop from the 2 mA pulse."
+    ],
+    [
+      "Which layout control changes the result?",
+      "Choose Place decoupling capacitor. Reduce the distance to the load so both branch routes shorten. Check the new loop resistance and droop."
+    ],
+    [
+      "What will count as a pass?",
+      "Keep the 200 pF capacitor and a valid supply and return. Meet 25 mV of droop or less during the 0.8 ns load pulse."
+    ]
+  ],
+  "d-spi-register/predict": [
+    [
+      "What is sent first?",
+      "Send an eight-bit command, then one data byte. Bit 7 selects a read; bits 1:0 address one of four registers."
+    ],
+    [
+      "When is MOSI sampled?",
+      "Mode 0 samples it on the rising edge and changes the return bit on the falling edge."
+    ],
+    [
+      "Where is the starter fault?",
+      "Look at the acceptance condition at frame_end. A partial frame can already have a valid command byte."
+    ],
+    [
+      "What does the independent bench cover?",
+      "It checks reset, complete reads and writes, short and long frames, bad addresses, stable MISO during high clock and release on deselect."
+    ]
+  ],
   "f-first/predict": [
     ["Which formula should I start with?", "Use τ = RC for this one-resistor, one-capacitor bench."],
     ["How do kilo and nano combine?", "Kilo contributes 10³ and nano contributes 10⁻⁹. Their product contributes 10⁻⁶."],

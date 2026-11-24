@@ -79,5 +79,37 @@
     "work": "Open the follower step fixture. Check that VIN rises from 0.85 to 0.95 V at 5 µs and that CL is 1p. Verify that INN remains tied to out.",
     "analysis": {"type": "tran", "step": "20n", "stop": "20u"}, "at": "15u", "limits": [0.93, 0.97],
     "reflection": "Describe the shape of the step and compare the before and after voltage. If you saw overshoot, explain how the settled sample could still pass."
+  },
+  {
+    "id": "tb-balanced-stimulus",
+    "title": "Build a balanced differential stimulus",
+    "project": "balanced",
+    "topic": "Differential fixtures",
+    "requires": [
+      "tb-divider-transient"
+    ],
+    "concept": "Use two complementary sources so the differential voltage changes sign at a fixed common mode.",
+    "question": "How do you make a 0.10 V differential signal about 0.90 V common mode?",
+    "options": [
+      "Drive one input to 0.95 V and the other to 0.85 V",
+      "Drive both inputs to 1.00 V",
+      "Drive one input to 0.10 V and ground the other"
+    ],
+    "answer": 0,
+    "explanation": "The average of the two inputs is common mode; their difference is the differential voltage.",
+    "work": "Edit VMINUS so its pulse goes from 0.95 V to 0.85 V at 4 µs. Keep VPLUS rising from 0.85 V to 0.95 V. Check both nets.",
+    "analysis": {
+      "type": "tran",
+      "step": "20n",
+      "stop": "12u"
+    },
+    "node": "inp",
+    "reference": "inn",
+    "at": "8u",
+    "limits": [
+      0.095,
+      0.105
+    ],
+    "reflection": "Record both input levels, their average and their difference before and after the transition. Explain why a single-ended reading is insufficient."
   }
 ]

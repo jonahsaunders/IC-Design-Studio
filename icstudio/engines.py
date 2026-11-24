@@ -15,8 +15,8 @@ def diagnostics(config=None):
         out.append({'name':name,'path':path or '', 'status':'available' if path and Path(path).is_file() else 'not installed'})
     return out
 
-def execute(args,cwd,timeout=180,input_text=None,on_line=None,env=None):
-    proc=subprocess.Popen([str(x) for x in args],cwd=cwd,env=env,stdin=subprocess.PIPE if input_text else subprocess.DEVNULL,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,encoding='utf-8',errors='replace',shell=False,start_new_session=os.name!='nt',creationflags=subprocess.CREATE_NO_WINDOW if os.name=='nt' else 0)
+def execute(args,cwd,timeout=180,input_text=None,on_line=None,env=None,*,eof_pipe=False):
+    proc=subprocess.Popen([str(x) for x in args],cwd=cwd,env=env,stdin=subprocess.PIPE if input_text or eof_pipe else subprocess.DEVNULL,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,encoding='utf-8',errors='replace',shell=False,start_new_session=os.name!='nt',creationflags=subprocess.CREATE_NO_WINDOW if os.name=='nt' else 0)
     prior=None
     try:
         def stopped(*_): raise InterruptedError('Job cancelled.')
@@ -25,7 +25,9 @@ def execute(args,cwd,timeout=180,input_text=None,on_line=None,env=None):
         if on_line is None:out,_=proc.communicate(input=input_text,timeout=timeout)
         else:
             import queue,threading
-            if input_text:proc.stdin.write(input_text);proc.stdin.close()
+            if proc.stdin:
+                if input_text:proc.stdin.write(input_text)
+                proc.stdin.close()
             stream=queue.Queue();lines=[];deadline=time.monotonic()+timeout
             def reader():
                 try:

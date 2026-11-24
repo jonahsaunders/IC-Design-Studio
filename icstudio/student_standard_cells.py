@@ -5,7 +5,7 @@ import json
 from functools import lru_cache
 from pathlib import Path
 
-from . import student_cell_characterization as characterization, student_cell_row as row_lab
+from . import student_cell_characterization as characterization, student_cell_row as row_lab, student_logic_cells as logic
 from .model import clone, design_digest, device, example, file_digest, scalar, uid, validate
 
 
@@ -50,6 +50,8 @@ def lessons():
                  else 'Compare schematic and layout-loaded output levels for all input vectors.',
                  rule={'type': 'standard_cell'}),
         ]
+        if key=='half-adder':
+            steps[2]['instructions'] = 'Close the gaps on VPWR, Y (sum), and CO (carry). Check all three routes.'
         steps.append(dict(id='reflect', kind='reflection', title='Record the design trade-off',
                           instructions=unit['reflection']))
         starter = STARTER + key
@@ -163,6 +165,11 @@ def practice(key):
                       if key != 'dff' else '') + ' Both models should reach the same logic levels at the sample times.',
         ],
     }
+    if key=='half-adder':
+        tasks['route'][0] = 'Close the VPWR, sum (Y) and carry (CO) gaps in Metal 3.'
+        tasks['route'][1][0] = 'Locate all three gaps. Trace the two output pins separately.'
+        tasks['route'][1][2] = 'Use 0.9 µm for VPWR and 0.64 µm for both output routes.'
+        tasks['route'][2] = 'Bridge VPWR at 0.9 µm and Y and CO at 0.64 µm each. The guided route form lists all three gaps.'
     if unit.get('specs'):
         tasks['place'][1][0] = 'Choose Size and place to enter the design dimensions and build a layout.'
         fixture = characterization.LOAD_DESCRIPTION.get(key, fixture_load(key)+' output load')
@@ -173,6 +180,8 @@ def practice(key):
             'If a target fails, choose Revise design. '+unit['tune'],
             'Review the logic samples and choose Check this step after every target passes.',
         ]
+        if key in logic.KEYS:
+            tasks['verify'][1].insert(2, unit['measure'])
         if key == 'dff-aperture':
             tasks['verify'][1] = [
                 'Run the lesson to capture the routed cell and timing sweep.',
@@ -229,6 +238,8 @@ def network(key):
                 + transmission('S_IN', 'CLK', 'CLK_B', 'M2', 'S0')
                 + inverter('S1', 'S0', 'S1') + inverter('Q', 'S1', 'Q')
                 + transmission('S_FB', 'CLK_B', 'CLK', 'Q', 'S0'))
+    if key in logic.KEYS:
+        return logic.network(key,inverter)
     return characterization.networks(key, inverter, transmission)
 
 
@@ -237,6 +248,7 @@ def terminals(polarity, gate, drain, source):
 
 
 def samples(key):
+    if key in logic.SAMPLES: return logic.SAMPLES[key]
     special = {
         'nor-rise': [(8,(0,0),1),(20,(0,1),0),(56,(1,0),0),(68,(1,1),0)],
         'mux-glitch': [(8,(0,0,0),0),(16,(1,0,0),0),(32,(0,0,1),0),(40,(1,0,1),1),
@@ -265,6 +277,7 @@ def samples(key):
 
 
 def stimulus(key):
+    if key in logic.STIMULUS: return logic.STIMULUS[key]
     special = {
         'nor-rise': {'A': (48,96,'.5'), 'B': (12,24,'.5')},
         'mux-glitch': {'S': (12,24,'.25'), 'A': (48,96,'.5'), 'B': (24,48,'.5')},
@@ -287,11 +300,11 @@ def sources(key):
     for i, (pin, (delay, period, duty)) in enumerate(stimulus(key).items()):
         pulse = dict(type='pulse', low='0', high=str(SUPPLY), delay=f'{delay}n', period=f'{period}n',
                      duty=duty, rise='100p', fall='100p', ac='0')
-        net = 's_drive' if key == 'mux-glitch' and pin == 'S' else pin.lower()
+        net = {('mux-glitch','S'):'s_drive', ('schmitt','A'):'a_drive'}.get((key,pin),pin.lower())
         parts.append(device('V', 'V_'+pin, 120, 260+160*i, source=pulse, nets={'p': net, 'n': '0'}))
     if key != 'buffer-fo4':
         parts.append(device('C', 'CL', 800, 290, value=fixture_load(key), nets={'p': 'out', 'n': '0'}))
-    return parts + characterization.extra_sources(key)
+    return parts + characterization.extra_sources(key) + logic.extras(key)
 
 
 def create(key):
@@ -305,7 +318,7 @@ def create(key):
 
     unit = course()[key]
     output = output_pin(key)
-    ports = [*unit['inputs'], output, 'VPWR', 'VGND']
+    ports = [*unit['inputs'], output, *logic.PORTS.get(key,{}), 'VPWR', 'VGND']
     p = example('empty')
     link_technology(p, bundled_technology())
     models = defaults(p['pdk'])
@@ -328,7 +341,9 @@ def create(key):
     configure_component(p, cell['id'], cell_name, ports, {})
     nets = {pin: pin.lower() for pin in unit['inputs']}
     nets.update({output: 'out', 'VPWR': 'vdd', 'VGND': '0'})
-    bench['devices'] = sources(key) + [device('X', 'XDUT', 510, 280, cell=cell['id'], nets=nets)]
+    nets.update(logic.PORTS.get(key,{}))
+    bench['devices'] = sources(key) + [device('X', 'XDUT', 535, 280, cell=cell['id'], nets=nets)]
+    bench['devices'] += logic.extra_instances(key,cell['id'])
     if key == 'buffer-fo4':
         inv, _ = context(create('inv'), 'inv')
         p['cells'].append(inv)
@@ -343,6 +358,7 @@ def create(key):
 def analysis_settings(key):
     stop = {'dff': 104, 'dff-clock': 136, 'nor-rise': 74, 'mux-glitch': 96,
             'buffer-fo4': 32, 'xor-energy': 55, 'dff-aperture': 19}.get(key, VECTOR_NS * len(samples(key)))
+    stop = logic.STOP.get(key,stop)
     return dict(type='tran', step='20p', stop=f'{stop}n', temperature=27, corner='nominal', uic=False)
 
 
@@ -366,7 +382,8 @@ def check_fixture(project, key):
     expected_nets = {pin: pin.lower() for pin in inputs}
     expected_nets.update({output_pin(key): 'out', 'VPWR': 'vdd', 'VGND': '0'})
     instance = actual.get('XDUT', {})
-    expected = sources(key)
+    expected_nets.update(logic.PORTS.get(key,{}))
+    expected = sources(key) + logic.extra_instances(key,cell['id'])
     if key == 'buffer-fo4':
         load = actual.get('XLOAD1', {}).get('cell')
         inv = next((child for child in project['cells'] if child['id'] == load and child['name'] == 'inv'), None)
@@ -389,7 +406,7 @@ def check_fixture(project, key):
 def check_wiring(project, key):
     cell, _ = context(project, key)
     output = output_pin(key)
-    expected_ports = [*course()[key]['inputs'], output, 'VPWR', 'VGND']
+    expected_ports = [*course()[key]['inputs'], output, *logic.PORTS.get(key,{}), 'VPWR', 'VGND']
     if cell['ports'] != expected_ports:
         raise ValueError('Preserve the cell pins and their order: ' + ', '.join(expected_ports) + '.')
     if project['pdk'].get('package_lock', {}).get('id') != 'sky130A':
@@ -422,7 +439,7 @@ def check_devices(cell, key, fixed_widths=False):
 
 
 def build_layout(project, key, dimensions=None, replace=False):
-    from .student_cell_layout import place
+    from .student_cell_layout import PITCH, place
     if key == row_lab.KEY:
         cell, _ = context(project,key)
         if dimensions is not None:
@@ -431,7 +448,7 @@ def build_layout(project, key, dimensions=None, replace=False):
     check_wiring(project, key)
     cell, _ = context(project, key)
     if dimensions is None:
-        place(project, cell)
+        place(project, cell, course()[key].get('starter_pitch',PITCH))
         return
     from .student_cell_specs import apply_design
     if cell['shapes'] and not replace:
@@ -480,8 +497,12 @@ def readings(result, key):
         vector = ', '.join(f'{pin}={bit}' for pin, bit in zip(pins, bits))
         if actual != bits:
             raise ValueError(f'At {ns} ns the fixture did not apply {vector}.')
-        readings.append(dict(time_ns=ns, inputs=dict(zip(pins, bits)), expected=output, output_V=voltage,
-                             passed=level(voltage)==output))
+        row = dict(time_ns=ns, inputs=dict(zip(pins, bits)), expected=output, output_V=voltage,
+                   passed=level(voltage)==output)
+        if key=='half-adder':
+            carry = at(result,'carry',time)
+            row.update(carry_V=carry, expected_carry=int(all(bits)), passed=row['passed'] and level(carry)==int(all(bits)))
+        readings.append(row)
     return readings
 
 
@@ -490,8 +511,10 @@ def read_samples(result, key):
     for row in measured:
         if not row['passed']:
             vector = ', '.join(f'{pin}={bit}' for pin,bit in row['inputs'].items())
+            carry = (f' Carry was {row["carry_V"]:.3g} V, expected logic {row["expected_carry"]}.'
+                     if 'carry_V' in row else '')
             raise ValueError(f'At {row["time_ns"]} ns with {vector}, measured {row["output_V"]:.3g} V. '
-                             f'Expected logic {row["expected"]}.')
+                             f'Expected logic {row["expected"]}.'+carry)
     return measured
 
 
@@ -613,7 +636,8 @@ def check(project, lesson, step, rows):
     for row in targets:
         if not row['passed']:
             value = 'missing transition' if row['value'] is None else f'{row["value"]:.3g} {row["unit"]}'
-            raise ValueError(f'{row["metric"]} measured {value}. Target ≤ {row["maximum"]:g} {row["unit"]}.')
+            limit = f'≥ {row["minimum"]:g}' if 'minimum' in row else f'≤ {row["maximum"]:g}'
+            raise ValueError(f'{row["metric"]} measured {value}. Target {limit} {row["unit"]}.')
     if layout.get('sweep'):
         evidence['timing_sweep'] = layout['sweep']
     return dict(**evidence, **geometry, logic_samples=drawn, schematic_samples=schematic,

@@ -1,6 +1,13 @@
 {
   "version": 1,
   "lessons": {
+    "d-spi-register": {
+      "concept": "Read and write four registers in Mode 0. Discard short, long and invalid-address writes, and release MISO when deselected.",
+      "worked_example": "Use bits == 16 in the frame_end write condition. Keep selected_read and valid_address checks and leave the reference bench intact.",
+      "try_next": "In a copy, leave the revised design settings in place and change one fixture condition to see which margin disappears first.",
+      "interview": "Explain why committing on chip-select rise with an exact count prevents corruption. Describe when MISO may change in Mode 0.",
+      "artifact": "Keep the repaired RTL, reference-bench results and an SPI trace of one aborted and one complete write."
+    },
     "a-gmid-bias": {
       "concept": "gm = ∂ID/∂VGS at fixed drain and body bias. A small input voltage produces approximately gm × vin of signal current. gm/ID measures transconductance per unit bias current, in V⁻¹. It is not voltage gain; gain also depends on output resistance and loading. In a long-channel square-law saturation model, gm/ID ≈ 2/VOV, where VOV = VGS − VTH.",
       "worked_example": "Here VTH=.45 V and VGS=.65 V, so VOV=.20 V and gm/ID≈10 V⁻¹. With kp=100 µA/V², W/L=10 and λ=.02 V⁻¹ at VDS=1 V: ID=0.5×kp×(W/L)×VOV²×(1+λVDS)=20.4 µA; gm=204 µS. The original .85 V bias has gm/ID≈5 V⁻¹.",

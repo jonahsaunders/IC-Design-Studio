@@ -1,5 +1,9 @@
 # Standard Cells
 
+## Special-purpose cells
+
+See the [Engineering design labs](STUDENT_ENGINEERING_LABS.md) for the fixtures, design targets, and measurement scope.
+
 Open **Student Hub → Standard Cells** in IC Design Studio. In the cell labs,
 start from a transistor schematic, place the devices, finish two Metal 3
 connections, and compare the routed cell with the schematic. The row

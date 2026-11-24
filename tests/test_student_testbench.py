@@ -20,7 +20,7 @@ NGSPICE = os.environ.get('ICSTUDIO_TEST_NGSPICE', '')
 
 
 class TestbenchLessonsTests(unittest.TestCase):
-    def test_projects_share_three_distinct_fixtures_and_include_two_walkthroughs(self):
+    def test_projects_have_distinct_fixtures_and_include_two_walkthroughs(self):
         data = curriculum()
         material = study_guide(data)
         projects = {}
@@ -40,8 +40,8 @@ class TestbenchLessonsTests(unittest.TestCase):
                 self.assertTrue(practice['spice'])
                 self.assertIn('lesson_value', practice['program'])
                 self.assertEqual(len(material['hints'][lesson['id']]['predict']), 4)
-        self.assertEqual(len(projects), 3)
-        self.assertEqual(len(fixtures), 9)
+        self.assertEqual(len(projects), 4)
+        self.assertEqual(len(fixtures), 10)
 
     @unittest.skipUnless(Path(NGSPICE).is_file(), 'Set ICSTUDIO_TEST_NGSPICE to run the native engines')
     def test_same_divider_reading_and_evidence_from_either_workflow(self):

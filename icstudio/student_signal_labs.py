@@ -8,7 +8,7 @@ import math
 from pathlib import Path
 import statistics
 
-from . import student_signal_circuits as circuits
+from . import student_signal_circuits as circuits, student_circuit_challenges as challenges
 from .model import atomic_write, clone, design_digest, device, file_digest
 
 STARTER = 'signal-study-'
@@ -31,10 +31,13 @@ def lessons(source):
         steps.append(dict(id='reflect', kind='reflection', title='Record your reasoning',
                           instructions=unit['reflection']))
         starter = STARTER + unit['lab']
-        result.append(dict(id=unit['id'], title=unit['title'], summary=unit['summary'], skills=unit['skills'],
-                           minutes=unit['minutes'], path=unit['path'], topic=unit['topic'], requires=unit['requires'],
-                           signal_lab=unit['lab'], starter=starter, workspace=starter, steps=steps,
-                           doc='STUDENT_SIGNAL_LABS.md'))
+        lesson = dict(id=unit['id'], title=unit['title'], summary=unit['summary'], skills=unit['skills'],
+                      minutes=unit['minutes'], path=unit['path'], topic=unit['topic'], requires=unit['requires'],
+                      signal_lab=unit['lab'], starter=starter, workspace=starter, steps=steps,
+                      doc='STUDENT_SIGNAL_LABS.md')
+        if unit.get('goal'):
+            lesson['goal'] = unit['goal']
+        result.append(lesson)
     return result
 
 
@@ -121,6 +124,8 @@ def _temp_key(supply, temp):
 def cases(p, lab, step):
     focus(p, lab, step)
     analysis = circuits.ANALYSIS[lab]
+    if lab in challenges.ANALYSIS:
+        return challenges.cases(p,lab,analysis,_case)
     if lab == 'rejection':
         return _rejection_cases(p, analysis)
     if lab == 'load':
@@ -368,6 +373,12 @@ READOUTS = {'linearity': _linearity, 'rejection': _rejection, 'load': _load, 'ad
             'chopper': _chopper, 'relaxation': _oscillator, 'pga': _pga, 'temperature': _temperature}
 
 
+def readout(p,lab,waves,step):
+    if lab in challenges.ANALYSIS:
+        return challenges.measurements(p,lab,waves)
+    return READOUTS[lab](p,waves,step)
+
+
 def run_job(p, job, directory, progress):
     from .engines import run_ngspice
     from .simulation import run
@@ -390,7 +401,7 @@ def run_job(p, job, directory, progress):
         manifest.append(dict(name=name, sha256=file_digest(path)))
     measures, issue = {}, ''
     try:
-        measures = READOUTS[lab](p, waves, step)
+        measures = readout(p,lab,waves,step)
     except ValueError as exc:
         # Preserve genuine captures for debugging, including a non-oscillating design.
         issue = str(exc)
@@ -449,6 +460,9 @@ def _circuit_signature(p, lab):
     return cells
 
 
+TUNABLE.update(challenges.TUNABLE)
+
+
 @lru_cache(maxsize=len(TUNABLE))
 def _reference_signature(lab):
     return _circuit_signature(circuits.project(lab), lab)
@@ -479,7 +493,13 @@ def assess(lab, step, measured):
         if not condition:
             raise ValueError(message + ' Open Results to inspect this run.')
 
-    if lab == 'linearity':
+    if lab in challenges.ANALYSIS:
+        ok = challenges.passed(lab,measured)
+        if step == 'baseline':
+            require(not ok, 'Capture the original missed target before tuning the circuit.')
+        else:
+            require(ok, 'The measured circuit misses one or more targets in the lesson.')
+    elif lab == 'linearity':
         bias, gain, thd = (measured[k] for k in ('Drain bias (µA)', 'Fundamental gain (V/V)', 'THD, harmonics 2–5 (%)'))
         require(43 <= bias <= 49, f'Drain bias is {bias:.1f} µA. Rebias within 43–49 µA before comparing.')
         if step == 'baseline':
@@ -560,7 +580,7 @@ def check(p, lesson, step, rows):
     if result.get('settings') != dict(type='student_signal_lab', lab=lab, step=step):
         raise ValueError('Run the saved experiment for the active lesson step.')
     waves = read_cases(p, lab, step, result, evidence['run'])
-    metrics = READOUTS[lab](p, waves, step)
+    metrics = readout(p,lab,waves,step)
     assess(lab, step, metrics)
     return dict(**evidence, signal_measurements=metrics,
                 signal_cases=result['student_signal']['cases'])

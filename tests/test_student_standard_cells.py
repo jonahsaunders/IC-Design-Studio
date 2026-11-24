@@ -23,7 +23,9 @@ SOLUTIONS = {'inv-compact': {'pitch':'4.8'}, 'nand-drive': {'stack':'2'},
              'mux-glitch': {'out_n':'2','out_p':'4'},
              'buffer-fo4': {'first_n':'1','first_p':'2','out_n':'1.5','out_p':'3'},
              'xor-energy': {'logic_n':'.7','logic_p':'1.4','out_n':'1.25','out_p':'2.5'},
-             'dff-aperture': {'in_n':'1','in_p':'2'}}
+             'dff-aperture': {'in_n':'1','in_p':'2'},
+             'half-adder': {'pitch':'5.8'}, 'schmitt': {'n_fb':'1','p_fb':'2'},
+             'tristate': {'n_out':'2','p_out':'3'}}
 
 
 def route(project, cell):
@@ -55,7 +57,10 @@ class StandardCellLessons(unittest.TestCase):
                 cells.build_layout(project, key)
                 evidence = evaluate(place, lesson, project)
                 self.assertEqual(evidence['physical_ports'][-2:], ['VPWR', 'VGND'])
-                self.assertEqual(geometry.open_nets(project, cell), {'VPWR', cells.output_pin(key)})
+                expected_gaps = {'VPWR', cells.output_pin(key)}
+                if key=='half-adder':
+                    expected_gaps.add('CO')
+                self.assertEqual(geometry.open_nets(project, cell),expected_gaps)
                 with self.assertRaisesRegex(ValueError, 'disconnected'):
                     evaluate(routing, lesson, project)
                 route(project, cell)
@@ -162,7 +167,7 @@ class StandardCellLessons(unittest.TestCase):
                                 self.assertTrue(any(r['passed'] for r in rows))
                                 self.assertTrue(any(not r['passed'] for r in rows))
                         altered=clone(result)
-                        altered['student_cell_layout']['targets'][0]['value'] = 0
+                        altered['student_cell_layout']['targets'][0]['value'] = -1
                         atomic_write(out,json.dumps(altered))
                         with self.assertRaisesRegex(ValueError,'target readings'):
                             evaluate(step,lesson,project,[row])

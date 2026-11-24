@@ -4324,6 +4324,66 @@
           "instructions": "The 0.20 µm route fails. Why might widening the route to 0.40 µm pass while widening it again to 0.80 µm misses the target?\n\nUse a schematic sketch or name the controlling nodes. State one prediction, two measured values, and one tradeoff. Follow-up: Describe a one-variable experiment that would falsify your proposed root cause."
         }
       ]
+    },
+    {
+      "id": "d-spi-register",
+      "path": "digital",
+      "title": "Build an SPI register peripheral",
+      "starter": "spi_register",
+      "workspace": "d-spi-register",
+      "summary": "Read and write four registers in Mode 0. Discard short, long and invalid-address writes, and release MISO when deselected.",
+      "skills": [
+        "SPI Mode 0",
+        "byte framing",
+        "transaction commit",
+        "RTL simulation"
+      ],
+      "minutes": 35,
+      "requires": [
+        "d-serial"
+      ],
+      "doc": "DIGITAL_WORKSPACE.md",
+      "steps": [
+        {
+          "id": "predict",
+          "kind": "quiz",
+          "title": "Decide when a write can commit",
+          "instructions": "Which event can commit a valid write in this 16-bit SPI protocol?",
+          "options": [
+            "Chip select rises after exactly 16 bits with a valid write address",
+            "The eighth bit arrives, even if the frame ends early",
+            "Any rising edge of SPI clock"
+          ],
+          "answer": 0,
+          "explanation": "Treat each frame as a transaction. Commit only at frame end after exactly one command byte and one data byte."
+        },
+        {
+          "id": "build",
+          "kind": "check",
+          "title": "Inspect the frame and interface",
+          "instructions": "Open the RTL and find the command decoder, bit count, frame-end condition and return-bit update.",
+          "rule": {
+            "type": "digital_sources",
+            "design": "spi_register"
+          }
+        },
+        {
+          "id": "measure",
+          "kind": "check",
+          "title": "Repair write commit and run the reference bench",
+          "instructions": "Read and write four registers in Mode 0. Discard short, long and invalid-address writes, and release MISO when deselected.",
+          "rule": {
+            "type": "digital",
+            "design": "spi_register"
+          }
+        },
+        {
+          "id": "reflect",
+          "kind": "reflection",
+          "title": "Explain the framing rule",
+          "instructions": "Explain why committing on chip-select rise with an exact count prevents corruption. Describe when MISO may change in Mode 0."
+        }
+      ]
     }
   ]
 }

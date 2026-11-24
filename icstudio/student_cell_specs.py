@@ -5,6 +5,14 @@ from .student_cell_layout import PITCH, um_to_nm
 
 
 METRICS = {
+    'sum_delay_ps': ('Worst sum delay', 'ps'),
+    'carry_delay_ps': ('Worst carry delay', 'ps'),
+    'schmitt_width_v': ('Hysteresis width', 'V'),
+    'schmitt_lower_v': ('Lower switching threshold', 'V'),
+    'schmitt_upper_v': ('Upper switching threshold', 'V'),
+    'leakage_ua': ('Off-state current from bus bias', 'µA'),
+    'overlap': ('Simultaneous enable', ''),
+    'tristate_delay_ps': ('Driven A-to-Y rise delay', 'ps'),
     'nor_rise_ps': ('B falling to Y rising', 'ps'),
     'input_cap_ff': ('Effective B input capacitance', 'fF'),
     'glitch_low_v': ('Peak excursion at logic 0', 'V'),
@@ -23,6 +31,10 @@ METRICS = {
     'drive_width_um': ('Combined Q driver width', 'µm'),
 }
 OPTIONS = {
+    'half-adder': [('pitch','Horizontal device pitch',5.4,7,())],
+    'schmitt': [('n_fb','Feedback NMOS width',.5,3,('MN_FB',)),('p_fb','Feedback PMOS width',.5,4.5,('MP_FB',))],
+    'tristate': [('n_out','Series NMOS width',.5,3,('MN_DATA','MN_EN')),
+                 ('p_out','Series PMOS width',.5,4.5,('MP_DATA','MP_EN'))],
     'nor-rise': [('stack', 'PMOS stack width', 1, 4.5, ('MP_A', 'MP_B'))],
     'nand-input': [('b_n', 'B NMOS width', .5, 2.8, ('MN_B',)),
                    ('b_p', 'B PMOS width', .5, 4.5, ('MP_B',))],
@@ -49,15 +61,20 @@ def target_text(unit):
     labels = []
     for key, target in unit.get('specs', {}).items():
         title, unit_name = METRICS[key]
-        limit = f'{target["relative"]*100:g}% of starter' if isinstance(target,dict) else f'{target:g} {unit_name}'
-        labels.append(f'{title} ≤ {limit}')
+        relative = isinstance(target,dict) and 'relative' in target
+        minimum = isinstance(target,dict) and 'min' in target
+        amount = target['min'] if minimum else target
+        limit = f'{target["relative"]*100:g}% of starter' if relative else f'{amount:g} {unit_name}'.rstrip()
+        labels.append(f'{title} {"≥" if minimum else "≤"} {limit}')
     return ' · '.join(labels)
 
 
 def defaults(cell, key):
+    from .student_standard_cells import course
     parts = {d['name']:d for d in cell['devices']}
+    pitch = course()[key].get('starter_pitch',PITCH)
     return {name: scalar(parts[names[0]]['params']['w'])*1e6 if names
-            else cell.get('student_cell_layout',{}).get('pitch',PITCH)/1000
+            else cell.get('student_cell_layout',{}).get('pitch',pitch)/1000
             for name, _, _, _, names in OPTIONS[key]}
 
 
@@ -106,6 +123,9 @@ def measure(result, cell, geometry, unit, reference=None, sweep_rows=None):
     elif unit['key'] == 'dff-aperture':
         from .student_cell_characterization import timing_limit
         values = {name+'_ps': timing_limit(sweep_rows,kind) for name,kind in (('setup','Setup'),('hold','Hold'))}
+    elif unit['key'] in {'half-adder','schmitt','tristate'}:
+        from .student_logic_cells import values as logic_values
+        values = logic_values(unit['key'],result,geometry)
     else:
         from .student_cell_characterization import observed, total_width
         values = observed(result,unit['key'])
@@ -116,6 +136,11 @@ def measure(result, cell, geometry, unit, reference=None, sweep_rows=None):
         value = values[name]
         row = dict(metric=label, unit=units, value=value)
         maximum = threshold
+        if isinstance(threshold,dict) and 'min' in threshold:
+            minimum = threshold['min']
+            row.update(minimum=minimum, passed=value is not None and value>=minimum-1e-9)
+            rows.append(row)
+            continue
         if isinstance(threshold,dict):
             baseline = reference[name]
             if baseline is None or baseline <= 0:

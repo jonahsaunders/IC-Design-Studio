@@ -1,6 +1,6 @@
 # Student Hub
 
-Open the **Student Hub** tab beside **Design** in IC Design Studio. The Hub has **122 distinct lessons across eleven worlds**, including eight CMOS inverter stages that repeat for each supported PDK revision. Choose **Map** to explore the worlds or **List** to browse them. Both views share your progress, search, and lesson prerequisites. Filter by Easy, Medium, or Hard in either view.
+Open the **Student Hub** tab beside **Design** in IC Design Studio. The Hub has **136 distinct lessons across eleven worlds**, including eight CMOS inverter stages that repeat for each supported PDK revision. Choose **Map** to explore the worlds or **List** to browse them. Both views share your progress, search, and lesson prerequisites. Filter by Easy, Medium, or Hard in either view.
 
 ![Student Hub in Map view with eleven worlds, including Standard Cells and Testbenches](images/student-hub/world-map.jpg)
 
@@ -23,6 +23,12 @@ Jump to a world to see every lesson in it. Select an image to open the full-size
 | [![Schematic for 05 · Requirements and debugging](images/student-hub/f-debug.jpg)](images/student-hub/f-debug.jpg) | **05 · Requirements and debugging**. *Easy*. Distinguish a successful simulator run from meeting a design requirement. |
 | [![Layout for 06 · Layout, checks and reproducibility](images/student-hub/f-portfolio.jpg)](images/student-hub/f-portfolio.jpg) | **06 · Layout, checks and reproducibility**. *Medium*. Inspect geometry, understand evidence limits, and preserve a reproducible learning record. |
 
+#### Engineering design labs
+
+| Screenshot | Lesson |
+| --- | --- |
+| [![Measure a voltage that isn’t referenced to ground](images/student-hub/f-floating-voltage.jpg)](images/student-hub/f-floating-voltage.jpg) | **Measure a voltage that isn’t referenced to ground**. *Easy*. Use a differential meter to measure the 0.30 V across a resistor whose terminals sit at 1.20 V and 0.90 V. |
+| [![Turn an open-drain output into a usable signal](images/student-hub/f-open-drain.jpg)](images/student-hub/f-open-drain.jpg) | **Turn an open-drain output into a usable signal**. *Medium*. Select a pull-up that charges a 100 pF bus fast enough while keeping the low level and sink current in range. |
 
 ### Analog
 
@@ -43,6 +49,12 @@ Jump to a world to see every lesson in it. Select an image to open the full-size
 | [![Schematic for Measure PSRR and CMRR](images/student-hub/a-rejection.jpg)](images/student-hub/a-rejection.jpg) | **Measure PSRR and CMRR**. *Hard*. Use separate differential, common-mode and supply excitations to find and fix two disturbance paths. [Guide](STUDENT_SIGNAL_LABS.md). |
 | [![Schematic for Drive a difficult load](images/student-hub/a-drive.jpg)](images/student-hub/a-drive.jpg) | **Drive a difficult load**. *Hard*. Compare a simple source follower and a feedback buffer under identical capacitive loads. [Guide](STUDENT_SIGNAL_LABS.md). |
 
+#### Engineering design labs
+
+| Screenshot | Lesson |
+| --- | --- |
+| [![Keep a transistor switch fully on](images/student-hub/a-switch-drive.jpg)](images/student-hub/a-switch-drive.jpg) | **Keep a transistor switch fully on**. *Easy*. Choose gate drive and switch width for a low-side NMOS at two loads. Check on-state drop and off-state isolation. |
+| [![Design a buffer for a weak sensor](images/student-hub/a-weak-sensor.jpg)](images/student-hub/a-weak-sensor.jpg) | **Design a buffer for a weak sensor**. *Medium*. Choose the input and output resistances of a buffer model between a 1 MΩ sensor and a capacitive load. |
 
 ### Digital
 
@@ -58,6 +70,11 @@ Jump to a world to see every lesson in it. Select an image to open the full-size
 | [![RTL source for 08 · Repair arithmetic overflow](images/student-hub/d-saturation.jpg)](images/student-hub/d-saturation.jpg) | **08 · Repair arithmetic overflow**. *Medium*. Define an arithmetic contract and repair a four-bit saturating accumulator. |
 | [![RTL source for 09 · Align data and valid through a pipeline](images/student-hub/d-pipeline.jpg)](images/student-hub/d-pipeline.jpg) | **09 · Align data and valid through a pipeline**. *Hard*. Repair a one-cycle validity mismatch and reason about bubbles, reset and timing. |
 
+#### Engineering design labs
+
+| Screenshot | Lesson |
+| --- | --- |
+| [![Build an SPI register peripheral](images/student-hub/d-spi-register.jpg)](images/student-hub/d-spi-register.jpg) | **Build an SPI register peripheral**. *Medium*. Read and write four registers in Mode 0. Discard short, long and invalid-address writes, and release MISO when deselected. |
 
 ### Mixed Signal
 
@@ -100,6 +117,12 @@ Jump to a world to see every lesson in it. Select an image to open the full-size
 | [![Layout for Tune an on-chip spiral](images/student-hub/l-spiral.jpg)](images/student-hub/l-spiral.jpg) | **Tune an on-chip spiral**. *Hard*. Compare two generated coils at identical material assumptions and improve Q while preserving inductance and resonance margin. [Guide](STUDENT_LAYOUT_SIGNOFF.md). |
 | [![Layout for Catch a bad GDS export](images/student-hub/l-handoff.jpg)](images/student-hub/l-handoff.jpg) | **Catch a bad GDS export**. *Hard*. Export and independently reopen the routed macro, diagnose a missing pin label and verify a corrected stream. [Guide](STUDENT_LAYOUT_SIGNOFF.md). |
 
+#### Engineering design labs
+
+| Screenshot | Lesson |
+| --- | --- |
+| [![Route the sensitive plate of a MIM capacitor](images/student-hub/l-mim-plate.jpg)](images/student-hub/l-mim-plate.jpg) | **Route the sensitive plate of a MIM capacitor**. *Medium*. Reroute the top-plate access on a model-linked SKY130 MIM capacitor while preserving both terminal assignments and active plate area. |
+| [![Place decoupling where it reduces droop](images/student-hub/l-decoupling.jpg)](images/student-hub/l-decoupling.jpg) | **Place decoupling where it reduces droop**. *Medium*. Move the same capacitor closer to the pulsed load and use the resistance of both drawn branches to measure the effect on supply droop. |
 
 ### Portfolio & interviews
 
@@ -137,6 +160,13 @@ Jump to a world to see every lesson in it. Select an image to open the full-size
 | [![Schematic for Design a relaxation oscillator](images/student-hub/project-relaxation.jpg)](images/student-hub/project-relaxation.jpg) | **Design a relaxation oscillator**. *Medium*. Tune a Schmitt-trigger RC oscillator and verify startup, duty cycle and frequency at three rail and temperature conditions. [Guide](STUDENT_SIGNAL_LABS.md). |
 | [![Schematic for Build a programmable-gain amplifier](images/student-hub/project-pga.jpg)](images/student-hub/project-pga.jpg) | **Build a programmable-gain amplifier**. *Medium*. Size a switched feedback ladder for three gain codes and verify static gain, bandwidth and switching recovery. [Guide](STUDENT_SIGNAL_LABS.md). |
 
+#### Engineering design labs
+
+| Screenshot | Lesson |
+| --- | --- |
+| [![Build a two-threshold window detector](images/student-hub/project-window-detector.jpg)](images/student-hub/project-window-detector.jpg) | **Build a two-threshold window detector**. *Medium*. Configure two comparator references and detect when a signal enters a specified voltage band on either sweep direction. |
+| [![Build a switched-capacitor gain stage](images/student-hub/project-swcap-gain.jpg)](images/student-hub/project-swcap-gain.jpg) | **Build a switched-capacitor gain stage**. *Hard*. Set the sample-to-feedback capacitor ratio in a two-phase gain stage. Verify charge transfer, settling and hold. |
+| [![Design a tunable gm-C filter](images/student-hub/project-tunable-gmc.jpg)](images/student-hub/project-tunable-gmc.jpg) | **Design a tunable gm-C filter**. *Hard*. Size one capacitor for two transconductance settings in an OTA-C low-pass. Measure both pole frequencies and passband gain. |
 
 ### Testbenches
 
@@ -152,6 +182,11 @@ Jump to a world to see every lesson in it. Select an image to open the full-size
 | [![Schematic for Build the amplifier AC loop bench](images/student-hub/tb-opamp-ac.jpg)](images/student-hub/tb-opamp-ac.jpg) | **Build the amplifier AC loop bench**. *Hard*. The large inductor keeps the feedback path closed at DC. The capacitor holds the feedback node near AC ground, letting the 1 V small-signal stimulus expose the amplifier’s gain. [Guide](STUDENT_TESTBENCHES.md). |
 | [![Schematic for Check follower step response under load](images/student-hub/tb-opamp-step.jpg)](images/student-hub/tb-opamp-step.jpg) | **Check follower step response under load**. *Medium*. The unity-gain step fixture checks whether the feedback loop can move the output with its load connected. A late output sample is a check on the final level, alongside the full waveform. [Guide](STUDENT_TESTBENCHES.md). |
 
+#### Engineering design labs
+
+| Screenshot | Lesson |
+| --- | --- |
+| [![Build a balanced differential stimulus](images/student-hub/tb-balanced-stimulus.jpg)](images/student-hub/tb-balanced-stimulus.jpg) | **Build a balanced differential stimulus**. *Medium*. Use two complementary sources so the differential voltage changes sign at a fixed common mode. |
 
 ### Standard Cells
 
@@ -190,6 +225,14 @@ Place model-linked devices, finish the supply and output routes, and compare sch
 | [![Layout of a two-stage buffer](images/student-hub/sc-buffer-fo4.jpg)](images/student-hub/sc-buffer-fo4.jpg) | **Build a buffer for four loads**. *Medium*. Drive four inverter inputs within timing and transistor-width budgets. |
 | [![Transmission-gate XOR layout](images/student-hub/sc-xor-energy.jpg)](images/student-hub/sc-xor-energy.jpg) | **Build a lower-energy XOR**. *Hard*. Improve energy per transition and verify four independent timing arcs. |
 | [![Master-slave flip-flop layout for setup and hold](images/student-hub/sc-dff-aperture.jpg)](images/student-hub/sc-dff-aperture.jpg) | **Find a flip-flop’s setup and hold limits**. *Hard*. Bracket each limit by sweeping the data edge around the clock. |
+
+#### Engineering design labs
+
+| Screenshot | Lesson |
+| --- | --- |
+| [![Lay out a half-adder with shared logic](images/student-hub/sc-half-adder.jpg)](images/student-hub/sc-half-adder.jpg) | **Lay out a half-adder with shared logic**. *Hard*. Use one shared NAND term for the half-adder carry and the two intermediate sum gates. Route both outputs and meet both timing limits in a narrower row. |
+| [![Build a Schmitt-trigger input](images/student-hub/sc-schmitt.jpg)](images/student-hub/sc-schmitt.jpg) | **Build a Schmitt-trigger input**. *Medium*. Size the feedback devices in a six-transistor CMOS Schmitt inverter so a slow input sees two distinct switching thresholds. |
+| [![Build a tri-state bus driver](images/student-hub/sc-tristate.jpg)](images/student-hub/sc-tristate.jpg) | **Build a tri-state bus driver**. *Hard*. Lay out a noninverting tri-state buffer. Verify driven high and low, released-bus leakage, and a break-before-make handoff to a second driver. |
 
 ### CMOS inverter · PDK to LVS
 

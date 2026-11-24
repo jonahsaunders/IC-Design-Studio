@@ -95,11 +95,13 @@ def previews(guide):
     bench = testbenches.create(project, cid, 'lesson_measurement')
     bench['analysis'].update(unit['analysis'], temperature=27, corner='nominal')
     bench['measurements'] = [lessons.measurement(unit)]
+    if unit.get('reference'):
+        bench['probes'] = lessons.probes(unit)
     items = []
     for index, title, caption in (
         (0, 'Analysis and fixture', 'Select the analysis and enter the settings for the current fixture.'),
-        (4, 'Probes and startup', 'Check out in the net list to capture its waveform.'),
-        (5, 'Measurements', 'Add a voltage reading for out and enter the target limits.'),
+        (4, 'Probes and startup', f'Check {", ".join(lessons.probes(unit))} in the net list.'),
+        (5, 'Measurements', 'Add the voltage reading and enter the target limits.'),
     ):
         dialog = testbench_ui.editor(studio, bench, fixture_id=cid, preview=True)
         dialog.pages.setCurrentIndex(index)
@@ -152,9 +154,11 @@ class BenchResults(QDialog):
         value = check.get('value')
         reading = f'{value:.5g} V' if value is not None else 'No reading'
         status = 'Passed' if check['status']=='passed' else 'Review measurement'
-        self.reading.setText(f'{status} · out = {reading}')
-        self.target.setText(lessons.target(lessons.course()[captured['lesson']]))
-        self.plot.set_result(result, ['out'])
+        unit = lessons.course()[captured['lesson']]
+        quantity = ' − '.join(lessons.probes(unit))
+        self.reading.setText(f'{status} · {quantity} = {reading}')
+        self.target.setText(lessons.target(unit))
+        self.plot.set_result(result, lessons.probes(unit))
         path = io_path(row['path']/'engine.log')
         try:
             self.log.setPlainText(path.read_text(encoding='utf-8', errors='replace'))

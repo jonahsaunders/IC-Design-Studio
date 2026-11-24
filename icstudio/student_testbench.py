@@ -34,6 +34,8 @@ def analyses(unit):
 def program(unit):
     kind = unit['analysis']['type']
     line = ' '.join(analyses(unit))
+    if unit.get('reference'):
+        return line+'\nlet stimulus = v(inp)-v(inn)\nmeas tran lesson_value FIND stimulus AT='+unit['at']
     if kind=='op':
         return line+'\nlet lesson_value = v(out)\nprint lesson_value'
     if kind=='ac':
@@ -45,7 +47,9 @@ def target(unit):
     when = dict(op='at the operating point', dc=f'at input {unit.get("at")} V',
                 ac=f'at {unit.get("at")} Hz', tran=f'at {unit.get("at")} s')[unit['analysis']['type']]
     low, high = unit['limits']
-    return f'Measure out {when}. The target range is {low:g} to {high:g} V.'
+    node = unit.get('node','out')
+    reading = f'{node} relative to {unit["reference"]}' if unit.get('reference') else node
+    return f'Measure {reading} {when}. The target range is {low:g} to {high:g} V.'
 
 
 def lessons():
@@ -76,7 +80,7 @@ def hints(key):
     return {'predict': [('What physical relationship should I use?', unit['concept']),
                         ('What should I look for on the schematic?', unit['work']),
                         ('Which reading will confirm the prediction?', target(unit)),
-                        ('How can I check this with a simulation?', f'Build the {unit["analysis"]["type"]} analysis in either workflow and inspect out before recording your prediction.')]}
+                        ('How can I check this with a simulation?', f'Build the {unit["analysis"]["type"]} analysis in either workflow and inspect the two input traces for a differential reading.' if unit.get('reference') else f'Build the {unit["analysis"]["type"]} analysis in either workflow and inspect out before recording your prediction.')]}
 
 
 def practice(key):
@@ -88,14 +92,16 @@ def practice(key):
     settings = ', '.join(f'{labels[field]} = {unit["analysis"][field]}' for field in FIELDS[kind])
     at = f' Set At to {unit["at"]}.' if 'at' in unit else ' Leave At blank.'
     low, high = unit['limits']
-    measure = (f'Open Measurements and choose Add measurement. Set Measure to voltage and Output net to out.{at} '
-               f'Enter Minimum {low:g} and Maximum {high:g}. Leave Reference net, Start and Stop blank.')
+    node, reference = unit.get('node','out'),unit.get('reference')
+    ref = f'Set Reference net to {reference}.' if reference else 'Leave Reference net blank.'
+    measure = (f'Open Measurements and choose Add measurement. Set Measure to voltage and Output net to {node}.{at} '
+               f'Enter Minimum {low:g} and Maximum {high:g}. {ref} Leave Start and Stop blank.')
     setup = f'Use analysis {kind} at nominal model corner and 27 °C.'
     if settings:
         setup += f' Set {settings}.'
     common = 'Choose Run lesson. When the run finishes, open Results, review the measurement and choose Check this step.'
     graph = ['Choose Open workspace. '+unit['work'], 'Choose Edit testbench and open Analysis and fixture. '+setup,
-             'In Probes and startup, check out and leave Initial voltage empty.', measure, 'Choose Save.', common]
+             f'In Probes and startup, check {", ".join(probes(unit))} and leave Initial voltage empty.', measure, 'Choose Save.', common]
     text = ['Choose Open workspace. '+unit['work'],
             'Choose Edit SPICE program. Enter the ngspice commands shown to configure the analysis and capture lesson_value.',
             'Choose Save.', common]
@@ -151,8 +157,24 @@ def _analog(kind):
     return p
 
 
+def _balanced():
+    from .model import example
+    p = example('empty')
+    cell = p['cells'][0]
+    cell['name'] = 'balanced_stimulus_fixture'
+    for name, net, x in [('VPLUS','inp',250),('VMINUS','inn',620)]:
+        source = device('V',name,x,250,value='.85',nets={'p':net,'n':'0'})
+        _pulse(source,'.85','.95','4u','24u')
+        cell['devices'].append(source)
+    load = dict(id=uid(),name='differential_load',ports=['P','N'],shapes=[],devices=[
+        device('R','RDIFF',425,135,rotation=270,value='100k',nets={'p':'P','n':'N'})])
+    p['cells'].append(load)
+    cell['devices'].append(device('X','XLOAD',435,150,cell=load['id'],nets={'P':'inp','N':'inn'}))
+    return p
+
+
 def create(kind):
-    p = _divider() if kind=='divider' else _analog(kind)
+    p = _divider() if kind=='divider' else _balanced() if kind=='balanced' else _analog(kind)
     names = {'tb-opamp-bias':'opamp_op_fixture'}
     fixtures = {key:next(c['id'] for c in p['cells'] if c['name']==names.get(key,key.removeprefix('tb-').replace('-','_')+'_fixture'))
                 for key,unit in course().items() if unit['project']==kind}
@@ -176,15 +198,22 @@ def saved_bench(project, key):
     return next((t for t in project.get('testbenches',[]) if t['bench_cell']==cid),None)
 
 
+def probes(unit):
+    node = unit.get('node','out')
+    return [node,unit['reference']] if unit.get('reference') else [node]
+
+
 def measurement(unit):
     low, high = unit['limits']
-    out = dict(name='lesson_value',kind='voltage',node='out',min=low,max=high)
+    out = dict(name='lesson_value',kind='voltage',node=unit.get('node','out'),min=low,max=high)
+    if unit.get('reference'):
+        out['reference'] = unit['reference']
     if 'at' in unit:out['at'] = unit['at']
     return out
 
 
 def read_measurement(result, unit):
-    expected = dict(analysis=unit['analysis'], measurements=[measurement(unit)], probes=['out'])
+    expected = dict(analysis=unit['analysis'], measurements=[measurement(unit)], probes=probes(unit))
     return testbenches.measure(result, expected)['measurements'][0]
 
 
@@ -193,7 +222,7 @@ def same_fields(actual, wanted):
         found = actual.get(key)
         if found is None:
             return False
-        if key in ('type','source','kind','node'):
+        if key in ('type','source','kind','node','reference'):
             if str(found).casefold()!=str(value).casefold():return False
         elif not math.isclose(scalar(found),scalar(value),rel_tol=1e-10):return False
     return True
@@ -208,10 +237,10 @@ def validate_bench(bench, unit):
             or bench['analysis'].get('corner','nominal')!='nominal'):
         raise ValueError('Use the specified schematic analysis at nominal corner and 27 °C.')
     target_fields = {k:v for k,v in measurement(unit).items() if k!='name'}
-    matching = [m for m in bench.get('measurements',[]) if not any(m.get(field) for field in ('reference','start','stop'))
-                and same_fields(m,target_fields)]
-    if 'out' not in bench['probes'] or not matching:
-        raise ValueError('Save out as a probe and a voltage measurement with the specified sample and limits.')
+    matching = [m for m in bench.get('measurements',[]) if not any(m.get(field) for field in ('start','stop'))
+                and (m.get('reference') or None)==unit.get('reference') and same_fields(m,target_fields)]
+    if not set(probes(unit)).issubset(bench['probes']) or not matching:
+        raise ValueError('Save the named probes and voltage measurement with the specified reference, sample and limits.')
 
 
 def validate_program(text, unit):
@@ -265,6 +294,8 @@ def run(job, directory, progress):
     standard['analysis'].update(unit['analysis'])
     standard['analysis'].update(temperature=27,corner='nominal')
     standard['measurements'] = [measurement(unit)]
+    if unit.get('reference'):
+        standard['probes'] = probes(unit)
     if workflow=='graphical':
         bench = saved_bench(p,key)
         validate_bench(bench,unit)
@@ -275,8 +306,8 @@ def run(job, directory, progress):
         def deck(project, root):
             circuit = circuit_text(testbenches.spice_testbench(project,standard,root))
             return stage_model_deck(project['pdk'], circuit+'.temp 27\n.control\n'+text+'\n.endc\n.end\n',root)
-        probes = ' '.join('v('+node+')' for node in standard['probes'])
-        result = run_program(p,cid,{**settings,'probes':probes,'timeout':90},job['executable'],directory,
+        probe_directive = ' '.join('v('+node+')' for node in standard['probes'])
+        result = run_program(p,cid,{**settings,'probes':probe_directive,'timeout':90},job['executable'],directory,
                              progress,deck,'ngspice · lesson SPICE program',{},'analysis_cases')
         cases = result['analysis_cases']
         if len(cases)!=1 or result['program_status']!='Complete':
@@ -324,6 +355,12 @@ def check(project, lesson, rows):
         value = measured.get('value')
         reading = f'Measured {value:.5g} V. ' if value is not None else ''
         raise ValueError(reading+target(course()[key]))
+    if course()[key].get('reference'):
+        from .student_hub import at
+        for when, expected in [(2e-6,-.1),(8e-6,.1)]:
+            plus, minus = (at(result,node,when) for node in probes(course()[key]))
+            if abs((plus+minus)/2-.9) > .005 or abs(plus-minus-expected) > .005:
+                raise ValueError('Keep 0.9 V common mode and opposite ±0.10 V differential levels.')
     cell = next(c for c in project['cells'] if c['id']==fixture(project,key))
     parts = {part['name']: part for part in cell['devices']}
     if key=='tb-tia-ac' and not math.isclose(scalar(parts.get('IPHOTO', {}).get('source', {}).get('ac', '0')),1e-6):

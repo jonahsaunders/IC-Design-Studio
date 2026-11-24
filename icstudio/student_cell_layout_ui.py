@@ -36,7 +36,7 @@ def design_editor(guide, preview=False):
     layout.addWidget(label(lesson['goal']))
     note = 'Fit the new dimensions on the 0.005 µm grid. Place the cell, route the gaps, and use Results to measure the targets.'
     if existing:
-        note += ' Rebuilding gives you a fresh layout with both gaps open. Undo restores your previous routes.'
+        note += ' Rebuilding gives you a fresh layout with the route gaps open. Undo restores your previous routes.'
     layout.addWidget(label(note))
     form = QFormLayout()
     layout.addLayout(form)
@@ -63,7 +63,7 @@ def design_editor(guide, preview=False):
             current, _ = cells.context(studio.project,key)
             already_placed = bool(current['shapes'])
             if already_placed and QMessageBox.question(dialog,'Rebuild the cell layout?',
-                    'Rebuilding replaces the layout and opens both routing gaps. Undo can restore the current layout.',
+                    'Rebuilding replaces the layout and reopens the routing gaps. Undo can restore the current layout.',
                     QMessageBox.Yes|QMessageBox.Cancel,QMessageBox.Cancel) != QMessageBox.Yes:
                 return
             values = {name: field.text().strip() for name,field in dialog.fields.items()}
@@ -252,8 +252,9 @@ class CellResults(QDialog):
             targets.setEditTriggers(QTableWidget.NoEditTriggers)
             for index,row in enumerate(record['targets']):
                 value = 'Unavailable' if row['value'] is None else f'{row["value"]:.4g} {row["unit"]}'
-                status = 'Passed' if row['passed'] else ('Unavailable' if row['value'] is None else 'Over target')
-                readings = [row['metric'],value,f'≤ {row["maximum"]:.4g} {row["unit"]}',status]
+                status = 'Passed' if row['passed'] else ('Unavailable' if row['value'] is None else 'Missed target' if 'minimum' in row else 'Over target')
+                limit = f'≥ {row["minimum"]:.4g}' if 'minimum' in row else f'≤ {row["maximum"]:.4g}'
+                readings = [row['metric'],value,f'{limit} {row["unit"]}'.rstrip(),status]
                 if show_reference:
                     readings.insert(2, f'{row["reference"]:.4g} {row["unit"]}' if 'reference' in row else '—')
                 for column,text in enumerate(readings):
@@ -311,7 +312,7 @@ class CellResults(QDialog):
         plot = self.plot = WavePlot()
         plot.dark = studio.dark
         plot.setAccessibleName('Standard-cell output comparison')
-        plot.set_result(result, ['out'], record['schematic'])
+        plot.set_result(result, ['out','carry'] if key=='half-adder' else ['out'], record['schematic'])
         waveforms = QVBoxLayout()
         waveform = QWidget()
         waveform.setLayout(waveforms)
@@ -326,8 +327,13 @@ class CellResults(QDialog):
         table.setEditTriggers(QTableWidget.NoEditTriggers)
         for row, (reference, drawn) in enumerate(zip(nominal, physical)):
             vector = ', '.join(f'{pin}={bit}' for pin,bit in drawn['inputs'].items())
-            values = (str(drawn['time_ns']), vector, str(drawn['expected']),
-                      f'{reference["output_V"]:.4g}', f'{drawn["output_V"]:.4g}',
+            def levels(row):
+                value = f'{row["output_V"]:.4g}'
+                return f'Y {value} / CO {row["carry_V"]:.4g}' if 'carry_V' in row else value
+            expected = str(drawn['expected'])
+            if 'expected_carry' in drawn:
+                expected = f'Y {expected} / CO {drawn["expected_carry"]}'
+            values = (str(drawn['time_ns']),vector,expected,levels(reference),levels(drawn),
                       'Passed' if drawn['passed'] and reference['passed'] else 'Review')
             for column,value in enumerate(values):
                 table.setItem(row, column, QTableWidgetItem(value))

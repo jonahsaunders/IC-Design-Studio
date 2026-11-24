@@ -108,7 +108,11 @@ def checker_stamp():
                    file_digest(Path(__file__).with_name('student_cell_layout.py')),
                    file_digest(Path(__file__).with_name('student_cell_specs.py')),
                    file_digest(Path(__file__).with_name('student_cell_characterization.py')),
-                   file_digest(Path(__file__).with_name('student_cell_row.py'))])
+                   file_digest(Path(__file__).with_name('student_cell_row.py')),
+                   file_digest(Path(__file__).with_name('student_circuit_challenges.py')),
+                   file_digest(Path(__file__).with_name('student_logic_cells.py')),
+                   file_digest(Path(__file__).with_name('student_layout_passives.py')),
+                   file_digest(Path(__file__).with_name('student_spi.py'))])
 
 
 def lesson_stamp(lesson):

@@ -5,7 +5,7 @@ from pathlib import Path
 
 from PySide6.QtWidgets import QDialog, QDialogButtonBox, QLabel, QPlainTextEdit, QVBoxLayout
 
-from . import student_layout_signoff as lab
+from . import student_layout_signoff as lab, student_layout_passives as passives
 
 
 ACTIONS = {
@@ -20,6 +20,8 @@ ACTIONS = {
     ('isolation', 'ring'): 'Add guard segment',
     ('isolation', 'taps'): 'Place guard contacts',
     ('spiral', 'candidate'): 'Tune candidate coil',
+    ('mim-plate','repair'): 'Route MIM sense plate',
+    ('decoupling','repair'): 'Place decoupling capacitor',
     ('handoff', 'verify'): 'Assign stream pin label',
 }
 
@@ -75,6 +77,10 @@ def open_form(guide, key, step, cid):
             value = (int(values['number']) if field == 'turns' else
                      _nm(values['number'], 2, 30, 2 * grid))
             lab.tune_spiral(p, cid, field, value, locked)
+        elif key=='mim-plate':
+            passives.route_mim(p,_nm(values['dimension'],0,40,grid),locked)
+        elif key=='decoupling':
+            passives.place_decap(p,_nm(values['dimension'],2,60,grid),locked)
         else:
             lab.add_stream_label(p, values['port'])
 
@@ -101,6 +107,12 @@ def form_fields(p, key, step):
         if key == 'access':
             fields.append(('layers', 'Allowed layers', ['Metal1 only', 'Metal1 and metal2']))
         return fields, 'The physical instance and attached external ports move together. The fixed route obstruction stays in place.'
+    if key in passives.LABS:
+        label, note = (
+            ('Sense route detour height (µm)', 'Changing height keeps the two terminals and external pins fixed.')
+            if key=='mim-plate' else
+            ('Distance from load (µm)', 'Move the same 200 pF capacitor and shorten its supply and return routes.'))
+        return ([('dimension',label,f'{passives.dimension(p,key):g}')],note)
     if key == 'isolation':
         return ([('side', 'Missing side', ['Bottom', 'Left', 'Right', 'Top'])], 'Add the matching active and metal segment.') if step == 'ring' else (
             [('count', 'Number of contacts', ['2', '4', '8'])], 'Compare the maximum distance along the perimeter between adjacent contacts.')

@@ -82,7 +82,7 @@ def place(project, cell, pitch=PITCH):
         thickness = RAIL_WIDTH if rail else TRACK_WIDTH
         left = 0 if rail else 400 if net in cell['ports'] else min(towers[net])-100
         right = width if rail else max(towers[net])+350
-        if net in ('VPWR', output):
+        if net in ('VPWR', output) or (output=='Y' and net=='CO' and net in cell['ports']):
             x1, x2 = sorted(set(towers[net]))[:2]
             middle = 5*((x1+x2)//10)
             a, b = middle-260, middle+260

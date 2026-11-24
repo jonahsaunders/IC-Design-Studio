@@ -67,6 +67,9 @@ def repaired(lesson,project):
     if lesson['starter'] in ('mux_repair','saturating_sum','pipeline_valid'):
         from icstudio.student_projects import digital_project
         project['cells'][0]['digital']=digital_project(lesson['starter'])['cells'][0]['digital']
+    if lesson['id']=='d-spi-register':
+        rtl=project['cells'][0]['digital']['files'][0]
+        rtl['text']=rtl['text'].replace('bits >= 12','bits == 16')
     return project
 
 
@@ -102,7 +105,7 @@ class StudentProgressTests(unittest.TestCase):
 
     def test_curriculum_has_executable_starters_and_valid_prerequisites(self):
         data=curriculum()
-        self.assertEqual([sum(l['path']==p['id'] for l in data['lessons']) for p in data['paths']],[6,14,9,7,23,2,23,9,16])
+        self.assertEqual([sum(l['path']==p['id'] for l in data['lessons']) for p in data['paths']],[8,16,10,7,25,2,26,10,19])
         self.assertEqual(sum(l['path']=='capstone' for l in data['lessons']),5)
         for l in data['lessons']:validate(create(l['starter']))
         bad=clone(data);bad['lessons'][0]['requires']=['c-qualify']

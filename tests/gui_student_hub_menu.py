@@ -129,11 +129,11 @@ class StudentHubMenuTests(unittest.TestCase):
         self.assertEqual(hub.selected()['id'], 'f-first')
         self.assertEqual(hub.status_filter.currentIndex(), 0)
         hub.difficulty_filter.setCurrentText('Medium')
-        self.assertEqual(set(hub.trail.rows), {'f-portfolio'})
+        self.assertEqual(set(hub.trail.rows), {'f-portfolio','f-open-drain'})
         self.assertIn('Medium', hub.trail.rows['f-portfolio'].accessibleDescription())
         hub.mode_buttons['list'].click()
-        self.assertEqual(hub.lessons.count(), 1)
-        self.assertIn('Medium', hub.lessons.item(0).text())
+        self.assertEqual(hub.lessons.count(), 2)
+        self.assertTrue(all('Medium' in hub.lessons.item(i).text() for i in range(2)))
         hub.clear_filters()
         self.assertEqual(hub.difficulty_filter.currentIndex(), 0)
 
@@ -197,7 +197,7 @@ class StudentHubMenuTests(unittest.TestCase):
 
         hub = self.hub
         hub.world_map.cards['testbenches'].click()
-        self.assertEqual(len(hub.trail.rows), 9)
+        self.assertEqual(len(hub.trail.rows), 10)
         hub.select_lesson('tb-divider-bias')
         self.assertEqual(hub.selected()['id'], 'tb-divider-bias')
         hub.start_selected()
@@ -605,7 +605,7 @@ class StudentHubMenuTests(unittest.TestCase):
     def test_layout_topics_open_and_resume_the_shared_amplifier(self):
         hub, studio = self.hub, self.studio
         hub.world_map.cards['layout'].click()
-        self.assertEqual(hub.lessons.count(), 23)
+        self.assertEqual(hub.lessons.count(), 25)
         topics = {label.text().split('  ·', 1)[0] for label in hub.trail.widget().findChildren(QLabel)}
         self.assertTrue({'Device layout', 'Precision layout', 'Connectivity debug',
                          'Post-layout lab', 'Power & reliability'} <= topics)

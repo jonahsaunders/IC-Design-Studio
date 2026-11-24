@@ -36,7 +36,7 @@
 2. **Open a working circuit.** Choose **File → Start here / example gallery → Your first waveform → Open a copy**. The RC example needs no external simulator or PDK.
 3. **Make your first change.** Press **F5**, inspect **Results → Waveforms**, change a component value, and run again. Save your project with **Ctrl+S**.
 
-Want a guided course? Open the **Student Hub** tab for [122 illustrated lessons across eleven worlds](docs/STUDENT_HUB.md), from a first RC circuit to CMOS standard-cell design challenges and a sensor-acquisition capstone.
+Want a guided course? Open the **Student Hub** tab for [136 illustrated lessons across eleven worlds](docs/STUDENT_HUB.md), from a first RC circuit to CMOS standard-cell design challenges and a sensor-acquisition capstone.
 
 <details>
 <summary><strong>Run from source</strong> · Python 3.12 · Windows, Linux and experimental macOS</summary>

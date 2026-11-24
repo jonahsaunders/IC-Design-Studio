@@ -1,5 +1,9 @@
 # Student testbenches
 
+## Balanced differential stimulus
+
+See the [Engineering design labs](STUDENT_ENGINEERING_LABS.md) for the fixtures, design targets, and measurement scope.
+
 Open **Student Hub → Testbenches** in the world map or lesson list. Each project
 starts with an editable circuit and three fixture schematics. Work through a
 project in order to carry your circuit changes into the later lessons.

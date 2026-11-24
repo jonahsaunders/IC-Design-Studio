@@ -1,6 +1,7 @@
 """Small editable labs, with independent reference testbenches for RTL lessons."""
 from .model import clone, device, example, uid, validate
 from .student_design_labs import DIGITAL_LABS
+from .student_spi import SPI_REGISTER
 
 DIGITAL = {
     'gates': ('input wire a,b,select, output wire parity,mux',
@@ -88,6 +89,7 @@ DIGITAL = {
                if(tx!==1 || busy!==0) $fatal(1,"Mid-frame reset mismatch");'''),
 }
 DIGITAL.update(DIGITAL_LABS)
+DIGITAL["spi_register"] = SPI_REGISTER
 
 
 def digital_project(kind):

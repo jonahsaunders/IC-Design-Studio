@@ -379,5 +379,120 @@
     "topic": "Characterization",
     "characterization": true,
     "answer": 0
+  },
+  {
+    "key": "half-adder",
+    "cell": "Half adder",
+    "requires": [
+      "sc-nand2"
+    ],
+    "title": "Lay out a half-adder with shared logic",
+    "inputs": [
+      "A",
+      "B"
+    ],
+    "load": "20f",
+    "starter_pitch": 6400,
+    "specs": {
+      "footprint_um": 106.6,
+      "sum_delay_ps": 350,
+      "carry_delay_ps": 210
+    },
+    "concept": "Use one shared NAND term for the half-adder carry and the two intermediate sum gates. Route both outputs and meet both timing limits in a narrower row.",
+    "question": "Which node should the sum and carry paths reuse?",
+    "options": [
+      "The complement of A AND B",
+      "The sum output itself",
+      "The ground rail as a logic term"
+    ],
+    "explanation": "The shared NAND of A and B feeds the sum construction, and an inverter turns it into carry.",
+    "focus": "Find NAB, the shared NAND output. CO is carry and Y is sum.",
+    "measure": "In Samples verify both outputs. In Waveforms follow the four sum edges and the carry rise and fall.",
+    "tune": "Reduce the horizontal pitch to shrink the common row without changing the schematic.",
+    "solution": "Set horizontal pitch to 5.8 µm. Route VPWR, Y, and CO. Verify both outputs and the row width in Results.",
+    "reflection": "Record the two delays and width. Explain which gate the sum and carry share and where the area is saved.",
+    "answer": 0,
+    "topic": "Special-purpose cells",
+    "characterization": true
+  },
+  {
+    "key": "schmitt",
+    "cell": "Schmitt inverter",
+    "requires": [
+      "sc-inv"
+    ],
+    "title": "Build a Schmitt-trigger input",
+    "inputs": [
+      "A"
+    ],
+    "specs": {
+      "schmitt_width_v": {
+        "min": 0.8
+      },
+      "schmitt_lower_v": {
+        "min": 0.4
+      },
+      "schmitt_upper_v": 1.4
+    },
+    "starter_widths": {
+      "MN_FB": 0.5,
+      "MP_FB": 0.5
+    },
+    "concept": "Size the feedback devices in a six-transistor CMOS Schmitt inverter so a slow input sees two distinct switching thresholds.",
+    "question": "Which voltages define hysteresis here?",
+    "options": [
+      "Input voltage on the upward sweep and input voltage on the downward sweep",
+      "Output high and output low",
+      "The two supply rails"
+    ],
+    "explanation": "Read the input voltage when output crosses half the supply on each sweep. The difference is hysteresis.",
+    "focus": "Trace MN_FB and MP_FB from Y to the internal stacked nodes.",
+    "measure": "Find both half-output crossings on the slow input. Read A at those times; the difference is the hysteresis width.",
+    "tune": "Increase feedback NMOS and PMOS strength independently. Keep both switching thresholds inside the usable input range.",
+    "solution": "Try 1 µm for feedback NMOS and 2 µm for feedback PMOS. Check the two switching points and hysteresis target.",
+    "reflection": "Record both thresholds and explain how the previous output state changes the next input threshold.",
+    "answer": 0,
+    "topic": "Special-purpose cells",
+    "characterization": true
+  },
+  {
+    "key": "tristate",
+    "cell": "Tri-state buffer",
+    "requires": [
+      "sc-mux2"
+    ],
+    "title": "Build a tri-state bus driver",
+    "inputs": [
+      "EN",
+      "A"
+    ],
+    "load": "20f",
+    "specs": {
+      "leakage_ua": 0.1,
+      "overlap": 0,
+      "tristate_delay_ps": 165
+    },
+    "starter_widths": {
+      "MN_DATA": 0.5,
+      "MN_EN": 0.5,
+      "MP_DATA": 0.7,
+      "MP_EN": 0.7
+    },
+    "concept": "Lay out a noninverting tri-state buffer. Verify driven high and low, released-bus leakage, and a break-before-make handoff to a second driver.",
+    "question": "Why does the fixture weakly pull the released bus in both directions?",
+    "options": [
+      "To show that the disabled driver does not force either logic level",
+      "To make the output drive more strongly",
+      "To replace the enable input"
+    ],
+    "explanation": "A released output follows the weak pull in both directions. The voltage drop across that resistor measures off-state current.",
+    "focus": "Follow EN and EN_B to the series gating transistors and find the shared Y conductor.",
+    "measure": "Read the first two sample slots for weak pull-up and pull-down. In the last part of the trace, check the bus when the second driver takes over.",
+    "tune": "Widen the series output devices while retaining both enable paths and the high-impedance state.",
+    "solution": "Try 2 µm for both series NMOS devices and 3 µm for both series PMOS devices. Recheck drive delay, both off-state samples, and the handoff.",
+    "reflection": "Record the released-bus current and the delay. Explain why steady high and low tests would miss a driver that never releases the bus.",
+    "answer": 0,
+    "topic": "Special-purpose cells",
+    "characterization": true
   }
 ]

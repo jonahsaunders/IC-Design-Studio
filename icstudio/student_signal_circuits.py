@@ -2,10 +2,11 @@
 
 import re
 
+from . import student_circuit_challenges as challenges
 from .model import device, example, uid, validate
 from .sar_example import primitive
 
-NATIVE = {'load', 'adc-ramp', 'chopper', 'relaxation', 'pga'}
+NATIVE = {'load', 'adc-ramp', 'chopper', 'relaxation', 'pga', *challenges.ANALYSIS}
 
 
 def named(cell, name):
@@ -210,6 +211,10 @@ ANALYSIS = {
     'pga': dict(type='tran', stop='2.9m', step='500n'),
     'temperature': dict(type='op'),
 }
+
+
+BUILDERS.update(challenges.BUILDERS)
+ANALYSIS.update(challenges.ANALYSIS)
 
 
 def project(key):
