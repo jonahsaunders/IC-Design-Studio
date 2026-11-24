@@ -19,7 +19,7 @@ import zipfile
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from icstudio.digital_vga import REVISION, UPSTREAM
-from scripts.build_vga_compiler import sha, verify, VERILATOR_REV, EMSCRIPTEN_REV, SDK_REV, SDK_RELEASE
+from scripts.build_vga_compiler import sha, verify, VERILATOR_REV, EMSCRIPTEN_REV, SDK_REV, SDK_RELEASE, XML_PATCH
 
 
 def verify_dist(dist):
@@ -29,6 +29,7 @@ def verify_dist(dist):
     if (manifest.get('revision')!=REVISION or manifest.get('compiler_manifest')!=sha(dist/'verilator-build.json')
             or compiler.get('verilator')!=VERILATOR_REV or compiler.get('emscripten')!=EMSCRIPTEN_REV
             or compiler.get('sdk')!=SDK_REV or compiler.get('sdk_release')!=SDK_RELEASE
+            or compiler.get('xml_patch')!=XML_PATCH
             or compiler['files']['verilator-source.zip']!=sha(dist/'verilator-source.zip')
             or len(wasm)!=1 or compiler['files']['verilator_bin.wasm']!=sha(wasm[0])):
         raise ValueError('VGA release assets must match the pinned compiler and corresponding source archive.')
