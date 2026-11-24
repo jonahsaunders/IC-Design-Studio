@@ -56,7 +56,7 @@ def build(output):
         subprocess.run(['emconfigure', './configure', '--prefix=/share'], cwd=compiler, check=True)
         shutil.copy2('/usr/include/FlexLexer.h', compiler/'include/FlexLexer.h')
         flags = ('-s MODULARIZE=1 -s EXPORT_ES6=1 -s EXPORT_NAME=verilator_bin '
-                 '-s EXTRA_EXPORTED_RUNTIME_METHODS=[\"FS\",\"callMain\"] '
+                 "-s 'EXTRA_EXPORTED_RUNTIME_METHODS=[\"FS\",\"callMain\"]' "
                  '-s FORCE_FILESYSTEM=1 -s INITIAL_MEMORY=67108864 -s ALLOW_MEMORY_GROWTH=1')
         subprocess.run(['emmake', 'make', '-C', 'src', '-j', '2', '../bin/verilator_bin',
                         'EMMAKEN_CFLAGS='+flags], cwd=compiler, check=True)
@@ -66,7 +66,7 @@ def build(output):
             for name in ('verilator.zip','emscripten.zip'):
                 bundle.write(root/name,name)
             bundle.write(Path(__file__).resolve(),'build_vga_compiler.py')
-            bundle.writestr('BUILD.txt', 'Build on Linux with autoconf, make, flex, bison, g++, and Python 3.12.\n'
+            bundle.writestr('BUILD.txt', 'Build on Linux with autoconf, make, flex, libfl-dev, bison, g++, and Python 3.12.\n'
                 f'Activate emsdk 2.0.6 from https://github.com/emscripten-core/emsdk/tree/{SDK_REV}.\n'
                 f'Emscripten SDK release commit: {SDK_RELEASE}.\n'
                 'Run python build_vga_compiler.py --output compiler. The recipe fetches the pinned source revisions.\n'

@@ -7,7 +7,7 @@ runs:
       shell: bash
       run: |
         sudo apt-get update
-        sudo apt-get install -y autoconf bison flex g++ make
+        sudo apt-get install -y autoconf bison flex libfl-dev g++ make
     - name: Activate pinned Emscripten and build compiler
       shell: bash
       run: |

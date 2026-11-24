@@ -92,6 +92,8 @@ def build(source=None, run_tests=False, compiler_directory=None):
     # Several shipped presets have width/unused-pin warnings. Keep diagnostics,
     # but do not turn those warnings into failed visual simulations.
     text = replace_once(text, "      '-Wall',", "      '-Wall',\n      '-Wno-fatal',")
+    text = replace_once(text, '  const verilatorInst = verilator_bin({',
+                        '  const verilatorInst = await verilator_bin({')
     text = replace_once(text, '  topModule: string;', '  topModule: string;\n  includeDirs?: string[];\n  defines?: Record<string, string>;')
     text = replace_once(text, '    FS.writeFile(path, source);',
                         "    FS.mkdirTree(path.slice(0, path.lastIndexOf('/')));\n    FS.writeFile(path, source);")
