@@ -1,5 +1,20 @@
 # Chunks 1–12: progress and forecast
 
+**November 24, 2026 — Beacon Run and VGA distribution sources
+(EDU-01–08, UX-02).** On draft base `6394e6b6`, five Digital world
+milestones share an editable TinyVGA RTL project. The Verilog exercises cover
+sync and blanking, object priority, frame-tick movement, collection, and
+collision/win/restart state. Icarus checked one full 800 × 525 frame and
+verified that each solution advances the corresponding cumulative test.
+The VGA preview receives the same applied RTL without the testbench.
+
+The source adds the full R3_CMC license and explicit PSP/JUNCAP attribution.
+Packaging calls for a pinned source build of the Verilator WASM compiler
+and verifies the compiler and its source archive before bundling. The
+instructional implementation estimate is 100%. Hosted rebuild and installed
+acceptance of the replacement compiler are in progress. See the
+[Beacon Run guide](STUDENT_BEACON_RUN.md).
+
 **November 24, 2026 — Student Hub bench reuse and cross-world paths
 (EDU-01–08, EXP-01, UX-02).** On draft base `82748e91`, the op-amp
 challenge reuses each saved source fixture, analysis, and measurement. A single

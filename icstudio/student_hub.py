@@ -51,7 +51,7 @@ def difficulty_for(key):
 def curriculum():
     from .getting_started import resource_root
     from .student_layout_labs import course, lessons
-    from . import student_signal_labs, student_standard_cells, student_testbench
+    from . import student_beacon, student_signal_labs, student_standard_cells, student_testbench
     data = json.loads((resource_root()/'examples/student-hub/curriculum.json').read_text(encoding='utf-8'))
     data['lessons'].extend(lessons(course()))
     data['lessons'].extend(student_signal_labs.lessons(student_signal_labs.course()))
@@ -59,6 +59,7 @@ def curriculum():
     data['lessons'].extend(student_testbench.lessons())
     data['paths'].append(dict(student_standard_cells.PATH))
     data['lessons'].extend(student_standard_cells.lessons())
+    data['lessons'].extend(student_beacon.lessons())
     from .student_loop_study import add_checkpoints
     add_checkpoints(data['lessons'])
     for lesson in data['lessons']:
@@ -122,6 +123,7 @@ def checker_stamp():
                    file_digest(Path(__file__).with_name('student_testbench.py')),
                    file_digest(Path(__file__).with_name('student_opamp_verification.py')),
                    file_digest(Path(__file__).with_name('student_paths.py')),
+                   file_digest(Path(__file__).with_name('student_beacon.py')),
                    file_digest(Path(__file__).with_name('student_standard_cells.py')),
                    file_digest(Path(__file__).with_name('student_cell_layout.py')),
                    file_digest(Path(__file__).with_name('student_cell_specs.py')),
@@ -257,6 +259,8 @@ def tools_for_lesson(lesson):
         requirements.append('ngspice')
     if lesson['path']=='digital' or mixed:
         requirements.append('Icarus Verilog')
+    if lesson.get('vga_lesson'):
+        requirements.append('VGA Playground assets for live preview')
     if stage in ('drc','lvs','handoff') or lesson.get('layout_lab') in PROCESS or any(
             s['id']=='post-layout' for s in lesson['steps']):
         requirements.append('Matching process verification decks and physical tools')
@@ -443,7 +447,13 @@ def evaluate(step, lesson, project, rows=(), path=None, answer=None, note=''):
             require([f for f in files if f['role']=='testbench']==[wanted],'Restore the original reference testbench before earning this checkpoint.')
             require(result.get('digital_result',{}).get('stage')=='simulate','Run the reference simulation, not only compilation or synthesis.')
             log=result['digital_result']['artifacts']['log']['path']
-            require('STUDENT_CHECKS PASS '+rule['design'] in (Path(record['run'])/log).read_text(encoding='utf-8'),'The reference testbench did not finish all checks.')
+            marker = 'STUDENT_CHECKS PASS '+rule['design']
+            output = (Path(record['run'])/log).read_text(encoding='utf-8')
+            if checkpoint := rule.get('checkpoint'):
+                require(marker+' '+checkpoint in (line.strip() for line in output.splitlines()),
+                        'The reference testbench did not pass this checkpoint. Review the run log.')
+            else:
+                require(marker in output,'The reference testbench did not finish all checks.')
         elif kind=='sar':
             samples=result.get('mixed_signal',{}).get('samples',[]);done=[s for s in samples if s['outputs'].get('done')==1]
             actual=[s['outputs'].get('code') for s in done];edges=[s['edge'] for s in done]

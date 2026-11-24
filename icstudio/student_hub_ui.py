@@ -1043,13 +1043,13 @@ class LessonGuide(QDockWidget):
         self.notes=QPlainTextEdit();self.notes.setPlaceholderText('Record your observations and reasoning…');self.notes.setAccessibleName('Lesson reflection');self.notes.setMinimumHeight(100);self.notes.setMaximumHeight(220);v.addWidget(self.notes);self.notes_label.setBuddy(self.notes)
         self.note_status=label('','muted');v.addWidget(self.note_status)
         self.controls={}
-        for title,fn in [('Open workspace',self.workspace),('Open RTL',self.rtl),
+        for title,fn in [('Open workspace',self.workspace),('Open RTL',self.rtl),('Open VGA Playground',self.open_vga),
                          ('Mixed-signal experiment…',self.mixed_signal_setup),('Run lesson',self.run),
                          ('Results',self.results),('Cancel lesson runs',self.cancel),('Save work',self.save_work),
                          ('Student Hub',self.show_hub),('Engine setup',hub.setup)]:
             self.controls[title]=button(title,lambda fn=fn:self.call(fn))
         editors=FlowActions();v.addLayout(editors)
-        for name in ('Open workspace','Open RTL','Mixed-signal experiment…'):
+        for name in ('Open workspace','Open RTL','Open VGA Playground','Mixed-signal experiment…'):
             editors.addWidget(self.controls[name])
         self.inverter_actions=QWidget();iv=FlowActions(self.inverter_actions);v.addWidget(self.inverter_actions)
         self.inverter_buttons=[]
@@ -1498,6 +1498,10 @@ class LessonGuide(QDockWidget):
         if not config(s.project,cid):raise ValueError('This lesson has no RTL cell.')
         s.cid=cid;s.digital_window().workspace.switch_cell(cid);self.show();self.raise_()
 
+    def open_vga(self):
+        self.rtl()
+        self.studio.digital_window().show_vga()
+
     def mixed_signal_setup(self):
         from .mixed_signal_ui import show
         self.require_project();dialog=show(self.studio)
@@ -1599,6 +1603,8 @@ class LessonGuide(QDockWidget):
         rtl=bool(bound and config(project,mixed.get('digital_cell',project['top'])))
         self.controls['Open RTL'].setVisible(rtl)
         self.controls['Open RTL'].setEnabled(rtl)
+        self.controls['Open VGA Playground'].setVisible(bool(self.lesson.get('vga_lesson')))
+        self.controls['Open VGA Playground'].setEnabled(rtl)
         self.controls['Open workspace'].setVisible(not rtl or bool(mixed))
         self.controls['Mixed-signal experiment…'].setVisible(bool(mixed))
         self.controls['Mixed-signal experiment…'].setEnabled(bool(mixed))

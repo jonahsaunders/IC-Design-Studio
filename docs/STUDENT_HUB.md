@@ -336,6 +336,13 @@ The destination guide shows the previous checkpoint's reading and the task that
 uses it. On its reflection step, **Add handoff to reflection** brings the
 reading into the draft so you can explain it alongside your own observations.
 
+### Beacon Run in the VGA Playground
+
+The Digital world includes five [Beacon Run lessons](STUDENT_BEACON_RUN.md).
+Build a test card, draw the board, add frame-based movement, collect beacons,
+and finish the game in one RTL project. Each lesson checks the cumulative
+behavior with the same regression bench.
+
 Use **View → Lesson guide** to reopen the guide while working. **Cancel lesson runs** stops runs from that lesson project. Use **Student Hub menu → Locate lesson project** if you move a saved file, or **Reload progress** to read edits saved by another window. See the [Student Hub workflow audit](STUDENT_HUB_AUDIT.md) for the desktop checks.
 
 

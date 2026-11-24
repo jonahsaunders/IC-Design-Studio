@@ -96,6 +96,9 @@ def review_html(lesson):
 
 
 def lesson_hints(lesson, author_id=None):
+    if lesson.get('vga_lesson'):
+        from .student_beacon import hints
+        return hints(lesson['vga_lesson'])
     if lesson.get('standard_cell'):
         from .student_standard_cells import hints
         return hints(lesson['standard_cell'])
@@ -126,6 +129,9 @@ def mode_source():
 
 
 def lesson_practice(lesson, author_id=None):
+    if lesson.get('vga_lesson'):
+        from .student_beacon import practice
+        return practice(lesson['vga_lesson'])
     if lesson.get('standard_cell'):
         from .student_standard_cells import practice
         return practice(lesson['standard_cell'])
@@ -174,13 +180,15 @@ def study_guide(data):
     from .getting_started import resource_root
     from .student_layout_labs import course
     from .student_signal_labs import course as signal_course
-    from . import student_standard_cells, student_testbench
+    from . import student_beacon, student_standard_cells, student_testbench
     content = json.loads((resource_root()/'examples/student-hub/study-guide.json').read_text(encoding='utf-8'))
     ids = {lesson['id'] for lesson in data['lessons']}
     content['lessons'].update({'l-' + unit['id']: unit['teaching'] for unit in course() if 'l-' + unit['id'] in ids})
     content['lessons'].update({unit['id']: unit['teaching'] for unit in signal_course() if unit['id'] in ids})
     bench_ids = {lesson['id'] for lesson in data['lessons'] if lesson.get('bench_project')}
     content['lessons'].update({key: student_testbench.teaching(key) for key in bench_ids})
+    content['lessons'].update({lesson['id']: student_beacon.teaching(lesson['vga_lesson'])
+                               for lesson in data['lessons'] if lesson.get('vga_lesson')})
     content['lessons'].update({lesson['id']: student_standard_cells.teaching(lesson['standard_cell'])
                                for lesson in data['lessons'] if lesson.get('standard_cell')})
     if set(content['lessons']) != ids:
@@ -261,6 +269,8 @@ def solution_html(step, practice, note):
                 + _paragraph('Use your own observed values, test conditions and reasoning for this prompt.')
                 + _paragraph(step['instructions']))
     _, actions, solution = practice['tasks'][step['id']]
+    if code := practice.get('code',{}).get(step['id']):
+        return title + _paragraph(solution) + _numbered(actions) + '<pre>'+html.escape(code)+'</pre>'
     bench = practice.get('bench_workflows', {}).get(step['id'])
     if bench:
         return (title + _paragraph(solution)

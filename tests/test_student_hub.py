@@ -105,7 +105,7 @@ class StudentProgressTests(unittest.TestCase):
 
     def test_curriculum_has_executable_starters_and_valid_prerequisites(self):
         data=curriculum()
-        self.assertEqual([sum(l['path']==p['id'] for l in data['lessons']) for p in data['paths']],[8,16,10,7,25,2,26,17,19])
+        self.assertEqual([sum(l['path']==p['id'] for l in data['lessons']) for p in data['paths']],[8,16,15,7,25,2,26,17,19])
         self.assertEqual(sum(l['path']=='capstone' for l in data['lessons']),5)
         for l in data['lessons']:validate(create(l['starter']))
         bad=clone(data);bad['lessons'][0]['requires']=['c-qualify']
@@ -184,7 +184,7 @@ class StudentDigitalTests(unittest.TestCase):
     def test_all_six_reference_benches_and_tamper_detection(self):
         with tempfile.TemporaryDirectory() as td:
             for lesson in curriculum()['lessons']:
-                if lesson['path']!='digital':continue
+                if lesson['path']!='digital' or lesson.get('vga_lesson'):continue
                 p=repaired(lesson,create(lesson['starter']));row=execute(p,Path(td)/lesson['id'],engines())
                 evaluate(lesson['steps'][2],lesson,p,[row])
                 files=p['cells'][0]['digital']['files'];files[1]['text']=files[1]['text'].replace('initial begin','// changed reference\ninitial begin',1)
