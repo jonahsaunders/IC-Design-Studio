@@ -5,6 +5,7 @@ on:
       - '.github/actions/build-vga-compiler/**'
       - '.github/workflows/vga-*.yml'
       - 'scripts/build_vga*.py'
+      - 'scripts/verify_windows_vga_install.py'
       - 'packaging/vga/**'
       - 'icstudio/digital_vga*.py'
       - 'icstudio/student_beacon.py'
@@ -19,3 +20,5 @@ concurrency:
 jobs:
   preview:
     uses: ./.github/workflows/vga-build-and-test.yml
+    with:
+      windows-install-probe: true

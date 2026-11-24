@@ -1,6 +1,11 @@
 name: Build and test VGA assets
 on:
   workflow_call:
+    inputs:
+      windows-install-probe:
+        description: Check a fresh per-user Windows installation of the VGA-enabled shell
+        default: false
+        type: boolean
 permissions:
   contents: read
 jobs:
@@ -39,3 +44,40 @@ jobs:
         with:
           name: vga-playground-evidence
           path: build/digital-vga-ui
+      - uses: actions/upload-artifact@v4
+        if: inputs.windows-install-probe
+        with:
+          name: vga-release-assets
+          path: build/vga-playground/dist
+          if-no-files-found: error
+  windows-install:
+    if: inputs.windows-install-probe
+    needs: preview
+    runs-on: windows-2022
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: vga-release-assets
+          path: build/vga-playground/dist
+      - name: Install desktop build tools
+        shell: pwsh
+        run: |
+          python -m pip install -r requirements-build.txt
+          if ($LASTEXITCODE -ne 0) { throw 'Installing the pinned desktop build tools failed.' }
+          $iscc = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
+          if (-not (Test-Path -LiteralPath $iscc)) {
+            choco install innosetup --yes --no-progress
+            if ($LASTEXITCODE -ne 0) { throw 'Installing Inno Setup on the runner failed.' }
+          }
+      - name: Verify offline VGA from a fresh Windows installation
+        run: python scripts/verify_windows_vga_install.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: windows-vga-install-evidence
+          path: build/windows-vga-install-evidence
