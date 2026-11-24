@@ -35,10 +35,16 @@ shows its gain and phase. Read phase margin as 180° plus the unwrapped phase
 at the first falling 0 dB crossing. In the transient checkpoint, reconnect
 INN to OUT and keep CL at 47 pF.
 
-In the challenge, screen all three variants at nominal DC. Compare their
-diagnostic runs with the reference from the earlier lessons, using the same
-stimulus and load. Use **Results → Save plot** to keep one diagnostic plot
-per case and record a one-sentence verdict for each in the reflection.
+In the challenge, select the workflow you saved in the corresponding earlier
+checkpoint and choose **Compare reference and variant**. Studio reruns that
+fixture first with the reference amplifier, then with the assigned case. It
+swaps the amplifier in the simulation copy and uses your saved stimulus, load,
+and measurement settings for both runs. Screen all three variants at nominal
+DC, then use the step, swing, and rejection comparisons. **Results** overlays
+both outputs and marks the verification limits. The transient comparison
+uses the reference pre-step voltage as its zero. Use **Save plot** to keep one
+diagnostic plot per case and record a one-sentence verdict for each in the
+reflection.
 
 ## Balanced differential stimulus
 

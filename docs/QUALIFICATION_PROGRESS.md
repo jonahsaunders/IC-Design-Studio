@@ -1,5 +1,23 @@
 # Chunks 1–12: progress and forecast
 
+**November 24, 2026 — Student Hub bench reuse and cross-world paths
+(EDU-01–08, EXP-01, UX-02).** On draft base `82748e91`, the op-amp
+challenge reuses each saved source fixture, analysis, and measurement. A single
+comparison job runs the reference and the assigned variant, with the DUT
+substitution scoped to the second simulation. Results overlays the outputs,
+marks the limits, and exports the labeled plot. Windows ngspice 46 passed all
+18 checkpoints in each workflow, including six paired challenge checks per
+workflow. Offscreen Qt checks covered the comparison, plot export, route picker,
+and destination handoff. The three paths carry earned evidence through feedback
+and compensation, sensor acquisition, and RTL-to-layout review.
+
+Instructional implementation estimate is 100% for this scope. Hosted desktop
+and contract feedback for the follow-up revision is pending. On the previous
+draft revision, both desktop groups passed. Both contract groups stopped
+at the retained GF180 density acceptance binding for `mixed_signal.py`,
+which was already stale on experimental base `a5364497`.
+See the [Student Hub paths](STUDENT_HUB.md#cross-world-paths).
+
 **November 24, 2026 — Student Hub op-amp verification suite (EDU-01–08,
 EXP-01, UX-02).** On experimental base `a5364497`, the Testbenches world adds
 six characterization lessons and a three-variant diagnosis challenge. The

@@ -3,11 +3,11 @@
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QFontDatabase
 from PySide6.QtWidgets import (QComboBox, QDialog, QDialogButtonBox, QFileDialog, QFormLayout, QLabel,
-                               QPlainTextEdit, QTabWidget, QVBoxLayout)
+                               QPlainTextEdit, QTabWidget, QVBoxLayout, QWidget)
 
 from . import student_opamp_verification as verification, student_testbench as lessons, testbench_ui
 from .model import io_path
-from .plot import WavePlot
+from .plot import WavePlot, trace_colors
 
 
 def _label(text=''):
@@ -29,7 +29,7 @@ def _code(name, read_only=False):
 
 def program_editor(guide, preview=False):
     studio = guide.studio
-    key = lessons.checkpoint_key(guide.lesson, guide.active_step['id'])
+    key = lessons.workspace_key(guide.lesson, guide.active_step['id'])
     project = studio.project
     lesson = guide.lesson
     cid = lessons.fixture(project, key)
@@ -82,7 +82,7 @@ def editor(guide):
     if guide.bench_workflow.currentData()=='spice':
         return program_editor(guide)
     project = guide.studio.project
-    key = lessons.checkpoint_key(guide.lesson, guide.active_step['id'])
+    key = lessons.workspace_key(guide.lesson, guide.active_step['id'])
     return testbench_ui.editor(guide.studio, lessons.saved_bench(project, key),
                                fixture_id=lessons.fixture(project, key))
 
@@ -92,7 +92,7 @@ def previews(guide):
         return [('SPICE program', 'Enter the analysis and the lesson_value measurement in the program editor.',
                  program_editor(guide, preview=True), 435)]
     studio = guide.studio
-    key = lessons.checkpoint_key(guide.lesson, guide.active_step['id'])
+    key = lessons.workspace_key(guide.lesson, guide.active_step['id'])
     project, unit = studio.project, lessons.course()[key]
     cid = lessons.fixture(project, key)
     bench = lessons.solution_bench(project, cid, unit)
@@ -136,12 +136,19 @@ class BenchResults(QDialog):
         self.target = _label()
         layout.addWidget(self.target)
         tabs = self.tabs = QTabWidget()
+        self.wave_panel = QWidget()
+        wave_layout = QVBoxLayout(self.wave_panel)
+        wave_layout.setContentsMargins(0, 0, 0, 0)
+        self.legend = QLabel()
+        self.legend.setWordWrap(True)
+        wave_layout.addWidget(self.legend)
         self.plot = WavePlot()
         self.plot.dark = studio.dark
+        wave_layout.addWidget(self.plot, 1)
         self.phase = WavePlot()
         self.phase.dark = studio.dark
         log = self.log = _code('Native ngspice log', read_only=True)
-        tabs.addTab(self.plot, 'Waveform')
+        tabs.addTab(self.wave_panel, 'Waveform')
         self.phase_tab = tabs.addTab(self.phase, 'Loop phase')
         tabs.addTab(self.log, 'Simulation log')
         layout.addWidget(tabs, 1)
@@ -162,6 +169,7 @@ class BenchResults(QDialog):
         captured = result['student_bench']
         key = captured.get('checkpoint',captured['lesson'])
         check = captured['check']
+        reference = result.get('reference_trace')
         value = check.get('value')
         reading = f'{value:.5g} {check.get("unit","V")}' if value is not None else 'No reading'
         status = 'Passed' if check['status']=='passed' else 'Review measurement'
@@ -176,6 +184,20 @@ class BenchResults(QDialog):
             lessons.waveform_figures(key,result,verify=True)
         except ValueError as exc:
             status, reason = 'Review waveform', str(exc)
+        if reference:
+            source = unit['reuse']
+            try:
+                if captured['reference']['status']!='passed':
+                    raise ValueError('The reused bench missed its reference measurement limit.')
+                baseline = lessons.waveform_figures(source,reference,verify=True)
+            except ValueError as exc:
+                status, reason = 'Review reference', str(exc)
+                baseline = lessons.waveform_figures(source,reference)
+            observed = ' · '.join(f'{name} {value:.3g}' for name,value in baseline.items() if value is not None)
+            color, ref_color, *_ = trace_colors(self.plot.dark)
+            self.legend.setText(f'<b style="color:{color}">Case {unit["variant"].upper()} (solid)</b> · '
+                                f'<b style="color:{ref_color}">Reference (dashed)</b> {observed}')
+        self.legend.setVisible(bool(reference))
         extra = ' · '.join(f'{key} {value:.3g}' if value is not None else f'{key} unavailable' for key,value in metrics.items())
         self.reading.setText(' · '.join(filter(None,(f'{status} · {quantity} = {reading}',extra))))
         self.target.setText(' '.join(filter(None,(lessons.target(unit),reason))))
@@ -186,7 +208,7 @@ class BenchResults(QDialog):
         self.tabs.setTabText(0, 'Loop gain' if loop_plots else 'Waveform')
         if loop_plots:
             gain, phase = verification.loop_trace(result)
-            wave = {**result,'traces':{'Loop gain':gain},'plot_unit':'dB'}
+            wave = {**result,'traces':{'Loop gain':gain},'plot_unit':'dB','y_reference':0}
             show = ['Loop gain']
             self.phase.set_result({**result,'traces':{'Loop phase':phase},'plot_unit':'°'}, ['Loop phase'])
         elif unit['analysis']['type']=='noise':
@@ -199,16 +221,38 @@ class BenchResults(QDialog):
                             'Differential':[x-y for x,y in zip(a,b)]}
             wave = {**result,'traces':{**result['traces'],**extra_traces}}
             show += list(extra_traces)
-        self.plot.set_result(wave,show)
+        if reference:
+            offset = 0
+            if unit['metric']=='small':
+                # The 10 mV step is easier to compare against a common zero.
+                from .student_hub import at
+                offset = at(reference,'out',1e-6)
+                self.legend.setText(self.legend.text()+'<br>Change from the reference pre-step voltage')
+            self.plot.set_result(comparison_trace(wave,offset,0),['out'],
+                                 compare=comparison_trace(reference,offset,1))
+            for x, y, rule in verification.comparison_markers(unit,result):
+                self.plot.marker_rule = rule
+                self.plot.add_marker('XY',x,y-offset,'out')
+            self.plot.selected_marker = None
+            self.plot.marker_rule = '<='
+        else:
+            self.plot.set_result(wave,show)
+            if loop_plots and (unity := metrics['First unity crossing (Hz)']) is not None:
+                self.plot.add_marker('X',unity,0,'Loop gain')
+                self.phase.add_marker('X',unity,0,'Loop phase')
         self.plot_status.clear()
         path = io_path(row['path']/'engine.log')
         try:
-            self.log.setPlainText(path.read_text(encoding='utf-8', errors='replace'))
+            log = path.read_text(encoding='utf-8', errors='replace')
+            if reference:
+                reference_log = io_path(row['path']/'reference'/'engine.log').read_text(encoding='utf-8', errors='replace')
+                log = 'Reference\n'+reference_log+'\nVariant\n'+log
+            self.log.setPlainText(log)
         except OSError:
             self.log.setPlainText('The saved ngspice log is unavailable.')
 
     def save_plot(self):
-        plot = self.phase if self.tabs.currentWidget() is self.phase else self.plot
+        plot = self.phase if self.tabs.currentWidget() is self.phase else self.wave_panel
         captured = self.rows[self.runs.currentIndex()]['result']['student_bench']
         name = captured.get('checkpoint',captured['lesson'])
         path, _ = QFileDialog.getSaveFileName(self, 'Save testbench plot', name+'.png', 'PNG image (*.png)')
@@ -218,3 +262,7 @@ class BenchResults(QDialog):
                 self.tabs.setCurrentWidget(plot)
             saved = plot.grab().save(path+suffix, 'PNG')
             self.plot_status.setText('Plot saved.' if saved else 'Could not save the plot.')
+
+
+def comparison_trace(result, offset, color):
+    return {**result,'traces':{'out':[value-offset for value in result['traces']['out']]},'color_index':color}

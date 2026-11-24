@@ -3,7 +3,7 @@
 import math
 import re
 
-from .model import device, example, scalar, uid
+from .model import clone, device, example, scalar, uid
 from .sar_example import primitive
 from .testbenches import crossings
 
@@ -78,8 +78,9 @@ NOISE_CASE = checkpoint('Plot density and integrate RMS noise', 'noise', NOISE, 
     ('RS', 'value', '1k', '10k'), measurement=dict(kind='input_noise', min='1.8u', max='2.8u'), metric='noise')
 
 
-def variant(base, letter, title, goal=None, **extra):
-    return dict(base, title=f'Case {letter.upper()} · {title}', variant=letter, goal=goal or base['goal'], **extra)
+def variant(source, base, letter, title, goal=None, **extra):
+    return dict(base, title=f'Case {letter.upper()} · {title}', variant=letter, reuse=PREFIX+source,
+                goal=goal or base['goal'], **extra)
 
 
 # Bases are reused with independently editable fixture cells for each checkpoint.
@@ -92,16 +93,16 @@ UNITS = {
     'small-step': SMALL, 'large-step': LARGE,
     'psrr-plus': psrr('VDD', 'positive-rail'), 'psrr-minus': psrr('VSS', 'negative-rail'),
     'cmrr': CMRR, 'noise': NOISE_CASE,
-    'a-bias': variant(BIAS_CASE, 'a', 'nominal DC'),
-    'a-evidence': variant(SMALL, 'a', 'capture transient evidence',
+    'a-bias': variant('bias', BIAS_CASE, 'a', 'nominal DC'),
+    'a-evidence': variant('small-step', SMALL, 'a', 'capture transient evidence',
         'Apply the same 10 mV step and 47 pF load as the reference. Compare the captured response with the healthy limits. Save the plot and explain the result.',
         fault='Case A exceeds 20% overshoot under the same capacitive load.'),
-    'b-bias': variant(BIAS_CASE, 'b', 'nominal DC'),
-    'b-evidence': variant(SWING, 'b', 'capture sweep evidence',
+    'b-bias': variant('bias', BIAS_CASE, 'b', 'nominal DC'),
+    'b-evidence': variant('swing', SWING, 'b', 'capture sweep evidence',
         'Apply the same loaded sweep as the reference. Compare both output extremes with the healthy limits. Save the plot and explain the result.',
         fault='Case B clips before reaching the required loaded output swing.'),
-    'c-bias': variant(BIAS_CASE, 'c', 'nominal DC'),
-    'c-evidence': variant(psrr('VDD', 'positive-rail'), 'c', 'capture AC evidence',
+    'c-bias': variant('bias', BIAS_CASE, 'c', 'nominal DC'),
+    'c-evidence': variant('psrr-plus', psrr('VDD', 'positive-rail'), 'c', 'capture AC evidence',
         'Apply the same 1 kHz positive-supply disturbance as the reference. Compare the measured rejection with the healthy limit. Save the plot and explain the result.',
         fault='Case C falls below 45 dB positive-supply rejection at 1 kHz.'),
 }
@@ -266,8 +267,42 @@ def project():
     p = example('empty')
     p['spice'] = dict(version=1, assets={})
     amplifiers = {variant: _amplifier(variant) for variant in ('', 'a', 'b', 'c')}
-    p['cells'] = [*amplifiers.values(), *(_fixture(unit, amplifiers[unit.get('variant', '')]) for unit in units().values())]
+    p['cells'] = [*amplifiers.values(), *(_fixture(unit, amplifiers['']) for unit in units().values() if not unit.get('reuse'))]
     return p
+
+
+def substitute(project, cid, letter):
+    """Select a challenge DUT on the run copy while retaining every bench setting."""
+    p = clone(project)
+    cell = next(c for c in p['cells'] if c['id']==cid)
+    dut = next((c for c in p['cells'] if c['name']=='verification_case_'+letter), None)
+    if not dut or dut['ports'] != PORTS:
+        raise ValueError('Restore the supplied challenge amplifier and its original pins.')
+    instance = next(d for d in cell['devices'] if d['name']=='XDUT')
+    instance['cell'] = dut['id']
+    for bench in p.get('testbenches', []):
+        if bench['bench_cell']==cid:
+            bench['dut_cell'] = dut['id']
+    return p
+
+
+def comparison_markers(unit, result):
+    """Coordinates and limits for the checks shown on the variant trace."""
+    from .student_hub import at
+
+    xs, out = result['x'], result['traces']['out']
+    if unit['metric']=='small':
+        initial, final = (at(result,'out',t) for t in (1e-6,11e-6))
+        peak = max(range(len(out)), key=out.__getitem__)
+        return [(xs[peak], final+.20*(final-initial), '<=')]
+    if unit['metric']=='swing':
+        low = min(range(len(out)), key=out.__getitem__)
+        high = max(range(len(out)), key=out.__getitem__)
+        return [(xs[low], .22, '<='), (xs[high], 1.55, '>=')]
+    if unit['metric']=='psrr':
+        supply = at(result,unit['probes'][1],1e3)
+        return [(1e3, supply/(10**(45/20)), '<=')]
+    return []
 
 
 def loop_trace(result):

@@ -105,7 +105,7 @@ class StudentProgressTests(unittest.TestCase):
 
     def test_curriculum_has_executable_starters_and_valid_prerequisites(self):
         data=curriculum()
-        self.assertEqual([sum(l['path']==p['id'] for l in data['lessons']) for p in data['paths']],[8,16,10,7,25,2,26,10,19])
+        self.assertEqual([sum(l['path']==p['id'] for l in data['lessons']) for p in data['paths']],[8,16,10,7,25,2,26,17,19])
         self.assertEqual(sum(l['path']=='capstone' for l in data['lessons']),5)
         for l in data['lessons']:validate(create(l['starter']))
         bad=clone(data);bad['lessons'][0]['requires']=['c-qualify']

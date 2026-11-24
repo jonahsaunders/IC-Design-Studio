@@ -64,6 +64,8 @@ def curriculum():
     for lesson in data['lessons']:
         lesson['difficulty'] = difficulty_for(lesson['id'])
     validate_curriculum(data)
+    from .student_paths import validate_routes
+    validate_routes(data['lessons'])
     return data
 
 
@@ -119,6 +121,7 @@ def checker_stamp():
                    file_digest(Path(__file__).with_name('student_signal_circuits.py')),
                    file_digest(Path(__file__).with_name('student_testbench.py')),
                    file_digest(Path(__file__).with_name('student_opamp_verification.py')),
+                   file_digest(Path(__file__).with_name('student_paths.py')),
                    file_digest(Path(__file__).with_name('student_standard_cells.py')),
                    file_digest(Path(__file__).with_name('student_cell_layout.py')),
                    file_digest(Path(__file__).with_name('student_cell_specs.py')),
@@ -320,8 +323,10 @@ def evaluate(step, lesson, project, rows=(), path=None, answer=None, note=''):
         if answer!=step['answer']:raise ValueError('Try again. '+step['explanation'])
         return dict(**evidence,answer=answer,explanation=step['explanation'])
     if step['kind']=='reflection':
-        terms = set(re.findall(r'[^\W_]+',note.casefold()))
-        if len(note.strip())<40 or len(terms)<4:
+        from .student_paths import reflection_body
+        body = reflection_body(note)
+        terms = set(re.findall(r'[^\W_]+',body.casefold()))
+        if len(body)<40 or len(terms)<4:
             raise ValueError('Record the test conditions, an observation and your reasoning in at least 40 characters.')
         return dict(**evidence,note=note.strip(),assessment='Recorded reflection for instructor review.')
     rule=step['rule'];kind=rule['type']

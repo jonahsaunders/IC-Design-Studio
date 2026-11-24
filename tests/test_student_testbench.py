@@ -33,8 +33,12 @@ class TestbenchLessonsTests(unittest.TestCase):
                 project = projects[kind]
                 for step in (step['id'] for step in lesson['steps'] if step['kind']=='check'):
                     cid, view = lesson_workspace(project, lesson, step)
-                    self.assertNotIn(cid, fixtures)
-                    fixtures.add(cid)
+                    key = benches.checkpoint_key(lesson,step)
+                    if benches.course()[key].get('reuse'):
+                        self.assertIn(cid, fixtures)
+                    else:
+                        self.assertNotIn(cid, fixtures)
+                        fixtures.add(cid)
                     self.assertEqual(view, 'schematic')
                     practice = material['practice'][lesson['id']]['bench_workflows'][step]
                     self.assertTrue(practice['graphical'])
@@ -42,7 +46,7 @@ class TestbenchLessonsTests(unittest.TestCase):
                     self.assertIn('lesson_value', practice['program'])
                 self.assertEqual(len(material['hints'][lesson['id']]['predict']), 4)
         self.assertEqual(len(projects), 5)
-        self.assertEqual(len(fixtures), 28)
+        self.assertEqual(len(fixtures), 22)
 
     def test_phase_skew_and_ringing_fail_despite_correct_late_samples(self):
         wave = dict(x=[0,2e-6,5e-6,8e-6,12e-6],traces={
