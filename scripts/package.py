@@ -42,10 +42,11 @@ else:
  dependency_build_sha=dependency_provenance.sha(dependency_work/'build-capture/report.json')
 from scripts.source_files import checkout_workflow_hash
 from icstudio.build_identity import identity
-from icstudio.digital_vga import REVISION as vga_revision
+from scripts.build_vga_playground import verify_dist as verify_vga_dist
 vga_assets=root/'build/vga-playground/dist'
-if not (vga_assets/'icstudio-build.json').is_file() or json.loads((vga_assets/'icstudio-build.json').read_text())['revision']!=vga_revision:
+if not (vga_assets/'icstudio-build.json').is_file():
  raise ValueError('Build the pinned VGA Playground before packaging: python scripts/build_vga_playground.py')
+verify_vga_dist(vga_assets)
 build=identity()
 if build['commit']=='unknown' or build['dirty'] is not False:
  subprocess.run(['git','status','--short','--untracked-files=normal'],cwd=root,check=False)

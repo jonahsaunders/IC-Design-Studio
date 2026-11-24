@@ -1,0 +1,21 @@
+name: Build VGA compiler from pinned source
+description: Build the redistributable Verilator WebAssembly compiler on Linux
+runs:
+  using: composite
+  steps:
+    - name: Install Verilator build dependencies
+      shell: bash
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y autoconf bison flex g++ make
+    - name: Activate pinned Emscripten and build compiler
+      shell: bash
+      run: |
+        sdk="$RUNNER_TEMP/studio-emsdk"
+        git init "$sdk"
+        git -C "$sdk" fetch --depth=1 https://github.com/emscripten-core/emsdk.git aec1e16f518517ab140a25f59af0840ae754c86c
+        git -C "$sdk" checkout --detach FETCH_HEAD
+        "$sdk/emsdk" install 2.0.6
+        "$sdk/emsdk" activate 2.0.6
+        source "$sdk/emsdk_env.sh"
+        python scripts/build_vga_compiler.py --output build/vga-playground/compiler

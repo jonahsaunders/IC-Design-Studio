@@ -1,5 +1,11 @@
 name: Verify VGA Playground
 on:
+  pull_request:
+    paths:
+      - '.github/actions/build-vga-compiler/**'
+      - '.github/workflows/vga-playground.yml'
+      - 'scripts/build_vga*.py'
+      - 'packaging/vga/**'
   workflow_call:
   workflow_dispatch:
     inputs:
@@ -22,11 +28,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Verify immutable acceptance candidate
+        if: github.event_name != 'pull_request'
         run: python scripts/ci_candidate.py
   preview:
     needs: candidate
-    runs-on: ubuntu-24.04
-    timeout-minutes: 15
+    runs-on: ubuntu-22.04
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -38,8 +45,9 @@ jobs:
       - name: Install Qt desktop dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y xvfb xauth libegl1 libopengl0 libgl1 libxtst6 libxkbfile1 libnss3 libasound2t64 libxkbcommon-x11-0 libxcb-cursor0 libxcb-icccm4 libxcb-keysyms1 libxcb-shape0 libxcb-xinerama0
+          sudo apt-get install -y iverilog xvfb xauth libegl1 libopengl0 libgl1 libxtst6 libxkbfile1 libnss3 libasound2 libxkbcommon-x11-0 libxcb-cursor0 libxcb-icccm4 libxcb-keysyms1 libxcb-shape0 libxcb-xinerama0
           python -m pip install -r requirements.txt
+      - uses: ./.github/actions/build-vga-compiler
       - name: Build and test pinned simulator
         run: python scripts/build_vga_playground.py --test
       - name: Test source exchange and local assets

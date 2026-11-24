@@ -43,9 +43,12 @@ frames; it is a smoke test, not an assertion of a design's functional correctnes
 
 Run the following from the repository root in its Python environment. Install
 the Python requirements, including matching PySide6 Essentials and
-Addons 6.8.3. Install git and Node.js 22.12+ (or 24), then run:
+Addons 6.8.3. Install git and Node.js 22.12+ (or 24). Build the WebAssembly
+compiler on Linux with autoconf, bison, flex, g++ and make. Activate Emscripten
+2.0.6 from the [pinned SDK checkout](https://github.com/emscripten-core/emsdk/tree/aec1e16f518517ab140a25f59af0840ae754c86c), then run:
 
 ```sh
+python scripts/build_vga_compiler.py --output build/vga-playground/compiler
 python scripts/build_vga_playground.py
 ```
 
@@ -54,6 +57,10 @@ its locked npm dependencies, checks TypeScript, and builds under
 `build/vga-playground/dist`. `--source /path/to/vga-playground` can use a local
 clone; the exact pinned commit is archived, independent of working-tree edits.
 Use `--test` to also run the upstream simulator tests.
+On Windows, use `--compiler PATH` with the Linux build's compiler directory.
+The desktop workflow builds the compiler once and uses that output in both
+packages. Packaging verifies the pinned build identity and the shipped WASM
+and source-archive hashes.
 
 On Linux, Qt WebEngine also needs the normal Qt graphics libraries plus
 `libxtst6`, `libxkbfile1`, `libnss3`, and ALSA (`libasound2t64` on Ubuntu 24.04).
@@ -77,6 +84,7 @@ input controls and VGA decoding remain the basis of the preview.
 
 The build includes the adapted source as `vga-playground-source.zip`, its GPL
 license, upstream attribution, preset notices, and npm dependency licenses.
+The rebuilt compiler ships with `verilator-source.zip` and `verilator-build.json`.
 See [third-party notices](../THIRD_PARTY_NOTICES.md) for component source links.
 
 ## Reproduce desktop qualification
