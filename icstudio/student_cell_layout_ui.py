@@ -2,12 +2,12 @@
 
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (QComboBox, QDialog, QDialogButtonBox, QFormLayout, QHeaderView,
-                               QHBoxLayout, QLabel, QLineEdit, QMessageBox, QTabWidget, QTableWidget, QTableWidgetItem,
+                               QHBoxLayout, QLabel, QLineEdit, QMessageBox, QPushButton, QTabWidget, QTableWidget, QTableWidgetItem,
                                QVBoxLayout, QWidget)
 
 from . import student_cell_layout as geometry, student_standard_cells as cells
 from . import student_cell_specs as specs, student_cell_row as row_lab
-from .student_cell_characterization import LOAD_DESCRIPTION, SETTLED_PS, clip, sweep_cases
+from .student_cell_characterization import LOAD_DESCRIPTION, SETTLED_PS, clip, sweep_cases, timing_bracket
 from .model import design_digest, scalar
 from .plot import WavePlot, trace_colors
 
@@ -234,6 +234,10 @@ class CellResults(QDialog):
         fixture = LOAD_DESCRIPTION.get(key, f'a {load_ff:g} fF fixture load')
         layout.addWidget(label(f'{output} gained an estimated {cap*1e15:.3g} fF of metal-to-ground capacitance. '
                                f'Both cases use the same 1.8 V supply and {fixture}.'))
+        if comparison:=record.get('contention'):
+            layout.addWidget(label(f'Mean bus-fixture supply current from 45 to 47 ns was '
+                                   f'{comparison["normal_uA"]:.3g} µA with break-before-make '
+                                   f'and {comparison["overlap_uA"]:.3g} µA with deliberately overlapping enables.'))
         if result['design_hash'] != design_digest(studio.project):
             layout.addWidget(label('Saved result from an earlier revision. Run the lesson again to test your current layout.'))
         tabs = QTabWidget()
@@ -309,6 +313,46 @@ class CellResults(QDialog):
             first_pass = next((i for i,row in enumerate(record['sweep']) if row['passed']),0)
             table.setCurrentCell(first_pass,0)
             tabs.addTab(sweep,'Timing sweep')
+            practice = QWidget()
+            practice_layout = QVBoxLayout(practice)
+            practice_layout.addWidget(label('Use the sweep to find adjacent failing and stable passing offsets for setup and hold.'))
+            form = QFormLayout()
+            fields = {}
+            for kind in ('Setup','Hold'):
+                entries = QHBoxLayout()
+                fields[kind] = []
+                for role in ('Failing','Passing'):
+                    field = QLineEdit()
+                    field.setAccessibleName(f'{kind} {role.lower()} offset in picoseconds')
+                    field.setPlaceholderText(role+' (ps)')
+                    fields[kind].append(field)
+                    entries.addWidget(field)
+                form.addRow(kind,entries)
+            practice_layout.addLayout(form)
+            status = label()
+            status.setAccessibleName('Timing bracket feedback')
+
+            def check_brackets():
+                for kind, edits in fields.items():
+                    expected = timing_bracket(record['sweep'],kind)
+                    try:
+                        selected = tuple(float(edit.text()) for edit in edits)
+                    except ValueError:
+                        status.setText('Enter a failing and passing offset in picoseconds for each sweep.')
+                        return
+                    if selected != expected:
+                        status.setText(f'Review the {kind.lower()} sweep. Start from the settled reference and locate the first failure.')
+                        return
+                status.setText('Both brackets match the saved sweep. Record the offsets and failure reasons in your reflection.')
+
+            verify = QPushButton('Check brackets')
+            verify.setAutoDefault(False)
+            verify.clicked.connect(check_brackets)
+            practice_layout.addWidget(verify)
+            practice_layout.addWidget(status)
+            practice_layout.addStretch()
+            tabs.addTab(practice,'Check brackets')
+            tabs.setCurrentWidget(sweep)
         plot = self.plot = WavePlot()
         plot.dark = studio.dark
         plot.setAccessibleName('Standard-cell output comparison')

@@ -100,7 +100,8 @@ class StudentHubMenuTests(unittest.TestCase):
         self.assertEqual(hub.selected()['id'], 'f-first')
         self.assertEqual(hub.lessons.count(), 1)
         hub.preview.setCurrentWidget(hub.study_notes)
-        self.assertIn(hub.material['lessons']['f-first']['worked_example'], hub.study_notes.toPlainText())
+        self.assertIn(hub.material['lessons']['f-first']['concept'],hub.study_notes.toPlainText())
+        self.assertNotIn(hub.material['lessons']['f-first']['worked_example'], hub.study_notes.toPlainText())
         hub.preview.setCurrentWidget(hub.prediction)
         self.app.processEvents()
         prediction = hub.prediction
@@ -658,6 +659,14 @@ class StudentHubMenuTests(unittest.TestCase):
                     widget.setText(value)
             dialog.findChild(QDialogButtonBox).button(QDialogButtonBox.Ok).click()
             self.assertFalse(dialog.isVisible(), dialog.error.text())
+
+        guide = open_step('l-access', 'access')
+        self.assertEqual(guide.layout_action.text(), 'Use compact practice layout')
+        self.assertEqual(current_placement(studio.project), (30000, 8000))
+        guide.layout_action.click()
+        self.assertEqual(current_placement(studio.project), (16000, 0))
+        guide.check_button.click()
+        self.assertIn('Practice check passed', guide.feedback.text())
 
         guide = open_step('l-floorplan', 'compact')
         identity = studio.project['id']

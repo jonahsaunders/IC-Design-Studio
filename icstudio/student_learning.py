@@ -12,6 +12,89 @@ def hint_source():
     return json.loads((resource_root()/'examples/student-hub/study-hints.json').read_text(encoding='utf-8'))
 
 
+def answer_choices(step, lesson=None):
+    """Use stable presentation order while keeping authored answer IDs."""
+    from .model import digest
+    choices = list(step.get('options', ()))
+    if choices and lesson and step['id']=='predict':
+        distractors = review_course()[author_id(lesson)].get('distractors')
+        if distractors:
+            indices = [i for i in range(len(choices)) if i!=step['answer']]
+            for index,value in zip(indices,distractors,strict=True):
+                choices[index]=value
+    return sorted(enumerate(choices), key=lambda item: digest([step['instructions'],item[1]]))
+
+
+@lru_cache(maxsize=1)
+def review_course():
+    from .getting_started import resource_root
+    return json.loads((resource_root()/'examples/student-hub/lesson-review.json').read_text(encoding='utf8'))
+
+
+def author_id(lesson):
+    stage = lesson.get('inverter_stage')
+    return 'inverter-'+stage if stage else lesson['id']
+
+
+def evidence_label(step):
+    if step['kind']=='quiz':
+        return 'Knowledge check'
+    if step['kind']=='reflection':
+        return 'Reflection for instructor review'
+    rule = step['rule']
+    kind = rule['type']
+    if kind in {'structure','nets','value','hierarchy','layout','digital_sources','config','config_number','rtl_contains'}:
+        return 'Workspace inspection'
+    if kind=='saved':
+        return 'Saved project'
+    if kind=='standard_cell':
+        return 'Simulation and design targets' if step['id']=='verify' else 'Teaching-layout checks'
+    if kind=='inverter':
+        return {'binding':'PDK inspection','schematic':'Workspace inspection'}.get(rule.get('check'),'Measurement or process verification')
+    if kind in {'layout_exercise','layout_decisions','layout_study'}:
+        return 'Physical geometry or model evidence'
+    if kind=='loop_study':
+        return 'Saved loop-response measurements'
+    return 'Simulation or measured result'
+
+
+def preparation_html(lesson):
+    from .student_hub import tools_for_lesson
+    tools = tools_for_lesson(lesson)
+    background = {
+        'analog-projects':'DC bias, small-signal gain and transient or frequency plots.',
+        'standard-cells':'CMOS pull-up and pull-down paths, physical pins and power rails.',
+        'layout':'Layer visibility, physical nets and dimensional units.',
+        'digital':'Logic values, clock edges and basic RTL.',
+        'mixed':'Analog waveforms, logic timing and sampling.',
+        'capstone':'Analog waveforms, logic timing and sampling.',
+        'testbenches':'Schematic ports and basic operating-point or transient plots.',
+        'inverter':'Four-terminal MOS devices and the selected process rules.',
+    }.get(lesson['path'])
+    if lesson['id']=='a-switch-drive':
+        background = 'Gate-to-source voltage and Ohm’s law. The gm/ID series is useful background.'
+    if lesson['id']=='project-ahuja':
+        background += ' The Miller compensation lesson is useful preparation.'
+    elif lesson['id'] in ('project-opamp','project-tia'):
+        background += ' Review the matching Testbenches sequence first.'
+    elif lesson['id'].startswith('project-bandgap-'):
+        background += ' A current-reference and cascode-mirror comparison is useful preparation.'
+    elif lesson['id']=='l-access':
+        background += ' The compact layout from Plan a block before routing is the shared starting point.'
+    setup = ' · '.join(tools)
+    if tools:
+        setup += '. Open Engine setup in Student Hub before starting.'
+    return (('<h3>Useful background</h3>'+_paragraph(background)) if background else '') + (
+        '<h3>Tools to check before starting</h3>'+_paragraph(setup) if tools else '')
+
+
+def review_html(lesson):
+    item = review_course()[author_id(lesson)]
+    return ('<h3>Try a new case</h3>'+_paragraph(item['exercise'])+
+            '<h3>Evidence to discuss</h3>'+_paragraph(item['evidence'])+
+            '<p>Use this exercise for practice or instructor review. Keep a link to the result or name the trace, net or rule you used.</p>')
+
+
 def lesson_hints(lesson, author_id=None):
     if lesson.get('standard_cell'):
         from .student_standard_cells import hints
@@ -60,6 +143,10 @@ def lesson_practice(lesson, author_id=None):
             questions[step['id']] = prompt
         if step['kind'] != 'check':
             continue
+        if step['rule']['type']=='loop_study':
+            from .student_loop_study import practice
+            tasks[step['id']] = practice(lesson['starter'])
+            continue
         record = source['tasks'].get(key)
         if not isinstance(record, list) or len(record) != 3:
             raise ValueError('Add a challenge, walkthrough and solution for ' + key)
@@ -67,7 +154,19 @@ def lesson_practice(lesson, author_id=None):
         if (not isinstance(actions, list) or len(actions) < 2
                 or not all(isinstance(line, str) and line.strip() for line in [goal, *actions, solution])):
             raise ValueError('Incomplete practice material for ' + key)
-        tasks[step['id']] = record
+        updated = {
+            ('f-debug','build'): ('Choose a load resistance and preserve the 10 kΩ divider. The output must remain at least 0.89 V.',
+                                  ['Open the loaded divider and identify the parallel lower leg.',
+                                   'Choose a load resistance that leaves enough voltage at out and apply the edit.',
+                                   'Run the lesson and use Results to test your design.']),
+            ('a-gmid-size','build'): ('Choose a width for the target gm at the fixed bias. Keep VG, VD and L at their specified values.',
+                                      ['Read the target operating point and identify which parameter is adjustable.',
+                                       'Apply a candidate width. Use the measured gm, ID and gm/ID to check the sizing.']),
+            ('a-gmid-tradeoff','build'): ('Choose bias and width to hit the same gm at a lower current.',
+                                          ['Compare the desired gm/ID with the previous bias and choose a gate voltage.',
+                                           'Enter a width and use the operating-point readout to test both targets.']),
+        }.get((lesson['id'],step['id']))
+        tasks[step['id']] = [*updated,solution] if updated else record
     return dict(tasks=tasks, questions=questions)
 
 
@@ -124,7 +223,7 @@ def task_html(step, practice, guided, workflow='graphical'):
         prompt = _paragraph(step['instructions'])
         return prompt + (_numbered([
             'If this lesson has a saved run, open Results to revisit it. For a geometry, source, or study exercise, reopen the workspace or study you used.',
-            'Write what you predicted, what you observed and how your evidence answers the question above. Include units and test conditions where relevant.',
+            'Record the test conditions, your observation and an explanation. Include the run, trace, net or rule you used, with units where applicable.',
             'Enter at least 40 characters in Your reflection and choose Record reflection.',
         ]) if guided else '')
     goal, actions, _ = practice['tasks'][step['id']]
@@ -170,11 +269,26 @@ def solution_html(step, practice, note):
     return title + _paragraph(solution) + '<h3>In Studio</h3>' + _numbered(actions)
 
 
-def notes_html(note):
-    esc = html.escape
-    return ''.join(f'<h3>{title}</h3><p>{esc(note[key]).replace(chr(10),"<br>")}</p>' for key,title in (
-        ('concept','Understand the idea'),('worked_example','Worked example'),
-        ('try_next','Try another case'),('artifact','Keep for your portfolio'),('interview','Explain it in an interview')))
+RELATED_EXAMPLES = {
+    'foundations':'A 6 kΩ resistor and a 4 kΩ resistor divide a 5 V step to 2 V before any load is attached. Adding another 4 kΩ across the lower leg changes that leg to 2 kΩ and its output to 1.25 V.',
+    'analog':'A 1 mS transconductor driven by 10 mV supplies 10 µA of incremental current. Across 20 kΩ this gives 0.2 V before output resistance or loading is included.',
+    'digital':'In a two-clock pipeline, an input accepted on edge 4 can emerge on edge 6. The matching valid bit must go through the same two stages even when the following cycle is empty.',
+    'mixed':'For a 4-bit converter with a 1.6 V span, one ideal code step is 0.1 V. A 30 mV hold error therefore consumes 0.3 LSB before comparator or DAC error is counted.',
+    'layout':'For a uniform 18 µm by 0.6 µm route, length divided by width gives 30 squares. At 0.4 Ω per square, the uniform segment contributes about 12 Ω before contacts and vias.',
+    'career':'A reproducible requirement specifies a value, a tolerance, a condition and a test. For example, a board-level regulator must supply 3.30 V ± 50 mV at 30 mA after 1 ms.',
+    'analog-projects':'A pole at 2 MHz and a second pole at 20 MHz both affect phase. At 5 MHz the second pole adds about 14° of lag, even if its effect on magnitude is still small.',
+    'testbenches':'A sensor fixture with 1.05 V at one input and 0.75 V at the other applies 0.30 V differential around 0.90 V common mode. Save both pin traces so either derived quantity can be checked.',
+    'standard-cells':'A gate that slews through a 10 fF load with roughly 90 µA of current moves 0.9 V in about 100 ps. This charge estimate gives a comparison point for a measured propagation delay.',
+    'inverter':'A transfer curve can cross at half the supply while its switching region is asymmetric. Mark the two slope-of-minus-one points separately before calculating either noise margin.',
+    'capstone':'If a sampler settles to within 0.4 LSB and its reference drifts by 0.3 LSB in the same direction, a worst-case sum is 0.7 LSB. Testing each block alone does not establish a 0.5 LSB system limit.',
+}
+
+
+def notes_html(note, lesson=None):
+    idea = '<h3>Understand the idea</h3>'+_paragraph(note['concept'])
+    related = '<h3>Worked example with different conditions</h3>'+_paragraph(RELATED_EXAMPLES[lesson['path']]) if lesson else ''
+    return idea+related+''.join('<h3>'+title+'</h3>'+_paragraph(note[key]) for key,title in (
+        ('artifact','Keep for your portfolio'),('interview','Explain the result')))
 
 
 def overview_html(note):
@@ -201,7 +315,9 @@ def portfolio_html(portfolio, data, guide):
                 # Include captured measurements/hashes and original earned notes,
                 # distinct from editable drafts. Escape all user-controlled text.
                 detail+='<details><summary>Captured evidence</summary><pre>'+esc(json.dumps(evidence,indent=2,ensure_ascii=False))+'</pre></details>'
-            rows.append('<li><b>'+esc(step['title'])+'</b> — '+('Earned' if evidence else 'Not earned')+detail+'</li>')
+            if step['kind']=='reflection':
+                detail += '<p>Review the test conditions, the cited observation and the circuit reasoning.</p>'
+            rows.append('<li><b>'+esc(step['title'])+'</b> · '+esc(evidence_label(step))+' · '+('Earned' if evidence else 'Not earned')+detail+'</li>')
         sections.append('<section><h2>'+esc(lesson['title'])+'</h2><p>'+esc(lesson['path'].title())+' · '+status+
                         f' · {len(done)}/{len(lesson["steps"])} checkpoints</p>'+overview_html(guide['lessons'][lesson['id']])+
                         ('<p>Prerequisites still needed: '+esc(', '.join(missing))+'</p>' if missing else '')+

@@ -163,6 +163,27 @@ def resolve_tools(tools=None, setup_panel='Mixed-signal experiment → Local eng
     return resolved
 
 
+def native_smoke_test(tools):
+    """Exercise native tools on small independent inputs before starting a course."""
+    import tempfile
+    from .engines import execute
+    from .spice_program import runtime_environment
+
+    with tempfile.TemporaryDirectory(prefix='icms-check-') as folder:
+        root = Path(folder)
+        (root/'smoke.v').write_text('module smoke; initial begin $display("BRIDGE_OK"); $finish; end endmodule\n',
+                                   encoding='ascii')
+        kwargs = {'timeout':8,'eof_pipe':os.name=='nt'}
+        execute([tools['iverilog'],'-g2012','-s','smoke','-o','smoke.vvp','smoke.v'],root,**kwargs)
+        if 'BRIDGE_OK' not in execute([tools['vvp'],'-n','smoke.vvp'],root,**kwargs):
+            raise ValueError('Icarus compiled the check but VVP did not run it.')
+        (root/'smoke.cir').write_text('Student engine check\nV1 out 0 1\nR1 out 0 1k\n.op\n.end\n',encoding='ascii')
+        execute([tools['ngspice'],'-b','-r','smoke.raw','smoke.cir'],root,timeout=8,
+                env=runtime_environment(tools['ngspice']))
+        if not (root/'smoke.raw').stat().st_size:
+            raise ValueError('ngspice did not save the operating-point result.')
+
+
 def prepare(project, tools=None, setup_panel='Mixed-signal experiment → Local engines'):
     from .model import validate
     p = clone(project); validate(p)
@@ -272,7 +293,9 @@ def run(job, directory, progress=lambda *_: None):
         if remaining <= 0: raise TimeoutError('Mixed-signal run exceeded its total time budget.')
         commands.append([str(v) for v in args])
         atomic_write(root/'commands.json', json.dumps(commands, indent=2))
-        try: log = execute(args, cwd, timeout=remaining, env=env)
+        # Some Windows Icarus builds require a pipe to receive EOF.
+        uses_icarus = args[0] in (tools['iverilog'], tools['vvp'])
+        try: log = execute(args, cwd, timeout=remaining, env=env, eof_pipe=os.name=='nt' and uses_icarus)
         except Exception as exc:
             atomic_write(cwd/name, str(exc)); raise
         atomic_write(cwd/name, log); return log

@@ -1061,7 +1061,7 @@
     {
       "id": "a-gmid-tradeoff",
       "path": "analog",
-      "title": "10 · Compare efficiency, area and speed",
+      "title": "10 · Trade transistor area for current at fixed gm",
       "starter": "gmid-tradeoff",
       "workspace": "a-gmid-tradeoff",
       "summary": "Meet the same gm target at lower current and identify what the simple model cannot tell you.",

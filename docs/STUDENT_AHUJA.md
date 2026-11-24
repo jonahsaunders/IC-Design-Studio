@@ -47,6 +47,10 @@ experiment replace the copied branch term `sCc gm₂` with
 
 ## Read unity gain and phase margin
 
+In the Lesson Guide, open **Compare loop response** and use **Save comparison**
+for the two buffer bandwidths at both capacitive loads. The checkpoint uses
+the resulting unity frequency and phase margin recorded in the lesson project.
+
 1. Set a 20 pF load and 50 MHz buffer pole. Draw 0 dB across the gain
    chart. For each curve, line up its first falling crossing with its own
    phase. For the positive low-frequency return ratio `T` and unity

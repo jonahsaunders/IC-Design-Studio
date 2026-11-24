@@ -187,7 +187,7 @@ def practice(key):
                 'Run the lesson to capture the routed cell and timing sweep.',
                 'Open Timing sweep in Results. Check the settled 1500 ps reference in each group.',
                 'Move toward the clock until Q fails to capture or clock-to-Q exceeds 110% of its settled value.',
-                'Record the adjacent passing and failing offsets for each group and check the step.',
+                'Enter the adjacent offsets in Check brackets. If they match the sweep, record the failure reasons in your reflection.',
             ]
         tasks['verify'][2] = unit['solution']
     return dict(tasks=tasks, questions={})
@@ -532,7 +532,8 @@ def run(project, job, directory, progress):
     loaded, caps = estimate(project, cell)
     directory = Path(directory)
     reference_run = key in characterization.REFERENCE_KEYS
-    fraction = 1/(3 if reference_run else 2)
+    contention_run = key=='tristate'
+    fraction = 1/(3 if reference_run or contention_run else 2)
 
     def simulate(model, project, bench_id, index):
         target = directory/model
@@ -551,12 +552,21 @@ def run(project, job, directory, progress):
         starter, reference_fixture = reference_layout(key)
         baseline = simulate('reference', starter, reference_fixture, 2)
         reference = characterization.observed(baseline,key)
+    contention = None
+    if contention_run:
+        fault = clone(loaded)
+        _, bench = context(fault,key)
+        next(d for d in bench['devices'] if d['name']=='VPEER')['source']['delay'] = '44n'
+        overlap = simulate('overlap',fault,fixture['id'],2)
+        contention = logic.contention_comparison(result,overlap)
     sweep_rows = characterization.sweep(result) if key == 'dff-aperture' else None
     result.update(settings=job['settings'], design_hash=design_digest(project),
                   student_cell_layout=dict(
                       schematic={name:nominal[name] for name in ('x','traces','x_label','settings')},
                       targets=measure(result,cell,geometry,course()[key],reference,sweep_rows),
                       capacitors=caps, artifacts={name:file_digest(directory/name) for name in artifacts(key)}))
+    if contention:
+        result['student_cell_layout']['contention'] = contention
     if sweep_rows:
         bench_nodes = {'d','clk','out','sweep_clk'}
         for _,_,tag in characterization.sweep_cases():
@@ -568,7 +578,9 @@ def run(project, job, directory, progress):
     return result
 
 
-def artifacts(key):
+def artifacts(key, contention=True):
+    if key=='tristate' and contention:
+        return (*ARTIFACTS, 'overlap/input.cir', 'overlap/result.raw', 'overlap/engine.log')
     if key in characterization.REFERENCE_KEYS:
         return (*ARTIFACTS, 'reference/input.cir', 'reference/result.raw', 'reference/engine.log')
     return ARTIFACTS
@@ -590,7 +602,7 @@ def validate_result(result, job, directory):
     if key not in course() or result['settings'] != job['settings'] or job.get('student_lesson') != 'sc-'+key:
         raise ValueError('The captured layout experiment does not match this lesson.')
     try:
-        hashes = {name:file_digest(directory/name) for name in artifacts(key)}
+        hashes = {name:file_digest(directory/name) for name in artifacts(key,contention=bool(record.get('contention')))}
     except OSError as exc:
         raise ValueError('A captured standard-cell simulation artifact is missing.') from exc
     if record.get('artifacts') != hashes:
@@ -599,6 +611,10 @@ def validate_result(result, job, directory):
         raise ValueError('The layout-loaded simulation is missing its metal capacitance estimate.')
     readings(record.get('schematic', {}), key)
     readings(result, key)
+    if record.get('contention'):
+        overlap = characterization.wave_from_raw(directory/'overlap/result.raw')
+        if record['contention']!=logic.contention_comparison(result,overlap):
+            raise ValueError('Bus-current readings do not match the captured waveforms.')
     if course()[key].get('specs'):
         from .student_cell_layout import check_routing
         from .student_cell_specs import measure
@@ -638,6 +654,13 @@ def check(project, lesson, step, rows):
             value = 'missing transition' if row['value'] is None else f'{row["value"]:.3g} {row["unit"]}'
             limit = f'≥ {row["minimum"]:g}' if 'minimum' in row else f'≤ {row["maximum"]:g}'
             raise ValueError(f'{row["metric"]} measured {value}. Target {limit} {row["unit"]}.')
+    if key=='tristate':
+        comparison = layout.get('contention')
+        if not comparison:
+            raise ValueError('Run this lesson again to capture the driver-overlap comparison.')
+        if not comparison['overlap_uA'] > max(100,3*comparison['normal_uA']):
+            raise ValueError('The overlap comparison did not show the expected current increase.')
+        evidence['bus_supply_comparison'] = comparison
     if layout.get('sweep'):
         evidence['timing_sweep'] = layout['sweep']
     return dict(**evidence, **geometry, logic_samples=drawn, schematic_samples=schematic,

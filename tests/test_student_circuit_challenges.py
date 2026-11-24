@@ -104,3 +104,9 @@ class EngineeringLessonTests(unittest.TestCase):
                 proof = evaluate(lesson['steps'][1],lesson,project,[row])
                 self.assertAlmostEqual(proof['bench_reading'],.1,places=4)
                 self.assertEqual(proof['bench_workflow'],mode)
+            minus['source']['delay'] = '6u'
+            for mode in benches.WORKFLOWS:
+                job = benches.prepare(project,lesson,mode,{'ngspice':NGSPICE})
+                row = self.run_job(job,Path(tmp)/(mode+'-skewed'))
+                with self.assertRaisesRegex(ValueError,'Peak common-mode error'):
+                    evaluate(lesson['steps'][1],lesson,project,[row])

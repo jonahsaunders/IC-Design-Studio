@@ -156,9 +156,24 @@ class BenchResults(QDialog):
         status = 'Passed' if check['status']=='passed' else 'Review measurement'
         unit = lessons.course()[captured['lesson']]
         quantity = ' − '.join(lessons.probes(unit))
-        self.reading.setText(f'{status} · {quantity} = {reading}')
-        self.target.setText(lessons.target(unit))
-        self.plot.set_result(result, lessons.probes(unit))
+        metrics = lessons.waveform_figures(captured['lesson'],result)
+        reason = ''
+        try:
+            lessons.waveform_figures(captured['lesson'],result,verify=True)
+        except ValueError as exc:
+            status, reason = 'Review waveform', str(exc)
+        extra = ' · '.join(f'{key} {value:.3g}' if value is not None else f'{key} unavailable' for key,value in metrics.items())
+        self.reading.setText(' · '.join(filter(None,(f'{status} · {quantity} = {reading}',extra))))
+        self.target.setText(' '.join(filter(None,(lessons.target(unit),reason))))
+        show = lessons.probes(unit)
+        wave = result
+        if len(show)==2:
+            a,b = (result['traces'][n] for n in show)
+            extra_traces = {'Common mode':[(x+y)/2 for x,y in zip(a,b)],
+                            'Differential':[x-y for x,y in zip(a,b)]}
+            wave = {**result,'traces':{**result['traces'],**extra_traces}}
+            show += list(extra_traces)
+        self.plot.set_result(wave,show)
         path = io_path(row['path']/'engine.log')
         try:
             self.log.setPlainText(path.read_text(encoding='utf-8', errors='replace'))

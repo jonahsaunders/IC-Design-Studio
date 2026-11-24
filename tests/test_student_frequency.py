@@ -54,6 +54,28 @@ class StudentFrequencyTests(unittest.TestCase):
             tuned = evaluate(step, lesson, project, [row])['lesson_measurements']
             self.assertAlmostEqual(tuned['f0_Hz'], 10_000, delta=1)
 
+    def test_compensation_checkpoints_require_saved_comparisons_for_every_condition(self):
+        from icstudio import student_loop_study as loops
+        from icstudio.model import load_project, save_project
+        from icstudio.student_hub import earned, lesson_stamp
+        with tempfile.TemporaryDirectory() as folder:
+            for starter,(_,_,conditions) in loops.LESSONS.items():
+                with self.subTest(starter=starter):
+                    lesson = self.lessons[starter]
+                    project = create(starter)
+                    step = next(row for row in lesson['steps'] if row['id']==loops.STEP)
+                    with self.assertRaisesRegex(ValueError,'Save each comparison'):
+                        evaluate(step,lesson,project)
+                    older = dict(lessons={lesson['id']:dict(stamp=lesson_stamp(loops.legacy_lesson(lesson)),
+                                                          steps={lesson['steps'][0]['id']:dict(kind='quiz')})})
+                    self.assertEqual(set(earned(older,lesson)),{lesson['steps'][0]['id']})
+                    for case in conditions:
+                        loops.save(project,starter,case)
+                    path = Path(folder)/(starter+'.icproj')
+                    save_project(project,path)
+                    evidence = evaluate(step,lesson,load_project(path))['loop_measurements']
+                    self.assertEqual(len(evidence),len(conditions))
+
     def test_bode_mistapped_output_fails(self):
         project = create('lc-bode')
         result = run(project, project['top'], project['analysis'])

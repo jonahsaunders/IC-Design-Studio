@@ -965,7 +965,7 @@
     ],
     "l-access/access": [
       "Measure a legal metal1-only detour on the compact macro before adding any route.",
-      ["Resume the compact macro from the floorplan lesson or compact it there first.", "Open workspace and use Check this step to read the estimated metal1-only path around the obstruction."],
+      ["Resume the compact macro from the floorplan lesson. In Practice mode, choose Use compact practice layout to start with compact placement.", "Open workspace and use Check this step to read the estimated metal1-only path around the obstruction."],
       "Use 16 µm pitch and 0 offset. The metal1 detour is about 14.57 µm and slightly exceeds the short-route target."
     ],
     "l-access/route": [

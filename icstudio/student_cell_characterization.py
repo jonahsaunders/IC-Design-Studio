@@ -154,24 +154,34 @@ def sweep(result):
     return records
 
 
-def timing_limit(rows, kind):
-    """Find the first stable passing offset bracketed by a more aggressive failure."""
+def timing_bracket(rows, kind):
+    """Return adjacent failing and stable passing offsets, walking from settled data."""
     passing = None
-    for row in reversed([r for r in rows if r['kind'] == kind]):
+    for row in reversed([r for r in rows if r['kind']==kind]):
+        offset = row['offset_ps']
         if not row['passed']:
-            return passing
-        passing = row['offset_ps']
+            return (offset,passing) if passing is not None else None
+        passing = offset
     return None
+
+
+def timing_limit(rows, kind):
+    bracket = timing_bracket(rows,kind)
+    return bracket[1] if bracket else None
 
 
 def total_width(cell):
     return sum(scalar(d['params']['w'])*1e6 for d in cell['devices'])
 
-def reference_from_raw(path,key):
+def wave_from_raw(path):
     from .engines import parse_raw
     from .operating_data import extras
     variables, rows, complex_data = parse_raw(path)
     traces = {name[2:-1]:[row[i] for row in rows] for i,name in enumerate(variables)
               if name.startswith('v(') and name.endswith(')')}
     currents, _, _ = extras(variables, rows, complex_data)
-    return observed(dict(x=[row[0] for row in rows], traces=traces, currents=currents),key)
+    return dict(x=[row[0] for row in rows], traces=traces, currents=currents)
+
+
+def reference_from_raw(path,key):
+    return observed(wave_from_raw(path),key)

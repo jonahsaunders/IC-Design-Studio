@@ -8,6 +8,23 @@ observations retain their original scope; use [Student Hub](STUDENT_HUB.md) for
 current behavior and engine setup, and [release status](RELEASE_STATUS.md) for
 package identities. A later passing build does not rewrite this original audit.
 
+## November 23, 2026 curriculum audit follow-up
+
+- The native engine preflight exercises ngspice, Icarus and vvp. The Windows
+  mixed-signal flow uses a closed input pipe, including the SAR and capstone.
+- Lesson previews and guides list tool requirements separately from background.
+  All 136 lessons have a follow-up and an evidence prompt in **Try another case**.
+  The exact edits are in **Show solution**, and answer choices have stable
+  identities independent of display order. Pre-run predictions are optional.
+- Both testbench workflows check the saved waveform for the same limits,
+  including transition common mode and follower and TIA settling. Miller and
+  Ahuja require a saved loop comparison. The tri-state verification measures a
+  forced-overlap run separately from normal operation, and the flip-flop timing
+  viewer lets learners check passing and failing brackets against the sweep.
+- The guide and portfolio name the kind of evidence each checkpoint collects.
+  Reflections and the follow-up evidence prompts are for instructor or peer
+  review. Existing credit carries forward for the reviewed checkpoints.
+
 ## November 23, 2026 Apple HIG review
 
 On review base `0fa0dd0`, the desktop audit followed the Student Hub from the

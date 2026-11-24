@@ -43,6 +43,18 @@ class TestbenchLessonsTests(unittest.TestCase):
         self.assertEqual(len(projects), 4)
         self.assertEqual(len(fixtures), 10)
 
+    def test_phase_skew_and_ringing_fail_despite_correct_late_samples(self):
+        wave = dict(x=[0,2e-6,5e-6,8e-6,12e-6],traces={
+            'inp':[.85,.85,.95,.95,.95], 'inn':[.95,.95,.95,.85,.85]})
+        self.assertAlmostEqual(benches.waveform_figures('tb-balanced-stimulus',wave)['Peak common-mode error (mV)'],50)
+        with self.assertRaisesRegex(ValueError,'throughout the transition'):
+            benches.waveform_figures('tb-balanced-stimulus',wave,verify=True)
+        ringing = dict(x=[0,5e-6,6e-6,7e-6,12e-6,15e-6,20e-6],
+                       traces={'out':[.85,.85,1.02,.88,.96,.95,.95]})
+        self.assertAlmostEqual(benches.waveform_figures('tb-opamp-step',ringing)['Overshoot (mV)'],70)
+        with self.assertRaisesRegex(ValueError,'step-response limits'):
+            benches.waveform_figures('tb-opamp-step',ringing,verify=True)
+
     @unittest.skipUnless(Path(NGSPICE).is_file(), 'Set ICSTUDIO_TEST_NGSPICE to run the native engines')
     def test_same_divider_reading_and_evidence_from_either_workflow(self):
         lesson = next(item for item in curriculum()['lessons'] if item['id']=='tb-divider-bias')

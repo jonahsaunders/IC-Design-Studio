@@ -53,6 +53,22 @@ class FrequencyDialog(QDialog):
         buttons = QDialogButtonBox(QDialogButtonBox.StandardButton.Close)
         buttons.rejected.connect(self.close)
         layout.addWidget(buttons)
+        self.buttons = buttons
+
+    def capture_button(self, submit, settings):
+        from PySide6.QtWidgets import QMessageBox
+        button = self.buttons.addButton('Save comparison',QDialogButtonBox.ButtonRole.ActionRole)
+        button.setAutoDefault(False)
+
+        def save():
+            try:
+                submit(settings())
+            except ValueError as error:
+                QMessageBox.warning(self,'Comparison could not be saved',str(error))
+            else:
+                self.cursor.setText('Comparison saved to the lesson project.')
+
+        button.clicked.connect(save)
 
     def table(self, values):
         self.values.setRowCount(len(values))
@@ -145,7 +161,7 @@ class FilterDialog(FrequencyDialog):
 
 
 class AhujaDialog(FrequencyDialog):
-    def __init__(self, studio):
+    def __init__(self, studio, capture=None):
         super().__init__(studio, 'Ahuja compensation study',
                          'The same small-signal stages and compensation capacitor drive all three curves in unity feedback.',
                          ('Model', 'First unity (MHz)', 'Phase margin (°)', '60° target'))
@@ -153,6 +169,8 @@ class AhujaDialog(FrequencyDialog):
         self.buffer = self._number('&Buffer pole (MHz)', 5, 500, 5, 50)
         self.load.valueChanged.connect(self.refresh)
         self.buffer.valueChanged.connect(self.refresh)
+        if capture:
+            self.capture_button(capture,lambda:(self.load.value(),self.buffer.value()))
         self.refresh()
 
     def refresh(self):
@@ -166,7 +184,7 @@ class AhujaDialog(FrequencyDialog):
 
 
 class MillerDialog(FrequencyDialog):
-    def __init__(self, studio):
+    def __init__(self, studio, capture=None):
         super().__init__(studio, 'Miller compensation study',
                          'Compare the same two-stage amplifier with no compensation, a capacitor, and a series RC branch.',
                          ('Model', 'First unity (MHz)', 'Phase margin (°)', 'Compensation zero'))
@@ -175,6 +193,8 @@ class MillerDialog(FrequencyDialog):
         self.resistor = self._number('Series &resistor (Ω)', 0, 8000, 250, student_miller.NULL_OHM)
         for control in (self.load, self.capacitor, self.resistor):
             control.valueChanged.connect(self.refresh)
+        if capture:
+            self.capture_button(capture,lambda:(self.load.value(),self.capacitor.value(),self.resistor.value()))
         self.refresh()
 
     def refresh(self):

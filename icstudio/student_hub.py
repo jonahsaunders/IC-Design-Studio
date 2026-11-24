@@ -10,12 +10,24 @@ from .model import atomic_write, clone, design_digest, digest, file_digest, load
 
 RULES = {'structure','nets','value','hierarchy','layout','saved','result','current','difference','standard_cell',
          'digital_sources','digital','sar','config','config_number','rtl_contains','capstone','campaign',
-         'device_metrics','layout_exercise','inverter','analog_project','layout_decisions','layout_study','signal_study','lc_bode','bench_lesson'}
+         'device_metrics','layout_exercise','inverter','analog_project','layout_decisions','layout_study','signal_study','lc_bode','bench_lesson','loop_study'}
 # Increment for a change to grading semantics. Unrelated application releases
 # must not erase a student's earned progression; exact grader identity is also
 # retained on each newly awarded evidence record.
 CHECKER_REVISION = 1
 DIFFICULTIES = ('Easy', 'Medium', 'Hard')
+
+# Credit earned under the audited rubric remains historical evidence. New
+# runs are always checked against the current lesson.
+REVIEWED_PROGRESS = {
+    "a-gmid-tradeoff": "a2345e20ed2ffd6dd7b8cebd50085d168d40f1cf33b6ec8085720128e7d8c40a",
+    "a-switch-drive": "c0a2db3a977f5be3f479a09d0ef770134caf2c0ea5ccc654ab69751f8aa2565b",
+    "tb-tia-step": "8bced99a3c98b11d1cbcdc2f1ff4c8192560f3b46c206f085a7605ff58b1c2c1",
+    "tb-opamp-step": "f77cb95e030e5339d0d6117f76c206330d4badcb7a24816ea741531c21aede7a",
+    "tb-balanced-stimulus": "61f1165fb5897625e7f2f77d85ad8a52bed1bc5d1ff5fb983437caa799a5b922",
+    "tb-divider-sweep": "a720f793ea5c2aac1fa85c38b6f88796f63d87a55c3827275ce37fd3d849d5e0",
+    "tb-opamp-ac": "0848e211e6e68b3d5d9837053de72871251c8967263ba2481ff562a9a0e1b75f",
+}
 
 
 @lru_cache(maxsize=1)
@@ -47,6 +59,8 @@ def curriculum():
     data['lessons'].extend(student_testbench.lessons())
     data['paths'].append(dict(student_standard_cells.PATH))
     data['lessons'].extend(student_standard_cells.lessons())
+    from .student_loop_study import add_checkpoints
+    add_checkpoints(data['lessons'])
     for lesson in data['lessons']:
         lesson['difficulty'] = difficulty_for(lesson['id'])
     validate_curriculum(data)
@@ -112,7 +126,8 @@ def checker_stamp():
                    file_digest(Path(__file__).with_name('student_circuit_challenges.py')),
                    file_digest(Path(__file__).with_name('student_logic_cells.py')),
                    file_digest(Path(__file__).with_name('student_layout_passives.py')),
-                   file_digest(Path(__file__).with_name('student_spi.py'))])
+                   file_digest(Path(__file__).with_name('student_spi.py')),
+                   file_digest(Path(__file__).with_name('student_loop_study.py'))])
 
 
 def lesson_stamp(lesson):
@@ -122,7 +137,18 @@ def lesson_stamp(lesson):
 
 def earned(state, lesson):
     record=state.get('lessons',{}).get(lesson['id'],{})
-    return record.get('steps',{}) if record.get('stamp')==lesson_stamp(lesson) else {}
+    if record.get('stamp')==lesson_stamp(lesson):
+        return record.get('steps',{})
+    prior = REVIEWED_PROGRESS.get(lesson['id'])
+    if prior and record.get('stamp')==prior:
+        return record.get('steps',{})
+    from .student_loop_study import legacy_lesson
+    old = legacy_lesson(lesson)
+    if old and record.get('stamp')==lesson_stamp(old):
+        # The new experiment must be earned, while earlier correct answers
+        # and written reflections retain their historical evidence.
+        return record.get('steps',{})
+    return {}
 
 
 def complete(state, lesson):
@@ -196,7 +222,7 @@ class Portfolio:
         if any(s['id'] not in earned(self.state,lesson) for s in previous):raise ValueError('Complete the earlier steps in this lesson first.')
         state=clone(self.state);record=state['lessons'].setdefault(lesson['id'],{})
         stamp=lesson_stamp(lesson)
-        if record.get('stamp')!=stamp:record['steps']={}
+        if record.get('stamp')!=stamp:record['steps']=clone(earned(self.state,lesson))
         record['stamp']=stamp
         record['steps'][step['id']]=dict(kind=step['kind'],earned=now(),evidence=clone(evidence))
         self.write(state)
@@ -213,6 +239,24 @@ class Portfolio:
         # Run directories stay beside the application; hashes and paths identify
         # the evidence. This export is a learning record, not a signoff package.
         atomic_write(destination,json.dumps(payload,indent=2,ensure_ascii=False,allow_nan=False)+'\n')
+
+
+def tools_for_lesson(lesson):
+    from .student_signal_circuits import NATIVE
+    from .student_layout_labs import PROCESS
+    requirements = []
+    stage = lesson.get('inverter_stage')
+    mixed = any(s.get('rule',{}).get('type') in {'sar','capstone','campaign'} for s in lesson['steps'])
+    if (lesson.get('bench_project') or lesson.get('signal_lab') in NATIVE
+            or (lesson.get('standard_cell') and lesson['standard_cell']!='abutment')
+            or lesson.get('analog_project') or stage in ('dc','transient','handoff') or mixed):
+        requirements.append('ngspice')
+    if lesson['path']=='digital' or mixed:
+        requirements.append('Icarus Verilog')
+    if stage in ('drc','lvs','handoff') or lesson.get('layout_lab') in PROCESS or any(
+            s['id']=='post-layout' for s in lesson['steps']):
+        requirements.append('Matching process verification decks and physical tools')
+    return tuple(requirements)
 
 
 def prepare_lesson(project, tools=None, toolchain='auto'):
@@ -275,8 +319,10 @@ def evaluate(step, lesson, project, rows=(), path=None, answer=None, note=''):
         if answer!=step['answer']:raise ValueError('Try again. '+step['explanation'])
         return dict(**evidence,answer=answer,explanation=step['explanation'])
     if step['kind']=='reflection':
-        if len(note.strip())<40:raise ValueError('Record your observation and reasoning in at least 40 characters.')
-        return dict(**evidence,note=note.strip(),assessment='Recorded reflection; not automatically assessed for correctness.')
+        terms = set(re.findall(r'[^\W_]+',note.casefold()))
+        if len(note.strip())<40 or len(terms)<4:
+            raise ValueError('Record the test conditions, an observation and your reasoning in at least 40 characters.')
+        return dict(**evidence,note=note.strip(),assessment='Recorded reflection for instructor review.')
     rule=step['rule'];kind=rule['type']
     if kind=='analog_project':
         from .student_analog import check
@@ -290,6 +336,9 @@ def evaluate(step, lesson, project, rows=(), path=None, answer=None, note=''):
     if kind=='bench_lesson':
         from .student_testbench import check
         return dict(**evidence, **check(project, lesson, rows))
+    if kind=='loop_study':
+        from .student_loop_study import check
+        return dict(**evidence, loop_measurements=check(project,lesson['starter']))
     if kind=='standard_cell':
         from .student_standard_cells import check
         return dict(**evidence, **check(project, lesson, step['id'], rows))
@@ -316,7 +365,17 @@ def evaluate(step, lesson, project, rows=(), path=None, answer=None, note=''):
     elif kind=='value':
         value=find(rule['device'])
         for field in rule['field'].split('.'):value=value[field]
-        require(math.isclose(scalar(value),scalar(rule['value']),rel_tol=1e-9),f'Set {rule["device"]} {rule["field"]} to {rule["value"]}.')
+        numeric=scalar(value)
+        if lesson['id']=='f-debug' and rule['device']=='Rload':
+            require(numeric>0,'Use a positive load resistance.')
+            for name in ('R1','R2'):
+                require(math.isclose(scalar(find(name)['value']),1e4),'Keep the two divider resistors at 10 kΩ.')
+            evidence['load_resistance_ohm']=numeric
+        elif lesson['id'] in ('a-gmid-size','a-gmid-tradeoff') and rule['field']=='params.w':
+            require(numeric>0,'Use a positive transistor width. The next checkpoint checks the measured bias targets.')
+            evidence['device_width_m']=numeric
+        else:
+            require(math.isclose(numeric,scalar(rule['value']),rel_tol=1e-9),f'Set {rule["device"]} {rule["field"]} to {rule["value"]}.')
     elif kind=='nets':require(find(rule['device'])['nets']==rule['nets'],'Review the terminal net assignments.')
     elif kind=='hierarchy':require(len(project['cells'])>=rule['minimum'] and any(d['kind']=='X' for d in devices),'Keep the reusable cell and its instance.')
     elif kind=='layout':require(sum(len(c['shapes']) for c in project['cells'])>=rule['minimum'],'Open the lesson geometry before checking. This checks geometry presence only.')

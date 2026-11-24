@@ -44,12 +44,22 @@ def program(unit):
 
 
 def target(unit):
-    when = dict(op='at the operating point', dc=f'at input {unit.get("at")} V',
-                ac=f'at {unit.get("at")} Hz', tran=f'at {unit.get("at")} s')[unit['analysis']['type']]
+    kind = unit['analysis']['type']
+    sample = unit.get('at')
+    when = {'op':'at the operating point', 'dc':f'at input {sample} V',
+            'ac':f'at {sample} Hz', 'tran':f'at {scalar(sample)*1e6:g} µs' if kind=='tran' else ''}[kind]
     low, high = unit['limits']
     node = unit.get('node','out')
     reading = f'{node} relative to {unit["reference"]}' if unit.get('reference') else node
-    return f'Measure {reading} {when}. The target range is {low:g} to {high:g} V.'
+    text = f'Measure {reading} {when}. The target range is {low:g} to {high:g} V.'
+    limits = {
+        'tb-balanced-stimulus': 'Keep common mode within 5 mV of 0.90 V throughout the transition.',
+        'tb-divider-sweep': 'Verify a gain of 0.50 V/V and linear response across the full sweep.',
+        'tb-opamp-ac': 'Measure the first unity crossing and meet 45° phase margin.',
+        'tb-opamp-step': 'Limit overshoot to 20 mV and settle to within 20 mV of 0.95 V in 8 µs.',
+        'tb-tia-step': 'Limit undershoot to 20 mV and settle to within 20 mV of 0.80 V in 12 µs.',
+    }
+    return ' '.join(filter(None,(text,limits.get(unit['id']))))
 
 
 def lessons():
@@ -343,6 +353,72 @@ def validate_result(job, result, directory):
         raise ValueError('The saved testbench measurement does not match the waveform.')
 
 
+def waveform_figures(key, result, verify=False):
+    """Assess timing and balance from the same trace in either bench workflow."""
+    from .student_hub import at
+    from .testbenches import crossings
+    xs, traces = result['x'],result['traces']
+    if key == 'tb-balanced-stimulus':
+        plus, minus = traces['inp'],traces['inn']
+        first, last = 2e-6,8e-6
+        plateaus = [tuple(at(result,node,when) for node in ('inp','inn')) for when in (first,last)]
+        pairs = [*plateaus,*((a,b) for t,a,b in zip(xs,plus,minus) if first<t<last)]
+        peak = max(abs((a+b)/2-.9) for a,b in pairs)
+        if verify and (peak > .005 or any(abs(a-b-expected) > .005 for (a,b),expected in zip(plateaus,(-.1,.1)))):
+            raise ValueError(f'Peak common-mode error is {peak*1e3:.2f} mV. Hold it within 5 mV throughout the transition and reach both differential plateaus.')
+        return {'Peak common-mode error (mV)':peak*1e3}
+    if key == 'tb-divider-sweep':
+        span = xs[-1]-xs[0]
+        slope = (traces['out'][-1]-traces['out'][0])/span if span else 0
+        intercept = traces['out'][0]-slope*xs[0]
+        residual = max(abs(y-(slope*x+intercept)) for x,y in zip(xs,traces['out']))
+        if verify and (abs(slope-.5)>.01 or abs(intercept)>.01 or residual>.01):
+            raise ValueError('The sweep must follow the divider line throughout the applied input range.')
+        return {'DC gain (V/V)':slope,'Maximum line error (V)':residual}
+    if key == 'tb-tia-ac':
+        return {'Transimpedance at the sample (Ω)':at(result,'out',scalar(course()[key]['at']))/1e-6}
+    if key == 'tb-opamp-ac':
+        import cmath
+        from .student_ahuja import unity, unwrap
+        phase = result.get('phase',{}).get('out')
+        try:
+            if not phase:
+                raise ValueError('Capture the output gain and phase.')
+            gain = [20*math.log10(max(v,1e-30)) for v in traces['out']]
+            angles = unwrap(cmath.rect(1,math.radians(value)) for value in phase)
+            frequency,margin = unity(xs,gain,angles)
+        except ValueError:
+            if verify:
+                raise
+            return {'First unity crossing (Hz)':None,'Phase margin (°)':None}
+        if verify and margin<45:
+            raise ValueError(f'Phase margin at the first unity crossing is {margin:.1f}°. Meet 45°.')
+        return {'First unity crossing (Hz)':frequency,'Phase margin (°)':margin}
+    if key not in ('tb-opamp-step','tb-tia-step'):
+        return {}
+    if key=='tb-opamp-step':
+        name, edge, end, initial, final, peak_limit, deadline = 'vin',5e-6,15e-6,.85,.95,.02,8e-6
+    else:
+        # TIA output falls when the photocurrent rises; compare excursion
+        # below the expected plateau rather than the starting voltage.
+        name, edge, end, initial, final, peak_limit, deadline = None,10e-6,30e-6,.9,.8,.02,12e-6
+    if name and name in traces:
+        triggers = crossings(xs,traces[name],(initial+final)/2,start=edge,stop=end)
+        if triggers:
+            edge = triggers[0]
+    times = [edge,*[t for t in xs if edge<t<end],end]
+    voltage = [at(result,'out',edge),*[v for t,v in zip(xs,traces['out']) if edge<t<end],at(result,'out',end)]
+    peak = max(0,max(v-final for v in voltage) if final>initial else max(final-v for v in voltage))
+    outside = [i for i,v in enumerate(voltage) if abs(v-final)>.02]
+    last = outside[-1] if outside else -1
+    settled = (times[last+1]-edge) if last+1<len(times) else None
+    excursion = 'Overshoot' if final>initial else 'Undershoot'
+    if verify and (peak > peak_limit or settled is None or settled > deadline):
+        settle = 'did not settle' if settled is None else f'settled in {settled*1e6:.2f} µs'
+        raise ValueError(f'Output {settle} with {peak*1e3:.2f} mV {excursion.lower()}. Meet the step-response limits.')
+    return {f'{excursion} (mV)':peak*1e3,'Settling within 20 mV (µs)':None if settled is None else settled*1e6}
+
+
 def check(project, lesson, rows):
     from .student_hub import current_result
     key = lesson['id']
@@ -355,12 +431,7 @@ def check(project, lesson, rows):
         value = measured.get('value')
         reading = f'Measured {value:.5g} V. ' if value is not None else ''
         raise ValueError(reading+target(course()[key]))
-    if course()[key].get('reference'):
-        from .student_hub import at
-        for when, expected in [(2e-6,-.1),(8e-6,.1)]:
-            plus, minus = (at(result,node,when) for node in probes(course()[key]))
-            if abs((plus+minus)/2-.9) > .005 or abs(plus-minus-expected) > .005:
-                raise ValueError('Keep 0.9 V common mode and opposite ±0.10 V differential levels.')
+    figures = waveform_figures(key,result,verify=True)
     cell = next(c for c in project['cells'] if c['id']==fixture(project,key))
     parts = {part['name']: part for part in cell['devices']}
     if key=='tb-tia-ac' and not math.isclose(scalar(parts.get('IPHOTO', {}).get('source', {}).get('ac', '0')),1e-6):
@@ -370,4 +441,4 @@ def check(project, lesson, rows):
         if (load.get('kind')!='C' or set(load['nets'].values())!={'out','0'}
                 or not math.isclose(scalar(load['value']),1e-12)):
             raise ValueError('Connect the 1 pF load CL from out to ground in the loop fixture.')
-    return dict(**evidence,bench_workflow=captured['workflow'],bench_reading=measured['value'])
+    return dict(**evidence,bench_workflow=captured['workflow'],bench_reading=measured['value'],bench_figures=figures)

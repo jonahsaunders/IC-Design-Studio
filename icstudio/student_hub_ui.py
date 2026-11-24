@@ -15,7 +15,8 @@ from .student_hub import (DIFFICULTIES,Portfolio,curriculum,earned,complete,miss
                          prepare_lesson,campaign_jobs,evaluate)
 from .ui_style import icon, palette, stylesheet
 from .student_learning import (study_guide, notes_html, overview_html, export_portfolio,
-                               challenge_text, lesson_run_step, question_text, task_html, solution_html)
+                               answer_choices, challenge_text, evidence_label, lesson_run_step, preparation_html, question_text,
+                               review_html, task_html, solution_html)
 from .student_world_map import LessonTrail, WorldMap
 
 
@@ -289,7 +290,7 @@ class PredictionPreview(QScrollArea):
         self.result.clear()
         if step is None:
             return
-        for index, option in enumerate(step['options']):
+        for index, option in answer_choices(step,self.lesson):
             choice = QPushButton()
             choice.setAutoDefault(False)
             choice.setCheckable(True)
@@ -685,13 +686,13 @@ class StudentHub(QWidget):
         esc=html.escape
         direct=[k for k in l['requires'] if k in missing] or missing[:1]
         pre='<br>'.join(f'<a href="{k}">{esc(self.by_id[k]["path"].title()+" · "+self.by_id[k]["title"])}</a>' for k in direct)
-        rows=''.join(f'<li><b>{esc(s["title"])}</b> · {"Earned" if s["id"] in done else {"quiz":"Knowledge check","check":"Workspace check","reflection":"Written reflection"}[s["kind"]]}</li>' for s in l['steps'])
+        rows=''.join(f'<li><b>{esc(s["title"])}</b> · {"Earned" if s["id"] in done else esc(evidence_label(s))}</li>' for s in l['steps'])
         cap='<p>This milestone continues the same sensor project. Earlier repairs are preserved.</p>' if l['path']=='capstone' and not l.get('signal_lab') else ''
         goal=f'<p><b>{esc(l["goal"])}</b></p>' if l.get('goal') else ''
         teaching=self.material['lessons'][l['id']]
-        self.study_notes.setHtml(f'<h2>{esc(l["title"])}</h2>'+notes_html(teaching))
+        self.study_notes.setHtml(f'<h2>{esc(l["title"])}</h2>'+notes_html(teaching,l)+preparation_html(l))
         self.details.setHtml(f'<h2>{esc(l["title"])}</h2><p><b>{l["difficulty"]}</b> · {l["minutes"]} min</p><p>{esc(l["summary"])}</p>{goal}{cap}<p><b>Skills</b><br>{esc(" · ".join(l["skills"]))}</p>'+
-            overview_html(teaching)+
+            overview_html(teaching)+preparation_html(l)+
             (f'<p><b>Complete first</b><br>{pre}</p><p>{len(missing)} prerequisite lesson(s) remaining. You can practice now; earn progression credit after the prerequisites.</p>' if missing else '<p>Ready for guided work in the real editor.</p>')+
             f'<ol>{rows}</ol><p>Earlier earned steps remain a record of the design that passed at that time.</p>')
         self.progress.setRange(0,len(l['steps']));self.progress.setValue(len(done));self.progress.setFormat('%v of %m steps earned')
@@ -699,7 +700,7 @@ class StudentHub(QWidget):
         self.start.setText('Practice lesson' if missing else 'Review lesson' if complete(state,l) else 'Resume lesson' if self.portfolio.workspace(l) else 'Start lesson')
         if l.get('inverter_profile') and not self.inverter_profiles[l['inverter_profile']]['ready']:
             self.start.setEnabled(False);self.start.setText('Set up this PDK to start')
-            self.details.setHtml(self.details.toHtml()+notes_html(teaching))
+            self.details.setHtml(self.details.toHtml()+notes_html(teaching,l))
 
     def ask_ai(self,lesson,step):
         if lesson and step:
@@ -881,7 +882,41 @@ class StudentHub(QWidget):
             try:resolve_tools({name:edit.text() for name,edit in edits.items()},'Student Hub → Engine setup')
             except NativeEngineSetupError as exc:native_status.setText(str(exc));return False
             native_status.setText('Native mixed-signal executables found. Run a lesson to check their behavior.');return True
-        v.addWidget(button('Check native mixed-signal engines',check_native))
+        def start_smoke():
+            from threading import Thread
+            from concurrent.futures import Future
+            from .mixed_signal import resolve_tools, native_smoke_test, NativeEngineSetupError
+            try:
+                tools=resolve_tools({name:edit.text() for name,edit in edits.items()},'Student Hub → Engine setup')
+            except NativeEngineSetupError as exc:
+                native_status.setText(str(exc))
+                return
+            smoke_button.setEnabled(False)
+            feedback(native_status,'Checking compile, RTL simulation and SPICE operating point…')
+            future=Future()
+            def worker():
+                try:
+                    native_smoke_test(tools)
+                except Exception as exc:
+                    future.set_exception(exc)
+                else:
+                    future.set_result(None)
+            timer=QTimer(dialog)
+            timer.setInterval(100)
+            def poll():
+                if not future.done():
+                    return
+                timer.stop()
+                msg=future.exception()
+                feedback(native_status,f'Engine check failed. {msg}' if msg else
+                         'Icarus, VVP and ngspice completed the engine check.',bool(msg))
+                smoke_button.setEnabled(True)
+                timer.deleteLater()
+            timer.timeout.connect(poll)
+            Thread(target=worker,daemon=True).start()
+            timer.start()
+        smoke_button=button('Test native engines',start_smoke)
+        v.addWidget(smoke_button)
         v.addWidget(button('Native engine installation guide',lambda:self.studio.open_editor_doc('MIXED_SIGNAL_SAR.md')))
         buttons=QDialogButtonBox(QDialogButtonBox.Save|QDialogButtonBox.Cancel);v.addWidget(buttons)
         def save():
@@ -958,6 +993,10 @@ class LessonGuide(QDockWidget):
         self.hints=QuestionHints();hints_layout.addWidget(self.hint_question);hints_layout.addWidget(self.hints)
         hints_layout.addStretch()
         self.hints_index=self.lesson_tabs.addTab(hints_page,'Hints')
+        self.review_notes=QTextBrowser()
+        self.review_notes.setAccessibleName('Follow-up exercise and evidence to discuss')
+        self.lesson_tabs.addTab(self.review_notes,'Try another case')
+
         self.hint_question.currentIndexChanged.connect(self.show_question_hints)
         self.lesson_tabs.setMinimumHeight(220)
         self.ask_button=resisty_button(lambda:self.call(self.ask_ai),'this lesson step')
@@ -1038,7 +1077,8 @@ class LessonGuide(QDockWidget):
             choice=self.studio.settings.value('student/benchWorkflow/'+lesson['bench_project'],'graphical')
             with QSignalBlocker(self.bench_workflow):
                 self.bench_workflow.setCurrentIndex(max(0,self.bench_workflow.findData(choice)))
-        self.design_notes.setHtml(notes_html(self.hub.material['lessons'][lesson['id']]))
+        self.design_notes.setHtml(notes_html(self.hub.material['lessons'][lesson['id']],lesson))
+        self.review_notes.setHtml(review_html(lesson))
         questions=[step for step in lesson['steps'] if step['kind']=='quiz']
         quiz_selector(self.hint_question,questions)
         self.lesson_tabs.setTabEnabled(self.hints_index,bool(questions))
@@ -1065,7 +1105,7 @@ class LessonGuide(QDockWidget):
             self.hint_question.setCurrentIndex(max(0,self.hint_question.findData(preceding)))
         self.show_question_hints()
         self.answer.clear();self.answer.addItem('Choose an answer…',None)
-        for i,text in enumerate(step.get('options',[])):self.answer.addItem(text,i)
+        for i,text in answer_choices(step,self.lesson):self.answer.addItem(text,i)
         self.answer.setVisible(step['kind']=='quiz');self.notes.setVisible(step['kind']=='reflection')
         self.answer_label.setVisible(step['kind']=='quiz');self.notes_label.setVisible(step['kind']=='reflection');self.note_status.setVisible(step['kind']=='reflection')
         self.notes.setPlainText(self.hub.portfolio.state.get('lessons',{}).get(self.lesson['id'],{}).get('notes',{}).get(step['id'],''))
@@ -1179,6 +1219,9 @@ class LessonGuide(QDockWidget):
             feedback(self.feedback,message,role='correct')
         elif 'continuous_rails' in evidence:
             feedback(self.feedback,'VPWR and VGND are continuous across the seam. The checked layers meet spacing.',role='correct')
+        elif 'loop_measurements' in evidence:
+            count = len(evidence['loop_measurements'])
+            feedback(self.feedback,f'Saved unity crossings and phase margins for {count} comparison settings.',role='correct')
         elif 'bench_reading' in evidence:
             from .student_testbench import WORKFLOWS
             workflow=WORKFLOWS[evidence['bench_workflow']]
@@ -1268,6 +1311,12 @@ class LessonGuide(QDockWidget):
         cid=focus(s.project,lab,step)
         if (lab,step) in ACTIONS:
             open_form(self,lab,step,cid)
+        elif (lab,step)==('access','access'):
+            from .student_layout_signoff import current_placement, place_macro
+            if current_placement(s.project)!=(16000,0):
+                s.commit(lambda p:place_macro(p,16000,0,s.layout.locked_layers),'Use compact practice layout')
+            self.workspace()
+            feedback(self.feedback,'Compact macro ready. Check this step to measure the metal-1 detour.')
         elif lab=='fold' and step=='folded':
             s.commit(lambda p:build_fold(p,cid,4),'Generate device layout');self.workspace()
         elif lab=='lvs' and step=='swap':
@@ -1339,8 +1388,15 @@ class LessonGuide(QDockWidget):
             return
         if self.lesson['starter'] in ('ahuja-study','miller-study'):
             from .student_frequency_ui import AhujaDialog, MillerDialog
-            dialog=MillerDialog if self.lesson['starter']=='miller-study' else AhujaDialog
-            self.frequency_dialog=dialog(s)
+            starter, project_id = self.lesson['starter'],s.project['id']
+            dialog=MillerDialog if starter=='miller-study' else AhujaDialog
+            from .student_loop_study import save
+            def capture(values):
+                self.require_idle()
+                if s.project['id']!=project_id:
+                    raise ValueError('Open the matching lesson project before saving the comparison.')
+                s.commit(lambda project:save(project,starter,values),'Save loop comparison')
+            self.frequency_dialog=dialog(s,capture if self.active_step['id']=='loop-evidence' else None)
             self.frequency_dialog.show()
             return
         from .student_analog import _get_bench, run_names
@@ -1574,6 +1630,8 @@ class LessonGuide(QDockWidget):
             action={('fold','folded'):'Generate device layout',('lvs','swap'):'Edit input ports…',
                     ('eco','update'):'Review layout update…',('noise','space'):'Set clock spacing…'}.get((lab,step))
             if (lab,step) in ACTIONS:action=ACTIONS[lab,step]+'…'
+            if bound and (lab,step)==('access','access') and missing_prerequisites(self.hub.portfolio.state,self.lesson,self.hub.data):
+                action='Use compact practice layout'
             if action:
                 self.layout_action.setText(action);self.layout_action.setEnabled(bound and not active);self.layout_action.show()
         elif starter=='layout-decisions' and self.active_step:

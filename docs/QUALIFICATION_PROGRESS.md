@@ -1,5 +1,19 @@
 # Chunks 1–12: progress and forecast
 
+**November 23, 2026 - Student Hub curriculum audit fixes (EDU-01-08,
+EXP-01, UX-02).** On experimental base `22eb975`, all 136 lessons have a
+follow-up practice task and concrete evidence prompts. The guide gives a
+different example from the exercise solution, and predictions before running
+remain optional. Tool requirements and suggested background are shown up
+front, with a runnable native engine check. The Windows SAR and capstone pass
+through Studio's normal launcher.
+
+Both testbench workflows inspect the saved waveform for transition balance
+and settling. The compensation lessons save measured loop comparisons, and
+Standard Cells can check DFF timing brackets and independently measure
+tri-state contention. These checks cover the Student Hub fixtures and
+desktop flows. The formal fabrication and release gates have the same status.
+
 **November 23, 2026 - Fourteen Student Hub engineering labs (EDU-01–08,
 EXP-01, UX-02).** Experimental base `3d6165b7` now has 136 distinct lessons
 across the eleven worlds. Native runs cover floating voltage, an open-drain

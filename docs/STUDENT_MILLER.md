@@ -73,6 +73,10 @@ so read the phase as well as the gain.
 
 ## Work the example, then change one value
 
+In the Lesson Guide, open **Compare loop response** and use **Save comparison**
+for the three resistor cases and the lighter load. The next checkpoint checks
+the saved zero, unity crossing and phase margin under the assigned conditions.
+
 Keep `gm₂ = 1 mS`, `Cc = 2 pF` and `CL = 20 pF`. The resistor at
 which the finite zero disappears is `Rz = 1/gm₂ = 1 kΩ`.
 

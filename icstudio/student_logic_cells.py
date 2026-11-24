@@ -94,3 +94,17 @@ def values(key, result, geometry):
         return {'leakage_ua':max(errors), 'overlap':int(overlap),
                 'tristate_delay_ps':arc(result,'a',36,'rising')}
     raise ValueError('Unknown timed logic cell measurement.')
+
+
+def contention_comparison(normal, overlap):
+    from .analog_diagnostics import integrate
+
+    def mean_supply(result):
+        currents = {n.casefold():v for n,v in result.get('currents',{}).items()}
+        if 'vdd' not in currents:
+            raise ValueError('Capture the supply branch current for the bus comparison.')
+        start,stop = 45e-9,47e-9
+        t,current = clip(result['x'],currents['vdd'],start,stop)
+        return -integrate(t,current)*1e6/(stop-start)
+
+    return {'normal_uA':mean_supply(normal),'overlap_uA':mean_supply(overlap)}

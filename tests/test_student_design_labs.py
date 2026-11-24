@@ -50,7 +50,7 @@ class StudentDesignTests(unittest.TestCase):
                     if stage in practice['questions']:
                         overrides.add(route)
                     if step['kind'] == 'check':
-                        if not (lesson.get('bench_project') or lesson.get('standard_cell')):
+                        if not (lesson.get('bench_project') or lesson.get('standard_cell') or step['rule']['type']=='loop_study'):
                             tasks.add(route)
                         goal, actions, example = practice['tasks'][stage]
                         self.assertEqual(diy, f'<p>{escape(goal)}</p>')
@@ -62,6 +62,24 @@ class StudentDesignTests(unittest.TestCase):
                         self.assertIn('Example reasoning', answer)
         self.assertEqual(tasks, set(mode_source()['tasks']))
         self.assertEqual(overrides, set(mode_source()['challenge_questions']))
+
+    def test_review_tasks_cover_all_lessons_and_choices_keep_authored_answer_ids(self):
+        from collections import Counter
+        from icstudio.student_inverter import expand
+        from icstudio.student_learning import answer_choices, author_id, review_course, review_html
+        base=curriculum()
+        data,_=expand(base,study_guide(base),[{'token':'review-profile'}])
+        self.assertEqual(set(review_course()),{author_id(l) for l in data['lessons']})
+        locations=Counter()
+        for lesson in data['lessons']:
+            self.assertIn('Evidence to discuss',review_html(lesson))
+            for step in lesson['steps']:
+                if step['kind']!='quiz':
+                    continue
+                ids=[i for i,_ in answer_choices(step,lesson)]
+                self.assertEqual(set(ids),set(range(len(step['options']))))
+                locations.update((ids.index(step['answer']),))
+        self.assertTrue(all(count>30 for count in locations.values()),locations)
 
     def test_every_knowledge_check_has_four_authored_hints(self):
         from icstudio.student_inverter import expand

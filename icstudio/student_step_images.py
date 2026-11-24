@@ -283,6 +283,11 @@ def step_images(guide):
     fields = _fields_image(guide, p, cell, mode, targets)
     results = _result_image(guide, p, instructions)
     bench_images = []
+    if step['rule']['type']=='loop_study':
+        from .student_frequency_ui import AhujaDialog, MillerDialog
+        dialog = MillerDialog if lesson['starter']=='miller-study' else AhujaDialog
+        bench_images.append(StepImage('Loop comparison','Set the required conditions and read frequency and phase margin from the table.',
+                                     _capture(dialog(guide.studio),guide,820,740)))
     if lesson.get('bench_project'):
         from .student_testbench_ui import previews
         bench_images = [StepImage(title, caption, _capture(dialog, guide, 990, height))

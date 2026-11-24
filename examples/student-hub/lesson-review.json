@@ -1,0 +1,602 @@
+{
+  "f-first": {
+    "exercise": "Change either R or C and compare two transients at their 63% crossings.",
+    "evidence": "Record the stimulus edge and both time constants on the same time axis."
+  },
+  "f-connect": {
+    "exercise": "Use two unequal divider resistors, then disconnect the lower leg in a copy and use three probes to locate the open.",
+    "evidence": "Show where the voltage first disagrees with the divider calculation."
+  },
+  "f-edit": {
+    "exercise": "Use Undo and Redo, then overlay the unchanged and edited transients.",
+    "evidence": "Measure each 63% crossing from its own input edge and identify the design revision of each trace."
+  },
+  "f-hierarchy": {
+    "exercise": "Add a second divider instance and swap two ports on that instance alone.",
+    "evidence": "Compare both outputs and name the parent-level pin mapping responsible for the error."
+  },
+  "f-debug": {
+    "exercise": "Calculate the smallest load resistance that gives 0.89 V. Try a nearby standard resistor on either side of that boundary.",
+    "evidence": "Show the two measured voltages and why the voltage limit selects one resistor."
+  },
+  "f-portfolio": {
+    "exercise": "Run Geometry DRC on an edited copy, then save, close and reopen it.",
+    "evidence": "Record one reported rule, its location and a geometry change to address it."
+  },
+  "f-floating-voltage": {
+    "exercise": "Reverse the meter leads, or move both terminal voltages by the same amount.",
+    "evidence": "Show which change reverses the sign and which leaves the differential reading fixed.",
+    "distractors": [
+      "The positive lead relative to ground, provided both nodes are above ground",
+      "The mean of the two lead voltages relative to ground"
+    ]
+  },
+  "f-open-drain": {
+    "exercise": "Repeat on a 150 pF bus. Use the RC rise limit and the sink-current limit to narrow the possible pull-up values.",
+    "evidence": "Compare release time, low voltage and sink current for two nearby standard resistor values.",
+    "distractors": [
+      "Current through the MOSFET body diode",
+      "The receiver input charging the bus from its logic supply"
+    ]
+  },
+  "a-load": {
+    "exercise": "Try a second load value and compare it with the supplied loaded divider.",
+    "evidence": "Record both equivalent lower-leg resistances and the measured terminal voltage."
+  },
+  "a-bandwidth": {
+    "exercise": "Read the response at the corner and one decade beyond it. Compare a second capacitor value.",
+    "evidence": "Report normalized gain, corner frequency, and the high-frequency slope."
+  },
+  "a-bias": {
+    "exercise": "Sweep the output voltage over a range in a copy of the mirror fixture.",
+    "evidence": "Mark where current first leaves a 5% error band and compare with the width-ratio estimate."
+  },
+  "a-differential": {
+    "exercise": "Run equal positive and negative differential inputs at fixed common mode.",
+    "evidence": "Compare the two branch currents, their sum, and the sign of the output change."
+  },
+  "a-amplifier": {
+    "exercise": "Inspect device operating points and vary the output load in a copy.",
+    "evidence": "Name the high-impedance node and compare DC bias and measured low-frequency gain with your model."
+  },
+  "a-layout": {
+    "exercise": "Move one matched unit off its symmetric location, keeping the schematic fixed.",
+    "evidence": "Compare centroid offset and route asymmetry. Identify which quantities came from geometry and which need extraction."
+  },
+  "a-gmid-bias": {
+    "exercise": "Choose a second gate bias and compare the measured gm/ID to the square-law approximation at both biases.",
+    "evidence": "Record the two overdrives and explain why the expression is specific to the teaching model."
+  },
+  "a-gmid-size": {
+    "exercise": "Try two nearby widths and keep the bias voltages fixed.",
+    "evidence": "Show which satisfy the measured gm, drain-current and gm/ID tolerances."
+  },
+  "a-gmid-headroom": {
+    "exercise": "Sweep the drain voltage through the compliance knee.",
+    "evidence": "Find the lowest measured VDS meeting the stated headroom and current criteria."
+  },
+  "a-gmid-tradeoff": {
+    "exercise": "Compare both bias choices with the same output load and frequency or transient stimulus.",
+    "evidence": "Report width, current and measured speed separately. If the model omits important capacitance, state that limitation."
+  },
+  "a-lc-bode": {
+    "exercise": "Change the damping resistance without changing L or C and inspect the low-pass and band-pass responses.",
+    "evidence": "Record the resonant frequency, slope and phase reference, and explain what damping changed."
+  },
+  "a-degeneration": {
+    "exercise": "Compare both matched-bias versions at a second sine amplitude.",
+    "evidence": "Report gain, current and distortion together and explain the trade-off."
+  },
+  "a-rejection": {
+    "exercise": "Repeat differential, common-mode and supply excitations at another frequency.",
+    "evidence": "Record input amplitudes, gains and rejection ratios separately. Keep rail feedthrough and input-referred PSRR distinct."
+  },
+  "a-drive": {
+    "exercise": "Try a second compensation capacitor with the same command and both loads.",
+    "evidence": "Identify the worst load and compare final error, overshoot, current and settled-band time."
+  },
+  "a-switch-drive": {
+    "exercise": "Repeat at an intermediate load resistance while keeping the gate within the supply.",
+    "evidence": "Compare extracted on-resistance and voltage-drop margin with the original two loads.",
+    "distractors": [
+      "Gate voltage relative to ground, even if the source moves",
+      "Drain-to-source voltage alone once the drain is pulled down"
+    ]
+  },
+  "a-weak-sensor": {
+    "exercise": "Double the sensor source resistance or the capacitive load, one at a time.",
+    "evidence": "Identify which edit changes input error and which changes settling. Explain the limits of the functional buffer model.",
+    "distractors": [
+      "Input resistance near the sensor resistance for a matched interface, with low output resistance",
+      "High input and high output resistance to isolate the two circuits"
+    ]
+  },
+  "d-logic": {
+    "exercise": "Seed a single mux select mistake in a copy of the RTL.",
+    "evidence": "Give one input vector that catches it and check all eight vectors after the repair."
+  },
+  "d-counter": {
+    "exercise": "Apply reset and enable on the same clock, then resume counting.",
+    "evidence": "Record the cycle table and show which event has priority and when wrap occurs."
+  },
+  "d-pulse": {
+    "exercise": "Test a long request, then deassert and send the earliest legal second request.",
+    "evidence": "Show exactly one pulse per accepted rising request and identify the rearm cycle."
+  },
+  "d-pwm": {
+    "exercise": "Change duty midway through a period in a copy of the teaching bench.",
+    "evidence": "Report the observed update policy and compare high-count at zero, midscale and maximum."
+  },
+  "d-average": {
+    "exercise": "Use a set with a half-integer mean and insert a bubble in valid.",
+    "evidence": "Calculate the worst-case sum width and show the rounded result and the exact ready cycle."
+  },
+  "d-serial": {
+    "exercise": "Send an extra byte whose bit pattern differs from the supplied four cases.",
+    "evidence": "Mark start, data order, stop and busy on the waveform. Identify the simplified bit-clock assumption."
+  },
+  "d-latch": {
+    "exercise": "Find the shortest select-and-data sequence that exposes the stale output.",
+    "evidence": "Show it failing on the starter and passing on the repair; name the assignment required for each select value."
+  },
+  "d-saturation": {
+    "exercise": "Exercise a sum of exactly 15 followed by overflow and an invalid cycle.",
+    "evidence": "Explain the carry bit, the saturated result and the hold behavior separately."
+  },
+  "d-pipeline": {
+    "exercise": "Send consecutive valid words separated by one bubble and then reset.",
+    "evidence": "Use a cycle table to account for data, valid and the first permitted output after reset."
+  },
+  "d-spi-register": {
+    "exercise": "Add a frame that aborts after a valid address and seven payload bits. Follow it with a valid read.",
+    "evidence": "Show both readbacks and mark MISO release and its allowed change edge.",
+    "distractors": [
+      "Latch the write as soon as the eighth payload bit is sampled",
+      "Commit at chip-select rise whenever a valid command byte was received"
+    ]
+  },
+  "m-bridge": {
+    "exercise": "Inspect an adjacent DAC trial near the decision for the original input.",
+    "evidence": "Tie the DAC voltage, comparator bit and next RTL state to the same edge."
+  },
+  "m-hold": {
+    "exercise": "Change the hold interval or load in a copy while keeping acquisition unchanged.",
+    "evidence": "Read the held-node voltage at the last comparison and express its error as a fraction of an LSB."
+  },
+  "m-codes": {
+    "exercise": "Apply two values just below and above a nearby ideal code boundary.",
+    "evidence": "Report the two codes and signed quantization errors using the same reference and code convention."
+  },
+  "m-settling": {
+    "exercise": "Try a different clock period that still meets the conversion deadline.",
+    "evidence": "Name the waveform that distinguishes inadequate acquisition from an RTL failure and record the first correct trial."
+  },
+  "m-weight": {
+    "exercise": "Use a DAC code where only the repaired bit changes.",
+    "evidence": "Measure its effective weight and link it to an observed change at a code transition."
+  },
+  "m-repeat": {
+    "exercise": "Test widely spaced starts and near-back-to-back legal starts.",
+    "evidence": "Show one ordered completion per accepted start and explain how a busy-time request is treated."
+  },
+  "m-ramp": {
+    "exercise": "Use a different ramp slope and keep uniform samples in time.",
+    "evidence": "Compare one threshold estimate, the missing-code count and peak DNL and INL under a stated reference convention."
+  },
+  "p-spec": {
+    "exercise": "Write the mirror brief so another student can set up its acceptance test without asking you for values.",
+    "evidence": "Include target, units, tolerance, supply and load conditions, and the exact quantity to measure."
+  },
+  "p-review": {
+    "exercise": "Give a peer one saved project and its before-and-after evidence.",
+    "evidence": "Have the peer reproduce the observation from the run references. Document one missing detail or limitation."
+  },
+  "c-filter": {
+    "exercise": "Choose another input-filter value and run the acquisition tests at all eight samples.",
+    "evidence": "Compare the worst acquisition error and filter bandwidth. Show why the other two seeded faults do not explain this measurement."
+  },
+  "c-sar": {
+    "exercise": "Run a different sequence of input levels in the integration fixture.",
+    "evidence": "Identify the earliest compare where the faulty design diverges and verify the corrected code order."
+  },
+  "c-average": {
+    "exercise": "Use a block with a rounding tie and a separate block at maximum code.",
+    "evidence": "Record bit growth, rounded values and the cycles where valid and alarm should change."
+  },
+  "c-qualify": {
+    "exercise": "Take the first failing case in an intentionally altered copy and rerun it by itself.",
+    "evidence": "Save the exact design, operating conditions and failing measurement so someone can reproduce it."
+  },
+  "c-temperature": {
+    "exercise": "Inspect the worst held-out trial and repeat with a different input between calibration anchors.",
+    "evidence": "Report gain and offset units, quantization contribution and the residual error after calibration."
+  },
+  "l-width": {
+    "exercise": "Narrow a different route in a copy and use Geometry DRC to locate it.",
+    "evidence": "Record the rule identifier, measured width and legal repair."
+  },
+  "l-spacing": {
+    "exercise": "Choose a different legal placement within the same channel.",
+    "evidence": "Calculate clearance from drawn edges and show the relevant spacing report."
+  },
+  "l-via": {
+    "exercise": "Move the cut so it meets enclosure on one layer and misses on the other.",
+    "evidence": "Read four margins on each layer and show that centering alone can miss a layer offset."
+  },
+  "l-centroid": {
+    "exercise": "Compare ABBA and BAAB under a simple linear and quadratic gradient.",
+    "evidence": "Compute the locations of both group centers and explain the residual the layout does not cancel."
+  },
+  "l-layout-decisions": {
+    "exercise": "Choose an additional route width or layer stack after the overview.",
+    "evidence": "Keep the endpoints fixed and compare connectivity, resistance estimate and measured bandwidth."
+  },
+  "l-fold": {
+    "exercise": "Compare one and four fingers at fixed device width. Zoom in to count diffusion and contacts.",
+    "evidence": "Show what the PDK means by total width and report one layout quantity that changes."
+  },
+  "l-body": {
+    "exercise": "Leave an intentional open on the body branch in a copy.",
+    "evidence": "Name the body net and correct rail. Compare the process verification reports around the repair."
+  },
+  "l-match": {
+    "exercise": "Add one longer access route to a copy of the matched layout.",
+    "evidence": "Compare the two centroids and route asymmetry, then explain which error could remain under a systematic gradient."
+  },
+  "l-dac": {
+    "exercise": "Try a different stub route with all capacitor tiles in place.",
+    "evidence": "Show which code transitions move and compare endpoint INL under the same model."
+  },
+  "l-lvs": {
+    "exercise": "Diagnose one seeded fault without looking at its name.",
+    "evidence": "Identify the first discrepant port or net using terminal connectivity, and compare this evidence with process LVS in the inverter world."
+  },
+  "l-eco": {
+    "exercise": "Inspect both parent instances after changing the shared child. Undo and redo one revision.",
+    "evidence": "Record the affected routes and confirm an unchanged port mapping at both instances."
+  },
+  "l-settle": {
+    "exercise": "Compare two stub or routing changes with the same differential pair.",
+    "evidence": "Measure differential settling error at the same deadline and report which parasitics the fixture models."
+  },
+  "l-noise": {
+    "exercise": "Compare same-layer spacing with the shield or alternate-layer fixture.",
+    "evidence": "Explain which coupling path the teaching model can compute and what an independent field model would need."
+  },
+  "l-supply": {
+    "exercise": "Try a second width near the minimum and keep the load fixed.",
+    "evidence": "Calculate drop from sheet resistance and compare the two values with the allowed supply drop."
+  },
+  "l-floorplan": {
+    "exercise": "Save two placements that preserve the obstacle and pin access.",
+    "evidence": "Compare area, inter-port routing distance and one constraint that changes the ranking."
+  },
+  "l-access": {
+    "exercise": "Compare the compact macro’s Metal 1 route and a two-layer alternative.",
+    "evidence": "Report both lengths, via counts and the terminal connectivity from the same port pair."
+  },
+  "l-pad-ring": {
+    "exercise": "Swap two signal pad assignments in a copy and trace them back to the core.",
+    "evidence": "Name the mismatch using the intended pin map and show the repaired landing."
+  },
+  "l-density": {
+    "exercise": "Compare two fill keepouts that obey the required density windows.",
+    "evidence": "Record worst coverage and added loading under the fixture’s teaching coefficients."
+  },
+  "l-antenna": {
+    "exercise": "Compare the jumper and diode on the same antenna fault.",
+    "evidence": "Report the early metal ratio, any added load and the model assumptions about layer order."
+  },
+  "l-via-current": {
+    "exercise": "Compare the smallest crossing array that meets the current limit with one larger array.",
+    "evidence": "Record equal-share current per cut and measured path drop. Explain what this model omits about current crowding."
+  },
+  "l-isolation": {
+    "exercise": "Open a guard segment or reroute it to a noisy return in a copy.",
+    "evidence": "Show the continuity failure and identify which substrate coupling mechanism the physical inspection cannot measure."
+  },
+  "l-spiral": {
+    "exercise": "Compare two feasible coil geometries by changing just one dimension.",
+    "evidence": "Report L, Q, and self-resonance under the same model. State which comparison would benefit from EM extraction."
+  },
+  "l-handoff": {
+    "exercise": "Give the exported GDS to a peer and assign a different pin label fault in a copy.",
+    "evidence": "Identify the actual top, pin-purpose layer and label location from the written file."
+  },
+  "l-mim-plate": {
+    "exercise": "Compare two routes with the capacitor body and pin assignments fixed.",
+    "evidence": "Estimate the area/perimeter change and compare the resulting added ground capacitance.",
+    "distractors": [
+      "The total access-metal area, with permission to swap the two plate nets",
+      "The access route’s turn count, with permission to change the active area"
+    ]
+  },
+  "l-decoupling": {
+    "exercise": "Keep the same capacitor and compare a second placement or pulse width.",
+    "evidence": "Record the resistance of both loop branches and the corresponding load droop. State the model’s limits.",
+    "distractors": [
+      "Only the resistance from the external source to the load matters",
+      "Only the DC voltage at the external supply matters"
+    ]
+  },
+  "project-opamp": {
+    "exercise": "Hold bias current fixed and compare two compensation candidates at the same load.",
+    "evidence": "Record first unity crossing, phase margin, DC current and a transient criterion with the named fixture."
+  },
+  "project-tia": {
+    "exercise": "Try a second photodiode capacitance while retaining the feedback network.",
+    "evidence": "Report signed transimpedance, corner frequency and settling. Explain the dominant feedback limitation."
+  },
+  "project-miller": {
+    "exercise": "Keep 2 pF compensation and compare 500 Ω, 1 kΩ and 2 kΩ, then change the load.",
+    "evidence": "Save first unity frequency, phase margin and zero location. Explain the effect of changing load."
+  },
+  "project-ahuja": {
+    "exercise": "Compare a 10 MHz and 50 MHz buffer pole at two output loads.",
+    "evidence": "Save the first unity crossing and phase margin for each case. Explain what the ideal model leaves out."
+  },
+  "project-bias-reference": {
+    "exercise": "Move the output clamp to a neighboring voltage with the same RSET.",
+    "evidence": "Compare output current to the reference current and report the direction of compliance error."
+  },
+  "project-cascode": {
+    "exercise": "Find the limiting transistor at the compliance boundary before and after cascode sizing.",
+    "evidence": "Compare measured and estimated headroom and identify the worst tested PVT case."
+  },
+  "project-bandgap-widlar": {
+    "exercise": "Sweep the trim resistor around the passing choice and compare the two startup ramps.",
+    "evidence": "Explain the PTAT and CTAT contributions, trim sensitivity and worst startup case."
+  },
+  "project-bandgap-brokaw": {
+    "exercise": "Change the trim and inspect how the current-density ratio contributes to VREF.",
+    "evidence": "Record a ΔVBE estimate, measured temperature variation and startup at one held-out case."
+  },
+  "project-bandgap-kuijk": {
+    "exercise": "Compare the Kuijk and Brokaw branch relationships using the same operating conditions.",
+    "evidence": "Identify how each feedback loop sets branch currents and explain one startup difference."
+  },
+  "project-bandgap-banba": {
+    "exercise": "Sweep supply from the nominal fixture in a copy while keeping the trim fixed.",
+    "evidence": "Separate the low output reference from the required supply and report the first lost condition."
+  },
+  "interview-differential": {
+    "exercise": "Drive the pair with balanced inputs and repeat the supplied single-sided sweep.",
+    "evidence": "Compare steering at equal differential input. Identify the common-mode shift in the single-sided case."
+  },
+  "interview-input-pairs": {
+    "exercise": "Check one extra common-mode voltage near each topology’s measured limit.",
+    "evidence": "Compare branch current and gain, and name the device with limiting headroom."
+  },
+  "interview-gain": {
+    "exercise": "Read closely spaced points on two current sweeps to estimate gm and ro.",
+    "evidence": "Show the finite differences and units, then compare gain near and away from the knee."
+  },
+  "interview-slew": {
+    "exercise": "Compare a second load and fit the linear portion of the output ramp.",
+    "evidence": "Report slew and settled-band time separately, and compare the slope with the I/C estimate."
+  },
+  "interview-noise": {
+    "exercise": "Change source resistance again or choose a different integration band.",
+    "evidence": "Separate noise density from RMS and identify which contributor changes the budget."
+  },
+  "interview-mismatch": {
+    "exercise": "Hold the original seed fixed during sizing and then run a second seed.",
+    "evidence": "Report mean, sample standard deviation and sample count, and explain why the observed pass fraction is uncertain."
+  },
+  "interview-comparator": {
+    "exercise": "Test the opposite sign or a smaller magnitude of input overdrive.",
+    "evidence": "Report decision time and kickback separately and connect delay to regenerative gain."
+  },
+  "interview-sar": {
+    "exercise": "Try a second input or acquisition interval after the capacitor repair.",
+    "evidence": "Compare the charge-ratio estimate, hold pedestal and resulting code in the same fixture."
+  },
+  "interview-ldo": {
+    "exercise": "Run a new load-step or ESR condition with dropout and supply held fixed.",
+    "evidence": "Show measured droop and time in the 2% band. Identify which measurement supports a stability claim."
+  },
+  "interview-post-layout-debug": {
+    "exercise": "Find two widths close to the passing limit under the same routing condition.",
+    "evidence": "Report the smallest passing width, 50 ps error and added modeled capacitance."
+  },
+  "project-chopper": {
+    "exercise": "Repeat at an additional input level or try a small demodulator phase offset.",
+    "evidence": "Compare measured gain, offset, ripple and settling using consistent averaging windows."
+  },
+  "project-relaxation": {
+    "exercise": "Change the timing capacitance and inspect four late cycles after the startup pulse.",
+    "evidence": "Compare the period estimate with measured frequency, duty and startup delay."
+  },
+  "project-pga": {
+    "exercise": "Choose a second selector sequence in a copy of the switching fixture.",
+    "evidence": "Report per-code gain and bandwidth and the worst transition. State the AC switch approximation."
+  },
+  "project-window-detector": {
+    "exercise": "Try another bounded noise amplitude near the threshold.",
+    "evidence": "Count extra transitions and measure both cutoff errors separately.",
+    "distractors": [
+      "Above the lower bound or below the upper bound",
+      "Outside the band, when only one comparator condition is true"
+    ]
+  },
+  "project-swcap-gain": {
+    "exercise": "Change sample amplitude or clock rate in a copy while holding the capacitor ratio fixed.",
+    "evidence": "Show plate voltages in both phases and compare gain, deadline error and hold droop.",
+    "distractors": [
+      "Feedback capacitance divided by sampling capacitance",
+      "Sampling capacitance divided by the sum of feedback and output-load capacitance"
+    ]
+  },
+  "project-tunable-gmc": {
+    "exercise": "Try a midpoint tuning voltage with the same capacitor.",
+    "evidence": "Compare cutoff with gm/(2πC) and check gain and THD. State which behavior depends on the OTA model.",
+    "distractors": [
+      "Increasing capacitance at the same bias",
+      "Increasing signal amplitude while holding the small-signal bias fixed"
+    ]
+  },
+  "tb-divider-bias": {
+    "exercise": "Install an unequal divider ratio in a copy and build the same operating-point measurement.",
+    "evidence": "Show the calculated and measured node voltage and identify the positive and reference nodes."
+  },
+  "tb-divider-sweep": {
+    "exercise": "Use a shorter sweep span and extract endpoints and slope.",
+    "evidence": "Keep the same source and units in both editors, and compare the fitted gain."
+  },
+  "tb-divider-transient": {
+    "exercise": "Double the load capacitor in a copy.",
+    "evidence": "Measure the 63% crossing from the edge and compare the final amplitude and Thevenin time constant."
+  },
+  "tb-tia-bias": {
+    "exercise": "Add a no-photocurrent run and a second nonzero bias point.",
+    "evidence": "Show signed output change per ampere and check how it relates to the resistor."
+  },
+  "tb-tia-ac": {
+    "exercise": "Sample a second frequency or change photocurrent AC amplitude.",
+    "evidence": "Report both output voltage and normalized transimpedance. State when the small-signal result applies."
+  },
+  "tb-tia-step": {
+    "exercise": "Compare an extra photodiode or load capacitance at the same step current.",
+    "evidence": "Report final value, worst undershoot and time last entering the band."
+  },
+  "tb-opamp-bias": {
+    "exercise": "Measure input error and supply or bias current along with output voltage.",
+    "evidence": "Document whether the operating point meets both output and current conditions."
+  },
+  "tb-opamp-ac": {
+    "exercise": "Inspect the loop fixture at DC and at midband, then examine its first falling unity crossing.",
+    "evidence": "Record the phase at that same crossing and distinguish the loop result from one gain sample."
+  },
+  "tb-opamp-step": {
+    "exercise": "Compare the same follower with a second capacitive load.",
+    "evidence": "Report first edge time, overshoot and the final entry into the settling band. Keep the late reading for reference."
+  },
+  "tb-balanced-stimulus": {
+    "exercise": "Delay one edge in an edited copy to create a short common-mode step.",
+    "evidence": "Plot or tabulate differential and common-mode voltage through the transition and show both workflows report the same failure.",
+    "distractors": [
+      "Drive one input to 1.00 V and hold the other at 0.90 V",
+      "Drive the inputs to 1.00 V and 0.80 V"
+    ]
+  },
+  "sc-inv": {
+    "exercise": "Trace one pull-up and one pull-down path in the physical layout, then inspect the effect of opening one path in a copy.",
+    "evidence": "Show the contact or route that isolates the failing vector."
+  },
+  "sc-nand2": {
+    "exercise": "Compare both orders of the two input transitions at the same load.",
+    "evidence": "Trace the internal stack node and record the two measured falling delays."
+  },
+  "sc-nor2": {
+    "exercise": "Run a loaded pull-up transition and compare it with the analogous NAND path.",
+    "evidence": "Explain the series PMOS path and show what sets the slower transition."
+  },
+  "sc-aoi21": {
+    "exercise": "Toggle C once with A and B held, then choose a separate A/B route to exercise.",
+    "evidence": "Show which transistor path controls Y for each vector and its expected Boolean result."
+  },
+  "sc-mux2": {
+    "exercise": "Inspect SELECTED and Y for a data edge and a select edge with the same output level.",
+    "evidence": "Trace the complementary switches and separate the internal level from the buffered output."
+  },
+  "sc-dff": {
+    "exercise": "Move D during the noncapturing clock phase and inspect both latch stages.",
+    "evidence": "Show the next Q change and the interval in which Q retains its old value."
+  },
+  "sc-inv-compact": {
+    "exercise": "Try a neighboring pitch while preserving the row and power tracks.",
+    "evidence": "Record horizontal width and verify both rail connections and the same logic."
+  },
+  "sc-nand-drive": {
+    "exercise": "Measure a second input arc or load after meeting the 40 fF target.",
+    "evidence": "Compare delay with the original stack and describe the input-loading cost of wider transistors."
+  },
+  "sc-dff-clock": {
+    "exercise": "Compare two driver splits with similar total width.",
+    "evidence": "Record both clock-to-Q delays and explain the different rise and fall sensitivities."
+  },
+  "sc-abutment": {
+    "exercise": "Insert a small vertical offset or gap into a copy of the passing row.",
+    "evidence": "Show the first seam or continuity error and identify the intended rail connection."
+  },
+  "sc-nor-rise": {
+    "exercise": "Check the same revised PMOS width at a second fixture load.",
+    "evidence": "Report delay improvement and total input-gate width in addition to cell footprint."
+  },
+  "sc-nand-input": {
+    "exercise": "Integrate the driving current around a second vector transition.",
+    "evidence": "Compare effective switched capacitance and loaded delay using the declared current direction."
+  },
+  "sc-mux-glitch": {
+    "exercise": "Change the explicit coupling stress or select slew in a copy.",
+    "evidence": "Read glitch peak and time outside an error band at each settled logic level."
+  },
+  "sc-buffer-fo4": {
+    "exercise": "Compare two stage ratios under the same total width and four loads.",
+    "evidence": "Report both delays and show which stage limits the poorer design."
+  },
+  "sc-xor-energy": {
+    "exercise": "Test another legal one-bit transition sequence.",
+    "evidence": "Declare the current integral and number of transitions, then compare energy and worst delay."
+  },
+  "sc-dff-aperture": {
+    "exercise": "Choose the nearest passing row and adjacent failing row for both sweeps. Repeat with opposite data polarity in a copy.",
+    "evidence": "Record both brackets, their resolution and whether Q capture or delay set each limit."
+  },
+  "sc-half-adder": {
+    "exercise": "Compare the shared NAND construction with an independent carry path under the same row assumptions.",
+    "evidence": "Save both truth tables, width and the slowest arc for each output.",
+    "distractors": [
+      "The uncomplemented product A AND B directly in both NAND sum branches",
+      "The complement of A OR B reused as the carry term"
+    ]
+  },
+  "sc-schmitt": {
+    "exercise": "Add bounded ripple to a slow rising and falling input in a copy.",
+    "evidence": "Read the two thresholds and count extra output crossings at the specified noise amplitude.",
+    "distractors": [
+      "A at the two supply half-level input crossings",
+      "Y measured once with the input low and once with it high"
+    ]
+  },
+  "sc-tristate": {
+    "exercise": "Overlap the two driver enables in a copy and compare against break-before-make.",
+    "evidence": "Report branch current during the overlap, released-bus current and actual handoff timing separately.",
+    "distractors": [
+      "To read propagation delay while both drivers are enabled",
+      "To establish valid logic without checking whether the disabled output is fighting the bias"
+    ]
+  },
+  "inverter-process": {
+    "exercise": "Inspect a second available PDK profile and locate its device binding and nominal teaching voltage.",
+    "evidence": "Name the two revisions and their available models, layout generators and verification tools."
+  },
+  "inverter-schematic": {
+    "exercise": "Seed one incorrect body connection in a copy.",
+    "evidence": "Trace the four required terminals and identify why the modified topology violates the intended body connection."
+  },
+  "inverter-dc": {
+    "exercise": "Estimate VIL and VIH by marking where the local transfer slope reaches −1.",
+    "evidence": "Show both noise margins and identify the difference between VM and the input limits."
+  },
+  "inverter-transient": {
+    "exercise": "Repeat at another output load, then repeat with a finer output time step.",
+    "evidence": "Report tPHL and tPLH separately from rise and fall slew and compare numerical consistency."
+  },
+  "inverter-layout": {
+    "exercise": "Inspect the process layers at all four terminal contacts.",
+    "evidence": "Annotate one route from gate, drain, source and body to its named pin or rail."
+  },
+  "inverter-drc": {
+    "exercise": "Seed a second process-rule violation in a copy and run the matching deck.",
+    "evidence": "Save the rule ID, measured dimension, location and evidence of repair."
+  },
+  "inverter-lvs": {
+    "exercise": "Run extraction on a copy with a deliberately disconnected terminal.",
+    "evidence": "Identify the first mismatched device or net and compare the repaired and faulty reports."
+  },
+  "inverter-handoff": {
+    "exercise": "Build a manifest for the final design and ask a peer to reproduce one test.",
+    "evidence": "Tie bias, delay, DRC and LVS to exact revisions and named conditions and state one remaining test."
+  }
+}

@@ -43,7 +43,7 @@ Jump to a world to see every lesson in it. Select an image to open the full-size
 | [![Schematic for 07 · Understand gm/ID and choose a bias](images/student-hub/a-gmid-bias.jpg)](images/student-hub/a-gmid-bias.jpg) | **07 · Understand gm/ID and choose a bias**. *Medium*. Measure transconductance efficiency and connect gate bias to current, gain and headroom. |
 | [![Schematic for 08 · Turn a gm target into device width](images/student-hub/a-gmid-size.jpg)](images/student-hub/a-gmid-size.jpg) | **08 · Turn a gm target into device width**. *Medium*. Work from a transconductance requirement to bias current and width, then verify the operating point. |
 | [![Schematic for 09 · Budget voltage headroom](images/student-hub/a-gmid-headroom.jpg)](images/student-hub/a-gmid-headroom.jpg) | **09 · Budget voltage headroom**. *Medium*. Repair a bias point that loses saturation and explain output swing constraints. |
-| [![Schematic for 10 · Compare efficiency, area and speed](images/student-hub/a-gmid-tradeoff.jpg)](images/student-hub/a-gmid-tradeoff.jpg) | **10 · Compare efficiency, area and speed**. *Hard*. Meet the same gm target at lower current and identify what the simple model cannot tell you. |
+| [![Schematic for 10 · Trade transistor area for current at fixed gm](images/student-hub/a-gmid-tradeoff.jpg)](images/student-hub/a-gmid-tradeoff.jpg) | **10 · Trade transistor area for current at fixed gm**. *Hard*. Meet the same gm target at lower current and identify what the simple model cannot tell you. |
 | [![Schematic for LC filters and Bode plots](images/student-hub/a-lc-bode.jpg)](images/student-hub/a-lc-bode.jpg) | **LC filters and Bode plots**. *Medium*. Hand-sketch, simulate and tune low-pass, high-pass, band-pass and notch responses on one editable RLC bench. [Guide](STUDENT_LC_BODE.md). |
 | [![Schematic for Trade gain for linearity](images/student-hub/a-degeneration.jpg)](images/student-hub/a-degeneration.jpg) | **Trade gain for linearity**. *Medium*. Add source degeneration to a MOS stage, restore its bias and compare measured gain and distortion. [Guide](STUDENT_SIGNAL_LABS.md). |
 | [![Schematic for Measure PSRR and CMRR](images/student-hub/a-rejection.jpg)](images/student-hub/a-rejection.jpg) | **Measure PSRR and CMRR**. *Hard*. Use separate differential, common-mode and supply excitations to find and fix two disturbance paths. [Guide](STUDENT_SIGNAL_LABS.md). |
@@ -281,6 +281,11 @@ Use **All difficulties** to filter lessons by level. Use **Ctrl+F** on Windows a
 
 ### Help and solutions
 
+The preview and guide list the required tools and suggested background. Open
+**Learn** for a worked example with different design values. Use
+**Try another case** for a follow-up exercise and the evidence to bring to a
+peer or instructor. These exercises are available in both modes.
+
 - **Quick check** lets you try a prediction from the lesson preview. **Hints** includes four common student questions for each knowledge check. Select one to reveal its advice.
 - **Show step images** opens the visual walkthrough for the current guided checkpoint. Switch images to see the schematic, an edit close-up, matching controls, or a saved result when one is available. Use **Fit to window**, **Actual size**, or **200%**.
 - **Show solution** opens a worked solution in either learning mode. Use its checkpoint selector to switch between example edits, expected measurements, answers, and a reflection example.
@@ -300,7 +305,7 @@ Use **All difficulties** to filter lessons by level. Use **Ctrl+F** on Windows a
 
 ### Two native testbench workflows
 
-The nine [Testbenches lessons](STUDENT_TESTBENCHES.md) teach operating points, DC sweeps, AC gain, and transient response. Choose **Graphical testbench** to configure the fixture, probes, and measurements in Studio's saved-testbench editor. Choose **SPICE program** to write the native ngspice analysis and measurement commands. Both use the same editable circuit and pass criteria. **Results** lets you compare the saved measurement, waveform, and log from either workflow.
+The ten [Testbenches lessons](STUDENT_TESTBENCHES.md) teach operating points, DC sweeps, AC gain, and transient response. Choose **Graphical testbench** to configure the fixture, probes, and measurements in Studio's saved-testbench editor. Choose **SPICE program** to write the native ngspice analysis and measurement commands. Both use the same editable circuit and pass criteria. **Results** lets you compare the saved measurement, waveform, and log from either workflow.
 
 <details><summary>Graphical testbench, SPICE program, and saved results</summary>
 
@@ -402,7 +407,9 @@ those native `ngspice`, `iverilog` and `vvp` executables. **Check native mixed-s
 reports all missing prerequisites together. Blank Icarus fields search PATH;
 blank ngspice uses Studio's native discovery, including its bundled executable
 and `ICSTUDIO_NGSPICE`. Earlier mixed-signal selections are used as defaults.
-Paths copied with surrounding quotes are accepted.
+Paths copied with surrounding quotes are accepted. Choose **Test native
+engines** in **Engine setup** to run a small ngspice operating-point analysis,
+compile a short Verilog design, and confirm that vvp can execute it.
 
 On Ubuntu, `sudo apt install ngspice iverilog` supplies the native tools. On
 Windows, select native Windows executables; the source launcher provisions
@@ -477,7 +484,11 @@ checks its prerequisites. Teaching notes are stored separately in `study-guide.j
 so improving an explanation does not invalidate existing checkpoint credit.
 **Export learning record** writes JSON
 with progress, reflections, saved project snapshots and evidence references. Save
-edits before exporting. Raw run directories are referenced, not embedded; include
+edits before exporting. The guide and record identify inspections, design
+verification, simulations, knowledge checks and the reflections instructors
+review. For a reflection, cite the test conditions and observation, explain
+why it occurred, and identify a limitation when relevant. Raw run directories
+are referenced by path. Include
 them separately when sharing a complete reproducible simulation package.
 
 ## Feature map and further work

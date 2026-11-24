@@ -10,9 +10,13 @@ project in order to carry your circuit changes into the later lessons.
 
 | Project | First lesson | Second lesson | Third lesson |
 | --- | --- | --- | --- |
-| Resistor divider | Repair the ratio and measure the 0.5 V operating point | Sweep VIN and read 0.4 V at 0.8 V | Add the time-domain check and read about 0.316 V at 3 µs |
-| Photodiode TIA | Set the photocurrent and check the bias near 0.8 V | Check about 100 kΩ of transimpedance at 100 Hz | Observe settling after a step in photocurrent |
-| Two-stage op amp | Check the 0.9 V follower operating point | Set the load and measure small-signal gain in the loop fixture | Check the loaded unity-gain follower's step to 0.95 V |
+| Resistor divider | Repair the ratio and measure the 0.5 V operating point | Sweep VIN and confirm a slope of 0.50 V/V and the 0.4 V reading at 0.8 V | Add the time-domain check and read about 0.316 V at 3 µs |
+| Photodiode TIA | Set the photocurrent and check the bias near 0.8 V | Check about 100 kΩ of transimpedance at 100 Hz | Settle within 20 mV of the final level in 12 µs, with at most 20 mV of undershoot |
+| Two-stage op amp | Check the 0.9 V follower operating point | Measure loop gain and at least 45 degrees of phase margin | Settle within 20 mV of 0.95 V in 8 µs, with at most 20 mV of overshoot |
+
+The balanced differential exercise uses its own fixture. Results shows both
+inputs, common mode, and differential voltage. The common-mode error must
+stay within 5 mV of 0.90 V from 2 through 8 µs, including the transition.
 
 ## Choose either workflow
 

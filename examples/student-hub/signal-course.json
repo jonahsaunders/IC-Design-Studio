@@ -207,7 +207,7 @@
     ],
     "minutes": 25,
     "requires": [
-      "a-gmid-headroom"
+      "f-open-drain"
     ],
     "quiz": {
       "instructions": "What voltage drives the channel in this low-side switch?",
