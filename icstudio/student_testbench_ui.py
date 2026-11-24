@@ -181,9 +181,10 @@ class BenchResults(QDialog):
         self.target.setText(' '.join(filter(None,(lessons.target(unit),reason))))
         show = lessons.probes(unit)
         wave = result
-        self.tabs.setTabVisible(self.phase_tab, unit.get('metric')=='loop')
-        self.tabs.setTabText(0, 'Loop gain' if unit.get('metric')=='loop' else 'Waveform')
-        if unit.get('metric')=='loop':
+        loop_plots = unit.get('metric')=='loop' and bool(metrics)
+        self.tabs.setTabVisible(self.phase_tab, loop_plots)
+        self.tabs.setTabText(0, 'Loop gain' if loop_plots else 'Waveform')
+        if loop_plots:
             gain, phase = verification.loop_trace(result)
             wave = {**result,'traces':{'Loop gain':gain},'plot_unit':'dB'}
             show = ['Loop gain']

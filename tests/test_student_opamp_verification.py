@@ -14,6 +14,12 @@ NGSPICE = os.environ.get('ICSTUDIO_TEST_NGSPICE', '')
 
 
 class OpAmpVerificationTests(unittest.TestCase):
+    def test_loop_reports_zero_return_magnitude(self):
+        result = dict(x=[10, 100], traces={'out':[0,0], 'fb':[1,1]},
+                      phase={'out':[0,0], 'fb':[0,0]})
+        with self.assertRaisesRegex(ValueError, 'zero magnitude'):
+            suite.loop_trace(result)
+
     @unittest.skipUnless(Path(NGSPICE).is_file(), 'Set ICSTUDIO_TEST_NGSPICE to run the native engines')
     def test_reference_and_faults_match_across_both_workflows(self):
         project = arrange(benches.create(suite.PROJECT))

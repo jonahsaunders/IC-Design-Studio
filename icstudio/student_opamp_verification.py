@@ -271,9 +271,14 @@ def project():
 
 
 def loop_trace(result):
-    magnitude = [20*math.log10(a/b) for a, b in zip(result['traces']['out'], result['traces']['fb'])]
+    traces, phases = result['traces'], result.get('phase', {})
+    if any(len(vectors.get(net, ())) != len(result['x']) for vectors in (traces, phases) for net in ('out', 'fb')):
+        raise ValueError('Capture both OUT and FB as complex AC traces.')
+    if any(value <= 0 for net in ('out', 'fb') for value in traces[net]):
+        raise ValueError('A loop trace has zero magnitude. Check the AC injection and return path.')
+    magnitude = [20*math.log10(a)-20*math.log10(b) for a, b in zip(traces['out'], traces['fb'])]
     phase = []
-    for a, b in zip(result['phase']['out'], result['phase']['fb']):
+    for a, b in zip(phases['out'], phases['fb']):
         angle = (a-b) % 360 - 180
         phase.append(angle if not phase else phase[-1] + (angle-phase[-1]+180) % 360 - 180)
     return magnitude, phase
