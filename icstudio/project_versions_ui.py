@@ -136,6 +136,7 @@ class VersionHistoryDialog(QDialog):
     def __init__(self, studio):
         super().__init__(studio)
         self.studio = studio
+        self.restored_version = None
         configure_dialog(self, studio, 'Version History')
         self.resize(760, 480)
         layout = QVBoxLayout(self)
@@ -301,6 +302,7 @@ class VersionHistoryDialog(QDialog):
             return
         studio.show_design_workspace()
         studio.statusBar().showMessage(f'Restored “{title}”. Use Undo to return to the previous design.', 9000)
+        self.restored_version = self.selected
         self.accept()
 
 
@@ -310,6 +312,7 @@ def show_history(studio):
     dialog = VersionHistoryDialog(studio)
     try:
         dialog.exec()
+        return dialog.restored_version
     finally:
         dialog.deleteLater()
 

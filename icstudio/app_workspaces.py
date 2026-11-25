@@ -85,7 +85,6 @@ class AppWorkspaces(QStackedWidget):
             hub = StudentHub(self.studio, menu=self.hub_menu)
             self.studio._student_hub = hub
             self.student_page.layout().addWidget(hub)
-            self.studio.task_menus['View'].addAction(hub.guide.toggleViewAction())
         return hub
 
     def switched(self, index):

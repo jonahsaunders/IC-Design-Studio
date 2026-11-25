@@ -5,7 +5,7 @@ from collections import Counter
 from pathlib import Path
 
 from PySide6.QtCore import QByteArray, Qt, QTimer, QSize, QSignalBlocker
-from PySide6.QtGui import QActionGroup, QIcon, QKeySequence, QShortcut, QFontDatabase
+from PySide6.QtGui import QActionGroup, QGuiApplication, QIcon, QKeySequence, QShortcut, QFontDatabase
 from PySide6.QtWidgets import (QDialog,QWidget,QVBoxLayout,QHBoxLayout,QLabel,QPushButton,QButtonGroup,QSizePolicy,
     QListWidget,QListWidgetItem,QListView,QTextBrowser,QPlainTextEdit,QComboBox,QProgressBar,QDockWidget,
     QLineEdit,QFileDialog,QFormLayout,QDialogButtonBox,QSplitter,QMenu,QScrollArea,QMessageBox,QTabWidget,QInputDialog,
@@ -486,7 +486,8 @@ class StudentHub(QWidget):
             choices.addWidget(widget)
         rv.addLayout(choices)
         self.start=button('Start lesson',lambda:self.call(self.start_selected),'primary');rv.addWidget(self.start)
-        self.blank_button=button('Try from a blank canvas…',lambda:self.call(lambda:student_workspace.blank_practice(self)),'secondary')
+        self.blank_button=button('Start Blank Practice',lambda:self.call(lambda:student_workspace.blank_practice(self)),'secondary')
+        self.blank_button.setToolTip('Use the lesson guide in a separate practice project.')
         rv.addWidget(self.blank_button)
         self.lesson_setup=button('Open setup…',lambda:self.call(self.open_lesson_setup),'secondary');rv.addWidget(self.lesson_setup)
         self.reset_filters=button('Clear filters',self.clear_filters,'secondary');rv.addWidget(self.reset_filters)
@@ -507,6 +508,12 @@ class StudentHub(QWidget):
             self.solution_dialog.setStyleSheet(style)
         if self.guide.step_images_dialog:
             self.guide.step_images_dialog.setStyleSheet(style)
+        if warmup:=getattr(self.guide,'warmup',None):
+            warmup.setStyleSheet(style)
+        if results:=getattr(self.guide,'signal_results',None):
+            results.apply_presentation_style()
+        if annotations:=getattr(self.studio,'device_annotations_panel',None):
+            annotations.apply_presentation_style()
         self.world_map.set_theme(self.studio.dark,scale)
         link_style=f'a {{color:{palette(self.studio.dark)["accent"]};}} li {{margin-bottom:8px;}}'
         self.details.document().setDefaultStyleSheet(link_style)
@@ -894,6 +901,9 @@ class StudentHub(QWidget):
     def detail(self,*_):
         l=self.selected();self.start.setEnabled(bool(l))
         self.blank_button.setVisible(bool(l))
+        if l:
+            self.blank_button.setText('Resume Blank Practice' if student_workspace.blank_path(self,l).is_file()
+                                      else 'Start Blank Practice')
         if l and not self.trail.isHidden():self.trail.select(l['id'])
         self.progress.setVisible(bool(l))
         filtered=bool(self.search.text().strip() or self.status_filter.currentIndex() or
@@ -1214,27 +1224,58 @@ class LessonGuide(QDockWidget):
         self.scroll=QScrollArea();self.scroll.setWidgetResizable(True);self.setWidget(self.scroll)
         body=QWidget();v=QVBoxLayout(body);v.setContentsMargins(14,12,14,12);v.setSpacing(10);self.scroll.setWidget(body)
         self.title=label('','subtitle');v.addWidget(self.title)
+        self.practice_banner=label('Blank practice · This project uses the Design workspace for simulation.','muted')
+        v.addWidget(self.practice_banner)
+        self.practice_banner.hide()
+        self.back_to_graded=button('Open Graded Lesson',lambda:self.call(self.open_graded_lesson),'secondary')
+        v.addWidget(self.back_to_graded)
+        self.back_to_graded.hide()
         tools_button=QToolButton()
-        tools_button.setText('Lesson tools')
-        tools_button.setAccessibleName('Lesson tools and guide position')
+        tools_button.setText('Lesson Tools')
+        tools_button.setAccessibleName('Lesson Tools')
+        tools_button.setFocusPolicy(Qt.StrongFocus)
         tools_button.setPopupMode(QToolButton.InstantPopup)
         tools_menu=QMenu(tools_button)
+        tools_menu.aboutToShow.connect(self.refresh_lesson_commands)
         tools_button.setMenu(tools_menu)
         v.addWidget(tools_button)
-        for title,action in [('Bookmark this place',student_workspace.bookmark),
-                             ('Go to bookmark',lambda guide:student_workspace.restore_bookmark(guide,required=True)),
-                             ('Save named version…',student_workspace.savepoint),
-                             ('Restore named version…',student_workspace.restore_savepoint),
-                             ('Restore one starter value…',student_workspace.restore_starter_value)]:
-            tools_menu.addAction(title,lambda checked=False,action=action:self.call(lambda:action(self)))
+        view_menu=self.studio.task_menus['View'].addMenu('Lesson Guide')
+        visibility=self.toggleViewAction()
+        visibility.setText('Show Lesson Guide')
+        view_menu.addAction(visibility)
+        view_menu.addSeparator()
+        view_menu.aboutToShow.connect(self.refresh_lesson_commands)
+        self.lesson_commands={}
+        for key,title,action in [('bookmark','Bookmark Current View',student_workspace.bookmark),
+                                 ('return','Go to Bookmark',lambda guide:student_workspace.restore_bookmark(guide,required=True)),
+                                 ('save','Save Version…',student_workspace.savepoint),
+                                 ('versions','Browse Versions…',student_workspace.restore_savepoint),
+                                 ('starter','Restore Starter Value…',student_workspace.restore_starter_value)]:
+            command=tools_menu.addAction(title,lambda checked=False,action=action:self.call(lambda:action(self)))
+            command.setEnabled(False)
+            self.lesson_commands[key]=command
+            if key in ('bookmark','return'):
+                view_menu.addAction(command)
+        edit_menu=self.studio.task_menus['Edit']
+        edit_menu.addAction(self.lesson_commands['starter'])
+        edit_menu.aboutToShow.connect(self.refresh_lesson_commands)
         tools_menu.addSeparator()
-        self.unlock_action=tools_menu.addAction('Unlock guide position')
+        view_menu.addSeparator()
+        self.unlock_action=tools_menu.addAction('Unlock Guide Position')
         self.unlock_action.setCheckable(True)
         self.unlock_action.setChecked(self.studio.settings.value('student/guideUnlocked',False,bool))
         self.unlock_action.toggled.connect(self.set_guide_unlocked)
-        self.float_action=tools_menu.addAction('Float guide to move it')
+        self.float_action=tools_menu.addAction('Float Guide')
         self.float_action.triggered.connect(lambda:self.setFloating(not self.isFloating()))
+        self.move_menu=QMenu('Move Guide to Display',self)
+        self.move_menu.aboutToShow.connect(self.fill_displays)
+        tools_menu.addMenu(self.move_menu)
+        for action in (self.unlock_action,self.float_action,self.move_menu.menuAction()):
+            view_menu.addAction(action)
         self.topLevelChanged.connect(self.guide_position_changed)
+        from .window_geometry import DisplayGeometryObserver
+        self._guide_display_observer=DisplayGeometryObserver(self)
+        QGuiApplication.instance().screenRemoved.connect(self._guide_display_observer.schedule)
         self._guide_position_loaded=False
         self.set_guide_unlocked(self.unlock_action.isChecked())
         self.guide_view=QComboBox();self.guide_view.setAccessibleName('Lesson guide view')
@@ -1345,11 +1386,47 @@ class LessonGuide(QDockWidget):
         if unlocked:
             features|=QDockWidget.DockWidgetMovable|QDockWidget.DockWidgetFloatable
         self.setFeatures(features)
-        self.float_action.setEnabled(unlocked)
+        self.float_action.setEnabled(unlocked or self.isFloating())
+
+    def refresh_lesson_commands(self):
+        record=self.hub.portfolio.workspace(self.lesson) if self.lesson else None
+        bound=bool(self.active_step and record and record['project_id']==self.studio.project['id'])
+        busy=self.studio.run_manager.busy
+        design_active=self.studio.app_workspaces.currentIndex()==0
+        for command in self.lesson_commands.values():
+            command.setEnabled(bound and not busy and design_active)
+        self.lesson_commands['return'].setEnabled(bound and not busy and student_workspace.has_bookmark(self))
+        self.lesson_commands['starter'].setEnabled(bound and not busy and design_active and
+                                                    student_workspace.selected_starter_device(self) is not None)
+        self.move_menu.setEnabled(bool(design_active and self.isVisible() and len(QGuiApplication.screens())>1))
+
+    def fill_displays(self):
+        self.move_menu.clear()
+        for i,screen in enumerate(QGuiApplication.screens(),1):
+            title=screen.name() or f'Display {i}'
+            self.move_menu.addAction(title,lambda checked=False,screen=screen:self.move_to_display(screen))
+
+    def move_to_display(self,screen):
+        if not self.isFloating():
+            self.unlock_action.setChecked(True)
+            self.setFloating(True)
+        window=self.windowHandle()
+        if window:
+            window.setScreen(screen)
+        area=screen.availableGeometry()
+        self.resize(min(self.width(),area.width()),min(self.height(),area.height()))
+        self.move(area.center()-self.rect().center())
+        self._guide_display_observer.fit()
+        self.save_guide_position()
+
+    def open_graded_lesson(self):
+        self.hub.select_lesson(self.lesson['id'])
+        self.hub.start_selected()
 
     def guide_position_changed(self,floating):
         self.studio.settings.setValue('student/guideFloating',floating)
-        self.float_action.setText('Dock guide' if floating else 'Float guide to move it')
+        self.float_action.setText('Dock Guide' if floating else 'Float Guide')
+        self.float_action.setEnabled(floating or self.unlock_action.isChecked())
         QTimer.singleShot(0,self.save_guide_position)
 
     def save_guide_position(self):
@@ -1375,12 +1452,14 @@ class LessonGuide(QDockWidget):
             self.setFloating(True)
             if isinstance(geometry,QByteArray):
                 self.restoreGeometry(geometry)
+            self._guide_display_observer.fit()
 
     def change_guide_view(self):
         self.compact=self.guide_view.currentData()=='compact'
         self.studio.settings.setValue('student/guideView',self.guide_view.currentData())
         self.apply_guide_view()
-        self.studio.resizeDocks([self],[270 if self.compact else 390],Qt.Horizontal)
+        if not self.isFloating():
+            self.studio.resizeDocks([self],[270 if self.compact else 390],Qt.Horizontal)
 
     def apply_guide_view(self):
         full=not self.compact
@@ -1936,7 +2015,15 @@ class LessonGuide(QDockWidget):
         lab=self.lesson.get('layout_lab')
         signal=self.lesson.get('signal_lab')
         from .student_preflight import DC_PATHS
-        self.warmup_button.setVisible(bool(bound and signal in DC_PATHS))
+        self.warmup_button.setVisible(bool(bound and is_check and signal in DC_PATHS))
+        if (warmup:=getattr(self,'warmup',None)) and warmup.isVisible():
+            if warmup.matches_context():
+                warmup.update_controls()
+            else:
+                warmup.close()
+        blank=self.blank_practice()
+        self.practice_banner.setVisible(blank)
+        self.back_to_graded.setVisible(blank)
         mixed=project.get('mixed_signal',{}) if bound else {}
         rtl=bool(bound and config(project,mixed.get('digital_cell',project['top'])))
         self.controls['Open RTL'].setVisible(rtl)
@@ -2074,8 +2161,8 @@ class LessonGuide(QDockWidget):
             self.run_progress.setRange(0,100);self.run_progress.setValue(progress)
             status=' · '.join(f'{sum(r["state"]==state for r in active)} {state.lower()}' for state in ('Running','Queued','Stopping') if any(r['state']==state for r in active))
             self.run_status.setText(status+(f' · {progress}%' if progress else ''))
-        elif self.blank_practice():
-            self.run_status.setText('Blank practice · Run analyses from the Design workspace. Save with Ctrl+S.')
+        elif blank:
+            self.run_status.setText('')
         elif not bound:self.run_status.setText('Resume this lesson from Student Hub to use its workspace.')
         elif visible_rows:=self.step_run_rows(rows):self.run_status.setText('Latest run: '+visible_rows[-1]['state'])
         else:self.run_status.setText('Ready to run.' if can_run or campaign else '')
@@ -2205,8 +2292,8 @@ def show(studio):
 
 def install(studio):
     studio.action(studio.task_menus['View'],'Student Hub',lambda:show(studio))
-    studio.action(studio.task_menus['View'],'Device annotations…',studio.annotation_preferences)
-    studio.study_share_action=studio.task_menus['View'].addAction('Screenshare layout')
+    studio.action(studio.task_menus['View'],'Device Annotations…',studio.annotation_preferences)
+    studio.study_share_action=studio.task_menus['View'].addAction('Screenshare Layout')
     studio.study_share_action.setCheckable(True)
     studio.study_share_action.toggled.connect(lambda enabled:student_workspace.screenshare(studio,enabled))
     studio.action(studio.task_menus['Help'],'Student learning paths',lambda:show(studio))

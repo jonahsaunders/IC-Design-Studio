@@ -169,6 +169,8 @@ class EngineeringWorkspaceMixin:
         enabled=self.annotate_check.isChecked()
         rows,label=readouts(self.project,self.cid,self.result,fields=fields,selection=selection) if enabled else ({},'')
         self.schematic.simulation_annotations=rows;self.schematic.simulation_annotation_label=label;self.schematic.update()
+        if panel:=getattr(self,'device_annotations_panel',None):
+            panel.update_readings(rows,label,self.cell['devices'])
 
     def toggle_device_annotations(self,enabled):
         self.settings.setValue('view/deviceAnnotations',enabled)
@@ -180,35 +182,14 @@ class EngineeringWorkspaceMixin:
             self.update_annotations()
 
     def annotation_preferences(self):
-        from .annotations import DEFAULT_FIELDS,FIELDS
-        dialog=QDialog(self)
-        dialog.setWindowTitle('Schematic device annotations')
-        layout=QVBoxLayout(dialog)
-        intro=QLabel('Choose fields to show from the selected operating-point result. Availability depends on the device model and simulator.')
-        intro.setWordWrap(True)
-        layout.addWidget(intro)
-        show=QCheckBox('Show annotations on the schematic')
-        show.setChecked(self.annotate_check.isChecked())
-        layout.addWidget(show)
-        selected=QCheckBox('Only annotate selected devices')
-        selected.setChecked(self.settings.value('view/deviceAnnotationsSelected',False,bool))
-        layout.addWidget(selected)
-        current=self.settings.value('view/deviceFields',sorted(DEFAULT_FIELDS),list)
-        fields={}
-        for key,title in FIELDS.items():
-            check=QCheckBox(title)
-            check.setChecked(key in current)
-            fields[key]=check
-            layout.addWidget(check)
-        controls=QDialogButtonBox(QDialogButtonBox.Ok|QDialogButtonBox.Cancel)
-        layout.addWidget(controls)
-        controls.accepted.connect(dialog.accept)
-        controls.rejected.connect(dialog.reject)
-        if dialog.exec():
-            self.settings.setValue('view/deviceFields',[key for key,check in fields.items() if check.isChecked()])
-            self.settings.setValue('view/deviceAnnotationsSelected',selected.isChecked())
-            self.annotate_check.setChecked(show.isChecked())
-            self.update_annotations()
+        from .device_annotations_ui import DeviceAnnotationsPanel
+        if not getattr(self,'device_annotations_panel',None):
+            self.device_annotations_panel=DeviceAnnotationsPanel(self)
+        panel=self.device_annotations_panel
+        self.update_annotations()
+        panel.show()
+        panel.raise_()
+        return panel
 
     def wavecalc_dialog(self):
         from .wavecalc import plot_result,parse

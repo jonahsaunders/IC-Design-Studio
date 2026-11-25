@@ -1,5 +1,24 @@
 # Chunks 1–12: progress and forecast
 
+**November 25, 2026 — Apple HIG second pass for the Student Hub analog
+workbench (EDU-01–08, UX-02).** On draft base `288edda`, contextual View
+and Edit commands reflect the active lesson and selection. Guide bookmarks
+work with the shared version history, starter-value restoration supports Undo,
+and the floating guide recovers its placement when the display layout changes.
+Blank practice and screenshare have explicit return paths. The modeless
+warm-up separates DC-path checks and estimates, and the annotation panel
+includes selectable device readings.
+
+Twenty Linux Qt offscreen desktop scenarios and 29 focused source tests
+passed. All eight new lessons ran with ngspice 46. At 200% text size, each
+warm-up and results panel stayed within its available width and exposed both
+trace summaries and copyable measurements. The second-pass implementation is
+estimated 100% complete for experimental engineering. Native acceptance
+still needs VoiceOver, Full Keyboard Access, Increase Contrast, Retina
+scaling, and two-display guide testing on macOS. The release consistency
+check still flags the retained GF180 density acceptance binding for
+`annotations.py`. See the [interface audit](STUDENT_HUB_AUDIT.md).
+
 **November 25, 2026 — Student Hub workspace and bias analysis labs
 (EDU-01–08, UX-02).** On draft base `764a462`, the Lesson Guide can bookmark
 an editor view, save and restore named versions, reset one starter parameter,

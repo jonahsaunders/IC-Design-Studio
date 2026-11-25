@@ -59,10 +59,11 @@ cycle slips, jitter, and transistor effects are outside this model.
 ## Device and circuit labs
 
 These eight labs use ngspice with generic teaching models. Open **Analyze
-before running** to identify the DC or charging path and save an estimate.
-Compare it with the measured values from the same checkpoint. Where the
-lesson offers a region prediction, the DC case provides device data for the
-schematic annotations.
+before running** from a measured checkpoint to check the DC or charging path
+and save an estimate. **Compare Results** uses a run of the current design.
+Where the lesson offers a region prediction, choose **Show Region on Schematic**
+to display data from the operating-point case. Result windows give a text
+summary of the plotted trace and a **Copy Measurements** command.
 
 | Lab | Measurement |
 | --- | --- |

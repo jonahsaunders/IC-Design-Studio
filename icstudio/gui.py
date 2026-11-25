@@ -696,7 +696,8 @@ class Studio(DigitalMixin,LiveCollaborationMixin,CollaborationMixin,Interoperabi
                 self.error('The lesson reflection could not be saved. Keep this window open and retry.\n'+str(exc))
                 event.ignore();return
             hub.guide.save_guide_position()
-        if getattr(self,'study_share_action',None) and self.study_share_action.isChecked():
+        sharing=bool(getattr(self,'study_share_action',None) and self.study_share_action.isChecked())
+        if sharing:
             self.study_share_action.setChecked(False)
         tabs=getattr(self,'app_workspaces',None)
         was_hub=tabs is not None and tabs.currentIndex()==1
@@ -704,7 +705,9 @@ class Studio(DigitalMixin,LiveCollaborationMixin,CollaborationMixin,Interoperabi
         # arrangement used while the learning page occupies the window.
         if was_hub:self.show_design_workspace()
         super().closeEvent(event)
-        if was_hub and not event.isAccepted():tabs.setCurrentIndex(1)
+        if not event.isAccepted():
+            if was_hub:tabs.setCurrentIndex(1)
+            if sharing:self.study_share_action.setChecked(True)
 
     def __init__(self,*args,**kwargs):
         super().__init__(*args,**kwargs)

@@ -5,7 +5,7 @@ import math
 from pathlib import Path
 
 from PySide6.QtCore import QPointF, QSignalBlocker, QTimer, Qt
-from PySide6.QtWidgets import QInputDialog, QMessageBox
+from PySide6.QtWidgets import QInputDialog
 
 from .model import clone, digest, load_project, save_project
 
@@ -117,52 +117,45 @@ def bookmark(guide):
     view=capture_view(guide)
     if guide.save_work():
         _save(guide,'bookmark',view)
-        guide.feedback.setText('Bookmarked this checkpoint, view, and available waveform cursors.')
+        message=f'Bookmark saved for “{guide.active_step["title"]}”.'
+        guide.feedback.setText(message)
+        guide.studio.statusBar().showMessage(message,5000)
+
+
+def has_bookmark(guide):
+    return isinstance(_read(guide,'bookmark',None),dict)
 
 
 def restore_bookmark(guide, *, required=False):
+    guide.require_project()
     state = _read(guide,'bookmark',None)
     if state is None and required:
         raise ValueError('Set a bookmark in this lesson first.')
     if state is not None:
+        if required:
+            guide.studio.show_design_workspace()
+            guide.show()
         restore_view(guide,state)
+        if required:
+            guide.studio.statusBar().showMessage('Returned to your lesson bookmark.',5000)
 
 
 def savepoint(guide):
-    from .project_versions_ui import version_store
+    from .project_versions_ui import save_version
     guide.flush()
     guide.require_idle()
-    name, ok = QInputDialog.getText(guide,'Name this savepoint','Savepoint name')
-    name = name.strip()
-    if not ok or not name:
-        return
-    store=version_store(guide.studio)
-    if any(item.name.casefold()==name.casefold() for item in store.list()):
-        raise ValueError('A savepoint with that name already exists.')
-    version=store.save(guide.studio.project,name)
-    _save(guide,'versionView/'+version.id,capture_view(guide))
-    guide.feedback.setText(f'Savepoint saved · {name}')
+    view=capture_view(guide)
+    if version:=save_version(guide.studio):
+        _save(guide,'versionView/'+version.id,view)
+        guide.feedback.setText(f'Saved version “{version.name}”.')
 
 
 def restore_savepoint(guide):
-    from .project_versions import restore_contents
-    from .project_versions_ui import version_store
+    from .project_versions_ui import show_history
     guide.flush()
     guide.require_idle()
-    store=version_store(guide.studio)
-    items={f'{row.name} · {row.created[:19]} · {row.id[:8]}':row for row in store.list()}
-    if not items:
-        raise ValueError('Save a named version of this lesson first.')
-    name,ok=QInputDialog.getItem(guide,'Restore a savepoint','Savepoint',list(items),0,False)
-    if not ok:
-        return
-    item=items[name]
-    snapshot=store.load(item.id)
-    if QMessageBox.question(guide,'Restore savepoint?',f'Restore {name}? Use Undo to recover the current design.',
-                            QMessageBox.Yes|QMessageBox.Cancel, QMessageBox.Cancel)!=QMessageBox.Yes:
-        return
-    guide.studio.commit(lambda p:restore_contents(p,snapshot),f'Restore savepoint · {item.name}')
-    restore_view(guide,_read(guide,'versionView/'+item.id,None))
+    if version:=show_history(guide.studio):
+        restore_view(guide,_read(guide,'versionView/'+version.id,None))
 
 
 def starter_path(hub, project_id):
@@ -195,14 +188,19 @@ def starter_fields(current, original):
     return fields
 
 
+def selected_starter_device(guide):
+    studio=guide.studio
+    parts=[d for d in studio.cell['devices'] if d['id'] in studio.selection]
+    return parts[0] if studio.current_mode=='schematic' and len(parts)==1 else None
+
+
 def restore_starter_value(guide):
     guide.flush()
     guide.require_idle()
     studio=guide.studio
-    selected=[d for d in studio.cell['devices'] if d['id'] in studio.selection]
-    if len(selected)!=1:
+    current=selected_starter_device(guide)
+    if current is None:
         raise ValueError('Select one schematic component first.')
-    current=selected[0]
     path=starter_path(guide.hub,studio.project['id'])
     starter=load_project(path) if path.is_file() else guide.hub.make_starter(guide.lesson)
     original=_one_device(starter,studio.cell,current)
@@ -212,8 +210,17 @@ def restore_starter_value(guide):
     if not changes:
         raise ValueError('The selected component already has its starter values.')
     choices={f'{".".join(keys)} · {value} → {old}':(keys,old) for keys,(value,old) in changes.items()}
-    selected,ok=QInputDialog.getItem(guide,'Restore one starter value',current['name'],list(choices),0,False)
-    if not ok:
+    dialog=QInputDialog(studio,Qt.Sheet)
+    dialog.setWindowTitle('Restore Starter Value')
+    dialog.setLabelText(f'Choose one value to restore on {current["name"]}. You can undo the change.')
+    dialog.setComboBoxItems(list(choices))
+    dialog.setOkButtonText('Restore Value')
+    dialog.setWindowModality(Qt.WindowModal)
+    try:
+        selected=dialog.textValue() if dialog.exec() else None
+    finally:
+        dialog.deleteLater()
+    if selected is None:
         return
     keys,value=choices[selected]
     cid=studio.cid
@@ -224,6 +231,13 @@ def restore_starter_value(guide):
             device=device[key]
         device[keys[-1]]=value
     studio.commit(apply,'Restore '+current['name']+' '+'.'.join(keys))
+    message=f'Restored {current["name"]} {".".join(keys)} to {value}.'
+    guide.feedback.setText(message)
+    studio.statusBar().showMessage(message,5000)
+
+
+def blank_path(hub, lesson):
+    return hub.portfolio.root/'blank-practice'/(lesson['id']+'.icproj')
 
 
 def blank_practice(hub):
@@ -235,7 +249,7 @@ def blank_practice(hub):
     hub.guide.save_note()
     if not studio._replace_document():
         return
-    path=hub.portfolio.root/'blank-practice'/(lesson['id']+'.icproj')
+    path=blank_path(hub,lesson)
     if path.is_file():
         project=load_project(path)
         if project.get('student_blank_practice')!=lesson['id']:
@@ -254,8 +268,8 @@ def blank_practice(hub):
     hub.guide.show()
     hub.guide.restore_guide_position()
     hub.guide.raise_()
-    hub.guide.feedback.setText('Build your circuit on this blank canvas. Use Studio’s analysis tools to check it. Save with Ctrl+S.')
     hub.guide.update_run_state()
+    (studio.layout if lesson['path']=='layout' else studio.schematic).setFocus()
 
 
 def screenshare(studio, enabled):
@@ -282,3 +296,4 @@ def screenshare(studio, enabled):
     studio.plot.update()
     if hub:
         hub.apply_theme()
+    studio.statusBar().showMessage('Screenshare layout on.' if enabled else 'Screenshare layout off.',5000)

@@ -288,25 +288,27 @@ Use **All difficulties** to filter lessons by level. Use **Ctrl+F** on Windows a
 
 ### Bookmark, branch, and present your work
 
-- Open **Lesson tools → Bookmark this place** to save the checkpoint, selected objects, the schematic or layout view, and available waveform cursors. The Hub returns to the bookmark when you reopen the lesson. Use **Go to bookmark** to return while working.
-- **Save named version** records a design snapshot in Studio’s project version history. **Restore named version** brings it back as an edit you can undo.
-- Select one schematic component and choose **Restore one starter value**. Pick the changed value or parameter to reset. Your other edits stay in the project.
-- Choose **Unlock guide position**, then **Float guide to move it**. Drag the floating window to another display. Use **Dock guide** to put it back.
-- **Try from a blank canvas** opens a separate practice project with the lesson reference and its own notes. Build the circuit in Design, use the normal analysis controls, and save with **Ctrl+S**. **Resume lesson** opens your graded starter project.
-- **View → Screenshare layout** enlarges Student Hub and schematic text and hides the navigation and inspector panels. Toggle it again to restore the editor layout.
+- Choose **Bookmark Current View** in **Lesson Tools** or **View → Lesson Guide** to save the checkpoint, selection, canvas view, and available waveform cursors. Reopen the lesson or use **Go to Bookmark** to return.
+- **Save Version** captures a named snapshot with an optional note in Studio’s project history. **Browse Versions** previews changes before you restore. Use **Undo** to return to the previous design.
+- Select one schematic component and choose **Edit → Restore Starter Value**. Pick the changed value or parameter to reset. The command is also available from **Lesson Tools**.
+- Choose **Unlock Guide Position**, then **Float Guide**. Drag the floating window or use **View → Lesson Guide → Move Guide to Display**. **Dock Guide** returns it to the editor.
+- **Start Blank Practice** creates a separate project with its own notes, and **Resume Blank Practice** opens it again. Use Design’s analysis and save commands. **Open Graded Lesson** returns to your graded project.
+- **View → Screenshare Layout** enlarges Student Hub, schematic, and waveform text and hides the navigation and inspector panels. Toggle it again to restore the editor layout.
 
 ### Analyze before running
 
 The [eight device and circuit labs](STUDENT_SIGNAL_LABS.md#device-and-circuit-labs)
-include **Analyze before running**. Identify the DC or charging path, save a
-numerical estimate, then compare it with a captured result. The output-resistance,
+include **Analyze before running** on measured checkpoints. Use **Check Path**,
+then **Save Prediction**. **Compare Results** becomes available when the current
+design has a captured result. The output-resistance,
 body-effect, and load-comparison labs also let you predict a device region and
-display the operating-point result on the schematic.
+explicitly choose **Show Region on Schematic** after comparing.
 
-Use **View → Device annotations** to choose which values appear and whether to
+Use **View → Device Annotations** to choose which values appear and whether to
 annotate only the selected devices. Choose design values such as dimensions,
 model and component value, or saved simulation values such as drain current,
 transconductance, output resistance, region and available capacitances.
+The modeless **Readings** tab provides selectable text for the same values.
 Native operating-region estimates use captured device data and are labeled.
 
 [See schematic device annotations in Screenshare layout](images/student-hub/analog-workbench.jpg).

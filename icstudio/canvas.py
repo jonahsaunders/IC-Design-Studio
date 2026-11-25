@@ -317,12 +317,20 @@ class Canvas(DrawingCanvasMixin,GridMixin,EditorCanvasMixin,LabelCanvasMixin,Wir
                     x=d['x']-65-width/self.scale
                 x=max(x,(6-self.offset.x())/self.scale)
                 p.save()
-                p.translate(x,d['y']+20)
+                p.setFont(QFont('Sans Serif',round(9*text_scale)))
+                flags=Qt.TextWordWrap|Qt.AlignLeft|Qt.AlignTop
+                text=f'{d["name"]}\n{text}'
+                height=QFontMetricsF(p.font()).boundingRect(QRectF(0,0,width-12,self.height()),int(flags),text).height()+10
+                y=min(d['y']+20,(self.height()-height-6-self.offset.y())/self.scale)
+                y=max(y,(25-self.offset.y())/self.scale)
+                p.translate(x,y)
                 p.scale(1/self.scale,1/self.scale)
-                p.setFont(QFont('Sans Serif',round(8*text_scale)))
-                p.setPen(QColor('#6fbcad' if self.dark else '#176b5b'))
-                height=p.fontMetrics().lineSpacing()*(text.count('\n')+3)
-                p.drawText(QRectF(0,0,width,height),Qt.TextWordWrap,text)
+                colors=palette(self.dark)
+                p.setPen(QColor(colors['line']))
+                p.setBrush(QColor(colors['panel']))
+                p.drawRoundedRect(QRectF(0,0,width,height),4,4)
+                p.setPen(QColor(colors['text']))
+                p.drawText(QRectF(6,5,width-12,height-10),flags,text)
                 p.restore()
         self.draw_annotations(p)
         for i,bus in enumerate(self.cell.get('buses',[])):
