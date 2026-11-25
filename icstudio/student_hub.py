@@ -143,8 +143,10 @@ def lesson_stamp(lesson):
 
 
 def earned(state, lesson):
-    record=state.get('lessons',{}).get(lesson['id'],{})
-    if record.get('stamp')==lesson_stamp(lesson):
+    record=state.get('lessons',{}).get(lesson['id'])
+    if not record or not record.get('stamp'):
+        return {}
+    if record['stamp']==lesson_stamp(lesson):
         return record.get('steps',{})
     prior = REVIEWED_PROGRESS.get(lesson['id'])
     if prior and record.get('stamp')==prior:
@@ -171,15 +173,17 @@ def completion_xp(state, lessons):
     return awards
 
 
-def missing_prerequisites(state, lesson, data):
-    by_id={l['id']:l for l in data['lessons']}
+def missing_prerequisites(state, lesson, data, *, by_id=None, completed=None):
+    if by_id is None:
+        by_id={l['id']:l for l in data['lessons']}
     missing=[];visited=set()
     def visit(key):
         if key in visited:return
         visited.add(key)
         for parent in by_id[key]['requires']:
             visit(parent)
-            if not complete(state,by_id[parent]) and parent not in missing:missing.append(parent)
+            parent_complete = complete(state,by_id[parent]) if completed is None else parent in completed
+            if not parent_complete and parent not in missing:missing.append(parent)
     visit(lesson['id']);return missing
 
 

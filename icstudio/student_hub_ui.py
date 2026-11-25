@@ -815,11 +815,18 @@ class StudentHub(QWidget):
         self.process_status.setText((readiness(item) if item else 'Register a PDK to start.')+
                                    ('\n'+ '\n'.join(self.pdk_errors) if self.pdk_errors else ''))
         self.lessons.blockSignals(True);self.lessons.clear()
-        available=[l for l in self.data['lessons'] if not l.get('inverter_profile') or self.inverter_profiles[l['inverter_profile']]['ready']]
-        selected_available=[l for l in available if not l.get('inverter_profile') or l['inverter_profile']==profile]
-        summary=f'{sum(complete(state,l) for l in selected_available)} of {len(selected_available)} lessons complete'
+        catalog = self.data['lessons']
+        counts = {}
+        for lesson in catalog:
+            done = earned(state,lesson)
+            counts[lesson['id']] = sum(step['id'] in done for step in lesson['steps'])
+        completed = {lesson['id'] for lesson in catalog if counts[lesson['id']]==len(lesson['steps'])}
+        selected_available = [lesson for lesson in catalog if not lesson.get('inverter_profile')
+                              or (lesson['inverter_profile']==profile and self.inverter_profiles[profile]['ready'])]
+        summary=f'{sum(l["id"] in completed for l in selected_available)} of {len(selected_available)} lessons complete'
         self.total.setText(summary)
-        self.xp.setText(f'{sum(completion_xp(state,self.data["lessons"]).values()):,} XP earned')
+        awards = completion_xp(state, (self.by_id[key] for key in completed))
+        self.xp.setText(f'{sum(awards.values()):,} XP earned')
         self.update_recap()
         self.total.setToolTip('The learning-path counts use the selected inverter PDK. Inverter progress is separate for each revision; the overall count includes every available revision.')
         workspace_uses=Counter(lesson['workspace'] for lesson in self.data['lessons'])
@@ -827,12 +834,12 @@ class StudentHub(QWidget):
         all_rows=[]
         for lesson in self.data['lessons']:
             if lesson.get('inverter_profile',profile)!=profile:continue
-            count=len(earned(state,lesson))
+            count=counts[lesson['id']]
             if lesson.get('inverter_profile') and not self.inverter_profiles[lesson['inverter_profile']]['ready']:
                 status='PDK setup needed'
-            elif count==len(lesson['steps']):
+            elif lesson['id'] in completed:
                 status='Completed'
-            elif missing_prerequisites(state,lesson,self.data):
+            elif missing_prerequisites(state,lesson,self.data,by_id=self.by_id,completed=completed):
                 status='Prerequisites needed'
             elif (count or any(state['lessons'].get(lesson['id'],{}).get('notes',{}).values())
                   or (workspace_uses[lesson['workspace']]==1 and self.portfolio.workspace(lesson))):
