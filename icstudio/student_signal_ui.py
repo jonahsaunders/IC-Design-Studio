@@ -20,6 +20,8 @@ TUNING = {
                             ('CLP', 'value', 'CLP capacitance (F)')),
     ('relaxation', 'corners'): ('Edit timing components', ('RT', 'native_spice.parameters.r', 'RT resistance (Ω)'),
                                 ('CT', 'value', 'CT capacitance (F)')),
+    ('pll', 'repair'): ('Tune the loop filter', ('RFILT', 'value', 'RFILT resistance (Ω)'),
+                        ('CFILT', 'value', 'CFILT capacitance (F)')),
     ('pga', 'repair'): ('Edit gain resistors', *((f'RG{i}', 'value', f'RG{i} resistance (Ω)') for i in range(1, 4))),
     ('temperature', 'anchor'): ('Edit sensor divider', ('RFIX', 'value', 'RFIX resistance (Ω)')),
 }
@@ -202,14 +204,14 @@ class SignalResults(QDialog):
             self.trace.addItem('Estimated temperature (°C)', ('derived', 'Estimate (°C)'))
         else:
             wave = self.waves[name]
-            for signal in wave['traces']:
+            signals = list(wave['traces'])
+            for signal in signals:
                 self.trace.addItem(signal, ('voltage', signal))
             for signal in wave.get('currents', {}):
                 self.trace.addItem(f'I({signal})', ('current', signal))
-            for preferred in ('out', 'sensor', 'vin'):
-                index = self.trace.findData(('voltage', preferred))
-                if index >= 0:
-                    self.trace.setCurrentIndex(index)
+            for preferred in ('vco_hz', 'out', 'sensor', 'vin'):
+                if preferred in signals:
+                    self.trace.setCurrentIndex(signals.index(preferred))
                     break
         self.trace.blockSignals(False)
         self.show_plot()
@@ -229,4 +231,10 @@ class SignalResults(QDialog):
             wave = self.waves[name]
             if mode == 'current':
                 wave = {**wave, 'traces': wave['currents'], 'plot_unit': 'A'}
+            elif self.lab == 'pll':
+                if signal == 'vco_hz':
+                    target = self.measurements.get(name, {}).get('Frequency target (Hz)')
+                    wave = {**wave, 'plot_unit': 'Hz', 'plot_include_zero': False, 'y_reference': target}
+                elif signal in ('ref_phase', 'vco_phase', 'phase_error'):
+                    wave = {**wave, 'plot_unit': 'cycles'}
         self.plot.set_result(wave, [signal])

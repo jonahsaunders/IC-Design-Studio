@@ -105,7 +105,7 @@ class StudentProgressTests(unittest.TestCase):
 
     def test_curriculum_has_executable_starters_and_valid_prerequisites(self):
         data=curriculum()
-        self.assertEqual([sum(l['path']==p['id'] for l in data['lessons']) for p in data['paths']],[8,16,15,7,25,2,26,17,19])
+        self.assertEqual([sum(l['path']==p['id'] for l in data['lessons']) for p in data['paths']],[8,16,15,7,25,2,27,17,19])
         self.assertEqual(sum(l['path']=='capstone' for l in data['lessons']),5)
         for l in data['lessons']:validate(create(l['starter']))
         bad=clone(data);bad['lessons'][0]['requires']=['c-qualify']
@@ -120,6 +120,53 @@ class StudentProgressTests(unittest.TestCase):
         original=clone(lessons[0])
         original.pop('difficulty')
         self.assertEqual(lesson_stamp(original),lesson_stamp(lessons[0]))
+
+    def test_completion_xp_migrates_and_survives_rechecks(self):
+        from icstudio.student_hub import LESSON_XP, completion_xp
+        lesson = curriculum()['lessons'][0]
+        data = {'lessons': [lesson]}
+        project = create(lesson['starter'])
+        xp = LESSON_XP[lesson['difficulty']]
+        with tempfile.TemporaryDirectory() as tmp:
+            store = Portfolio(tmp)
+            store.attach(lesson, project, Path(tmp)/'lesson.icproj')
+            evidence = {'project_id': project['id']}
+            for step in lesson['steps'][:-1]:
+                self.assertEqual(store.award(lesson, step, evidence, data), 0)
+            final = lesson['steps'][-1]
+            self.assertEqual(store.award(lesson, final, evidence, data), xp)
+            self.assertEqual(store.award(lesson, final, evidence, data), 0)
+            revised = clone(lesson)
+            revised['steps'][-1]['instructions'] += ' Recheck.'
+            self.assertFalse(complete(store.state, revised))
+            self.assertEqual(completion_xp(store.state, [revised]), {lesson['id']: xp})
+            legacy = clone(store.state)
+            legacy.pop('xp_awards')
+            store.write(legacy)
+            store.sync_xp([lesson])
+            self.assertEqual(Portfolio(tmp).state['xp_awards'], {lesson['id']: xp})
+
+    def test_session_options_continue_unearned_steps_within_the_budget(self):
+        from icstudio.student_hub import lesson_stamp
+        from icstudio.student_study import session_options
+
+        first, dependent = curriculum()['lessons'][:2]
+        first = {**first, 'minutes': 30}
+        lesson = {**first, 'id': 'other'}
+        step = first['steps'][0]
+        state = {'lessons': {first['id']: {'stamp': lesson_stamp(first), 'steps': {step['id']: {}}}}}
+        data = {'lessons': [first, dependent, lesson]}
+        eligible = lambda item: True
+        blockers = lambda item: ['Needs setup'] if item['id']=='other' else []
+        long_plan, = session_options(state, data, 60, first['id'], blockers, eligible)
+        self.assertEqual(long_plan[0]['id'], first['id'])
+        self.assertEqual(long_plan[1], first['steps'][1:])
+        self.assertLess(long_plan[2], first['minutes'])
+        self.assertTrue(long_plan[3])
+        short_plan, = session_options(state, data, 15, first['id'], blockers, eligible)
+        self.assertEqual(short_plan[1], first['steps'][1:2])
+        self.assertLessEqual(short_plan[2], 15)
+        self.assertFalse(short_plan[3])
 
     def test_resume_prerequisites_conflicts_and_curriculum_revisions(self):
         data=curriculum();first,second=data['lessons'][:2]

@@ -46,7 +46,11 @@ class WavePlot(QWidget):
         for r in getattr(self,'overlays',[]):
             xs+=r['x'];values += [v for n in self.names for v in r['traces'].get(n,[])]
         if self.compare:xs+=self.compare['x'];values += [v for n in self.names for v in self.compare['traces'].get(n,[])]
-        ymin=min([0]+values);ymax=max([0]+values);padding=(ymax-ymin)*.1 or 1
+        if self.result.get('plot_include_zero',True) or not values:
+            values.append(0)
+        if not self.result.get('plot_include_zero',True) and self.result.get('y_reference') is not None:
+            values.append(self.result['y_reference'])
+        ymin=min(values);ymax=max(values);padding=(ymax-ymin)*.1 or 1
         self._bounds=(min(xs),max(xs) if max(xs)>min(xs) else min(xs)+1,ymin-padding,ymax+padding);return self._bounds
     def screen(self,x,y):
         x0,x1,y0,y1=self.bounds();log=analysis_kind(self.result) in ('ac','noise')

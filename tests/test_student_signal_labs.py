@@ -52,6 +52,27 @@ class StudentSignalLabsTests(unittest.TestCase):
         for name, value in values.items():
             self.part(p, name)['value'] = value
 
+    @unittest.skipUnless(Path(EXE).is_file(), 'Set ICSTUDIO_TEST_NGSPICE to the native ngspice executable')
+    def test_pll_baseline_fails_tuning_and_both_repaired_steps_lock(self):
+        p = self.open('pll')
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            starter = self.measure(p, 'pll', 'baseline', self.execute(p, 'pll', 'baseline', root))
+            self.assertGreater(starter['step-up']['Overshoot (% of step)'], 40)
+            self.assertIsNone(starter['step-up']['Lock time (ms)'])
+            missed = self.execute(p, 'pll', 'repair', root)
+            with self.assertRaisesRegex(ValueError, 'lock within 6 ms'):
+                self.measure(p, 'pll', 'repair', missed)
+            self.set_values(p, {'RFILT':'5k'})
+            with self.assertRaisesRegex(ValueError, 'latest edits'):
+                self.measure(p, 'pll', 'repair', missed)
+            tuned = self.measure(p, 'pll', 'repair', self.execute(p, 'pll', 'repair', root))
+            self.assertEqual(set(tuned), {'step-up', 'step-down'})
+            for case, target in zip(('step-up', 'step-down'), (1100, 900)):
+                self.assertAlmostEqual(tuned[case]['Final frequency (Hz)'], target, delta=2)
+                self.assertAlmostEqual(tuned[case]['Lock time (ms)'], 4.22, delta=.05)
+                self.assertAlmostEqual(tuned[case]['Overshoot (% of step)'], 4.32, delta=.1)
+
     def test_bias_matched_linearity_and_capture_integrity(self):
         p = self.open('linearity')
         with tempfile.TemporaryDirectory() as td:

@@ -72,6 +72,18 @@
     "teaching": {"concept": "Positive feedback creates two switching thresholds. The output toggles when the capacitor crosses a threshold, producing a repeating charge-discharge cycle.", "worked_example": "For thresholds near one-quarter and three-quarters of the rail, an ideal symmetric oscillator has period roughly 2RC ln(3). Compare that estimate with the finite bench.", "try_next": "In a copy, change the threshold divider and compare both capacitor excursion and frequency.", "interview": "How would you prove a saved waveform is self-oscillation rather than a response to a periodic input?", "artifact": "The tuned oscillator with measured startup, frequency and duty cycle at all three simulated conditions."}
   },
   {
+    "id": "project-pll", "path": "analog-projects", "topic": "Signal-conditioning projects", "lab": "pll", "title": "Tune a simple PLL",
+    "summary": "Tune the loop filter of a phase-locked loop and measure frequency overshoot, lock time and phase drift after reference steps.",
+    "skills": ["PLL", "loop bandwidth", "damping", "frequency lock", "phase error"], "minutes": 35, "requires": ["a-bandwidth"],
+    "quiz": {"instructions": "After a reference frequency step, what tells you the loop has acquired lock?", "options": ["The VCO frequency crosses the target once", "The VCO frequency stays near the target and phase error stops drifting", "The loop filter voltage returns to zero"], "answer": 1, "explanation": "One crossing can be part of an oscillation. In lock, the frequencies agree and the phase error is bounded. This simple loop can retain a steady phase offset."},
+    "tasks": [
+      {"id": "baseline", "title": "Measure the underdamped loop", "instructions": "Run the starter with RFILT = 40 kΩ and CFILT = 100 nF. In Results, inspect vco_hz and phase_error. The reference steps from 1 kHz to 1.1 kHz at 1 ms. Record overshoot and whether the output stays within 2 Hz of the target."},
+      {"id": "repair", "title": "Tune the loop filter and verify both steps", "instructions": "Use Tune the loop filter to change RFILT or CFILT. Capture reference steps to 1.1 kHz and 900 Hz. In both cases, hold frequency within 2 Hz of the target within 6 ms of the step, limit overshoot to 10% of the 100 Hz step, limit final phase error to 0.15 cycles and late phase drift to 0.01 cycles peak-to-peak."}
+    ],
+    "reflection": "Record your filter values, overshoot and lock times. Explain how changing the filter time constant affected damping and why a steady phase offset can coexist with frequency lock.",
+    "teaching": {"concept": "The phase detector compares reference and feedback phase. The RC filter drives a VCO whose frequency is integrated into feedback phase. In this idealized phase-domain model, reducing RC from the underdamped starter increases damping.", "worked_example": "For the 1 kHz/V VCO and unity phase detector, the linearized equation is RC·s² + s + 1000 = 0. At RC = 1 ms the natural frequency is 1000 rad/s and the damping ratio is 0.5.", "try_next": "In a copy, tune the time constant near critical damping and compare overshoot and lock time.", "interview": "Why does a frequency crossing alone fail to establish lock?", "artifact": "Starter and tuned ngspice transients with frequency, overshoot, lock-time and phase-error measurements."}
+  },
+  {
     "id": "project-pga", "path": "analog-projects", "topic": "Signal-conditioning projects", "lab": "pga", "title": "Build a programmable-gain amplifier",
     "summary": "Size a switched feedback ladder for three gain codes and verify static gain, bandwidth and switching recovery.",
     "skills": ["feedback ladders", "gain codes", "switch resistance", "bandwidth", "step recovery"], "minutes": 50, "requires": ["a-drive"],

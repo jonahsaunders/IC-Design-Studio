@@ -66,7 +66,7 @@ def run_name(lab, step):
         return ''
     return {'rejection': 'Run three AC excitations', 'adc-ramp': 'Capture and measure ramp',
             'temperature': 'Validate held-out conditions' if step == 'validate' else 'Measure reference points',
-            'pga': 'Measure PGA response'}.get(lab, 'Run experiment')
+            'pga': 'Measure PGA response', 'pll': 'Run lock test'}.get(lab, 'Run experiment')
 
 
 def _case(p, name, settings, update=None, cid=None):
@@ -144,6 +144,12 @@ def cases(p, lab, step):
             conditions.extend([('cold-low-rail', '1.62', 0), ('hot-high-rail', '1.98', 70)])
         return [_case(p, name, dict(analysis, temperature=temp), lambda c, v=supply: _dc(c, 'VDD', v))
                 for name, supply, temp in conditions]
+    if lab == 'pll':
+        steps = [('step-up', '100')]
+        if step == 'repair':
+            steps.append(('step-down', '-100'))
+        return [_case(p, name, analysis, lambda c, target=target: _dc(c, 'VSTEP', target))
+                for name, target in steps]
     if lab == 'pga':
         return _pga_cases(p, analysis)
     if lab == 'temperature':
@@ -369,8 +375,29 @@ def _temperature(p, waves, step):
     return rows
 
 
+def _pll(p, waves, step):
+    result = {}
+    for name, wave in waves.items():
+        target = 1100 if name == 'step-up' else 900
+        direction = 1 if name == 'step-up' else -1
+        edge = .001
+        end = .015
+        _, frequency = _range(wave, 'vco_hz', edge, end)
+        _, phase = _range(wave, 'phase_error', .012, end)
+        lock = _settling(wave, 'vco_hz', edge, end, target, 2)
+        result[name] = {
+            'Frequency target (Hz)': target,
+            'Final frequency (Hz)': frequency[-1],
+            'Overshoot (% of step)': 100*max(0, max(direction*(f-target) for f in frequency))/abs(target-1000),
+            'Lock time (ms)': None if lock is None else 1e3*lock,
+            'Final phase error (cycles)': phase[-1],
+            'Late phase drift (cycles peak-to-peak)': max(phase)-min(phase),
+        }
+    return result
+
+
 READOUTS = {'linearity': _linearity, 'rejection': _rejection, 'load': _load, 'adc-ramp': _adc,
-            'chopper': _chopper, 'relaxation': _oscillator, 'pga': _pga, 'temperature': _temperature}
+            'chopper': _chopper, 'relaxation': _oscillator, 'pll': _pll, 'pga': _pga, 'temperature': _temperature}
 
 
 def readout(p,lab,waves,step):
@@ -438,6 +465,7 @@ TUNABLE = {
     'adc-ramp': {'R4': ('value',)},
     'chopper': {'CLP': ('value',), 'VDEMOD': ('source.delay',)},
     'relaxation': {'RT': ('native_spice.parameters.r',), 'CT': ('value',)},
+    'pll': {'RFILT': ('value',), 'CFILT': ('value',)},
     'pga': {f'RG{i}': ('value',) for i in range(1, 4)},
     'temperature': {'RFIX': ('value',)},
 }
@@ -549,6 +577,19 @@ def assess(lab, step, measured):
                     and (max(frequencies)-min(frequencies))/measured['nominal']['Frequency (Hz)'] < .15
                     and all(46 <= case['Duty cycle (%)'] <= 54 and case['First rising edge (µs)'] <= 850 for case in measured.values()),
                     'All three cases need 1.8–2.5 kHz, 46–54% duty, startup within 850 µs and <15% frequency spread.')
+    elif lab == 'pll':
+        for name, readings in measured.items():
+            overshoot = readings['Overshoot (% of step)']
+            lock = readings['Lock time (ms)']
+            if step == 'baseline':
+                require(overshoot > 10 and (lock is None or lock > 6),
+                        'Capture the original underdamped loop before changing RFILT or CFILT.')
+            else:
+                require(overshoot <= 10 and lock is not None and lock <= 6
+                        and abs(readings['Final phase error (cycles)']) <= .15
+                        and readings['Late phase drift (cycles peak-to-peak)'] <= .01,
+                        f'{name}: lock within 6 ms with ≤10% overshoot, ≤0.15 cycles final phase error, '
+                        'and ≤0.01 cycles late phase drift.')
     elif lab == 'pga':
         if step == 'baseline':
             require(not _meets_pga(measured), 'Capture the original gain-ladder error first.')

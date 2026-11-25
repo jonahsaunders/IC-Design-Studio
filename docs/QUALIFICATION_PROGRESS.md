@@ -1,5 +1,19 @@
 # Chunks 1–12: progress and forecast
 
+**November 25, 2026 — Student Hub study tools and PLL lab (EDU-01–08,
+UX-02).** On experimental base `4af9802`, the Hub shows completion XP,
+15/30/60-minute plans, local setup readiness, a resume recap, and curriculum
+changes. The Lesson Guide includes a persistent Compact view. A new Analog
+design projects lesson grades two signed frequency steps in an editable
+phase-domain PLL.
+
+Linux source and Qt offscreen checks exercised the new study controls, progress
+migration, and the saved-result lesson flow. In ngspice 46, the tuned PLL locked
+in about 4.22 ms with 4.32% overshoot in both directions. The starter exceeded
+the overshoot limit and failed the lock target. The seven requested additions
+are estimated 100% complete for experimental engineering. Native Windows
+and packaged acceptance remain pending under the [release gates](RELEASING.md).
+
 **November 24, 2026 — Installed VGA compiler and Student Hub integration
 (EDU-01–08, EXP-01, UX-02).** On experimental base `a5364497`, source revision
 `53d7f3c9` rebuilt the pinned Verilator WebAssembly compiler and passed all 98

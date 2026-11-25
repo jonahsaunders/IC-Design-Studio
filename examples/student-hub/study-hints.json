@@ -803,6 +803,12 @@
     ["Which waveform gives the frequency?", "Measure the time between several like edges on out, average the periods, then take the reciprocal."],
     ["Where can I see the thresholds?", "Plot cap and trip around a transition. Their crossing shows where the comparator reverses the output drive."]
   ],
+  "project-pll/predict": [
+    ["What is the phase detector comparing?", "Compare the reference phase to the integrated VCO phase. The phase error drives the filter."],
+    ["How do I know the frequency has settled?", "Look for the last time the frequency leaves the allowed band around the reference."],
+    ["Can the locked loop have a phase offset?", "Yes. A constant phase error can supply the steady control voltage that shifts the VCO frequency."],
+    ["What does a drifting phase trace tell me?", "The slope of phase error is the difference between reference frequency and VCO frequency."]
+  ],
   "project-pga/predict": [
     ["Which resistor stays fixed?", "RFB connects the output to feedback. The selected return resistor completes the divider to ground."],
     ["How do I relate gain to the return resistor?", "Start with 1 + RFB/RG and check the result for each single enabled branch."],

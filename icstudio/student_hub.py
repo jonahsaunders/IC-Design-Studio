@@ -16,6 +16,7 @@ RULES = {'structure','nets','value','hierarchy','layout','saved','result','curre
 # retained on each newly awarded evidence record.
 CHECKER_REVISION = 1
 DIFFICULTIES = ('Easy', 'Medium', 'Hard')
+LESSON_XP = dict(zip(DIFFICULTIES, (100, 150, 200)))
 
 # Credit earned under the audited rubric remains historical evidence. New
 # runs are always checked against the current lesson.
@@ -158,7 +159,16 @@ def earned(state, lesson):
 
 
 def complete(state, lesson):
-    return all(s['id'] in earned(state,lesson) for s in lesson['steps'])
+    steps = earned(state, lesson)
+    return all(step['id'] in steps for step in lesson['steps'])
+
+
+def completion_xp(state, lessons):
+    awards = dict(state.get('xp_awards', {}))
+    for lesson in lessons:
+        if lesson['id'] not in awards and complete(state, lesson):
+            awards[lesson['id']] = LESSON_XP[lesson['difficulty']]
+    return awards
 
 
 def missing_prerequisites(state, lesson, data):
@@ -190,6 +200,9 @@ class Portfolio:
     def validate(state):
         if not isinstance(state,dict) or state.get('version')!=1 or not isinstance(state.get('workspaces'),dict) or not isinstance(state.get('lessons'),dict):
             raise ValueError('Cannot read student progress. Preserve progress.json and restore a valid learning record.')
+        awards = state.get('xp_awards', {})
+        if not isinstance(awards, dict) or any(type(xp) is not int or xp <= 0 for xp in awards.values()):
+            raise ValueError('Invalid saved lesson XP.')
         for record in state['workspaces'].values():
             if not isinstance(record,dict) or not isinstance(record.get('project_id'),str) or not isinstance(record.get('path'),str):
                 raise ValueError('Invalid saved lesson workspace.')
@@ -219,6 +232,11 @@ class Portfolio:
         state=clone(self.state);record=state['lessons'].setdefault(lesson['id'],{})
         record.setdefault('notes',{})[step['id']]=text;self.write(state)
 
+    def sync_xp(self, lessons):
+        awards = completion_xp(self.state, lessons)
+        if awards != self.state.get('xp_awards', {}):
+            self.write({**self.state, 'xp_awards': awards})
+
     def award(self, lesson, step, evidence, data):
         workspace=self.workspace(lesson)
         if not workspace or workspace['project_id']!=evidence.get('project_id'):
@@ -231,7 +249,12 @@ class Portfolio:
         if record.get('stamp')!=stamp:record['steps']=clone(earned(self.state,lesson))
         record['stamp']=stamp
         record['steps'][step['id']]=dict(kind=step['kind'],earned=now(),evidence=clone(evidence))
+        awards = state.setdefault('xp_awards', {})
+        gained = 0
+        if lesson['id'] not in awards and complete(state, lesson):
+            gained = awards[lesson['id']] = LESSON_XP[lesson['difficulty']]
         self.write(state)
+        return gained
 
     def export(self, destination, data):
         payload=dict(version=1,exported=now(),curriculum=digest(data),progress=clone(self.state),projects={})

@@ -286,11 +286,20 @@ class StudentHubMenuTests(unittest.TestCase):
         guide.answer.setCurrentIndex(guide.answer.findData(guide.active_step['answer']))
         guide.check_button.click()
         self.assertEqual(studio.settings.value('student/lastLesson'), 'a-lc-bode')
+        self.assertIn('Last earned:', hub.recap.text())
+        self.assertIn('Next:', hub.recap.text())
+        guide.guide_view.setCurrentIndex(1)
+        self.assertFalse(guide.lesson_tabs.isTabVisible(0))
+        self.assertIs(guide.lesson_tabs.currentWidget(), guide.instructions)
         studio.set_project(create('divider'))
         self.continue_learning(hub)
         self.assertEqual(studio.project['id'], project_id)
         self.assertEqual(guide.lesson['id'], 'a-lc-bode')
         self.assertEqual(guide.steps.currentIndex(), 1)
+        self.assertEqual(guide.guide_view.currentData(), 'compact')
+        self.assertTrue(guide.check_button.isEnabled())
+        guide.guide_view.setCurrentIndex(0)
+        self.assertTrue(guide.lesson_tabs.isTabVisible(0))
 
     def test_hints_reveal_per_question_in_preview_and_guide(self):
         from icstudio.model import digest

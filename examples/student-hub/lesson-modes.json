@@ -1113,6 +1113,16 @@
       ["Use Edit timing components. Increase the RC product to lower the frequency while retaining the Schmitt network.", "Run all three conditions. Check frequency spread relative to nominal, duty and first edge in Results."],
       "Use RT = 22k and CT = 10n. Frequencies are about 2174 Hz nominal, 2253 Hz cold/low rail and 2070 Hz hot/high rail."
     ],
+    "project-pll/baseline": [
+      "Measure the starter's overshoot and lock time after the 100 Hz reference step.",
+      ["Choose Run lock test with the original loop filter.", "Open Results and compare frequency to 1.1 kHz. Read overshoot and check for a reported lock time."],
+      "Use RFILT = 40k and CFILT = 100n. The output overshoots by about 44% and does not stay within 2 Hz by 15 ms."
+    ],
+    "project-pll/repair": [
+      "Tune the loop to lock within 6 ms with at most 10% overshoot and stable phase error in both step directions.",
+      ["Choose Tune the loop filter. Start by reducing the RFILT × CFILT product.", "Run both reference steps and check frequency, lock time and phase drift together in Results."],
+      "Set RFILT = 5k with CFILT = 100n. The 0.5 ms time constant gives a damping ratio near 0.71. Both cases should settle within 6 ms with about 4.3% overshoot."
+    ],
     "project-pga/baseline": [
       "Identify the original programmable gain errors using AC and switching results for each code.",
       ["Choose Measure PGA response. Read each steady AC gain and −3 dB bandwidth.", "Inspect gain-switching output plateaus and separate them from the AC measurements."],

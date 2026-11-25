@@ -407,6 +407,10 @@
     "exercise": "Change the timing capacitance and inspect four late cycles after the startup pulse.",
     "evidence": "Compare the period estimate with measured frequency, duty and startup delay."
   },
+  "project-pll": {
+    "exercise": "Try a smaller filter time constant near critical damping and compare both step directions.",
+    "evidence": "Report the filter values, measured overshoot, entry into the 2 Hz band and late phase drift for both directions."
+  },
   "project-pga": {
     "exercise": "Choose a second selector sequence in a copy of the switching fixture.",
     "evidence": "Report per-code gain and bandwidth and the worst transition. State the AC switch approximation."
