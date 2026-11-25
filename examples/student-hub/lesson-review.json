@@ -602,5 +602,37 @@
   "inverter-handoff": {
     "exercise": "Build a manifest for the final design and ask a peer to reproduce one test.",
     "evidence": "Tie bias, delay, DRC and LVS to exact revisions and named conditions and state one remaining test."
+  },
+  "device-output-resistance": {
+    "exercise": "Compare the low-VDS triode slope with the .8–1.2 V interval.",
+    "evidence": "Save both sweep points and report the bias and extracted resistance."
+  },
+  "device-body-effect": {
+    "exercise": "Try a smaller reverse bias and plot the extracted shift against VSB.",
+    "evidence": "Save both current sweeps and record the gate voltage at 10 µA."
+  },
+  "device-active-load": {
+    "exercise": "Try a different input bias and repeat the DC matching before comparing gain.",
+    "evidence": "Keep the matched DC voltages and AC gain comparison."
+  },
+  "device-transmission-gate": {
+    "exercise": "Try a different PMOS width and compare resistance near mid-rail and the high end.",
+    "evidence": "Save NMOS-only and transmission-gate resistance at 0.2, 0.9, and 1.6 V."
+  },
+  "device-noise-spectrum": {
+    "exercise": "Sketch what happens to the crossing when the flicker coefficient changes by a factor of four.",
+    "evidence": "Save the paired output noise spectra and the inferred flicker readings."
+  },
+  "device-bias-leakage": {
+    "exercise": "Compare 27 °C and 85 °C at both bias resistances and discuss loading of the reference.",
+    "evidence": "Save room and hot voltage and infer leakage from the resistor drop."
+  },
+  "device-common-mode-feedback": {
+    "exercise": "Try a smaller loop gain and record the change in correction and recovery.",
+    "evidence": "Save open-loop and closed-loop transients and report the output difference."
+  },
+  "device-switch-pedestal": {
+    "exercise": "Increase the hold capacitance again and predict the penalty for reacquisition time in a real sampling circuit.",
+    "evidence": "Keep the isolated and combined transient cases and compare the three held-voltage steps."
   }
 }

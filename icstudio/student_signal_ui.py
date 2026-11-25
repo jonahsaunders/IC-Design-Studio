@@ -4,6 +4,7 @@ from PySide6.QtWidgets import QComboBox, QDialog, QDialogButtonBox, QFormLayout,
 
 from . import student_signal_circuits as circuits
 from . import student_signal_labs as labs, student_circuit_challenges as challenges
+from .student_device_labs import CONTROLS as DEVICE_CONTROLS
 from .analog_widgets import fill, table
 from .model import design_digest, scalar
 from .plot import WavePlot
@@ -26,6 +27,7 @@ TUNING = {
     ('temperature', 'anchor'): ('Edit sensor divider', ('RFIX', 'value', 'RFIX resistance (Ω)')),
 }
 TUNING.update({(lab,'repair'): fields for lab,fields in challenges.CONTROLS.items()})
+TUNING.update({(lab,'repair'): fields for lab,fields in DEVICE_CONTROLS.items()})
 ACTIONS = {key: value[0] for key, value in TUNING.items()}
 ACTIONS['temperature', 'validate'] = 'Edit calibration registers'
 
@@ -139,6 +141,7 @@ class SignalResults(QDialog):
     def __init__(self, studio, row):
         super().__init__(studio)
         self.setWindowTitle('Signal experiment results')
+        self.run_path = str(row['path'])
         self.resize(910, 690)
         p, result = row['job']['project'], row['result']
         settings = row['job']['settings']
@@ -183,6 +186,8 @@ class SignalResults(QDialog):
         layout.addLayout(form)
         self.plot = WavePlot()
         self.plot.dark = studio.dark
+        if getattr(studio,'study_share_action',None) and studio.study_share_action.isChecked():
+            self.plot.share_text_scale=1.25
         self.plot.setAccessibleName('Plot for the selected test case and signal')
         layout.addWidget(self.plot, 3)
         buttons = QDialogButtonBox(QDialogButtonBox.StandardButton.Close)
@@ -213,6 +218,12 @@ class SignalResults(QDialog):
                 if preferred in signals:
                     self.trace.setCurrentIndex(signals.index(preferred))
                     break
+            current_name = {'output-resistance':'vdrain','body-effect':'vdrain','transmission-gate':'vtg'}.get(self.lab)
+            if wave['settings']['type']=='dc' and current_name:
+                current_keys=list(wave.get('currents',{}))
+                index=next((i for i,key in enumerate(current_keys) if key.casefold()==current_name),None)
+                if index is not None:
+                    self.trace.setCurrentIndex(len(signals)+index)
         self.trace.blockSignals(False)
         self.show_plot()
 

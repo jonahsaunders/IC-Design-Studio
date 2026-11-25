@@ -46,7 +46,10 @@ class EngineeringWorkspaceMixin:
         self.engineering_buttons(v,[('Edit requirements',self.toggle_spec_editor),('Evaluate selected run',self.evaluate_selected_specs),('Export results…',self.export_specs)])
         self.spec_note=QLabel('Run an analysis to evaluate saved requirements.');self.spec_note.setWordWrap(True);v.addWidget(self.spec_note)
         self.spec_results=self.simulation_table(['Requirement','Value','Unit','Margin','Result','Details']);v.addWidget(self.spec_results)
-        self.annotate_check=QCheckBox('Show operating-point values on schematic');self.annotate_check.toggled.connect(self.update_annotations);v.addWidget(self.annotate_check)
+        self.annotate_check=QCheckBox('Show operating-point values on schematic')
+        self.annotate_check.toggled.connect(self.toggle_device_annotations);v.addWidget(self.annotate_check)
+        self.annotate_check.setChecked(self.settings.value('view/deviceAnnotations',False,bool))
+        self.engineering_buttons(v,[('Choose device annotations…',self.annotation_preferences)])
         self.spec_tab=self.add_engineering_tab(page,'Specifications')
         page,v=self.engineering_page('Variation studies','Each case is a separate simulation job. Resume reuses completed snapshots and queues interrupted, cancelled or failed cases.')
         self.case_bench=QComboBox();self.case_bench.setAccessibleName('Study analysis source');v.addWidget(self.case_bench)
@@ -153,15 +156,59 @@ class EngineeringWorkspaceMixin:
         if row['job']['settings']['type']=='rc_compare' and page==getattr(self,'rc_tab',None):self.results_tabs.setCurrentIndex(page)
     def update_result_status(self):
         super().update_result_status()
+        self.update_annotations()
         from .model import design_digest
         r=self.result
         if r and r.get('case') and r['case'].get('base_design_hash')==design_digest(self.project):
             self.result_status.setText('Saved study case '+str(r['case']['index'])+' · '+r['engine']);self.result_status.setStyleSheet('color:#79a6e8;')
     def update_annotations(self,*_):
         if not hasattr(self,'annotate_check'):return
-        from .annotations import readouts
-        rows,label=readouts(self.project,self.cid,self.result) if self.annotate_check.isChecked() else ({},'')
+        from .annotations import DEFAULT_FIELDS,readouts
+        fields=self.settings.value('view/deviceFields',sorted(DEFAULT_FIELDS),list)
+        selection=self.selection if self.settings.value('view/deviceAnnotationsSelected',False,bool) else None
+        enabled=self.annotate_check.isChecked()
+        rows,label=readouts(self.project,self.cid,self.result,fields=fields,selection=selection) if enabled else ({},'')
         self.schematic.simulation_annotations=rows;self.schematic.simulation_annotation_label=label;self.schematic.update()
+
+    def toggle_device_annotations(self,enabled):
+        self.settings.setValue('view/deviceAnnotations',enabled)
+        self.update_annotations()
+
+    def select(self,*args,**kwargs):
+        super().select(*args,**kwargs)
+        if self.settings.value('view/deviceAnnotationsSelected',False,bool):
+            self.update_annotations()
+
+    def annotation_preferences(self):
+        from .annotations import DEFAULT_FIELDS,FIELDS
+        dialog=QDialog(self)
+        dialog.setWindowTitle('Schematic device annotations')
+        layout=QVBoxLayout(dialog)
+        intro=QLabel('Choose fields to show from the selected operating-point result. Availability depends on the device model and simulator.')
+        intro.setWordWrap(True)
+        layout.addWidget(intro)
+        show=QCheckBox('Show annotations on the schematic')
+        show.setChecked(self.annotate_check.isChecked())
+        layout.addWidget(show)
+        selected=QCheckBox('Only annotate selected devices')
+        selected.setChecked(self.settings.value('view/deviceAnnotationsSelected',False,bool))
+        layout.addWidget(selected)
+        current=self.settings.value('view/deviceFields',sorted(DEFAULT_FIELDS),list)
+        fields={}
+        for key,title in FIELDS.items():
+            check=QCheckBox(title)
+            check.setChecked(key in current)
+            fields[key]=check
+            layout.addWidget(check)
+        controls=QDialogButtonBox(QDialogButtonBox.Ok|QDialogButtonBox.Cancel)
+        layout.addWidget(controls)
+        controls.accepted.connect(dialog.accept)
+        controls.rejected.connect(dialog.reject)
+        if dialog.exec():
+            self.settings.setValue('view/deviceFields',[key for key,check in fields.items() if check.isChecked()])
+            self.settings.setValue('view/deviceAnnotationsSelected',selected.isChecked())
+            self.annotate_check.setChecked(show.isChecked())
+            self.update_annotations()
 
     def wavecalc_dialog(self):
         from .wavecalc import plot_result,parse

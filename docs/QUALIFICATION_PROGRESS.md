@@ -1,5 +1,22 @@
 # Chunks 1–12: progress and forecast
 
+**November 25, 2026 — Student Hub workspace and bias analysis labs
+(EDU-01–08, UX-02).** On draft base `764a462`, the Lesson Guide can bookmark
+an editor view, save and restore named versions, reset one starter parameter,
+and float to another display. The Hub includes independent blank practice
+and a screenshare layout. Studio can choose schematic device annotation
+fields, and eight labs add a DC-path and numerical-estimate warm-up.
+
+Linux with ngspice 46 exercised the eight labs through the saved-run grader.
+The worked examples measured about 363 kΩ output resistance and a 175 mV
+body-effect shift. The common-mode loop reduced 120 mV of error to about
+6 mV with the differential output preserved. The Qt offscreen probe exercised
+the workflow controls and a captured operating-region annotation. The
+requested implementation is estimated 100% complete for experimental
+engineering. Physical multi-monitor and packaged desktop acceptance are
+pending. The full release consistency check reports that `annotations.py`
+differs from its retained GF180 production evidence.
+
 **November 25, 2026 — Student Hub study tools and PLL lab (EDU-01–08,
 UX-02).** On experimental base `4af9802`, the Hub shows completion XP,
 15/30/60-minute plans, local setup readiness, a resume recap, and curriculum

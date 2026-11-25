@@ -128,6 +128,9 @@ class AppWorkspaces(QStackedWidget):
                 if isValid(panel):
                     panel.setVisible(visible)
             self.panels = []
+            if getattr(s,'study_share_action',None) and s.study_share_action.isChecked():
+                s.nav.hide()
+                s.inspector.hide()
             s.toolbar.setVisible(getattr(self, 'toolbar_visible', True))
             if getattr(self, 'project_id', None) == s.project['id']:
                 for dialog in self.dialogs:

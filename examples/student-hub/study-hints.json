@@ -868,5 +868,149 @@
     ["How should I describe a nominal pass?", "Name the simulated stimulus, supply, load, temperature and revision, then state the measured result."],
     ["What remains after DRC and LVS?", "Review corners, extraction, reliability and submission-specific checks for the intended use."],
     ["How can another student reproduce my result?", "Identify the saved design revision, models, settings and analysis commands that produced the report."]
+  ],
+  "device-output-resistance/predict": [
+    [
+      "What quantity should I hold fixed?",
+      "A 400 mV change that moves drain current by 1 µA gives 400 kΩ."
+    ],
+    [
+      "What changes in the circuit?",
+      "Extract the local slope of drain current and turn it into small-signal output resistance."
+    ],
+    [
+      "Which mechanism matters?",
+      "The inverse slope ΔVDS/ΔID describes the incremental resistance. VDS/ID is a different quantity."
+    ],
+    [
+      "What evidence should I keep?",
+      "Save both sweep points and report the bias and extracted resistance."
+    ]
+  ],
+  "device-body-effect/predict": [
+    [
+      "What quantity should I hold fixed?",
+      "A 10 µA constant-current criterion compares both curves without relying on the first visible current."
+    ],
+    [
+      "What changes in the circuit?",
+      "Sweep gate bias with the body tied to the source and with a reverse-biased body."
+    ],
+    [
+      "Which mechanism matters?",
+      "Increasing VSB increases the effective NMOS threshold in this teaching model."
+    ],
+    [
+      "What evidence should I keep?",
+      "Save both current sweeps and record the gate voltage at 10 µA."
+    ]
+  ],
+  "device-active-load/predict": [
+    [
+      "What quantity should I hold fixed?",
+      "At 60 µA, a 0.9 V drop suggests a resistor of about 15 kΩ."
+    ],
+    [
+      "What changes in the circuit?",
+      "Match the output DC bias of two common-source stages and compare their small-signal gain."
+    ],
+    [
+      "Which mechanism matters?",
+      "The diode-connected PMOS presents an incremental resistance near 1/gm, in parallel with its output resistance."
+    ],
+    [
+      "What evidence should I keep?",
+      "Keep the matched DC voltages and AC gain comparison."
+    ]
+  ],
+  "device-transmission-gate/predict": [
+    [
+      "What quantity should I hold fixed?",
+      "Measure test-source current at a 5 mV drop and calculate resistance as 5 mV divided by current."
+    ],
+    [
+      "What changes in the circuit?",
+      "Measure switch resistance over signal common mode with a 5 mV test drop."
+    ],
+    [
+      "Which mechanism matters?",
+      "The PMOS can conduct strongly at high common-mode voltage as the NMOS loses overdrive."
+    ],
+    [
+      "What evidence should I keep?",
+      "Save NMOS-only and transmission-gate resistance at 0.2, 0.9, and 1.6 V."
+    ]
+  ],
+  "device-noise-spectrum/predict": [
+    [
+      "What quantity should I hold fixed?",
+      "A 5 nV/√Hz total with a 3 nV/√Hz thermal floor implies 4 nV/√Hz of independent flicker noise."
+    ],
+    [
+      "What changes in the circuit?",
+      "Run matched MOS noise benches with flicker disabled and enabled. Compare amplitude spectral density and infer the flicker contribution."
+    ],
+    [
+      "Which mechanism matters?",
+      "Subtract the squared thermal density from the squared total density, then take the square root."
+    ],
+    [
+      "What evidence should I keep?",
+      "Save the paired output noise spectra and the inferred flicker readings."
+    ]
+  ],
+  "device-bias-leakage/predict": [
+    [
+      "What quantity should I hold fixed?",
+      "A leakage current of 100 nA through 100 kΩ causes about 10 mV of error."
+    ],
+    [
+      "What changes in the circuit?",
+      "A reverse-biased diode leaks into a high-impedance bias node. Compare room and hot operating points."
+    ],
+    [
+      "Which mechanism matters?",
+      "The same leakage current causes a smaller DC error through a lower resistance."
+    ],
+    [
+      "What evidence should I keep?",
+      "Save room and hot voltage and infer leakage from the resistor drop."
+    ]
+  ],
+  "device-common-mode-feedback/predict": [
+    [
+      "What quantity should I hold fixed?",
+      "With DC loop gain 19, a 120 mV common-mode disturbance leaves about 6 mV of error."
+    ],
+    [
+      "What changes in the circuit?",
+      "Sense the output average and correct it without disturbing the differential signal in a fully differential behavioral circuit."
+    ],
+    [
+      "Which mechanism matters?",
+      "Both outputs move together under a common-mode correction, so their difference is preserved in a symmetric plant."
+    ],
+    [
+      "What evidence should I keep?",
+      "Save open-loop and closed-loop transients and report the output difference."
+    ]
+  ],
+  "device-switch-pedestal/predict": [
+    [
+      "What quantity should I hold fixed?",
+      "A 20 fC packet deposited on 1 pF changes its voltage by 20 mV."
+    ],
+    [
+      "What changes in the circuit?",
+      "Measure the two sources of held-voltage error separately and then with both present."
+    ],
+    [
+      "Which mechanism matters?",
+      "Clock feedthrough comes from capacitive coupling. The separate packet models channel charge delivered to the held node."
+    ],
+    [
+      "What evidence should I keep?",
+      "Keep the isolated and combined transient cases and compare the three held-voltage steps."
+    ]
   ]
 }

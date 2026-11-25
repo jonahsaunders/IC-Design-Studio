@@ -53,6 +53,39 @@ class StudentSignalLabsTests(unittest.TestCase):
             self.part(p, name)['value'] = value
 
     @unittest.skipUnless(Path(EXE).is_file(), 'Set ICSTUDIO_TEST_NGSPICE to the native ngspice executable')
+    def test_device_experiments_measure_starters_and_worked_solutions(self):
+        edits = {
+            'output-resistance': ('VGATE','value','.8'),
+            'body-effect': ('VSB','value','.8'),
+            'active-load': ('RLOAD','value','15k'),
+            'transmission-gate': ('MP','native_spice.parameters.w','25u'),
+            'bias-leakage': ('RBIAS','value','100k'),
+            'common-mode-feedback': ('VGAIN','value','19'),
+            'switch-pedestal': ('CHOLD','value','3p'),
+        }
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp)
+            for lab,(name,key,value) in edits.items():
+                with self.subTest(lab=lab):
+                    p=self.open(lab)
+                    self.measure(p,lab,'baseline',self.execute(p,lab,'baseline',root))
+                    missed=self.execute(p,lab,'repair',root)
+                    with self.assertRaisesRegex(ValueError,'misses the design targets'):
+                        self.measure(p,lab,'repair',missed)
+                    part=self.part(p,name)
+                    *parents,field=key.split('.')
+                    for parent in parents:
+                        part=part[parent]
+                    part[field]=value
+                    with self.assertRaisesRegex(ValueError,'latest edits'):
+                        self.measure(p,lab,'repair',missed)
+                    self.measure(p,lab,'repair',self.execute(p,lab,'repair',root))
+            p=self.open('noise-spectrum')
+            measured=self.measure(p,'noise-spectrum','measure',self.execute(p,'noise-spectrum','measure',root))
+            self.assertGreater(measured['100 Hz']['Inferred flicker density (nV/√Hz)'],1000)
+            self.assertLess(measured['1e+06 Hz']['Inferred flicker density (nV/√Hz)'],25)
+
+    @unittest.skipUnless(Path(EXE).is_file(), 'Set ICSTUDIO_TEST_NGSPICE to the native ngspice executable')
     def test_pll_baseline_fails_tuning_and_both_repaired_steps_lock(self):
         p = self.open('pll')
         with tempfile.TemporaryDirectory() as tmp:

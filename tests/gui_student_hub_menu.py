@@ -276,6 +276,8 @@ class StudentHubMenuTests(unittest.TestCase):
         self.assertTrue(hub.trail.rows['f-connect'].isChecked())
 
     def test_continue_learning_reopens_the_last_unfinished_lesson(self):
+        from PySide6.QtCore import QPointF
+        from icstudio.student_workspace import bookmark
         from icstudio.student_projects import create
 
         hub, studio = self.hub, self.studio
@@ -291,11 +293,23 @@ class StudentHubMenuTests(unittest.TestCase):
         guide.guide_view.setCurrentIndex(1)
         self.assertFalse(guide.lesson_tabs.isTabVisible(0))
         self.assertIs(guide.lesson_tabs.currentWidget(), guide.instructions)
+        guide.steps.setCurrentIndex(1)
+        studio.schematic.scale=.75
+        studio.schematic.offset=QPointF(240,135)
+        bookmark(guide)
+        guide.unlock_action.setChecked(True)
+        guide.float_action.trigger()
+        self.assertTrue(guide.isFloating())
+        guide.float_action.trigger()
+        self.assertFalse(guide.isFloating())
         studio.set_project(create('divider'))
         self.continue_learning(hub)
         self.assertEqual(studio.project['id'], project_id)
         self.assertEqual(guide.lesson['id'], 'a-lc-bode')
         self.assertEqual(guide.steps.currentIndex(), 1)
+        QTest.qWait(100)
+        self.assertEqual(studio.schematic.offset,QPointF(240,135))
+        self.assertEqual(studio.schematic.scale,.75)
         self.assertEqual(guide.guide_view.currentData(), 'compact')
         self.assertTrue(guide.check_button.isEnabled())
         guide.guide_view.setCurrentIndex(0)

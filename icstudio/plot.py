@@ -57,12 +57,13 @@ class WavePlot(QWidget):
         frac=(math.log10(max(x,1e-99))-math.log10(x0))/(math.log10(x1)-math.log10(x0)) if log else (x-x0)/(x1-x0)
         return QPointF(self.box.left()+frac*self.box.width(),self.box.bottom()-(y-y0)/(y1-y0)*self.box.height())
     def paintEvent(self,e):
-        p=QPainter(self);p.setRenderHint(QPainter.Antialiasing);p.fillRect(self.rect(),QColor(palette(self.dark)['canvas'] if self.dark else '#ffffff'));fg=palette(self.dark)['muted'];p.setPen(QColor(fg));p.setFont(QFont('Sans Serif',9))
+        scale=getattr(self,'share_text_scale',1)
+        p=QPainter(self);p.setRenderHint(QPainter.Antialiasing);p.fillRect(self.rect(),QColor(palette(self.dark)['canvas'] if self.dark else '#ffffff'));fg=palette(self.dark)['muted'];p.setPen(QColor(fg));p.setFont(QFont('Sans Serif',round(9*scale)))
         if not self.result or not self.result['x']:p.drawText(self.rect(),Qt.AlignCenter,self.empty_message);return
-        self.box=QRectF(48,20,max(10,self.width()-66),max(10,self.height()-58));x0,x1,y0,y1=self.bounds();log=analysis_kind(self.result) in ('ac','noise')
+        self.box=QRectF(48*scale,20*scale,max(10,self.width()-66*scale),max(10,self.height()-58*scale));x0,x1,y0,y1=self.bounds();log=analysis_kind(self.result) in ('ac','noise')
         yscale,yprefix=unit_scale(max(abs(y0),abs(y1)));xscale,xprefix=unit_scale(x1) if analysis_kind(self.result)=='tran' else (1,'')
         for i in range(6):
-            y=self.box.top()+i*self.box.height()/5;p.setPen(QColor('#26313e' if self.dark else '#e8edf2'));p.drawLine(QPointF(self.box.left(),y),QPointF(self.box.right(),y));p.setPen(QColor(fg));p.drawText(QRectF(0,y-8,40,18),Qt.AlignRight|Qt.AlignVCenter,f'{(y1-i*(y1-y0)/5)/yscale:.3g}')
+            y=self.box.top()+i*self.box.height()/5;p.setPen(QColor('#26313e' if self.dark else '#e8edf2'));p.drawLine(QPointF(self.box.left(),y),QPointF(self.box.right(),y));p.setPen(QColor(fg));p.drawText(QRectF(0,y-8*scale,40*scale,18*scale),Qt.AlignRight|Qt.AlignVCenter,f'{(y1-i*(y1-y0)/5)/yscale:.3g}')
         decades=[value for value in self.result.get('frequency_ticks',()) if x0<=value<=x1] if log else []
         ticks=decades if len(decades)>=2 else [x0*(x1/x0)**(i/5) if log else x0+(x1-x0)*i/5 for i in range(6)]
         for value in ticks:
@@ -70,14 +71,14 @@ class WavePlot(QWidget):
             if len(decades)>=2:
                 p.setPen(QColor('#26313e' if self.dark else '#e8edf2'))
                 p.drawLine(QPointF(x,self.box.top()),QPointF(x,self.box.bottom()))
-            p.setPen(QColor(fg));p.drawText(QRectF(x-30,self.box.bottom()+8,60,18),Qt.AlignCenter,engineering(value) if log else f'{value/xscale:.3g}')
+            p.setPen(QColor(fg));p.drawText(QRectF(x-30*scale,self.box.bottom()+8*scale,60*scale,18*scale),Qt.AlignCenter,engineering(value) if log else f'{value/xscale:.3g}')
         reference=self.result.get('y_reference')
         if reference is not None and y0<=reference<=y1:
             y=self.screen(x0,reference).y()
             p.setPen(QPen(QColor(fg),1,Qt.DashLine))
             p.drawLine(QPointF(self.box.left(),y),QPointF(self.box.right(),y))
         p.setPen(QColor(fg))
-        p.drawText(QRectF(self.box.left(),self.height()-18,self.box.width(),17),Qt.AlignCenter,('Time ('+xprefix+'s)') if analysis_kind(self.result)=='tran' else self.result['x_label']);p.drawText(QPointF(7,12),yprefix+self.result.get('plot_unit',('V/√Hz' if analysis_kind(self.result)=='noise' else 'Hz' if self.result['settings'].get('study',{}).get('measurement',{}).get('metric')=='peak_x' else 'V')))
+        p.drawText(QRectF(self.box.left(),self.height()-18*scale,self.box.width(),17*scale),Qt.AlignCenter,('Time ('+xprefix+'s)') if analysis_kind(self.result)=='tran' else self.result['x_label']);p.drawText(QPointF(7,12*scale),yprefix+self.result.get('plot_unit',('V/√Hz' if analysis_kind(self.result)=='noise' else 'Hz' if self.result['settings'].get('study',{}).get('measurement',{}).get('metric')=='peak_x' else 'V')))
         p.save();p.setClipRect(self.box)
         for nindex,name in enumerate(self.names):
             for series,(result,is_old) in enumerate([(self.result,False)]+[(r,False) for r in getattr(self,'overlays',[])]+[(self.compare,True)]):

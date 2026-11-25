@@ -1,5 +1,140 @@
 {
   "tasks": {
+    "device-output-resistance/baseline": [
+      "Run the starter with its original values and open Results. Extract the local slope of drain current and turn it into small-signal output resistance.",
+      [
+        "Identify the two conditions or the measurement window before running.",
+        "Run the experiment, then open Results to compare the measured values.",
+        "Save the unchecked starter comparison as your baseline."
+      ],
+      "Use the supplied starter values and record the numbers in Results."
+    ],
+    "device-output-resistance/repair": [
+      "Tune VGATE and extract 300–500 kΩ using the measured slope from 0.8 to 1.2 V. Keep the current at 0.8 V between 15 and 100 µA.",
+      [
+        "Identify the two conditions or the measurement window before running.",
+        "Run the experiment, then open Results to compare the measured values.",
+        "Check the captured result once the target is met."
+      ],
+      "Use VGATE = 0.8 V. The Level-1 teaching model gives roughly 360 kΩ."
+    ],
+    "device-body-effect/baseline": [
+      "Run the starter with its original values and open Results. Sweep gate bias with the body tied to the source and with a reverse-biased body.",
+      [
+        "Identify the two conditions or the measurement window before running.",
+        "Run the experiment, then open Results to compare the measured values.",
+        "Save the unchecked starter comparison as your baseline."
+      ],
+      "Use the supplied starter values and record the numbers in Results."
+    ],
+    "device-body-effect/repair": [
+      "Set VSB to produce a 130–230 mV positive shift in gate voltage at the 10 µA criterion.",
+      [
+        "Identify the two conditions or the measurement window before running.",
+        "Run the experiment, then open Results to compare the measured values.",
+        "Check the captured result once the target is met."
+      ],
+      "Use VSB = 0.8 V. Compare the two curves at the same current."
+    ],
+    "device-active-load/baseline": [
+      "Run the starter with its original values and open Results. Match the output DC bias of two common-source stages and compare their small-signal gain.",
+      [
+        "Identify the two conditions or the measurement window before running.",
+        "Run the experiment, then open Results to compare the measured values.",
+        "Save the unchecked starter comparison as your baseline."
+      ],
+      "Use the supplied starter values and record the numbers in Results."
+    ],
+    "device-active-load/repair": [
+      "Adjust RLOAD to bring the output biases within 120 mV. Show that the resistive stage has more than twice the gain at 100 Hz.",
+      [
+        "Identify the two conditions or the measurement window before running.",
+        "Run the experiment, then open Results to compare the measured values.",
+        "Check the captured result once the target is met."
+      ],
+      "Try RLOAD = 15 kΩ and inspect the DC and AC cases."
+    ],
+    "device-transmission-gate/baseline": [
+      "Run the starter with its original values and open Results. Measure switch resistance over signal common mode with a 5 mV test drop.",
+      [
+        "Identify the two conditions or the measurement window before running.",
+        "Run the experiment, then open Results to compare the measured values.",
+        "Save the unchecked starter comparison as your baseline."
+      ],
+      "Use the supplied starter values and record the numbers in Results."
+    ],
+    "device-transmission-gate/repair": [
+      "Size MP to keep transmission-gate resistance below 1.9 kΩ at the three test voltages with a max/min ratio at most 2.6.",
+      [
+        "Identify the two conditions or the measurement window before running.",
+        "Run the experiment, then open Results to compare the measured values.",
+        "Check the captured result once the target is met."
+      ],
+      "Try MP = 25 µm. Use the NMOS-only branch as the reference."
+    ],
+    "device-noise-spectrum/measure": [
+      "Measure the thermal and total spectra. Verify that inferred flicker density dominates at 100 Hz and falls below thermal at 1 MHz.",
+      [
+        "Identify the two conditions or the measurement window before running.",
+        "Run the experiment, then open Results to compare the measured values.",
+        "Check the captured result once the target is met."
+      ],
+      "Use the two supplied benches. Plot the thermal floor and the low-frequency rise. Compare squared densities."
+    ],
+    "device-bias-leakage/baseline": [
+      "Run the starter with its original values and open Results. A reverse-biased diode leaks into a high-impedance bias node. Compare room and hot operating points.",
+      [
+        "Identify the two conditions or the measurement window before running.",
+        "Run the experiment, then open Results to compare the measured values.",
+        "Save the unchecked starter comparison as your baseline."
+      ],
+      "Use the supplied starter values and record the numbers in Results."
+    ],
+    "device-bias-leakage/repair": [
+      "Keep the 85 °C bias within 50 mV of 1.2 V and verify the leakage rises by more than 10× relative to room temperature.",
+      [
+        "Identify the two conditions or the measurement window before running.",
+        "Run the experiment, then open Results to compare the measured values.",
+        "Check the captured result once the target is met."
+      ],
+      "Start with RBIAS = 100 kΩ and compare the two operating points."
+    ],
+    "device-common-mode-feedback/baseline": [
+      "Run the starter with its original values and open Results. Sense the output average and correct it without disturbing the differential signal in a fully differential behavioral circuit.",
+      [
+        "Identify the two conditions or the measurement window before running.",
+        "Run the experiment, then open Results to compare the measured values.",
+        "Save the unchecked starter comparison as your baseline."
+      ],
+      "Use the supplied starter values and record the numbers in Results."
+    ],
+    "device-common-mode-feedback/repair": [
+      "Tune gain and compensation. Limit common-mode error to 10 mV at 18 µs, recover to within 2 mV of the final level in 2 µs, and keep differential output at 200 mV ± 1 mV.",
+      [
+        "Identify the two conditions or the measurement window before running.",
+        "Run the experiment, then open Results to compare the measured values.",
+        "Check the captured result once the target is met."
+      ],
+      "Use loop gain 19 and CFILT = 200 pF. Compare an open-loop 120 mV error with roughly 6 mV closed-loop."
+    ],
+    "device-switch-pedestal/baseline": [
+      "Run the starter with its original values and open Results. Measure the two sources of held-voltage error separately and then with both present.",
+      [
+        "Identify the two conditions or the measurement window before running.",
+        "Run the experiment, then open Results to compare the measured values.",
+        "Save the unchecked starter comparison as your baseline."
+      ],
+      "Use the supplied starter values and record the numbers in Results."
+    ],
+    "device-switch-pedestal/repair": [
+      "Size CHOLD so the combined held step is at most 35 mV. Keep both isolated errors visible and close the sum within 10 mV.",
+      [
+        "Identify the two conditions or the measurement window before running.",
+        "Run the experiment, then open Results to compare the measured values.",
+        "Check the captured result once the target is met."
+      ],
+      "Try CHOLD = 3 pF. The supplied circuit uses an ideal switch with explicit overlap capacitance and a modeled charge packet."
+    ],
     "d-spi-register/build": [
       "Identify which signals sample, shift and commit the transaction.",
       [

@@ -695,6 +695,9 @@ class Studio(DigitalMixin,LiveCollaborationMixin,CollaborationMixin,Interoperabi
             except Exception as exc:
                 self.error('The lesson reflection could not be saved. Keep this window open and retry.\n'+str(exc))
                 event.ignore();return
+            hub.guide.save_guide_position()
+        if getattr(self,'study_share_action',None) and self.study_share_action.isChecked():
+            self.study_share_action.setChecked(False)
         tabs=getattr(self,'app_workspaces',None)
         was_hub=tabs is not None and tabs.currentIndex()==1
         # Persist the design's panel arrangement, not the temporary empty

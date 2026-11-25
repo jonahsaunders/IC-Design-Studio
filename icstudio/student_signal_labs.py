@@ -9,6 +9,7 @@ from pathlib import Path
 import statistics
 
 from . import student_signal_circuits as circuits, student_circuit_challenges as challenges
+from . import student_device_labs as device_labs
 from .model import atomic_write, clone, design_digest, device, file_digest
 
 STARTER = 'signal-study-'
@@ -19,8 +20,9 @@ SUPPLY_TRIALS = ('1.6', '1.8', '2.0')
 
 def course():
     from .getting_started import resource_root
-    path = resource_root() / 'examples/student-hub/signal-course.json'
-    return json.loads(path.read_text(encoding='utf-8'))
+    root = resource_root() / 'examples/student-hub'
+    return [unit for filename in ('signal-course.json','device-course.json')
+            for unit in json.loads((root/filename).read_text(encoding='utf-8'))]
 
 
 def lessons(source):
@@ -126,6 +128,8 @@ def cases(p, lab, step):
     analysis = circuits.ANALYSIS[lab]
     if lab in challenges.ANALYSIS:
         return challenges.cases(p,lab,analysis,_case)
+    if lab in device_labs.ANALYSIS:
+        return device_labs.cases(p, lab, analysis, _case)
     if lab == 'rejection':
         return _rejection_cases(p, analysis)
     if lab == 'load':
@@ -401,6 +405,8 @@ READOUTS = {'linearity': _linearity, 'rejection': _rejection, 'load': _load, 'ad
 
 
 def readout(p,lab,waves,step):
+    if lab in device_labs.ANALYSIS:
+        return device_labs.measurements(p, lab, waves)
     if lab in challenges.ANALYSIS:
         return challenges.measurements(p,lab,waves)
     return READOUTS[lab](p,waves,step)
@@ -489,6 +495,7 @@ def _circuit_signature(p, lab):
 
 
 TUNABLE.update(challenges.TUNABLE)
+TUNABLE.update(device_labs.TUNABLE)
 
 
 @lru_cache(maxsize=len(TUNABLE))
@@ -517,6 +524,10 @@ def _meets_pga(rows):
 
 
 def assess(lab, step, measured):
+    if lab in device_labs.ANALYSIS:
+        if step != 'baseline':
+            device_labs.assess(lab, measured)
+        return
     def require(condition, message):
         if not condition:
             raise ValueError(message + ' Open Results to inspect this run.')

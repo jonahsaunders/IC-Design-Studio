@@ -8,6 +8,7 @@
     "sc-inv", "sc-inv-compact", "sc-abutment", "sc-nor-rise", "inverter-process", "inverter-schematic"
   ],
   "Medium": [
+    "device-output-resistance", "device-body-effect", "device-active-load", "device-transmission-gate", "device-noise-spectrum", "device-bias-leakage", "device-common-mode-feedback", "device-switch-pedestal",
     "f-open-drain", "a-weak-sensor", "project-window-detector", "l-mim-plate", "l-decoupling", "d-spi-register", "tb-balanced-stimulus", "sc-schmitt",
     "f-portfolio", "a-bias", "a-differential", "a-amplifier", "a-layout",
     "a-gmid-bias", "a-gmid-size", "a-gmid-headroom", "a-lc-bode", "a-degeneration",

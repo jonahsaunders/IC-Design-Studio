@@ -1,0 +1,373 @@
+[
+  {
+    "id": "device-output-resistance",
+    "path": "analog",
+    "topic": "Channel-length modulation",
+    "lab": "output-resistance",
+    "title": "Extract MOSFET output resistance from a DC sweep",
+    "summary": "Extract the local slope of drain current and turn it into small-signal output resistance.",
+    "skills": [
+      "Channel-length modulation",
+      "bias analysis",
+      "ngspice"
+    ],
+    "minutes": 30,
+    "requires": [
+      "a-gmid-bias"
+    ],
+    "quiz": {
+      "instructions": "Why should you use a narrow drain-voltage interval in saturation?",
+      "options": [
+        "A local slope describes small-signal resistance at this bias",
+        "A sweep endpoint always equals threshold",
+        "Output resistance is the DC ratio VDS/ID"
+      ],
+      "answer": 0,
+      "explanation": "The inverse slope ΔVDS/ΔID describes the incremental resistance. VDS/ID is a different quantity."
+    },
+    "tasks": [
+      {
+        "id": "baseline",
+        "title": "Measure the starter",
+        "instructions": "Run the starter with its original values and open Results. Extract the local slope of drain current and turn it into small-signal output resistance."
+      },
+      {
+        "id": "repair",
+        "title": "Verify the comparison",
+        "instructions": "Tune VGATE and extract 300–500 kΩ using the measured slope from 0.8 to 1.2 V. Keep the current at 0.8 V between 15 and 100 µA."
+      }
+    ],
+    "reflection": "Compare your hand estimate with the captured measurements. Explain the difference or the model assumption that matters most.",
+    "teaching": {
+      "concept": "The inverse slope ΔVDS/ΔID describes the incremental resistance. VDS/ID is a different quantity.",
+      "worked_example": "A 400 mV change that moves drain current by 1 µA gives 400 kΩ.",
+      "try_next": "Compare the low-VDS triode slope with the .8–1.2 V interval.",
+      "interview": "At fixed VGS, what makes the saturation trace slope upward?",
+      "artifact": "Save both sweep points and report the bias and extracted resistance."
+    }
+  },
+  {
+    "id": "device-body-effect",
+    "path": "analog",
+    "topic": "Four-terminal MOS devices",
+    "lab": "body-effect",
+    "title": "Make body effect visible",
+    "summary": "Sweep gate bias with the body tied to the source and with a reverse-biased body.",
+    "skills": [
+      "Four-terminal MOS devices",
+      "bias analysis",
+      "ngspice"
+    ],
+    "minutes": 30,
+    "requires": [
+      "a-gmid-bias"
+    ],
+    "quiz": {
+      "instructions": "How does increased reverse body bias shift the NMOS gate voltage required for the same drain current?",
+      "options": [
+        "It raises the required gate voltage",
+        "It lowers the required gate voltage",
+        "It makes gate voltage irrelevant"
+      ],
+      "answer": 0,
+      "explanation": "Increasing VSB increases the effective NMOS threshold in this teaching model."
+    },
+    "tasks": [
+      {
+        "id": "baseline",
+        "title": "Measure the starter",
+        "instructions": "Run the starter with its original values and open Results. Sweep gate bias with the body tied to the source and with a reverse-biased body."
+      },
+      {
+        "id": "repair",
+        "title": "Verify the comparison",
+        "instructions": "Set VSB to produce a 130–230 mV positive shift in gate voltage at the 10 µA criterion."
+      }
+    ],
+    "reflection": "Compare your hand estimate with the captured measurements. Explain the difference or the model assumption that matters most.",
+    "teaching": {
+      "concept": "Increasing VSB increases the effective NMOS threshold in this teaching model.",
+      "worked_example": "A 10 µA constant-current criterion compares both curves without relying on the first visible current.",
+      "try_next": "Try a smaller reverse bias and plot the extracted shift against VSB.",
+      "interview": "Why does tying body to source at the symbol change the measured threshold?",
+      "artifact": "Save both current sweeps and record the gate voltage at 10 µA."
+    }
+  },
+  {
+    "id": "device-active-load",
+    "path": "analog",
+    "topic": "Common-source loads",
+    "lab": "active-load",
+    "title": "Compare MOSFET and resistor loads",
+    "summary": "Match the output DC bias of two common-source stages and compare their small-signal gain.",
+    "skills": [
+      "Common-source loads",
+      "bias analysis",
+      "ngspice"
+    ],
+    "minutes": 30,
+    "requires": [
+      "a-amplifier"
+    ],
+    "quiz": {
+      "instructions": "At the same bias, which load typically has a lower incremental resistance here?",
+      "options": [
+        "The diode-connected PMOS",
+        "The open input terminal",
+        "The resistor in every circuit"
+      ],
+      "answer": 0,
+      "explanation": "The diode-connected PMOS presents an incremental resistance near 1/gm, in parallel with its output resistance."
+    },
+    "tasks": [
+      {
+        "id": "baseline",
+        "title": "Measure the starter",
+        "instructions": "Run the starter with its original values and open Results. Match the output DC bias of two common-source stages and compare their small-signal gain."
+      },
+      {
+        "id": "repair",
+        "title": "Verify the comparison",
+        "instructions": "Adjust RLOAD to bring the output biases within 120 mV. Show that the resistive stage has more than twice the gain at 100 Hz."
+      }
+    ],
+    "reflection": "Compare your hand estimate with the captured measurements. Explain the difference or the model assumption that matters most.",
+    "teaching": {
+      "concept": "The diode-connected PMOS presents an incremental resistance near 1/gm, in parallel with its output resistance.",
+      "worked_example": "At 60 µA, a 0.9 V drop suggests a resistor of about 15 kΩ.",
+      "try_next": "Try a different input bias and repeat the DC matching before comparing gain.",
+      "interview": "Why does a diode-connected transistor behave differently from an ideal current-source load?",
+      "artifact": "Keep the matched DC voltages and AC gain comparison."
+    }
+  },
+  {
+    "id": "device-transmission-gate",
+    "path": "analog",
+    "topic": "Analog switches",
+    "lab": "transmission-gate",
+    "title": "Measure a complementary transmission gate",
+    "summary": "Measure switch resistance over signal common mode with a 5 mV test drop.",
+    "skills": [
+      "Analog switches",
+      "bias analysis",
+      "ngspice"
+    ],
+    "minutes": 30,
+    "requires": [
+      "a-switch-drive"
+    ],
+    "quiz": {
+      "instructions": "Which transistor helps an NMOS switch pass a high signal level?",
+      "options": [
+        "A parallel PMOS driven by the complementary control",
+        "A series NMOS with the same drive",
+        "A diode connected across the gate"
+      ],
+      "answer": 0,
+      "explanation": "The PMOS can conduct strongly at high common-mode voltage as the NMOS loses overdrive."
+    },
+    "tasks": [
+      {
+        "id": "baseline",
+        "title": "Measure the starter",
+        "instructions": "Run the starter with its original values and open Results. Measure switch resistance over signal common mode with a 5 mV test drop."
+      },
+      {
+        "id": "repair",
+        "title": "Verify the comparison",
+        "instructions": "Size MP to keep transmission-gate resistance below 1.9 kΩ at the three test voltages with a max/min ratio at most 2.6."
+      }
+    ],
+    "reflection": "Compare your hand estimate with the captured measurements. Explain the difference or the model assumption that matters most.",
+    "teaching": {
+      "concept": "The PMOS can conduct strongly at high common-mode voltage as the NMOS loses overdrive.",
+      "worked_example": "Measure test-source current at a 5 mV drop and calculate resistance as 5 mV divided by current.",
+      "try_next": "Try a different PMOS width and compare resistance near mid-rail and the high end.",
+      "interview": "Why does a wider PMOS help one part of the curve and change the middle as well?",
+      "artifact": "Save NMOS-only and transmission-gate resistance at 0.2, 0.9, and 1.6 V."
+    }
+  },
+  {
+    "id": "device-noise-spectrum",
+    "path": "analog",
+    "topic": "MOS noise",
+    "lab": "noise-spectrum",
+    "title": "Compare thermal and flicker noise",
+    "summary": "Run matched MOS noise benches with flicker disabled and enabled. Compare amplitude spectral density and infer the flicker contribution.",
+    "skills": [
+      "MOS noise",
+      "bias analysis",
+      "ngspice"
+    ],
+    "minutes": 30,
+    "requires": [
+      "a-bandwidth"
+    ],
+    "quiz": {
+      "instructions": "How do independent thermal and flicker contributions add?",
+      "options": [
+        "Their power spectral densities add",
+        "Their amplitude densities always add directly",
+        "Their corner frequencies add"
+      ],
+      "answer": 0,
+      "explanation": "Subtract the squared thermal density from the squared total density, then take the square root."
+    },
+    "tasks": [
+      {
+        "id": "measure",
+        "title": "Verify the comparison",
+        "instructions": "Measure the thermal and total spectra. Verify that inferred flicker density dominates at 100 Hz and falls below thermal at 1 MHz."
+      }
+    ],
+    "reflection": "Compare your hand estimate with the captured measurements. Explain the difference or the model assumption that matters most.",
+    "teaching": {
+      "concept": "Subtract the squared thermal density from the squared total density, then take the square root.",
+      "worked_example": "A 5 nV/√Hz total with a 3 nV/√Hz thermal floor implies 4 nV/√Hz of independent flicker noise.",
+      "try_next": "Sketch what happens to the crossing when the flicker coefficient changes by a factor of four.",
+      "interview": "How does selecting a lower measurement band change which noise source dominates?",
+      "artifact": "Save the paired output noise spectra and the inferred flicker readings."
+    }
+  },
+  {
+    "id": "device-bias-leakage",
+    "path": "analog",
+    "topic": "Temperature and bias",
+    "lab": "bias-leakage",
+    "title": "Explore leakage in a bias network",
+    "summary": "A reverse-biased diode leaks into a high-impedance bias node. Compare room and hot operating points.",
+    "skills": [
+      "Temperature and bias",
+      "bias analysis",
+      "ngspice"
+    ],
+    "minutes": 30,
+    "requires": [
+      "a-load"
+    ],
+    "quiz": {
+      "instructions": "For fixed leakage current, what reduces the bias error?",
+      "options": [
+        "Lowering the bias resistance",
+        "Raising the bias resistance",
+        "Changing the voltage probe label"
+      ],
+      "answer": 0,
+      "explanation": "The same leakage current causes a smaller DC error through a lower resistance."
+    },
+    "tasks": [
+      {
+        "id": "baseline",
+        "title": "Measure the starter",
+        "instructions": "Run the starter with its original values and open Results. A reverse-biased diode leaks into a high-impedance bias node. Compare room and hot operating points."
+      },
+      {
+        "id": "repair",
+        "title": "Verify the comparison",
+        "instructions": "Keep the 85 °C bias within 50 mV of 1.2 V and verify the leakage rises by more than 10× relative to room temperature."
+      }
+    ],
+    "reflection": "Compare your hand estimate with the captured measurements. Explain the difference or the model assumption that matters most.",
+    "teaching": {
+      "concept": "The same leakage current causes a smaller DC error through a lower resistance.",
+      "worked_example": "A leakage current of 100 nA through 100 kΩ causes about 10 mV of error.",
+      "try_next": "Compare 27 °C and 85 °C at both bias resistances and discuss loading of the reference.",
+      "interview": "Why can a circuit work at room temperature even if its bias network is weak?",
+      "artifact": "Save room and hot voltage and infer leakage from the resistor drop."
+    }
+  },
+  {
+    "id": "device-common-mode-feedback",
+    "path": "analog-projects",
+    "topic": "Common-mode control",
+    "lab": "common-mode-feedback",
+    "title": "Design a common-mode feedback loop",
+    "summary": "Sense the output average and correct it without disturbing the differential signal in a fully differential behavioral circuit.",
+    "skills": [
+      "Common-mode control",
+      "bias analysis",
+      "ngspice"
+    ],
+    "minutes": 30,
+    "requires": [
+      "a-rejection"
+    ],
+    "quiz": {
+      "instructions": "Which signal should the common-mode loop correct?",
+      "options": [
+        "The average of the two output voltages",
+        "The difference between the output voltages",
+        "The input sine-wave frequency"
+      ],
+      "answer": 0,
+      "explanation": "Both outputs move together under a common-mode correction, so their difference is preserved in a symmetric plant."
+    },
+    "tasks": [
+      {
+        "id": "baseline",
+        "title": "Measure the starter",
+        "instructions": "Run the starter with its original values and open Results. Sense the output average and correct it without disturbing the differential signal in a fully differential behavioral circuit."
+      },
+      {
+        "id": "repair",
+        "title": "Verify the comparison",
+        "instructions": "Tune gain and compensation. Limit common-mode error to 10 mV at 18 µs, recover to within 2 mV of the final level in 2 µs, and keep differential output at 200 mV ± 1 mV."
+      }
+    ],
+    "reflection": "Compare your hand estimate with the captured measurements. Explain the difference or the model assumption that matters most.",
+    "teaching": {
+      "concept": "Both outputs move together under a common-mode correction, so their difference is preserved in a symmetric plant.",
+      "worked_example": "With DC loop gain 19, a 120 mV common-mode disturbance leaves about 6 mV of error.",
+      "try_next": "Try a smaller loop gain and record the change in correction and recovery.",
+      "interview": "How would asymmetry cause the common-mode correction to affect differential output?",
+      "artifact": "Save open-loop and closed-loop transients and report the output difference."
+    }
+  },
+  {
+    "id": "device-switch-pedestal",
+    "path": "analog-projects",
+    "topic": "Sampling errors",
+    "lab": "switch-pedestal",
+    "title": "Separate charge injection and clock feedthrough",
+    "summary": "Measure the two sources of held-voltage error separately and then with both present.",
+    "skills": [
+      "Sampling errors",
+      "bias analysis",
+      "ngspice"
+    ],
+    "minutes": 30,
+    "requires": [
+      "a-switch-drive"
+    ],
+    "quiz": {
+      "instructions": "Which term remains when the injected charge packet is disabled?",
+      "options": [
+        "Capacitive feedthrough from the clock",
+        "Channel charge injection",
+        "Both terms disappear in a real switch"
+      ],
+      "answer": 0,
+      "explanation": "Clock feedthrough comes from capacitive coupling. The separate packet models channel charge delivered to the held node."
+    },
+    "tasks": [
+      {
+        "id": "baseline",
+        "title": "Measure the starter",
+        "instructions": "Run the starter with its original values and open Results. Measure the two sources of held-voltage error separately and then with both present."
+      },
+      {
+        "id": "repair",
+        "title": "Verify the comparison",
+        "instructions": "Size CHOLD so the combined held step is at most 35 mV. Keep both isolated errors visible and close the sum within 10 mV."
+      }
+    ],
+    "reflection": "Compare your hand estimate with the captured measurements. Explain the difference or the model assumption that matters most.",
+    "teaching": {
+      "concept": "Clock feedthrough comes from capacitive coupling. The separate packet models channel charge delivered to the held node.",
+      "worked_example": "A 20 fC packet deposited on 1 pF changes its voltage by 20 mV.",
+      "try_next": "Increase the hold capacitance again and predict the penalty for reacquisition time in a real sampling circuit.",
+      "interview": "What controlled comparisons let you separate these two effects in a model?",
+      "artifact": "Keep the isolated and combined transient cases and compare the three held-voltage steps."
+    }
+  }
+]
