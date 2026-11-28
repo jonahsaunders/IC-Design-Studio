@@ -55,3 +55,27 @@ The idealized phase-domain model uses a linear phase detector and integrates
 the VCO frequency deviation around a 1 kHz carrier. The measurements teach
 the loop’s transient response to small frequency steps. Clock waveforms,
 cycle slips, jitter, and transistor effects are outside this model.
+
+## Device and circuit labs
+
+These eight labs use ngspice with generic teaching models. Open **Analyze
+before running** from a measured checkpoint to check the DC or charging path
+and save an estimate. **Compare Results** uses a run of the current design.
+Where the lesson offers a region prediction, choose **Show Region on Schematic**
+to display data from the operating-point case. Result windows give a text
+summary of the plotted trace and a **Copy Measurements** command.
+
+| Lab | Measurement |
+| --- | --- |
+| Extract MOSFET output resistance from a DC sweep | Compute the inverse drain-current slope between 0.8 V and 1.2 V and report the bias conditions. |
+| Make body effect visible | Find the gate voltage at 10 µA for body-tied and reverse-biased cases. Report the gate-voltage shift. |
+| Compare MOSFET and resistor loads | Match the DC operating points. Compare the 100 Hz gain using a resistor and a diode-connected PMOS. |
+| Measure a complementary transmission gate | Use a 5 mV test drop to measure switch resistance at three common-mode voltages. Compare the complementary gate with an NMOS alone. |
+| Compare thermal and flicker noise | Subtract squared amplitude densities of matched benches to isolate the modeled flicker contribution. |
+| Explore leakage in a bias network | Infer reverse-biased diode current from the resistor drop at 27 °C and 85 °C. Reduce the hot bias error by changing the bias resistance. |
+| Design a common-mode feedback loop | Tune loop gain and compensation after a common-mode disturbance. Check recovery, residual error and the preserved differential signal. |
+| Separate charge injection and clock feedthrough | Capture a modeled charge packet, explicit overlap capacitance and their combined effect. Compare the held-voltage steps. |
+
+The common-mode lab uses a symmetric behavioral output stage. The sampling
+lab uses an ideal switch, an explicit charge pulse and a separate overlap
+capacitor. Their measurements cover those teaching circuits.

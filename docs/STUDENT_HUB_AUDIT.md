@@ -8,6 +8,35 @@ observations retain their original scope; use [Student Hub](STUDENT_HUB.md) for
 current behavior and engine setup, and [release status](RELEASE_STATUS.md) for
 package identities. A later passing build does not rewrite this original audit.
 
+## November 25, 2026 Apple HIG review of the analog workbench
+
+The second pass followed the additions in PR #96 from lesson selection
+through editor work, temporary presentation, and the eight ngspice results
+windows. It applies the macOS guidance to Studio’s Qt desktop interface.
+
+| Workflow | Change | Apple guidance |
+| --- | --- | --- |
+| Bookmarks | Put bookmark commands in the View menu and the guide. **Go to Bookmark** becomes available after saving a bookmark. Success appears in place and in the status bar. | [Menus](https://developer.apple.com/design/human-interface-guidelines/menus), [Feedback](https://developer.apple.com/design/human-interface-guidelines/feedback) |
+| Starter value | Offer the command in Edit for one selected schematic component. The sheet names the device and previews the current and starter values. Cancel leaves the edit in place, and Undo reverses a restore. | [Edit menus](https://developer.apple.com/design/human-interface-guidelines/edit-menus), [Undo and redo](https://developer.apple.com/design/human-interface-guidelines/undo-and-redo) |
+| Named versions | Use the same Save Version and Version History dialogs as File → Versions. The preview shows what will change, and the history retains the previous working design. | [Designing for macOS](https://developer.apple.com/design/human-interface-guidelines/designing-for-macos), [Undo and redo](https://developer.apple.com/design/human-interface-guidelines/undo-and-redo) |
+| Guide placement | Offer Float, Dock, and Move Guide to Display in View. Saved floating panels are brought back into the available display area after positioning and display changes. | [Designing for macOS](https://developer.apple.com/design/human-interface-guidelines/designing-for-macos), [Panels](https://developer.apple.com/design/human-interface-guidelines/panels) |
+| Blank practice | Distinguish starting from resuming practice. Move focus to the canvas, label the practice project in the guide, and provide a direct return to the graded lesson. | [Focus and selection](https://developer.apple.com/design/human-interface-guidelines/focus-and-selection/), [Feedback](https://developer.apple.com/design/human-interface-guidelines/feedback) |
+| Screenshare | Use a checked View command and preserve the previous panel arrangement. Open results and annotation panels respond to text scaling. | [Menus](https://developer.apple.com/design/human-interface-guidelines/menus), [Accessibility](https://developer.apple.com/design/human-interface-guidelines/accessibility) |
+| DC path, estimate, and region | Separate checking a path, saving a prediction, comparing results, and showing an annotation. Use a keyboard-operable list, a labeled estimate field, in-place errors, and availability text for current results. | [Focus and selection](https://developer.apple.com/design/human-interface-guidelines/focus-and-selection/), [Feedback](https://developer.apple.com/design/human-interface-guidelines/feedback) |
+| Device annotations | Use a modeless panel with grouped fields and a selectable Readings tab. Show the device identifier and use opaque, high-contrast canvas callouts. | [Panels](https://developer.apple.com/design/human-interface-guidelines/panels), [Accessibility](https://developer.apple.com/design/human-interface-guidelines/accessibility) |
+| Lab results | Identify the captured revision. Name the tests and DC sweep axes, reflow measurement columns on narrow screens, and offer both a textual trace summary and Copy Measurements. | [Lists and tables](https://developer.apple.com/design/human-interface-guidelines/lists-and-tables), [Accessibility](https://developer.apple.com/design/human-interface-guidelines/accessibility) |
+
+The annotation text and background pairs measure 14.42:1 in light appearance
+and 12.92:1 in dark appearance. Twenty Linux Qt offscreen desktop scenarios
+and 29 focused source tests passed. The eight new labs ran through the Lesson
+Guide with ngspice 46. At 200% text size, the 430-pixel warm-up and 470-pixel
+results windows stayed within their available width. Each lab retained the
+saved estimate, exposed its trace summaries, and copied its measurement table.
+
+Native macOS acceptance remains open. Exercise VoiceOver, Full Keyboard
+Access, Retina scaling, Increase Contrast, and the guide’s move and recovery
+behavior on a Mac with two physical displays.
+
 ## November 23, 2026 curriculum audit follow-up
 
 - The native engine preflight exercises ngspice, Icarus and vvp. The Windows

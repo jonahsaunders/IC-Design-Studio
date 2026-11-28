@@ -1,9 +1,12 @@
 """Lesson controls and accessible comparisons of captured signal measurements."""
 
-from PySide6.QtWidgets import QComboBox, QDialog, QDialogButtonBox, QFormLayout, QHeaderView, QLabel, QVBoxLayout
+from PySide6.QtCore import Qt, QTimer
+from PySide6.QtWidgets import (QApplication, QComboBox, QDialog, QDialogButtonBox, QFormLayout,
+                               QHeaderView, QLabel, QVBoxLayout)
 
 from . import student_signal_circuits as circuits
 from . import student_signal_labs as labs, student_circuit_challenges as challenges
+from .student_device_labs import CONTROLS as DEVICE_CONTROLS
 from .analog_widgets import fill, table
 from .model import design_digest, scalar
 from .plot import WavePlot
@@ -26,6 +29,7 @@ TUNING = {
     ('temperature', 'anchor'): ('Edit sensor divider', ('RFIX', 'value', 'RFIX resistance (Ω)')),
 }
 TUNING.update({(lab,'repair'): fields for lab,fields in challenges.CONTROLS.items()})
+TUNING.update({(lab,'repair'): fields for lab,fields in DEVICE_CONTROLS.items()})
 ACTIONS = {key: value[0] for key, value in TUNING.items()}
 ACTIONS['temperature', 'validate'] = 'Edit calibration registers'
 
@@ -135,10 +139,25 @@ def _label(name):
     return name.replace('1p6v', '1.6 V').replace('1p8v', '1.8 V').replace('2p0v', '2.0 V').replace('-', ' ')
 
 
+DEVICE_SWEEP_AXES = {'output-resistance':'Drain voltage (V)', 'body-effect':'Gate voltage (V)',
+                     'transmission-gate':'Signal common-mode voltage (V)'}
+
+CASE_LABELS = {'dc-bias':'Operating Point', 'sweep':'DC Sweep', 'body-tied':'Body Tied to Source',
+               'reverse-bias':'Reverse Body Bias', 'thermal-only':'Thermal Only',
+               'with-flicker':'Thermal and Flicker', 'open-loop':'Open Loop', 'closed-loop':'Closed Loop',
+               'clock-feedthrough':'Clock Feedthrough', 'charge-injection':'Charge Injection', 'combined':'Combined'}
+
+
+def case_label(name):
+    return CASE_LABELS.get(name,_label(name))
+
+
 class SignalResults(QDialog):
     def __init__(self, studio, row):
         super().__init__(studio)
-        self.setWindowTitle('Signal experiment results')
+        self.studio=studio
+        self.setWindowTitle(row.get('name','Signal Experiment').removeprefix('Student · ')+' Results')
+        self.run_path = str(row['path'])
         self.resize(910, 690)
         p, result = row['job']['project'], row['result']
         settings = row['job']['settings']
@@ -146,28 +165,40 @@ class SignalResults(QDialog):
         self.waves = labs.read_cases(p, self.lab, step, result, row['path'])
         self.measurements = result['student_signal']['measurements']
         layout = QVBoxLayout(self)
-        status = ('Saved experiment' if design_digest(studio.project) == design_digest(p)
-                  else 'Saved experiment from an earlier design revision')
-        note = QLabel(status + '. ' + result['student_signal']['issue'])
+        status=f'Captured revision {result["revision"]} · {result["engine"]}'
+        if design_digest(studio.project)!=design_digest(p):
+            status+=' · Earlier design'
+        note = QLabel(status)
+        note.setTextFormat(Qt.PlainText)
         note.setWordWrap(True)
         layout.addWidget(note)
+        if issue:=result['student_signal']['issue']:
+            question=QLabel(issue)
+            question.setTextFormat(Qt.PlainText)
+            question.setWordWrap(True)
+            layout.addWidget(question)
         self.readings = table(['Case', 'Measurement', 'Value'])
         self.readings.setAccessibleName('Saved signal experiment measurements')
         header = self.readings.horizontalHeader()
-        header.setSectionResizeMode(0, QHeaderView.ResizeMode.ResizeToContents)
-        header.setSectionResizeMode(1, QHeaderView.ResizeMode.ResizeToContents)
-        header.setSectionResizeMode(2, QHeaderView.ResizeMode.Stretch)
+        header.setSectionResizeMode(0, QHeaderView.ResizeMode.Interactive)
+        header.setSectionResizeMode(1, QHeaderView.ResizeMode.Stretch)
+        header.setSectionResizeMode(2, QHeaderView.ResizeMode.Interactive)
         grouped = self.measurements if all(isinstance(v, dict) for v in self.measurements.values()) else {
             'summary': self.measurements}
-        fill(self.readings, [[_label(case), name, _format(value)] for case, readings in grouped.items()
+        fill(self.readings, [[case_label(case), name, _format(value)] for case, readings in grouped.items()
                              for name, value in readings.items()])
+        self.readings.setWordWrap(True)
+        self.readings.verticalHeader().setSectionResizeMode(QHeaderView.ResizeMode.ResizeToContents)
         layout.addWidget(self.readings, 2)
         self.case, self.trace = QComboBox(), QComboBox()
         form = QFormLayout()
-        for name, widget in [('Test case', self.case), ('Plot', self.trace)]:
+        form.setRowWrapPolicy(QFormLayout.WrapLongRows)
+        for name, widget in [('Test Case', self.case), ('Trace', self.trace)]:
             label = QLabel(name)
             label.setBuddy(widget)
             widget.setAccessibleName(name)
+            widget.setMinimumContentsLength(12)
+            widget.setSizeAdjustPolicy(QComboBox.AdjustToMinimumContentsLengthWithIcon)
             form.addRow(label, widget)
         if self.lab == 'adc-ramp' and self.measurements:
             self.case.addItem('Code density', ('adc', None))
@@ -175,7 +206,7 @@ class SignalResults(QDialog):
             for supply in labs.SUPPLY_TRIALS:
                 self.case.addItem(f'Calibration at {supply} V', ('temperature', float(supply)))
         for name in self.waves:
-            label = _label(name)
+            label = case_label(name)
             if self.lab == 'temperature' and name in self.measurements:
                 reading = self.measurements[name]
                 label = f'{reading["Temperature (°C)"]:g} °C at {reading["Supply (V)"]:g} V'
@@ -185,12 +216,58 @@ class SignalResults(QDialog):
         self.plot.dark = studio.dark
         self.plot.setAccessibleName('Plot for the selected test case and signal')
         layout.addWidget(self.plot, 3)
+        self.trace_summary=QLabel()
+        self.trace_summary.setTextFormat(Qt.PlainText)
+        self.trace_summary.setWordWrap(True)
+        self.trace_summary.setTextInteractionFlags(Qt.TextSelectableByMouse|Qt.TextSelectableByKeyboard)
+        layout.addWidget(self.trace_summary)
+        self.copy_confirmation=QLabel('Measurements copied.')
+        self.copy_confirmation.hide()
+        layout.addWidget(self.copy_confirmation)
         buttons = QDialogButtonBox(QDialogButtonBox.StandardButton.Close)
+        self.copy_button=buttons.addButton('Copy Measurements',QDialogButtonBox.ActionRole)
+        self.copy_button.setEnabled(self.readings.rowCount()>0)
+        self.copy_button.clicked.connect(self.copy_measurements)
+        self.copy_button.setAutoDefault(False)
         buttons.rejected.connect(self.close)
         layout.addWidget(buttons)
         self.case.currentIndexChanged.connect(self.select_case)
         self.trace.currentIndexChanged.connect(self.show_plot)
+        self.apply_presentation_style()
         self.select_case()
+        self.case.setFocus()
+
+    def resizeEvent(self,event):
+        super().resizeEvent(event)
+        if hasattr(self,'readings'):
+            self.reflow_readings()
+
+    def reflow_readings(self):
+        table=self.readings
+        width=table.viewport().width()
+        for column, fraction in ((0,.28),(2,.22)):
+            text=table.horizontalHeaderItem(column).text()
+            preferred=max(table.fontMetrics().horizontalAdvance(text)+22,table.sizeHintForColumn(column))
+            table.setColumnWidth(column,min(preferred,max(45,int(width*fraction))))
+
+    def apply_presentation_style(self):
+        from .student_hub_ui import student_style
+        hub=getattr(self.studio,'_student_hub',None)
+        action=getattr(self.studio,'study_share_action',None)
+        sharing=bool(action and action.isChecked())
+        scale=hub.text_scale if hub else 100
+        self.setStyleSheet(student_style(self.studio.dark,max(150,scale) if sharing else scale))
+        self.plot.share_text_scale=1.25 if sharing else 1
+        self.plot.update()
+        QTimer.singleShot(0,self.reflow_readings)
+
+    def copy_measurements(self):
+        table=self.readings
+        lines=['\t'.join(table.horizontalHeaderItem(j).text() for j in range(table.columnCount()))]
+        for i in range(table.rowCount()):
+            lines.append('\t'.join(table.item(i,j).text() for j in range(table.columnCount())))
+        QApplication.clipboard().setText('\n'.join(lines))
+        self.copy_confirmation.show()
 
     def select_case(self):
         kind, name = self.case.currentData()
@@ -213,6 +290,12 @@ class SignalResults(QDialog):
                 if preferred in signals:
                     self.trace.setCurrentIndex(signals.index(preferred))
                     break
+            current_name = {'output-resistance':'vdrain','body-effect':'vdrain','transmission-gate':'vtg'}.get(self.lab)
+            if wave['settings']['type']=='dc' and current_name:
+                current_keys=list(wave.get('currents',{}))
+                index=next((i for i,key in enumerate(current_keys) if key.casefold()==current_name),None)
+                if index is not None:
+                    self.trace.setCurrentIndex(len(signals)+index)
         self.trace.blockSignals(False)
         self.show_plot()
 
@@ -220,6 +303,7 @@ class SignalResults(QDialog):
         data = self.trace.currentData()
         if not data:
             self.plot.set_result(None)
+            self.trace_summary.clear()
             return
         kind, name = self.case.currentData()
         mode, signal = data
@@ -237,4 +321,11 @@ class SignalResults(QDialog):
                     wave = {**wave, 'plot_unit': 'Hz', 'plot_include_zero': False, 'y_reference': target}
                 elif signal in ('ref_phase', 'vco_phase', 'phase_error'):
                     wave = {**wave, 'plot_unit': 'cycles'}
+            if wave['settings']['type']=='dc' and self.lab in DEVICE_SWEEP_AXES:
+                wave={**wave,'x_label':DEVICE_SWEEP_AXES[self.lab]}
         self.plot.set_result(wave, [signal])
+        values=wave['traces'][signal]
+        if values:
+            unit=wave.get('plot_unit','V/√Hz' if wave['settings']['type']=='noise' else 'V')
+            self.trace_summary.setText(f'{self.trace.currentText()} · {len(values)} samples · '
+                                       f'Minimum {min(values):.4g} {unit} · Maximum {max(values):.4g} {unit}')

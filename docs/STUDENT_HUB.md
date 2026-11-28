@@ -1,6 +1,6 @@
 # Student Hub
 
-Open the **Student Hub** tab beside **Design** in IC Design Studio. The Hub has **149 distinct lessons across eleven worlds**, including eight CMOS inverter stages that repeat for each supported PDK revision. Choose **Map** to explore the worlds or **List** to browse them. Both views share your progress, search, and lesson prerequisites. Filter by difficulty, progress, or the tools available on this computer.
+Open the **Student Hub** tab beside **Design** in IC Design Studio. The Hub has **157 distinct lessons across eleven worlds**, including eight CMOS inverter stages that repeat for each supported PDK revision. Choose **Map** to explore the worlds or **List** to browse them. Both views share your progress, search, and lesson prerequisites. Filter by difficulty, progress, or the tools available on this computer.
 
 ![Student Hub in Map view with eleven worlds, including Standard Cells and Testbenches](images/student-hub/world-map.jpg)
 
@@ -285,6 +285,33 @@ Use **All difficulties** to filter lessons by level. Use **Ctrl+F** on Windows a
 - The **resume recap** shows your most recent lesson, its last earned checkpoint, its latest saved result when available, and the next step. **Continue learning** opens the next eligible checkpoint.
 - **Curriculum changes** lists added, updated, and removed lessons since your first visit or your last acknowledgment. Use **Mark as seen** after reviewing the list.
 - Choose **Compact guide** at the top of the dock for a narrower, task-focused view. Switch to **Full guide** to bring back the teaching, hints, and follow-up tabs. Studio remembers the view you choose.
+
+### Bookmark, branch, and present your work
+
+- Choose **Bookmark Current View** in **Lesson Tools** or **View → Lesson Guide** to save the checkpoint, selection, canvas view, and available waveform cursors. Reopen the lesson or use **Go to Bookmark** to return.
+- **Save Version** captures a named snapshot with an optional note in Studio’s project history. **Browse Versions** previews changes before you restore. Use **Undo** to return to the previous design.
+- Select one schematic component and choose **Edit → Restore Starter Value**. Pick the changed value or parameter to reset. The command is also available from **Lesson Tools**.
+- Choose **Unlock Guide Position**, then **Float Guide**. Drag the floating window or use **View → Lesson Guide → Move Guide to Display**. **Dock Guide** returns it to the editor.
+- **Start Blank Practice** creates a separate project with its own notes, and **Resume Blank Practice** opens it again. Use Design’s analysis and save commands. **Open Graded Lesson** returns to your graded project.
+- **View → Screenshare Layout** enlarges Student Hub, schematic, and waveform text and hides the navigation and inspector panels. Toggle it again to restore the editor layout.
+
+### Analyze before running
+
+The [eight device and circuit labs](STUDENT_SIGNAL_LABS.md#device-and-circuit-labs)
+include **Analyze before running** on measured checkpoints. Use **Check Path**,
+then **Save Prediction**. **Compare Results** becomes available when the current
+design has a captured result. The output-resistance,
+body-effect, and load-comparison labs also let you predict a device region and
+explicitly choose **Show Region on Schematic** after comparing.
+
+Use **View → Device Annotations** to choose which values appear and whether to
+annotate only the selected devices. Choose design values such as dimensions,
+model and component value, or saved simulation values such as drain current,
+transconductance, output resistance, region and available capacitances.
+The modeless **Readings** tab provides selectable text for the same values.
+Native operating-region estimates use captured device data and are labeled.
+
+[See schematic device annotations in Screenshare layout](images/student-hub/analog-workbench.jpg).
 
 ### Help and solutions
 

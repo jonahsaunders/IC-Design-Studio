@@ -85,7 +85,6 @@ class AppWorkspaces(QStackedWidget):
             hub = StudentHub(self.studio, menu=self.hub_menu)
             self.studio._student_hub = hub
             self.student_page.layout().addWidget(hub)
-            self.studio.task_menus['View'].addAction(hub.guide.toggleViewAction())
         return hub
 
     def switched(self, index):
@@ -128,6 +127,9 @@ class AppWorkspaces(QStackedWidget):
                 if isValid(panel):
                     panel.setVisible(visible)
             self.panels = []
+            if getattr(s,'study_share_action',None) and s.study_share_action.isChecked():
+                s.nav.hide()
+                s.inspector.hide()
             s.toolbar.setVisible(getattr(self, 'toolbar_visible', True))
             if getattr(self, 'project_id', None) == s.project['id']:
                 for dialog in self.dialogs:

@@ -212,6 +212,7 @@ class Canvas(DrawingCanvasMixin,GridMixin,EditorCanvasMixin,LabelCanvasMixin,Wir
         return context
 
     def draw_schematic(self,p,view,*,force_detail=False):
+        text_scale=getattr(self,'share_text_scale',1)
         self.draw_wires(p)
         if not force_detail and self.scale<.35 and len(self.cell['devices'])>50 and not self.cell.get('xschem') and not self.cell.get('electrical'):
             self.draw_schematic_overview(p,view);return
@@ -295,10 +296,10 @@ class Canvas(DrawingCanvasMixin,GridMixin,EditorCanvasMixin,LabelCanvasMixin,Wir
                 for pin,(x,y) in pos.items():p.drawLine(x,y,-40 if x<0 else 40,y)
             p.restore()
             for x,y,text,size,muted in captions(d):
-                p.setFont(QFont('Sans Serif',size));p.setPen(QColor(palette(self.dark)['muted'] if muted else fg));p.drawText(QPointF(x,y),text)
+                p.setFont(QFont('Sans Serif',round(size*text_scale)));p.setPen(QColor(palette(self.dark)['muted'] if muted else fg));p.drawText(QPointF(x,y),text)
             for pin,(x,y) in pin_positions(d).items():
                 name=d.get('net_labels',d['nets'] if 'wires' not in self.cell else {}).get(pin,'')
-                p.setFont(QFont('Sans Serif',8))
+                p.setFont(QFont('Sans Serif',round(8*text_scale)))
                 if name:p.drawText(QPointF(x+5,y-7),name)
                 connected=(d['id'],pin) in self._wired_pins or bool(name)
                 if self.net and d['nets'].get(pin)==self.net:p.setPen(self.pen(palette(self.dark)['accent'],2.5));p.setBrush(Qt.NoBrush);p.drawEllipse(QPointF(x,y),6,6)
@@ -309,8 +310,28 @@ class Canvas(DrawingCanvasMixin,GridMixin,EditorCanvasMixin,LabelCanvasMixin,Wir
         p.setPen(QColor(palette(self.dark)['muted']));p.setFont(QFont('Sans Serif',10))
         for d in self.cell['devices']:
             text=getattr(self,'simulation_annotations',{}).get(d['id'])
-            if text:
-                p.save();p.translate(d['x']+85,d['y']+20);p.scale(1/self.scale,1/self.scale);p.setFont(QFont('Sans Serif',8));p.setPen(QColor('#6fbcad' if self.dark else '#176b5b'));p.drawText(QRectF(0,0,200,145),Qt.TextWordWrap,text);p.restore()
+            if text and view.intersects(self.bounds(d)):
+                width=min(200*text_scale,max(80,self.width()-12))
+                x=d['x']+85
+                if x*self.scale+self.offset.x()+width>self.width():
+                    x=d['x']-65-width/self.scale
+                x=max(x,(6-self.offset.x())/self.scale)
+                p.save()
+                p.setFont(QFont('Sans Serif',round(9*text_scale)))
+                flags=Qt.TextWordWrap|Qt.AlignLeft|Qt.AlignTop
+                text=f'{d["name"]}\n{text}'
+                height=QFontMetricsF(p.font()).boundingRect(QRectF(0,0,width-12,self.height()),int(flags),text).height()+10
+                y=min(d['y']+20,(self.height()-height-6-self.offset.y())/self.scale)
+                y=max(y,(25-self.offset.y())/self.scale)
+                p.translate(x,y)
+                p.scale(1/self.scale,1/self.scale)
+                colors=palette(self.dark)
+                p.setPen(QColor(colors['line']))
+                p.setBrush(QColor(colors['panel']))
+                p.drawRoundedRect(QRectF(0,0,width,height),4,4)
+                p.setPen(QColor(colors['text']))
+                p.drawText(QRectF(6,5,width-12,height-10),flags,text)
+                p.restore()
         self.draw_annotations(p)
         for i,bus in enumerate(self.cell.get('buses',[])):
             p.drawText(QPointF(20,25+20*i),'Bus '+bus['name'])

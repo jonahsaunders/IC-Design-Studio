@@ -276,6 +276,8 @@ class StudentHubMenuTests(unittest.TestCase):
         self.assertTrue(hub.trail.rows['f-connect'].isChecked())
 
     def test_continue_learning_reopens_the_last_unfinished_lesson(self):
+        from PySide6.QtCore import QPointF
+        from icstudio.student_workspace import bookmark
         from icstudio.student_projects import create
 
         hub, studio = self.hub, self.studio
@@ -283,6 +285,9 @@ class StudentHubMenuTests(unittest.TestCase):
         hub.start_selected()
         guide = hub.guide
         project_id = studio.project['id']
+        guide.refresh_lesson_commands()
+        self.assertFalse(guide.lesson_commands['return'].isEnabled())
+        self.assertFalse(guide.lesson_commands['starter'].isEnabled())
         guide.answer.setCurrentIndex(guide.answer.findData(guide.active_step['answer']))
         guide.check_button.click()
         self.assertEqual(studio.settings.value('student/lastLesson'), 'a-lc-bode')
@@ -291,15 +296,66 @@ class StudentHubMenuTests(unittest.TestCase):
         guide.guide_view.setCurrentIndex(1)
         self.assertFalse(guide.lesson_tabs.isTabVisible(0))
         self.assertIs(guide.lesson_tabs.currentWidget(), guide.instructions)
+        guide.steps.setCurrentIndex(1)
+        studio.schematic.scale=.75
+        studio.schematic.offset=QPointF(240,135)
+        bookmark(guide)
+        guide.refresh_lesson_commands()
+        self.assertTrue(guide.lesson_commands['return'].isEnabled())
+        guide.unlock_action.setChecked(True)
+        guide.float_action.trigger()
+        self.assertTrue(guide.isFloating())
+        guide.float_action.trigger()
+        self.assertFalse(guide.isFloating())
         studio.set_project(create('divider'))
         self.continue_learning(hub)
         self.assertEqual(studio.project['id'], project_id)
         self.assertEqual(guide.lesson['id'], 'a-lc-bode')
         self.assertEqual(guide.steps.currentIndex(), 1)
+        QTest.qWait(100)
+        self.assertEqual(studio.schematic.offset,QPointF(240,135))
+        self.assertEqual(studio.schematic.scale,.75)
         self.assertEqual(guide.guide_view.currentData(), 'compact')
         self.assertTrue(guide.check_button.isEnabled())
         guide.guide_view.setCurrentIndex(0)
         self.assertTrue(guide.lesson_tabs.isTabVisible(0))
+
+    def test_device_warmup_has_keyboard_access_and_readable_annotations(self):
+        from icstudio.student_signal_circuits import named
+
+        hub,studio=self.hub,self.studio
+        hub.select_lesson('device-output-resistance')
+        hub.start_selected()
+        guide=hub.guide
+        self.assertTrue(guide.warmup_button.isHidden())
+        guide.steps.setCurrentIndex(1)
+        hub.set_text_scale(200)
+        guide.show_warmup()
+        warmup=guide.warmup
+        warmup.resize(430,440)
+        self.app.processEvents()
+        self.assertEqual(warmup.scroll.horizontalScrollBar().maximum(),0)
+        self.assertFalse(warmup.check_path_button.isEnabled())
+        self.assertFalse(warmup.compare_button.isEnabled())
+        warmup.path.setFocus()
+        QTest.keyClick(warmup.path,Qt.Key_Down)
+        self.assertTrue(warmup.check_path_button.isEnabled())
+        warmup.estimate.setText('invalid')
+        warmup.save_button.click()
+        self.assertIn('Enter a number',warmup.report.text())
+        self.assertTrue(warmup.estimate.hasFocus())
+        guide.steps.setCurrentIndex(2)
+        self.assertFalse(warmup.isVisible())
+
+        panel=studio.annotation_preferences()
+        self.assertFalse(panel.isModal())
+        panel.selected.setChecked(True)
+        panel.fields['model'].setChecked(True)
+        panel.show_annotations.setChecked(True)
+        studio.select([named(studio.cell,'M1')['id']],'schematic')
+        self.assertIn('Model teach_n',panel.readings.toPlainText())
+        self.assertTrue(panel.readings.isReadOnly())
+        panel.close()
 
     def test_hints_reveal_per_question_in_preview_and_guide(self):
         from icstudio.model import digest

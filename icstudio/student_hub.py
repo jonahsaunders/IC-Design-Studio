@@ -121,6 +121,7 @@ def checker_stamp():
                    file_digest(Path(__file__).with_name('student_layout_signoff.py')),
                    file_digest(Path(__file__).with_name('student_signal_labs.py')),
                    file_digest(Path(__file__).with_name('student_signal_circuits.py')),
+                   file_digest(Path(__file__).with_name('student_device_labs.py')),
                    file_digest(Path(__file__).with_name('student_testbench.py')),
                    file_digest(Path(__file__).with_name('student_opamp_verification.py')),
                    file_digest(Path(__file__).with_name('student_paths.py')),
