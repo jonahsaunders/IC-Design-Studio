@@ -1,5 +1,55 @@
 # Chunks 1–12: progress and forecast
 
+**November 25, 2026 — Apple HIG second pass for the Student Hub analog
+workbench (EDU-01–08, UX-02).** On draft base `288edda`, contextual View
+and Edit commands reflect the active lesson and selection. Guide bookmarks
+work with the shared version history, starter-value restoration supports Undo,
+and the floating guide recovers its placement when the display layout changes.
+Blank practice and screenshare have explicit return paths. The modeless
+warm-up separates DC-path checks and estimates, and the annotation panel
+includes selectable device readings.
+
+Twenty Linux Qt offscreen desktop scenarios and 29 focused source tests
+passed. All eight new lessons ran with ngspice 46. At 200% text size, each
+warm-up and results panel stayed within its available width and exposed both
+trace summaries and copyable measurements. The second-pass implementation is
+estimated 100% complete for experimental engineering. Native acceptance
+still needs VoiceOver, Full Keyboard Access, Increase Contrast, Retina
+scaling, and two-display guide testing on macOS. The release consistency
+check still flags the retained GF180 density acceptance binding for
+`annotations.py`. See the [interface audit](STUDENT_HUB_AUDIT.md).
+
+**November 25, 2026 — Student Hub workspace and bias analysis labs
+(EDU-01–08, UX-02).** On draft base `764a462`, the Lesson Guide can bookmark
+an editor view, save and restore named versions, reset one starter parameter,
+and float to another display. The Hub includes independent blank practice
+and a screenshare layout. Studio can choose schematic device annotation
+fields, and eight labs add a DC-path and numerical-estimate warm-up.
+
+Linux with ngspice 46 exercised the eight labs through the saved-run grader.
+The worked examples measured about 363 kΩ output resistance and a 175 mV
+body-effect shift. The common-mode loop reduced 120 mV of error to about
+6 mV with the differential output preserved. The Qt offscreen probe exercised
+the workflow controls and a captured operating-region annotation. The
+requested implementation is estimated 100% complete for experimental
+engineering. Physical multi-monitor and packaged desktop acceptance are
+pending. The full release consistency check reports that `annotations.py`
+differs from its retained GF180 production evidence.
+
+**November 25, 2026 — Student Hub study tools and PLL lab (EDU-01–08,
+UX-02).** On experimental base `4af9802`, the Hub shows completion XP,
+15/30/60-minute plans, local setup readiness, a resume recap, and curriculum
+changes. The Lesson Guide includes a persistent Compact view. A new Analog
+design projects lesson grades two signed frequency steps in an editable
+phase-domain PLL.
+
+Linux source and Qt offscreen checks exercised the new study controls, progress
+migration, and the saved-result lesson flow. In ngspice 46, the tuned PLL locked
+in about 4.22 ms with 4.32% overshoot in both directions. The starter exceeded
+the overshoot limit and failed the lock target. The seven requested additions
+are estimated 100% complete for experimental engineering. Native Windows
+and packaged acceptance remain pending under the [release gates](RELEASING.md).
+
 **November 24, 2026 — Installed VGA compiler and Student Hub integration
 (EDU-01–08, EXP-01, UX-02).** On experimental base `a5364497`, source revision
 `53d7f3c9` rebuilt the pinned Verilator WebAssembly compiler and passed all 98

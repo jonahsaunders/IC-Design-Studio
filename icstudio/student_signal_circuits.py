@@ -2,11 +2,11 @@
 
 import re
 
-from . import student_circuit_challenges as challenges
+from . import student_circuit_challenges as challenges, student_device_labs as device_labs
 from .model import device, example, uid, validate
 from .sar_example import primitive
 
-NATIVE = {'load', 'adc-ramp', 'chopper', 'relaxation', 'pga', *challenges.ANALYSIS}
+NATIVE = {'load', 'adc-ramp', 'chopper', 'relaxation', 'pll', 'pga', *challenges.ANALYSIS, *device_labs.ANALYSIS}
 
 
 def named(cell, name):
@@ -62,13 +62,13 @@ def _tokens(text, variables):
     return result
 
 
-def _behavior(c, name, out, inputs, expression, x, y, parameters=None):
+def _behavior(c, name, out, inputs, expression, x, y, parameters=None, *, output='V'):
     parameters = parameters or {}
     pins = dict(out=out, gnd='0', **inputs)
     item = primitive(name, pins, '', x, y, parameters=parameters)
     item['native_spice']['label'] = name
     variables = {**dict.fromkeys(pins, 'terminal'), **dict.fromkeys(parameters, 'parameter')}
-    item['native_spice']['tokens'] = [dict(kind='instance'), *_tokens(' {out} {gnd} V=' + expression, variables)]
+    item['native_spice']['tokens'] = [dict(kind='instance'), *_tokens(f' {{out}} {{gnd}} {output}=' + expression, variables)]
     c['devices'].append(item)
 
 
@@ -167,6 +167,24 @@ def _relaxation(p, c):
     _c(c, 'CT', '10n', 'cap', '0', 1200, 365)
 
 
+def _pll(p, c):
+    # Phase voltages encode cycles relative to a 1 kHz carrier. The current
+    # source and capacitor integrate the VCO frequency deviation into phase.
+    _v(c, 'VSTEP', '100', 'step_hz', '0', 100, 120)
+    _behavior(c, 'BREF', 'ref_phase', {'step': 'step_hz'},
+              'V({step})*max(time-1m,0)', 280, 100)
+    _behavior(c, 'BPD', 'phase_error', {'ref': 'ref_phase', 'fb': 'vco_phase'},
+              'V({ref})-V({fb})', 500, 100)
+    _r(c, 'RFILT', '40k', 'phase_error', 'control', 700, 95, rotation=270)
+    _c(c, 'CFILT', '100n', 'control', '0', 825, 260)
+    _behavior(c, 'BVCO', 'vco_phase', {'ctrl': 'control'},
+              '-1000*V({ctrl})', 1025, 100, output='I')
+    _c(c, 'CPHASE', '1', 'vco_phase', '0', 1200, 230)
+    _r(c, 'RPHASE', '1e12', 'vco_phase', '0', 1330, 230)
+    _behavior(c, 'BFREQ', 'vco_hz', {'ctrl': 'control'},
+              '1000+1000*V({ctrl})', 1025, 400)
+
+
 def _pga(p, c):
     _v(c, 'VDD', '1.8', 'vdd', '0', 100, 118)
     _v(c, 'VIN', '.10', 'input', '0', 130, 315)
@@ -199,7 +217,7 @@ def _temperature(p, c):
 
 
 BUILDERS = {'linearity': _linearity, 'rejection': _rejection, 'load': _load, 'adc-ramp': _adc,
-            'chopper': _chopper, 'relaxation': _relaxation, 'pga': _pga, 'temperature': _temperature}
+            'chopper': _chopper, 'relaxation': _relaxation, 'pll': _pll, 'pga': _pga, 'temperature': _temperature}
 
 ANALYSIS = {
     'linearity': dict(type='tran', stop='500u', step='500n'),
@@ -208,6 +226,7 @@ ANALYSIS = {
     'adc-ramp': dict(type='tran', stop='1m', step='250n'),
     'chopper': dict(type='tran', stop='4m', step='500n'),
     'relaxation': dict(type='tran', stop='4m', step='1u'),
+    'pll': dict(type='tran', stop='16m', step='10u'),
     'pga': dict(type='tran', stop='2.9m', step='500n'),
     'temperature': dict(type='op'),
 }
@@ -215,6 +234,8 @@ ANALYSIS = {
 
 BUILDERS.update(challenges.BUILDERS)
 ANALYSIS.update(challenges.ANALYSIS)
+BUILDERS.update(device_labs.BUILDERS)
+ANALYSIS.update(device_labs.ANALYSIS)
 
 
 def project(key):

@@ -1,6 +1,6 @@
 # Student Hub
 
-Open the **Student Hub** tab beside **Design** in IC Design Studio. The Hub has **136 distinct lessons across eleven worlds**, including eight CMOS inverter stages that repeat for each supported PDK revision. Choose **Map** to explore the worlds or **List** to browse them. Both views share your progress, search, and lesson prerequisites. Filter by Easy, Medium, or Hard in either view.
+Open the **Student Hub** tab beside **Design** in IC Design Studio. The Hub has **157 distinct lessons across eleven worlds**, including eight CMOS inverter stages that repeat for each supported PDK revision. Choose **Map** to explore the worlds or **List** to browse them. Both views share your progress, search, and lesson prerequisites. Filter by difficulty, progress, or the tools available on this computer.
 
 ![Student Hub in Map view with eleven worlds, including Standard Cells and Testbenches](images/student-hub/world-map.jpg)
 
@@ -158,6 +158,7 @@ Jump to a world to see every lesson in it. Select an image to open the full-size
 | [![Layout for Debug a post-layout settling failure](images/student-hub/interview-post-layout-debug.jpg)](images/student-hub/interview-post-layout-debug.jpg) | **Debug a post-layout settling failure**. *Hard*. Find a layout parasitic that pushes a passing schematic past its settling deadline, then repair and rerun. [Guide](STUDENT_INTERVIEW_LABS.md). |
 | [![Schematic for Build a chopper amplifier](images/student-hub/project-chopper.jpg)](images/student-hub/project-chopper.jpg) | **Build a chopper amplifier**. *Hard*. Align input and output commutation and design the output filter for low offset, ripple and settling. [Guide](STUDENT_SIGNAL_LABS.md). |
 | [![Schematic for Design a relaxation oscillator](images/student-hub/project-relaxation.jpg)](images/student-hub/project-relaxation.jpg) | **Design a relaxation oscillator**. *Medium*. Tune a Schmitt-trigger RC oscillator and verify startup, duty cycle and frequency at three rail and temperature conditions. [Guide](STUDENT_SIGNAL_LABS.md). |
+| [![Measured frequency step for Tune a simple PLL](images/student-hub/project-pll.jpg)](images/student-hub/project-pll.jpg) | **Tune a simple PLL**. *Medium*. Tune an editable phase-locked loop in ngspice and verify lock time, overshoot, and phase drift for upward and downward reference steps. [Guide](STUDENT_SIGNAL_LABS.md#tune-a-simple-pll). |
 | [![Schematic for Build a programmable-gain amplifier](images/student-hub/project-pga.jpg)](images/student-hub/project-pga.jpg) | **Build a programmable-gain amplifier**. *Medium*. Size a switched feedback ladder for three gain codes and verify static gain, bandwidth and switching recovery. [Guide](STUDENT_SIGNAL_LABS.md). |
 
 #### Engineering design labs
@@ -278,6 +279,39 @@ The inverter illustrations use SKY130A. Choose a supported revision in Studio to
 </details>
 
 Use **All difficulties** to filter lessons by level. Use **Ctrl+F** on Windows and Linux or **Cmd+F** on macOS to search. Tab into the map, use arrow keys to move between worlds, and press Return or Space to open a world. Press Esc in the search field to return to your previous selection. **Student Hub menu → Text size** scales the Hub and the Lesson Guide up to 200%.
+
+- **Plan a short session** suggests a whole lesson or its next few unearned checkpoints within 15, 30, or 60 minutes. Suggestions use the catalog’s estimated effort and consider prerequisites and local tool setup.
+- **Runs on this machine** uses the selected toolchains and PDK revision to find lessons whose required tools are present. **Needs setup** shows the other lessons and lists their blockers in the preview. Open **Setup** to address the first blocker. Running the lesson verifies that the detected tools work.
+- The **resume recap** shows your most recent lesson, its last earned checkpoint, its latest saved result when available, and the next step. **Continue learning** opens the next eligible checkpoint.
+- **Curriculum changes** lists added, updated, and removed lessons since your first visit or your last acknowledgment. Use **Mark as seen** after reviewing the list.
+- Choose **Compact guide** at the top of the dock for a narrower, task-focused view. Switch to **Full guide** to bring back the teaching, hints, and follow-up tabs. Studio remembers the view you choose.
+
+### Bookmark, branch, and present your work
+
+- Choose **Bookmark Current View** in **Lesson Tools** or **View → Lesson Guide** to save the checkpoint, selection, canvas view, and available waveform cursors. Reopen the lesson or use **Go to Bookmark** to return.
+- **Save Version** captures a named snapshot with an optional note in Studio’s project history. **Browse Versions** previews changes before you restore. Use **Undo** to return to the previous design.
+- Select one schematic component and choose **Edit → Restore Starter Value**. Pick the changed value or parameter to reset. The command is also available from **Lesson Tools**.
+- Choose **Unlock Guide Position**, then **Float Guide**. Drag the floating window or use **View → Lesson Guide → Move Guide to Display**. **Dock Guide** returns it to the editor.
+- **Start Blank Practice** creates a separate project with its own notes, and **Resume Blank Practice** opens it again. Use Design’s analysis and save commands. **Open Graded Lesson** returns to your graded project.
+- **View → Screenshare Layout** enlarges Student Hub, schematic, and waveform text and hides the navigation and inspector panels. Toggle it again to restore the editor layout.
+
+### Analyze before running
+
+The [eight device and circuit labs](STUDENT_SIGNAL_LABS.md#device-and-circuit-labs)
+include **Analyze before running** on measured checkpoints. Use **Check Path**,
+then **Save Prediction**. **Compare Results** becomes available when the current
+design has a captured result. The output-resistance,
+body-effect, and load-comparison labs also let you predict a device region and
+explicitly choose **Show Region on Schematic** after comparing.
+
+Use **View → Device Annotations** to choose which values appear and whether to
+annotate only the selected devices. Choose design values such as dimensions,
+model and component value, or saved simulation values such as drain current,
+transconductance, output resistance, region and available capacitances.
+The modeless **Readings** tab provides selectable text for the same values.
+Native operating-region estimates use captured device data and are labeled.
+
+[See schematic device annotations in Screenshare layout](images/student-hub/analog-workbench.jpg).
 
 ### Help and solutions
 
@@ -489,6 +523,8 @@ injects filter, comparator-decision, averaging and alarm faults to demonstrate
 that the acceptance requirements detect them.
 
 ## Progress and evidence
+
+Completing an Easy, Medium, or Hard lesson awards 100, 150, or 200 XP respectively. XP is awarded once per completed lesson, including each completed inverter lesson for a distinct PDK revision. Previously completed lessons earn credit when you open the Hub. Rechecking an earlier lesson preserves the XP already earned.
 
 Progress is stored in the application's local data directory under `student-hub`.
 Project files remain normal `.icproj` documents. **Save As** followed by **Save

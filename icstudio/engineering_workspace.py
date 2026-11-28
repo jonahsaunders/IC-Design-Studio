@@ -46,7 +46,10 @@ class EngineeringWorkspaceMixin:
         self.engineering_buttons(v,[('Edit requirements',self.toggle_spec_editor),('Evaluate selected run',self.evaluate_selected_specs),('Export results…',self.export_specs)])
         self.spec_note=QLabel('Run an analysis to evaluate saved requirements.');self.spec_note.setWordWrap(True);v.addWidget(self.spec_note)
         self.spec_results=self.simulation_table(['Requirement','Value','Unit','Margin','Result','Details']);v.addWidget(self.spec_results)
-        self.annotate_check=QCheckBox('Show operating-point values on schematic');self.annotate_check.toggled.connect(self.update_annotations);v.addWidget(self.annotate_check)
+        self.annotate_check=QCheckBox('Show operating-point values on schematic')
+        self.annotate_check.toggled.connect(self.toggle_device_annotations);v.addWidget(self.annotate_check)
+        self.annotate_check.setChecked(self.settings.value('view/deviceAnnotations',False,bool))
+        self.engineering_buttons(v,[('Choose device annotations…',self.annotation_preferences)])
         self.spec_tab=self.add_engineering_tab(page,'Specifications')
         page,v=self.engineering_page('Variation studies','Each case is a separate simulation job. Resume reuses completed snapshots and queues interrupted, cancelled or failed cases.')
         self.case_bench=QComboBox();self.case_bench.setAccessibleName('Study analysis source');v.addWidget(self.case_bench)
@@ -153,15 +156,40 @@ class EngineeringWorkspaceMixin:
         if row['job']['settings']['type']=='rc_compare' and page==getattr(self,'rc_tab',None):self.results_tabs.setCurrentIndex(page)
     def update_result_status(self):
         super().update_result_status()
+        self.update_annotations()
         from .model import design_digest
         r=self.result
         if r and r.get('case') and r['case'].get('base_design_hash')==design_digest(self.project):
             self.result_status.setText('Saved study case '+str(r['case']['index'])+' · '+r['engine']);self.result_status.setStyleSheet('color:#79a6e8;')
     def update_annotations(self,*_):
         if not hasattr(self,'annotate_check'):return
-        from .annotations import readouts
-        rows,label=readouts(self.project,self.cid,self.result) if self.annotate_check.isChecked() else ({},'')
+        from .annotations import DEFAULT_FIELDS,readouts
+        fields=self.settings.value('view/deviceFields',sorted(DEFAULT_FIELDS),list)
+        selection=self.selection if self.settings.value('view/deviceAnnotationsSelected',False,bool) else None
+        enabled=self.annotate_check.isChecked()
+        rows,label=readouts(self.project,self.cid,self.result,fields=fields,selection=selection) if enabled else ({},'')
         self.schematic.simulation_annotations=rows;self.schematic.simulation_annotation_label=label;self.schematic.update()
+        if panel:=getattr(self,'device_annotations_panel',None):
+            panel.update_readings(rows,label,self.cell['devices'])
+
+    def toggle_device_annotations(self,enabled):
+        self.settings.setValue('view/deviceAnnotations',enabled)
+        self.update_annotations()
+
+    def select(self,*args,**kwargs):
+        super().select(*args,**kwargs)
+        if self.settings.value('view/deviceAnnotationsSelected',False,bool):
+            self.update_annotations()
+
+    def annotation_preferences(self):
+        from .device_annotations_ui import DeviceAnnotationsPanel
+        if not getattr(self,'device_annotations_panel',None):
+            self.device_annotations_panel=DeviceAnnotationsPanel(self)
+        panel=self.device_annotations_panel
+        self.update_annotations()
+        panel.show()
+        panel.raise_()
+        return panel
 
     def wavecalc_dialog(self):
         from .wavecalc import plot_result,parse

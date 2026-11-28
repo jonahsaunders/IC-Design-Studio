@@ -8,6 +8,7 @@
     "sc-inv", "sc-inv-compact", "sc-abutment", "sc-nor-rise", "inverter-process", "inverter-schematic"
   ],
   "Medium": [
+    "device-output-resistance", "device-body-effect", "device-active-load", "device-transmission-gate", "device-noise-spectrum", "device-bias-leakage", "device-common-mode-feedback", "device-switch-pedestal",
     "f-open-drain", "a-weak-sensor", "project-window-detector", "l-mim-plate", "l-decoupling", "d-spi-register", "tb-balanced-stimulus", "sc-schmitt",
     "f-portfolio", "a-bias", "a-differential", "a-amplifier", "a-layout",
     "a-gmid-bias", "a-gmid-size", "a-gmid-headroom", "a-lc-bode", "a-degeneration",
@@ -17,7 +18,7 @@
     "l-floorplan", "l-access", "l-pad-ring", "l-density", "l-via-current",
     "p-review", "project-miller", "project-bias-reference", "project-cascode",
     "interview-differential", "interview-input-pairs", "interview-gain",
-    "project-relaxation", "project-pga",
+    "project-relaxation", "project-pll", "project-pga",
     "tb-tia-bias", "tb-tia-ac", "tb-tia-step", "tb-opamp-bias", "tb-opamp-step",
     "tb-verify-dc-bias", "tb-verify-input-output-range", "tb-verify-step-response",
     "vga-beacon-timing", "vga-beacon-board", "vga-beacon-movement", "vga-beacon-collect",

@@ -50,7 +50,8 @@ class StudentDesignTests(unittest.TestCase):
                     if stage in practice['questions']:
                         overrides.add(route)
                     if step['kind'] == 'check':
-                        if not (lesson.get('bench_project') or lesson.get('standard_cell') or step['rule']['type']=='loop_study'):
+                        if not (lesson.get('bench_project') or lesson.get('standard_cell') or lesson.get('vga_lesson')
+                                or step['rule']['type']=='loop_study'):
                             tasks.add(route)
                         goal, actions, example = practice['tasks'][stage]
                         self.assertEqual(diy, f'<p>{escape(goal)}</p>')
@@ -95,7 +96,7 @@ class StudentDesignTests(unittest.TestCase):
             author = 'inverter-' + lesson['inverter_stage'] if lesson['path'] == 'inverter' else lesson['id']
             for step, entries in hints.items():
                 key = f'{author}/{step}'
-                if not (lesson.get('bench_project') or lesson.get('standard_cell')):
+                if not (lesson.get('bench_project') or lesson.get('standard_cell') or lesson.get('vga_lesson')):
                     covered.add(key)
                 self.assertEqual(len(entries), 4, key)
                 self.assertEqual(len({q for q, _ in entries}), 4, key)

@@ -28,7 +28,14 @@ def answer_choices(step, lesson=None):
 @lru_cache(maxsize=1)
 def review_course():
     from .getting_started import resource_root
-    return json.loads((resource_root()/'examples/student-hub/lesson-review.json').read_text(encoding='utf8'))
+    from . import student_beacon, student_testbench
+
+    authored = json.loads((resource_root()/'examples/student-hub/lesson-review.json').read_text(encoding='utf8'))
+    embedded = {lesson['id']: student_beacon.teaching(lesson['vga_lesson']) for lesson in student_beacon.lessons()}
+    embedded.update({lesson['id']: student_testbench.teaching(lesson['id']) for lesson in student_testbench.lessons()})
+    for key, note in embedded.items():
+        authored.setdefault(key, {'exercise': note['try_next'], 'evidence': note['artifact']})
+    return authored
 
 
 def author_id(lesson):
